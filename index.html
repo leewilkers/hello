@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://api.microlink.io">
+    <link rel="preload" href="Lee-pfp.jpeg" as="image">
+    
+    <meta name="description" content="Lee Wilkers - Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
+    <meta name="keywords" content="Lee Wilkers, social science, bioethics, complex systems, research, global health">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Lee Wilkers">
+    <meta property="og:description" content="Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
+    <meta property="og:image" content="Lee-pfp.jpeg">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@LeeWilkers">
+    
+    <title>Lee Wilkers</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
+
+        <h1>Hi, I'm Lee. 👋</h1>
+        
+        <p>I'm a researcher in social science and bioethics. I'm interested in how humans can collaborate more effectively by understanding each other better, imagining new possibilities, and building shared visions for the future.</p>
+        
+        <p>Recently, I joined the <a href="https://www.taskforce.org/">Task Force for Global Health</a>'s <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>. I'm really excited to work on things I've been thinking about for a while. More on that soon!</p>
+
+        <h2>Past lives</h2>
+        <p>I was a researcher at the Human Engagement Learning Platform at Emory University, and consulted for organizations like the Carter Center, the Centers for Disease Control and Prevention, the Bill & Melinda Gates Foundation, the Health Campaign Effectiveness Coalition, The End Fund, and the Foundation for the National Institutes of Health. Before that, I got an MPH from the Rollins School of Public Health. Before that, I studied / worked in ecology at VCU in Richmond, VA. Along the way, I wandered between food service and the humanitarian non-profit/NGO world. </p> 
+            
+        <h2>Some words related to things I'm currently working on and/or thinking about (at various levels of allocated funding/support 🙂) in alphabetical order:</h2>
+        <ul>
+            <li>antibiotic stewardship & 'incommensurable' tradeoffs</li>
+            <li>collective intelligence, knowledge/policy networks, & mediation/translation/negotiation/brokerage</li>
+            <li>community/'stakeholder' engagement, relational ethics, & political innovation</li>
+            <li>~design (co-, human-centered-, etc.)</li>
+            <li>dynamic media, tools for thought, "humane tech", & folksonomies</li>
+            <li>emerging technologies & social/behavioral phenomena</li>
+            <li>fairness in Global Health partnerships</li>
+            <li>implementation science & impact evaluation</li>
+            <li>innovation vs. maintenance (e.g., scale vs care ethics)</li>
+            <li>internet subcommunities & belief systems</li>
+            <li>memes, moral imagination, & compassion</li>
+            <li>neglected tropical disease control programs</li>
+            <li>organizational learning & health system effectiveness</li>
+        </ul>
+        
+        <p>If any of this resonates - let's chat! Feel free to send me a message anywhere you see me — <a href="https://x.com/LeeWilkers">Twitter</a> / <a href="mailto:lwilkers-temp@taskforce.org">lwilkers-temp@taskforce.org</a>.</p>
+
+        <p class="wip"><em>pardon dust — work in progress</em></p>
+    </main>
+    
+    <!-- Popper.js and Tippy.js for hover previews -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    
+    <script>
+        // Cache for preview data
+        const previewCache = new Map();
+        
+        // Initialize tooltips for links
+        document.querySelectorAll('a').forEach(link => {
+            if (link.href && !link.href.startsWith('mailto:')) {
+                tippy(link, {
+                    content: '',
+                    theme: 'custom',
+                    delay: [400, 500],
+                    duration: [300, 250],
+                    interactive: true,
+                    allowHTML: true,
+                    animation: 'fade',
+                    placement: 'right',
+                    offset: [0, 16],
+                    zIndex: 1000,
+                    appendTo: document.body,
+                    ignoreAttributes: true,
+                    touch: false,
+                    hideOnClick: false,
+                    popperOptions: {
+                        strategy: 'fixed',
+                        modifiers: [{
+                            name: 'preventOverflow',
+                            options: {
+                                padding: 16,
+                                altAxis: true,
+                                tether: false
+                            }
+                        }, {
+                            name: 'flip',
+                            options: {
+                                padding: 16,
+                                fallbackPlacements: ['left']
+                            }
+                        }]
+                    },
+                    onShow(instance) {
+                        const url = link.href;
+                        
+                        // Check cache first
+                        if (previewCache.has(url)) {
+                            requestAnimationFrame(() => {
+                                instance.setContent(previewCache.get(url));
+                            });
+                            return;
+                        }
+                        
+                        instance.setContent('<div class="preview-content"><div class="preview-url">...</div></div>');
+                        
+                        // Fetch preview if not in cache
+                        fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    const { title, description } = data.data;
+                                    const content = [
+                                        `<a href="${url}" class="preview-link"><div class="preview-content">`,
+                                        title ? `<div class="preview-title">${title}</div>` : '',
+                                        description ? `<div class="preview-description">${description}</div>` : '',
+                                        `<div class="preview-url">${new URL(url).hostname}</div>`,
+                                        '</div></a>'
+                                    ].join('');
+                                    
+                                    previewCache.set(url, content);
+                                    requestAnimationFrame(() => {
+                                        instance.setContent(content);
+                                    });
+                                } else {
+                                    throw new Error('Preview failed');
+                                }
+                            })
+                            .catch(() => {
+                                const fallback = `<div class="preview-content"><div class="preview-url">${new URL(url).hostname}</div></div>`;
+                                previewCache.set(url, fallback);
+                                requestAnimationFrame(() => {
+                                    instance.setContent(fallback);
+                                });
+                            });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
