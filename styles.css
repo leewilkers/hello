@@ -1,18 +1,17 @@
-/* Base styles */
+/* Base colors */
 :root {
-    --bg-color: #1E1E1E;        /* VS Code dark background */
-    --text-color: #D4D4D4;      /* Soft white, easy on eyes */
-    --accent-color: #569CD6;    /* Subtle blue */
-    --container-bg: #252526;    /* Slightly lighter than bg */
-    --link-color: #4EC9B0;      /* Muted teal */
-    --secondary-accent: #9CDCFE; /* Light blue */
+    --bg-color: #1E1E1E;
+    --text-color: #D4D4D4;
+    --accent-color: #569CD6;
+    --container-bg: #252526;
+    --link-color: #4EC9B0;
+    --secondary-accent: #9CDCFE;
     --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 }
 
-/* Add IBM Plex Mono font */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-/* Add CRT effect to photo */
+/* CRT effect for profile photo */
 .profile-photo {
     filter: brightness(0.9) contrast(1.2) grayscale(1);
     position: relative;
@@ -58,9 +57,16 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Update connecting lines */
+/* Connect timeline items visually */
 .career-timeline li:not(:last-child)::after {
-    background: rgba(51, 255, 51, 0.2);
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.6em;
+    bottom: -0.5rem;
+    width: 1px;
+    background: var(--secondary-accent);
+    opacity: 0.2;
 }
 
 .clients {
@@ -241,6 +247,7 @@ li::before {
     font-size: 0.8rem;
 }
 
+/* Responsive adjustments for mobile */
 @media (max-width: 768px) {
     main {
         grid-template-columns: 1fr;
@@ -312,18 +319,6 @@ li, p {
     position: relative;
 }
 
-/* Add subtle connecting lines */
-.career-timeline li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1.6em;
-    bottom: -0.5rem;
-    width: 1px;
-    background: var(--secondary-accent);
-    opacity: 0.2;
-}
-
 .career-timeline strong {
     color: var(--accent-color);
 }
@@ -357,7 +352,7 @@ li, p {
     color: var(--secondary-accent);
 }
 
-/* Make links pop more */
+/* makes links pop more */
 a {
     color: var(--link-color);
 }
@@ -366,7 +361,7 @@ a:hover {
     color: #79B8FF;
 }
 
-/* Keep all your existing layout CSS, just update these text styles */
+/*  */
 h1 {
     font-size: 1.4rem;
     margin-bottom: 2rem;
@@ -374,4 +369,47 @@ h1 {
 
 .interests-header {
     font-size: 1rem;
+}
+
+/* Additional text styles */
+h2, h3, h4 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Code-like text effect */
+.code-text {
+    font-family: var(--font-mono);
+    color: var(--secondary-accent);
+}
+
+/* Ensure proper font rendering */
+* {
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+}
+
+/* p */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .terminal-container,
+    .interests-section {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+    
+    .profile-photo::before,
+    .terminal-container::after,
+    .interests-section::after {
+        display: none;
+    }
 }
