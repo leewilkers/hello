@@ -1,11 +1,13 @@
 /* Base color scheme inspired by VS Code */
 :root {
-    --bg-color: #1E1E1E;
+    --bg-color: #121212;
     --text-color: #D4D4D4;
     --accent-color: #569CD6;
     --container-bg: #252526;
     --link-color: #4EC9B0;
     --secondary-accent: #9CDCFE;
+    --border-color: rgba(86, 156, 214, 0.25);
+    --border-thickness: 6px;
     --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 }
 
@@ -44,7 +46,7 @@
 /* More terminal-like borders */
 .terminal-container,
 .interests-section {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: var(--border-thickness) solid var(--border-color);
 }
 
 /* Adjust link styling */
@@ -70,7 +72,9 @@ a:hover {
 }
 
 .clients {
-    border-left: 1px solid rgba(51, 255, 51, 0.2);
+    border-left: calc(var(--border-thickness) / 2) solid var(--border-color);
+    padding-left: 1.5rem;
+    margin-left: 1.5rem;
 }
 
 body {
@@ -98,8 +102,8 @@ main {
 
 .terminal-container {
     background: var(--container-bg);
-    border: 1px solid var(--accent-color);
-    border-radius: 4px;
+    border: var(--border-thickness) solid var(--border-color);
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: none;
     position: relative;
@@ -139,8 +143,8 @@ main {
 .profile-photo {
     width: 100%;
     height: auto;
-    border: 1px solid rgba(136, 192, 208, 0.2);
-    border-radius: 4px;
+    border: var(--border-thickness) solid var(--border-color);
+    border-radius: 0;
     box-shadow: none;
 }
 
@@ -151,8 +155,8 @@ main {
 .interests-section {
     margin-top: 2rem;
     background: var(--container-bg);
-    border: 1px solid var(--accent-color);
-    border-radius: 4px;
+    border: var(--border-thickness) solid var(--border-color);
+    border-radius: 0;
     padding: 1.25rem;
     box-shadow: none;
     position: relative;
@@ -181,7 +185,7 @@ main {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--secondary-accent);
+    color: var(--accent-color);
     font-size: 1rem;
     text-shadow: none;
 }
@@ -227,7 +231,7 @@ li::before {
 /* Tooltip styles */
 .tippy-box[data-theme~='custom'] {
     background: var(--container-bg);
-    border: 1px solid rgba(136, 192, 208, 0.2);
+    border: calc(var(--border-thickness) / 2) solid var(--border-color);
     box-shadow: none;
 }
 
@@ -277,7 +281,7 @@ a:hover {
 
 /* Remove text shadows and glows */
 .interests-header {
-    color: var(--secondary-accent);
+    color: var(--accent-color);
     font-size: 1rem;
     text-shadow: none;
 }
@@ -346,12 +350,13 @@ li, p {
     font-size: 0.9em;
     color: var(--text-color);
     opacity: 0.8;
-    border-left: 1px solid rgba(88, 166, 255, 0.2);
+    border-left: calc(var(--border-thickness) / 2) solid rgba(88, 166, 255, 0.2);
     padding-left: 1rem;
 }
 
 .client-list {
     color: var(--secondary-accent);
+    opacity: 0.95;
 }
 
 /* Make links pop more */
@@ -418,7 +423,7 @@ p {
 
 .tippy-box[data-theme~='terminal'] {
     background-color: var(--container-bg);
-    border: 1px solid rgba(136, 192, 208, 0.2);
+    border: calc(var(--border-thickness) / 2) solid var(--border-color);
     font-family: var(--font-mono);
     max-width: 350px;
     padding: 12px;
@@ -435,7 +440,7 @@ p {
 }
 
 .hover-related {
-    border-top: 1px solid rgba(136, 192, 208, 0.1);
+    border-top: calc(var(--border-thickness) / 2) solid var(--border-color);
     padding-top: 8px;
     font-size: 0.9em;
 }
@@ -449,7 +454,7 @@ p {
 .wip-notice {
     font-family: var(--font-mono);
     color: var(--secondary-accent);
-    opacity: 0.7;
+    opacity: 0.8;
     text-align: left;
     margin-top: 1rem;
     font-size: 0.9em;
@@ -458,6 +463,13 @@ p {
 
 .degree {
     color: var(--secondary-accent);
+    opacity: 1;
     font-family: var(--font-mono);
     font-weight: 500;
+}
+
+.tippy-box[data-theme~='custom'],
+.tippy-box[data-theme~='terminal'] {
+    border: calc(var(--border-thickness) / 2) solid var(--border-color);
+    border-radius: 0;
 }
