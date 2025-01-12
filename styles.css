@@ -1,4 +1,4 @@
-/* Base colors */
+/* Base color scheme inspired by VS Code */
 :root {
     --bg-color: #1E1E1E;
     --text-color: #D4D4D4;
@@ -352,7 +352,7 @@ li, p {
     color: var(--secondary-accent);
 }
 
-/* makes links pop more */
+/* Make links pop more */
 a {
     color: var(--link-color);
 }
@@ -361,7 +361,7 @@ a:hover {
     color: #79B8FF;
 }
 
-/*  */
+/* Keep all your existing layout CSS, just update these text styles */
 h1 {
     font-size: 1.4rem;
     margin-bottom: 2rem;
@@ -394,7 +394,7 @@ p {
     -moz-osx-font-smoothing: none;
 }
 
-/* p */
+/* printer go brrr */
 @media print {
     body {
         background: white;
@@ -412,4 +412,34 @@ p {
     .interests-section::after {
         display: none;
     }
+}
+
+.tippy-box[data-theme~='terminal'] {
+    background-color: var(--container-bg);
+    border: 1px solid rgba(136, 192, 208, 0.2);
+    font-family: var(--font-mono);
+    max-width: 350px;
+    padding: 12px;
+}
+
+.hover-title {
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.hover-description {
+    line-height: 1.4;
+    margin-bottom: 8px;
+}
+
+.hover-related {
+    border-top: 1px solid rgba(136, 192, 208, 0.1);
+    padding-top: 8px;
+    font-size: 0.9em;
+}
+
+.hover-status {
+    color: var(--secondary-accent);
+    font-size: 0.8em;
+    margin-bottom: 4px;
 }
