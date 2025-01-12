@@ -443,3 +443,12 @@ p {
     font-size: 0.8em;
     margin-bottom: 4px;
 }
+
+.wip-notice {
+    font-family: var(--font-mono);
+    color: var(--secondary-accent);
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9em;
+}
