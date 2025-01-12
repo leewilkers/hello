@@ -452,3 +452,9 @@ p {
     margin-top: 2rem;
     font-size: 0.9em;
 }
+
+.degree {
+    color: var(--secondary-accent);
+    font-family: var(--font-mono);
+    font-weight: 500;
+}
