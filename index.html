@@ -24,40 +24,63 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
-        <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
+        <div class="terminal-container">
+            <div class="profile-container">
+                <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
+            </div>
 
-        <h1>Hi, I'm Lee. 👋</h1>
-        
-        <p>I study how humans might work together better to solve hard problems. Started in ecology, ended up in global health ethics.</p>
-        
-        <p>Recently joined the <a href="https://www.taskforce.org/">Task Force for Global Health</a>'s <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>.</p>
+            <div class="bio-content">
+                <h1>Hi, I'm Lee. 👋</h1>
+                
+                <p>I study how humans might work together better to solve hard problems.</p>
 
-        <p>Was a researcher at the Human Engagement Learning Platform at Emory University, where I consulted for the Carter Center, the Centers for Disease Control and Prevention, the Bill & Melinda Gates Foundation, the Health Campaign Effectiveness Coalition, The End Fund, and the Foundation for the National Institutes of Health. Got my MPH from the Rollins School of Public Health. Studied and worked in ecology at Virginia Commonwealth University. Somewhere in there: wandered between food service and the humanitarian non-profit world. </p> 
-            
-        <h2>Some words related to things I'm currently working on and/or thinking about:</h2>
-        <ul>
-            <li>antibiotic stewardship, mass drug administration, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
-            <li>collective sensemaking, knowledge/policy networks, & mediation/translation/negotiation/brokerage</li>
-            <li>community/'stakeholder' engagement, relational ethics, & political innovation</li>
-            <li>~design (co-, human-centered-, etc.)</li>
-            <li>dynamic media, tools for thought, & "humane tech"</li>
-            <li>emerging technologies & social/behavioral phenomena</li>
-            <li>epistemic hygiene / BS / pseudoscience/pseudoprofundity</li>
-            <li>fairness in Global Health partnerships</li>
-            <li>implementation science & impact evaluation</li>
-            <li>internet culture, memes, & 'new media'</li>
-            <li>moral imagination
-            <li>neglected tropical disease control programs</li>
-            <li>organizational learning & health system effectiveness</li>
-            
-        </ul>
-        
-        <p>If any of this resonates - let's chat! Feel free to send me a message anywhere you see me — <a href="https://x.com/LeeWilkers">Twitter</a> / <a href="mailto:lwilkers-temp@taskforce.org">lwilkers-temp@taskforce.org</a>.</p>
+                <ul class="career-timeline">
+                    <li>Started in ecology, ended up in global health ethics</li>
+                    
+                    <li>Recently joined the <a href="https://www.taskforce.org/">Task Force for Global Health</a>'s 
+                        <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
+                    </li>
+                    
+                    <li>Was a researcher at the Human Engagement Learning Platform at Emory University
+                        <div class="clients">
+                            Consulted for: <span class="client-list">Carter Center, CDC, Gates Foundation, Health Campaign Effectiveness Coalition, The End Fund, NIH Foundation</span>
+                        </div>
+                    </li>
+                    
+                    <li>Got my MPH from the Rollins School of Public Health</li>
+                    
+                    <li>Studied and worked in ecology at Virginia Commonwealth University in Richmond, Virginia</li>
+                    
+                    <li>Somewhere in there: wandered between food service and the humanitarian NGO world</li>
+                </ul>
+            </div>
+        </div>
 
-        <p class="wip"><em>pardon dust — work in progress</em></p>
+        <div class="interests-section">
+            <h2 class="interests-header">Current interests & work</h2>
+            <div class="interests-list">
+                <ul>
+                    <li>antibiotic stewardship, mass drug administration, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
+                    <li>collective sensemaking, knowledge/policy networks, & mediation/translation/negotiation/brokerage</li>
+                    <li>community/'stakeholder' engagement, relational ethics, & political innovation</li>
+                    <li>~design (co-, human-centered-, etc.)</li>
+                    <li>dynamic media, tools for thought, & "humane tech"</li>
+                    <li>emerging technologies & social/behavioral phenomena</li>
+                    <li>epistemic hygiene / BS / pseudoscience/pseudoprofundity</li>
+                    <li>fairness in Global Health partnerships</li>
+                    <li>implementation science & impact evaluation</li>
+                    <li>internet culture, memes, & 'new media'</li>
+                    <li>moral imagination
+                    <li>neglected tropical disease control programs</li>
+                    <li>organizational learning & health system effectiveness</li>
+                    
+                </ul>
+            </div>
+        </div>
     </main>
     
     <!-- Popper.js and Tippy.js for hover previews -->
@@ -148,6 +171,11 @@
                     }
                 });
             }
+        });
+
+        document.querySelector('.interests-header').addEventListener('click', function() {
+            this.classList.toggle('open');
+            document.querySelector('.interests-list').classList.toggle('open');
         });
     </script>
 </body>
