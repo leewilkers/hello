@@ -91,14 +91,16 @@ main {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    min-height: 100vh;
+    padding-bottom: 1rem;
 }
 
 .terminal-container {
     background: var(--container-bg);
     border: 1px solid var(--accent-color);
     border-radius: 4px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: none;
     position: relative;
     display: grid;
@@ -151,7 +153,7 @@ main {
     background: var(--container-bg);
     border: 1px solid var(--accent-color);
     border-radius: 4px;
-    padding: 1.5rem;
+    padding: 1.25rem;
     box-shadow: none;
     position: relative;
     overflow: hidden;
@@ -448,9 +450,10 @@ p {
     font-family: var(--font-mono);
     color: var(--secondary-accent);
     opacity: 0.7;
-    text-align: center;
-    margin-top: 2rem;
+    text-align: left;
+    margin-top: 1rem;
     font-size: 0.9em;
+    padding-left: 1.25rem;
 }
 
 .degree {
