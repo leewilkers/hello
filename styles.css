@@ -21,11 +21,11 @@
     --font-press-start: 'Press Start 2P', monospace;
     --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 
-    /* Unified spacing system */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 0.75rem;
-    --spacing-lg: 1rem;
+    /* Tighter spacing system */
+    --spacing-xs: 0.15rem;   /* 2.4px */
+    --spacing-sm: 0.35rem;   /* 5.6px */
+    --spacing-md: 0.5rem;    /* 8px */
+    --spacing-lg: 0.75rem;   /* 12px */
 }
 
 /* =========================================
@@ -52,8 +52,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.4;
     margin: 0;
     min-block-size: 100vh;
     display: flex;
@@ -84,27 +84,22 @@ main {
 
 .terminal-container,
 .interests-section {
-    margin: 0 0 var(--spacing-md) 0;
     padding: var(--spacing-md);
-    display: grid;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
     position: relative;
     border: var(--border-thickness) solid var(--border-color);
     background: var(--container-bg);
-    box-shadow: none;
-    border-radius: 0;
-    overflow: hidden;
 }
 
 .terminal-container {
     margin: 0 auto var(--spacing-md) auto;
-    grid-template-columns: minmax(150px, 1fr) 3fr;
+    grid-template-columns: minmax(100px, 0.75fr) 3fr;
     align-items: start;
 }
 
 .profile-container {
     inline-size: 100%;
-    max-inline-size: 200px;
+    max-inline-size: 150px;
 }
 
 .bio-content {
@@ -184,7 +179,7 @@ main {
    ========================================= */
 
 .career-timeline li {
-    margin-block-end: var(--spacing-sm);
+    margin-block-end: var(--spacing-xs);
     line-height: 1.6;
     position: relative;
     padding-inline-start: var(--spacing-md);
@@ -285,7 +280,7 @@ li::before {
 
 .clients {
     margin-block-start: var(--spacing-xs);
-    margin-inline-start: var(--spacing-md);
+    margin-inline-start: var(--spacing-sm);
     font-size: 0.85em;
     color: var(--text-color);
     opacity: 0.8;
@@ -483,7 +478,7 @@ a:hover {
     }
 
     .profile-container {
-        max-inline-size: 150px;
+        max-inline-size: 120px;
         margin: 0 auto 2rem;
     }
 
@@ -501,10 +496,10 @@ a:hover {
    ========================================= */
 
    :root {
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 0.75rem;
-    --spacing-lg: 1rem;
+    --spacing-xs: 0.15rem;
+    --spacing-sm: 0.35rem;
+    --spacing-md: 0.5rem;
+    --spacing-lg: 0.75rem;
   }
   
   /* Body & Main Layout */
@@ -540,14 +535,14 @@ a:hover {
   /* keep terminal-container centered */
   .terminal-container {
     margin: 0 auto var(--spacing-md) auto;
-    grid-template-columns: minmax(150px, 1fr) 3fr;
+    grid-template-columns: minmax(100px, 0.75fr) 3fr;
     align-items: start;
   }
   
   /* ensures the profile and text inside align nicely */
   .profile-container {
     inline-size: 100%;
-    max-inline-size: 200px;
+    max-inline-size: 150px;
   }
   
   /* Bio text area */
