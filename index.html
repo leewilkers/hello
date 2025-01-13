@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Core Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lee Wilkers - Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
+    <meta name="keywords" content="Lee Wilkers, social science, bioethics, complex systems, research, global health">
+    
+    <!-- Resource Preloading -->
     <link rel="preconnect" href="https://unpkg.com">
     <link rel="preconnect" href="https://api.microlink.io">
     <link rel="preload" href="Lee-pfp.jpeg" as="image">
     
-    <meta name="description" content="Lee Wilkers - Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
-    <meta name="keywords" content="Lee Wilkers, social science, bioethics, complex systems, research, global health">
-    
-    <!-- Open Graph / Social Media -->
+    <!-- Social Media Meta Tags -->
     <meta property="og:title" content="Lee Wilkers">
     <meta property="og:description" content="Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
     <meta property="og:image" content="Lee-pfp.jpeg">
     <meta property="og:type" content="website">
-    
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@LeeWilkers">
     
+    <!-- Assets -->
     <title>Lee Wilkers</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.png" type="image/png">
@@ -28,6 +29,7 @@
 </head>
 <body>
     <main>
+        <!-- Profile Section -->
         <div class="terminal-container">
             <div class="profile-container">
                 <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
@@ -35,31 +37,27 @@
 
             <div class="bio-content">
                 <h1>Hi, I'm Lee. 👋</h1>
-                
-                <p>I study how humans might work together better to solve hard problems.</p>
+                <p>I study how humans might work together better to solve hard problems in global health.</p>
 
                 <ul class="career-timeline">
                     <li>Started in ecology, ended up in global health ethics</li>
-                    
                     <li>Recently joined the <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
                         <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
                     </li>
-                    
                     <li>Was a researcher at the Human Engagement Learning Platform at Emory University
                         <div class="clients">
                             Consulted for: <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
                         </div>
                     </li>
-                    
                     <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
-                    
                     <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
                 </ul>
             </div>
         </div>
 
+        <!-- Interests Section -->
         <div class="interests-section">
-            <h2 class="interests-header">Some interrelated things I'm currently working on and/or thinking about</h2>
+            <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
             <div class="interests-list">
                 <ul>
                     <li>antibiotic stewardship, mass drug administration, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
@@ -71,28 +69,28 @@
                     <li>fairness in Global Health partnerships</li>
                     <li>implementation science & impact evaluation</li>
                     <li>internet affordances</li>
-                    <li>moral imagination
+                    <li>moral imagination</li>
                     <li>neglected tropical disease control programs</li>
                     <li>organizational learning & health system effectiveness</li>
                     <li>public health ethics</li>
-                    
                 </ul>
             </div>
         </div>
+
         <div class="wip-notice">
             > pardon dust - work in progress ✨_
         </div>
     </main>
     
-    <!-- Popper.js and Tippy.js for hover previews -->
+    <!-- External Dependencies -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     
     <script>
-        // Cache for preview data
+        // Link Preview System
         const previewCache = new Map();
         
-        // Initialize tooltips for links
+        // Initialize tooltips
         document.querySelectorAll('a').forEach(link => {
             if (link.href && !link.href.startsWith('mailto:')) {
                 tippy(link, {
@@ -130,7 +128,6 @@
                     onShow(instance) {
                         const url = link.href;
                         
-                        // Check cache first
                         if (previewCache.has(url)) {
                             requestAnimationFrame(() => {
                                 instance.setContent(previewCache.get(url));
@@ -140,7 +137,6 @@
                         
                         instance.setContent('<div class="preview-content"><div class="preview-url">...</div></div>');
                         
-                        // Fetch preview if not in cache
                         fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`)
                             .then(res => res.json())
                             .then(data => {
@@ -174,22 +170,11 @@
             }
         });
 
+        // Interests section toggle
         document.querySelector('.interests-header').addEventListener('click', function() {
             this.classList.toggle('open');
             document.querySelector('.interests-list').classList.toggle('open');
         });
     </script>
-
-    <div id="hover-content" style="display: none;">
-      <div id="antibiotic-stewardship">
-        <p class="hover-title">Antibiotic Stewardship</p>
-        <p class="hover-description_example">Exploring... tensions between immediate health benefits and long-term resistance risks in mass drug administration programs.</p>
-        <div class="hover-related">
-          <p class="hover-status">Active Project</p>
-          <a href="#">Key Paper: EX (Science, 2023)</a>
-          <a href="#">Project: EX</a>
-        </div>
-      </div>
-    </div>
 </body>
 </html>
