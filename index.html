@@ -57,7 +57,7 @@
 
         <!-- Interests Section -->
         <div class="interests-section">
-            <h2 class="interests4-header">Some things I'm currently working on and/or thinking about</h2>
+            <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
             <div class="interests-list">
                 <ul>
                     <li>antibiotic stewardship, mass drug administration, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
@@ -82,94 +82,7 @@
         </div>
     </main>
     
-    <!-- External Dependencies -->
-    <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script>
-    
     <script>
-        // Link Preview System
-        const previewCache = new Map();
-        
-        // Initialize tooltips
-        document.querySelectorAll('a').forEach(link => {
-            if (link.href && !link.href.startsWith('mailto:')) {
-                tippy(link, {
-                    content: '',
-                    theme: 'custom',
-                    delay: [400, 500],
-                    duration: [300, 250],
-                    interactive: true,
-                    allowHTML: true,
-                    animation: 'fade',
-                    placement: 'right',
-                    offset: [0, 16],
-                    zIndex: 1000,
-                    appendTo: document.body,
-                    ignoreAttributes: true,
-                    touch: false,
-                    hideOnClick: false,
-                    popperOptions: {
-                        strategy: 'fixed',
-                        modifiers: [{
-                            name: 'preventOverflow',
-                            options: {
-                                padding: 16,
-                                altAxis: true,
-                                tether: false
-                            }
-                        }, {
-                            name: 'flip',
-                            options: {
-                                padding: 16,
-                                fallbackPlacements: ['left']
-                            }
-                        }]
-                    },
-                    onShow(instance) {
-                        const url = link.href;
-                        
-                        if (previewCache.has(url)) {
-                            requestAnimationFrame(() => {
-                                instance.setContent(previewCache.get(url));
-                            });
-                            return;
-                        }
-                        
-                        instance.setContent('<div class="preview-content"><div class="preview-url">...</div></div>');
-                        
-                        fetch(`https://api.microlink.io?url=${encodeURIComponent(url)}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.status === 'success') {
-                                    const { title, description } = data.data;
-                                    const content = [
-                                        `<a href="${url}" class="preview-link"><div class="preview-content">`,
-                                        title ? `<div class="preview-title">${title}</div>` : '',
-                                        description ? `<div class="preview-description">${description}</div>` : '',
-                                        `<div class="preview-url">${new URL(url).hostname}</div>`,
-                                        '</div></a>'
-                                    ].join('');
-                                    
-                                    previewCache.set(url, content);
-                                    requestAnimationFrame(() => {
-                                        instance.setContent(content);
-                                    });
-                                } else {
-                                    throw new Error('Preview failed');
-                                }
-                            })
-                            .catch(() => {
-                                const fallback = `<div class="preview-content"><div class="preview-url">${new URL(url).hostname}</div></div>`;
-                                previewCache.set(url, fallback);
-                                requestAnimationFrame(() => {
-                                    instance.setContent(fallback);
-                                });
-                            });
-                    }
-                });
-            }
-        });
-
         // Interests section toggle
         document.querySelector('.interests-header').addEventListener('click', function() {
             this.classList.toggle('open');
