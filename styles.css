@@ -1,31 +1,173 @@
-/* Base color scheme inspired by VS Code */
+/* =========================================
+   Base color scheme for a modern terminal aesthetic
+   ========================================= */
+
 :root {
+    /* Background & Text */
     --bg-color: #121212;
     --text-color: #D4D4D4;
+
+    /* Accents */
     --accent-color: #569CD6;
-    --container-bg: #252526;
     --link-color: #4EC9B0;
     --secondary-accent: #9CDCFE;
-    --border-color: rgba(86, 156, 214, 0.25);
-    --border-thickness: 6px;
+
+    /* Containers & Borders */
+    --container-bg: #252526;
+    --border-color: #569CD6;
+    --border-thickness: 2px;
+
+    /* Fonts */
+    --font-press-start: 'Press Start 2P', monospace;
     --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+    /* Unified spacing system */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+/* =========================================
+   External Font Imports
+   ========================================= */
 
-/* CRT effect for profile photo */
-.profile-photo {
-    filter: brightness(0.9) contrast(1.2) grayscale(1);
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
+
+/* =========================================
+   Global Resets & Body
+   ========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+   
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+    min-block-size: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+/* =========================================
+   Main Layout
+   ========================================= */
+
+main {
+    inline-size: 100%;
+    max-inline-size: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    min-block-size: 100vh;
+    padding-block-end: 0;
+}
+
+/* =========================================
+   Terminal-Style Containers
+   ========================================= */
+
+.terminal-container,
+.interests-section {
+    margin: 0 0 var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    display: grid;
+    gap: var(--spacing-md);
     position: relative;
+    border: var(--border-thickness) solid var(--border-color);
+    background: var(--container-bg);
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.terminal-container {
+    margin: 0 auto var(--spacing-md) auto;
+    grid-template-columns: minmax(150px, 1fr) 3fr;
+    align-items: start;
+}
+
+.profile-container {
+    inline-size: 100%;
+    max-inline-size: 200px;
+}
+
+.bio-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-inline-end: 0;
+}
+
+.career-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.interests-list {
+    flex-direction: column; 
+    gap: var(--spacing-sm);
+    margin-block-start: var(--spacing-sm);
+}
+
+.interests-header {
+    margin-block-end: var(--spacing-sm);
+}
+
+.terminal-container::before {
+    display: none;
+}
+
+.terminal-container::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+}
+
+.profile-photo {
+    inline-size: 100%;
+    block-size: auto;
+    filter: brightness(0.9) contrast(1.2) grayscale(1);
+    border: var(--border-thickness) solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+    position: relative; 
 }
 
 .profile-photo::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
     background: repeating-linear-gradient(
         0deg,
         rgba(0, 0, 0, 0.15),
@@ -37,157 +179,70 @@
     z-index: 1;
 }
 
-/* Tighter spacing */
-.terminal-container {
-    padding: 1.5rem;
-    gap: 1.5rem;
+/* =========================================
+   Bio & Career Timeline
+   ========================================= */
+
+.career-timeline li {
+    margin-block-end: var(--spacing-sm);
+    line-height: 1.6;
+    position: relative;
+    padding-inline-start: var(--spacing-md);
 }
 
-/* More terminal-like borders */
-.terminal-container,
-.interests-section {
-    border: var(--border-thickness) solid var(--border-color);
-}
-
-/* Adjust link styling */
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Connect timeline items visually */
 .career-timeline li:not(:last-child)::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 1.6em;
-    bottom: -0.5rem;
-    width: 1px;
+    inset-inline-start: 0;
+    inset-block-start: 1.6em;
+    inset-block-end: -0.5rem;
+    inline-size: 1px;
     background: var(--secondary-accent);
     opacity: 0.2;
 }
 
-.clients {
-    border-left: calc(var(--border-thickness) / 2) solid var(--border-color);
-    padding-left: 1.5rem;
-    margin-left: 1.5rem;
+.sub-list {
+    margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-md);
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    line-height: 1.8;
-    margin: 0;
-    padding: 2rem;
-    min-height: 100vh;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: none;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    min-height: 100vh;
-    padding-bottom: 1rem;
-}
-
-.terminal-container {
-    background: var(--container-bg);
-    border: var(--border-thickness) solid var(--border-color);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: none;
+.sub-list li {
+    margin-block-end: var(--spacing-xs);
     position: relative;
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 2rem;
-    overflow: hidden;
+    padding-inline-start: var(--spacing-md);
 }
 
-.terminal-container::before {
-    display: none;
-}
-
-.terminal-container::after {
-    content: "";
+.sub-list li::before {
+    content: "-";
+    color: var(--secondary-accent);
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
+    inset-inline-start: 0;
 }
 
-.profile-container {
-    position: relative;
-    width: 100%;
-    max-width: 150px;
+/* =========================================
+   Headings & Titles
+   ========================================= */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-press-start); 
+    color: var(--accent-color);
+    margin-block-end: 1rem;
+    text-shadow: none; 
 }
 
-.profile-photo {
-    width: 100%;
-    height: auto;
-    border: var(--border-thickness) solid var(--border-color);
-    border-radius: 0;
-    box-shadow: none;
-}
-
-.bio-content {
-    padding-right: 1rem;
-}
-
-.interests-section {
-    margin-top: 2rem;
-    background: var(--container-bg);
-    border: var(--border-thickness) solid var(--border-color);
-    border-radius: 0;
-    padding: 1.25rem;
-    box-shadow: none;
-    position: relative;
-    overflow: hidden;
-}
-
-.interests-section::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
+h1 {
+    font-size: 1.1rem;
+    margin-block-end: var(--spacing-md);
 }
 
 .interests-header {
+    color: var(--link-color);
+    font-size: 1rem;
+    font-weight: 400;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--accent-color);
-    font-size: 1rem;
-    text-shadow: none;
+    margin-block-end: var(--spacing-xs);
 }
 
 .interests-header::before {
@@ -200,24 +255,24 @@ main {
     transform: rotate(90deg);
 }
 
-.interests-list {
-    display: none;
-    margin-top: 1rem;
-}
+/* =========================================
+   Paragraphs & Lists
+   ========================================= */
 
-.interests-list.open {
-    display: block;
+p {
+    margin-block-end: 1rem;
+    line-height: 1.6;
 }
 
 ul {
     list-style-type: none;
-    padding-left: 0;
+    padding-inline-start: 0;
 }
 
 li {
-    margin-bottom: 0.75rem;
+    margin-block-end: var(--spacing-xs);
     position: relative;
-    padding-left: 1.5rem;
+    padding-inline-start: var(--spacing-md);
     opacity: 1;
 }
 
@@ -225,240 +280,22 @@ li::before {
     content: ">";
     color: var(--secondary-accent);
     position: absolute;
-    left: 0;
-}
-
-/* Tooltip styles */
-.tippy-box[data-theme~='custom'] {
-    background: var(--container-bg);
-    border: calc(var(--border-thickness) / 2) solid var(--border-color);
-    box-shadow: none;
-}
-
-.preview-content {
-    padding: 0.75rem;
-}
-
-.preview-title {
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
-}
-
-.preview-description {
-    margin-bottom: 0.5rem;
-}
-
-.preview-url {
-    opacity: 0.7;
-    font-size: 0.8rem;
-}
-
-/* Responsive adjustments for mobile */
-@media (max-width: 768px) {
-    main {
-        grid-template-columns: 1fr;
-    }
-    
-    .profile-container {
-        max-width: 150px;
-        margin: 0 auto 2rem;
-    }
-    
-    body {
-        padding: 1rem;
-    }
-}
-
-/* Update link styles */
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Remove text shadows and glows */
-.interests-header {
-    color: var(--accent-color);
-    font-size: 1rem;
-    text-shadow: none;
-}
-
-/* Clean up shadows */
-.terminal-container,
-.interests-section,
-.profile-photo,
-.tippy-box[data-theme~='custom'] {
-    box-shadow: none;
-}
-
-/* Remove opacity transitions */
-li, p {
-    opacity: 1;
-}
-
-.organization-list {
-    margin: 1rem 0;
-    padding-left: 1rem;
-}
-
-.organization-list li {
-    margin-bottom: 0.5rem;
-    padding-left: 1rem;
-}
-
-.organization-list li::before {
-    content: "•";
-    color: var(--accent-color);
-    opacity: 0.8;
-}
-
-.career-timeline {
-    margin: 1.5rem 0;
-}
-
-.career-timeline li {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-    position: relative;
-}
-
-.career-timeline strong {
-    color: var(--accent-color);
-}
-
-.sub-list {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    margin-left: 1rem;
-}
-
-.sub-list li {
-    margin-bottom: 0.25rem;
-}
-
-.sub-list li::before {
-    content: "-";
-    color: var(--secondary-accent);
+    inset-inline-start: 0;
 }
 
 .clients {
-    margin-top: 0.5rem;
-    margin-left: 1.5rem;
-    font-size: 0.9em;
+    margin-block-start: var(--spacing-xs);
+    margin-inline-start: var(--spacing-md);
+    font-size: 0.85em;
     color: var(--text-color);
     opacity: 0.8;
-    border-left: calc(var(--border-thickness) / 2) solid rgba(88, 166, 255, 0.2);
-    padding-left: 1rem;
+    border-inline-start: calc(var(--border-thickness) / 2) solid rgba(88, 166, 255, 0.2);
+    padding-inline-start: var(--spacing-sm);
 }
 
 .client-list {
     color: var(--secondary-accent);
     opacity: 0.95;
-}
-
-/* Make links pop more */
-a {
-    color: var(--link-color);
-}
-
-a:hover {
-    color: #79B8FF;
-}
-
-/* Keep all your existing layout CSS, just update these text styles */
-h1 {
-    font-size: 1.4rem;
-    margin-bottom: 2rem;
-}
-
-.interests-header {
-    font-size: 1rem;
-}
-
-/* Additional text styles */
-h2, h3, h4 {
-    color: var(--accent-color);
-    margin-bottom: 1rem;
-}
-
-p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-}
-
-/* Code-like text effect */
-.code-text {
-    font-family: var(--font-mono);
-    color: var(--secondary-accent);
-}
-
-/* Ensure proper font rendering */
-* {
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: none;
-}
-
-/* printer go brrr */
-@media print {
-    body {
-        background: white;
-        color: black;
-    }
-    
-    .terminal-container,
-    .interests-section {
-        border: 1px solid #ccc;
-        box-shadow: none;
-    }
-    
-    .profile-photo::before,
-    .terminal-container::after,
-    .interests-section::after {
-        display: none;
-    }
-}
-
-.tippy-box[data-theme~='terminal'] {
-    background-color: var(--container-bg);
-    border: calc(var(--border-thickness) / 2) solid var(--border-color);
-    font-family: var(--font-mono);
-    max-width: 350px;
-    padding: 12px;
-}
-
-.hover-title {
-    color: var(--accent-color);
-    margin-bottom: 8px;
-}
-
-.hover-description {
-    line-height: 1.4;
-    margin-bottom: 8px;
-}
-
-.hover-related {
-    border-top: calc(var(--border-thickness) / 2) solid var(--border-color);
-    padding-top: 8px;
-    font-size: 0.9em;
-}
-
-.hover-status {
-    color: var(--secondary-accent);
-    font-size: 0.8em;
-    margin-bottom: 4px;
-}
-
-.wip-notice {
-    font-family: var(--font-mono);
-    color: var(--secondary-accent);
-    opacity: 0.8;
-    text-align: left;
-    margin-top: 1rem;
-    font-size: 0.9em;
-    padding-left: 1.25rem;
 }
 
 .degree {
@@ -468,8 +305,273 @@ p {
     font-weight: 500;
 }
 
-.tippy-box[data-theme~='custom'],
-.tippy-box[data-theme~='terminal'] {
+/* =========================================
+   Interests Section
+   ========================================= */
+
+.interests-section::after {
+    content: "";
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+}
+
+.interests-list {
+    display: none;  /* Hidden by default */
+    flex-direction: column; 
+    gap: var(--spacing-sm);
+    margin-block-start: var(--spacing-sm);
+}
+
+.interests-list.open {
+    display: flex;  /* Show when open class is added */
+}
+
+/* =========================================
+   Links & Hover Effects
+   ========================================= */
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #79B8FF; /* brighter highlight on hover */
+}
+
+/* =========================================
+   Tippy.js Tooltip Styles (hover previews)
+   ========================================= */
+
+.tippy-box[data-theme~='custom'] {
+    background: var(--container-bg);
     border: calc(var(--border-thickness) / 2) solid var(--border-color);
+    box-shadow: none;
     border-radius: 0;
 }
+
+.preview-content {
+    padding: var(--spacing-xs);
+}
+
+.preview-title {
+    color: var(--accent-color);
+    margin-block-end: 0.5rem;
+    font-family: var(--font-press-start);
+    font-size: 0.9rem;
+}
+
+.preview-description {
+    margin-block-end: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.preview-url {
+    opacity: 0.7;
+    font-size: 0.75rem;
+}
+
+.tippy-box[data-theme~='terminal'] {
+    background-color: var(--container-bg);
+    border: calc(var(--border-thickness) / 2) solid var(--border-color);
+    font-family: var(--font-mono);
+    max-inline-size: 350px;
+    padding: 12px;
+    border-radius: 0;
+}
+
+.hover-title {
+    color: var(--accent-color);
+    margin-block-end: 8px;
+    font-family: var(--font-press-start);
+    font-size: 0.9rem;
+}
+
+.hover-description {
+    line-height: 1.4;
+    margin-block-end: 8px;
+    font-size: 0.85rem;
+}
+
+.hover-related {
+    border-block-start: calc(var(--border-thickness) / 2) solid var(--border-color);
+    padding-block-start: 8px;
+    font-size: 0.9em;
+}
+
+.hover-status {
+    color: var(--secondary-accent);
+    font-size: 0.8em;
+    margin-block-end: 4px;
+}
+
+/* =========================================
+   Work-In-Progress Notice
+   ========================================= */
+
+.wip-notice {
+    font-family: var(--font-mono);
+    color: var(--secondary-accent);
+    opacity: 0.8;
+    text-align: start;
+    margin-block-start: var(--spacing-sm);
+    font-size: 0.9em;
+    padding-inline-start: var(--spacing-md);
+}
+
+/* =========================================
+   Code-Like Inline Text
+   ========================================= */
+
+.code-text {
+    font-family: var(--font-mono);
+    color: var(--secondary-accent);
+    background: rgba(255,255,255,0.03);
+    padding: 0 0.3rem;
+    border-radius: 2px;
+}
+
+/* =========================================
+   Print Styles
+   ========================================= */
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .terminal-container,
+    .interests-section {
+        border: 1px solid #ccc;
+        box-shadow: none;
+        padding: 1rem;
+    }
+
+    .profile-photo::before,
+    .terminal-container::after,
+    .interests-section::after {
+        display: none; /* remove scanline overlays in print */
+    }
+}
+
+/* =========================================
+   Responsive Adjustments
+   ========================================= */
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+
+    .terminal-container {
+        grid-template-columns: 1fr; 
+        padding: 1.5rem;
+    }
+
+    .profile-container {
+        max-inline-size: 150px;
+        margin: 0 auto 2rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .interests-section {
+        padding: 1.5rem;
+    }
+}
+
+/* =========================================
+   Spacing & Symmetry Overrides
+   ========================================= */
+
+   :root {
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+  }
+  
+  /* Body & Main Layout */
+  body {
+    padding: var(--spacing-lg);
+  }
+  
+  main {
+    max-inline-size: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    min-block-size: 100vh;
+    padding-block-end: 0;
+  }
+  
+  /* Terminal-Style Containers */
+  .terminal-container,
+  .interests-section {
+    margin: 0 0 var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    display: grid;
+    gap: var(--spacing-md);
+    position: relative;
+    border: var(--border-thickness) solid var(--border-color);
+    background: var(--container-bg);
+    box-shadow: none;
+    border-radius: 0;
+    overflow: hidden;
+  }
+  
+  /* keep terminal-container centered */
+  .terminal-container {
+    margin: 0 auto var(--spacing-md) auto;
+    grid-template-columns: minmax(150px, 1fr) 3fr;
+    align-items: start;
+  }
+  
+  /* ensures the profile and text inside align nicely */
+  .profile-container {
+    inline-size: 100%;
+    max-inline-size: 200px;
+  }
+  
+  /* Bio text area */
+  .bio-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-inline-end: 0;
+  }
+  
+  .career-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .interests-list {
+    flex-direction: column; 
+    gap: var(--spacing-sm);
+    margin-block-start: var(--spacing-sm);
+  }
+  
+  .interests-header {
+    margin-block-end: var(--spacing-sm);
+  }
+  
+  
