@@ -243,7 +243,9 @@ h1 {
 .interests-header::before {
     content: "▶";
     display: inline-block;
+    font-size: 0.8em;
     transition: transform 0.2s;
+    color: var(--secondary-accent);
 }
 
 .interests-header.open::before {
@@ -268,7 +270,6 @@ li {
     margin-block-end: var(--spacing-xs);
     position: relative;
     padding-inline-start: var(--spacing-md);
-    opacity: 1;
 }
 
 li::before {
@@ -276,6 +277,7 @@ li::before {
     color: var(--secondary-accent);
     position: absolute;
     inset-inline-start: 0;
+    opacity: 0.7;
 }
 
 .clients {
@@ -344,73 +346,6 @@ a {
 a:hover {
     text-decoration: underline;
     color: #79B8FF; /* brighter highlight on hover */
-}
-
-/* =========================================
-   Tippy.js Tooltip Styles (hover previews)
-   ========================================= */
-
-.tippy-box[data-theme~='custom'] {
-    background: var(--container-bg);
-    border: calc(var(--border-thickness) / 2) solid var(--border-color);
-    box-shadow: none;
-    border-radius: 0;
-}
-
-.preview-content {
-    padding: var(--spacing-xs);
-}
-
-.preview-title {
-    color: var(--accent-color);
-    margin-block-end: 0.5rem;
-    font-family: var(--font-press-start);
-    font-size: 0.9rem;
-}
-
-.preview-description {
-    margin-block-end: 0.5rem;
-    font-size: 0.8rem;
-    line-height: 1.4;
-}
-
-.preview-url {
-    opacity: 0.7;
-    font-size: 0.75rem;
-}
-
-.tippy-box[data-theme~='terminal'] {
-    background-color: var(--container-bg);
-    border: calc(var(--border-thickness) / 2) solid var(--border-color);
-    font-family: var(--font-mono);
-    max-inline-size: 350px;
-    padding: 12px;
-    border-radius: 0;
-}
-
-.hover-title {
-    color: var(--accent-color);
-    margin-block-end: 8px;
-    font-family: var(--font-press-start);
-    font-size: 0.9rem;
-}
-
-.hover-description {
-    line-height: 1.4;
-    margin-block-end: 8px;
-    font-size: 0.85rem;
-}
-
-.hover-related {
-    border-block-start: calc(var(--border-thickness) / 2) solid var(--border-color);
-    padding-block-start: 8px;
-    font-size: 0.9em;
-}
-
-.hover-status {
-    color: var(--secondary-accent);
-    font-size: 0.8em;
-    margin-block-end: 4px;
 }
 
 /* =========================================
