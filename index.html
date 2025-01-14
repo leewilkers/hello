@@ -24,8 +24,10 @@
     <title>Lee Wilkers</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- Link to your main stylesheet -->
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Or if you prefer, inline your styles in the same file -->
 </head>
 <body>
     <main>
@@ -46,10 +48,12 @@
                     </li>
                     <li>Was a researcher at the Human Engagement Learning Platform at Emory University
                         <div class="clients">
-                            Consulted for: <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
+                            Consulted for: 
+                            <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
                         </div>
                     </li>
-                    <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
+                    <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
+                        <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
                     <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
                 </ul>
             </div>
@@ -57,6 +61,7 @@
 
         <!-- Interests Section -->
         <div class="interests-section">
+            <!-- For visual consistency, use a normal heading tag, but style it with .interests-header -->
             <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
             <div class="interests-list">
                 <ul>
@@ -78,15 +83,18 @@
         </div>
 
         <div class="wip-notice">
-            > pardon dust - work in progress ✨_
+            > pardon dust – work in progress ✨_
         </div>
     </main>
     
     <script>
         // Interests section toggle
-        document.querySelector('.interests-header').addEventListener('click', function() {
-            this.classList.toggle('open');
-            document.querySelector('.interests-list').classList.toggle('open');
+        const interestsHeader = document.querySelector('.interests-header');
+        const interestsList   = document.querySelector('.interests-list');
+
+        interestsHeader.addEventListener('click', function() {
+            interestsHeader.classList.toggle('open');
+            interestsList.classList.toggle('open');
         });
     </script>
 </body>
