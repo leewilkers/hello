@@ -2,7 +2,7 @@
    Base color scheme for a modern terminal aesthetic
    ========================================= */
 
-:root {
+   :root {
     /* Background & Text */
     --bg-color: #121212;
     --text-color: #D4D4D4;
@@ -21,11 +21,11 @@
     --font-press-start: 'Press Start 2P', monospace;
     --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
 
-    /* Tighter spacing system */
-    --spacing-xs: 0.15rem;   /* 2.4px */
-    --spacing-sm: 0.35rem;   /* 5.6px */
-    --spacing-md: 0.5rem;    /* 8px */
-    --spacing-lg: 0.75rem;   /* 12px */
+    /* Spacing system */
+    --spacing-xs: 0.5rem;    /* 8px */
+    --spacing-sm: 0.75rem;   /* 12px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
 }
 
 /* =========================================
@@ -42,8 +42,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-   
     -webkit-font-smoothing: none;
     -moz-osx-font-smoothing: none;
 }
@@ -53,7 +51,7 @@ body {
     color: var(--text-color);
     font-family: var(--font-mono);
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 1;
     margin: 0;
     min-block-size: 100vh;
     display: flex;
@@ -82,51 +80,16 @@ main {
    Terminal-Style Containers
    ========================================= */
 
-.terminal-container,
-.interests-section {
+.terminal-container {
     padding: var(--spacing-md);
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
     position: relative;
     border: var(--border-thickness) solid var(--border-color);
     background: var(--container-bg);
-}
-
-.terminal-container {
+    display: grid;
     margin: 0 auto var(--spacing-md) auto;
     grid-template-columns: minmax(100px, 0.75fr) 3fr;
     align-items: start;
-}
-
-.profile-container {
-    inline-size: 100%;
-    max-inline-size: 150px;
-}
-
-.bio-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding-inline-end: 0;
-}
-
-.career-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.interests-list {
-    flex-direction: column; 
-    gap: var(--spacing-sm);
-    margin-block-start: var(--spacing-sm);
-}
-
-.interests-header {
-    margin-block-end: var(--spacing-sm);
-}
-
-.terminal-container::before {
-    display: none;
 }
 
 .terminal-container::after {
@@ -146,6 +109,12 @@ main {
     pointer-events: none;
 }
 
+/* Profile photo inside the terminal container */
+.profile-container {
+    inline-size: 100%;
+    max-inline-size: 150px;
+}
+
 .profile-photo {
     inline-size: 100%;
     block-size: auto;
@@ -156,46 +125,40 @@ main {
     position: relative; 
 }
 
-.profile-photo::before {
-    content: "";
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    inset-block-end: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-    z-index: 1;
+/* Bio container inside the terminal container */
+.bio-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding-inline-end: 0;
 }
 
-/* =========================================
-   Bio & Career Timeline
-   ========================================= */
+/* Career timeline styling */
+.career-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
 
 .career-timeline li {
     margin-block-end: var(--spacing-xs);
-    line-height: 1.6;
+    line-height: 1.2;
     position: relative;
-    padding-inline-start: var(--spacing-md);
+    padding-inline-start: calc(var(--spacing-lg) + 0.25rem);
 }
 
 .career-timeline li:not(:last-child)::after {
     content: '';
     position: absolute;
-    inset-inline-start: 0;
-    inset-block-start: 1.6em;
-    inset-block-end: -0.5rem;
+    inset-inline-start: var(--spacing-sm);
+    inset-block-start: 0.5em;
+    inset-block-end: -0.5em;
     inline-size: 1px;
     background: var(--secondary-accent);
     opacity: 0.2;
 }
 
+/* Child lists inside the timeline (if any) */
 .sub-list {
     margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-md);
 }
@@ -221,7 +184,7 @@ h1, h2, h3, h4 {
     font-family: var(--font-press-start); 
     color: var(--accent-color);
     margin-block-end: 1rem;
-    text-shadow: none; 
+    text-shadow: none;
 }
 
 h1 {
@@ -229,36 +192,13 @@ h1 {
     margin-block-end: var(--spacing-md);
 }
 
-.interests-header {
-    color: var(--link-color);
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-block-end: var(--spacing-xs);
-}
-
-.interests-header::before {
-    content: "▶";
-    display: inline-block;
-    font-size: 0.8em;
-    transition: transform 0.2s;
-    color: var(--secondary-accent);
-}
-
-.interests-header.open::before {
-    transform: rotate(90deg);
-}
-
 /* =========================================
    Paragraphs & Lists
    ========================================= */
 
 p {
-    margin-block-end: 1rem;
-    line-height: 1.6;
+    margin-block-end: var(--spacing-md);
+    line-height: 1.0;
 }
 
 ul {
@@ -267,16 +207,16 @@ ul {
 }
 
 li {
-    margin-block-end: var(--spacing-xs);
+    margin-block-end: var(--spacing-sm);
     position: relative;
-    padding-inline-start: var(--spacing-md);
+    padding-inline-start: var(--spacing-lg);
 }
 
 li::before {
     content: ">";
     color: var(--secondary-accent);
     position: absolute;
-    inset-inline-start: 0;
+    inset-inline-start: var(--spacing-sm);
     opacity: 0.7;
 }
 
@@ -303,9 +243,20 @@ li::before {
 }
 
 /* =========================================
-   Interests Section
+   Interests Section - single definition
    ========================================= */
 
+.interests-section {
+    /* Remove or comment out any 2nd .interests-section you had before */
+    display: block; 
+    margin: 0; /* flush left, matches wip-notice */
+    padding: var(--spacing-md);
+    border: var(--border-thickness) solid var(--border-color);
+    background: var(--container-bg);
+    position: relative;
+}
+
+/* optional: repeating line overlay if desired */
 .interests-section::after {
     content: "";
     position: absolute;
@@ -323,15 +274,38 @@ li::before {
     pointer-events: none;
 }
 
+/* The clickable header & arrow */
+.interests-header {
+    display: inline-flex;  /* arrow + text on one line */
+    align-items: center;
+    font-size: 1rem;       /* or 0.9rem if you prefer smaller */
+    margin: 0 0 var(--spacing-sm) 0;
+    padding: 0;
+    cursor: pointer;
+    color: var(--link-color);
+}
+
+.interests-header::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 0.5rem;
+    color: var(--secondary-accent);
+    transform: rotate(0deg);
+    transition: transform 0.2s;
+}
+
+.interests-header.open::before {
+    transform: rotate(90deg);
+}
+
+/* The hidden list that toggles open */
 .interests-list {
-    display: none;  /* Hidden by default */
-    flex-direction: column; 
-    gap: var(--spacing-sm);
-    margin-block-start: var(--spacing-sm);
+    display: none;  /* hidden by default */
+    margin-top: var(--spacing-sm);
 }
 
 .interests-list.open {
-    display: flex;  /* Show when open class is added */
+    display: block;
 }
 
 /* =========================================
@@ -357,9 +331,9 @@ a:hover {
     color: var(--secondary-accent);
     opacity: 0.8;
     text-align: start;
-    margin-block-start: var(--spacing-sm);
+    margin: 0;  /* match the interests-section left alignment */
+    padding-inline-start: var(--spacing-sm);
     font-size: 0.9em;
-    padding-inline-start: var(--spacing-md);
 }
 
 /* =========================================
@@ -372,30 +346,6 @@ a:hover {
     background: rgba(255,255,255,0.03);
     padding: 0 0.3rem;
     border-radius: 2px;
-}
-
-/* =========================================
-   Print Styles
-   ========================================= */
-
-@media print {
-    body {
-        background: white;
-        color: black;
-    }
-
-    .terminal-container,
-    .interests-section {
-        border: 1px solid #ccc;
-        box-shadow: none;
-        padding: 1rem;
-    }
-
-    .profile-photo::before,
-    .terminal-container::after,
-    .interests-section::after {
-        display: none; /* remove scanline overlays in print */
-    }
 }
 
 /* =========================================
@@ -425,83 +375,3 @@ a:hover {
         padding: 1.5rem;
     }
 }
-
-/* =========================================
-   Spacing & Symmetry Overrides
-   ========================================= */
-
-   :root {
-    --spacing-xs: 0.15rem;
-    --spacing-sm: 0.35rem;
-    --spacing-md: 0.5rem;
-    --spacing-lg: 0.75rem;
-  }
-  
-  /* Body & Main Layout */
-  body {
-    padding: var(--spacing-lg);
-  }
-  
-  main {
-    max-inline-size: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    min-block-size: 100vh;
-    padding-block-end: 0;
-  }
-  
-  /* Terminal-Style Containers */
-  .terminal-container,
-  .interests-section {
-    margin: 0 0 var(--spacing-md) 0;
-    padding: var(--spacing-md);
-    display: grid;
-    gap: var(--spacing-md);
-    position: relative;
-    border: var(--border-thickness) solid var(--border-color);
-    background: var(--container-bg);
-    box-shadow: none;
-    border-radius: 0;
-    overflow: hidden;
-  }
-  
-  /* keep terminal-container centered */
-  .terminal-container {
-    margin: 0 auto var(--spacing-md) auto;
-    grid-template-columns: minmax(100px, 0.75fr) 3fr;
-    align-items: start;
-  }
-  
-  /* ensures the profile and text inside align nicely */
-  .profile-container {
-    inline-size: 100%;
-    max-inline-size: 150px;
-  }
-  
-  /* Bio text area */
-  .bio-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding-inline-end: 0;
-  }
-  
-  .career-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
-  
-  .interests-list {
-    flex-direction: column; 
-    gap: var(--spacing-sm);
-    margin-block-start: var(--spacing-sm);
-  }
-  
-  .interests-header {
-    margin-block-end: var(--spacing-sm);
-  }
-  
-  
