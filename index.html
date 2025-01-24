@@ -19,31 +19,29 @@
   <title>Lee Wilkers</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="favicon.png" type="image/png">
-
-  <!-- Style: Dark/Light Theme + Modern Layout -->
+  
+  <!-- Style: single-column, minimal, dark/light toggle -->
   <style>
-    /* Import a clean sans-serif font (Inter), fallback to system */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
     /* 
-      Default: dark theme (root). 
-      For light theme, we’ll toggle a .light-theme class on <body> to override.
+      Default variables = dark theme.
+      The .light-theme class on <body> overrides for a light palette.
     */
     :root {
-      /* Dark theme colors */
       --bg-color: #0f0f0f;
       --container-bg: #181818;
       --text-color: #f5f5f5;
-      --accent-color: #ffffff;  /* headings */
-      --link-color: #4ec9b0;
-      --muted-color: #b1b1b1;
-
-      /* Spacing + other tokens */
+      --accent-color: #ffffff;
+      --link-color: #cccccc;      /* More muted link color */
+      --muted-color: #999999;     /* For subtle text, e.g. the WIP notice */
+      --client-color: #bbbbbb;    /* Slightly different from link color */
+      
       --spacing-xs: 0.5rem;
       --spacing-sm: 0.75rem;
       --spacing-md: 1rem;
       --spacing-lg: 2rem;
-      --max-width: 1000px;
+      --max-width: 800px;
     }
 
     /* Light theme overrides */
@@ -52,8 +50,9 @@
       --container-bg: #f9f9f9;
       --text-color: #333333;
       --accent-color: #111111;
-      --link-color: #007acc;
-      --muted-color: #666666;
+      --link-color: #666666;
+      --muted-color: #888888;
+      --client-color: #555555;
     }
 
     /* Global resets & base styling */
@@ -62,7 +61,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
@@ -72,15 +70,15 @@
       display: flex;
       justify-content: center;
       padding: var(--spacing-md);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* A container for everything */
     main {
       width: 100%;
       max-width: var(--max-width);
     }
 
-    /* Dark/Light toggle button (just text in top-right corner) */
+    /* Theme toggle button (just text) */
     .theme-toggle {
       position: fixed;
       top: var(--spacing-md);
@@ -92,28 +90,25 @@
       z-index: 999;
     }
 
-    /* 
-      “terminal-container” is just your 2-column grid for the profile now,
-      not an actual terminal style 
-    */
+    /* Single-column container for profile & bio */
     .terminal-container {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: var(--spacing-lg);
-      margin-bottom: var(--spacing-lg);
-      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
       background-color: var(--container-bg);
       padding: var(--spacing-lg);
+      border-radius: 6px;
+      margin-bottom: var(--spacing-lg);
     }
 
     .profile-container {
+      margin-bottom: var(--spacing-lg);
       text-align: center;
     }
-
     .profile-photo {
       width: 100%;
-      max-width: 150px;
-      border-radius: 50%;
+      max-width: 180px;
+      /* Square photo: remove circular border */
+      border-radius: 0;
       object-fit: cover;
       margin: 0 auto;
       display: block;
@@ -122,7 +117,6 @@
     .bio-content {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       gap: var(--spacing-sm);
     }
 
@@ -130,9 +124,10 @@
       color: var(--accent-color);
       font-weight: 600;
       margin-bottom: var(--spacing-sm);
+      transition: color 0.3s;
     }
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
     }
     h2 {
       font-size: 1.2rem;
@@ -142,13 +137,21 @@
       margin-bottom: var(--spacing-sm);
     }
 
-    /* Career timeline */
+    /* Career timeline with ">" bullet markers */
     .career-timeline {
-      list-style: none;
+      list-style: none; /* We'll manually add markers */
     }
     .career-timeline li {
+      position: relative;
+      padding-left: 1.25rem;
       margin-bottom: var(--spacing-sm);
       line-height: 1.4;
+    }
+    .career-timeline li::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      color: var(--link-color);
     }
 
     /* Subtle subtext for clients */
@@ -159,19 +162,20 @@
       color: var(--muted-color);
     }
     .client-list {
-      color: var(--link-color);
+      color: var(--client-color);
     }
     .degree {
       font-weight: 600;
       color: var(--link-color);
     }
 
-    /* Interests */
+    /* Interests section */
     .interests-section {
       background-color: var(--container-bg);
       padding: var(--spacing-lg);
       border-radius: 6px;
       margin-bottom: var(--spacing-md);
+      transition: background-color 0.3s;
     }
     .interests-header {
       display: flex;
@@ -192,7 +196,7 @@
       transform: rotate(90deg);
     }
     .interests-list {
-      display: none; /* closed by default */
+      display: none; /* collapsed by default */
       margin-top: var(--spacing-sm);
     }
     .interests-list.open {
@@ -217,22 +221,22 @@
     a {
       color: var(--link-color);
       text-decoration: none;
+      transition: color 0.3s;
     }
     a:hover {
       text-decoration: underline;
     }
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       body {
         padding: var(--spacing-sm);
       }
       .terminal-container {
-        grid-template-columns: 1fr;
-        text-align: center;
+        padding: var(--spacing-md);
       }
-      .bio-content {
-        align-items: center;
+      .profile-photo {
+        max-width: 140px;
       }
     }
   </style>
