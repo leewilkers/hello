@@ -2,226 +2,193 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Lee Wilkers</title>
+
+  <!-- Inter font from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" 
+    rel="stylesheet">
+
   <style>
-    /************************************************
-     * 1) THEME & BASE STYLES
-     ************************************************/
-    :root {
-      /* Light theme (default) variables */
-      --page-bg: #fafafa;      /* page background */
-      --card-bg: #f2f2f2;      /* slightly darker card background */
-      --text-color: #222222; 
-      --link-color: #007acc;
-      --muted-color: #666666;
-
-      --max-width: 65ch;
-      --base-font-size: 16px;
-      --line-height: 1.6;
-
-      /* Spacing scale */
-      --spacing-sm: 0.75rem;
-      --spacing-md: 1rem;
-      --spacing-lg: 1.5rem;
-    }
-
-    /* Dark theme overrides via .dark-theme on body */
-    body.dark-theme {
-      --page-bg: #0f0f0f;
-      --card-bg: #222222;
-      --text-color: #f5f5f5;
-      --link-color: #4ec9b0;
-      --muted-color: #bbbbbb;
-    }
-
-    /* Reset & base rules */
+    /* -------------------------------------------------------
+       1. Base & Reset
+    ------------------------------------------------------- */
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; 
+      padding: 0; 
       box-sizing: border-box;
     }
     body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      font-size: var(--base-font-size);
-      line-height: var(--line-height);
-      background-color: var(--page-bg);
-      color: var(--text-color);
-      transition: background-color 0.3s, color 0.3s;
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f5f5f5;           /* Subtle page background */
+      color: #333;                   /* Dark grey text */
+      line-height: 1.5;
       margin: 0;
-      position: relative;
+      padding: 1rem;
     }
 
-    a {
-      color: var(--link-color);
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /************************************************
-     * 2) LAYOUT
-     ************************************************/
-    .wrapper {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: var(--spacing-md);
-    }
-
-    /* The card that holds content, with a light grey background */
+    /* -------------------------------------------------------
+       2. Main Card Layout
+    ------------------------------------------------------- */
     .card {
-      background-color: var(--card-bg);
-      padding: var(--spacing-lg);
-      border-radius: 6px;
+      max-width: 800px;             /* Reasonable width limit */
+      background: #fcfcfc;          /* Soft grey card */
+      margin: 2rem auto;            /* Center horizontally, space from top */
+      padding: 2rem 2.5rem;         /* More breathing room inside the card */
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
     }
-
-    /************************************************
-     * 3) THEME TOGGLE
-     ************************************************/
-    .theme-toggle {
-      position: fixed;
-      top: var(--spacing-sm);
-      right: var(--spacing-sm);
-      cursor: pointer;
-      font-size: 0.9rem;
-      color: var(--muted-color);
-      user-select: none;
-      z-index: 999;
+    .header-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
-
-    /************************************************
-     * 4) PROFILE & HEADINGS
-     ************************************************/
     .profile-photo {
-      display: block;
-      max-width: 100px;  /* Smaller image, so less prominence */
-      width: 100%;
+      width: 100px;
       height: auto;
-      margin-bottom: var(--spacing-md);
+      border-radius: 4px;
+      object-fit: cover;
+      margin-top: 0.25rem;          /* Slight offset if needed */
+    }
+    .intro-text {
+      flex: 1;                      /* Let the text fill remaining space */
     }
 
-    h1 {
+    .intro-text h1 {
       font-size: 1.3rem;
-      margin-bottom: var(--spacing-sm);
-      /* left-aligned by default */
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .intro-text p {
+      margin-bottom: 1rem;
+      color: #444;  /* slightly lighter than #333 for body text */
     }
 
-    .intro-paragraph {
-      margin-bottom: var(--spacing-md);
-    }
-
-    /************************************************
-     * 5) LISTS & TIMELINE
-     ************************************************/
-    ul {
+    /* -------------------------------------------------------
+       3. Bullet Lists
+    ------------------------------------------------------- */
+    .career-list {
       list-style: disc;
       margin-left: 1.5rem;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: 1.5rem;
     }
-    li {
-      margin-bottom: 0.5rem;
+    .career-list li {
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
     }
-
     .clients {
+      color: #777; 
       font-size: 0.9rem;
-      color: var(--muted-color);
       margin-top: 0.25rem;
       margin-left: 1rem;
-      line-height: 1.5;
     }
-
     .degree {
-      font-weight: bold;
-      color: var(--text-color);
-    }
-
-    /************************************************
-     * 6) COLLAPSIBLE INTERESTS
-     ************************************************/
-    /* Make the interests header smaller, less “star of show” */
-    .interests-header {
-      font-size: 1.0rem;
-      margin-top: var(--spacing-md);
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      color: var(--text-color);
       font-weight: 600;
     }
-    .interests-header::before {
+
+    /* -------------------------------------------------------
+       4. Collapsible Box
+    ------------------------------------------------------- */
+    .collapsible-box {
+      border: 1px solid #ccc;       /* Light border */
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .collapsible-header {
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      /* Less prominent: normal weight, normal font-size */
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+      position: relative;
+    }
+    .collapsible-header::before {
       content: "▶";
-      display: inline-block;
+      color: #999;
       margin-right: 0.5rem;
       transition: transform 0.2s;
-      color: var(--muted-color);
     }
-    .interests-header.open::before {
+    .collapsible-header.open::before {
       transform: rotate(90deg);
     }
-
-    .interests-list {
-      display: none; /* initially collapsed */
-      margin-bottom: var(--spacing-md);
+    .collapsible-content {
+      display: none;
+      padding: 0.75rem 1rem 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
-    .interests-list.open {
+    .collapsible-content.open {
       display: block;
     }
+    .collapsible-content ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    .collapsible-content li {
+      margin-bottom: 0.5rem;
+    }
 
-    /************************************************
-     * 7) FOOTER / NOTICE
-     ************************************************/
-    .wip {
+    /* -------------------------------------------------------
+       5. WIP Notice
+    ------------------------------------------------------- */
+    .wip-notice {
       font-size: 0.9rem;
-      color: var(--muted-color);
-      margin-top: var(--spacing-md);
+      color: #777;
+      margin-top: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <!-- Dark/Light Toggle -->
-  <div class="theme-toggle" id="themeToggle">dark / light</div>
+  <div class="card">
+    <!-- Header section: Photo + Intro text side by side -->
+    <div class="header-section">
+      <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
+      <div class="intro-text">
+        <h1>Hi, I'm Lee. 👋</h1>
+        <p>
+          I study how humans might work together better to solve hard problems in global health.
+        </p>
+      </div>
+    </div>
 
-  <div class="wrapper">
-    <!-- Card container for easier reading on grey background -->
-    <div class="card">
-      <!-- Profile -->
-      <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo"/>
-      <h1>Hi, I'm Lee. 👋</h1>
-      <p class="intro-paragraph">
-        I study how humans might work together better to solve hard problems in global health.
-      </p>
+    <!-- Career timeline bullet list -->
+    <ul class="career-list">
+      <li>Started in ecology, ended up in global health ethics</li>
+      <li>
+        Recently joined the 
+        <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
+        <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
+      </li>
+      <li>
+        Was a researcher at the Human Engagement Learning Platform at Emory University
+        <div class="clients">
+          Consulted for: the Carter Center, CDC, the Bill &amp; Melinda Gates Foundation, 
+          the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH
+        </div>
+      </li>
+      <li>
+        <span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
+        <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia
+      </li>
+      <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
+    </ul>
 
-      <!-- Timeline -->
-      <ul>
-        <li>Started in ecology, ended up in global health ethics</li>
-        <li>
-          Recently joined the 
-          <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
-          <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
-        </li>
-        <li>
-          Was a researcher at the Human Engagement Learning Platform at Emory University
-          <div class="clients">
-            Consulted for: the Carter Center, CDC, the Bill &amp; Melinda Gates Foundation, 
-            the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH
-          </div>
-        </li>
-        <li>
-          <span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
-          <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia
-        </li>
-        <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
-      </ul>
-
-      <!-- Interests (collapsible) -->
-      <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
-      <div class="interests-list">
+    <!-- Collapsible box (like the "You should probably not hire me if..." style) -->
+    <div class="collapsible-box">
+      <div class="collapsible-header" id="interestsHeader">
+        Some things I'm currently working on and/or thinking about
+      </div>
+      <div class="collapsible-content" id="interestsContent">
         <ul>
-          <li>antibiotic stewardship, &amp; 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
-          <li>collective sensemaking, knowledge/policy networks, &amp; mediation/translation/negotiation/brokerage</li>
+          <li>antibiotic stewardship, &amp; 'incommensurable' tradeoffs (short vs. long-term)</li>
+          <li>collective sensemaking, knowledge/policy networks, &amp; mediation/translation</li>
           <li>community/'stakeholder' engagement, relational ethics, &amp; political innovation</li>
           <li>~design (co-, human-centered-, etc.)</li>
           <li>tools for thought &amp; "humane tech"</li>
@@ -236,27 +203,22 @@
           <li>public health / population ethics</li>
         </ul>
       </div>
+    </div>
 
-      <!-- Work-in-progress Note -->
-      <div class="wip">
-        &gt; pardon dust – work in progress ✨_
-      </div>
+    <!-- Work-in-progress note -->
+    <div class="wip-notice">
+      &gt; pardon dust – work in progress ✨_
     </div>
   </div>
 
   <script>
-    // Dark/Light Theme Toggle
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-theme');
-    });
+    // Collapsible box logic
+    const interestsHeader = document.getElementById('interestsHeader');
+    const interestsContent = document.getElementById('interestsContent');
 
-    // Collapsible Interests
-    const interestsHeader = document.querySelector('.interests-header');
-    const interestsList   = document.querySelector('.interests-list');
     interestsHeader.addEventListener('click', () => {
       interestsHeader.classList.toggle('open');
-      interestsList.classList.toggle('open');
+      interestsContent.classList.toggle('open');
     });
   </script>
 </body>
