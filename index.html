@@ -1,99 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Core Meta Tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Lee Wilkers - Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
-    <meta name="keywords" content="Lee Wilkers, social science, bioethics, complex systems, research, global health">
-    
-    <!-- Resource Preloading -->
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://api.microlink.io">
-    <link rel="preload" href="Lee-pfp.jpeg" as="image">
-    
-    <!-- Social Media Meta Tags -->
-    <meta property="og:title" content="Lee Wilkers">
-    <meta property="og:description" content="Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
-    <meta property="og:image" content="Lee-pfp.jpeg">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:creator" content="@LeeWilkers">
-    
-    <!-- Assets -->
-    <title>Lee Wilkers</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.png" type="image/png">
+  <!-- Core Meta Tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lee Wilkers - Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
+  <meta name="keywords" content="Lee Wilkers, social science, bioethics, complex systems, research, global health">
+  
+  <!-- Social Media Meta Tags -->
+  <meta property="og:title" content="Lee Wilkers">
+  <meta property="og:description" content="Researcher in social science & bioethics, studying how humans coordinate and make decisions in complex systems">
+  <meta property="og:image" content="Lee-pfp.jpeg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@LeeWilkers">
+  
+  <!-- Title & Favicon -->
+  <title>Lee Wilkers</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.png" type="image/png">
 
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+  <!-- Style: Dark/Light Theme + Modern Layout -->
+  <style>
+    /* Import a clean sans-serif font (Inter), fallback to system */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    /* 
+      Default: dark theme (root). 
+      For light theme, we’ll toggle a .light-theme class on <body> to override.
+    */
+    :root {
+      /* Dark theme colors */
+      --bg-color: #0f0f0f;
+      --container-bg: #181818;
+      --text-color: #f5f5f5;
+      --accent-color: #ffffff;  /* headings */
+      --link-color: #4ec9b0;
+      --muted-color: #b1b1b1;
+
+      /* Spacing + other tokens */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 0.75rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 2rem;
+      --max-width: 1000px;
+    }
+
+    /* Light theme overrides */
+    body.light-theme {
+      --bg-color: #ffffff;
+      --container-bg: #f9f9f9;
+      --text-color: #333333;
+      --accent-color: #111111;
+      --link-color: #007acc;
+      --muted-color: #666666;
+    }
+
+    /* Global resets & base styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      padding: var(--spacing-md);
+    }
+
+    /* A container for everything */
+    main {
+      width: 100%;
+      max-width: var(--max-width);
+    }
+
+    /* Dark/Light toggle button (just text in top-right corner) */
+    .theme-toggle {
+      position: fixed;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      cursor: pointer;
+      color: var(--muted-color);
+      font-size: 0.9rem;
+      user-select: none;
+      z-index: 999;
+    }
+
+    /* 
+      “terminal-container” is just your 2-column grid for the profile now,
+      not an actual terminal style 
+    */
+    .terminal-container {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      border-radius: 6px;
+      background-color: var(--container-bg);
+      padding: var(--spacing-lg);
+    }
+
+    .profile-container {
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: 100%;
+      max-width: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .bio-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--spacing-sm);
+    }
+
+    h1, h2 {
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: var(--spacing-sm);
+    }
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* Career timeline */
+    .career-timeline {
+      list-style: none;
+    }
+    .career-timeline li {
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.4;
+    }
+
+    /* Subtle subtext for clients */
+    .clients {
+      margin-top: var(--spacing-xs);
+      padding-left: var(--spacing-sm);
+      font-size: 0.9rem;
+      color: var(--muted-color);
+    }
+    .client-list {
+      color: var(--link-color);
+    }
+    .degree {
+      font-weight: 600;
+      color: var(--link-color);
+    }
+
+    /* Interests */
+    .interests-section {
+      background-color: var(--container-bg);
+      padding: var(--spacing-lg);
+      border-radius: 6px;
+      margin-bottom: var(--spacing-md);
+    }
+    .interests-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+      margin-bottom: var(--spacing-xs);
+    }
+    .interests-header::before {
+      content: "▶";
+      margin-right: 0.5rem;
+      transform: rotate(0deg);
+      transition: transform 0.2s;
+      color: var(--link-color);
+    }
+    .interests-header.open::before {
+      transform: rotate(90deg);
+    }
+    .interests-list {
+      display: none; /* closed by default */
+      margin-top: var(--spacing-sm);
+    }
+    .interests-list.open {
+      display: block;
+    }
+    .interests-list ul {
+      list-style: disc inside;
+    }
+    .interests-list li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    /* WIP notice */
+    .wip-notice {
+      color: var(--muted-color);
+      font-size: 0.85rem;
+      margin-bottom: var(--spacing-lg);
+      padding-left: var(--spacing-xs);
+    }
+
+    /* Links */
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      body {
+        padding: var(--spacing-sm);
+      }
+      .terminal-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .bio-content {
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <main>
-        <!-- Profile Section -->
-        <div class="terminal-container">
-            <div class="profile-container">
-                <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
-            </div>
+  <!-- Dark/Light toggle text -->
+  <div class="theme-toggle" id="themeToggle">dark / light</div>
 
-            <div class="bio-content">
-                <h1>Hi, I'm Lee. 👋</h1>
-                <p>I study how humans might work together better to solve hard problems in global health.</p>
+  <main>
+    <!-- Profile Section -->
+    <div class="terminal-container">
+      <div class="profile-container">
+        <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
+      </div>
 
-                <ul class="career-timeline">
-                    <li>Started in ecology, ended up in global health ethics</li>
-                    <li>Recently joined the <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
-                        <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
-                    </li>
-                    <li>Was a researcher at the Human Engagement Learning Platform at Emory University
-                        <div class="clients">
-                            Consulted for: 
-                            <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
-                        </div>
-                    </li>
-                    <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
-                        <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
-                    <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
-                </ul>
-            </div>
-        </div>
+      <div class="bio-content">
+        <h1>Hi, I'm Lee. 👋</h1>
+        <p>I study how humans might work together better to solve hard problems in global health.</p>
 
-        <div class="interests-section">
-            <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
-            <div class="interests-list">
-                <ul>
-                    <li>antibiotic stewardship, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
-                    <li>collective sensemaking, knowledge/policy networks, & mediation/translation/negotiation/brokerage</li>
-                    <li>community/'stakeholder' engagement, relational ethics, & political innovation</li>
-                    <li>~design (co-, human-centered-, etc.)</li>
-                    <li>tools for thought & "humane tech"</li>
-                    <li>emerging technologies & social/behavioral phenomena</li>
-                    <li>fairness in Global Health partnerships</li>
-                    <li>implementation science & impact evaluation</li>
-                    <li>internet affordances</li>
-                    <li>metascience</li>
-                    <li>moral imagination</li>
-                    <li>neglected tropical disease control programs</li>
-                    <li>organizational learning & health system effectiveness</li>
-                    <li>public health / population ethics</li>
-                </ul>
-            </div>
-        </div>
+        <ul class="career-timeline">
+          <li>Started in ecology, ended up in global health ethics</li>
+          <li>Recently joined the <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
+              <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
+          </li>
+          <li>Was a researcher at the Human Engagement Learning Platform at Emory University
+              <div class="clients">
+                Consulted for: 
+                <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
+              </div>
+          </li>
+          <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
+              <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
+          <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
+        </ul>
+      </div>
+    </div>
 
-        <div class="wip-notice">
-            > pardon dust – work in progress ✨_
-        </div>
-    </main>
-    
-    <script>
-        // Interests section toggle
-        const interestsHeader = document.querySelector('.interests-header');
-        const interestsList   = document.querySelector('.interests-list');
+    <!-- Interests -->
+    <div class="interests-section">
+      <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
+      <div class="interests-list">
+        <ul>
+          <li>antibiotic stewardship, & 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
+          <li>collective sensemaking, knowledge/policy networks, & mediation/translation/negotiation/brokerage</li>
+          <li>community/'stakeholder' engagement, relational ethics, & political innovation</li>
+          <li>~design (co-, human-centered-, etc.)</li>
+          <li>tools for thought & "humane tech"</li>
+          <li>emerging technologies & social/behavioral phenomena</li>
+          <li>fairness in Global Health partnerships</li>
+          <li>implementation science & impact evaluation</li>
+          <li>internet affordances</li>
+          <li>metascience</li>
+          <li>moral imagination</li>
+          <li>neglected tropical disease control programs</li>
+          <li>organizational learning & health system effectiveness</li>
+          <li>public health / population ethics</li>
+        </ul>
+      </div>
+    </div>
 
-        interestsHeader.addEventListener('click', function() {
-            interestsHeader.classList.toggle('open');
-            interestsList.classList.toggle('open');
-        });
-    </script>
+    <!-- Work in progress notice -->
+    <div class="wip-notice">
+      > pardon dust – work in progress ✨_
+    </div>
+  </main>
+
+  <!-- JavaScript for toggles -->
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+    });
+
+    // Interests section collapse
+    const interestsHeader = document.querySelector('.interests-header');
+    const interestsList   = document.querySelector('.interests-list');
+
+    interestsHeader.addEventListener('click', function() {
+      interestsHeader.classList.toggle('open');
+      interestsList.classList.toggle('open');
+    });
+  </script>
 </body>
 </html>
