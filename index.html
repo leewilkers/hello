@@ -1,275 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Core Meta Tags -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lee Wilkers</title>
-  
-  <!-- Minimal styling -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
+    /************************************************
+     * 1) THEME & BASE STYLES
+     ************************************************/
     :root {
-      /* Default dark theme */
-      --bg-color: #0f0f0f;
-      --container-bg: #1a1a1a;
-      --text-color: #f5f5f5;
-      --accent-color: #ffffff;
-      --link-color: #cccccc;
-      --muted-color: #999999;
-      --client-color: #bbbbbb;
-      
-      --spacing-xs: 0.25rem;  /* smaller vertical spacing */
-      --spacing-sm: 0.5rem;
-      --spacing-md: 1rem;
-      --spacing-lg: 1.5rem;   /* was 2rem, reduced for less vertical push */
-      --max-width: 800px;
-    }
-    body.light-theme {
-      /* Light theme overrides */
+      /* Light theme (default) variables */
       --bg-color: #ffffff;
-      --container-bg: #f9f9f9;
-      --text-color: #333333;
-      --accent-color: #111111;
-      --link-color: #666666;
-      --muted-color: #888888;
-      --client-color: #555555;
+      --text-color: #222222;
+      --link-color: #0066cc; 
+      --muted-color: #666666;
+
+      /* For comfortable reading widths */
+      --max-width: 65ch;
+      --base-font-size: 16px;
+      --line-height: 1.6;
+
+      /* Spacing scale */
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
     }
 
-    /* Global resets & base styling */
+    /* Dark theme overrides via .dark-theme on body */
+    body.dark-theme {
+      --bg-color: #0f0f0f;
+      --text-color: #f5f5f5;
+      --link-color: #4ec9b0;
+      --muted-color: #bbbbbb;
+    }
+
+    /* Reset & base rules */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      font-size: var(--base-font-size);
+      line-height: var(--line-height);
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 15px; /* slightly smaller if you want more compact layout */
-      line-height: 1.4; 
-      display: flex;
-      justify-content: center;
-      padding: var(--spacing-md);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      min-height: 100vh; /* avoid abrupt cutoffs on taller screens */
-    }
-
-    main {
-      width: 100%;
-      max-width: var(--max-width);
-      background-color: var(--container-bg);
-      border-radius: 6px;
-      padding: var(--spacing-lg);
-      margin: 0 auto;
-    }
-
-    /* Theme toggle text */
-    .theme-toggle {
-      position: fixed;
-      top: var(--spacing-md);
-      right: var(--spacing-md);
-      cursor: pointer;
-      color: var(--muted-color);
-      font-size: 0.85rem;
-      user-select: none;
-      z-index: 999;
-    }
-
-    /* Single-column container for profile */
-    .profile-container {
-      text-align: center;
-      margin-bottom: var(--spacing-lg);
-    }
-    .profile-photo {
-      width: 100%;
-      max-width: 120px; /* smaller, less prominent */
-      border-radius: 0; 
-      object-fit: cover;
-      display: block;
-      margin: 0 auto var(--spacing-sm) auto;
-    }
-
-    /* Headings & text */
-    h1, h2 {
-      color: var(--accent-color);
-      font-weight: 600;
-      margin-bottom: var(--spacing-sm);
-    }
-    h1 {
-      font-size: 1.2rem; /* smaller so it doesn’t overpower */
-    }
-    h2 {
-      font-size: 1.1rem;
-    }
-
-    p {
-      margin-bottom: var(--spacing-sm);
-    }
-
-    /* Career timeline with ">" markers */
-    .career-timeline {
-      list-style: none;
-      margin-top: var(--spacing-sm);
-    }
-    .career-timeline li {
+      transition: background-color 0.3s, color 0.3s;
+      min-height: 100vh;
+      margin: 0;
       position: relative;
-      padding-left: 1.1rem;
-      margin-bottom: var(--spacing-xs);
-    }
-    .career-timeline li::before {
-      content: ">";
-      position: absolute;
-      left: 0;
-      color: var(--link-color);
     }
 
-    .clients {
-      margin-top: var(--spacing-xs);
-      padding-left: var(--spacing-sm);
-      font-size: 0.85rem;
-      color: var(--muted-color);
-    }
-    .client-list {
-      color: var(--client-color);
-    }
-    .degree {
-      font-weight: 600;
-      color: var(--link-color);
-    }
-
-    /* Interests section */
-    .interests-header {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--accent-color);
-      margin-bottom: var(--spacing-xs);
-    }
-    .interests-header::before {
-      content: "▶";
-      margin-right: 0.4rem;
-      transform: rotate(0deg);
-      transition: transform 0.2s;
-      color: var(--link-color);
-    }
-    .interests-header.open::before {
-      transform: rotate(90deg);
-    }
-    .interests-list {
-      display: none; 
-      margin-top: var(--spacing-xs);
-    }
-    .interests-list.open {
-      display: block;
-    }
-    .interests-list ul {
-      list-style: disc inside;
-    }
-    .interests-list li {
-      margin-bottom: var(--spacing-xs);
-    }
-
-    /* WIP notice */
-    .wip-notice {
-      color: var(--muted-color);
-      font-size: 0.8rem;
-      margin-top: var(--spacing-md);
-    }
-
-    /* Links */
     a {
       color: var(--link-color);
       text-decoration: none;
-      transition: color 0.3s;
     }
     a:hover {
       text-decoration: underline;
     }
 
-    /* Responsive adjustments */
-    @media (max-height: 750px) {
-      /* If the screen is quite short, reduce some spacing further */
-      main {
-        padding: var(--spacing-md);
-      }
+    /************************************************
+     * 2) LAYOUT CONTAINER
+     ************************************************/
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--spacing-lg) var(--spacing-md);
     }
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.1rem;
-      }
-      .profile-photo {
-        max-width: 100px;
-      }
+
+    /************************************************
+     * 3) TOGGLES
+     ************************************************/
+    /* "dark / light" text at top right */
+    .theme-toggle {
+      position: fixed;
+      top: 0.5rem;
+      right: 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--muted-color);
+      user-select: none;
+      z-index: 999;
+    }
+
+    /************************************************
+     * 4) PROFILE & HEADINGS
+     ************************************************/
+    .profile-photo {
+      display: block;
+      max-width: 120px;  /* Smaller image for less prominence */
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1rem; /* center horizontally */
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /************************************************
+     * 5) LISTS
+     ************************************************/
+    ul {
+      list-style: disc;
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+    .clients {
+      font-size: 0.9rem;
+      color: var(--muted-color);
+      margin-top: 0.25rem;
+      margin-left: 1rem;
+      line-height: 1.5;
+    }
+    .degree {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    /************************************************
+     * 6) COLLAPSIBLE INTERESTS
+     ************************************************/
+    .interests-header {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+    .interests-header::before {
+      content: "▶";
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.2s;
+      color: var(--muted-color);
+    }
+    .interests-header.open::before {
+      transform: rotate(90deg);
+    }
+    .interests-list {
+      display: none; /* initially collapsed */
+    }
+    .interests-list.open {
+      display: block;
+    }
+
+    /************************************************
+     * 7) FOOTER / NOTICE
+     ************************************************/
+    .wip {
+      font-size: 0.9rem;
+      color: var(--muted-color);
+      margin-top: 2rem;
     }
   </style>
 </head>
-<body>
-  <!-- Theme toggle -->
+<body class="">
+  <!-- Dark/Light Toggle Text -->
   <div class="theme-toggle" id="themeToggle">dark / light</div>
 
-  <main>
-    <div class="profile-container">
-      <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo">
-      <h1>Hi, I'm Lee. 👋</h1>
-      <p>I study how humans might work together better to solve hard problems in global health.</p>
-    </div>
+  <div class="container">
+    <!-- Profile -->
+    <img src="Lee-pfp.jpeg" alt="Lee Wilkers" class="profile-photo"/>
+    <h1>Hi, I'm Lee. 👋</h1>
+    <p>I study how humans might work together better to solve hard problems in global health.</p>
 
-    <ul class="career-timeline">
+    <!-- Timeline -->
+    <ul>
       <li>Started in ecology, ended up in global health ethics</li>
-      <li>Recently joined the <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
-          <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
+      <li>
+        Recently joined the 
+        <a href="https://en.wikipedia.org/wiki/The_Task_Force_for_Global_Health">Task Force for Global Health</a>'s 
+        <a href="https://www.taskforce.org/face/">Focus Area for Compassion and Ethics</a>
       </li>
-      <li>Was a researcher at the Human Engagement Learning Platform at Emory University
+      <li>
+        Was a researcher at the Human Engagement Learning Platform at Emory University
         <div class="clients">
-          Consulted for: 
-          <span class="client-list">the Carter Center, CDC, the Bill & Melinda Gates Foundation, the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH</span>
+          Consulted for: the Carter Center, CDC, the Bill &amp; Melinda Gates Foundation, 
+          the Health Campaign Effectiveness Coalition, the End Fund, the Foundation for the NIH
         </div>
       </li>
-      <li><span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
-          <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia</li>
+      <li>
+        <span class="degree">MPH</span> from the Rollins School of Public Health in Atlanta, Georgia; 
+        <span class="degree">BS</span> in biology/ecology from Virginia Commonwealth University in Richmond, Virginia
+      </li>
       <li>Somewhere in there: wandered between food service and the humanitarian/NGO world</li>
     </ul>
 
-    <div style="margin-top: var(--spacing-lg);">
-      <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
-      <div class="interests-list">
-        <ul>
-          <li>antibiotic stewardship, & 'incommensurable' tradeoffs</li>
-          <li>collective sensemaking, knowledge/policy networks</li>
-          <li>community engagement, relational ethics</li>
-          <li>~design (co-, human-centered-, etc.)</li>
-          <li>tools for thought & "humane tech"</li>
-          <li>emerging technologies & social/behavioral phenomena</li>
-          <li>fairness in Global Health partnerships</li>
-          <li>implementation science & impact evaluation</li>
-          <li>internet affordances</li>
-          <li>metascience</li>
-          <li>moral imagination</li>
-          <li>neglected tropical disease control programs</li>
-          <li>organizational learning & health system effectiveness</li>
-          <li>public health / population ethics</li>
-        </ul>
-      </div>
+    <!-- Interests (collapsible) -->
+    <h2 class="interests-header">Some things I'm currently working on and/or thinking about</h2>
+    <div class="interests-list">
+      <ul>
+        <li>antibiotic stewardship, &amp; 'incommensurable' tradeoffs (short term benefits vs. long-term risks)</li>
+        <li>collective sensemaking, knowledge/policy networks, &amp; mediation/translation/negotiation/brokerage</li>
+        <li>community/'stakeholder' engagement, relational ethics, &amp; political innovation</li>
+        <li>~design (co-, human-centered-, etc.)</li>
+        <li>tools for thought &amp; "humane tech"</li>
+        <li>emerging technologies &amp; social/behavioral phenomena</li>
+        <li>fairness in Global Health partnerships</li>
+        <li>implementation science &amp; impact evaluation</li>
+        <li>internet affordances</li>
+        <li>metascience</li>
+        <li>moral imagination</li>
+        <li>neglected tropical disease control programs</li>
+        <li>organizational learning &amp; health system effectiveness</li>
+        <li>public health / population ethics</li>
+      </ul>
     </div>
 
-    <div class="wip-notice">
-      > pardon dust – work in progress ✨_
+    <!-- Work-in-progress Note -->
+    <div class="wip">
+      &gt; pardon dust – work in progress ✨_
     </div>
-  </main>
+  </div>
 
+  <!-- JS for toggles -->
   <script>
-    // Theme toggle
+    // Dark/Light Theme Toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light-theme');
+      document.body.classList.toggle('dark-theme');
     });
 
-    // Interests toggle
+    // Collapsible Interests
     const interestsHeader = document.querySelector('.interests-header');
-    const interestsList = document.querySelector('.interests-list');
+    const interestsList   = document.querySelector('.interests-list');
     interestsHeader.addEventListener('click', () => {
       interestsHeader.classList.toggle('open');
       interestsList.classList.toggle('open');
