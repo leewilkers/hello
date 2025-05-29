@@ -1,377 +1,58 @@
-/* =========================================
-   Base color scheme for a modern terminal aesthetic
-   ========================================= */
-
-   :root {
-    /* Background & Text */
-    --bg-color: #121212;
-    --text-color: #D4D4D4;
-
-    /* Accents */
-    --accent-color: #569CD6;
-    --link-color: #4EC9B0;
-    --secondary-accent: #9CDCFE;
-
-    /* Containers & Borders */
-    --container-bg: #252526;
-    --border-color: #569CD6;
-    --border-thickness: 2px;
-
-    /* Fonts */
-    --font-press-start: 'Press Start 2P', monospace;
-    --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
-
-    /* Spacing system */
-    --spacing-xs: 0.5rem;    /* 8px */
-    --spacing-sm: 0.75rem;   /* 12px */
-    --spacing-md: 1rem;      /* 16px */
-    --spacing-lg: 1.5rem;    /* 24px */
+:root{
+  --primary:#001F5F;
+  --bg:#FFFFFF;
+  --accent-bg:#F4F6F8;
+  --text:#000;
+  --font-body:"Figtree",system-ui,sans-serif;
+  --max-width:800px;
 }
-
-/* =========================================
-   External Font Imports
-   ========================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Press+Start+2P&display=swap');
-
-/* =========================================
-   Global Resets & Body
-   ========================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: none;
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
 }
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    line-height: 1;
-    margin: 0;
-    min-block-size: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--spacing-lg);
+main{
+  max-width:var(--max-width);
+  margin:auto;
+  padding:2rem 1rem;
 }
-
-/* =========================================
-   Main Layout
-   ========================================= */
-
-main {
-    inline-size: 100%;
-    max-inline-size: 1000px;
-    margin: 0 auto;
-    padding: var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    min-block-size: 100vh;
-    padding-block-end: 0;
+.terminal-container{
+  background:var(--accent-bg);
+  padding:2rem;
+  border:1px solid var(--primary);
+  margin-bottom:2rem;
 }
-
-/* =========================================
-   Terminal-Style Containers
-   ========================================= */
-
-.terminal-container {
-    padding: var(--spacing-md);
-    gap: var(--spacing-md);
-    position: relative;
-    border: var(--border-thickness) solid var(--border-color);
-    background: var(--container-bg);
-    display: grid;
-    margin: 0 auto var(--spacing-md) auto;
-    grid-template-columns: minmax(100px, 0.75fr) 3fr;
-    align-items: start;
+.profile-container{text-align:center;margin-bottom:1rem;}
+.profile-photo{width:180px;margin:auto;display:block;}
+h1,h2{
+  color:var(--primary);
+  text-transform:uppercase;
+  font-weight:800;
+  letter-spacing:1px;
+  margin:0 0 1rem;
 }
-
-.terminal-container::after {
-    content: "";
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    inset-block-end: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
+h1{font-size:2rem;margin-top:0;}
+h2{font-size:1.25rem;}
+img{max-width:100%;height:auto;}
+p,ul{margin:0 0 1rem 0;}
+ul{padding-left:1.25rem;}
+li{margin-bottom:0.5rem;}
+a{color:var(--primary);}
+a:hover{text-decoration:underline;}
+.theme-toggle{
+  position:fixed;
+  top:1rem;right:1rem;
+  font-size:0.9rem;
+  cursor:pointer;
 }
-
-/* Profile photo inside the terminal container */
-.profile-container {
-    inline-size: 100%;
-    max-inline-size: 150px;
+.wip-notice{color:#666;font-size:0.875rem;}
+.dark{
+  --bg:#001F5F;
+  --text:#fff;
+  --accent-bg:#223766;
 }
-
-.profile-photo {
-    inline-size: 100%;
-    block-size: auto;
-    filter: brightness(0.9) contrast(1.2) grayscale(1);
-    border: var(--border-thickness) solid var(--border-color);
-    border-radius: 0;
-    box-shadow: none;
-    position: relative; 
-}
-
-/* Bio container inside the terminal container */
-.bio-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-    padding-inline-end: 0;
-}
-
-/* Career timeline styling */
-.career-timeline {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.career-timeline li {
-    margin-block-end: var(--spacing-xs);
-    line-height: 1.2;
-    position: relative;
-    padding-inline-start: calc(var(--spacing-lg) + 0.25rem);
-}
-
-.career-timeline li:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    inset-inline-start: var(--spacing-sm);
-    inset-block-start: 0.5em;
-    inset-block-end: -0.5em;
-    inline-size: 1px;
-    background: var(--secondary-accent);
-    opacity: 0.2;
-}
-
-/* Child lists inside the timeline (if any) */
-.sub-list {
-    margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-md);
-}
-
-.sub-list li {
-    margin-block-end: var(--spacing-xs);
-    position: relative;
-    padding-inline-start: var(--spacing-md);
-}
-
-.sub-list li::before {
-    content: "-";
-    color: var(--secondary-accent);
-    position: absolute;
-    inset-inline-start: 0;
-}
-
-/* =========================================
-   Headings & Titles
-   ========================================= */
-
-h1, h2, h3, h4 {
-    font-family: var(--font-press-start); 
-    color: var(--accent-color);
-    margin-block-end: 1rem;
-    text-shadow: none;
-}
-
-h1 {
-    font-size: 1.1rem;
-    margin-block-end: var(--spacing-md);
-}
-
-/* =========================================
-   Paragraphs & Lists
-   ========================================= */
-
-p {
-    margin-block-end: var(--spacing-md);
-    line-height: 1.0;
-}
-
-ul {
-    list-style-type: none;
-    padding-inline-start: 0;
-}
-
-li {
-    margin-block-end: var(--spacing-sm);
-    position: relative;
-    padding-inline-start: var(--spacing-lg);
-}
-
-li::before {
-    content: ">";
-    color: var(--secondary-accent);
-    position: absolute;
-    inset-inline-start: var(--spacing-sm);
-    opacity: 0.7;
-}
-
-.clients {
-    margin-block-start: var(--spacing-xs);
-    margin-inline-start: var(--spacing-sm);
-    font-size: 0.85em;
-    color: var(--text-color);
-    opacity: 0.8;
-    border-inline-start: calc(var(--border-thickness) / 2) solid rgba(88, 166, 255, 0.2);
-    padding-inline-start: var(--spacing-sm);
-}
-
-.client-list {
-    color: var(--secondary-accent);
-    opacity: 0.95;
-}
-
-.degree {
-    color: var(--secondary-accent);
-    opacity: 1;
-    font-family: var(--font-mono);
-    font-weight: 500;
-}
-
-/* =========================================
-   Interests Section - single definition
-   ========================================= */
-
-.interests-section {
-    /* Remove or comment out any 2nd .interests-section you had before */
-    display: block; 
-    margin: 0; /* flush left, matches wip-notice */
-    padding: var(--spacing-md);
-    border: var(--border-thickness) solid var(--border-color);
-    background: var(--container-bg);
-    position: relative;
-}
-
-/* optional: repeating line overlay if desired */
-.interests-section::after {
-    content: "";
-    position: absolute;
-    inset-block-start: 0;
-    inset-inline-start: 0;
-    inset-inline-end: 0;
-    inset-block-end: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    pointer-events: none;
-}
-
-/* The clickable header & arrow */
-.interests-header {
-    display: inline-flex;  /* arrow + text on one line */
-    align-items: center;
-    font-size: 1rem;       /* or 0.9rem if you prefer smaller */
-    margin: 0 0 var(--spacing-sm) 0;
-    padding: 0;
-    cursor: pointer;
-    color: var(--link-color);
-}
-
-.interests-header::before {
-    content: "▶";
-    display: inline-block;
-    margin-right: 0.5rem;
-    color: var(--secondary-accent);
-    transform: rotate(0deg);
-    transition: transform 0.2s;
-}
-
-.interests-header.open::before {
-    transform: rotate(90deg);
-}
-
-/* The hidden list that toggles open */
-.interests-list {
-    display: none;  /* hidden by default */
-    margin-top: var(--spacing-sm);
-}
-
-.interests-list.open {
-    display: block;
-}
-
-/* =========================================
-   Links & Hover Effects
-   ========================================= */
-
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #79B8FF; /* brighter highlight on hover */
-}
-
-/* =========================================
-   Work-In-Progress Notice
-   ========================================= */
-
-.wip-notice {
-    font-family: var(--font-mono);
-    color: var(--secondary-accent);
-    opacity: 0.8;
-    text-align: start;
-    margin: 0;  /* match the interests-section left alignment */
-    padding-inline-start: var(--spacing-sm);
-    font-size: 0.9em;
-}
-
-/* =========================================
-   Code-Like Inline Text
-   ========================================= */
-
-.code-text {
-    font-family: var(--font-mono);
-    color: var(--secondary-accent);
-    background: rgba(255,255,255,0.03);
-    padding: 0 0.3rem;
-    border-radius: 2px;
-}
-
-/* =========================================
-   Responsive Adjustments
-   ========================================= */
-
-@media (max-width: 768px) {
-    main {
-        padding: 1rem;
-    }
-
-    .terminal-container {
-        grid-template-columns: 1fr; 
-        padding: 1.5rem;
-    }
-
-    .profile-container {
-        max-inline-size: 120px;
-        margin: 0 auto 2rem;
-    }
-
-    h1 {
-        font-size: 1.2rem;
-    }
-
-    .interests-section {
-        padding: 1.5rem;
-    }
+@media (max-width:900px){
+  .sidebar{width:100%;margin-top:2rem;}
 }
