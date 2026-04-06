@@ -1,0 +1,13 @@
+{
+  "name": "lees-shelf",
+  "version": "1.0.0",
+  "description": "A personal link archive",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-fetch": "^4.0.0"
+  }
+}
