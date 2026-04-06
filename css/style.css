@@ -104,6 +104,14 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 2rem;
 }
 
+.list a, .links a {
+  border-bottom: 1px solid #ddd;
+}
+
+.list a:hover, .links a:hover {
+  border-color: #c9a227;
+}
+
 .contact a {
   color: #c9a227;
   border-bottom: 1px solid #ddd;
