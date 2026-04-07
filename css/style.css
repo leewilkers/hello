@@ -201,6 +201,14 @@ p + ul.dashed {
   margin-bottom: 1.5rem;
 }
 
+/* dust notice */
+.dust {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: var(--ink-ghost);
+  margin-top: 2rem;
+}
+
 /* stream list */
 .stream-list {
   list-style: none;
