@@ -66,13 +66,15 @@ ul.dashed {
 }
 
 ul.dashed li {
-  padding-left: 1.1em;
-  text-indent: -1.1em;
+  position: relative;
+  padding-left: 1.25em;
   margin-bottom: 0.2rem;
 }
 
 ul.dashed li::before {
-  content: '–\00a0';
+  content: '–';
+  position: absolute;
+  left: 0;
   color: #999;
 }
 
