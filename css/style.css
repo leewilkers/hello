@@ -1,37 +1,12 @@
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/inter-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/inter-500.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/inter-600.woff2') format('woff2');
-}
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: Georgia, 'Times New Roman', serif;
   background: var(--bg);
   color: var(--ink);
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  transition: background 0.3s, color 0.3s;
 }
 
 :root {
@@ -118,7 +93,6 @@ img { display: block; }
   position: relative;
   padding: 0;
   margin-left: 0.5rem;
-  transition: border-color 0.3s;
 }
 
 .dimmer:hover {
@@ -135,7 +109,6 @@ img { display: block; }
   left: 50%;
   transform: translateX(-50%);
   top: 2px;
-  transition: top 0.25s ease, background 0.3s;
 }
 
 .dimmer:hover::after {
@@ -265,7 +238,6 @@ p + ul.dashed {
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.35;
-  transition: color 0.15s;
 }
 
 .stream-source {
@@ -364,7 +336,6 @@ ul.shelf li a:hover .entry-title {
   font-style: italic;
   font-size: 0.8rem;
   line-height: 1.35;
-  transition: color 0.15s;
 }
 
 .entry-dek {
