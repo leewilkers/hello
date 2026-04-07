@@ -22,16 +22,16 @@ img { display: block; }
 /* header: photo + name side by side */
 .header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.75rem;
   margin-bottom: 2rem;
 }
 
 .photo {
-  width: 64px;
-  height: 64px;
-  max-width: 64px;
-  min-width: 64px;
+  width: 76px;
+  height: 76px;
+  max-width: 76px;
+  min-width: 76px;
   object-fit: cover;
   filter: grayscale(1);
   flex-shrink: 0;
