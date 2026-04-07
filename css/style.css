@@ -452,9 +452,7 @@ ul.shelf li a:hover .entry-title {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-ul.shelf li[data-note] {
-  cursor: help;
-}
+/* notes are silent discoveries, no cursor change */
 
 /* ── responsive ── */
 
