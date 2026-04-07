@@ -9,5 +9,6 @@ dek: "Yale, 2008"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Craftsman_(book)"
+note: "the hand knows"
 order: 7
 ---

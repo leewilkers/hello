@@ -11,5 +11,6 @@ links:
     url: "https://www.youtube.com/watch?v=maTkAcDbrEY"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/How_Buildings_Learn"
+note: "shearing layers"
 order: 16
 ---

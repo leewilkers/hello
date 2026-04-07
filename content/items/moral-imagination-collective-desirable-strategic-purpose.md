@@ -6,5 +6,6 @@ dest: shelf
 lane: intervention
 url: "https://pubsonline.informs.org/doi/10.1287/stsc.2023.0190"
 dek: "Strategy Science, 2023"
+note: "the collective desirable"
 order: 11
 ---

@@ -5,18 +5,18 @@ permalink: /stream/
 pageClass: page-stream
 ---
 
-<p class="page-subtitle">Things I clicked on that I may or may not have read.</p>
-
 {% set streamItems = collections.items | where("dest", "stream") | sortBy("order") %}
 
-{% for item in streamItems %}
-  <div class="stream-entry">
+<p class="page-subtitle">Things I clicked on that I may or may not have read.</p>
+
+<ul class="stream-list">
+  {%- for item in streamItems %}
+  <li>
     <a href="{{ item.data.url }}">
       <span class="stream-author">{{ item.data.author }}</span>
-      {% if item.data.title %}<span class="stream-title">{{ item.data.title }}</span>{% endif %}
+      {%- if item.data.title %}<span class="stream-title">{{ item.data.title }}</span>{%- endif %}
     </a>
-    {% if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{% endif %}
-    {% if item.data.dek %}<span class="stream-source">{{ item.data.dek }}</span>{% endif %}
-    {% if item.data.note %}<div class="stream-note">{{ item.data.note }}</div>{% endif %}
-  </div>
-{% endfor %}
+    {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
+  </li>
+  {%- endfor %}
+</ul>

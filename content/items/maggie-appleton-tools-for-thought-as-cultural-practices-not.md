@@ -5,4 +5,5 @@ type: essay
 dest: stream
 url: "https://maggieappleton.com/tools-for-thought"
 source: "maggieappleton.com"
+order: 22
 ---

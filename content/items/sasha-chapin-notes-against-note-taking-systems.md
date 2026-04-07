@@ -5,4 +5,5 @@ type: essay
 dest: stream
 url: "https://sashachapin.substack.com/p/notes-against-note-taking-systems"
 source: "sashachapin.substack.com"
+order: 24
 ---

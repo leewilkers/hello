@@ -11,5 +11,6 @@ links:
     url: "https://archive.org/details/wendell-berry-america-culture-agriculture"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Unsettling_of_America"
+note: "exploiter vs. nurturer"
 order: 31
 ---

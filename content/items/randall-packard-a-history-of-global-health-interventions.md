@@ -6,5 +6,6 @@ dest: shelf
 lane: intervention
 url: "https://www.press.jhu.edu/books/title/10791/history-global-health"
 dek: "Johns Hopkins, 2016"
+note: "magic bullets, every time"
 order: 19
 ---

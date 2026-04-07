@@ -212,12 +212,6 @@ p + ul.dashed {
 
 /* ── stream ──────────────────────────────────── */
 
-.page-subtitle {
-  font-size: 0.8rem;
-  color: var(--ink-faint);
-  margin-bottom: 1.5rem;
-}
-
 .shelf-subtitle {
   font-size: 0.8rem;
   color: var(--ink-faint);
@@ -225,22 +219,39 @@ p + ul.dashed {
 }
 
 .page-stream {
-  max-width: 600px;
+  max-width: 520px;
 }
 
-.stream-entry {
-  margin-bottom: 1rem;
+.page-subtitle {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  margin-bottom: 1.5rem;
+}
+
+/* stream list */
+.stream-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stream-list li {
+  margin-bottom: 0.5rem;
   line-height: 1.35;
 }
 
-.stream-entry a {
+.stream-list li a {
   display: block;
   color: var(--ink);
   text-decoration: none;
 }
 
-.stream-entry a:hover .stream-title {
+.stream-list li a:hover .stream-title {
   color: var(--accent);
+}
+
+.stream-list li a:hover .stream-author {
+  color: var(--ink);
 }
 
 .stream-author {
@@ -251,7 +262,7 @@ p + ul.dashed {
 }
 
 .stream-title {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.35;
   transition: color 0.15s;
@@ -262,13 +273,6 @@ p + ul.dashed {
   font-size: 0.65rem;
   color: var(--ink-faint);
   margin-top: 0.1rem;
-}
-
-.stream-note {
-  font-size: 0.8rem;
-  color: var(--ink-light);
-  margin-top: 0.15rem;
-  line-height: 1.5;
 }
 
 /* ── broadsheet shelf ────────────────────────── */

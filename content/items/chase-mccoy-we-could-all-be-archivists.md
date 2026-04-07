@@ -6,5 +6,6 @@ dest: shelf
 lane: craft
 url: "https://chsmc.org/2025/01/archivists/"
 dek: "2025"
+note: "the internet isn't written in ink"
 order: 6
 ---

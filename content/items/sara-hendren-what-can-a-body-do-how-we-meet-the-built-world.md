@@ -6,5 +6,6 @@ dest: shelf
 lane: craft
 url: "https://www.penguinrandomhouse.com/books/561049/what-can-a-body-do-by-sara-hendren/"
 dek: "Riverhead, 2020"
+note: "all technology is assistive technology"
 order: 29
 ---

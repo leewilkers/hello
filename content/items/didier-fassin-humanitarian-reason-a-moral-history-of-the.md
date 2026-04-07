@@ -6,5 +6,6 @@ dest: shelf
 lane: intervention
 url: "https://www.ucpress.edu/books/humanitarian-reason/paper"
 dek: "UC Press, 2011"
+note: "the politics of pity"
 order: 22
 ---

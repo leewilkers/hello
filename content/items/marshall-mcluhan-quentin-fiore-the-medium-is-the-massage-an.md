@@ -11,5 +11,6 @@ links:
     url: "https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Medium_Is_the_Massage"
+note: "not a typo"
 order: 6
 ---

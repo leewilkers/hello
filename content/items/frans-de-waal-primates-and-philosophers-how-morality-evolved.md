@@ -6,5 +6,6 @@ dest: shelf
 lane: perception
 url: "https://press.princeton.edu/books/paperback/9780691169163/primates-and-philosophers"
 dek: "Princeton, 2006"
+note: "against veneer theory"
 order: 28
 ---

@@ -11,5 +11,6 @@ links:
     url: "https://www.astralcodexten.com/p/your-book-review-the-anti-politics"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Anti-Politics_Machine"
+note: "development as depoliticization"
 order: 20
 ---

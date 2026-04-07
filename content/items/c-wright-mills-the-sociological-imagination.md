@@ -11,5 +11,6 @@ links:
     url: "https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Sociological_Imagination"
+note: "personal troubles as public issues"
 order: 18
 ---

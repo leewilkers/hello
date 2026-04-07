@@ -6,5 +6,6 @@ dest: shelf
 lane: technology
 url: "https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living"
 dek: "The New Atlantis, 2021"
+note: "Neil Postman was right. So what?"
 order: 7
 ---

@@ -11,5 +11,6 @@ links:
     url: "https://archive.org/details/in.ernet.dli.2015.49974"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Technics_and_Civilization"
+note: "the clock, not the steam engine"
 order: 3
 ---
