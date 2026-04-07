@@ -1,15 +1,8 @@
 name: Build and Deploy
 
 on:
-  # Rebuild daily at 6am UTC
-  schedule:
-    - cron: '0 6 * * *'
-  
-  # Rebuild on push to main
   push:
     branches: [main]
-  
-  # Allow manual trigger
   workflow_dispatch:
 
 permissions:
@@ -31,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
@@ -39,8 +32,6 @@ jobs:
 
       - name: Build site
         run: npm run build
-        env:
-          RAINDROP_TOKEN: ${{ secrets.RAINDROP_TOKEN }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
