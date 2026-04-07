@@ -12,6 +12,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("CNAME");
   eleventyConfig.ignores.add(".claude/**");
   eleventyConfig.ignores.add("node_modules/**");
+  eleventyConfig.ignores.add("shelf-builder.html");
 
   return {
     dir: {

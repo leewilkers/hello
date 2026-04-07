@@ -2,23 +2,135 @@
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: #fefefe;
-  color: #333;
+  background: var(--bg);
+  color: var(--ink);
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
+}
+
+:root {
+  --bg: #fefefe;
+  --ink: #333;
+  --ink-light: #666;
+  --ink-faint: #999;
+  --ink-ghost: #ccc;
+  --rule: #e0e0e0;
+  --rule-light: #f0f0f0;
+  --accent: #c9a227;
+  --nav-border: #eee;
+}
+
+[data-theme="dark"] {
+  --bg: #151515;
+  --ink: #d5d5d5;
+  --ink-light: #999;
+  --ink-faint: #666;
+  --ink-ghost: #444;
+  --rule: #2a2a2a;
+  --rule-light: #222;
+  --accent: #c9a227;
+  --nav-border: #2a2a2a;
 }
 
 a { color: inherit; text-decoration: none; }
-a[href^="mailto"] { color: #c9a227; }
-a[href^="mailto"]:hover { border-bottom: 1px solid #c9a227; }
+a[href^="mailto"] { color: var(--accent); }
+a[href^="mailto"]:hover { border-bottom: 1px solid var(--accent); }
 
 img { display: block; }
 
+/* ── site nav ── */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2.5rem;
+  border-bottom: 1px solid var(--nav-border);
+}
+
+.nav-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.nav-links a {
+  font-size: 0.75rem;
+  color: var(--ink-ghost);
+  letter-spacing: 0.03em;
+}
+
+.nav-links a:hover {
+  color: var(--ink);
+}
+
+.nav-links a.active {
+  color: var(--ink);
+}
+
+/* ── dimmer toggle ── */
+
+.dimmer {
+  width: 14px;
+  height: 26px;
+  background: none;
+  border: 1.5px solid var(--ink-ghost);
+  border-radius: 7px;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  margin-left: 0.5rem;
+  transition: border-color 0.3s;
+}
+
+.dimmer:hover {
+  border-color: var(--ink-light);
+}
+
+.dimmer::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--ink-ghost);
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2px;
+  transition: top 0.25s ease, background 0.3s;
+}
+
+.dimmer:hover::after {
+  background: var(--ink-light);
+}
+
+[data-theme="dark"] .dimmer::after {
+  top: calc(100% - 10px);
+  background: var(--accent);
+}
+
+[data-theme="dark"] .dimmer {
+  border-color: var(--ink-faint);
+}
+
 .page {
   max-width: 520px;
-  margin: 0 auto;
-  padding: 6rem 1.5rem 4rem;
+  margin: 0;
+  padding: 3rem 2.5rem 4rem;
 }
 
 /* header */
@@ -67,27 +179,208 @@ ul.dashed li::before {
   content: '–';
   position: absolute;
   left: 0;
-  color: #ccc;
+  color: var(--ink-ghost);
 }
 
 p + ul.dashed {
   margin-top: -0.4rem;
 }
 
-/* shelf list */
+/* ── broadsheet shelf ────────────────────────── */
+
+.page-shelf {
+  max-width: none;
+  padding: 0;
+}
+
+.broadsheet {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  min-height: 80vh;
+}
+
+.column {
+  padding: 1rem 1.5rem 3rem;
+  border-right: 1px solid var(--rule);
+}
+
+.column:first-child {
+  padding-left: 2.5rem;
+}
+
+.column:last-child {
+  border-right: none;
+  padding-right: 2.5rem;
+}
+
+.col-header {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.75rem;
+}
+
+.col-header span {
+  font-weight: 400;
+  color: var(--ink-ghost);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.65rem;
+  margin-left: 0.4rem;
+}
+
+/* shelf list – base */
 ul.shelf {
   list-style: none;
   padding: 0;
-  margin: 0.65rem 0 0 0;
+  margin: 0;
 }
 
 ul.shelf li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule-light);
+  line-height: 1.3;
 }
 
-ul.shelf a { color: #c9a227; }
-ul.shelf a:hover { border-bottom: 1px solid #c9a227; }
+ul.shelf li:last-child {
+  border-bottom: none;
+}
+
+ul.shelf li a {
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+}
+
+ul.shelf li a:hover .entry-title {
+  color: var(--accent);
+}
+
+.entry-author {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--ink-light);
+  margin-bottom: 0.05rem;
+}
+
+.entry-title {
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  transition: color 0.15s;
+}
+
+.entry-dek {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  line-height: 1.3;
+  margin-top: 0.1rem;
+  font-style: normal;
+}
+
+.entry-links {
+  font-size: 0.6rem;
+  letter-spacing: 0.01em;
+  margin-top: 0.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+}
+
+.entry-links a {
+  color: var(--ink-ghost);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.entry-links a:hover {
+  color: var(--accent);
+}
+
+.entry-links .sep {
+  color: var(--ink-ghost);
+  margin: 0 0.2rem;
+}
+
+/* books column: 2 sub-columns */
+.column-books ul.shelf {
+  columns: 2;
+  column-gap: 1.5rem;
+  column-rule: 1px solid var(--rule-light);
+}
+
+.column-books ul.shelf li {
+  break-inside: avoid;
+}
+
+/* sub-headers within columns */
+.sub-header {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--ink-ghost);
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--rule-light);
+}
+
+.sub-header:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+/* sites: tighter, just names */
+.column-sites ul.shelf li {
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.column-sites ul.shelf li a {
+  font-weight: 500;
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+/* ── responsive ── */
 
 @media (max-width: 600px) {
   .page { padding: 3.5rem 1.25rem 2.5rem; }
+}
+
+@media (max-width: 900px) {
+  .broadsheet {
+    grid-template-columns: 1fr;
+  }
+  .column {
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 1.25rem;
+  }
+  .column:last-child { border-bottom: none; }
+  .column-books ul.shelf {
+    columns: 1;
+  }
+  .shelf-masthead {
+    padding: 1.5rem 1.25rem 0.75rem;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .broadsheet {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+  .column-books ul.shelf {
+    columns: 1;
+  }
 }

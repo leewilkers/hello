@@ -7,16 +7,39 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<div class="page">
+<nav class="site-nav">
+  <a href="/" class="nav-name">Lee Wilkers</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
+      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
+    </div>
+    <button class="dimmer" aria-label="Toggle dark mode" onclick="toggleTheme()"></button>
+  </div>
+</nav>
+
+<div class="page {{ pageClass }}">
 
   {{ content | safe }}
 
 </div>
 
+<script>
+  function toggleTheme() {
+    const d = document.documentElement;
+    const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+    d.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  })();
+</script>
 </body>
 </html>
