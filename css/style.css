@@ -431,6 +431,31 @@ ul.shelf li a:hover .entry-title {
   font-style: normal;
 }
 
+/* ── hover notes ── */
+
+.hover-note {
+  position: fixed;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  padding: 0.35rem 0.6rem;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--ink-light);
+  max-width: 240px;
+  line-height: 1.4;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] .hover-note {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+ul.shelf li[data-note] {
+  cursor: help;
+}
+
 /* ── responsive ── */
 
 @media (max-width: 600px) {

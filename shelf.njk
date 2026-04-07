@@ -10,6 +10,23 @@ pageClass: page-shelf
 {% set technology = collections.items | where("dest", "shelf") | where("lane", "technology") | sortBy("order") %}
 {% set intervention = collections.items | where("dest", "shelf") | where("lane", "intervention") | sortBy("order") %}
 
+{% macro entry(item) %}
+      <li{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}>
+        <a href="{{ item.data.url }}">
+          <span class="entry-author">{{ item.data.author }}</span>
+          <span class="entry-title">{{ item.data.title }}</span>
+          {%- if item.data.dek %}
+          <span class="entry-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </a>
+        {%- if item.data.links and item.data.links.length %}
+        <span class="entry-links">
+          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </span>
+        {%- endif %}
+      </li>
+{% endmacro %}
+
 <div class="shelf-subtitle">Things on my desk.</div>
 
 <div class="broadsheet">
@@ -17,88 +34,28 @@ pageClass: page-shelf
   <div class="column">
     <div class="col-header">craft</div>
     <ul class="shelf">
-      {%- for item in craft %}
-      <li>
-        <a href="{{ item.data.url }}">
-          <span class="entry-author">{{ item.data.author }}</span>
-          <span class="entry-title">{{ item.data.title }}</span>
-          {%- if item.data.dek %}
-          <span class="entry-dek">{{ item.data.dek }}</span>
-          {%- endif %}
-        </a>
-        {%- if item.data.links and item.data.links.length %}
-        <span class="entry-links">
-          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-        </span>
-        {%- endif %}
-      </li>
-      {%- endfor %}
+      {%- for item in craft %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
     <div class="col-header">perception</div>
     <ul class="shelf">
-      {%- for item in perception %}
-      <li>
-        <a href="{{ item.data.url }}">
-          <span class="entry-author">{{ item.data.author }}</span>
-          <span class="entry-title">{{ item.data.title }}</span>
-          {%- if item.data.dek %}
-          <span class="entry-dek">{{ item.data.dek }}</span>
-          {%- endif %}
-        </a>
-        {%- if item.data.links and item.data.links.length %}
-        <span class="entry-links">
-          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-        </span>
-        {%- endif %}
-      </li>
-      {%- endfor %}
+      {%- for item in perception %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
     <div class="col-header">technology</div>
     <ul class="shelf">
-      {%- for item in technology %}
-      <li>
-        <a href="{{ item.data.url }}">
-          <span class="entry-author">{{ item.data.author }}</span>
-          <span class="entry-title">{{ item.data.title }}</span>
-          {%- if item.data.dek %}
-          <span class="entry-dek">{{ item.data.dek }}</span>
-          {%- endif %}
-        </a>
-        {%- if item.data.links and item.data.links.length %}
-        <span class="entry-links">
-          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-        </span>
-        {%- endif %}
-      </li>
-      {%- endfor %}
+      {%- for item in technology %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
     <div class="col-header">intervention</div>
     <ul class="shelf">
-      {%- for item in intervention %}
-      <li>
-        <a href="{{ item.data.url }}">
-          <span class="entry-author">{{ item.data.author }}</span>
-          <span class="entry-title">{{ item.data.title }}</span>
-          {%- if item.data.dek %}
-          <span class="entry-dek">{{ item.data.dek }}</span>
-          {%- endif %}
-        </a>
-        {%- if item.data.links and item.data.links.length %}
-        <span class="entry-links">
-          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-        </span>
-        {%- endif %}
-      </li>
-      {%- endfor %}
+      {%- for item in intervention %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 

@@ -9,5 +9,6 @@ dek: "Routledge/IDRC, 2019"
 links:
   - label: "full text"
     url: "https://idl-bnc-idrc.dspacedirect.org/bitstream/handle/10625/57605/Scaling%20impact.pdf?sequence=2"
+note: "the \"science\" of scaling"
 order: 8
 ---

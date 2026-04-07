@@ -91,7 +91,7 @@ collections:
         name: note
         widget: text
         required: false
-        hint: "Optional one-line note (appears on stream page)"
+        hint: "Hover note on shelf, inline note on stream."
       - label: Lane
         name: lane
         widget: select

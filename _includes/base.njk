@@ -43,6 +43,23 @@
     const saved = localStorage.getItem('theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
   })();
+
+  // hover notes
+  document.querySelectorAll('[data-note]').forEach(function(el) {
+    var tip;
+    el.addEventListener('mouseenter', function(e) {
+      tip = document.createElement('div');
+      tip.className = 'hover-note';
+      tip.textContent = el.getAttribute('data-note');
+      document.body.appendChild(tip);
+      var r = el.getBoundingClientRect();
+      tip.style.top = (r.bottom + 4) + 'px';
+      tip.style.left = r.left + 'px';
+    });
+    el.addEventListener('mouseleave', function() {
+      if (tip) { tip.remove(); tip = null; }
+    });
+  });
 </script>
 </body>
 </html>
