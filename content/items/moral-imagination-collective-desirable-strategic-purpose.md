@@ -1,5 +1,5 @@
 ---
-author: ""
+author: "Violina P. Rindova & Luis L. Martins"
 title: "Moral Imagination, the Collective Desirable, and Strategic Purpose"
 type: essay
 dest: shelf
