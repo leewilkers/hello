@@ -47,14 +47,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .about-name {
-  font-family: 'Figtree', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1;
 }
 
 .about-tagline {
-  font-family: 'Figtree', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.9rem;
   color: #555;
   line-height: 1.65;
@@ -71,7 +71,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .prose {
-  font-family: 'Figtree', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.9rem;
   line-height: 1.65;
   color: #333;
@@ -80,7 +80,7 @@ a { color: inherit; text-decoration: none; }
 
 .list {
   list-style: none;
-  font-family: 'Figtree', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 0.9rem;
   color: #555;
   line-height: 1.6;
@@ -110,6 +110,12 @@ a { color: inherit; text-decoration: none; }
 
 .list a:hover, .links a:hover {
   border-color: #c9a227;
+}
+
+.contact {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .contact a {
