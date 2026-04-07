@@ -1,0 +1,109 @@
+local_backend: true
+
+backend:
+  name: github
+  repo: leewilkers/hello
+  branch: main
+
+media_folder: "img"
+public_folder: "/img"
+
+collections:
+  - name: items
+    label: Items
+    label_singular: Item
+    folder: content/items
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{fields.author}}-{{fields.title}}"
+    identifier_field: author
+    summary: "{{fields.author}} – {{fields.title}} [{{fields.dest}}]"
+    sortable_fields:
+      fields: [author, title, type, dest, date, order]
+      default:
+        field: author
+    view_filters:
+      - label: Shelf
+        field: dest
+        pattern: shelf
+      - label: Stream
+        field: dest
+        pattern: stream
+      - label: Books
+        field: type
+        pattern: book
+      - label: Writing
+        field: type
+        pattern: essay
+      - label: Sites
+        field: type
+        pattern: site
+    fields:
+      - label: Author
+        name: author
+        widget: string
+      - label: Title
+        name: title
+        widget: string
+        required: false
+      - label: Type
+        name: type
+        widget: select
+        options:
+          - { label: "Book", value: "book" }
+          - { label: "Writing", value: "essay" }
+          - { label: "Site", value: "site" }
+      - label: Destination
+        name: dest
+        widget: select
+        options:
+          - { label: "Shelf", value: "shelf" }
+          - { label: "Stream", value: "stream" }
+      - label: URL
+        name: url
+        widget: string
+      - label: "Publisher & Year"
+        name: dek
+        widget: string
+        required: false
+        hint: "For shelf items. e.g. 'Oxford, 1979' or 'Aeon, 2016'"
+      - label: Secondary Links
+        name: links
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+      - label: Source
+        name: source
+        widget: string
+        required: false
+        hint: "For stream items. e.g. 'ribbonfarm.com'"
+      - label: Publish Date
+        name: date
+        widget: datetime
+        required: false
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        hint: "Original publication date, if known."
+      - label: Note
+        name: note
+        widget: text
+        required: false
+        hint: "Optional one-line note (appears on stream page)"
+      - label: Lane
+        name: lane
+        widget: select
+        required: false
+        options:
+          - { label: "Craft", value: "craft" }
+          - { label: "Perception", value: "perception" }
+          - { label: "Technology", value: "technology" }
+          - { label: "Intervention", value: "intervention" }
+        hint: "For shelf items. Which column this appears in."
+      - label: Display Order
+        name: order
+        widget: number
+        required: false
+        hint: "For shelf items. Lower numbers appear first within lane."

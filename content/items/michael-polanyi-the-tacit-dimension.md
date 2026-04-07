@@ -1,0 +1,13 @@
+---
+author: "Michael Polanyi"
+title: "The Tacit Dimension"
+type: book
+dest: shelf
+lane: perception
+url: "https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"
+dek: "Doubleday, 1966"
+links:
+  - label: "full text"
+    url: "https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"
+order: 11
+---

@@ -5,82 +5,100 @@ permalink: /shelf/
 pageClass: page-shelf
 ---
 
+{% set craft = collections.items | where("dest", "shelf") | where("lane", "craft") | sortBy("order") %}
+{% set perception = collections.items | where("dest", "shelf") | where("lane", "perception") | sortBy("order") %}
+{% set technology = collections.items | where("dest", "shelf") | where("lane", "technology") | sortBy("order") %}
+{% set intervention = collections.items | where("dest", "shelf") | where("lane", "intervention") | sortBy("order") %}
+
+<div class="shelf-subtitle">Things on my desk.</div>
+
 <div class="broadsheet">
 
-  <div class="column column-books">
-    <div class="col-header">books</div>
+  <div class="column">
+    <div class="col-header">craft</div>
     <ul class="shelf">
-      <li><a href="https://archive.org/details/illich-conviviality"><span class="entry-author">Ivan Illich</span><span class="entry-title">Tools for Conviviality</span><span class="entry-dek">Harper & Row, 1973</span></a><span class="entry-links"><a href="https://archive.org/details/illich-conviviality">full text</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/Tools_for_Conviviality">wiki</a></span></li>
-      <li><a href="https://monoskop.org/images/5/58/Franklin_Ursula_The_Real_World_of_Technology_1990.pdf"><span class="entry-author">Ursula Franklin</span><span class="entry-title">The Real World of Technology</span><span class="entry-dek">CBC Massey Lectures, 1989</span></a><span class="entry-links"><a href="https://monoskop.org/images/5/58/Franklin_Ursula_The_Real_World_of_Technology_1990.pdf">full text</a></span></li>
-      <li><a href="https://archive.org/details/in.ernet.dli.2015.49974"><span class="entry-author">Lewis Mumford</span><span class="entry-title">Technics and Civilization</span><span class="entry-dek">Harcourt Brace, 1934</span></a><span class="entry-links"><a href="https://archive.org/details/in.ernet.dli.2015.49974">full text</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/Technics_and_Civilization">wiki</a></span></li>
-      <li><a href="https://www.patternlanguage.com/bookstore/timeless-way-of-building.html"><span class="entry-author">Christopher Alexander</span><span class="entry-title">The Timeless Way of Building</span><span class="entry-dek">Oxford, 1979</span></a><span class="entry-links"><a href="https://en.wikipedia.org/wiki/The_Timeless_Way_of_Building">wiki</a></span></li>
-      <li><a href="https://archive.org/details/understandingmed0000mclu"><span class="entry-author">Marshall McLuhan</span><span class="entry-title">Understanding Media: The Extensions of Man</span><span class="entry-dek">McGraw-Hill, 1964</span></a><span class="entry-links"><a href="https://archive.org/details/understandingmed0000mclu">borrow</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/Understanding_Media">wiki</a></span></li>
-      <li><a href="https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"><span class="entry-author">Marshall McLuhan & Quentin Fiore</span><span class="entry-title">The Medium Is the Massage: An Inventory of Effects</span><span class="entry-dek">Bantam, 1967</span></a><span class="entry-links"><a href="https://archive.org/details/pdfy-vNiFct6b-L5ucJEa">full text</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/The_Medium_Is_the_Massage">wiki</a></span></li>
-      <li><a href="https://yalebooks.yale.edu/book/9780300151190/the-craftsman/"><span class="entry-author">Richard Sennett</span><span class="entry-title">The Craftsman</span><span class="entry-dek">Yale, 2008</span></a><span class="entry-links"><a href="https://en.wikipedia.org/wiki/The_Craftsman_(book)">wiki</a></span></li>
-      <li><a href="https://lostartpress.com/products/the-anarchists-tool-chest"><span class="entry-author">Christopher Schwarz</span><span class="entry-title">The Anarchist's Tool Chest</span><span class="entry-dek">Lost Art Press, 2011</span></a></li>
-      <li><a href="https://godine.com/products/why-we-make-things-and-why-it-matters"><span class="entry-author">Peter Korn</span><span class="entry-title">Why We Make Things and Why It Matters: The Education of a Craftsman</span><span class="entry-dek">Godine, 2013</span></a></li>
-      <li><a href="https://jnd.org/books/the-design-of-everyday-things-revised-and-expanded-edition/"><span class="entry-author">Don Norman</span><span class="entry-title">The Design of Everyday Things</span><span class="entry-dek">Basic Books, 1988</span></a><span class="entry-links"><a href="https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things">wiki</a></span></li>
-      <li><a href="https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"><span class="entry-author">Michael Polanyi</span><span class="entry-title">The Tacit Dimension</span><span class="entry-dek">Doubleday, 1966</span></a><span class="entry-links"><a href="https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf">full text</a></span></li>
-      <li><a href="https://en.wikipedia.org/wiki/Making_Social_Science_Matter"><span class="entry-author">Bent Flyvbjerg</span><span class="entry-title">Making Social Science Matter: Why Social Inquiry Fails and How It Can Succeed Again</span><span class="entry-dek">Cambridge, 2001</span></a></li>
-      <li><a href="https://www.routledge.com/Making-Anthropology-Archaeology-Art-and-Architecture/Ingold/p/book/9780415567237"><span class="entry-author">Tim Ingold</span><span class="entry-title">Making: Anthropology, Archaeology, Art and Architecture</span><span class="entry-dek">Routledge, 2013</span></a></li>
-      <li><a href="https://www.penguinrandomhouse.com/books/576816/the-innovation-delusion-by-lee-vinsel-and-andrew-l-russell/"><span class="entry-author">Lee Vinsel & Andrew Russell</span><span class="entry-title">The Innovation Delusion: How Our Obsession with the New Has Disrupted the Work That Matters Most</span><span class="entry-dek">Currency, 2020</span></a></li>
-      <li><a href="https://press.uchicago.edu/ucp/books/book/chicago/G/bo17888868.html"><span class="entry-author">Monika Krause</span><span class="entry-title">The Good Project: Humanitarian Relief NGOs and the Fragmentation of Reason</span><span class="entry-dek">Chicago, 2014</span></a></li>
-      <li><a href="https://www.youtube.com/watch?v=maTkAcDbrEY"><span class="entry-author">Stewart Brand</span><span class="entry-title">How Buildings Learn: What Happens After They're Built</span><span class="entry-dek">Viking, 1994</span></a><span class="entry-links"><a href="https://www.youtube.com/watch?v=maTkAcDbrEY">BBC documentary</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/How_Buildings_Learn">wiki</a></span></li>
-      <li><a href="https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf"><span class="entry-author">Stafford Beer</span><span class="entry-title">Designing Freedom</span><span class="entry-dek">CBC Massey Lectures, 1973</span></a><span class="entry-links"><a href="https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf">full text</a></span></li>
-      <li><a href="https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf"><span class="entry-author">C. Wright Mills</span><span class="entry-title">The Sociological Imagination</span><span class="entry-dek">Oxford, 1959</span></a><span class="entry-links"><a href="https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf">appendix: On Intellectual Craftsmanship</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/The_Sociological_Imagination">wiki</a></span></li>
-      <li><a href="https://www.press.jhu.edu/books/title/10791/history-global-health"><span class="entry-author">Randall Packard</span><span class="entry-title">A History of Global Health: Interventions into the Lives of Other Peoples</span><span class="entry-dek">Johns Hopkins, 2016</span></a></li>
-      <li><a href="https://www.astralcodexten.com/p/your-book-review-the-anti-politics"><span class="entry-author">James Ferguson</span><span class="entry-title">The Anti-Politics Machine: Development, Depoliticization, and Bureaucratic Power in Lesotho</span><span class="entry-dek">Cambridge, 1990</span></a><span class="entry-links"><a href="https://www.astralcodexten.com/p/your-book-review-the-anti-politics">review</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/The_Anti-Politics_Machine">wiki</a></span></li>
-      <li><a href="https://www.dukeupress.edu/metrics"><span class="entry-author">Vincanne Adams (ed.)</span><span class="entry-title">Metrics: What Counts in Global Health</span><span class="entry-dek">Duke, 2016</span></a></li>
-      <li><a href="https://www.ucpress.edu/books/humanitarian-reason/paper"><span class="entry-author">Didier Fassin</span><span class="entry-title">Humanitarian Reason: A Moral History of the Present</span><span class="entry-dek">UC Press, 2011</span></a></li>
-      <li><a href="https://www.routledge.com/The-Corruption-of-Co-Design-Political-and-Social-Conflicts-in-Participatory-Design-Thinking/vonBusch-Palmas/p/book/9781032250014"><span class="entry-author">Otto von Busch & Karl Palmås</span><span class="entry-title">The Corruption of Co-Design: Political and Social Conflicts in Participatory Design Thinking</span><span class="entry-dek">Routledge, 2023</span></a></li>
-      <li><a href="https://archive.org/details/WaysofSeeing"><span class="entry-author">John Berger</span><span class="entry-title">Ways of Seeing</span><span class="entry-dek">Penguin, 1972</span></a><span class="entry-links"><a href="https://archive.org/details/WaysofSeeing">BBC series</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/Ways_of_Seeing">wiki</a></span></li>
-      <li><a href="https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law/p/book/9780415341752"><span class="entry-author">John Law</span><span class="entry-title">After Method: Mess in Social Science Research</span><span class="entry-dek">Routledge, 2004</span></a></li>
-      <li><a href="https://press.princeton.edu/books/paperback/9780691120652/friction"><span class="entry-author">Anna Tsing</span><span class="entry-title">Friction: An Ethnography of Global Connection</span><span class="entry-dek">Princeton, 2004</span></a></li>
-      <li><a href="https://www.juliawatson.com/lo-tek-design-by-radical-indigenism"><span class="entry-author">Julia Watson</span><span class="entry-title">Lo-TEK: Design by Radical Indigenism</span><span class="entry-dek">Taschen, 2019</span></a></li>
-      <li><a href="https://press.princeton.edu/books/paperback/9780691169163/primates-and-philosophers"><span class="entry-author">Frans de Waal</span><span class="entry-title">Primates and Philosophers: How Morality Evolved</span><span class="entry-dek">Princeton, 2006</span></a></li>
-      <li><a href="https://www.penguinrandomhouse.com/books/561049/what-can-a-body-do-by-sara-hendren/"><span class="entry-author">Sara Hendren</span><span class="entry-title">What Can a Body Do? How We Meet the Built World</span><span class="entry-dek">Riverhead, 2020</span></a></li>
-      <li><a href="https://natureofcode.com"><span class="entry-author">Daniel Shiffman</span><span class="entry-title">The Nature of Code: Simulating Natural Systems</span><span class="entry-dek">No Starch, 2024</span></a><span class="entry-links"><a href="https://natureofcode.com">full text</a></span></li>
-      <li><a href="https://archive.org/details/wendell-berry-america-culture-agriculture"><span class="entry-author">Wendell Berry</span><span class="entry-title">The Unsettling of America: Culture and Agriculture</span><span class="entry-dek">Sierra Club, 1977</span></a><span class="entry-links"><a href="https://archive.org/details/wendell-berry-america-culture-agriculture">full text</a><span class="sep">·</span><a href="https://en.wikipedia.org/wiki/The_Unsettling_of_America">wiki</a></span></li>
-      <li><a href="https://dukeupress.edu/photographys-other-histories"><span class="entry-author">Christopher Pinney & Nicolas Peterson (eds.)</span><span class="entry-title">Photography's Other Histories</span><span class="entry-dek">Duke, 2003</span></a></li>
-      <li><a href="https://en.wikipedia.org/wiki/When_We_Cease_to_Understand_the_World"><span class="entry-author">Benjamín Labatut</span><span class="entry-title">When We Cease to Understand the World</span><span class="entry-dek">Pushkin, 2020</span></a><span class="entry-links"><a href="https://en.wikipedia.org/wiki/When_We_Cease_to_Understand_the_World">wiki</a></span></li>
+      {%- for item in craft %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="entry-author">{{ item.data.author }}</span>
+          <span class="entry-title">{{ item.data.title }}</span>
+          {%- if item.data.dek %}
+          <span class="entry-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </a>
+        {%- if item.data.links and item.data.links.length %}
+        <span class="entry-links">
+          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </span>
+        {%- endif %}
+      </li>
+      {%- endfor %}
     </ul>
   </div>
 
-  <div class="column column-essays">
-    <div class="col-header">writing</div>
+  <div class="column">
+    <div class="col-header">perception</div>
     <ul class="shelf">
-      <li><a href="https://worrydream.com/MagicInk/"><span class="entry-author">Bret Victor</span><span class="entry-title">Magic Ink: Information Software and the Graphical Interface</span><span class="entry-dek">worrydream.com, 2006</span></a></li>
-      <li><a href="https://worrydream.com/LadderOfAbstraction/"><span class="entry-author">Bret Victor</span><span class="entry-title">Up and Down the Ladder of Abstraction</span><span class="entry-dek">worrydream.com, 2011</span></a></li>
-      <li><a href="https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"><span class="entry-author">Russell & Vinsel</span><span class="entry-title">Hail the Maintainers</span><span class="entry-dek">Aeon, 2016</span></a></li>
-      <li><a href="https://placesjournal.org/article/maintenance-and-care/"><span class="entry-author">Shannon Mattern</span><span class="entry-title">Maintenance and Care</span><span class="entry-dek">Places Journal, 2018</span></a></li>
-      <li><a href="https://placesjournal.org/article/step-by-step-repair-manuals-political-ecology/"><span class="entry-author">Shannon Mattern</span><span class="entry-title">Step by Step</span><span class="entry-dek">Places Journal, 2024</span></a></li>
-      <li><a href="https://chsmc.org/2025/01/archivists/"><span class="entry-author">Chase McCoy</span><span class="entry-title">We Could All Be Archivists</span><span class="entry-dek">2025</span></a></li>
-      <li><a href="https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living"><span class="entry-author">Alan Jacobs</span><span class="entry-title">From Tech Critique to Ways of Living</span><span class="entry-dek">The New Atlantis, 2021</span></a></li>
-      <li><a href="https://www.ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/"><span class="entry-author">Venkat Rao</span><span class="entry-title">A Big Little Idea Called Legibility</span><span class="entry-dek">Ribbonfarm, 2010</span></a></li>
-      <li><a href="https://craigmod.com/essays/fast_software/"><span class="entry-author">Craig Mod</span><span class="entry-title">Fast Software, the Best Software</span></a></li>
-      <li><a href="https://frankchimero.com/blog/2015/the-webs-grain/"><span class="entry-author">Frank Chimero</span><span class="entry-title">The Web's Grain</span><span class="entry-dek">2015</span></a></li>
-      <li><a href="https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf"><span class="entry-author">Wendell Berry</span><span class="entry-title">Why I Am Not Going to Buy a Computer</span><span class="entry-dek">Harper's, 1987</span></a><span class="entry-links"><a href="https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf">full text</a></span></li>
-      <li><a href="https://www.robinsloan.com/fish/"><span class="entry-author">Robin Sloan</span><span class="entry-title">Fish</span><span class="entry-dek">a tap essay</span></a></li>
+      {%- for item in perception %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="entry-author">{{ item.data.author }}</span>
+          <span class="entry-title">{{ item.data.title }}</span>
+          {%- if item.data.dek %}
+          <span class="entry-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </a>
+        {%- if item.data.links and item.data.links.length %}
+        <span class="entry-links">
+          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </span>
+        {%- endif %}
+      </li>
+      {%- endfor %}
     </ul>
   </div>
 
-  <div class="column column-sites">
-    <div class="col-header">sites</div>
+  <div class="column">
+    <div class="col-header">technology</div>
     <ul class="shelf">
-      <li><a href="https://themaintainers.org">The Maintainers</a></li>
-      <li><a href="https://placesjournal.org">Places Journal</a></li>
-      <li><a href="https://logicmag.io">Logic(s) Magazine</a></li>
-      <li><a href="https://www.thenewatlantis.com">The New Atlantis</a></li>
-      <li><a href="https://www.ribbonfarm.com">Ribbonfarm</a></li>
-      <li><a href="https://www.robinsloan.com">Robin Sloan</a></li>
-      <li><a href="https://craigmod.com">Craig Mod</a></li>
-      <li><a href="https://aworkinglibrary.com">A Working Library</a></li>
-      <li><a href="https://frankchimero.com">Frank Chimero</a></li>
-      <li><a href="https://theconvivialsociety.substack.com">The Convivial Society</a></li>
-      <li><a href="https://100r.co">Hundred Rabbits</a></li>
-      <li><a href="https://www.inkandswitch.com">Ink & Switch</a></li>
-      <li><a href="https://worrydream.com">worrydream.com</a></li>
-      <li><a href="https://asteriskmag.com">Asterisk</a></li>
+      {%- for item in technology %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="entry-author">{{ item.data.author }}</span>
+          <span class="entry-title">{{ item.data.title }}</span>
+          {%- if item.data.dek %}
+          <span class="entry-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </a>
+        {%- if item.data.links and item.data.links.length %}
+        <span class="entry-links">
+          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </span>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+
+  <div class="column">
+    <div class="col-header">intervention</div>
+    <ul class="shelf">
+      {%- for item in intervention %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="entry-author">{{ item.data.author }}</span>
+          <span class="entry-title">{{ item.data.title }}</span>
+          {%- if item.data.dek %}
+          <span class="entry-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+        </a>
+        {%- if item.data.links and item.data.links.length %}
+        <span class="entry-links">
+          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+        </span>
+        {%- endif %}
+      </li>
+      {%- endfor %}
     </ul>
   </div>
 

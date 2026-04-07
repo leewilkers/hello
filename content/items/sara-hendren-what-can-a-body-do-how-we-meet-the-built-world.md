@@ -1,0 +1,10 @@
+---
+author: "Sara Hendren"
+title: "What Can a Body Do? How We Meet the Built World"
+type: book
+dest: shelf
+lane: craft
+url: "https://www.penguinrandomhouse.com/books/561049/what-can-a-body-do-by-sara-hendren/"
+dek: "Riverhead, 2020"
+order: 29
+---

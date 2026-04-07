@@ -1,9 +1,34 @@
 module.exports = function(eleventyConfig) {
-  // Pass through CSS
+  // Pass through static assets
   eleventyConfig.addPassthroughCopy("css");
-  
-  // Pass through images if any
   eleventyConfig.addPassthroughCopy("img");
+  eleventyConfig.addPassthroughCopy("fonts");
+  eleventyConfig.addPassthroughCopy("admin");
+
+  // Collection filters
+  eleventyConfig.addFilter("where", function(arr, key, value) {
+    return (arr || []).filter(item => item.data[key] === value);
+  });
+
+  eleventyConfig.addFilter("sortBy", function(arr, key) {
+    return [...(arr || [])].sort((a, b) => (a.data[key] || 999) - (b.data[key] || 999));
+  });
+
+  eleventyConfig.addFilter("sortByDateDesc", function(arr) {
+    return [...(arr || [])].sort((a, b) => {
+      const da = a.data.date ? new Date(a.data.date).getTime() : 0;
+      const db = b.data.date ? new Date(b.data.date).getTime() : 0;
+      return db - da;
+    });
+  });
+
+  // Date filter for stream month headers (handles Date objects and strings)
+  eleventyConfig.addFilter("monthYear", function(val) {
+    if (!val) return "";
+    const d = val instanceof Date ? val : new Date(val);
+    if (isNaN(d.getTime())) return "";
+    return d.toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase();
+  });
 
   // Ignore non-site files
   eleventyConfig.ignores.add("README.md");
@@ -13,6 +38,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add(".claude/**");
   eleventyConfig.ignores.add("node_modules/**");
   eleventyConfig.ignores.add("shelf-builder.html");
+  eleventyConfig.ignores.add("shelf-stream-builder.html");
+  eleventyConfig.ignores.add("migrate-items.js");
 
   return {
     dir: {
