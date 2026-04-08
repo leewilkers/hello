@@ -2,7 +2,6 @@ module.exports = function(eleventyConfig) {
   // Pass through static assets
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("img");
-  eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("admin");
 
   // Collection filters
@@ -37,8 +36,6 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("CNAME");
   eleventyConfig.ignores.add(".claude/**");
   eleventyConfig.ignores.add("node_modules/**");
-  eleventyConfig.ignores.add("shelf-builder.html");
-  eleventyConfig.ignores.add("shelf-stream-builder.html");
   eleventyConfig.ignores.add("migrate-items.js");
 
   return {
