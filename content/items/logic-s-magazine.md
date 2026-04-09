@@ -2,7 +2,8 @@
 author: "Logic(s) Magazine"
 title: ""
 type: site
-dest: stream
+dest: shelf
+lane: machine
 url: "https://logicmag.io"
 order: 3
 ---

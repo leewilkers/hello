@@ -191,6 +191,13 @@ p + ul.dashed {
   padding: 0.75rem 2.5rem 0;
 }
 
+.shelf-date {
+  font-size: 0.65rem;
+  color: var(--ink-ghost);
+  padding: 0.15rem 2.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .page-stream {
   max-width: 520px;
 }
@@ -266,7 +273,7 @@ p + ul.dashed {
 
 .broadsheet {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(6, 1fr);
   height: 100%;
 }
 
@@ -355,6 +362,15 @@ ul.shelf li a:hover .entry-title {
   font-style: normal;
 }
 
+.entry-note {
+  display: block;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--ink-light);
+  line-height: 1.4;
+  margin-top: 0.15rem;
+}
+
 .entry-links {
   font-size: 0.6rem;
   letter-spacing: 0.01em;
@@ -378,6 +394,26 @@ ul.shelf li a:hover .entry-title {
 .entry-links .sep {
   color: var(--ink-ghost);
   margin: 0 0.2rem;
+}
+
+/* type-based density */
+ul.shelf li[data-type="essay"] .entry-title {
+  font-size: 0.85rem;
+}
+
+ul.shelf li[data-type="essay"] .entry-dek {
+  color: var(--ink-light);
+}
+
+ul.shelf li[data-type="site"] {
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-bottom: none;
+}
+
+ul.shelf li[data-type="site"] .entry-title {
+  font-style: normal;
+  font-weight: 500;
 }
 
 /* books: single column (was 2, too dense) */
@@ -414,6 +450,27 @@ ul.shelf li a:hover .entry-title {
   font-style: normal;
 }
 
+/* ── column accent images ── */
+
+.col-image {
+  margin-bottom: 0.75rem;
+}
+
+.col-image img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 2px;
+  opacity: 0.85;
+  filter: grayscale(0.3);
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.col-image img:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
 /* ── hover notes ── */
 
 .hover-note {
@@ -443,7 +500,36 @@ ul.shelf li a:hover .entry-title {
   .page { padding: 3.5rem 1.25rem 2.5rem; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) and (min-width: 901px) {
+  .page-shelf {
+    height: auto;
+    overflow: auto;
+  }
+  .broadsheet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .column {
+    overflow-y: visible;
+  }
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .page-shelf {
+    height: auto;
+    overflow: auto;
+  }
+  .broadsheet {
+    grid-template-columns: 1fr 1fr;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .column {
+    min-width: 260px;
+    overflow-y: visible;
+  }
+}
+
+@media (max-width: 600px) {
   .page-shelf {
     height: auto;
     overflow: auto;

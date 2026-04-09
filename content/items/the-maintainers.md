@@ -2,7 +2,8 @@
 author: "The Maintainers"
 title: ""
 type: site
-dest: stream
+dest: shelf
+lane: technology
 url: "https://themaintainers.org"
 order: 1
 ---

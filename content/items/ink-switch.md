@@ -2,7 +2,8 @@
 author: "Ink & Switch"
 title: ""
 type: site
-dest: stream
+dest: shelf
+lane: making
 url: "https://www.inkandswitch.com"
 order: 12
 ---

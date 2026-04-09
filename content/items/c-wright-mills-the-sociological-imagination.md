@@ -3,7 +3,7 @@ author: "C. Wright Mills"
 title: "The Sociological Imagination"
 type: book
 dest: shelf
-lane: perception
+lane: method
 url: "https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf"
 dek: "Oxford, 1959"
 links:

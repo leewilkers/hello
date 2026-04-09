@@ -5,13 +5,15 @@ permalink: /shelf/
 pageClass: page-shelf
 ---
 
-{% set craft = collections.items | where("dest", "shelf") | where("lane", "craft") | sortBy("order") %}
+{% set making = collections.items | where("dest", "shelf") | where("lane", "making") | sortBy("order") %}
 {% set perception = collections.items | where("dest", "shelf") | where("lane", "perception") | sortBy("order") %}
+{% set method = collections.items | where("dest", "shelf") | where("lane", "method") | sortBy("order") %}
 {% set technology = collections.items | where("dest", "shelf") | where("lane", "technology") | sortBy("order") %}
 {% set intervention = collections.items | where("dest", "shelf") | where("lane", "intervention") | sortBy("order") %}
+{% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
 
 {% macro entry(item) %}
-      <li{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}>
+      <li data-type="{{ item.data.type }}"{% if item.data.note and not item.data.featured %} data-note="{{ item.data.note }}"{% endif %}>
         <a href="{{ item.data.url }}">
           <span class="entry-author">{{ item.data.author }}</span>
           <span class="entry-title">{{ item.data.title }}</span>
@@ -19,6 +21,9 @@ pageClass: page-shelf
           <span class="entry-dek">{{ item.data.dek }}</span>
           {%- endif %}
         </a>
+        {%- if item.data.featured and item.data.note %}
+        <span class="entry-note">{{ item.data.note }}</span>
+        {%- endif %}
         {%- if item.data.links and item.data.links.length %}
         <span class="entry-links">
           {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
@@ -28,25 +33,46 @@ pageClass: page-shelf
 {% endmacro %}
 
 <div class="shelf-subtitle">Things on my desk.</div>
+{% if site.shelfDate %}<div class="shelf-date">{{ site.shelfDate }}</div>{% endif %}
 
 <div class="broadsheet">
 
+  {% macro colImage(items) %}
+    {%- set hero = items | findImage -%}
+    {%- if hero %}
+    <div class="col-image">
+      <img src="{{ hero.data.image }}" alt="{{ hero.data.author }} – {{ hero.data.title }}">
+    </div>
+    {%- endif %}
+  {% endmacro %}
+
   <div class="column">
-    <div class="col-header">craft</div>
+    <div class="col-header">making</div>
+    {{ colImage(making) }}
     <ul class="shelf">
-      {%- for item in craft %}{{ entry(item) }}{%- endfor %}
+      {%- for item in making %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
     <div class="col-header">perception</div>
+    {{ colImage(perception) }}
     <ul class="shelf">
       {%- for item in perception %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
+    <div class="col-header">method</div>
+    {{ colImage(method) }}
+    <ul class="shelf">
+      {%- for item in method %}{{ entry(item) }}{%- endfor %}
+    </ul>
+  </div>
+
+  <div class="column">
     <div class="col-header">technology</div>
+    {{ colImage(technology) }}
     <ul class="shelf">
       {%- for item in technology %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -54,8 +80,17 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">intervention</div>
+    {{ colImage(intervention) }}
     <ul class="shelf">
       {%- for item in intervention %}{{ entry(item) }}{%- endfor %}
+    </ul>
+  </div>
+
+  <div class="column">
+    <div class="col-header">machine</div>
+    {{ colImage(machine) }}
+    <ul class="shelf">
+      {%- for item in machine %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 

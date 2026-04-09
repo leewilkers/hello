@@ -97,11 +97,24 @@ collections:
         widget: select
         required: false
         options:
-          - { label: "Craft", value: "craft" }
+          - { label: "Making", value: "making" }
           - { label: "Perception", value: "perception" }
+          - { label: "Method", value: "method" }
           - { label: "Technology", value: "technology" }
           - { label: "Intervention", value: "intervention" }
+          - { label: "Machine", value: "machine" }
         hint: "For shelf items. Which column this appears in."
+      - label: Image
+        name: image
+        widget: image
+        required: false
+        hint: "Optional accent image (book cover, screenshot). First image in lane appears at column top."
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+        hint: "Show note inline (visible). Off = hover-only."
       - label: Display Order
         name: order
         widget: number

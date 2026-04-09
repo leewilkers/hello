@@ -3,7 +3,7 @@ author: "Venkat Rao"
 title: "How to Draw and Judge Quadrant Diagrams"
 type: essay
 dest: shelf
-lane: perception
+lane: method
 url: "https://www.ribbonfarm.com/2009/04/20/how-to-draw-and-judge-quadrant-diagrams/"
 dek: "Ribbonfarm, 2009"
 links:

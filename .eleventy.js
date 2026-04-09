@@ -9,6 +9,10 @@ module.exports = function(eleventyConfig) {
     return (arr || []).filter(item => item.data[key] === value);
   });
 
+  eleventyConfig.addFilter("findImage", function(arr) {
+    return (arr || []).find(item => item.data.image);
+  });
+
   eleventyConfig.addFilter("sortBy", function(arr, key) {
     return [...(arr || [])].sort((a, b) => (a.data[key] || 999) - (b.data[key] || 999));
   });
