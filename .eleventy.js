@@ -4,14 +4,11 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("robots.txt");
+  eleventyConfig.addPassthroughCopy("google8f11425ab7fc438d.html");
 
   // Collection filters
   eleventyConfig.addFilter("where", function(arr, key, value) {
     return (arr || []).filter(item => item.data[key] === value);
-  });
-
-  eleventyConfig.addFilter("findImage", function(arr) {
-    return (arr || []).find(item => item.data.image);
   });
 
   eleventyConfig.addFilter("sortBy", function(arr, key) {
@@ -42,6 +39,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add(".claude/**");
   eleventyConfig.ignores.add("node_modules/**");
   eleventyConfig.ignores.add("migrate-items.js");
+  eleventyConfig.ignores.add("google8f11425ab7fc438d.html");
 
   return {
     dir: {
