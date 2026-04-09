@@ -8,5 +8,6 @@ url: "https://en.wikipedia.org/wiki/Making_Social_Science_Matter"
 dek: "Cambridge, 2001"
 note: "the case against physics envy"
 featured: true
+image: /img/cover-method.jpg
 order: 12
 ---

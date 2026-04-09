@@ -7,6 +7,8 @@ lane: technology
 url: "https://archive.org/details/illich-conviviality"
 dek: "Harper & Row, 1973"
 note: "every institution eventually becomes its opposite"
+featured: true
+image: /img/cover-technology.jpg
 links:
   - label: "full text"
     url: "https://archive.org/details/illich-conviviality"

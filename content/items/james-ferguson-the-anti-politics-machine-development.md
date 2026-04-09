@@ -12,5 +12,7 @@ links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Anti-Politics_Machine"
 note: "development as depoliticization"
+featured: true
+image: /img/cover-intervention.jpg
 order: 20
 ---

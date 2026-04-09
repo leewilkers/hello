@@ -13,7 +13,11 @@ pageClass: page-shelf
 {% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
 
 {% macro entry(item) %}
-      <li data-type="{{ item.data.type }}"{% if item.data.note and not item.data.featured %} data-note="{{ item.data.note }}"{% endif %}>
+      <li data-type="{{ item.data.type }}"{% if item.data.note and not item.data.featured %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.image %} class="has-thumb"{% endif %}>
+        {%- if item.data.image %}
+        <img class="entry-thumb" src="{{ item.data.image }}" alt="" loading="lazy">
+        {%- endif %}
+        <div class="entry-body">
         <a href="{{ item.data.url }}">
           <span class="entry-author">{{ item.data.author }}</span>
           <span class="entry-title">{{ item.data.title }}</span>
@@ -29,6 +33,7 @@ pageClass: page-shelf
           {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
         </span>
         {%- endif %}
+        </div>
       </li>
 {% endmacro %}
 
