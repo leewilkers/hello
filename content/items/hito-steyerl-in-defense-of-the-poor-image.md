@@ -2,7 +2,9 @@
 author: "Hito Steyerl"
 title: "In Defense of the Poor Image"
 type: essay
-dest: stream
+dest: shelf
+note: "lumpen proletarian in the class society of appearances"
+lane: perception
 url: "https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image/"
 source: "e-flux.com"
 order: 28
