@@ -6,5 +6,6 @@ dest: shelf
 lane: craft
 url: "https://worrydream.com/MagicInk/"
 dek: "worrydream.com, 2006"
+note: "why are you clicking"
 order: 1
 ---

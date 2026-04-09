@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Library Acquisition</title>
+<style>
+  :root {
+    --bg: #faf8f4;
+    --surface: #fff;
+    --border: #e8e4de;
+    --text: #2c2c2c;
+    --text-secondary: #6b6560;
+    --accent: #c9a227;
+    --green: #4a8c5c;
+    --blue: #4a6fa5;
+    --red: #a0522d;
+    --pill-free: #e8f0e4;
+    --pill-free-text: #3a6b3a;
+    --pill-blocked: #fce8d8;
+    --pill-blocked-text: #8b4513;
+    --pill-find: #e8e0f0;
+    --pill-find-text: #5b4a7a;
+    --pill-undecided: #f0ece4;
+    --pill-undecided-text: #6b6560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 2rem 1.5rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .progress-bar {
+    background: var(--border);
+    height: 4px;
+    border-radius: 2px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .progress-bar .fill {
+    background: var(--green);
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .total-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: -2.25rem;
+    margin-bottom: 2rem;
+    text-align: right;
+  }
+
+  section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .section-header h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+
+  .section-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-left: auto;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 0.5rem;
+    align-items: start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #f0ece6;
+  }
+  .item:last-child { border-bottom: none; }
+  .item.done { opacity: 0.4; }
+  .item.done .item-title { text-decoration: line-through; }
+
+  .item input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--green);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  .item-body { min-width: 0; }
+
+  .item-title {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .item-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+
+  .item-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: start;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  a.link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 0.75rem;
+    color: var(--blue);
+    text-decoration: none;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: border-color 0.15s;
+  }
+  a.link-btn:hover { border-color: var(--blue); }
+
+  button.copy-btn {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: border-color 0.15s;
+  }
+  button.copy-btn:hover { border-color: var(--text-secondary); }
+  button.copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+  .lane-tag {
+    font-size: 0.75rem;
+    margin-left: 4px;
+  }
+
+  .note {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  .section-note {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+  }
+  footer button {
+    font-size: 0.75rem;
+    color: var(--red);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>Library Acquisition</h1>
+<p class="subtitle">Download queue for leewilkers.com reading library</p>
+<div class="progress-bar"><div class="fill" id="totalFill"></div></div>
+<div class="total-count" id="totalCount"></div>
+
+<div id="app"></div>
+
+<footer>
+  <span>Temp tool – delete when done</span>
+  <button id="resetBtn">Reset</button>
+</footer>
+
+<script>
+const DATA = [
+  {
+    id: 'free-pdfs',
+    title: 'Free Book PDFs',
+    note: 'Direct download links. Drag PDF into the Zotero item to attach.',
+    items: [
+      { id: 'illich-tools', author: 'Ivan Illich', title: 'Tools for Conviviality', year: 1973, links: [{label: 'Archive.org', url: 'https://archive.org/details/illich-conviviality'}] },
+      { id: 'mcluhan-massage', author: 'McLuhan & Fiore', title: 'The Medium Is the Massage', year: 1967, links: [{label: 'Archive.org', url: 'https://archive.org/details/pdfy-vNiFct6b-L5ucJEa'}] },
+      { id: 'polanyi-tacit', author: 'Michael Polanyi', title: 'The Tacit Dimension', year: 1966, links: [{label: 'Monoskop PDF', url: 'https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf'}], note: 'Foreword by Sen' },
+      { id: 'franklin-real', author: 'Ursula Franklin', title: 'The Real World of Technology', year: 1989, links: [{label: 'Monoskop PDF', url: 'https://monoskop.org/images/5/58/Franklin_Ursula_The_Real_World_of_Technology_1990.pdf'}] },
+      { id: 'mumford-technics', author: 'Lewis Mumford', title: 'Technics and Civilization', year: 1934, links: [{label: 'Archive.org', url: 'https://archive.org/details/in.ernet.dli.2015.49974'}] },
+      { id: 'beer-designing', author: 'Stafford Beer', title: 'Designing Freedom', year: 1973, links: [{label: 'Monoskop PDF', url: 'https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf'}] },
+      { id: 'berry-unsettling', author: 'Wendell Berry', title: 'The Unsettling of America', year: 1977, links: [{label: 'Archive.org', url: 'https://archive.org/details/wendell-berry-america-culture-agriculture'}] },
+      { id: 'mclean-scaling', author: 'McLean & Gargani', title: 'Scaling Impact', year: 2019, links: [{label: 'IDRC PDF', url: 'https://idl-bnc-idrc.dspacedirect.org/bitstream/handle/10625/57605/Scaling%20impact.pdf?sequence=2'}] },
+      { id: 'winner-whale', author: 'Langdon Winner', title: 'The Whale and the Reactor', year: 1986, links: [{label: 'PDF', url: 'https://sciencepolicy.colorado.edu/students/envs_5110/whale_reactor.pdf'}] },
+      { id: 'berger-ways', author: 'John Berger', title: 'Ways of Seeing', year: 1972, links: [{label: 'Archive.org borrow', url: 'https://archive.org/details/waysofseeing00berg'}], note: '1-hr borrow' },
+      { id: 'mcluhan-understanding', author: 'Marshall McLuhan', title: 'Understanding Media', year: 1964, links: [{label: 'Archive.org borrow', url: 'https://archive.org/details/understandingmed0000mclu'}], note: '1-hr borrow' },
+      { id: 'mills-appendix', author: 'C. Wright Mills', title: 'On Intellectual Craftsmanship (appendix)', year: 1959, links: [{label: 'PDF', url: 'https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf'}], note: 'Appendix to The Sociological Imagination' },
+    ]
+  },
+  {
+    id: 'paste-stubs',
+    title: 'Paste Into Stubs',
+    note: 'Frontmatter files ready in library/. Open URL, Cmd+A article body, paste after the --- line. ~30 sec each.',
+    items: [
+      { id: 'paste-victor-magic', author: 'Bret Victor', title: 'Magic Ink', year: 2006, links: [{label: 'worrydream.com', url: 'https://worrydream.com/MagicInk/'}], note: 'Very long essay with diagrams. Note [image:] placeholders.' },
+      { id: 'paste-victor-ladder', author: 'Bret Victor', title: 'Ladder of Abstraction', year: 2011, links: [{label: 'worrydream.com', url: 'https://worrydream.com/LadderOfAbstraction/'}], note: 'Interactive elements won\'t translate to markdown.' },
+      { id: 'paste-mccoy-archivists', author: 'Chase McCoy', title: 'We Could All Be Archivists', year: 2025, links: [{label: 'chsmc.org', url: 'https://chsmc.org/2025/01/archivists/'}] },
+      { id: 'paste-mod-fast', author: 'Craig Mod', title: 'Fast Software, the Best Software', year: null, links: [{label: 'craigmod.com', url: 'https://craigmod.com/essays/fast_software/'}] },
+      { id: 'paste-chimero-grain', author: 'Frank Chimero', title: 'The Web\'s Grain', year: 2015, links: [{label: 'frankchimero.com', url: 'https://frankchimero.com/blog/2015/the-webs-grain/'}] },
+      { id: 'paste-jacobs-tech', author: 'Alan Jacobs', title: 'From Tech Critique to Ways of Living', year: 2021, links: [{label: 'New Atlantis', url: 'https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living'}] },
+      { id: 'paste-burton-rational', author: 'Tara Isabella Burton', title: 'Rational Magic', year: null, links: [{label: 'New Atlantis', url: 'https://www.thenewatlantis.com/publications/rational-magic'}] },
+      { id: 'paste-bogost-cathedral', author: 'Ian Bogost', title: 'The Cathedral of Computation', year: 2015, links: [{label: 'The Atlantic', url: 'https://www.theatlantic.com/technology/archive/2015/01/the-cathedral-of-computation/384300/'}] },
+      { id: 'paste-steyerl-poor', author: 'Hito Steyerl', title: 'In Defense of the Poor Image', year: 2009, links: [{label: 'e-flux', url: 'https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image/'}] },
+      { id: 'paste-appleton-tools', author: 'Maggie Appleton', title: 'Tools for Thought as Cultural Practices', year: null, links: [{label: 'maggieappleton.com', url: 'https://maggieappleton.com/tools-for-thought'}] },
+    ]
+  },
+  {
+    id: 'bot-blocked',
+    title: 'Bot-Blocked Essays',
+    note: 'Open in browser, use webclipper or Defuddle. Save to source_reading/library/.',
+    items: [
+      { id: 'russell-maintainers', author: 'Russell & Vinsel', title: 'Hail the Maintainers', year: 2016, links: [{label: 'Aeon', url: 'https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more'}], note: 'Look for: "innovation-speak" as ideology' },
+      { id: 'mattern-maintenance', author: 'Shannon Mattern', title: 'Maintenance and Care', year: 2018, links: [{label: 'Places Journal', url: 'https://placesjournal.org/article/maintenance-and-care/'}], note: 'Look for: vivid maintenance examples across domains' },
+      { id: 'mattern-step', author: 'Shannon Mattern', title: 'Step by Step', year: 2024, links: [{label: 'Places Journal', url: 'https://placesjournal.org/article/step-by-step-repair-manuals-political-ecology/'}], note: 'Look for: repair manuals as political commitments' },
+      { id: 'slavin-participation', author: 'Kevin Slavin', title: 'Design as Participation', year: null, links: [{label: 'MIT PubPub', url: 'https://jods.mitpress.mit.edu/pub/design-as-participation'}], note: 'Look for: designer as participant, not maker' },
+    ]
+  },
+  {
+    id: 't3-books',
+    title: 'Books to Find',
+    note: 'Search by ISBN. Attach PDF/EPUB to existing Zotero items.',
+    items: [
+      { id: 'alexander-timeless', author: 'Christopher Alexander', title: 'The Timeless Way of Building', year: 1979, isbn: '978-0195024029', lane: 'craft' },
+      { id: 'sennett-craftsman', author: 'Richard Sennett', title: 'The Craftsman', year: 2008, isbn: '978-0300151190', lane: 'craft' },
+      { id: 'schwarz-anarchist', author: 'Christopher Schwarz', title: "The Anarchist's Tool Chest", year: 2011, isbn: '978-0578084985', lane: 'craft' },
+      { id: 'korn-why', author: 'Peter Korn', title: 'Why We Make Things and Why It Matters', year: 2013, isbn: '978-1567925463', lane: 'craft' },
+      { id: 'ingold-making', author: 'Tim Ingold', title: 'Making', year: 2013, isbn: '978-0415567237', lane: 'craft' },
+      { id: 'flyvbjerg-social', author: 'Bent Flyvbjerg', title: 'Making Social Science Matter', year: 2001, isbn: '978-0521775687', lane: 'perception' },
+      { id: 'law-after', author: 'John Law', title: 'After Method', year: 2004, isbn: '978-0415341752', lane: 'perception' },
+      { id: 'dewaal-primates', author: 'Frans de Waal', title: 'Primates and Philosophers', year: 2006, isbn: '978-0691169163', lane: 'perception' },
+      { id: 'pinney-photography', author: 'Pinney & Peterson', title: "Photography's Other Histories", year: 2003, isbn: '978-0822331117', lane: 'perception' },
+      { id: 'labatut-cease', author: 'Benjamin Labatut', title: 'When We Cease to Understand the World', year: 2020, isbn: '978-1782276142', lane: 'perception' },
+      { id: 'vinsel-innovation', author: 'Vinsel & Russell', title: 'The Innovation Delusion', year: 2020, isbn: '978-0525575689', lane: 'technology' },
+      { id: 'krause-good', author: 'Monika Krause', title: 'The Good Project', year: 2014, isbn: '978-0226131405', lane: 'intervention' },
+      { id: 'packard-history', author: 'Randall Packard', title: 'A History of Global Health', year: 2016, isbn: '978-1421420332', lane: 'intervention' },
+      { id: 'ferguson-anti', author: 'James Ferguson', title: 'The Anti-Politics Machine', year: 1990, isbn: '978-0816624379', lane: 'intervention' },
+      { id: 'adams-metrics', author: 'Vincanne Adams (ed.)', title: 'Metrics: What Counts in Global Health', year: 2016, isbn: '978-0822360957', lane: 'intervention' },
+      { id: 'fassin-humanitarian', author: 'Didier Fassin', title: 'Humanitarian Reason', year: 2011, isbn: '978-0520271166', lane: 'intervention' },
+      { id: 'vonbusch-corruption', author: 'von Busch & Palmas', title: 'The Corruption of Co-Design', year: 2023, isbn: '978-1032250014', lane: 'intervention' },
+      { id: 'tsing-friction', author: 'Anna Tsing', title: 'Friction', year: 2004, isbn: '978-0691120652', lane: 'intervention' },
+      { id: 'hendren-body', author: 'Sara Hendren', title: 'What Can a Body Do?', year: 2020, isbn: '978-0735220003', lane: 'stream' },
+    ]
+  },
+  {
+    id: 'undecided',
+    title: 'Undecided',
+    note: 'Decide shelf/stream/cut before downloading.',
+    items: [
+      { id: 'watters-teaching', author: 'Audrey Watters', title: 'Teaching Machines', year: 2021, isbn: '978-0262546065', links: [{label: 'MIT Press', url: 'https://mitpress.mit.edu/9780262546065/teaching-machines/'}] },
+      { id: 'bridle-dark', author: 'James Bridle', title: 'New Dark Age', year: 2018, isbn: '978-1786635471', links: [{label: 'Verso', url: 'https://www.versobooks.com/products/588-new-dark-age'}] },
+      { id: 'chun-updating', author: 'Wendy Chun', title: 'Updating to Remain the Same', year: 2016, isbn: '978-0262533515', links: [{label: 'MIT Press', url: 'https://mitpress.mit.edu/9780262533515/updating-to-remain-the-same/'}] },
+    ]
+  }
+];
+
+const LANE_COLORS = {
+  craft: '#7a6840',
+  perception: '#5a6a7a',
+  technology: '#6a5a3a',
+  intervention: '#4a6a5a',
+  stream: '#6b6560',
+};
+
+function load() {
+  try { return JSON.parse(localStorage.getItem('acquire') || '{}'); } catch { return {}; }
+}
+function save(state) { localStorage.setItem('acquire', JSON.stringify(state)); }
+
+function el(tag, attrs, children) {
+  const node = document.createElement(tag);
+  if (attrs) {
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === 'className') node.className = v;
+      else if (k.startsWith('on')) node.addEventListener(k.slice(2).toLowerCase(), v);
+      else node.setAttribute(k, v);
+    }
+  }
+  if (children) {
+    for (const child of (Array.isArray(children) ? children : [children])) {
+      if (typeof child === 'string') node.appendChild(document.createTextNode(child));
+      else if (child) node.appendChild(child);
+    }
+  }
+  return node;
+}
+
+function toggle(id) {
+  const state = load();
+  state[id] = !state[id];
+  save(state);
+  render();
+}
+
+function copyISBN(isbn, btn) {
+  navigator.clipboard.writeText(isbn).then(function() {
+    btn.textContent = 'copied';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = 'ISBN'; btn.classList.remove('copied'); }, 1200);
+  });
+}
+
+function render() {
+  const state = load();
+  const app = document.getElementById('app');
+  let totalDone = 0, totalItems = 0;
+
+  // Clear previous content
+  while (app.firstChild) app.removeChild(app.firstChild);
+
+  for (const section of DATA) {
+    const sectionDone = section.items.filter(function(i) { return state[i.id]; }).length;
+    totalDone += sectionDone;
+    totalItems += section.items.length;
+
+    const sectionEl = el('section');
+
+    // Section header
+    const header = el('div', { className: 'section-header' }, [
+      el('h2', null, section.title),
+      el('span', { className: 'section-count' }, sectionDone + ' / ' + section.items.length)
+    ]);
+    sectionEl.appendChild(header);
+
+    // Section note
+    if (section.note) {
+      sectionEl.appendChild(el('p', { className: 'section-note' }, section.note));
+    }
+
+    // Items
+    for (const item of section.items) {
+      const done = state[item.id];
+      const yearStr = item.year ? ' (' + item.year + ')' : '';
+
+      // Title line
+      const titleChildren = [
+        document.createTextNode(item.author + ' \u2013 ' + item.title + yearStr)
+      ];
+      if (item.lane) {
+        const laneSpan = el('span', { className: 'lane-tag' }, item.lane);
+        laneSpan.style.color = LANE_COLORS[item.lane] || '#666';
+        titleChildren.push(laneSpan);
+      }
+      const titleDiv = el('div', { className: 'item-title' }, titleChildren);
+
+      // Body
+      const bodyChildren = [titleDiv];
+      if (item.note) {
+        bodyChildren.push(el('div', { className: 'note' }, item.note));
+      }
+      const bodyDiv = el('div', { className: 'item-body' }, bodyChildren);
+
+      // Actions
+      const actionsDiv = el('div', { className: 'item-actions' });
+      if (item.links) {
+        for (const link of item.links) {
+          const a = el('a', { className: 'link-btn', href: link.url, target: '_blank', rel: 'noopener' }, link.label + ' \u2197');
+          actionsDiv.appendChild(a);
+        }
+      }
+      if (item.isbn) {
+        const isbn = item.isbn;
+        const btn = el('button', { className: 'copy-btn' }, 'ISBN');
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          copyISBN(isbn, btn);
+        });
+        actionsDiv.appendChild(btn);
+      }
+
+      // Checkbox
+      const itemId = item.id;
+      const cb = el('input', { type: 'checkbox' });
+      cb.checked = !!done;
+      cb.addEventListener('change', function() { toggle(itemId); });
+
+      // Item row
+      const itemDiv = el('div', { className: 'item' + (done ? ' done' : '') }, [cb, bodyDiv, actionsDiv]);
+      sectionEl.appendChild(itemDiv);
+    }
+
+    app.appendChild(sectionEl);
+  }
+
+  // Update progress
+  const pct = totalItems ? Math.round((totalDone / totalItems) * 100) : 0;
+  document.getElementById('totalFill').style.width = pct + '%';
+  document.getElementById('totalCount').textContent = totalDone + ' of ' + totalItems;
+}
+
+document.getElementById('resetBtn').addEventListener('click', function() {
+  if (confirm('Reset all progress?')) {
+    localStorage.removeItem('acquire');
+    location.reload();
+  }
+});
+
+render();
+</script>
+</body>
+</html>

@@ -6,5 +6,6 @@ dest: shelf
 lane: craft
 url: "https://frankchimero.com/blog/2015/the-webs-grain/"
 dek: "2015"
+note: "a bear on a bicycle"
 order: 10
 ---
