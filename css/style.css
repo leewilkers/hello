@@ -188,13 +188,13 @@ p + ul.dashed {
 .shelf-subtitle {
   font-size: 0.8rem;
   color: var(--ink-faint);
-  padding: 0.75rem 2.5rem 0;
+  padding: 0.75rem 2rem 0;
 }
 
 .shelf-date {
   font-size: 0.65rem;
   color: var(--ink-ghost);
-  padding: 0.15rem 2.5rem 0;
+  padding: 0.15rem 2rem 0;
   font-family: 'Courier New', Courier, monospace;
 }
 
@@ -267,29 +267,27 @@ p + ul.dashed {
 .page-shelf {
   max-width: none;
   padding: 0;
-  height: calc(100vh - 49px);
-  overflow: hidden;
 }
 
 .broadsheet {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  height: 100%;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: start;
 }
 
 .column {
-  padding: 1rem 1.5rem 3rem;
+  min-width: 0;
+  padding: 1rem 1.25rem 2.5rem;
   border-right: 1px solid var(--rule);
-  overflow-y: auto;
 }
 
 .column:first-child {
-  padding-left: 2.5rem;
+  padding-left: 2rem;
 }
 
 .column:last-child {
   border-right: none;
-  padding-right: 2.5rem;
+  padding-right: 2rem;
 }
 
 .col-header {
@@ -301,15 +299,6 @@ p + ul.dashed {
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--rule);
   margin-bottom: 0.75rem;
-}
-
-.col-header span {
-  font-weight: 400;
-  color: var(--ink-ghost);
-  letter-spacing: 0;
-  text-transform: none;
-  font-size: 0.65rem;
-  margin-left: 0.4rem;
 }
 
 /* shelf list – base */
@@ -364,11 +353,13 @@ ul.shelf li a:hover .entry-title {
 
 .entry-note {
   display: block;
-  font-size: 0.65rem;
-  font-style: italic;
+  font-size: 0.62rem;
+  font-style: normal;
   color: var(--ink-light);
-  line-height: 1.4;
-  margin-top: 0.15rem;
+  line-height: 1.45;
+  margin-top: 0.35rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--rule);
 }
 
 .entry-links {
@@ -414,40 +405,6 @@ ul.shelf li[data-type="site"] {
 ul.shelf li[data-type="site"] .entry-title {
   font-style: normal;
   font-weight: 500;
-}
-
-/* books: single column (was 2, too dense) */
-
-/* sub-headers within columns */
-.sub-header {
-  font-size: 0.6rem;
-  font-weight: 500;
-  color: var(--ink-ghost);
-  letter-spacing: 0.06em;
-  text-transform: lowercase;
-  margin-top: 0.75rem;
-  margin-bottom: 0.4rem;
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--rule-light);
-}
-
-.sub-header:first-child {
-  margin-top: 0;
-  padding-top: 0;
-  border-top: none;
-}
-
-/* sites: tighter, just names */
-.column-sites ul.shelf li {
-  border-bottom: none;
-  margin-bottom: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.column-sites ul.shelf li a {
-  font-weight: 500;
-  font-size: 0.85rem;
-  font-style: normal;
 }
 
 /* ── column accent images ── */
@@ -500,48 +457,63 @@ ul.shelf li[data-type="site"] .entry-title {
   .page { padding: 3.5rem 1.25rem 2.5rem; }
 }
 
-@media (max-width: 1200px) and (min-width: 901px) {
-  .page-shelf {
-    height: auto;
-    overflow: auto;
+@media (max-width: 1400px) {
+  .shelf-subtitle,
+  .shelf-date {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
+
+  .column:first-child {
+    padding-left: 1.25rem;
+  }
+
+  .column:last-child {
+    padding-right: 1.25rem;
+  }
+}
+
+@media (max-width: 1400px) and (min-width: 1101px) {
   .broadsheet {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .column {
-    overflow-y: visible;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .broadsheet {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 900px) and (min-width: 601px) {
-  .page-shelf {
-    height: auto;
-    overflow: auto;
-  }
   .broadsheet {
-    grid-template-columns: 1fr 1fr;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .column {
-    min-width: 260px;
-    overflow-y: visible;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 600px) {
-  .page-shelf {
-    height: auto;
-    overflow: auto;
+  .shelf-subtitle,
+  .shelf-date {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
+
   .broadsheet {
     grid-template-columns: 1fr;
   }
+
   .column {
     border-right: none;
     border-bottom: 1px solid var(--rule);
     padding: 1.25rem;
-    overflow-y: visible;
   }
-  .column:last-child { border-bottom: none; }
+
+  .column:first-child {
+    padding-left: 1.25rem;
+  }
+
+  .column:last-child {
+    border-bottom: none;
+    padding-right: 1.25rem;
+  }
 }
