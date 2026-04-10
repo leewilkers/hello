@@ -6,15 +6,15 @@ Personal homepage. Minimal, static, one page.
 
 - **Eleventy** (static site generator)
 - **GitHub Pages** via `leewilkers/hello` repo
-- **Google Fonts** (Inter 400/500/600)
+- **Georgia serif** (system font stack, no external fonts)
 - **Deploy**: push to `main` → GitHub Actions builds + deploys
 
 ## Key Files
 
 ```
 index.njk            – Homepage content
-css/style.css        – All styles (Inter, single font)
-_includes/base.njk   – HTML shell + Google Fonts import
+css/style.css        – All styles (Georgia serif, system stack)
+_includes/base.njk   – HTML shell, ghost JS, theme toggle
 _data/site.json      – Site metadata (title, URL)
 .eleventy.js         – Minimal config (passthrough CSS + img)
 .github/workflows/build.yml – Build + deploy (Node 22)
@@ -22,7 +22,7 @@ _data/site.json      – Site metadata (title, URL)
 
 ## Design
 
-- **Font**: Inter (Google Fonts) – one family for everything
+- **Font**: Georgia, 'Times New Roman', serif – system stack
 - **Photo**: 76px grayscale, bottom-aligned with name
 - **Layout**: max-width 520px, generous top padding
 - **Accent**: `#c9a227` (mustard) on email link only
