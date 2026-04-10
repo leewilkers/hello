@@ -9,5 +9,8 @@ lane: perception
 url: "https://www.theatlantic.com/technology/archive/2015/01/the-cathedral-of-computation/384300/"
 dek: "The Atlantic, 2015"
 source: "The Atlantic"
+links:
+  - label: "author"
+    url: "https://bogost.com/"
 order: 29
 ---

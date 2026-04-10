@@ -5,11 +5,11 @@ type: book
 image: "/img/covers/robert-mclean-john-gargani-scaling-impact.jpg"
 dest: shelf
 lane: intervention
-url: "https://idrc-crdi.ca/en/books/scaling-impact-innovation-public-good"
+url: "https://idrc-crdi.ca/sites/default/files/openebooks/scalingimpact/index.html"
 dek: "Routledge/IDRC, 2019"
 links:
-  - label: "full text"
-    url: "https://idl-bnc-idrc.dspacedirect.org/bitstream/handle/10625/57605/Scaling%20impact.pdf?sequence=2"
+  - label: "publisher"
+    url: "https://www.routledge.com/Scaling-Impact-Innovation-for-the-Public-Good/McLean-Gargani/p/book/9781138605565"
 note: "the \"science\" of scaling"
 order: 8
 ---

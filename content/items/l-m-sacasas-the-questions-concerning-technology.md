@@ -9,5 +9,10 @@ lane: technology
 url: "https://theconvivialsociety.substack.com/p/the-questions-concerning-technology"
 dek: "The Convivial Society, 2021"
 source: "The Convivial Society"
+links:
+  - label: "Ezra Klein"
+    url: "https://open.spotify.com/episode/6uXt90vrR5zLMA5ysfvKlj"
+  - label: "author"
+    url: "https://thefrailestthing.com/"
 order: 25
 ---

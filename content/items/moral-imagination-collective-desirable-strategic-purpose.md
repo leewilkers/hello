@@ -8,5 +8,8 @@ lane: intervention
 url: "https://pubsonline.informs.org/doi/10.1287/stsc.2023.0190"
 dek: "Strategy Science, 2023"
 note: "the collective desirable"
+links:
+  - label: "full text"
+    url: "https://escholarship.org/uc/item/4qq0t0wp"
 order: 11
 ---

@@ -8,5 +8,8 @@ lane: intervention
 url: "https://doi.org/10.1215/08992363-16-3-407"
 dek: "Public Culture, 2004"
 note: "when there is no bridge, people become the bridge"
+links:
+  - label: "full text"
+    url: "https://eprints-gro.gold.ac.uk/1946/1/Simone_2004a.pdf"
 order: 28
 ---

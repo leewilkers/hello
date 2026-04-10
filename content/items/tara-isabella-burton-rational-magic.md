@@ -9,5 +9,8 @@ lane: perception
 url: "https://www.thenewatlantis.com/publications/rational-magic"
 dek: "The New Atlantis, 2023"
 source: "The New Atlantis"
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Tara_Isabella_Burton"
 order: 27
 ---

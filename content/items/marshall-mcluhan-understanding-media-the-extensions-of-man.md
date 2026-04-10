@@ -9,8 +9,6 @@ url: "https://archive.org/details/understandingmed0000mclu"
 dek: "McGraw-Hill, 1964"
 note: "the content of any medium is always another medium"
 links:
-  - label: "borrow"
-    url: "https://archive.org/details/understandingmed0000mclu"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Understanding_Media"
 order: 5

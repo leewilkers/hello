@@ -9,5 +9,8 @@ lane: perception
 url: "https://maggieappleton.com/tools-for-thought"
 dek: "2022"
 source: "maggieappleton.com"
+links:
+  - label: "talk"
+    url: "https://declarative.amsterdam/presentations/da.2022.appleton.tools-for-thought"
 order: 22
 ---

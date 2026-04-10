@@ -5,8 +5,13 @@ type: book
 image: "/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg"
 dest: shelf
 lane: making
-url: "https://www.koganpage.com/general-business-interest/the-unknown-craftsman-9781568365206"
+url: "https://www.penguinrandomhouse.com/books/563597/the-unknown-craftsman-by-soetsu-yanagi-adapted-by-bernard-leach/"
 dek: "Kodansha, 1972"
+links:
+  - label: "wiki (mingei)"
+    url: "https://en.wikipedia.org/wiki/Mingei"
+  - label: "archive.org"
+    url: "https://archive.org/details/unknowncraftsman0000yana"
 note: "\u201Cthe plain and unagitated, the uncalculated, the harmless, the straightforward, the natural, the innocent, the humble, the modest: where does beauty lie if not in these qualities?\u201D"
 order: 18
 ---

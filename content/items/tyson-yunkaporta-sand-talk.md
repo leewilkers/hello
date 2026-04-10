@@ -8,5 +8,8 @@ lane: method
 url: "https://www.harpercollins.com/products/sand-talk-tyson-yunkaporta"
 dek: "HarperOne, 2019"
 note: "carving to think"
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Sand_Talk"
 order: 36
 ---
