@@ -6,6 +6,6 @@ dest: shelf
 lane: technology
 url: "https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"
 dek: "Aeon, 2016"
-note: "maintainers > innovators"
+note: "the most unappreciated and undervalued forms of labor involve the maintenance of existing things"
 order: 3
 ---

@@ -7,6 +7,6 @@ dest: shelf
 lane: technology
 url: "https://www.penguinrandomhouse.com/books/576816/the-innovation-delusion-by-lee-vinsel-and-andrew-l-russell/"
 dek: "Currency, 2020"
-note: "book-length Hail the Maintainers"
+note: "innovation is a word that has been stripped of meaning through overuse"
 order: 14
 ---

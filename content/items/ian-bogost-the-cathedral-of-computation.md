@@ -7,6 +7,7 @@ dest: shelf
 note: "replace algorithm with God and ask if the meaning changes"
 lane: perception
 url: "https://www.theatlantic.com/technology/archive/2015/01/the-cathedral-of-computation/384300/"
+dek: "The Atlantic, 2015"
 source: "The Atlantic"
 order: 29
 ---

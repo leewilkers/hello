@@ -7,5 +7,6 @@ dest: shelf
 lane: intervention
 url: "https://www.dukeupress.edu/designs-for-the-pluriverse"
 dek: "Duke, 2018"
+note: "the task is not to design for the world but to design for the pluriverse – a world where many worlds fit"
 order: 31
 ---

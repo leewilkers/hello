@@ -7,6 +7,7 @@ dest: shelf
 note: "as if steel saucepans grew on trees"
 lane: technology
 url: "https://www.ursulakleguin.com/a-rant-about-technology"
+dek: "2004"
 source: "ursulakleguin.com"
 order: 30
 ---

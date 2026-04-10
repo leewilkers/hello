@@ -10,6 +10,6 @@ dek: "PLoS Medicine, 2005"
 links:
   - label: "full text"
     url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020400"
-note: "our moral imagination is dulled"
+note: "we lack the capacity to imagine how our actions affect others whose lives we cannot see"
 order: 10
 ---

@@ -4,9 +4,10 @@ title: "Tendrils of Mess in our Brains"
 type: essay
 image: "/img/covers/sarah-perry-tendrils-of-mess-in-our-brains.jpg"
 dest: shelf
-note: "at once invisible and obvious"
+note: "consciousness is not a clearing in the forest; it is swarming with tendrils of mess it didn't put there"
 lane: perception
 url: "https://www.ribbonfarm.com/2017/01/05/tendrils-of-mess-in-our-brains/"
+dek: "Ribbonfarm, 2017"
 source: "ribbonfarm.com"
 order: 20
 ---

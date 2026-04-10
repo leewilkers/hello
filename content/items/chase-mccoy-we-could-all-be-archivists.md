@@ -7,6 +7,6 @@ dest: shelf
 lane: making
 url: "https://chsmc.org/2025/01/archivists/"
 dek: "2025"
-note: "the internet isn't written in ink"
+note: "preservation is not the default on the internet; it is a choice that has to be made again and again"
 order: 6
 ---

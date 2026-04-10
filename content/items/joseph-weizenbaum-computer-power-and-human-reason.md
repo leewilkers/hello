@@ -7,6 +7,6 @@ dest: shelf
 lane: machine
 url: "https://archive.org/details/computerpowerhu000weiz"
 dek: "W.H. Freeman, 1976"
-note: "the therapist was a parlor trick"
+note: "I had not realized that extremely short exposures to a relatively simple computer program could induce powerful delusional thinking in quite normal people"
 order: 45
 ---

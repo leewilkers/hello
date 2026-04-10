@@ -7,6 +7,6 @@ dest: shelf
 lane: method
 url: "https://www.ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/"
 dek: "Ribbonfarm, 2010"
-note: "blogosphere-era take on Seeing Like a State"
+note: "the urge to make a mess legible is the urge to make it governable"
 order: 8
 ---
