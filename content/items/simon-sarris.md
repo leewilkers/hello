@@ -6,4 +6,5 @@ image: "/img/covers/simon-sarris.jpg"
 dest: stream
 url: "https://map.simonsarris.com"
 order: 19
+links: []
 ---

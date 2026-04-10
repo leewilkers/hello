@@ -9,4 +9,7 @@ url: "https://placesjournal.org/article/step-by-step-repair-manuals-political-ec
 dek: "Places Journal, 2024"
 note: "who gets to fix what"
 order: 5
+links:
+  - label: "author"
+    url: "https://wordsinspace.net/about/"
 ---

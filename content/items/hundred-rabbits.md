@@ -7,4 +7,7 @@ dest: shelf
 lane: making
 url: "https://100r.co"
 order: 11
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Hundred_Rabbits"
 ---

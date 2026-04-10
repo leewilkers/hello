@@ -10,4 +10,7 @@ dek: "Ribbonfarm, 2018"
 source: "ribbonfarm.com"
 note: "the opposite of laziness is not effort; it is the willingness to exert effort on things that do not matter"
 order: 26
+links:
+  - label: "author (Ribbonfarm)"
+    url: "https://www.ribbonfarm.com/author/sarahperry/"
 ---

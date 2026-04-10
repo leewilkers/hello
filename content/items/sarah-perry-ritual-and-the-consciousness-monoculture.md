@@ -10,4 +10,7 @@ dek: "Ribbonfarm, 2015"
 source: "ribbonfarm.com"
 note: "we have replaced ritual with individual choice, and individual choice is lonely"
 order: 23
+links:
+  - label: "author (Ribbonfarm)"
+    url: "https://www.ribbonfarm.com/author/sarahperry/"
 ---

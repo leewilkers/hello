@@ -9,4 +9,7 @@ url: "https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law
 dek: "Routledge, 2004"
 note: "\u201Csimple clear descriptions don\u2019t work if what they are describing is not itself very coherent. The very attempt to be clear simply increases the mess.\u201D"
 order: 25
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/John_Law_(sociologist)"
 ---

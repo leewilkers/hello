@@ -9,4 +9,7 @@ url: "https://frankchimero.com/blog/2015/the-webs-grain/"
 dek: "2015"
 note: "a bear on a bicycle"
 order: 10
+links:
+  - label: "talk (Webstock '15)"
+    url: "https://archive.org/details/vimeo-122880890"
 ---

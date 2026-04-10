@@ -6,4 +6,5 @@ image: "/img/covers/the-new-atlantis.jpg"
 dest: stream
 url: "https://www.thenewatlantis.com"
 order: 4
+links: []
 ---

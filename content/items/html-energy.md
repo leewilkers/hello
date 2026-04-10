@@ -8,4 +8,9 @@ lane: making
 order: 21
 note: "HTML as creative medium"
 image: "/img/covers/html-energy.jpg"
+links:
+  - label: "author"
+    url: "https://laurelschwulst.com/"
+  - label: "essay (Creative Independent)"
+    url: "https://thecreativeindependent.com/people/laurel-schwulst-my-website-is-a-shifting-house-next-to-a-river-of-knowledge-what-could-yours-be/"
 ---

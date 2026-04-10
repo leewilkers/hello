@@ -6,4 +6,5 @@ image: "/img/covers/maggie-appleton.jpg"
 dest: stream
 url: "https://maggieappleton.com"
 order: 17
+links: []
 ---

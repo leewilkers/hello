@@ -6,4 +6,5 @@ image: "/img/covers/asterisk.jpg"
 dest: stream
 url: "https://asteriskmag.com"
 order: 14
+links: []
 ---

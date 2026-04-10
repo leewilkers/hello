@@ -9,4 +9,7 @@ url: "https://worrydream.com/MagicInk/"
 dek: "worrydream.com, 2006"
 note: "why are you clicking"
 order: 3
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Bret_Victor"
 ---

@@ -9,4 +9,7 @@ order: 25
 dek: "2022–"
 note: "clear writing about things that matter"
 image: "/img/covers/asterisk-magazine.jpg"
+links:
+  - label: "articles"
+    url: "https://asteriskmag.com/articles"
 ---

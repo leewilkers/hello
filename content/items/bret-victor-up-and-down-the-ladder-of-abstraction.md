@@ -9,4 +9,7 @@ url: "https://worrydream.com/LadderOfAbstraction/"
 dek: "worrydream.com, 2011"
 note: "zoom in, zoom out, keep going"
 order: 8
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Bret_Victor"
 ---

@@ -10,4 +10,7 @@ url: "https://www.ribbonfarm.com/2017/01/05/tendrils-of-mess-in-our-brains/"
 dek: "Ribbonfarm, 2017"
 source: "ribbonfarm.com"
 order: 20
+links:
+  - label: "author (Ribbonfarm)"
+    url: "https://www.ribbonfarm.com/author/sarahperry/"
 ---

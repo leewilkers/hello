@@ -9,4 +9,5 @@ url: "https://dukeupress.edu/photographys-other-histories"
 dek: "Duke, 2003"
 note: "photography arrived in India, Japan, and West Africa not as a copy of European practice but as something else entirely"
 order: 32
+links: []
 ---

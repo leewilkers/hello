@@ -9,4 +9,5 @@ url: "https://craigmod.com/essays/fast_software/"
 dek: "2019"
 note: "speed in software is like speed in a workshop tool – it changes what you're willing to try"
 order: 9
+links: []
 ---
