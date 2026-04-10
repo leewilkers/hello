@@ -8,5 +8,5 @@ lane: making
 url: "https://worrydream.com/MagicInk/"
 dek: "worrydream.com, 2006"
 note: "why are you clicking"
-order: 1
+order: 3
 ---

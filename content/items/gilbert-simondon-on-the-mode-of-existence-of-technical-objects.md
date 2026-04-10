@@ -8,5 +8,10 @@ lane: machine
 url: "https://www.upress.umn.edu/book-division/books/on-the-mode-of-existence-of-technical-objects"
 dek: "Univocal, 1958 / 2017"
 note: "\u201Cthe machine is a stranger in which what is human is locked in, unrecognized, materialized and enslaved, but human nonetheless\u201D"
-order: 42
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Gilbert_Simondon"
+  - label: "archive.org"
+    url: "https://archive.org/details/Simondon--ModeOfExistenceOfTechnicalObjectsinProgress"
+order: 5
 ---

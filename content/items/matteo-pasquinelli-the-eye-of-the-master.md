@@ -5,8 +5,13 @@ type: book
 image: "/img/covers/matteo-pasquinelli-the-eye-of-the-master.jpg"
 dest: shelf
 lane: machine
-url: "https://www.versobooks.com/products/2887-the-eye-of-the-master"
+url: "https://www.versobooks.com/products/735-the-eye-of-the-master"
 dek: "Verso, 2023"
 note: "the master watches the workers, then automates them"
-order: 32
+links:
+  - label: "author"
+    url: "https://www.matteopasquinelli.com/the-eye-of-the-master/"
+  - label: "review"
+    url: "https://criticalinquiry.uchicago.edu/marc_kohlbry_reviews_the_eye_of_the_master/"
+order: 2
 ---

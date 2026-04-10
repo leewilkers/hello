@@ -5,9 +5,14 @@ type: book
 image: "/img/covers/lucy-suchman-human-machine-reconfigurations.jpg"
 dest: shelf
 lane: machine
-url: "https://www.cambridge.org/core/books/humanmachine-reconfigurations/C7B3B3E3BE3B5A5C5C4E4B3E5C2E7F8A"
+url: "https://www.cambridge.org/core/books/humanmachine-reconfigurations/9D53E602BA9BB5209271460F92D00EFE"
 dek: "Cambridge, 2007/2024"
 note: "plans are resources for situated action"
 featured: true
-order: 38
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Lucy_Suchman"
+  - label: "podcast"
+    url: "https://www.talkingaboutorganizations.com/e22/"
+order: 1
 ---

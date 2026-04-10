@@ -8,5 +8,10 @@ lane: machine
 url: "https://www.upress.umn.edu/book-division/books/into-the-universe-of-technical-images"
 dek: "University of Minnesota Press, 1985 / 2011"
 note: "\u201Ctechnical images are not mirrors but projectors. They draw up plans on deceptive surfaces, and these plans are meant to become life plans for their recipients.\u201D"
-order: 43
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Vil%C3%A9m_Flusser"
+  - label: "Flusser Studies"
+    url: "https://www.flusserstudies.net/flusser"
+order: 7
 ---

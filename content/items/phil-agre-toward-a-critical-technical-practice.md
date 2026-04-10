@@ -8,5 +8,10 @@ lane: machine
 url: "https://pages.gseis.ucla.edu/faculty/agre/critical.html"
 dek: "1997"
 note: "running from intelligent machines"
-order: 40
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Critical_technical_practice"
+  - label: "wiki (author)"
+    url: "https://en.wikipedia.org/wiki/Philip_Agre"
+order: 3
 ---

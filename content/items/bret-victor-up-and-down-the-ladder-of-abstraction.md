@@ -8,5 +8,5 @@ lane: making
 url: "https://worrydream.com/LadderOfAbstraction/"
 dek: "worrydream.com, 2011"
 note: "zoom in, zoom out, keep going"
-order: 2
+order: 8
 ---

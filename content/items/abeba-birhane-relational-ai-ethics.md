@@ -8,5 +8,10 @@ lane: machine
 url: "https://abebabirhane.com/"
 dek: "essays, 2020–"
 note: "I am because we are"
-order: 36
+links:
+  - label: "wiki"
+    url: "https://en.wikipedia.org/wiki/Abeba_Birhane"
+  - label: "paper"
+    url: "https://arxiv.org/abs/1912.07376"
+order: 6
 ---
