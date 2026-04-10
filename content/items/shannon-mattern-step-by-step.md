@@ -2,6 +2,7 @@
 author: "Shannon Mattern"
 title: "Step by Step"
 type: essay
+image: "/img/covers/shannon-mattern-step-by-step.jpg"
 dest: shelf
 lane: technology
 url: "https://placesjournal.org/article/step-by-step-repair-manuals-political-ecology/"

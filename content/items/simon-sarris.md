@@ -2,6 +2,7 @@
 author: "Simon Sarris"
 title: ""
 type: site
+image: "/img/covers/simon-sarris.jpg"
 dest: stream
 url: "https://map.simonsarris.com"
 order: 19

@@ -2,6 +2,7 @@
 author: "Ian Bogost"
 title: "The Cathedral of Computation"
 type: essay
+image: "/img/covers/ian-bogost-the-cathedral-of-computation.jpg"
 dest: shelf
 note: "replace algorithm with God and ask if the meaning changes"
 lane: perception

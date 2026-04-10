@@ -2,6 +2,7 @@
 author: "Hito Steyerl"
 title: "In Defense of the Poor Image"
 type: essay
+image: "/img/covers/hito-steyerl-in-defense-of-the-poor-image.jpg"
 dest: shelf
 note: "lumpen proletarian in the class society of appearances"
 lane: perception

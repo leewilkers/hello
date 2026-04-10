@@ -2,6 +2,7 @@
 author: "Sarah Perry"
 title: "Tendrils of Mess in our Brains"
 type: essay
+image: "/img/covers/sarah-perry-tendrils-of-mess-in-our-brains.jpg"
 dest: shelf
 note: "at once invisible and obvious"
 lane: perception

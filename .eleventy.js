@@ -44,6 +44,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("node_modules/**");
   eleventyConfig.ignores.add("migrate-items.js");
   eleventyConfig.ignores.add("google8f11425ab7fc438d.html");
+  eleventyConfig.ignores.add("_og-card.html");
 
   return {
     dir: {

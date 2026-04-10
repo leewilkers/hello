@@ -2,6 +2,7 @@
 author: "Shannon Mattern"
 title: "Maintenance and Care"
 type: essay
+image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
 dest: shelf
 lane: technology
 url: "https://placesjournal.org/article/maintenance-and-care/"

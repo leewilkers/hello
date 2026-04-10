@@ -11,3 +11,6 @@ source_reading/library/books/
 source_reading/notes/
 source_reading/acquire.html
 source_reading/DOWNLOAD_CHECKLIST.md
+_og-card.html
+__pycache__/
+scripts/

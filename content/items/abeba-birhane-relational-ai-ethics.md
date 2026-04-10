@@ -2,6 +2,7 @@
 author: "Abeba Birhane"
 title: "Relational Ethics for AI"
 type: essay
+image: "/img/covers/abeba-birhane-relational-ai-ethics.jpg"
 dest: shelf
 lane: machine
 url: "https://abebabirhane.com/"
