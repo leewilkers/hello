@@ -2,6 +2,7 @@
 author: "Marshall McLuhan"
 title: "Understanding Media: The Extensions of Man"
 type: book
+image: "/img/covers/marshall-mcluhan-understanding-media-the-extensions-of-man.jpg"
 dest: shelf
 lane: perception
 url: "https://archive.org/details/understandingmed0000mclu"

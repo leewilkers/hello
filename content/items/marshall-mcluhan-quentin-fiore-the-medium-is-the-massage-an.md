@@ -2,6 +2,7 @@
 author: "Marshall McLuhan & Quentin Fiore"
 title: "The Medium Is the Massage: An Inventory of Effects"
 type: book
+image: "/img/covers/marshall-mcluhan-quentin-fiore-the-medium-is-the-massage-an.jpg"
 dest: shelf
 lane: perception
 url: "https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"

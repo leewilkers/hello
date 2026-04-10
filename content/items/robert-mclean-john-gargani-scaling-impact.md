@@ -2,6 +2,7 @@
 author: "Robert McLean & John Gargani"
 title: "Scaling Impact: Innovation for the Public Good"
 type: book
+image: "/img/covers/robert-mclean-john-gargani-scaling-impact.jpg"
 dest: shelf
 lane: intervention
 url: "https://idrc-crdi.ca/en/books/scaling-impact-innovation-public-good"

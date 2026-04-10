@@ -2,6 +2,7 @@
 author: "Wendell Berry"
 title: "The Unsettling of America: Culture and Agriculture"
 type: book
+image: "/img/covers/wendell-berry-the-unsettling-of-america-culture-and.jpg"
 dest: shelf
 lane: technology
 url: "https://archive.org/details/wendell-berry-america-culture-agriculture"

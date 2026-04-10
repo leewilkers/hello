@@ -2,6 +2,7 @@
 author: "James Ferguson"
 title: "The Anti-Politics Machine: Development, Depoliticization, and Bureaucratic Power in Lesotho"
 type: book
+image: "/img/covers/james-ferguson-the-anti-politics-machine-development.jpg"
 dest: shelf
 lane: intervention
 url: "https://www.astralcodexten.com/p/your-book-review-the-anti-politics"
@@ -13,6 +14,5 @@ links:
     url: "https://en.wikipedia.org/wiki/The_Anti-Politics_Machine"
 note: "development as depoliticization"
 featured: true
-image: /img/cover-intervention.jpg
 order: 20
 ---

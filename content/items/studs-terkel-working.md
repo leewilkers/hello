@@ -2,6 +2,7 @@
 author: "Studs Terkel"
 title: "Working"
 type: book
+image: "/img/covers/studs-terkel-working.jpg"
 dest: shelf
 lane: making
 url: "https://en.wikipedia.org/wiki/Working_(book)"

@@ -2,6 +2,7 @@
 author: "Randall Packard"
 title: "A History of Global Health: Interventions into the Lives of Other Peoples"
 type: book
+image: "/img/covers/randall-packard-a-history-of-global-health-interventions.jpg"
 dest: shelf
 lane: intervention
 url: "https://www.press.jhu.edu/books/title/10791/history-global-health"

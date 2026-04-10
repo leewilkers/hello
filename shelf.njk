@@ -13,11 +13,7 @@ pageClass: page-shelf
 {% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
 
 {% macro entry(item) %}
-      <li data-type="{{ item.data.type }}"{% if item.data.note and not item.data.featured %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.image %} class="has-thumb"{% endif %}>
-        {%- if item.data.image %}
-        <img class="entry-thumb" src="{{ item.data.image }}" alt="" loading="lazy">
-        {%- endif %}
-        <div class="entry-body">
+      <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
         <a href="{{ item.data.url }}">
           <span class="entry-author">{{ item.data.author }}</span>
           <span class="entry-title">{{ item.data.title }}</span>
@@ -33,7 +29,6 @@ pageClass: page-shelf
           {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
         </span>
         {%- endif %}
-        </div>
       </li>
 {% endmacro %}
 
@@ -42,18 +37,8 @@ pageClass: page-shelf
 
 <div class="broadsheet">
 
-  {% macro colImage(items) %}
-    {%- set hero = items | findImage -%}
-    {%- if hero %}
-    <div class="col-image">
-      <img src="{{ hero.data.image }}" alt="{{ hero.data.author }} – {{ hero.data.title }}">
-    </div>
-    {%- endif %}
-  {% endmacro %}
-
   <div class="column">
     <div class="col-header">making</div>
-    {{ colImage(making) }}
     <ul class="shelf">
       {%- for item in making %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -61,7 +46,6 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">perception</div>
-    {{ colImage(perception) }}
     <ul class="shelf">
       {%- for item in perception %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -69,7 +53,6 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">method</div>
-    {{ colImage(method) }}
     <ul class="shelf">
       {%- for item in method %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -77,7 +60,6 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">technology</div>
-    {{ colImage(technology) }}
     <ul class="shelf">
       {%- for item in technology %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -85,7 +67,6 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">intervention</div>
-    {{ colImage(intervention) }}
     <ul class="shelf">
       {%- for item in intervention %}{{ entry(item) }}{%- endfor %}
     </ul>
@@ -93,10 +74,19 @@ pageClass: page-shelf
 
   <div class="column">
     <div class="col-header">machine</div>
-    {{ colImage(machine) }}
     <ul class="shelf">
       {%- for item in machine %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
+</div>
+
+<div class="margin-ghost" id="margin-ghost">
+  <img src="/img/melancholia.jpg" alt="" id="ghost-img">
+  <div class="ghost-meta" id="ghost-meta">
+    <span class="ghost-author" id="ghost-author"></span>
+    <span class="ghost-title" id="ghost-title"></span>
+    <span class="ghost-dek" id="ghost-dek"></span>
+    <span class="ghost-note" id="ghost-note"></span>
+  </div>
 </div>

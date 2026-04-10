@@ -2,6 +2,7 @@
 author: "C. Wright Mills"
 title: "The Sociological Imagination"
 type: book
+image: "/img/covers/c-wright-mills-the-sociological-imagination.jpg"
 dest: shelf
 lane: method
 url: "https://www.miguelangelmartinez.net/IMG/pdf/1959_Mills_on_intellctual_craftmanship.pdf"

@@ -2,6 +2,7 @@
 author: "Stafford Beer"
 title: "Designing Freedom"
 type: book
+image: "/img/covers/stafford-beer-designing-freedom.jpg"
 dest: shelf
 lane: technology
 url: "https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf"
