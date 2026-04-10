@@ -60,40 +60,76 @@
     var gTitle = document.getElementById('ghost-title');
     var gDek = document.getElementById('ghost-dek');
     var gNote = document.getElementById('ghost-note');
+    var leaveTimer = null;
 
     // preload covers
     document.querySelectorAll('[data-cover]').forEach(function(el) {
       new Image().src = el.getAttribute('data-cover');
     });
 
-    // ALL shelf items trigger the ghost, not just those with covers
+    // melancholia easter egg – clickable when at rest
+    ghost.style.pointerEvents = 'auto';
+    ghost.addEventListener('click', function() {
+      if (!ghost.classList.contains('active')) {
+        window.open('https://en.wikipedia.org/wiki/Melencolia_I', '_blank');
+      }
+    });
+    ghost.addEventListener('mouseenter', function() {
+      if (!ghost.classList.contains('active')) {
+        img.style.opacity = '1';
+        img.style.filter = 'grayscale(0.6)';
+        ghost.style.cursor = 'pointer';
+      }
+    });
+    ghost.addEventListener('mouseleave', function() {
+      if (!ghost.classList.contains('active')) {
+        img.style.opacity = '';
+        img.style.filter = '';
+        ghost.style.cursor = '';
+      }
+    });
+
+    function setGhost(cover, author, title, dek, note) {
+      var newSrc = cover || defaultSrc;
+      if (img.src !== newSrc) {
+        // crossfade: fade out, swap, fade in
+        img.style.transition = 'opacity 150ms ease';
+        img.style.opacity = '0';
+        setTimeout(function() {
+          img.src = newSrc;
+          img.style.transition = '';
+          // let the CSS transition handle fade-in
+        }, 160);
+      }
+      gAuthor.textContent = author;
+      gTitle.textContent = title;
+      gDek.textContent = dek;
+      gNote.textContent = note;
+    }
+
     document.querySelectorAll('.shelf li').forEach(function(el) {
       el.addEventListener('mouseenter', function() {
+        if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
         var cover = el.getAttribute('data-cover');
-        if (cover) {
-          img.src = cover;
-          img.style.display = '';
-        } else {
-          img.src = defaultSrc;
-          img.style.display = '';
-        }
-        gAuthor.textContent = el.getAttribute('data-author') || '';
-        gTitle.textContent = el.getAttribute('data-item-title') || '';
-        gDek.textContent = el.getAttribute('data-dek') || '';
-        gNote.textContent = el.getAttribute('data-note') || '';
+        setGhost(
+          cover,
+          el.getAttribute('data-author') || '',
+          el.getAttribute('data-item-title') || '',
+          el.getAttribute('data-dek') || '',
+          el.getAttribute('data-note') || ''
+        );
         ghost.classList.add('active');
+        ghost.style.cursor = '';
+        img.style.opacity = '';
+        img.style.filter = '';
       });
       el.addEventListener('mouseleave', function() {
         ghost.classList.remove('active');
-        setTimeout(function() {
+        leaveTimer = setTimeout(function() {
           if (!ghost.classList.contains('active')) {
-            img.src = defaultSrc;
-            gAuthor.textContent = '';
-            gTitle.textContent = '';
-            gDek.textContent = '';
-            gNote.textContent = '';
+            setGhost(null, '', '', '', '');
           }
-        }, 400);
+        }, 600);
       });
     });
   })();
