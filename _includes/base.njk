@@ -90,17 +90,7 @@
     });
 
     function setGhost(cover, author, title, dek, note) {
-      var newSrc = cover || defaultSrc;
-      if (img.src !== newSrc) {
-        // crossfade: fade out, swap, fade in
-        img.style.transition = 'opacity 150ms ease';
-        img.style.opacity = '0';
-        setTimeout(function() {
-          img.src = newSrc;
-          img.style.transition = '';
-          // let the CSS transition handle fade-in
-        }, 160);
-      }
+      img.src = cover || defaultSrc;
       gAuthor.textContent = author;
       gTitle.textContent = title;
       gDek.textContent = dek;
@@ -134,11 +124,12 @@
     });
   })();
 
-  // hover notes – follows cursor, skip featured items (they show note inline)
+  // hover notes – cursor tooltip, only on mobile (ghost card shows note on desktop)
   document.querySelectorAll('[data-note]').forEach(function(el) {
     if (el.querySelector('.entry-note')) return;
     var tip;
     el.addEventListener('mouseenter', function(e) {
+      if (window.innerWidth >= 900) return; // ghost card handles it
       tip = document.createElement('div');
       tip.className = 'hover-note';
       tip.textContent = el.getAttribute('data-note');
@@ -154,7 +145,6 @@
     function position(e) {
       var x = e.clientX + 12;
       var y = e.clientY - 8;
-      // keep on screen
       var w = tip.offsetWidth;
       if (x + w > window.innerWidth - 8) x = e.clientX - w - 12;
       tip.style.left = x + 'px';
