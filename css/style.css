@@ -1,7 +1,12 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+:root {
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Source Sans 3', -apple-system, sans-serif;
+}
+
 body {
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--serif);
   background: var(--bg);
   color: var(--ink);
   font-size: 15px;
@@ -50,6 +55,7 @@ img { display: block; }
 }
 
 .nav-name {
+  font-family: var(--sans);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -68,6 +74,7 @@ img { display: block; }
 }
 
 .nav-links a {
+  font-family: var(--sans);
   font-size: 0.75rem;
   color: var(--ink-ghost);
   letter-spacing: 0.03em;
@@ -187,16 +194,17 @@ p + ul.dashed {
 /* ── stream ──────────────────────────────────── */
 
 .shelf-subtitle {
+  font-family: var(--sans);
   font-size: 0.8rem;
   color: var(--ink-faint);
   padding: 0.75rem 2rem 0;
 }
 
 .shelf-date {
+  font-family: var(--sans);
   font-size: 0.65rem;
   color: var(--ink-ghost);
   padding: 0.15rem 2rem 0;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .page-stream {
@@ -211,7 +219,7 @@ p + ul.dashed {
 
 /* dust notice */
 .dust {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--sans);
   font-size: 0.75rem;
   color: var(--ink-ghost);
   margin-top: 2rem;
@@ -294,6 +302,7 @@ p + ul.dashed {
 }
 
 .col-header {
+  font-family: var(--sans);
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--accent);
@@ -345,6 +354,7 @@ ul.shelf li a:hover .entry-title {
 
 .entry-author {
   display: block;
+  font-family: var(--sans);
   font-size: 0.7rem;
   color: var(--ink-light);
   margin-bottom: 0.05rem;
@@ -358,6 +368,7 @@ ul.shelf li a:hover .entry-title {
 
 .entry-dek {
   display: block;
+  font-family: var(--sans);
   font-size: 0.65rem;
   color: var(--ink-faint);
   line-height: 1.3;
@@ -468,6 +479,7 @@ ul.shelf li[data-type="site"] .entry-title {
 
 .ghost-author {
   display: block;
+  font-family: var(--sans);
   font-size: 0.55rem;
   font-variant: small-caps;
   letter-spacing: 0.06em;
@@ -485,6 +497,7 @@ ul.shelf li[data-type="site"] .entry-title {
 
 .ghost-dek {
   display: block;
+  font-family: var(--sans);
   font-size: 0.48rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
