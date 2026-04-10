@@ -8,6 +8,8 @@ lane: method
 url: "https://en.wikipedia.org/wiki/Making_Social_Science_Matter"
 dek: "Cambridge, 2001"
 note: "the case against physics envy"
-featured: true
+links:
+  - label: "archive.org"
+    url: "https://archive.org/details/makingsocialscie0000flyv"
 order: 12
 ---
