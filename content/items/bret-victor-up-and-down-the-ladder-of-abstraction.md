@@ -2,6 +2,7 @@
 author: "Bret Victor"
 title: "Up and Down the Ladder of Abstraction"
 type: essay
+image: "/img/covers/bret-victor-up-and-down-the-ladder-of-abstraction.jpg"
 dest: shelf
 lane: making
 url: "https://worrydream.com/LadderOfAbstraction/"

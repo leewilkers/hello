@@ -2,6 +2,7 @@
 author: "Russell & Vinsel"
 title: "Hail the Maintainers"
 type: essay
+image: "/img/covers/russell-vinsel-hail-the-maintainers.jpg"
 dest: shelf
 lane: technology
 url: "https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"

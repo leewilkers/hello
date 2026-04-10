@@ -2,6 +2,7 @@
 author: "Kevin Slavin"
 title: "Design as Participation"
 type: essay
+image: "/img/covers/kevin-slavin-design-as-participation.jpg"
 dest: shelf
 lane: method
 url: "https://jods.mitpress.mit.edu/pub/design-as-participation"
