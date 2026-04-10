@@ -7,6 +7,6 @@ dest: shelf
 lane: machine
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
 dek: "MIT Press, 1995"
-note: "cognition isn't in heads, it's in the ship"
+note: "navigation is computation performed by a system of people and instruments"
 order: 44
 ---
