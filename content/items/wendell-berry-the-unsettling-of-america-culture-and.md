@@ -12,6 +12,6 @@ links:
     url: "https://archive.org/details/wendell-berry-america-culture-agriculture"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Unsettling_of_America"
-note: "exploiter vs. nurturer"
+note: "\u201Cthe soil is the great connector of lives, the source and destination of all. It is the healer and restorer and resurrector, by which disease passes into health, age into youth, death into life.\u201D"
 order: 31
 ---

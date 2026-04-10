@@ -12,6 +12,6 @@ links:
     url: "https://www.youtube.com/watch?v=maTkAcDbrEY"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/How_Buildings_Learn"
-note: "shearing layers"
+note: "\u201Calmost no buildings adapt well. They\u2019re designed not to adapt; also budgeted and financed not to, constructed not to, administered not to, maintained not to, regulated and taxed not to, even remodeled not to.\u201D"
 order: 16
 ---

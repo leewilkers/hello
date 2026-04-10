@@ -7,6 +7,6 @@ dest: shelf
 lane: method
 url: "https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law/p/book/9780415341752"
 dek: "Routledge, 2004"
-note: "distorted into clarity"
+note: "\u201Csimple clear descriptions don\u2019t work if what they are describing is not itself very coherent. The very attempt to be clear simply increases the mess.\u201D"
 order: 25
 ---

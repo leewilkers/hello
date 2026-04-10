@@ -7,6 +7,6 @@ dest: shelf
 lane: machine
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
-note: "free labor"
+note: "\u201Csimultaneously voluntarily given and unwaged, enjoyed and exploited\u201D"
 order: 46
 ---

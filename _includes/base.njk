@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+  You looked.
+  The engraving in the margin is clickable.
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -74,7 +78,7 @@
     ghost.style.pointerEvents = 'auto';
     ghost.addEventListener('click', function() {
       if (!ghost.classList.contains('active')) {
-        window.open('https://en.wikipedia.org/wiki/Melencolia_I', '_blank');
+        window.open('https://scratchingthesurface.fm/stories/2023-12-14-what-design-cant-do/', '_blank');
       }
     });
     ghost.addEventListener('mouseenter', function() {
@@ -126,6 +130,21 @@
       });
     });
   })();
+
+  // dust
+  (function(){
+    var el=document.querySelector('.dust');if(!el)return;
+    var t='pardon the dust'.split(''),n=parseInt(localStorage.getItem('_d')||'0',10);
+    localStorage.setItem('_d',++n);
+    var d=Math.max(0,Math.min(n-2,t.length));if(!d)return;
+    var r=t.map(function(_,i){return i}),s=42;
+    for(var i=r.length-1;i>0;i--){s=(s*1103515245+12345)&0x7fffffff;var j=s%(i+1),tmp=r[i];r[i]=r[j];r[j]=tmp}
+    for(var i=0;i<d;i++)t[r[i]]='\u2009';
+    if(d>=15)el.style.visibility='hidden';else el.textContent=t.join('');
+  })();
+
+  // tab
+  (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
 
   // hover notes – cursor tooltip, only on mobile (ghost card shows note on desktop)
   document.querySelectorAll('[data-note]').forEach(function(el) {

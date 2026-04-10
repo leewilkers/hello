@@ -1,32 +1,38 @@
 # CLAUDE.md – leewilkers.com
 
-Personal homepage. Minimal, static, one page.
+Personal homepage with curated shelf. Live at https://leewilkers.com
 
 ## Stack
 
 - **Eleventy** (static site generator)
 - **GitHub Pages** via `leewilkers/hello` repo
-- **Georgia serif** (system font stack, no external fonts)
+- **Dual typography**: Source Serif 4 (reading) + Source Sans 3 (interface) via Google Fonts (variable, optical sizing)
 - **Deploy**: push to `main` → GitHub Actions builds + deploys
 
 ## Key Files
 
 ```
 index.njk            – Homepage content
-css/style.css        – All styles (Georgia serif, system stack)
-_includes/base.njk   – HTML shell, ghost JS, theme toggle
+shelf.njk            – Shelf page (6-column broadsheet layout)
+css/style.css        – All styles (dual typography, ghost card, theme toggle)
+_includes/base.njk   – HTML shell, ghost JS, Google Fonts import, theme toggle
 _data/site.json      – Site metadata (title, URL)
-.eleventy.js         – Minimal config (passthrough CSS + img)
+content/items/*.md   – 101 shelf items (YAML frontmatter + content)
+img/covers/*.jpg     – Cover images for all items
+.eleventy.js         – Minimal config (passthrough CSS + img, collections)
 .github/workflows/build.yml – Build + deploy (Node 22)
 ```
 
 ## Design
 
-- **Font**: Georgia, 'Times New Roman', serif – system stack
+- **Typography**: Source Serif 4 (body, titles, ghost note) + Source Sans 3 (nav, metadata, column headers). CSS custom properties: `--serif`, `--sans`.
+- **Shelf**: 6 lanes (making, perception, method, technology, intervention, machine), 101 items. Always 6 columns, side-scrolls on narrow screens.
+- **Ghost card**: Fixed left-margin detail card (180px). Shows cover image + author/title/dek/note on hover. Melancholia I (Dürer) at rest as easter egg. Instant image swap (preloaded). Hidden below 900px.
+- **Cover images**: All 101 items have unique covers (Open Library API + OG images + manual screenshots). Zero fallbacks.
 - **Photo**: 76px grayscale, bottom-aligned with name
-- **Layout**: max-width 520px, generous top padding
-- **Accent**: `#c9a227` (mustard) on email link only
-- **List markers**: en-dashes, absolute positioned, `#ccc`
+- **Layout**: max-width 520px homepage, broadsheet shelf
+- **Accent**: `#c9a227` (mustard)
+- **Theme**: Light/dark with smooth dimmer toggle
 
 ## Dev
 
@@ -35,7 +41,7 @@ npm start          # localhost:8080
 npm run build      # _site/
 ```
 
-## Copy Decisions (Session 3, 2026-04-06)
+## Copy Decisions
 
 - Tagline is Lee's own phrasing – placeholder until he writes an essay
 - "Recently:" with dashed list, not inline prose

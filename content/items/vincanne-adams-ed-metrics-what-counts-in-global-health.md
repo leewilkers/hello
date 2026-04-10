@@ -7,6 +7,6 @@ dest: shelf
 lane: intervention
 url: "https://www.dukeupress.edu/metrics"
 dek: "Duke, 2016"
-note: "what counting does to health"
+note: "\u201Cthese days, lacking data may be even more tragic than lacking health\u201D"
 order: 21
 ---

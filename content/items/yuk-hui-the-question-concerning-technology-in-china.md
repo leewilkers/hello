@@ -7,6 +7,6 @@ dest: shelf
 lane: machine
 url: "https://mitpress.mit.edu/9780262547581/the-question-concerning-technology-in-china/"
 dek: "MIT Press, 2016"
-note: "cosmotechnics"
+note: "what if technology is not universal?"
 order: 33
 ---
