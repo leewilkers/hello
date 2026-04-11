@@ -1,6 +1,6 @@
 ---
-author: "A Working Library"
-title: ""
+author: "Mandy Brown"
+title: "A Working Library"
 type: site
 image: "/img/covers/a-working-library.jpg"
 dest: stream

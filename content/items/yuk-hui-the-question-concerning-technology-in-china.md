@@ -1,6 +1,6 @@
 ---
 author: "Yuk Hui"
-title: "The Question Concerning Technology in China"
+title: "The Question Concerning Technology in China: An Essay in Cosmotechnics"
 type: book
 image: "/img/covers/yuk-hui-the-question-concerning-technology-in-china.jpg"
 dest: shelf

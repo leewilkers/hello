@@ -1,6 +1,6 @@
 ---
 author: "Nanjala Nyabola"
-title: "Digital Democracy, Analogue Politics"
+title: "Digital Democracy, Analogue Politics: How the Internet Era is Transforming Kenya"
 type: book
 image: "/img/covers/nanjala-nyabola-digital-democracy-analogue-politics.jpg"
 dest: shelf

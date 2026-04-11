@@ -1,6 +1,6 @@
 ---
-author: "worrydream.com"
-title: ""
+author: "Bret Victor"
+title: "worrydream.com"
 type: site
 image: "/img/covers/worrydream-com.jpg"
 dest: stream

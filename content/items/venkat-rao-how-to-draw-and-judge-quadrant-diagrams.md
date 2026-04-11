@@ -1,5 +1,5 @@
 ---
-author: "Venkat Rao"
+author: "Venkatesh Rao"
 title: "How to Draw and Judge Quadrant Diagrams"
 type: essay
 image: "/img/covers/venkat-rao-how-to-draw-and-judge-quadrant-diagrams.jpg"

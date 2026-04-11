@@ -1,5 +1,5 @@
 ---
-author: "Venkat Rao"
+author: "Venkatesh Rao"
 title: "A Big Little Idea Called Legibility"
 type: essay
 image: "/img/covers/venkat-rao-a-big-little-idea-called-legibility.jpg"

@@ -1,6 +1,6 @@
 ---
 author: "Isabelle Stengers"
-title: "In Catastrophic Times"
+title: "In Catastrophic Times: Resisting the Coming Barbarism"
 type: book
 image: "/img/covers/isabelle-stengers-in-catastrophic-times.jpg"
 dest: shelf

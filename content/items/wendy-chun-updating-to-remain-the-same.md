@@ -1,6 +1,6 @@
 ---
 author: "Wendy Chun"
-title: "Updating to Remain the Same"
+title: "Updating to Remain the Same: Habitual New Media"
 type: book
 image: "/img/covers/wendy-chun-updating-to-remain-the-same.jpg"
 dest: shelf

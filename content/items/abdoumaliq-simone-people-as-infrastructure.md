@@ -1,6 +1,6 @@
 ---
 author: "AbdouMaliq Simone"
-title: "People as Infrastructure"
+title: "People as Infrastructure: Intersecting Fragments in Johannesburg"
 type: essay
 image: "/img/covers/abdoumaliq-simone-people-as-infrastructure.jpg"
 dest: shelf

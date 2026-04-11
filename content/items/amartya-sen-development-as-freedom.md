@@ -5,8 +5,8 @@ type: book
 image: "/img/covers/amartya-sen-development-as-freedom.jpg"
 dest: shelf
 lane: intervention
-url: "https://en.wikipedia.org/wiki/Development_as_Freedom"
-dek: "Knopf, 1999"
+url: "https://global.oup.com/academic/product/development-as-freedom-9780198297581"
+dek: "Oxford University Press, 1999"
 note: "what people can actually do and be"
 order: 27
 links:

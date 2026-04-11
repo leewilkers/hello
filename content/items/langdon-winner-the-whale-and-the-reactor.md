@@ -1,6 +1,6 @@
 ---
 author: "Langdon Winner"
-title: "The Whale and the Reactor"
+title: "The Whale and the Reactor: A Search for Limits in an Age of High Technology"
 type: book
 image: "/img/covers/langdon-winner-the-whale-and-the-reactor.jpg"
 dest: shelf

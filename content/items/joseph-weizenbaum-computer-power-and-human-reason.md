@@ -1,6 +1,6 @@
 ---
 author: "Joseph Weizenbaum"
-title: "Computer Power and Human Reason"
+title: "Computer Power and Human Reason: From Judgment to Calculation"
 type: book
 image: "/img/covers/joseph-weizenbaum-computer-power-and-human-reason.jpg"
 dest: shelf

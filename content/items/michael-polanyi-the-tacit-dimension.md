@@ -6,7 +6,7 @@ image: "/img/covers/michael-polanyi-the-tacit-dimension.jpg"
 dest: shelf
 lane: method
 url: "https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"
-dek: "Doubleday, 1966"
+dek: "Doubleday, 1967"
 links:
   - label: "full text"
     url: "https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"

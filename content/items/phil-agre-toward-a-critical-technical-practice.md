@@ -1,6 +1,6 @@
 ---
 author: "Phil Agre"
-title: "Toward a Critical Technical Practice"
+title: "Toward a Critical Technical Practice: Lessons Learned in Trying to Reform AI"
 type: essay
 image: "/img/covers/phil-agre-toward-a-critical-technical-practice.jpg"
 dest: shelf

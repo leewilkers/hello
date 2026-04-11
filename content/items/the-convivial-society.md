@@ -1,6 +1,6 @@
 ---
-author: "The Convivial Society"
-title: ""
+author: "L. M. Sacasas"
+title: "The Convivial Society"
 type: site
 image: "/img/covers/the-convivial-society.jpg"
 dest: stream

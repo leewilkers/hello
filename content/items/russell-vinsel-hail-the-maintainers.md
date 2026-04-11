@@ -1,5 +1,5 @@
 ---
-author: "Russell & Vinsel"
+author: "Andrew Russell & Lee Vinsel"
 title: "Hail the Maintainers"
 type: essay
 image: "/img/covers/russell-vinsel-hail-the-maintainers.jpg"

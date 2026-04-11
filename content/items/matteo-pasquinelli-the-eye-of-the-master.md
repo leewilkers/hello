@@ -1,6 +1,6 @@
 ---
 author: "Matteo Pasquinelli"
-title: "The Eye of the Master"
+title: "The Eye of the Master: A Social History of Artificial Intelligence"
 type: book
 image: "/img/covers/matteo-pasquinelli-the-eye-of-the-master.jpg"
 dest: shelf

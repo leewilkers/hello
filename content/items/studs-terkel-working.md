@@ -1,6 +1,6 @@
 ---
 author: "Studs Terkel"
-title: "Working"
+title: "Working: People Talk About What They Do All Day and How They Feel About What They Do"
 type: book
 image: "/img/covers/studs-terkel-working.jpg"
 dest: shelf

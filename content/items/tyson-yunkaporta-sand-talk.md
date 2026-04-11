@@ -1,6 +1,6 @@
 ---
 author: "Tyson Yunkaporta"
-title: "Sand Talk"
+title: "Sand Talk: How Indigenous Thinking Can Save the World"
 type: book
 image: "/img/covers/tyson-yunkaporta-sand-talk.jpg"
 dest: shelf

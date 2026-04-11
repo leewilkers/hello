@@ -6,7 +6,7 @@ image: "/img/covers/lewis-mumford-technics-and-civilization.jpg"
 dest: shelf
 lane: technology
 url: "https://archive.org/details/in.ernet.dli.2015.49974"
-dek: "Harcourt Brace, 1934"
+dek: "Harcourt, Brace and Company, 1934"
 links:
   - label: "full text"
     url: "https://archive.org/details/in.ernet.dli.2015.49974"
