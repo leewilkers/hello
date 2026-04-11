@@ -1,6 +1,6 @@
 ---
-title: "gossip's web"
-author: "gossip's web"
+title: "Gossip's Web"
+author: "Gossip's Web"
 url: "https://gossipsweb.net/"
 type: site
 dest: shelf

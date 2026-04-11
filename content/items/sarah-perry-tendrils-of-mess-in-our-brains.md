@@ -1,6 +1,6 @@
 ---
 author: "Sarah Perry"
-title: "Tendrils of Mess in our Brains"
+title: "Tendrils of Mess in Our Brains"
 type: essay
 image: "/img/covers/sarah-perry-tendrils-of-mess-in-our-brains.jpg"
 dest: shelf

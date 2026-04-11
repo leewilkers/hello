@@ -6,7 +6,7 @@ image: "/img/covers/gilbert-simondon-on-the-mode-of-existence-of-technical-objec
 dest: shelf
 lane: machine
 url: "https://www.upress.umn.edu/book-division/books/on-the-mode-of-existence-of-technical-objects"
-dek: "Univocal, 1958 / 2017"
+dek: "Univocal / University of Minnesota Press, 1958 / 2017"
 note: "\u201Cthe machine is a stranger in which what is human is locked in, unrecognized, materialized and enslaved, but human nonetheless\u201D"
 links:
   - label: "wiki"

@@ -1,6 +1,6 @@
 ---
 title: "Special Fish"
-author: "Elliot Cost"
+author: "Elliott Cost"
 url: "https://special.fish/"
 type: site
 dest: shelf
