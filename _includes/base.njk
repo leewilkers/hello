@@ -39,6 +39,12 @@
   </div>
 </nav>
 
+<div class="cat-switch-frame" aria-hidden="true">
+  <video class="cat-switch-video" muted playsinline preload="auto">
+    <source src="/img/cat_light.mp4" type="video/mp4">
+  </video>
+</div>
+
 <main class="page {{ pageClass }}">
 
   {{ content | safe }}
@@ -46,12 +52,83 @@
 </main>
 
 <script>
-  function toggleTheme() {
-    const d = document.documentElement;
-    const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
-    d.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }
+  // theme toggle – plays the cat-hitting-light clip and flips theme at impact
+  (function() {
+    const VIDEO_DURATION = 2.15;
+    const VIDEO_FPS = 20;
+    const HIT_SECONDS_FWD = 0.90;                          // frame 19 @ 20fps – paw pressed into light
+    // Frame-accurate reverse: forward frame F appears in reverse at (duration - fwd_time - 1/fps)
+    // because the first displayed frame sits at t=0, not t=1/fps. Gives 1.20s for this clip.
+    const HIT_SECONDS_REV = VIDEO_DURATION - HIT_SECONDS_FWD - (1 / VIDEO_FPS);
+    const VIDEO_FWD = '/img/cat_light.mp4';
+    const VIDEO_REV = '/img/cat_light_rev.mp4';
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const frame  = document.querySelector('.cat-switch-frame');
+    const video  = frame && frame.querySelector('video');
+    const button = document.querySelector('.dimmer');
+
+    function instantFlip() {
+      const d = document.documentElement;
+      const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+      d.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    }
+
+    function playCatThenFlip() {
+      if (reduced || !video || video.readyState < 3) return instantFlip();
+
+      const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
+      const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
+      const safetyMs = hitAt * 1000 + 500;
+      if (button) button.disabled = true;
+
+      video.src = goingDark ? VIDEO_FWD : VIDEO_REV;
+      video.currentTime = 0;
+      frame.classList.add('is-playing');
+
+      let flipped = false;
+      function doFlip() {
+        if (flipped) return;
+        flipped = true;
+        instantFlip();
+      }
+
+      const safety = setTimeout(doFlip, safetyMs);
+
+      function tick() {
+        if (flipped) return;
+        if (video.currentTime >= hitAt) {
+          clearTimeout(safety);
+          doFlip();
+          return;
+        }
+        requestAnimationFrame(tick);
+      }
+
+      video.onended = function() {
+        frame.classList.remove('is-playing');
+        setTimeout(function() { if (button) button.disabled = false; }, 200);
+      };
+
+      const p = video.play();
+      if (p && p.then) {
+        p.then(function() { requestAnimationFrame(tick); })
+         .catch(function() {
+           clearTimeout(safety);
+           frame.classList.remove('is-playing');
+           if (button) button.disabled = false;
+           instantFlip();
+         });
+      } else {
+        requestAnimationFrame(tick);
+      }
+    }
+
+    window.toggleTheme = playCatThenFlip;
+  })();
+
+  // FOUC restore – keep this untouched, runs as soon as parser hits it
   (function() {
     const saved = localStorage.getItem('theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
