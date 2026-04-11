@@ -7,7 +7,7 @@ dest: shelf
 note: "distinctly computer-oriented, male, American, middle-class"
 lane: perception
 url: "https://maggieappleton.com/tools-for-thought"
-dek: "2022"
+dek: "maggieappleton.com, 2022"
 source: "maggieappleton.com"
 links:
   - label: "talk"

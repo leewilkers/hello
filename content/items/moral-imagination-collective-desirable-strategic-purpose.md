@@ -5,7 +5,7 @@ type: essay
 image: "/img/covers/moral-imagination-collective-desirable-strategic-purpose.jpg"
 dest: shelf
 lane: intervention
-url: "https://pubsonline.informs.org/doi/10.1287/stsc.2023.0190"
+url: "https://escholarship.org/uc/item/4qq0t0wp"
 dek: "Strategy Science, 2023"
 note: "the collective desirable"
 links:

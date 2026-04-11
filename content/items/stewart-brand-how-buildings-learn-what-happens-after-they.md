@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/stewart-brand-how-buildings-learn-what-happens-after-they.jpg"
 dest: shelf
 lane: making
-url: "https://www.youtube.com/watch?v=maTkAcDbrEY"
+url: "https://en.wikipedia.org/wiki/How_Buildings_Learn"
 dek: "Viking, 1994"
 links:
   - label: "BBC documentary"

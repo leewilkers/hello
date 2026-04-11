@@ -6,7 +6,7 @@ image: "/img/covers/phil-agre-toward-a-critical-technical-practice.jpg"
 dest: shelf
 lane: machine
 url: "https://pages.gseis.ucla.edu/faculty/agre/critical.html"
-dek: "1997"
+dek: "in Bridging the Great Divide (Erlbaum), 1997"
 note: "running from intelligent machines"
 links:
   - label: "wiki"

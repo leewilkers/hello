@@ -1,5 +1,5 @@
 ---
-author: "Solomon Benatar"
+author: "Solomon R. Benatar"
 title: "Moral Imagination: The Missing Component in Global Health"
 type: essay
 image: "/img/covers/solomon-benatar-moral-imagination-missing-component.jpg"

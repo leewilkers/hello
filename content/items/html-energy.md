@@ -1,6 +1,6 @@
 ---
 title: "html.energy"
-author: "Laurel Schwulst"
+author: "Laurel Schwulst & Elliott Cost"
 url: "https://html.energy/"
 type: site
 dest: shelf

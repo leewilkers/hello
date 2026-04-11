@@ -1,7 +1,7 @@
 ---
 author: "Eric Marsden"
 title: "Barriers to Learning from Experience"
-type: essay
+type: slides
 image: "/img/covers/eric-marsden-barriers-to-learning-from-experience.jpg"
 dest: shelf
 lane: method

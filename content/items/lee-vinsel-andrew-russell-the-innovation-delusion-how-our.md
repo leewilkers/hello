@@ -1,5 +1,5 @@
 ---
-author: "Lee Vinsel & Andrew Russell"
+author: "Lee Vinsel & Andrew L. Russell"
 title: "The Innovation Delusion: How Our Obsession with the New Has Disrupted the Work That Matters Most"
 type: book
 image: "/img/covers/lee-vinsel-andrew-russell-the-innovation-delusion-how-our.jpg"
