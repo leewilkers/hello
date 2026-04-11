@@ -66,7 +66,8 @@
     var gAuthor = document.getElementById('ghost-author');
     var gTitle = document.getElementById('ghost-title');
     var gDek = document.getElementById('ghost-dek');
-    var gNote = document.getElementById('ghost-note');
+    var gBlurb = document.getElementById('ghost-blurb');
+    var gQuote = document.getElementById('ghost-quote');
     var leaveTimer = null;
 
     // preload covers
@@ -96,12 +97,13 @@
       }
     });
 
-    function setGhost(cover, author, title, dek, note) {
+    function setGhost(cover, author, title, dek, blurb, quote) {
       img.src = cover || defaultSrc;
       gAuthor.textContent = author;
       gTitle.textContent = title;
       gDek.textContent = dek;
-      gNote.textContent = note;
+      gBlurb.textContent = blurb;
+      gQuote.textContent = quote;
     }
 
     document.querySelectorAll('.shelf li').forEach(function(el) {
@@ -113,7 +115,8 @@
           el.getAttribute('data-author') || '',
           el.getAttribute('data-item-title') || '',
           el.getAttribute('data-dek') || '',
-          el.getAttribute('data-note') || ''
+          el.getAttribute('data-blurb') || '',
+          el.getAttribute('data-quote') || ''
         );
         ghost.classList.add('active');
         ghost.style.cursor = '';
@@ -124,7 +127,7 @@
         ghost.classList.remove('active');
         leaveTimer = setTimeout(function() {
           if (!ghost.classList.contains('active')) {
-            setGhost(null, '', '', '', '');
+            setGhost(null, '', '', '', '', '');
           }
         }, 600);
       });
@@ -146,12 +149,11 @@
   // tab
   (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
 
-  // hover notes – cursor tooltip, only on mobile (ghost card shows note on desktop)
+  // hover notes – cursor-follow tooltip, always on (ghost card shows blurb/quote)
   document.querySelectorAll('[data-note]').forEach(function(el) {
     if (el.querySelector('.entry-note')) return;
     var tip;
     el.addEventListener('mouseenter', function(e) {
-      if (window.innerWidth >= 900) return; // ghost card handles it
       tip = document.createElement('div');
       tip.className = 'hover-note';
       tip.textContent = el.getAttribute('data-note');

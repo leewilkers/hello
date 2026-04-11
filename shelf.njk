@@ -13,7 +13,7 @@ pageClass: page-shelf
 {% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
 
 {% macro entry(item) %}
-      <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
+      <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
         <a href="{{ item.data.url }}">
           <span class="entry-author">{{ item.data.author }}</span>
           <span class="entry-title">{{ item.data.title }}</span>
@@ -89,6 +89,7 @@ pageClass: page-shelf
     <span class="ghost-author" id="ghost-author"></span>
     <span class="ghost-title" id="ghost-title"></span>
     <span class="ghost-dek" id="ghost-dek"></span>
-    <span class="ghost-note" id="ghost-note"></span>
+    <span class="ghost-blurb" id="ghost-blurb"></span>
+    <span class="ghost-quote" id="ghost-quote"></span>
   </div>
 </div>

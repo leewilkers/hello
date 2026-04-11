@@ -541,6 +541,46 @@ ul.shelf li[data-type="site"] .entry-title {
   display: none;
 }
 
+.ghost-blurb {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule-light);
+}
+
+.ghost-blurb:empty {
+  display: none;
+  padding-top: 0;
+  border-top: none;
+  margin-top: 0;
+}
+
+.ghost-quote {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--ink);
+  line-height: 1.55;
+  margin-top: 0.5rem;
+}
+
+.ghost-quote:empty {
+  display: none;
+}
+
+.ghost-quote::before {
+  content: '\201C';
+}
+
+.ghost-quote::after {
+  content: '\201D';
+}
+
 /* ghost margin gutter */
 @media (min-width: 900px) {
   .page-shelf .broadsheet {
