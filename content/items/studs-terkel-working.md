@@ -4,7 +4,7 @@ title: "Working: People Talk About What They Do All Day and How They Feel About 
 type: book
 image: "/img/covers/studs-terkel-working.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
 note: "\u201Cinterviews, conventionally conducted, were meaningless. Conditioned cliches were certain to come.\u201D"

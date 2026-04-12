@@ -1,0 +1,15 @@
+---
+author: "Brian Larkin"
+title: "The Politics and Poetics of Infrastructure"
+type: essay
+image: "/img/covers/larkin-the-politics-and-poetics-of-infrastructure.jpg"
+dest: shelf
+lane: infrastructure
+url: "https://doi.org/10.1146/annurev-anthro-092412-155522"
+order: 50
+dek: "Annual Review of Anthropology, 2013"
+note: ""
+blurb: ""
+quote: ""
+links: []
+---

@@ -5,12 +5,14 @@ permalink: /shelf/
 pageClass: page-shelf
 ---
 
+{% set looking = collections.items | where("dest", "shelf") | where("lane", "looking") | sortBy("order") %}
 {% set making = collections.items | where("dest", "shelf") | where("lane", "making") | sortBy("order") %}
-{% set perception = collections.items | where("dest", "shelf") | where("lane", "perception") | sortBy("order") %}
-{% set method = collections.items | where("dest", "shelf") | where("lane", "method") | sortBy("order") %}
-{% set technology = collections.items | where("dest", "shelf") | where("lane", "technology") | sortBy("order") %}
+{% set knowing = collections.items | where("dest", "shelf") | where("lane", "knowing") | sortBy("order") %}
+{% set maps = collections.items | where("dest", "shelf") | where("lane", "maps") | sortBy("order") %}
+{% set infrastructure = collections.items | where("dest", "shelf") | where("lane", "infrastructure") | sortBy("order") %}
 {% set intervention = collections.items | where("dest", "shelf") | where("lane", "intervention") | sortBy("order") %}
 {% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
+{% set experience = collections.items | where("dest", "shelf") | where("lane", "experience") | sortBy("order") %}
 
 {% macro entry(item) %}
       <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
@@ -38,6 +40,13 @@ pageClass: page-shelf
 <div class="broadsheet">
 
   <div class="column">
+    <h2 class="col-header">looking</h2>
+    <ul class="shelf">
+      {%- for item in looking %}{{ entry(item) }}{%- endfor %}
+    </ul>
+  </div>
+
+  <div class="column">
     <h2 class="col-header">making</h2>
     <ul class="shelf">
       {%- for item in making %}{{ entry(item) }}{%- endfor %}
@@ -45,23 +54,23 @@ pageClass: page-shelf
   </div>
 
   <div class="column">
-    <h2 class="col-header">perception</h2>
+    <h2 class="col-header">knowing</h2>
     <ul class="shelf">
-      {%- for item in perception %}{{ entry(item) }}{%- endfor %}
+      {%- for item in knowing %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
-    <h2 class="col-header">method</h2>
+    <h2 class="col-header">maps</h2>
     <ul class="shelf">
-      {%- for item in method %}{{ entry(item) }}{%- endfor %}
+      {%- for item in maps %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
   <div class="column">
-    <h2 class="col-header">technology</h2>
+    <h2 class="col-header">infrastructure</h2>
     <ul class="shelf">
-      {%- for item in technology %}{{ entry(item) }}{%- endfor %}
+      {%- for item in infrastructure %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 
@@ -76,6 +85,13 @@ pageClass: page-shelf
     <h2 class="col-header">machine</h2>
     <ul class="shelf">
       {%- for item in machine %}{{ entry(item) }}{%- endfor %}
+    </ul>
+  </div>
+
+  <div class="column">
+    <h2 class="col-header">experience</h2>
+    <ul class="shelf">
+      {%- for item in experience %}{{ entry(item) }}{%- endfor %}
     </ul>
   </div>
 

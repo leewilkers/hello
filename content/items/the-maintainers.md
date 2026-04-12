@@ -4,7 +4,7 @@ title: ""
 type: site
 image: "/img/covers/the-maintainers.jpg"
 dest: shelf
-lane: technology
+lane: infrastructure
 url: "https://themaintainers.org"
 order: 1
 links: []

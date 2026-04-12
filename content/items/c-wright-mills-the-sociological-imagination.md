@@ -4,7 +4,7 @@ title: "The Sociological Imagination"
 type: book
 image: "/img/covers/c-wright-mills-the-sociological-imagination.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://global.oup.com/academic/product/the-sociological-imagination-9780195133738"
 dek: "Oxford, 1959"
 links:

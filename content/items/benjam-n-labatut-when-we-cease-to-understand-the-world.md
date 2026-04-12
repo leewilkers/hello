@@ -4,7 +4,7 @@ title: "When We Cease to Understand the World"
 type: book
 image: "/img/covers/benjam-n-labatut-when-we-cease-to-understand-the-world.jpg"
 dest: shelf
-lane: perception
+lane: looking
 url: "https://pushkinpress.com/book/when-we-cease-to-understand-the-world/"
 dek: "Pushkin Press, 2021"
 links:

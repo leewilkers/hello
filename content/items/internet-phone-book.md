@@ -4,7 +4,7 @@ author: "Elliott Cost & Kristoffer Tjalve"
 url: "https://internetphonebook.net/"
 type: site
 dest: shelf
-lane: making
+lane: maps
 order: 5
 dek: "Athens & Rotterdam, 2025"
 note: "800 websites printed on yellow pages"

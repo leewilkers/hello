@@ -4,7 +4,7 @@ title: "Making Social Science Matter: Why Social Inquiry Fails and How It Can Su
 type: book
 image: "/img/covers/bent-flyvbjerg-making-social-science-matter-why-social.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://archive.org/details/makingsocialscie0000flyv"
 dek: "Cambridge, 2001"
 note: "the case against physics envy"

@@ -4,7 +4,7 @@ title: "The Real World of Technology"
 type: book
 image: "/img/covers/ursula-franklin-the-real-world-of-technology.jpg"
 dest: shelf
-lane: technology
+lane: infrastructure
 url: "https://monoskop.org/images/5/58/Franklin_Ursula_The_Real_World_of_Technology_1990.pdf"
 dek: "House of Anansi Press, 1990"
 links:

@@ -1,0 +1,14 @@
+---
+author: "Christopher Gilbert"
+title: "Selected Writings on Vernacular Furniture, 1966–98"
+type: book
+image: "/img/covers/christopher-gilbert-selected-writings-on-vernacular-furniture.jpg"
+dest: shelf
+lane: making
+url: "https://regionalfurnituresociety.org/publications/other-rfs-publications/christopher-gilbert-selected-writings-on-vernacular-furniture-1966-98/"
+dek: "Regional Furniture Society"
+links:
+  - label: "English Vernacular Furniture (Yale, 1991)"
+    url: "https://www.amazon.com/English-Vernacular-Furniture-1750-1900-Studies/dp/0300047622"
+order: 25
+---

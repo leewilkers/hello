@@ -4,7 +4,7 @@ title: "Technics and Civilization"
 type: book
 image: "/img/covers/lewis-mumford-technics-and-civilization.jpg"
 dest: shelf
-lane: technology
+lane: infrastructure
 url: "https://archive.org/details/in.ernet.dli.2015.49974"
 dek: "Harcourt, Brace and Company, 1934"
 links:

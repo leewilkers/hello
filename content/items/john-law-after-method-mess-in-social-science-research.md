@@ -4,7 +4,7 @@ title: "After Method: Mess in Social Science Research"
 type: book
 image: "/img/covers/john-law-after-method-mess-in-social-science-research.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law/p/book/9780415341752"
 dek: "Routledge, 2004"
 note: "\u201Csimple clear descriptions don\u2019t work if what they are describing is not itself very coherent. The very attempt to be clear simply increases the mess.\u201D"

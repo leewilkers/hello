@@ -4,7 +4,7 @@ author: "Gossip's Web"
 url: "https://gossipsweb.net/"
 type: site
 dest: shelf
-lane: perception
+lane: looking
 order: 31
 note: "the people behind the URLs"
 image: "/img/covers/gossips-web.jpg"

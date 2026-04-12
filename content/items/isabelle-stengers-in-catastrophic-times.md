@@ -4,7 +4,7 @@ title: "In Catastrophic Times: Resisting the Coming Barbarism"
 type: book
 image: "/img/covers/isabelle-stengers-in-catastrophic-times.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://www.openhumanitiespress.org/books/titles/in-catastrophic-times/"
 dek: "Open Humanities, 2015"
 note: "we are not in a position to choose; we are the ones who are chosen"

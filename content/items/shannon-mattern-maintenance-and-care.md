@@ -4,7 +4,7 @@ title: "Maintenance and Care"
 type: essay
 image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
 dest: shelf
-lane: technology
+lane: infrastructure
 url: "https://placesjournal.org/article/maintenance-and-care/"
 dek: "Places Journal, 2018"
 note: "not every road should be repaired"

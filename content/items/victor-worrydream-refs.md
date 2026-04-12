@@ -1,0 +1,15 @@
+---
+author: "Bret Victor"
+title: "worrydream.com/refs/"
+type: site
+image: "/img/covers/victor-worrydream-refs.jpg"
+dest: shelf
+lane: machine
+url: "https://worrydream.com/refs/"
+order: 50
+dek: "worrydream.com"
+note: ""
+blurb: ""
+quote: ""
+links: []
+---

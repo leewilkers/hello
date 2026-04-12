@@ -4,7 +4,7 @@ title: "Notes Against Note-Taking Systems"
 type: essay
 image: "/img/covers/sasha-chapin-notes-against-note-taking-systems.jpg"
 dest: shelf
-lane: method
+lane: knowing
 url: "https://sashachapin.substack.com/p/notes-against-note-taking-systems"
 dek: "sashachapin.substack.com, 2022"
 source: "sashachapin.substack.com"

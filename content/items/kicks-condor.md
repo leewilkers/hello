@@ -4,7 +4,7 @@ author: "Kicks Condor"
 url: "https://kickscondor.com/"
 type: site
 dest: shelf
-lane: perception
+lane: looking
 order: 30
 note: "hyperlink archaeologist"
 image: "/img/covers/kicks-condor.jpg"

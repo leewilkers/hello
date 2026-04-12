@@ -4,7 +4,7 @@ title: "By Design"
 type: film
 image: "/img/covers/amanda-kramer-by-design.jpg"
 dest: shelf
-lane: perception
+lane: looking
 url: "https://letterboxd.com/film/by-design-2025/"
 dek: "Sundance Film Festival, 2025"
 source: "Letterboxd"
