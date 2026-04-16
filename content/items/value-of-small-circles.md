@@ -9,7 +9,7 @@ url: "https://aeon.co/essays/the-value-of-small-circles-in-an-era-obsessed-with-
 order: 50
 dek: "aeon.co"
 note: ""
-blurb: ""
+blurb: "Essay arguing that meaningful change happens primarily in small, trust-based circles and that scale obsession undermines the relational conditions that make change possible."
 quote: ""
 links: []
 ---

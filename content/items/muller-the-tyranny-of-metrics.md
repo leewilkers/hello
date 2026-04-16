@@ -9,7 +9,7 @@ url: "https://press.princeton.edu/books/hardcover/9780691174952/the-tyranny-of-m
 order: 50
 dek: "Princeton University Press, 2018"
 note: ""
-blurb: ""
-quote: ""
+blurb: "Jerry Muller's 2018 diagnosis of 'metric fixation' in schools, hospitals, police forces, and corporations."
+quote: "Not everything that is important is measurable, and much that is measurable is unimportant."
 links: []
 ---

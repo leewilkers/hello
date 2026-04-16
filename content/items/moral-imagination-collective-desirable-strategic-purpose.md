@@ -7,7 +7,8 @@ dest: shelf
 lane: intervention
 url: "https://escholarship.org/uc/item/4qq0t0wp"
 dek: "Strategy Science, 2023"
-note: "the collective desirable"
+note: ""
+blurb: "the collective desirable"
 links:
   - label: "full text"
     url: "https://escholarship.org/uc/item/4qq0t0wp"

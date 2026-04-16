@@ -8,6 +8,7 @@ lane: experience
 url: "https://www.robinsloan.com/fish/"
 dek: "robinsloan.com, 2012 — a tap essay"
 note: "you read it by tapping"
+blurb: "Robin Sloan's tap essay about the future of reading."
 links:
   - label: "App Store"
     url: "https://apps.apple.com/us/app/fish-a-tap-essay/id510560804"

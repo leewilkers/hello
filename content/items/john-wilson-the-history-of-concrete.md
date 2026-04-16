@@ -8,7 +8,8 @@ lane: looking
 url: "https://variety.com/2026/film/reviews/the-history-of-concrete-review-john-wilson-1236637530/"
 dek: "Magnolia Pictures, 2026"
 source: "Variety"
-note: "\"the least interesting subject imaginable.\" \"gum is like the bird shit of people\""
+note: ""
+quote: "the least interesting subject imaginable.\" \"gum is like the bird shit of people"
 order: 1
 links:
   - label: "IMDB"

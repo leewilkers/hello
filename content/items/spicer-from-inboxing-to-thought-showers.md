@@ -9,7 +9,7 @@ url: "https://www.theguardian.com/news/2017/nov/23/from-inboxing-to-thought-show
 order: 50
 dek: "The Guardian, 2017"
 note: ""
-blurb: ""
+blurb: "André Spicer on how hollow management jargon has colonized schools, NGOs, politics, and media."
 quote: ""
 links: []
 ---

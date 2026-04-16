@@ -7,7 +7,8 @@ dest: shelf
 lane: infrastructure
 url: "https://archive.org/details/illich-conviviality"
 dek: "Harper & Row, 1973"
-note: "every institution eventually becomes its opposite"
+note: ""
+quote: "every institution eventually becomes its opposite"
 links:
   - label: "full text"
     url: "https://archive.org/details/illich-conviviality"

@@ -7,7 +7,8 @@ dest: shelf
 lane: intervention
 url: "https://press.uchicago.edu/ucp/books/book/chicago/G/bo17888868.html"
 dek: "Chicago, 2014"
-note: "all NGOs are media companies"
+note: ""
+blurb: "all NGOs are media companies"
 links:
   - label: "podcast"
     url: "https://www.socialsciencespace.com/2019/05/monika-krause-on-humanitarian-aid/"

@@ -9,7 +9,7 @@ url: "https://www.simonandschuster.com/books/Comedy-Book/Jesse-David-Fox/9781982
 order: 50
 dek: "Simon & Schuster, 2023"
 note: ""
-blurb: ""
+blurb: "Jesse David Fox's 2023 account of how comedy became the dominant cultural form of the early 21st century."
 quote: ""
 links: []
 ---

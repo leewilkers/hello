@@ -9,7 +9,7 @@ url: "https://www.howtomakesenseofanymess.com/"
 order: 50
 dek: "CreateSpace, 2014"
 note: ""
-blurb: ""
+blurb: "Abby Covert's 2014 accessible introduction to information architecture."
 quote: ""
 links: []
 ---

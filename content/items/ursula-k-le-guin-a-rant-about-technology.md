@@ -4,7 +4,8 @@ title: "A Rant About 'Technology'"
 type: essay
 image: "/img/covers/ursula-k-le-guin-a-rant-about-technology.jpg"
 dest: shelf
-note: "as if steel saucepans grew on trees"
+note: ""
+quote: "as if steel saucepans grew on trees"
 lane: infrastructure
 url: "https://www.ursulakleguin.com/a-rant-about-technology"
 dek: "2005"

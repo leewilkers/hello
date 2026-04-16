@@ -7,7 +7,8 @@ dest: shelf
 lane: knowing
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
-note: "\u201Cinterviews, conventionally conducted, were meaningless. Conditioned cliches were certain to come.\u201D"
+note: ""
+quote: "interviews, conventionally conducted, were meaningless. Conditioned cliches were certain to come."
 links:
   - label: "wiki (author)"
     url: "https://en.wikipedia.org/wiki/Studs_Terkel"

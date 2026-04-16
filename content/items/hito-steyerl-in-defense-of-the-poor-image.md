@@ -4,7 +4,8 @@ title: "In Defense of the Poor Image"
 type: essay
 image: "/img/covers/hito-steyerl-in-defense-of-the-poor-image.jpg"
 dest: shelf
-note: "lumpen proletarian in the class society of appearances"
+note: ""
+quote: "lumpen proletarian in the class society of appearances"
 lane: looking
 url: "https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image/"
 dek: "e-flux, 2009"

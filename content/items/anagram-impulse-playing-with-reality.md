@@ -11,4 +11,5 @@ links:
   - label: "Anagram"
     url: "https://weareanagram.co.uk/project/impulse"
 order: 12
+blurb: "Anagram's mixed reality experience narrated by Tilda Swinton exploring ADHD through first-person accounts and gameplay."
 ---

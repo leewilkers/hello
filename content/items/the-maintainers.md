@@ -8,4 +8,5 @@ lane: infrastructure
 url: "https://themaintainers.org"
 order: 1
 links: []
+blurb: "Global research network founded 2016 by Andrew Russell and Lee Vinsel, dedicated to maintenance, repair, and the labor that keeps systems functioning."
 ---

@@ -9,7 +9,7 @@ url: "https://www.routledge.com/Beyond-Duty-and-Virtue/dAnjou/p/book/97811382453
 order: 50
 dek: "Routledge, 2017"
 note: ""
-blurb: ""
+blurb: "Philippe d'Anjou's 2010 Design Issues paper arguing that Sartrean existentialism provides a more adequate foundation for design ethics than Kant or Aristotle."
 quote: ""
 links: []
 ---

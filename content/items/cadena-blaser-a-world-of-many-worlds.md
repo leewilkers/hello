@@ -9,7 +9,7 @@ url: "https://www.dukeupress.edu/a-world-of-many-worlds"
 order: 50
 dek: "Duke University Press, 2018"
 note: ""
-blurb: ""
+blurb: "Marisol de la Cadena and Mario Blaser's 2018 Duke UP collection examining how indigenous knowledge practices constitute genuinely different worlds, not different perspectives on one world."
 quote: ""
 links: []
 ---

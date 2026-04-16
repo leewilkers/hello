@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://pages.gseis.ucla.edu/faculty/agre/critical.html"
 dek: "in Bridging the Great Divide (Erlbaum), 1997"
-note: "running from intelligent machines"
+note: ""
+blurb: "running from intelligent machines"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Critical_technical_practice"

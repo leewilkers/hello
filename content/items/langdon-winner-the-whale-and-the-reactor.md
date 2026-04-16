@@ -7,7 +7,8 @@ dest: shelf
 lane: infrastructure
 url: "https://sciencepolicy.colorado.edu/students/envs_5110/whale_reactor.pdf"
 dek: "University of Chicago Press, 1986"
-note: "\u201Cif you have cornucopia in your grasp, you do not worry about its shape\u201D"
+note: ""
+quote: "if you have cornucopia in your grasp, you do not worry about its shape"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Langdon_Winner"

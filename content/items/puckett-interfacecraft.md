@@ -9,7 +9,7 @@ url: "https://interfacecraft.dev"
 order: 50
 dek: "interfacecraft.dev"
 note: ""
-blurb: ""
+blurb: "Josh Puckett's curated reference library for interface designers."
 quote: ""
 links: []
 ---

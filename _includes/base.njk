@@ -22,7 +22,7 @@
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -145,7 +145,19 @@
     var gDek = document.getElementById('ghost-dek');
     var gBlurb = document.getElementById('ghost-blurb');
     var gQuote = document.getElementById('ghost-quote');
+    var gBadge = document.getElementById('ghost-type-badge');
     var leaveTimer = null;
+
+    // type icons – minimal geometric (stroke only, 1.5px)
+    var TYPE_ICONS = {
+      book: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v11"/><path d="M3 3c0 0 2-.5 5-.5s5 .5 5 .5v10c0 0-2-.5-5-.5s-5 .5-5 .5z"/></svg>',
+      essay: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3"/></svg>',
+      site: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M2.5 8h11"/><path d="M8 2.5c-1.5 1.5-2.2 3.5-2.2 5.5s.7 4 2.2 5.5"/><path d="M8 2.5c1.5 1.5 2.2 3.5 2.2 5.5s-.7 4-2.2 5.5"/></svg>',
+      film: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 6h12M2 10h12"/><path d="M5 3v3M5 10v3M11 3v3M11 10v3"/></svg>',
+      interview: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7a1 1 0 011 1v4a1 1 0 01-1 1H6l-2 2V9H3a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M12 6h1a1 1 0 011 1v4a1 1 0 01-1 1h-1v2l-2-2h-3"/></svg>',
+      slides: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="9" rx="1"/><path d="M8 11v3M5 14h6"/></svg>',
+      concept: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l2.5 4.5h5L11 10l1.5 4.5L8 12l-4.5 2.5L5 10 .5 6h5z"/></svg>'
+    };
 
     // preload covers
     document.querySelectorAll('[data-cover]').forEach(function(el) {
@@ -156,7 +168,7 @@
     ghost.style.pointerEvents = 'auto';
     ghost.addEventListener('click', function() {
       if (!ghost.classList.contains('active')) {
-        window.open('https://en.wikipedia.org/wiki/Melencolia_I#Iconography', '_blank');
+        window.open('https://monoskop.org/images/e/eb/Lorusso_Silvio_What_Design_Cant_Do_Essays_on_Design_and_Disillusion_2023.pdf#page=67', '_blank');
       }
     });
     ghost.addEventListener('mouseenter', function() {
@@ -174,13 +186,17 @@
       }
     });
 
-    function setGhost(cover, author, title, dek, blurb, quote) {
+    function setGhost(cover, author, title, dek, blurb, quote, type) {
       img.src = cover || defaultSrc;
       gAuthor.textContent = author;
       gTitle.textContent = title;
       gDek.textContent = dek;
       gBlurb.textContent = blurb;
       gQuote.textContent = quote;
+      gBadge.textContent = '';
+      if (type && TYPE_ICONS[type]) {
+        gBadge.insertAdjacentHTML('afterbegin', TYPE_ICONS[type]);
+      }
     }
 
     document.querySelectorAll('.shelf li').forEach(function(el) {
@@ -193,7 +209,8 @@
           el.getAttribute('data-item-title') || '',
           el.getAttribute('data-dek') || '',
           el.getAttribute('data-blurb') || '',
-          el.getAttribute('data-quote') || ''
+          el.getAttribute('data-quote') || '',
+          el.getAttribute('data-type') || ''
         );
         ghost.classList.add('active');
         ghost.style.cursor = '';
@@ -204,7 +221,7 @@
         ghost.classList.remove('active');
         leaveTimer = setTimeout(function() {
           if (!ghost.classList.contains('active')) {
-            setGhost(null, '', '', '', '', '');
+            setGhost(null, '', '', '', '', '', '');
           }
         }, 600);
       });

@@ -11,4 +11,5 @@ links:
   - label: "Meta Quest (free)"
     url: "https://www.meta.com/experiences/goliath-playing-with-reality/4723998144282370/"
 order: 11
+blurb: "Anagram's 2021 VR experience narrated by Tilda Swinton about a man who found connection through online multiplayer games; Venice Grand Jury Prize winner."
 ---

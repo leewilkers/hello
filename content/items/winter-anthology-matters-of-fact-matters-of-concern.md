@@ -9,7 +9,7 @@ url: "https://thewinteranthology.com/"
 order: 50
 dek: "The Winter Anthology"
 note: ""
-blurb: ""
+blurb: "Bruno Latour's 2004 Critical Inquiry essay arguing that critique has exhausted itself by debunking facts, proposing a shift from matters of fact to matters of concern."
 quote: ""
 links: []
 ---

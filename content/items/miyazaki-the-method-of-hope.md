@@ -9,7 +9,7 @@ url: "https://www.sup.org/books/title/?id=6902"
 order: 50
 dek: "Stanford University Press, 2004"
 note: ""
-blurb: ""
+blurb: "Hirokazu Miyazaki's 2004 Stanford UP ethnography arguing that hope is not merely a sentiment but an active method of inquiry."
 quote: ""
 links: []
 ---

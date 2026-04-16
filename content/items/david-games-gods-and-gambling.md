@@ -9,7 +9,7 @@ url: "https://ucalgary.scholaris.ca/server/api/core/bitstreams/29605b29-6ec7-46a
 order: 50
 dek: "Dover, 1962"
 note: ""
-blurb: ""
+blurb: "Florence Nightingale David's 1962 history of probability and statistics from antiquity to Newton."
 quote: ""
 links: []
 ---

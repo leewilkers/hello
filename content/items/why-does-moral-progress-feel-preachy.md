@@ -9,7 +9,7 @@ url: "https://aeon.co/essays/why-does-moral-progress-feel-so-preachy-and-annoyin
 order: 50
 dek: "aeon.co, 2024"
 note: ""
-blurb: ""
+blurb: "Daniel Kelly and Evan Westra in Aeon (2024) examining why expanding moral circles reliably triggers irritation."
 quote: ""
 links: []
 ---

@@ -9,7 +9,7 @@ url: "https://doi.org/10.1146/annurev-anthro-092412-155522"
 order: 50
 dek: "Annual Review of Anthropology, 2013"
 note: ""
-blurb: ""
+blurb: "Brian Larkin's 2013 Annual Review of Anthropology essay arguing that infrastructures function not only technically but aesthetically and politically."
 quote: ""
 links: []
 ---

@@ -7,7 +7,8 @@ dest: shelf
 lane: intervention
 url: "https://yalebooks.yale.edu/book/9780300078152/seeing-like-a-state/"
 dek: "Yale, 1998"
-note: "certain schemes to improve the human condition have failed because they required a legibility the world refused to provide"
+note: ""
+quote: "certain schemes to improve the human condition have failed because they required a legibility the world refused to provide"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Seeing_Like_a_State"

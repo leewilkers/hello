@@ -12,6 +12,7 @@ links:
     url: "https://en.wikipedia.org/wiki/Mingei"
   - label: "archive.org"
     url: "https://archive.org/details/unknowncraftsman0000yana"
-note: "\u201Cthe plain and unagitated, the uncalculated, the harmless, the straightforward, the natural, the innocent, the humble, the modest: where does beauty lie if not in these qualities?\u201D"
+note: ""
+quote: "the plain and unagitated, the uncalculated, the harmless, the straightforward, the natural, the innocent, the humble, the modest: where does beauty lie if not in these qualities?"
 order: 18
 ---

@@ -9,7 +9,7 @@ url: "https://www.ben-evans.com/benedictevans/2021/12/2/virgil-ablohs-design-pri
 order: 50
 dek: "ben-evans.com, 2021"
 note: ""
-blurb: ""
+blurb: "Benedict Evans's 2021 essay on Virgil Abloh's design language — the 3% rule, the readymade, the quotation mark."
 quote: ""
 links: []
 ---

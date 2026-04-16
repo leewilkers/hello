@@ -9,7 +9,7 @@ url: "https://global.oup.com/academic/product/the-knowledge-creating-company-978
 order: 50
 dek: "Oxford University Press, 1995"
 note: ""
-blurb: ""
+blurb: "Nonaka and Takeuchi's 1995 study of how Japanese companies achieve innovation through systematic conversion between tacit and explicit knowledge."
 quote: ""
 links: []
 ---

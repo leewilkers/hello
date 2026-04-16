@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://en.wikipedia.org/wiki/Digital_Democracy,_Analogue_Politics"
 dek: "Zed, 2018"
-note: "the internet arrived, the politics didn't change"
+note: ""
+blurb: "the internet arrived, the politics didn't change"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Nanjala_Nyabola"

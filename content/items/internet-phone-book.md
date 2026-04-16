@@ -7,7 +7,8 @@ dest: shelf
 lane: maps
 order: 5
 dek: "Athens & Rotterdam, 2025"
-note: "800 websites printed on yellow pages"
+note: ""
+blurb: "800 websites printed on yellow pages"
 image: "/img/covers/internet-phone-book.jpg"
 links:
   - label: "Are.na editorial"

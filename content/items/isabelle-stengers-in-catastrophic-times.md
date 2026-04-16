@@ -7,7 +7,8 @@ dest: shelf
 lane: knowing
 url: "https://www.openhumanitiespress.org/books/titles/in-catastrophic-times/"
 dek: "Open Humanities, 2015"
-note: "we are not in a position to choose; we are the ones who are chosen"
+note: ""
+quote: "we are not in a position to choose; we are the ones who are chosen"
 links:
   - label: "full text"
     url: "https://openhumanitiespress.org/books/download/Stengers_2015_In-Catastrophic-Times.pdf"

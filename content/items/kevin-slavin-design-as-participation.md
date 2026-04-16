@@ -8,7 +8,8 @@ lane: maps
 url: "https://web.archive.org/web/2020/https://jods.mitpress.mit.edu/pub/design-as-participation"
 dek: "Journal of Design and Science, 2016"
 source: "jods.mitpress.mit.edu"
-note: "you're already designing – the question is whether you notice"
+note: ""
+blurb: "you're already designing – the question is whether you notice"
 links: []
 order: 21
 ---

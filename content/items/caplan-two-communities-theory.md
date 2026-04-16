@@ -9,7 +9,7 @@ url: "https://doi.org/10.1177/000276427902200308"
 order: 50
 dek: "American Behavioral Scientist, 1979"
 note: ""
-blurb: ""
+blurb: "Nathan Caplan's 1979 paper proposing that social scientists and policymakers inhabit separate worlds with different values and language."
 quote: ""
 links: []
 ---

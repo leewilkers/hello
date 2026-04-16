@@ -9,7 +9,7 @@ url: "https://mitpress.mit.edu/9780262048538/taking-apart/"
 order: 50
 dek: "MIT Press, 2024"
 note: ""
-blurb: ""
+blurb: "John McCarthy and Peter Wright's study of participatory design and HCI research."
 quote: ""
 links: []
 ---

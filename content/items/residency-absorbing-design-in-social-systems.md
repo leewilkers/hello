@@ -9,7 +9,7 @@ url: "https://medium.com/residency/absorbing-design-in-social-systems-4fe8e3e7b4
 order: 50
 dek: "Medium, 2019"
 note: ""
-blurb: ""
+blurb: "Lauren Weinstein and Nicole Anand on how design practices are absorbed — or fail to be absorbed — into complex social systems."
 quote: ""
 links: []
 ---

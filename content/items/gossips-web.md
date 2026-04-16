@@ -6,7 +6,8 @@ type: site
 dest: shelf
 lane: looking
 order: 31
-note: "the people behind the URLs"
+note: ""
+blurb: "the people behind the URLs"
 image: "/img/covers/gossips-web.jpg"
 links:
   - label: "interviews"

@@ -6,7 +6,8 @@ type: site
 dest: shelf
 lane: maps
 order: 20
-note: "a social network made of personal websites"
+note: ""
+blurb: "a social network made of personal websites"
 image: "/img/covers/special-fish.jpg"
 links:
   - label: "author"

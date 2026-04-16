@@ -9,7 +9,7 @@ url: "https://www.penguinrandomhouse.com/books/221687/understanding-a-photograph
 order: 50
 dek: "Aperture, 2013"
 note: ""
-blurb: ""
+blurb: "Geoff Dyer–edited selection of John Berger's essays on photography, ranging across 40 years."
 quote: ""
 links: []
 ---

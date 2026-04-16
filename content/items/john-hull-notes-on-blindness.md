@@ -15,4 +15,5 @@ links:
   - label: "book (Touching the Rock, 1990)"
     url: "https://en.wikipedia.org/wiki/Touching_the_Rock"
 order: 7
+blurb: "2016 VR experience built from John Hull's audio diaries recorded as he lost his sight, using binaural sound and real-time 3D animation."
 ---

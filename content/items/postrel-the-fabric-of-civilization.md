@@ -9,7 +9,7 @@ url: "https://www.basicbooks.com/titles/virginia-postrel/the-fabric-of-civilizat
 order: 50
 dek: "Basic Books, 2020"
 note: ""
-blurb: ""
+blurb: "Virginia Postrel's 2020 history of textiles as a driver of economic, technological, and cultural development."
 quote: ""
 links: []
 ---

@@ -9,7 +9,7 @@ url: "https://www.rutgersuniversitypress.org/killing-with-kindness/9780813553061
 order: 50
 dek: "Rutgers University Press, 2012"
 note: ""
-blurb: ""
+blurb: "Mark Schuller's 2012 ethnography of two Haitian women's NGOs showing how USAID funding imposes 'trickle-down imperialism.'"
 quote: ""
 links: []
 ---

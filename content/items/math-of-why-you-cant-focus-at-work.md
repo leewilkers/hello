@@ -9,7 +9,7 @@ url: "https://justoffbyone.com/posts/math-of-why-you-cant-focus-at-work/"
 order: 50
 dek: "justoffbyone.com"
 note: ""
-blurb: ""
+blurb: "Can Duruk's essay modeling workplace attention to show mathematically why deep focus is near-impossible under typical office conditions."
 quote: ""
 links: []
 ---

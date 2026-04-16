@@ -91,18 +91,30 @@ collections:
         name: note
         widget: text
         required: false
-        hint: "Hover note on shelf, inline note on stream."
+        hint: "Lee's voice – pitch, quip, personal take. Cursor-follow tooltip on hover."
+      - label: Quote
+        name: quote
+        widget: text
+        required: false
+        hint: "Verbatim line from or about the thing. Shows in ghost card with typographic quotes."
+      - label: Blurb
+        name: blurb
+        widget: text
+        required: false
+        hint: "Source-voiced description – publisher copy, review line, author one-liner. Ghost card, sans roman."
       - label: Lane
         name: lane
         widget: select
         required: false
         options:
+          - { label: "Looking", value: "looking" }
           - { label: "Making", value: "making" }
-          - { label: "Perception", value: "perception" }
-          - { label: "Method", value: "method" }
-          - { label: "Technology", value: "technology" }
+          - { label: "Knowing", value: "knowing" }
+          - { label: "Maps", value: "maps" }
+          - { label: "Infrastructure", value: "infrastructure" }
           - { label: "Intervention", value: "intervention" }
           - { label: "Machine", value: "machine" }
+          - { label: "Experience", value: "experience" }
         hint: "For shelf items. Which column this appears in."
       - label: Image
         name: image

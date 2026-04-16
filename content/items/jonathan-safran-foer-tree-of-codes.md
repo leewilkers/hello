@@ -8,4 +8,5 @@ lane: experience
 url: "https://en.wikipedia.org/wiki/Tree_of_Codes"
 dek: "Visual Editions, 2010"
 order: 6
+blurb: "Jonathan Safran Foer's 2010 die-cut book created by excising words from Bruno Schulz's The Street of Crocodiles."
 ---

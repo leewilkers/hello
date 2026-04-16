@@ -9,7 +9,7 @@ url: "https://engelsbergideas.com/notebook/the-perils-of-hyper-literacy/"
 order: 50
 dek: "engelsbergideas.com"
 note: ""
-blurb: ""
+blurb: "Alastair Benn's essay arguing that the costs of excessive literacy become visible only to the hyper-literate themselves."
 quote: ""
 links: []
 ---

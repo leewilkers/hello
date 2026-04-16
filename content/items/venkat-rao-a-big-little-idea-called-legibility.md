@@ -7,7 +7,8 @@ dest: shelf
 lane: maps
 url: "https://www.ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/"
 dek: "Ribbonfarm, 2010"
-note: "the urge to make a mess legible is the urge to make it governable"
+note: ""
+quote: "the urge to make a mess legible is the urge to make it governable"
 links:
   - label: "wiki (source book)"
     url: "https://en.wikipedia.org/wiki/Seeing_Like_a_State"

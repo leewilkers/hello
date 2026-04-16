@@ -9,7 +9,7 @@ url: "https://www.routledge.com/Impro-Improvisation-and-the-Theatre/Johnstone/p/
 order: 50
 dek: "Routledge, 2012"
 note: ""
-blurb: ""
-quote: ""
+blurb: "Keith Johnstone's 1979 manual on improvisation — status, spontaneity, narrative, and mask work."
+quote: "There are people who prefer to say 'Yes,' and there are people who prefer to say 'No.' Those who say 'Yes' are rewarded by the adventures they have, and those who say 'No' are rewarded by the safety they attain."
 links: []
 ---

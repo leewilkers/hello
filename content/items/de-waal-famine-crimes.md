@@ -9,7 +9,7 @@ url: "https://www.press.indiana.edu/9780253211101/famine-crimes/"
 order: 50
 dek: "Indiana University Press, 1997"
 note: ""
-blurb: ""
+blurb: "Alex de Waal's 1997 argument that famines in Africa are political events caused by failures of accountability, and that international relief often obstructs democratic solutions."
 quote: ""
 links: []
 ---

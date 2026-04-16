@@ -9,7 +9,7 @@ url: "https://rosenfeldmedia.com/books/mental-models/"
 order: 50
 dek: "Rosenfeld Media, 2008"
 note: ""
-blurb: ""
+blurb: "Indi Young's 2008 guide to building research-grounded maps of users' underlying goals and reasoning."
 quote: ""
 links: []
 ---

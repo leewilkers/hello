@@ -9,7 +9,7 @@ url: "https://www.basicbooks.com/titles/douglas-r-hofstadter/le-ton-beau-de-maro
 order: 50
 dek: "Basic Books, 1998"
 note: ""
-blurb: ""
+blurb: "Douglas Hofstadter's 1997 book-length meditation on translation, using dozens of English versions of a single Clément Marot poem."
 quote: ""
 links: []
 ---

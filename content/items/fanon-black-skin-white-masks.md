@@ -9,7 +9,7 @@ url: "https://groveatlantic.com/book/black-skin-white-masks/"
 order: 50
 dek: "Grove Press, 2008"
 note: ""
-blurb: ""
+blurb: "Frantz Fanon's 1952 psychoanalytic study of colonialism's psychological effects on Black identity."
 quote: ""
 links: []
 ---

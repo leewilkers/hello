@@ -9,7 +9,7 @@ url: "https://www.penguinrandomhouse.com/books/292377/the-argumentative-indian-b
 order: 50
 dek: "Picador, 2006"
 note: ""
-blurb: ""
+blurb: "Amartya Sen's 2005 essay collection arguing that India's tradition of public reasoning and argumentative culture is a democratic resource."
 quote: ""
 links: []
 ---

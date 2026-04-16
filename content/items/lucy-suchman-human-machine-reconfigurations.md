@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://www.cambridge.org/core/books/humanmachine-reconfigurations/9D53E602BA9BB5209271460F92D00EFE"
 dek: "Cambridge, 2007"
-note: "plans are resources for situated action"
+note: ""
+quote: "plans are resources for situated action"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Lucy_Suchman"

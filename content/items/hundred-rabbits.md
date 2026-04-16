@@ -10,4 +10,5 @@ order: 11
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Hundred_Rabbits"
+blurb: "Studio of Rekka Bellum and Devine Lu Linvega, building tools and software aboard their sailboat Pino with solar power and intermittent connectivity."
 ---

@@ -7,7 +7,8 @@ dest: shelf
 lane: making
 url: "https://craigmod.com/essays/fast_software/"
 dek: "craigmod.com, 2019"
-note: "speed in software is like speed in a workshop tool – it changes what you're willing to try"
+note: ""
+blurb: "speed in software is like speed in a workshop tool – it changes what you're willing to try"
 order: 9
 links: []
 ---

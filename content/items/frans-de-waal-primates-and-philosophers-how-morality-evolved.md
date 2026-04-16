@@ -7,7 +7,8 @@ dest: shelf
 lane: knowing
 url: "https://press.princeton.edu/books/paperback/9780691169163/primates-and-philosophers"
 dek: "Princeton, 2006"
-note: "\u201C\u2018it\u2019s the animal in us,\u2019 we often hear when we\u2019ve been bad. But why not when we\u2019re good?\u201D"
+note: ""
+quote: "‘it’s the animal in us,’ we often hear when we’ve been bad. But why not when we’re good?"
 links:
   - label: "archive.org"
     url: "https://archive.org/details/primatesphilosop0000waal"

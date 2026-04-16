@@ -9,7 +9,7 @@ url: "https://africanminds.co.za/the-delusion-of-knowledge-transfer/"
 order: 50
 dek: "African Minds, 2016"
 note: ""
-blurb: ""
+blurb: "Koch and Weingart's fieldwork in South Africa and Tanzania arguing that power imbalances make 'knowledge transfer' a structural delusion."
 quote: ""
 links: []
 ---

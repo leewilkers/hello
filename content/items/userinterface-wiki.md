@@ -9,7 +9,7 @@ url: "https://userinterface.wiki"
 order: 50
 dek: "userinterface.wiki"
 note: ""
-blurb: ""
+blurb: "Living reference compiling interface patterns, design principles, motion, and typography with working examples."
 quote: ""
 links: []
 ---

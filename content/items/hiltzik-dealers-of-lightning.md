@@ -9,7 +9,7 @@ url: "https://www.harpercollins.com/products/dealers-of-lightning-michael-a-hilt
 order: 50
 dek: "HarperBusiness, 1999"
 note: ""
-blurb: ""
+blurb: "Michael Hiltzik's 1999 account of Xerox PARC — the personal computer, laser printer, Ethernet, and graphical interface, and Xerox's failure to commercialize them."
 quote: ""
 links: []
 ---

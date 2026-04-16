@@ -7,7 +7,8 @@ dest: shelf
 lane: intervention
 order: 25
 dek: "2022–"
-note: "clear writing about things that matter"
+note: ""
+blurb: "clear writing about things that matter"
 image: "/img/covers/asterisk-magazine.jpg"
 links:
   - label: "articles"

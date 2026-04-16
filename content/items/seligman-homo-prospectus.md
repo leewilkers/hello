@@ -9,7 +9,7 @@ url: "https://global.oup.com/academic/product/homo-prospectus-9780199374823"
 order: 50
 dek: "Oxford University Press, 2016"
 note: ""
-blurb: ""
+blurb: "Seligman, Railton, Baumeister, and Sripada's argument that the defining human capacity is prospection — simulating and evaluating futures — not memory."
 quote: ""
 links: []
 ---

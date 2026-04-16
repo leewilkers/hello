@@ -9,7 +9,7 @@ url: "https://points.datasociety.net/elephant-problems-limitations-of-expertise-
 order: 50
 dek: "Data & Society, 2021"
 note: ""
-blurb: ""
+blurb: "An Xiao Mina on how expertise creates narrow viewpoints on complex problems."
 quote: ""
 links: []
 ---

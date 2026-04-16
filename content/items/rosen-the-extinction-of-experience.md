@@ -9,7 +9,7 @@ url: "https://www.harpercollins.com/products/the-thunder-tree-robert-michael-pyl
 order: 50
 dek: "Houghton Mifflin, 1993"
 note: ""
-blurb: ""
-quote: ""
+blurb: "Robert Michael Pyle's essay on the compounding cycle by which disconnection from nature breeds indifference that accelerates further habitat loss."
+quote: "What is the extinction of the condor to a child who's never known a wren?"
 links: []
 ---

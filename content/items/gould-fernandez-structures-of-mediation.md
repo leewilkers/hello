@@ -9,7 +9,7 @@ url: "https://doi.org/10.1177/0049124189018001005"
 order: 50
 dek: "Sociological Methodology, 1989"
 note: ""
-blurb: ""
+blurb: "Gould and Fernandez's 1989 formal typology of five brokerage roles — coordinator, gatekeeper, representative, consultant, and liaison."
 quote: ""
 links: []
 ---

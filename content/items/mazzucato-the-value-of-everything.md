@@ -9,7 +9,7 @@ url: "https://www.publicaffairsbooks.com/titles/mariana-mazzucato/the-value-of-e
 order: 50
 dek: "PublicAffairs, 2020"
 note: ""
-blurb: ""
+blurb: "Mariana Mazzucato's 2018 argument that modern capitalism has lost the ability to distinguish value creation from value extraction."
 quote: ""
 links: []
 ---

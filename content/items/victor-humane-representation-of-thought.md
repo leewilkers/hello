@@ -9,7 +9,7 @@ url: "https://vimeo.com/115154289"
 order: 50
 dek: "UIST Closing Keynote, 2014"
 note: ""
-blurb: ""
+blurb: "Bret Victor's 2014 keynote arguing that static, symbol-based representations cripple human cognition, calling for dynamic, embodied media."
 quote: ""
 links: []
 ---

@@ -8,7 +8,8 @@ lane: machine
 order: 14
 url: "https://mitpress.mit.edu/9780262534727/updating-to-remain-the-same/"
 dek: "MIT Press, 2016"
-note: "to stay the same, you must keep updating – habit is not the absence of change but its constant repetition"
+note: ""
+quote: "to stay the same, you must keep updating – habit is not the absence of change but its constant repetition"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Wendy_Hui_Kyong_Chun"

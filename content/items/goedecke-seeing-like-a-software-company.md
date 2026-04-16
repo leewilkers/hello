@@ -9,7 +9,7 @@ url: "https://www.seangoedecke.com/seeing-like-a-software-company/"
 order: 50
 dek: "seangoedecke.com"
 note: ""
-blurb: ""
+blurb: "Sean Goedecke's 2025 blog post applying James C. Scott's concept of legibility to large software companies."
 quote: ""
 links: []
 ---

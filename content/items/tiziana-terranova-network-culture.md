@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
-note: "\u201Csimultaneously voluntarily given and unwaged, enjoyed and exploited\u201D"
+note: ""
+quote: "simultaneously voluntarily given and unwaged, enjoyed and exploited"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Tiziana_Terranova"

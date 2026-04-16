@@ -8,7 +8,8 @@ lane: looking
 url: "https://letterboxd.com/film/by-design-2025/"
 dek: "Sundance Film Festival, 2025"
 source: "Letterboxd"
-note: "A woman swaps bodies with a chair, and everyone likes her better as a chair."
+note: ""
+blurb: "A woman swaps bodies with a chair, and everyone likes her better as a chair."
 order: 2
 links:
   - label: "IMDB"

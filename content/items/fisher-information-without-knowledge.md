@@ -9,7 +9,7 @@ url: "https://bpb-us-w2.wpmucdn.com/campuspress.yale.edu/dist/c/259/files/2021/0
 order: 50
 dek: "Memory & Cognition, 2015"
 note: ""
-blurb: ""
+blurb: "Matthew Fisher et al.'s paper showing that internet searchers learned less but felt equally confident in their knowledge."
 quote: ""
 links: []
 ---

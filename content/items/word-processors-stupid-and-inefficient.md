@@ -10,6 +10,6 @@ order: 50
 dek: "wiki.c2.com"
 note: ""
 blurb: ""
-quote: ""
+quote: "The word processor is a stupid and grossly inefficient tool for preparing text for communication with others."
 links: []
 ---

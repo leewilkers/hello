@@ -9,7 +9,7 @@ url: "https://doi.org/10.1007/s10464-022-09334-0"
 order: 50
 dek: "American Journal of Community Psychology, 2022"
 note: ""
-blurb: ""
+blurb: "Jennifer and Zachary Neal's 2021 systematic review surveying 277 sources to clarify how 'broker,' 'intermediary,' and 'boundary spanner' differ."
 quote: ""
 links: []
 ---

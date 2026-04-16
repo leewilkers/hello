@@ -9,7 +9,7 @@ url: "https://press.princeton.edu/books/paperback/9780691176031/the-social-meani
 order: 50
 dek: "Princeton University Press, 1994"
 note: ""
-blurb: ""
+blurb: "Viviana Zelizer's 1994 sociological study showing that people systematically 'earmark' money — challenging the assumption that money is fungible."
 quote: ""
 links: []
 ---

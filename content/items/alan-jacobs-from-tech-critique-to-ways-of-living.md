@@ -7,7 +7,8 @@ dest: shelf
 lane: infrastructure
 url: "https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living"
 dek: "The New Atlantis, 2021"
-note: "Neil Postman was right. So what?"
+note: ""
+blurb: "Neil Postman was right. So what?"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Alan_Jacobs_(academic)"

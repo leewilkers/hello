@@ -9,7 +9,7 @@ url: "https://plain-text.co/"
 order: 50
 dek: "plain-text.co, 2018"
 note: ""
-blurb: ""
+blurb: "Kieran Healy's practical guide for social scientists arguing for plain-text workflows — text editors, R, Markdown, Pandoc, and version control."
 quote: ""
 links: []
 ---

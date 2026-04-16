@@ -9,7 +9,7 @@ url: "https://mitpress.mit.edu/9780262048460/autographic-design/"
 order: 50
 dek: "MIT Press, 2024"
 note: ""
-blurb: ""
+blurb: "Dietmar Offenhuber's 2023 MIT Press argument that data is material rather than abstract, proposing 'autographic design' built on traces and self-inscriptions."
 quote: ""
 links: []
 ---

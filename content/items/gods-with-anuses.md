@@ -9,7 +9,7 @@ url: "https://www.themarginalian.org/2024/03/15/gods-with-anuses/"
 order: 50
 dek: "The Marginalian, 2024"
 note: ""
-blurb: ""
-quote: ""
+blurb: "Maria Popova's essay using Ernest Becker's paradox — divine cognition in a mortal, animal body."
+quote: "We are gods with anuses."
 links: []
 ---

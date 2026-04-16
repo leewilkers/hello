@@ -9,7 +9,7 @@ url: "https://www.routledge.com/The-Philosophy-of-MetaReality/Bhaskar/p/book/978
 order: 50
 dek: "Routledge, 2020"
 note: ""
-blurb: ""
+blurb: "Roy Bhaskar's philosophical framework holding that reality is stratified across empirical, actual, and real domains."
 quote: ""
 links: []
 ---

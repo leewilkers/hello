@@ -9,7 +9,7 @@ url: "https://wwnorton.com/books/The-Management-Myth/"
 order: 50
 dek: "W. W. Norton, 2009"
 note: ""
-blurb: ""
+blurb: "Matthew Stewart's 2006 Atlantic essay by an Oxford philosopher turned consultant, arguing that management theory is mostly inane."
 quote: ""
 links: []
 ---

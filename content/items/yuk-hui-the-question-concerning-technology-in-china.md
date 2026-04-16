@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://www.urbanomic.com/book/question-concerning-technology-china/"
 dek: "Urbanomic, 2016"
-note: "what if technology is not universal?"
+note: ""
+blurb: "what if technology is not universal?"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Yuk_Hui"

@@ -7,7 +7,8 @@ dest: shelf
 lane: knowing
 url: "https://archive.org/details/makingsocialscie0000flyv"
 dek: "Cambridge, 2001"
-note: "the case against physics envy"
+note: ""
+blurb: "the case against physics envy"
 links:
   - label: "archive.org"
     url: "https://archive.org/details/makingsocialscie0000flyv"

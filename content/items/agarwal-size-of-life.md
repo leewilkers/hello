@@ -9,7 +9,7 @@ url: "https://neal.fun/size-of-life/"
 order: 50
 dek: "neal.fun"
 note: ""
-blurb: ""
+blurb: "Neal Agarwal's interactive visualization comparing sizes of living things from DNA to the Pando aspen clone."
 quote: ""
 links: []
 ---

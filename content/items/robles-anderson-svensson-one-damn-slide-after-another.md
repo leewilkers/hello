@@ -9,7 +9,7 @@ url: "https://doi.org/10.1162/COMJ_a_00341"
 order: 50
 dek: "Computational Culture, 2016"
 note: ""
-blurb: ""
+blurb: "Robles-Anderson and Svensson's 2016 paper tracing how PowerPoint has homogenized disparate occasions for speech into a single presentational form."
 quote: ""
 links: []
 ---

@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
 dek: "MIT Press, 1995"
-note: "navigation is computation performed by a system of people and instruments"
+note: ""
+quote: "navigation is computation performed by a system of people and instruments"
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Edwin_Hutchins"

@@ -10,6 +10,7 @@ dek: "Ribbonfarm, 2009"
 links:
   - label: "The Mother of All 2x2s"
     url: "https://www.ribbonfarm.com/2015/02/25/the-mother-of-all-2x2s/"
-note: "2x2s – loved by postrats & epidemiologists alike"
+note: ""
+blurb: "2x2s – loved by postrats & epidemiologists alike"
 order: 9
 ---

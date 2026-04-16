@@ -9,7 +9,7 @@ url: "https://www.ribbonfarm.com/2012/05/09/welcome-to-the-future-nauseous/"
 order: 50
 dek: "ribbonfarm.com, 2012"
 note: ""
-blurb: ""
+blurb: "Venkatesh Rao's 2012 Ribbonfarm essay introducing the 'Manufactured Normalcy Field.'"
 quote: ""
 links: []
 ---

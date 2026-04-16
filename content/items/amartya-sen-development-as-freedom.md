@@ -7,7 +7,8 @@ dest: shelf
 lane: intervention
 url: "https://global.oup.com/academic/product/development-as-freedom-9780198297581"
 dek: "Oxford University Press, 1999"
-note: "what people can actually do and be"
+note: ""
+quote: "what people can actually do and be"
 order: 27
 links:
   - label: "wiki (author)"

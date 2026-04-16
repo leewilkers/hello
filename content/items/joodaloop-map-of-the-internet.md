@@ -9,7 +9,7 @@ url: "https://map.joodaloop.com"
 order: 50
 dek: "map.joodaloop.com"
 note: ""
-blurb: ""
+blurb: "Hand-curated visual map of the websites and web places the creator actually inhabits."
 quote: ""
 links: []
 ---

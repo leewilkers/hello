@@ -11,4 +11,5 @@ links:
   - label: "Criterion"
     url: "https://www.criterionchannel.com/32-sounds"
 order: 14
+blurb: "Sam Green's 2022 live documentary performed with JD Samson and headphones for each audience member, weaving thirty-two auditory encounters."
 ---

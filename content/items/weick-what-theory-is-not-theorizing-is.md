@@ -9,7 +9,7 @@ url: "https://doi.org/10.2307/2393789"
 order: 50
 dek: "Administrative Science Quarterly, 1995"
 note: ""
-blurb: ""
+blurb: "Karl Weick's 1995 ASQ essay distinguishing theory from theorizing — the ongoing, necessarily incomplete process of approximation."
 quote: ""
 links: []
 ---

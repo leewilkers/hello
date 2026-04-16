@@ -7,7 +7,8 @@ dest: shelf
 lane: machine
 url: "https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf"
 dek: "CBC Massey Lectures, 1973"
-note: "a cybernetics room in Santiago"
+note: ""
+blurb: "a cybernetics room in Santiago"
 links:
   - label: "full text"
     url: "https://monoskop.org/images/e/e3/Beer_Stafford_Designing_Freedom.pdf"

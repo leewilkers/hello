@@ -12,6 +12,7 @@ links:
     url: "https://archive.org/details/WaysofSeeing"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Ways_of_Seeing"
-note: "seeing comes before words"
+note: ""
+quote: "seeing comes before words"
 order: 24
 ---

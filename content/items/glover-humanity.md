@@ -9,7 +9,7 @@ url: "https://yalebooks.yale.edu/book/9780300087154/humanity/"
 order: 50
 dek: "Yale University Press, 2000"
 note: ""
-blurb: ""
+blurb: "Jonathan Glover's 1999 moral history examining how ordinary moral psychology breaks down in atrocities from WWI to Rwanda."
 quote: ""
 links: []
 ---

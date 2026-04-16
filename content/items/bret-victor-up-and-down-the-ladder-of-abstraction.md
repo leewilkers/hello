@@ -7,7 +7,8 @@ dest: shelf
 lane: making
 url: "https://worrydream.com/LadderOfAbstraction/"
 dek: "worrydream.com, October 2011"
-note: "zoom in, zoom out, keep going"
+note: ""
+blurb: "zoom in, zoom out, keep going"
 order: 8
 links:
   - label: "wiki"

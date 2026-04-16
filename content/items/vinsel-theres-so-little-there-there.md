@@ -9,7 +9,7 @@ url: "https://sts-news.medium.com/youre-doing-it-wrong-notes-on-criticism-and-te
 order: 50
 dek: "Medium, 2018"
 note: ""
-blurb: ""
+blurb: "Lee Vinsel's essay critiquing the d.school and design thinking as evidence-free management fad."
 quote: ""
 links: []
 ---

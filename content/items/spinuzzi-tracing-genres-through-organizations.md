@@ -9,7 +9,7 @@ url: "https://mitpress.mit.edu/9780262693431/tracing-genres-through-organization
 order: 50
 dek: "MIT Press, 2003"
 note: ""
-blurb: ""
+blurb: "Clay Spinuzzi's 2003 MIT Press ethnography of how workers improvise unofficial genres — notes, annotations, workarounds — alongside designed information systems."
 quote: ""
 links: []
 ---
