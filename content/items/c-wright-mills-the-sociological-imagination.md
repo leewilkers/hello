@@ -13,6 +13,6 @@ links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Sociological_Imagination"
 note: ""
-quote: “to overcome the academic prose you have first to overcome the academic pose”
+quote: "to overcome the academic prose you have first to overcome the academic pose"
 order: 18
 ---
