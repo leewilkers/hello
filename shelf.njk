@@ -6,7 +6,7 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
-      <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
+      <li data-type="{{ item.data.type }}"{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
         <a href="{{ item.data.url }}" class="cell-link">
           <div class="cell-cover">
             {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
@@ -14,6 +14,7 @@ pageClass: page-shelf
           {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
           <span class="cell-author">{{ item.data.author }}</span>
           {%- if item.data.blurb %}<span class="cell-blurb">{{ item.data.blurb }}</span>{% endif %}
+          {%- if item.data.note %}<span class="cell-note">{{ item.data.note }}</span>{% endif %}
         </a>
       </li>
 {% endmacro %}
@@ -68,3 +69,7 @@ pageClass: page-shelf
     <span class="ghost-quote" id="ghost-quote"></span>
   </div>
 </div>
+
+<footer class="colophon">
+  <em>{{ collections.items | where("dest", "shelf") | length }} entries across {{ topics | length }} topics · set in Fraunces, Source Serif 4, and IBM Plex Sans &amp; Mono · last revised April 2026 · <span aria-hidden="true">click the engraving</span></em>
+</footer>

@@ -5,7 +5,9 @@ html { scroll-behavior: smooth; }
 
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
-  --sans: 'Overpass', -apple-system, sans-serif;
+  --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  --display: 'Fraunces', 'Source Serif 4', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 }
 
 body {
@@ -15,6 +17,7 @@ body {
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "onum" 1, "ss02" 1;
 }
 
 :root {
@@ -566,12 +569,12 @@ ul.shelf li[data-type="site"] .entry-title {
 
 .ghost-dek {
   display: block;
-  font-family: var(--sans);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
   color: var(--ink-ghost);
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
 .ghost-note {
@@ -761,9 +764,6 @@ ul.shelf li[data-type="site"] .entry-title {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  /* mask-image fade per Lee's scrollbar preference (feedback_css_scrollbar_macos_overlay.md) */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1rem, #000 calc(100% - 1rem), transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0, #000 1rem, #000 calc(100% - 1rem), transparent 100%);
   scrollbar-width: none;
 }
 
@@ -805,44 +805,56 @@ ul.shelf li[data-type="site"] .entry-title {
 }
 
 .topic-section {
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
   scroll-margin-top: 5rem;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 .section-label {
   display: flex;
   align-items: baseline;
   gap: 0.75rem;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding: 0.5rem 0;
-  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule-light);
+  padding: 0.2rem 0 0.4rem;
+  margin-bottom: 1.25rem;
 }
 
 .section-label-name {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--display);
+  font-size: 1.9rem;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  letter-spacing: -0.005em;
+  text-transform: lowercase;
   color: var(--ink);
+  line-height: 1;
 }
 
 .section-label-count {
-  margin-left: auto;
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--mono);
+  font-size: 0.68rem;
   color: var(--ink-ghost);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  align-self: baseline;
+  padding-bottom: 0.15rem;
 }
 
-/* 5-column grid */
+.section-label-count::before {
+  content: "no. ";
+  color: var(--ink-ghost);
+  opacity: 0.8;
+}
+
+/* 5-column grid with deliberately uneven fr widths — breaks IKEA rhythm without costume */
 .grid {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1.5rem 1.25rem;
+  grid-template-columns: 1.15fr 1fr 0.9fr 1fr 1.2fr;
+  align-items: start;
+  gap: 2rem 1.25rem;
   margin: 0;
   padding: 0;
 }
@@ -874,14 +886,8 @@ ul.shelf li[data-type="site"] .entry-title {
   max-height: 180px;
   object-fit: contain;
   display: block;
-  /* full color at rest — retires the grayscale-at-rest signature */
   opacity: 1;
   filter: none;
-  transition: transform 180ms ease;
-}
-
-.grid li:hover .cell-cover img {
-  transform: translateY(-2px);
 }
 
 .grid li .cell-title {
@@ -921,9 +927,54 @@ ul.shelf li[data-type="site"] .entry-title {
   color: var(--accent);
 }
 
-/* Keep visited state quiet — rows still readable after clicks */
+/* :visited restored honestly — mustard + diamond prefix for clicked items
+   Browser privacy partitioning makes this safe again (no cross-site leak). */
 .grid li .cell-link:visited .cell-title {
-  color: var(--ink);
+  color: var(--accent);
+}
+
+.grid li .cell-link:visited .cell-title::before {
+  content: "◆ ";
+  color: var(--accent);
+  font-size: 0.72em;
+  letter-spacing: 0.1em;
+}
+
+/* Permanent marginalia — Lee's note: voice surfaces below the blurb,
+   italic serif, border-left gloss. Replaces the retired hover-tooltip. */
+.grid li .cell-note {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--ink-light);
+  margin-top: 0.55rem;
+  padding: 0.1rem 0 0.1rem 0.55rem;
+  border-left: 1px solid var(--rule);
+}
+
+/* Colophon — Robin Sloan model. Credits fonts, signs the page. */
+.page-shelf .colophon {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  text-align: center;
+  padding: 3rem 2rem 1rem;
+  max-width: 55ch;
+  margin: 0 auto;
+}
+
+.page-shelf .colophon a {
+  color: inherit;
+  border-bottom: 1px solid var(--rule);
+}
+
+.page-shelf .colophon a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
 
 /* Responsive — narrower grid on medium screens, hamburger + hidden sidebar + hidden ghost on phones */
