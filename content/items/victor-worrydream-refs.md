@@ -5,6 +5,7 @@ type: site
 image: "/img/covers/victor-worrydream-refs.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://worrydream.com/refs/"
 order: 50
 dek: "worrydream.com"

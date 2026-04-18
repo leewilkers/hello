@@ -1,5 +1,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'Overpass', -apple-system, sans-serif;
@@ -469,7 +472,7 @@ ul.shelf li[data-type="site"] .entry-title {
 
 .margin-ghost {
   position: fixed;
-  left: 1.25rem;
+  right: 1.25rem;
   top: 16vh;
   width: 180px;
   z-index: 90;
@@ -706,6 +709,279 @@ ul.shelf li[data-type="site"] .entry-title {
     border-bottom: none;
     padding-right: 1.25rem;
   }
+}
+
+/* ── library layout (new shelf) ────────────────────────── */
+
+/* Three-zone layout at desktop: sidebar / grid / ghost lives in margin via fixed positioning */
+.page-shelf .library {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 2.5rem;
+  padding: 1rem 1.25rem 3rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.page-shelf .shelf-subtitle {
+  margin: 0 0 2.5rem 0;
+  padding: 0;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+/* Hamburger toggle — mobile only */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 0.75rem;
+  left: 1rem;
+  z-index: 95;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  color: var(--ink-light);
+  font-size: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* Topic index sidebar */
+.topic-index {
+  position: sticky;
+  top: 5rem;
+  align-self: start;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  /* mask-image fade per Lee's scrollbar preference (feedback_css_scrollbar_macos_overlay.md) */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 1rem, #000 calc(100% - 1rem), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 1rem, #000 calc(100% - 1rem), transparent 100%);
+  scrollbar-width: none;
+}
+
+.topic-index::-webkit-scrollbar { display: none; }
+
+.topic-index a {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink-light);
+  padding: 0.15rem 0 0.15rem 1.1rem;
+  position: relative;
+  transition: color 120ms ease;
+}
+
+.topic-index a:hover {
+  color: var(--ink);
+}
+
+.topic-index a.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.topic-index a.active::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* Central scrolling grid area */
+.grid-scroll {
+  min-width: 0;
+  /* leave breathing room so right ghost doesn't overlap content */
+  padding-right: 220px;
+}
+
+.topic-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 5rem;
+}
+
+.section-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.5rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.section-label-name {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.section-label-count {
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-ghost);
+  letter-spacing: 0.06em;
+}
+
+/* 5-column grid */
+.grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.grid li {
+  list-style: none;
+  display: block;
+}
+
+.grid li .cell-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.grid li .cell-cover {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 180px;
+  overflow: hidden;
+}
+
+.grid li .cell-cover img {
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  display: block;
+  /* full color at rest — retires the grayscale-at-rest signature */
+  opacity: 1;
+  filter: none;
+  transition: transform 180ms ease;
+}
+
+.grid li:hover .cell-cover img {
+  transform: translateY(-2px);
+}
+
+.grid li .cell-title {
+  display: block;
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  line-height: 1.25;
+  color: var(--ink);
+  font-weight: 500;
+  margin-top: 0.3rem;
+}
+
+.grid li .cell-author {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-light);
+  line-height: 1.3;
+}
+
+.grid li .cell-blurb {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
+  margin-top: 0.25rem;
+  /* soft clamp so long blurbs don't explode cell height */
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.grid li:hover .cell-title {
+  color: var(--accent);
+}
+
+/* Keep visited state quiet — rows still readable after clicks */
+.grid li .cell-link:visited .cell-title {
+  color: var(--ink);
+}
+
+/* Responsive — narrower grid on medium screens, hamburger + hidden sidebar + hidden ghost on phones */
+@media (max-width: 1280px) {
+  .page-shelf .library {
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .grid-scroll { padding-right: 200px; }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 1024px) {
+  .grid-scroll { padding-right: 0; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+  .sidebar-toggle { display: block; }
+
+  .page-shelf .library {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 1rem 1.25rem 3rem;
+  }
+
+  .topic-index {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    max-height: none;
+    background: var(--bg);
+    padding: 4rem 1.5rem 2rem;
+    z-index: 90;
+    transform: translateX(-100%);
+    transition: transform 220ms ease;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+
+  .topic-index.open {
+    transform: translateX(0);
+  }
+
+  .topic-index a {
+    font-size: 1rem;
+    padding: 0.4rem 0 0.4rem 1.2rem;
+  }
+
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
+
+  .grid li .cell-cover { height: 140px; }
+  .grid li .cell-cover img { max-height: 140px; }
+
+  /* Ghost intentionally hidden at mobile — no responsive bolt-on */
+  .margin-ghost { display: none; }
 }
 
 /* ── cat switch overlay ──

@@ -5,6 +5,7 @@ type: slides
 image: "/img/covers/eric-marsden-barriers-to-learning-from-experience.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://risk-engineering.org/static/PDF/slides-barriers-learning.pdf"
 dek: "risk-engineering.org"
 note: ""

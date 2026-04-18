@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/wendell-berry-the-unsettling-of-america-culture-and.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://archive.org/details/wendell-berry-america-culture-agriculture"
 dek: "Sierra Club, 1977"
 links:

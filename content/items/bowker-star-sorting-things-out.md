@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/bowker-star-sorting-things-out.jpg"
 dest: shelf
 lane: maps
+topic: "Classification & Taxonomy"
 url: "https://mitpress.mit.edu/9780262522953/sorting-things-out/"
 order: 50
 dek: "MIT Press, 2000"

@@ -6,6 +6,7 @@ image: "/img/covers/l-m-sacasas-the-questions-concerning-technology.jpg"
 dest: shelf
 note: "41 questions, no answers"
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://theconvivialsociety.substack.com/p/the-questions-concerning-technology"
 dek: "The Convivial Society, 2021"
 source: "The Convivial Society"

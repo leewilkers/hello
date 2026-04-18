@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/de-waal-famine-crimes.jpg"
 dest: shelf
 lane: intervention
+topic: "Global Health & Policy"
 url: "https://www.press.indiana.edu/9780253211101/famine-crimes/"
 order: 50
 dek: "Indiana University Press, 1997"

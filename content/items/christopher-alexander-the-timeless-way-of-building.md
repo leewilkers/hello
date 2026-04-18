@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/christopher-alexander-the-timeless-way-of-building.jpg"
 dest: shelf
 lane: making
+topic: "Architecture"
 url: "https://www.patternlanguage.com/bookstore/timeless-way-of-building.html"
 dek: "Oxford University Press, 1979"
 links:

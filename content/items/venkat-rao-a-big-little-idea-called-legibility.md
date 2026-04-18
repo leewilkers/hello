@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/venkat-rao-a-big-little-idea-called-legibility.jpg"
 dest: shelf
 lane: maps
+topic: "Classification & Taxonomy"
 url: "https://www.ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/"
 dek: "Ribbonfarm, 2010"
 note: ""

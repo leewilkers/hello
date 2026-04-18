@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://www.penguinrandomhouse.com/books/563597/the-unknown-craftsman-by-soetsu-yanagi-adapted-by-bernard-leach/"
 dek: "Kodansha International, 1972"
 links:

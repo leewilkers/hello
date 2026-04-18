@@ -5,6 +5,7 @@ type: slides
 image: "/img/covers/victor-humane-representation-of-thought.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://vimeo.com/115154289"
 order: 50
 dek: "UIST Closing Keynote, 2014"

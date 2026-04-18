@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/janet-malcolm-the-journalist-and-the-murderer.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://en.wikipedia.org/wiki/The_Journalist_and_the_Murderer"
 dek: "Knopf, 1990"
 note: ""

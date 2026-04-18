@@ -199,7 +199,7 @@
       }
     }
 
-    document.querySelectorAll('.shelf li').forEach(function(el) {
+    document.querySelectorAll('.shelf li, .grid li').forEach(function(el) {
       el.addEventListener('mouseenter', function() {
         if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
         var cover = el.getAttribute('data-cover');
@@ -242,6 +242,65 @@
 
   // tab
   (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
+
+  // scroll-spy for topic index
+  (function() {
+    var sections = document.querySelectorAll('.topic-section');
+    var links = document.querySelectorAll('.topic-index a');
+    if (!sections.length || !links.length) return;
+
+    var linkMap = {};
+    links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
+
+    var visible = new Set();
+    function setActive() {
+      var topSlug = null;
+      var topY = Infinity;
+      sections.forEach(function(s) {
+        if (!visible.has(s.dataset.topic)) return;
+        var r = s.getBoundingClientRect();
+        // prefer the section whose top is nearest to (but past) the fold line
+        var y = r.top >= 0 ? r.top : (r.bottom > 0 ? -r.top : Infinity);
+        if (y < topY) { topY = y; topSlug = s.dataset.topic; }
+      });
+      if (!topSlug && visible.size) {
+        sections.forEach(function(s) {
+          if (!topSlug && visible.has(s.dataset.topic)) topSlug = s.dataset.topic;
+        });
+      }
+      links.forEach(function(a) { a.classList.remove('active'); });
+      if (topSlug && linkMap[topSlug]) linkMap[topSlug].classList.add('active');
+    }
+
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) visible.add(e.target.dataset.topic);
+        else visible.delete(e.target.dataset.topic);
+      });
+      setActive();
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(function(s) { io.observe(s); });
+
+    // Clicking a sidebar link closes the mobile overlay if open
+    links.forEach(function(a) {
+      a.addEventListener('click', function() {
+        var idx = document.getElementById('topic-index');
+        if (idx) idx.classList.remove('open');
+        var btn = document.querySelector('.sidebar-toggle');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // Mobile hamburger → full-screen topic overlay
+  window.toggleSidebar = function() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    var isOpen = idx.classList.toggle('open');
+    if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
 
   // hover notes – cursor-follow tooltip, always on (ghost card shows blurb/quote)
   document.querySelectorAll('[data-note]').forEach(function(el) {

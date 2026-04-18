@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/solomon-benatar-moral-imagination-missing-component.jpg"
 dest: shelf
 lane: intervention
+topic: "Ethics & Moral Philosophy"
 url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020400"
 dek: "PLoS Medicine, 2005"
 links:

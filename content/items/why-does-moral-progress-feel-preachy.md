@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/why-does-moral-progress-feel-preachy.jpg"
 dest: shelf
 lane: knowing
+topic: "Ethics & Moral Philosophy"
 url: "https://aeon.co/essays/why-does-moral-progress-feel-so-preachy-and-annoying"
 order: 50
 dek: "aeon.co, 2024"

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/everyone-starting-to-sound-like-ai.jpg"
 dest: shelf
 lane: machine
+topic: "Language & Writing"
 url: "https://arxiv.org/abs/2409.01754"
 order: 50
 dek: "arXiv, 2024"

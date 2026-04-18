@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/berger-understanding-a-photograph.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://www.penguinrandomhouse.com/books/221687/understanding-a-photograph-by-john-berger/"
 order: 50
 dek: "Aperture, 2013"

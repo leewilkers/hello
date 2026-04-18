@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/langdon-winner-the-whale-and-the-reactor.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://sciencepolicy.colorado.edu/students/envs_5110/whale_reactor.pdf"
 dek: "University of Chicago Press, 1986"
 note: ""

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://placesjournal.org/article/maintenance-and-care/"
 dek: "Places Journal, 2018"
 note: ""

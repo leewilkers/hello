@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/venkat-rao-how-to-draw-and-judge-quadrant-diagrams.jpg"
 dest: shelf
 lane: maps
+topic: "Perception & Visualization"
 url: "https://www.ribbonfarm.com/2009/04/20/how-to-draw-and-judge-quadrant-diagrams/"
 dek: "Ribbonfarm, 2009"
 links:

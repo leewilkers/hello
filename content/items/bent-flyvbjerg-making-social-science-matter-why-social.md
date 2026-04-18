@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/bent-flyvbjerg-making-social-science-matter-why-social.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://archive.org/details/makingsocialscie0000flyv"
 dek: "Cambridge, 2001"
 note: ""

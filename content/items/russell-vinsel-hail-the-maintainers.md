@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/russell-vinsel-hail-the-maintainers.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"
 dek: "Aeon, 2016"
 note: ""

@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/azoulay-civil-imagination.jpg"
 dest: shelf
 lane: looking
+topic: "Classification & Taxonomy"
 url: "https://www.versobooks.com/products/64-civil-imagination"
 order: 50
 dek: "Verso, 2015"

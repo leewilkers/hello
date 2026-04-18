@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://thewinteranthology.com/"
 order: 50
 dek: "The Winter Anthology"

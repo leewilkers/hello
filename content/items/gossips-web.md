@@ -5,6 +5,7 @@ url: "https://gossipsweb.net/"
 type: site
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 order: 31
 note: ""
 blurb: "the people behind the URLs"

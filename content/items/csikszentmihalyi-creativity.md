@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/csikszentmihalyi-creativity.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://www.harpercollins.com/products/creativity-mihaly-csikszentmihalyi"
 order: 50
 dek: "Harper Perennial, 1996"

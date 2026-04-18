@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/didier-fassin-humanitarian-reason-a-moral-history-of-the.jpg"
 dest: shelf
 lane: intervention
+topic: "Ethics & Moral Philosophy"
 url: "https://www.ucpress.edu/books/humanitarian-reason/paper"
 dek: "UC Press, 2011"
 note: ""

@@ -7,6 +7,7 @@ dest: shelf
 note: ""
 blurb: "distinctly computer-oriented, male, American, middle-class"
 lane: looking
+topic: "Perception & Visualization"
 url: "https://maggieappleton.com/tools-for-thought"
 dek: "maggieappleton.com, 2022"
 source: "maggieappleton.com"

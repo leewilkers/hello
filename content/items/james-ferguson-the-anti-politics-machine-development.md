@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/james-ferguson-the-anti-politics-machine-development.jpg"
 dest: shelf
 lane: intervention
+topic: "Bureaucracy & Institutions"
 url: "https://www.astralcodexten.com/p/your-book-review-the-anti-politics"
 dek: "Cambridge, 1990"
 links:

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/hathaway-transformative-effects-of-mass-gatherings.jpg"
 dest: shelf
 lane: intervention
+topic: "Global Health & Policy"
 url: "https://doi.org/10.1016/j.tourman.2022.104571"
 order: 50
 dek: "Tourism Management, 2022"

@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/tiziana-terranova-network-culture.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
 note: ""

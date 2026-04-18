@@ -115,7 +115,30 @@ collections:
           - { label: "Intervention", value: "intervention" }
           - { label: "Machine", value: "machine" }
           - { label: "Experience", value: "experience" }
-        hint: "For shelf items. Which column this appears in."
+        hint: "DEPRECATED – use Topic instead. Retained during migration."
+      - label: Topic
+        name: topic
+        widget: select
+        required: false
+        options:
+          - { label: "Architecture", value: "Architecture" }
+          - { label: "Bureaucracy & Institutions", value: "Bureaucracy & Institutions" }
+          - { label: "Classification & Taxonomy", value: "Classification & Taxonomy" }
+          - { label: "Computing", value: "Computing" }
+          - { label: "Design & Craft", value: "Design & Craft" }
+          - { label: "Ecology & Environment", value: "Ecology & Environment" }
+          - { label: "Education", value: "Education" }
+          - { label: "Ethics & Moral Philosophy", value: "Ethics & Moral Philosophy" }
+          - { label: "Ethnography", value: "Ethnography" }
+          - { label: "Global Health & Policy", value: "Global Health & Policy" }
+          - { label: "Infrastructure", value: "Infrastructure" }
+          - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
+          - { label: "Language & Writing", value: "Language & Writing" }
+          - { label: "Perception & Visualization", value: "Perception & Visualization" }
+          - { label: "Philosophy of Science", value: "Philosophy of Science" }
+          - { label: "Science & Technology Studies", value: "Science & Technology Studies" }
+          - { label: "Tech Criticism", value: "Tech Criticism" }
+        hint: "For shelf items. Alphabetical topical index."
       - label: Image
         name: image
         widget: image

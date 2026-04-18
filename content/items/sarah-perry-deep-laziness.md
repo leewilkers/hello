@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/sarah-perry-deep-laziness.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://www.ribbonfarm.com/2018/04/06/deep-laziness/"
 dek: "Ribbonfarm, 2018"
 source: "ribbonfarm.com"

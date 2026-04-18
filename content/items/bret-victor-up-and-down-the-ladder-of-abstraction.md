@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/bret-victor-up-and-down-the-ladder-of-abstraction.jpg"
 dest: shelf
 lane: making
+topic: "Perception & Visualization"
 url: "https://worrydream.com/LadderOfAbstraction/"
 dek: "worrydream.com, October 2011"
 note: ""

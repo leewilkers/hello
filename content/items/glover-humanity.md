@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/glover-humanity.jpg"
 dest: shelf
 lane: intervention
+topic: "Ethics & Moral Philosophy"
 url: "https://yalebooks.yale.edu/book/9780300087154/humanity/"
 order: 50
 dek: "Yale University Press, 2000"

@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/yuk-hui-the-question-concerning-technology-in-china.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://www.urbanomic.com/book/question-concerning-technology-china/"
 dek: "Urbanomic, 2016"
 note: ""

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/the-ordinal-society.jpg"
 dest: shelf
 lane: maps
+topic: "Tech Criticism"
 url: "https://www.hup.harvard.edu/books/9780674971141"
 order: 50
 dek: "Harvard University Press, 2024"

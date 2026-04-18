@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/studs-terkel-working.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
 note: ""

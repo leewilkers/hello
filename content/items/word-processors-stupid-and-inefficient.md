@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/word-processors-stupid-and-inefficient.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://wiki.c2.com/?WordProcessorsStupidAndInefficient"
 order: 50
 dek: "wiki.c2.com"

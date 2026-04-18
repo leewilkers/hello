@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/miyazaki-the-method-of-hope.jpg"
 dest: shelf
 lane: knowing
+topic: "Ethnography"
 url: "https://www.sup.org/books/title/?id=6902"
 order: 50
 dek: "Stanford University Press, 2004"

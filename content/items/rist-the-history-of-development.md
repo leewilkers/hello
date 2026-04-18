@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/rist-the-history-of-development.jpg"
 dest: shelf
 lane: intervention
+topic: "Global Health & Policy"
 url: "https://www.zedbooks.net/shop/book/the-history-of-development/"
 order: 50
 dek: "Zed Books, 2014"

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/irani-design-thinking-defending-silicon-valley.jpg"
 dest: shelf
 lane: intervention
+topic: "Tech Criticism"
 url: "https://doi.org/10.1080/09505431.2018.1523947"
 order: 50
 dek: "Catalyst, 2018"

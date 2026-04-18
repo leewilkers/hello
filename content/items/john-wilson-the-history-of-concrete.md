@@ -5,6 +5,7 @@ type: film
 image: "/img/covers/john-wilson-the-history-of-concrete.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://variety.com/2026/film/reviews/the-history-of-concrete-review-john-wilson-1236637530/"
 dek: "Magnolia Pictures, 2026"
 source: "Variety"

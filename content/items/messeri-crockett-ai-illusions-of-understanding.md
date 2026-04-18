@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/messeri-crockett-ai-illusions-of-understanding.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://doi.org/10.1038/s41586-024-07146-0"
 order: 50
 dek: "Nature, 2024"

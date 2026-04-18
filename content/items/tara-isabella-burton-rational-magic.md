@@ -7,6 +7,7 @@ dest: shelf
 note: ""
 blurb: "how do you get the sacred without violence"
 lane: looking
+topic: "Perception & Visualization"
 url: "https://www.thenewatlantis.com/publications/rational-magic"
 dek: "The New Atlantis, 2023"
 source: "The New Atlantis"

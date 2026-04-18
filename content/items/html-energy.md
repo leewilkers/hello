@@ -5,6 +5,7 @@ url: "https://html.energy/"
 type: site
 dest: shelf
 lane: making
+topic: "Design & Craft"
 order: 21
 note: ""
 blurb: "HTML as creative medium"

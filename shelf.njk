@@ -5,95 +5,49 @@ permalink: /shelf/
 pageClass: page-shelf
 ---
 
-{% set looking = collections.items | where("dest", "shelf") | where("lane", "looking") | sortBy("order") %}
-{% set making = collections.items | where("dest", "shelf") | where("lane", "making") | sortBy("order") %}
-{% set knowing = collections.items | where("dest", "shelf") | where("lane", "knowing") | sortBy("order") %}
-{% set maps = collections.items | where("dest", "shelf") | where("lane", "maps") | sortBy("order") %}
-{% set infrastructure = collections.items | where("dest", "shelf") | where("lane", "infrastructure") | sortBy("order") %}
-{% set intervention = collections.items | where("dest", "shelf") | where("lane", "intervention") | sortBy("order") %}
-{% set machine = collections.items | where("dest", "shelf") | where("lane", "machine") | sortBy("order") %}
-{% set experience = collections.items | where("dest", "shelf") | where("lane", "experience") | sortBy("order") %}
-
-{% macro entry(item) %}
+{% macro cell(item) %}
       <li data-type="{{ item.data.type }}"{% if item.data.note %} data-note="{{ item.data.note }}"{% endif %}{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
-        <a href="{{ item.data.url }}">
-          <span class="entry-author">{{ item.data.author }}</span>
-          <span class="entry-title">{{ item.data.title }}</span>
-          {%- if item.data.dek %}
-          <span class="entry-dek">{{ item.data.dek }}</span>
-          {%- endif %}
+        <a href="{{ item.data.url }}" class="cell-link">
+          <div class="cell-cover">
+            {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
+          </div>
+          {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
+          <span class="cell-author">{{ item.data.author }}</span>
+          {%- if item.data.blurb %}<span class="cell-blurb">{{ item.data.blurb }}</span>{% endif %}
         </a>
-        {%- if item.data.featured and item.data.note %}
-        <span class="entry-note">{{ item.data.note }}</span>
-        {%- endif %}
-        {%- if item.data.links and item.data.links.length %}
-        <span class="entry-links">
-          {%- for link in item.data.links %}{% if not loop.first %}<span class="sep">·</span>{% endif %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-        </span>
-        {%- endif %}
       </li>
 {% endmacro %}
 
-<div class="shelf-subtitle">Things on my desk.</div>
-{% if site.shelfDate %}<div class="shelf-date">{{ site.shelfDate }}</div>{% endif %}
+<button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()">☰</button>
 
-<div class="broadsheet">
+<div class="library">
 
-  <div class="column">
-    <h2 class="col-header">looking</h2>
-    <ul class="shelf">
-      {%- for item in looking %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
+  <aside class="topic-index" id="topic-index">
+    {%- for topic in topics %}
+      {%- set sidebarBucket = collections.items | where("dest", "shelf") | where("topic", topic) %}
+      {%- if sidebarBucket.length %}
+    <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}">{{ topic }}</a>
+      {%- endif %}
+    {%- endfor %}
+  </aside>
 
-  <div class="column">
-    <h2 class="col-header">making</h2>
-    <ul class="shelf">
-      {%- for item in making %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">knowing</h2>
-    <ul class="shelf">
-      {%- for item in knowing %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">maps</h2>
-    <ul class="shelf">
-      {%- for item in maps %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">infrastructure</h2>
-    <ul class="shelf">
-      {%- for item in infrastructure %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">intervention</h2>
-    <ul class="shelf">
-      {%- for item in intervention %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">machine</h2>
-    <ul class="shelf">
-      {%- for item in machine %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
-
-  <div class="column">
-    <h2 class="col-header">experience</h2>
-    <ul class="shelf">
-      {%- for item in experience %}{{ entry(item) }}{%- endfor %}
-    </ul>
-  </div>
+  <main class="grid-scroll">
+    <div class="shelf-subtitle">Things on my desk.</div>
+    {%- for topic in topics %}
+      {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
+      {%- if bucket.length %}
+    <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" class="topic-section">
+      <header class="section-label">
+        <span class="section-label-name">{{ topic }}</span>
+        <span class="section-label-count">{{ bucket.length }}</span>
+      </header>
+      <ul class="grid">
+        {%- for item in bucket %}{{ cell(item) }}{%- endfor %}
+      </ul>
+    </section>
+      {%- endif %}
+    {%- endfor %}
+  </main>
 
 </div>
 

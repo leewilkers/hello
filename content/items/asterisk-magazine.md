@@ -5,6 +5,7 @@ url: "https://asteriskmag.com/"
 type: site
 dest: shelf
 lane: intervention
+topic: "Ethics & Moral Philosophy"
 order: 25
 dek: "2022–"
 note: ""

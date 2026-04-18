@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/friedman-hendry-value-sensitive-design.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://mitpress.mit.edu/9780262039536/value-sensitive-design/"
 order: 50
 dek: "MIT Press, 2019"

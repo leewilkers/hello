@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/math-of-why-you-cant-focus-at-work.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://justoffbyone.com/posts/math-of-why-you-cant-focus-at-work/"
 order: 50
 dek: "justoffbyone.com"

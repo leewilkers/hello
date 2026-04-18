@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/joseph-weizenbaum-computer-power-and-human-reason.jpg"
 dest: shelf
 lane: machine
+topic: "Tech Criticism"
 url: "https://archive.org/details/computerpowerhum0000weiz_v0i3"
 dek: "W. H. Freeman, 1976"
 note: ""

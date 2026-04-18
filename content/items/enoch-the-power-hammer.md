@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/enoch-the-power-hammer.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://www.popularmechanics.com/technology/a29218/enoch-the-power-hammer/"
 order: 50
 dek: "Popular Mechanics"

@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/marshall-mcluhan-quentin-fiore-the-medium-is-the-massage-an.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"
 dek: "Bantam, 1967"
 links:

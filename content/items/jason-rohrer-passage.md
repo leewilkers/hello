@@ -5,6 +5,7 @@ type: site
 image: "/img/covers/jason-rohrer-passage.jpg"
 dest: shelf
 lane: experience
+topic: "Interfaces & Interaction"
 url: "https://hcsoftware.sourceforge.net/passage/"
 dek: "2007"
 order: 5

@@ -7,6 +7,7 @@ dest: shelf
 note: ""
 quote: "consciousness is not a clearing in the forest; it is swarming with tendrils of mess it didn't put there"
 lane: looking
+topic: "Perception & Visualization"
 url: "https://www.ribbonfarm.com/2017/01/05/tendrils-of-mess-in-our-brains/"
 dek: "Ribbonfarm, 2017"
 source: "ribbonfarm.com"

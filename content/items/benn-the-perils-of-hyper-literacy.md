@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/benn-the-perils-of-hyper-literacy.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://engelsbergideas.com/notebook/the-perils-of-hyper-literacy/"
 order: 50
 dek: "engelsbergideas.com"

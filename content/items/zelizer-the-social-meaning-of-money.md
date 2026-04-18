@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/zelizer-the-social-meaning-of-money.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://press.princeton.edu/books/paperback/9780691176031/the-social-meaning-of-money"
 order: 50
 dek: "Princeton University Press, 1994"

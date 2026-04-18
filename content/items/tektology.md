@@ -5,6 +5,7 @@ type: concept
 image: "/img/covers/tektology.jpg"
 dest: shelf
 lane: maps
+topic: "Classification & Taxonomy"
 url: "https://en.wikipedia.org/wiki/Tektology"
 order: 50
 dek: "Alexander Bogdanov"

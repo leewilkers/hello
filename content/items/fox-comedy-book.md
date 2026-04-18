@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/fox-comedy-book.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://www.simonandschuster.com/books/Comedy-Book/Jesse-David-Fox/9781982188337"
 order: 50
 dek: "Simon & Schuster, 2023"

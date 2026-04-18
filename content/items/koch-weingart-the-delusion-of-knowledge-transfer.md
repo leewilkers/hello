@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/koch-weingart-the-delusion-of-knowledge-transfer.jpg"
 dest: shelf
 lane: intervention
+topic: "Ethnography"
 url: "https://africanminds.co.za/the-delusion-of-knowledge-transfer/"
 order: 50
 dek: "African Minds, 2016"

@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/moral-imagination-collective-desirable-strategic-purpose.jpg"
 dest: shelf
 lane: intervention
+topic: "Ethics & Moral Philosophy"
 url: "https://escholarship.org/uc/item/4qq0t0wp"
 dek: "Strategy Science, 2023"
 note: ""

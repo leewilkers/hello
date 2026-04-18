@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/mccarthy-wright-taking-apart.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://mitpress.mit.edu/9780262048538/taking-apart/"
 order: 50
 dek: "MIT Press, 2024"

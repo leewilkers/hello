@@ -5,6 +5,7 @@ type: site
 image: "/img/covers/janet-cardiff-the-forty-part-motet.jpg"
 dest: shelf
 lane: experience
+topic: "Interfaces & Interaction"
 url: "https://cardiffmiller.com/installations/the-forty-part-motet/"
 dek: "2001"
 links:

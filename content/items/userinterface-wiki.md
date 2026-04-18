@@ -5,6 +5,7 @@ type: site
 image: "/img/covers/userinterface-wiki.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://userinterface.wiki"
 order: 50
 dek: "userinterface.wiki"

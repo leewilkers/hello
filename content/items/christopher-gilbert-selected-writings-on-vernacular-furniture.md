@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/christopher-gilbert-selected-writings-on-vernacular-furniture.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://regionalfurnituresociety.org/publications/other-rfs-publications/christopher-gilbert-selected-writings-on-vernacular-furniture-1966-98/"
 dek: "Regional Furniture Society"
 links:

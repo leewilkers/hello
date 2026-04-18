@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/john-law-after-method-mess-in-social-science-research.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law/p/book/9780415341752"
 dek: "Routledge, 2004"
 note: ""

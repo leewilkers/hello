@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/gods-with-anuses.jpg"
 dest: shelf
 lane: knowing
+topic: "Philosophy of Science"
 url: "https://www.themarginalian.org/2024/03/15/gods-with-anuses/"
 order: 50
 dek: "The Marginalian, 2024"

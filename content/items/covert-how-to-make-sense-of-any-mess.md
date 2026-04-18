@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/covert-how-to-make-sense-of-any-mess.jpg"
 dest: shelf
 lane: maps
+topic: "Architecture"
 url: "https://www.howtomakesenseofanymess.com/"
 order: 50
 dek: "CreateSpace, 2014"

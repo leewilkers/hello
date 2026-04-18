@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/peter-korn-why-we-make-things-and-why-it-matters-the.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://godine.com/products/why-we-make-things-and-why-it-matters"
 dek: "Godine, 2013"
 note: ""

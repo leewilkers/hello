@@ -5,6 +5,7 @@ type: concept
 image: "/img/covers/hypocognition.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://en.wikipedia.org/wiki/Hypocognition"
 order: 50
 dek: "Wikipedia"

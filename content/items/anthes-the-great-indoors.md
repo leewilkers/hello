@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/anthes-the-great-indoors.jpg"
 dest: shelf
 lane: infrastructure
+topic: "Infrastructure"
 url: "https://www.scientificamerican.com/book/the-great-indoors/"
 order: 50
 dek: "Scientific American / Farrar, Straus and Giroux, 2020"

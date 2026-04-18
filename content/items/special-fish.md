@@ -5,6 +5,7 @@ url: "https://special.fish/"
 type: site
 dest: shelf
 lane: maps
+topic: "Classification & Taxonomy"
 order: 20
 note: ""
 blurb: "a social network made of personal websites"

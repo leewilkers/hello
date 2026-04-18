@@ -5,6 +5,7 @@ type: site
 image: "/img/covers/ink-switch.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://www.inkandswitch.com"
 order: 12
 links: []

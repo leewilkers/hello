@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/gombrich-art-and-illusion.jpg"
 dest: shelf
 lane: looking
+topic: "Perception & Visualization"
 url: "https://press.princeton.edu/books/paperback/9780691070001/art-and-illusion"
 order: 50
 dek: "Phaidon, 1977"

@@ -27,6 +27,23 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Alphabetical by author's surname. "First Last" → Last. "A, B" → last token of A (pre-comma).
+  eleventyConfig.addFilter("sortByAuthor", function(arr) {
+    function surname(author) {
+      if (!author) return "";
+      const first = String(author).split(",")[0].trim();
+      const tokens = first.split(/\s+/);
+      return (tokens[tokens.length - 1] || "").toLowerCase();
+    }
+    return [...(arr || [])].sort((a, b) => {
+      const sa = surname(a.data.author);
+      const sb = surname(b.data.author);
+      if (sa < sb) return -1;
+      if (sa > sb) return 1;
+      return (a.data.order || 999) - (b.data.order || 999);
+    });
+  });
+
   // Date filter for stream month headers (handles Date objects and strings)
   eleventyConfig.addFilter("monthYear", function(val) {
     if (!val) return "";

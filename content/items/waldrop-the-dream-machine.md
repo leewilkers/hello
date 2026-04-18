@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/waldrop-the-dream-machine.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://press.stripe.com/the-dream-machine"
 order: 50
 dek: "Stripe Press, 2018"

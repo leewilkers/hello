@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/offenhuber-autographic-design.jpg"
 dest: shelf
 lane: making
+topic: "Design & Craft"
 url: "https://mitpress.mit.edu/9780262048460/autographic-design/"
 order: 50
 dek: "MIT Press, 2024"

@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/james-c-scott-seeing-like-a-state-how-certain-schemes.jpg"
 dest: shelf
 lane: intervention
+topic: "Bureaucracy & Institutions"
 url: "https://yalebooks.yale.edu/book/9780300078152/seeing-like-a-state/"
 dek: "Yale, 1998"
 note: ""

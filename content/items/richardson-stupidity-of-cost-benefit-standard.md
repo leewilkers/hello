@@ -5,6 +5,7 @@ type: essay
 image: "/img/covers/richardson-stupidity-of-cost-benefit-standard.jpg"
 dest: shelf
 lane: intervention
+topic: "Global Health & Policy"
 url: "https://doi.org/10.1023/A:1009915605191"
 order: 50
 dek: "Journal of Legal Studies, 2000"

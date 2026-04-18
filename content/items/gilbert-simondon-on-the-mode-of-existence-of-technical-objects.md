@@ -5,6 +5,7 @@ type: book
 image: "/img/covers/gilbert-simondon-on-the-mode-of-existence-of-technical-objects.jpg"
 dest: shelf
 lane: machine
+topic: "Computing"
 url: "https://www.upress.umn.edu/book-division/books/on-the-mode-of-existence-of-technical-objects"
 dek: "Univocal / University of Minnesota Press, 1958 / 2017"
 note: ""
