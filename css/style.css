@@ -6,8 +6,6 @@ html { scroll-behavior: smooth; }
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
-  --display: 'Fraunces', 'Source Serif 4', Georgia, serif;
-  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 }
 
 body {
@@ -26,11 +24,12 @@ body {
   --bg: #fbf8f1;
   --ink: #333;
   --ink-light: #666;
-  --ink-faint: #777;
+  --ink-faint: #5a5a5a;
   --ink-ghost: #aaa;
   --rule: #e2dfd6;
   --rule-light: #efece3;
   --accent: #c9a227;
+  --accent-text: #8a6d15;
   --nav-border: #edeae1;
 }
 
@@ -40,11 +39,12 @@ body {
   --bg: #121618;
   --ink: #d5d5d5;
   --ink-light: #999;
-  --ink-faint: #888;
+  --ink-faint: #8a8a8a;
   --ink-ghost: #555;
   --rule: #262c2f;
   --rule-light: #1e2325;
   --accent: #c9a227;
+  --accent-text: #d4ae3a;
   --nav-border: #262c2f;
 }
 
@@ -53,6 +53,51 @@ a[href^="mailto"] { color: var(--accent); }
 a[href^="mailto"]:hover { border-bottom: 1px solid var(--accent); }
 ::selection { background: var(--accent); color: var(--bg); }
 ul.shelf li a:visited .entry-author { color: var(--accent); }
+
+/* Accessibility utilities */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 200;
+  padding: 0.5rem 0.75rem;
+  background: var(--bg);
+  color: var(--ink);
+  border: 2px solid var(--accent-text);
+  border-radius: 2px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  transform: translateY(-150%);
+  transition: transform 120ms ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+a:focus-visible {
+  outline-offset: 3px;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
 
 img { display: block; }
 
@@ -471,183 +516,9 @@ ul.shelf li[data-type="site"] .entry-title {
 }
 
 
-/* ── margin ghost (detail card) ── */
+/* margin-ghost removed — content now lives in-cell (.cell-dek, .cell-quote, .cell-note) */
 
-.margin-ghost {
-  position: fixed;
-  right: 1.25rem;
-  top: 16vh;
-  width: 180px;
-  z-index: 90;
-  pointer-events: none;
-}
-
-.ghost-image {
-  width: 100%;
-  max-height: 260px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.margin-ghost img {
-  max-width: 100%;
-  max-height: 260px;
-  display: block;
-  object-fit: contain;
-  opacity: 0.1;
-  filter: grayscale(1) brightness(0.8);
-  transition: opacity 300ms ease, filter 300ms ease;
-}
-
-.margin-ghost.active img {
-  opacity: 1;
-  filter: none;
-}
-
-.ghost-meta {
-  padding-top: 0.4rem;
-  border-top: 1px solid var(--rule-light);
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
-.margin-ghost.active .ghost-meta {
-  opacity: 1;
-}
-
-/* infobox header: badge + title block */
-.ghost-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-}
-
-.ghost-type-badge {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: var(--ink-ghost);
-}
-
-.ghost-type-badge svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.ghost-type-badge:empty {
-  display: none;
-}
-
-.ghost-title-block {
-  flex: 1;
-  min-width: 0;
-}
-
-.ghost-author {
-  display: block;
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  font-variant: small-caps;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-}
-
-.ghost-title {
-  display: block;
-  font-family: var(--sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-style: normal;
-  color: var(--ink);
-  line-height: 1.3;
-  margin-top: 0.15rem;
-}
-
-.ghost-dek {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: var(--ink-ghost);
-  margin-top: 0.25rem;
-}
-
-.ghost-note {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--ink-light);
-  line-height: 1.5;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--rule-light);
-}
-
-.ghost-note:empty {
-  display: none;
-}
-
-.ghost-blurb {
-  display: block;
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  color: var(--ink-light);
-  line-height: 1.5;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--rule-light);
-}
-
-.ghost-blurb:empty {
-  display: none;
-  padding-top: 0;
-  border-top: none;
-  margin-top: 0;
-}
-
-.ghost-quote {
-  display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.8rem;
-  color: var(--ink);
-  line-height: 1.55;
-  margin-top: 0.5rem;
-}
-
-.ghost-quote:empty {
-  display: none;
-}
-
-.ghost-quote::before {
-  content: '\201C';
-}
-
-.ghost-quote::after {
-  content: '\201D';
-}
-
-/* ghost margin gutter */
-@media (min-width: 900px) {
-  .page-shelf .broadsheet {
-    margin-left: 210px;
-  }
-  .page-shelf .shelf-subtitle,
-  .page-shelf .shelf-date {
-    margin-left: 210px;
-  }
-}
-
-@media (max-width: 899px) {
-  .margin-ghost { display: none; }
-}
-
-/* ── hover notes ── */
-
+/* legacy hover-note (retired, kept class in case stream items use it) */
 .hover-note {
   position: fixed;
   background: var(--bg);
@@ -739,15 +610,15 @@ ul.shelf li[data-type="site"] .entry-title {
 .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 0.75rem;
-  left: 1rem;
+  top: 0.5rem;
+  left: 0.5rem;
   z-index: 95;
   background: var(--bg);
   border: 1px solid var(--rule);
   color: var(--ink-light);
   font-size: 1.1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 44px;
+  height: 44px;
   line-height: 1;
   cursor: pointer;
   border-radius: 2px;
@@ -774,8 +645,7 @@ ul.shelf li[data-type="site"] .entry-title {
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--ink-light);
-  padding: 0.15rem 0 0.15rem 1.1rem;
-  position: relative;
+  padding: 0.15rem 0;
   transition: color 120ms ease;
 }
 
@@ -784,24 +654,13 @@ ul.shelf li[data-type="site"] .entry-title {
 }
 
 .topic-index a.active {
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 600;
-}
-
-.topic-index a.active::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-size: 1rem;
-  line-height: 1.3;
 }
 
 /* Central scrolling grid area */
 .grid-scroll {
   min-width: 0;
-  /* leave breathing room so right ghost doesn't overlap content */
-  padding-right: 220px;
 }
 
 .topic-section {
@@ -812,45 +671,34 @@ ul.shelf li[data-type="site"] .entry-title {
 .section-label {
   display: flex;
   align-items: baseline;
-  gap: 0.75rem;
+  gap: 0.6rem;
   border-bottom: 1px solid var(--rule-light);
   padding: 0.2rem 0 0.4rem;
   margin-bottom: 1.25rem;
 }
 
 .section-label-name {
-  font-family: var(--display);
-  font-size: 1.9rem;
-  font-weight: 400;
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 1;
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: normal;
   letter-spacing: -0.005em;
-  text-transform: lowercase;
   color: var(--ink);
-  line-height: 1;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .section-label-count {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--ink-ghost);
-  letter-spacing: 0.02em;
-  text-transform: lowercase;
-  align-self: baseline;
-  padding-bottom: 0.15rem;
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink-faint);
 }
 
-.section-label-count::before {
-  content: "no. ";
-  color: var(--ink-ghost);
-  opacity: 0.8;
-}
-
-/* 6-column grid with deliberately uneven fr widths — breaks IKEA rhythm without costume */
 .grid {
   list-style: none;
   display: grid;
-  grid-template-columns: 1.05fr 1fr 0.95fr 1fr 0.95fr 1.05fr;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: start;
   gap: 2rem 1rem;
   margin: 0;
@@ -925,68 +773,72 @@ ul.shelf li[data-type="site"] .entry-title {
   color: var(--accent);
 }
 
-/* :visited restored honestly — mustard + diamond prefix for clicked items
-   Browser privacy partitioning makes this safe again (no cross-site leak). */
+/* :visited — color-only state, no prefix glyph.
+   Browser privacy partitioning makes :visited safe again. */
 .grid li .cell-link:visited .cell-title {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
-.grid li .cell-link:visited .cell-title::before {
-  content: "◆ ";
-  color: var(--accent);
-  font-size: 0.72em;
-  letter-spacing: 0.1em;
+/* Cell metadata — dek (publisher/year), quote (verbatim), note (Lee's voice).
+   All permanent (no hover gating). Italic serif, same size family as blurb. */
+.grid li .cell-dek {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  color: var(--ink-faint);
+  margin-top: 0.05rem;
 }
 
-/* Permanent marginalia — Lee's note: voice surfaces below the blurb,
-   italic serif, border-left gloss. Replaces the retired hover-tooltip. */
-.grid li .cell-note {
+.grid li .cell-quote {
   display: block;
   font-family: var(--serif);
   font-style: italic;
   font-size: 0.78rem;
   line-height: 1.45;
   color: var(--ink-light);
-  margin-top: 0.55rem;
-  padding: 0.1rem 0 0.1rem 0.55rem;
-  border-left: 1px solid var(--rule);
+  margin-top: 0.45rem;
 }
 
-/* Colophon — Robin Sloan model. Credits fonts, signs the page. */
-.page-shelf .colophon {
+.grid li .cell-quote::before {
+  content: '\201C';
+}
+
+.grid li .cell-quote::after {
+  content: '\201D';
+}
+
+.grid li .cell-note {
+  display: block;
   font-family: var(--serif);
   font-style: italic;
   font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--ink-light);
+  margin-top: 0.45rem;
+}
+
+/* Colophon — single plain line, left-aligned */
+.page-shelf .colophon {
+  font-family: var(--serif);
+  font-size: 0.75rem;
   line-height: 1.55;
   color: var(--ink-faint);
-  text-align: center;
-  padding: 3rem 2rem 1rem;
-  max-width: 55ch;
-  margin: 0 auto;
+  padding: 3rem 0 1rem;
+  margin: 0;
 }
 
-.page-shelf .colophon a {
-  color: inherit;
-  border-bottom: 1px solid var(--rule);
-}
-
-.page-shelf .colophon a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-
-/* Responsive — scale grid columns with viewport; hamburger + hidden sidebar + hidden ghost on phones */
+/* Responsive — scale grid columns with viewport; hamburger + hidden sidebar on phones */
 @media (max-width: 1280px) {
   .page-shelf .library {
     grid-template-columns: 210px minmax(0, 1fr);
     gap: 2rem;
   }
-  .grid-scroll { padding-right: 200px; }
   .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
 @media (max-width: 1024px) {
-  .grid-scroll { padding-right: 0; }
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
@@ -1028,9 +880,6 @@ ul.shelf li[data-type="site"] .entry-title {
 
   .grid li .cell-cover { height: 140px; }
   .grid li .cell-cover img { max-height: 140px; }
-
-  /* Ghost intentionally hidden at mobile — no responsive bolt-on */
-  .margin-ghost { display: none; }
 }
 
 /* ── cat switch overlay ──

@@ -6,14 +6,16 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
-      <li data-type="{{ item.data.type }}"{% if item.data.blurb %} data-blurb="{{ item.data.blurb }}"{% endif %}{% if item.data.quote %} data-quote="{{ item.data.quote }}"{% endif %}{% if item.data.image %} data-cover="{{ item.data.image }}"{% endif %} data-author="{{ item.data.author }}" data-item-title="{{ item.data.title }}"{% if item.data.dek %} data-dek="{{ item.data.dek }}"{% endif %}>
+      <li>
         <a href="{{ item.data.url }}" class="cell-link">
           <div class="cell-cover">
             {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
           </div>
           {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
           <span class="cell-author">{{ item.data.author }}</span>
+          {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
           {%- if item.data.blurb %}<span class="cell-blurb">{{ item.data.blurb }}</span>{% endif %}
+          {%- if item.data.quote %}<span class="cell-quote">{{ item.data.quote }}</span>{% endif %}
           {%- if item.data.note %}<span class="cell-note">{{ item.data.note }}</span>{% endif %}
         </a>
       </li>
@@ -21,25 +23,27 @@ pageClass: page-shelf
 
 <button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()">☰</button>
 
+<h1 class="sr-only">Shelf</h1>
+
 <div class="library">
 
-  <aside class="topic-index" id="topic-index">
+  <nav class="topic-index" id="topic-index" aria-label="Topics">
     {%- for topic in topics %}
       {%- set sidebarBucket = collections.items | where("dest", "shelf") | where("topic", topic) %}
       {%- if sidebarBucket.length %}
     <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}">{{ topic }}</a>
       {%- endif %}
     {%- endfor %}
-  </aside>
+  </nav>
 
-  <main class="grid-scroll">
-    <div class="shelf-subtitle">Things on my desk.</div>
+  <section class="grid-scroll" id="main" aria-label="Items">
+    <p class="shelf-subtitle">Things on my desk.</p>
     {%- for topic in topics %}
       {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
       {%- if bucket.length %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" class="topic-section">
       <header class="section-label">
-        <span class="section-label-name">{{ topic }}</span>
+        <h2 class="section-label-name">{{ topic }}</h2>
         <span class="section-label-count">{{ bucket.length }}</span>
       </header>
       <ul class="grid">
@@ -48,28 +52,10 @@ pageClass: page-shelf
     </section>
       {%- endif %}
     {%- endfor %}
-  </main>
+  </section>
 
-</div>
-
-<div class="margin-ghost" id="margin-ghost">
-  <div class="ghost-image">
-    <img src="/img/melancholia.jpg" alt="" id="ghost-img">
-  </div>
-  <div class="ghost-meta" id="ghost-meta">
-    <div class="ghost-header">
-      <span class="ghost-type-badge" id="ghost-type-badge"></span>
-      <div class="ghost-title-block">
-        <span class="ghost-author" id="ghost-author"></span>
-        <span class="ghost-title" id="ghost-title"></span>
-      </div>
-    </div>
-    <span class="ghost-dek" id="ghost-dek"></span>
-    <span class="ghost-blurb" id="ghost-blurb"></span>
-    <span class="ghost-quote" id="ghost-quote"></span>
-  </div>
 </div>
 
 <footer class="colophon">
-  <em>{{ collections.items | where("dest", "shelf") | length }} entries across {{ topics | length }} topics · set in Fraunces, Source Serif 4, and IBM Plex Sans &amp; Mono · last revised April 2026 · <span aria-hidden="true">click the engraving</span></em>
+  {{ collections.items | where("dest", "shelf") | length }} entries across {{ topics | length }} topics · updated 2026-04
 </footer>

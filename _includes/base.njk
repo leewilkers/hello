@@ -22,10 +22,12 @@
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,300..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+<a href="#main" class="skip-link">Skip to content</a>
 
 <nav class="site-nav">
   <a href="/" class="nav-name">Lee Wilkers</a>
@@ -35,7 +37,7 @@
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       {# stream temporarily hidden – coming back when populated #}
     </div>
-    <button class="dimmer" aria-label="Toggle dark mode" onclick="toggleTheme()"></button>
+    <button class="dimmer" aria-label="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"></button>
   </div>
 </nav>
 
@@ -73,6 +75,7 @@
       const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
       d.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      if (button) button.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
     }
 
     function playCatThenFlip() {
@@ -132,101 +135,14 @@
   (function() {
     const saved = localStorage.getItem('theme');
     if (saved) document.documentElement.setAttribute('data-theme', saved);
-  })();
-
-  // margin ghost – detail card
-  (function() {
-    var img = document.getElementById('ghost-img');
-    if (!img) return;
-    var ghost = document.getElementById('margin-ghost');
-    var defaultSrc = img.src;
-    var gAuthor = document.getElementById('ghost-author');
-    var gTitle = document.getElementById('ghost-title');
-    var gDek = document.getElementById('ghost-dek');
-    var gBlurb = document.getElementById('ghost-blurb');
-    var gQuote = document.getElementById('ghost-quote');
-    var gBadge = document.getElementById('ghost-type-badge');
-    var leaveTimer = null;
-
-    // type icons – minimal geometric (stroke only, 1.5px)
-    var TYPE_ICONS = {
-      book: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v11"/><path d="M3 3c0 0 2-.5 5-.5s5 .5 5 .5v10c0 0-2-.5-5-.5s-5 .5-5 .5z"/></svg>',
-      essay: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6l3 3v9H4z"/><path d="M10 2v3h3"/></svg>',
-      site: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M2.5 8h11"/><path d="M8 2.5c-1.5 1.5-2.2 3.5-2.2 5.5s.7 4 2.2 5.5"/><path d="M8 2.5c1.5 1.5 2.2 3.5 2.2 5.5s-.7 4-2.2 5.5"/></svg>',
-      film: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 6h12M2 10h12"/><path d="M5 3v3M5 10v3M11 3v3M11 10v3"/></svg>',
-      interview: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7a1 1 0 011 1v4a1 1 0 01-1 1H6l-2 2V9H3a1 1 0 01-1-1V4a1 1 0 011-1z"/><path d="M12 6h1a1 1 0 011 1v4a1 1 0 01-1 1h-1v2l-2-2h-3"/></svg>',
-      slides: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="9" rx="1"/><path d="M8 11v3M5 14h6"/></svg>',
-      concept: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.5l2.5 4.5h5L11 10l1.5 4.5L8 12l-4.5 2.5L5 10 .5 6h5z"/></svg>'
-    };
-
-    // preload covers
-    document.querySelectorAll('[data-cover]').forEach(function(el) {
-      new Image().src = el.getAttribute('data-cover');
-    });
-
-    // melancholia easter egg – clickable when at rest
-    ghost.style.pointerEvents = 'auto';
-    ghost.addEventListener('click', function() {
-      if (!ghost.classList.contains('active')) {
-        window.open('https://monoskop.org/images/e/eb/Lorusso_Silvio_What_Design_Cant_Do_Essays_on_Design_and_Disillusion_2023.pdf#page=67', '_blank');
-      }
-    });
-    ghost.addEventListener('mouseenter', function() {
-      if (!ghost.classList.contains('active')) {
-        img.style.opacity = '1';
-        img.style.filter = 'grayscale(0.6)';
-        ghost.style.cursor = 'pointer';
-      }
-    });
-    ghost.addEventListener('mouseleave', function() {
-      if (!ghost.classList.contains('active')) {
-        img.style.opacity = '';
-        img.style.filter = '';
-        ghost.style.cursor = '';
-      }
-    });
-
-    function setGhost(cover, author, title, dek, blurb, quote, type) {
-      img.src = cover || defaultSrc;
-      gAuthor.textContent = author;
-      gTitle.textContent = title;
-      gDek.textContent = dek;
-      gBlurb.textContent = blurb;
-      gQuote.textContent = quote;
-      gBadge.textContent = '';
-      if (type && TYPE_ICONS[type]) {
-        gBadge.insertAdjacentHTML('afterbegin', TYPE_ICONS[type]);
-      }
-    }
-
-    document.querySelectorAll('.shelf li, .grid li').forEach(function(el) {
-      el.addEventListener('mouseenter', function() {
-        if (leaveTimer) { clearTimeout(leaveTimer); leaveTimer = null; }
-        var cover = el.getAttribute('data-cover');
-        setGhost(
-          cover,
-          el.getAttribute('data-author') || '',
-          el.getAttribute('data-item-title') || '',
-          el.getAttribute('data-dek') || '',
-          el.getAttribute('data-blurb') || '',
-          el.getAttribute('data-quote') || '',
-          el.getAttribute('data-type') || ''
-        );
-        ghost.classList.add('active');
-        ghost.style.cursor = '';
-        img.style.opacity = '';
-        img.style.filter = '';
-      });
-      el.addEventListener('mouseleave', function() {
-        ghost.classList.remove('active');
-        leaveTimer = setTimeout(function() {
-          if (!ghost.classList.contains('active')) {
-            setGhost(null, '', '', '', '', '', '');
-          }
-        }, 600);
-      });
+    // sync aria-pressed on dimmer once DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.querySelector('.dimmer');
+      if (btn) btn.setAttribute('aria-pressed', saved === 'dark' ? 'true' : 'false');
     });
   })();
+
+  // margin-ghost retired — metadata (dek, quote, note) now lives permanently in-cell
 
   // dust
   (function(){
@@ -243,7 +159,8 @@
   // tab
   (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
 
-  // scroll-spy for topic index
+  // scroll-spy — rAF-throttled scroll listener.  Robust for short sections
+  // (IntersectionObserver with -60% bottom rootMargin skipped 1-item sections.)
   (function() {
     var sections = document.querySelectorAll('.topic-section');
     var links = document.querySelectorAll('.topic-index a');
@@ -252,55 +169,105 @@
     var linkMap = {};
     links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
 
-    var visible = new Set();
-    function setActive() {
-      var topSlug = null;
-      var topY = Infinity;
+    function updateActive() {
+      var referenceY = 100; // just below site nav
+      var active = null;
+      var best = Infinity;
+
+      // Pick the section whose top has crossed the reference line most recently
       sections.forEach(function(s) {
-        if (!visible.has(s.dataset.topic)) return;
         var r = s.getBoundingClientRect();
-        // prefer the section whose top is nearest to (but past) the fold line
-        var y = r.top >= 0 ? r.top : (r.bottom > 0 ? -r.top : Infinity);
-        if (y < topY) { topY = y; topSlug = s.dataset.topic; }
+        if (r.top <= referenceY && r.bottom > referenceY) {
+          var dist = referenceY - r.top;
+          if (dist < best) { best = dist; active = s.dataset.topic; }
+        }
       });
-      if (!topSlug && visible.size) {
-        sections.forEach(function(s) {
-          if (!topSlug && visible.has(s.dataset.topic)) topSlug = s.dataset.topic;
-        });
+
+      // Fallback: first section fully visible, or first section if all below fold
+      if (!active) {
+        for (var i = 0; i < sections.length; i++) {
+          var r = sections[i].getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) {
+            active = sections[i].dataset.topic;
+            break;
+          }
+        }
       }
-      links.forEach(function(a) { a.classList.remove('active'); });
-      if (topSlug && linkMap[topSlug]) linkMap[topSlug].classList.add('active');
+
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-topic') === active;
+        a.classList.toggle('active', isActive);
+        if (isActive) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
     }
 
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) visible.add(e.target.dataset.topic);
-        else visible.delete(e.target.dataset.topic);
-      });
-      setActive();
-    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
 
-    sections.forEach(function(s) { io.observe(s); });
+    updateActive(); // initial paint
 
-    // Clicking a sidebar link closes the mobile overlay if open
+    // Mobile: clicking a sidebar link closes the overlay
     links.forEach(function(a) {
-      a.addEventListener('click', function() {
-        var idx = document.getElementById('topic-index');
-        if (idx) idx.classList.remove('open');
-        var btn = document.querySelector('.sidebar-toggle');
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-      });
+      a.addEventListener('click', function() { closeSidebar(); });
     });
   })();
 
-  // Mobile hamburger → full-screen topic overlay
-  window.toggleSidebar = function() {
+  // Mobile hamburger overlay: open/close with focus-trap + Escape + body scroll-lock
+  function openSidebar() {
     var idx = document.getElementById('topic-index');
     var btn = document.querySelector('.sidebar-toggle');
     if (!idx) return;
-    var isOpen = idx.classList.toggle('open');
-    if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    idx.classList.add('open');
+    idx.removeAttribute('inert');
+    document.body.classList.add('menu-open');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+    var firstLink = idx.querySelector('a');
+    if (firstLink) firstLink.focus();
+  }
+  function closeSidebar() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    var wasOpen = idx.classList.contains('open');
+    idx.classList.remove('open');
+    document.body.classList.remove('menu-open');
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      if (wasOpen) btn.focus();
+    }
+    // inert only matters at mobile; harmless at desktop where overlay isn't used
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      idx.setAttribute('inert', '');
+    }
+  }
+  window.toggleSidebar = function() {
+    var idx = document.getElementById('topic-index');
+    if (!idx) return;
+    if (idx.classList.contains('open')) closeSidebar();
+    else openSidebar();
   };
+  // Escape closes overlay when open
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Escape') return;
+    var idx = document.getElementById('topic-index');
+    if (idx && idx.classList.contains('open')) closeSidebar();
+  });
+  // Set inert on mobile load (desktop ignores)
+  document.addEventListener('DOMContentLoaded', function() {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      var idx = document.getElementById('topic-index');
+      if (idx && !idx.classList.contains('open')) idx.setAttribute('inert', '');
+    }
+  });
 
   // hover-note cursor tooltip retired — notes now permanent marginalia (see .cell-note in CSS)
 </script>
