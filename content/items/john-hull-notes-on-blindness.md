@@ -4,7 +4,6 @@ title: "Notes on Blindness: Into Darkness"
 type: film
 image: "/img/covers/john-hull-notes-on-blindness.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://www.meta.com/experiences/notes-on-blindness/1946326588770583/"
 dek: "Middleton, Spinney, Colinart & La Burthe, 2016"

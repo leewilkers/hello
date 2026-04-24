@@ -54,6 +54,10 @@ collections:
           - { label: "Book", value: "book" }
           - { label: "Writing", value: "essay" }
           - { label: "Site", value: "site" }
+          - { label: "Film", value: "film" }
+          - { label: "Interview", value: "interview" }
+          - { label: "Slides", value: "slides" }
+          - { label: "Concept", value: "concept" }
       - label: Destination
         name: dest
         widget: select
@@ -91,31 +95,17 @@ collections:
         name: note
         widget: text
         required: false
-        hint: "Lee's voice – pitch, quip, personal take. Cursor-follow tooltip on hover."
+        hint: "Lee's voice – pitch, quip, personal take. Renders inline on shelf items when present."
       - label: Quote
         name: quote
         widget: text
         required: false
-        hint: "Verbatim line from or about the thing. Shows in ghost card with typographic quotes."
+        hint: "Verbatim line from or about the thing. Renders inline on shelf items when present."
       - label: Blurb
         name: blurb
         widget: text
         required: false
-        hint: "Source-voiced description – publisher copy, review line, author one-liner. Ghost card, sans roman."
-      - label: Lane
-        name: lane
-        widget: select
-        required: false
-        options:
-          - { label: "Looking", value: "looking" }
-          - { label: "Making", value: "making" }
-          - { label: "Knowing", value: "knowing" }
-          - { label: "Maps", value: "maps" }
-          - { label: "Infrastructure", value: "infrastructure" }
-          - { label: "Intervention", value: "intervention" }
-          - { label: "Machine", value: "machine" }
-          - { label: "Experience", value: "experience" }
-        hint: "DEPRECATED – use Topic instead. Retained during migration."
+        hint: "Source-voiced description – publisher copy, review line, author one-liner. Renders inline on shelf items when present."
       - label: Topic
         name: topic
         widget: select
@@ -143,15 +133,15 @@ collections:
         name: image
         widget: image
         required: false
-        hint: "Optional accent image (book cover, screenshot). First image in lane appears at column top."
+        hint: "Optional accent image (book cover, screenshot)."
       - label: Featured
         name: featured
         widget: boolean
         default: false
         required: false
-        hint: "Show note inline (visible). Off = hover-only."
+        hint: "Optional editorial flag for future layout use."
       - label: Display Order
         name: order
         widget: number
         required: false
-        hint: "For shelf items. Lower numbers appear first within lane."
+        hint: "For shelf items. Lower numbers appear first within topic."

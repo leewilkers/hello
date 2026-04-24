@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Fred Brooks"
 title: "The Mythical Man-Month"
 type: concept
 image: "/img/covers/the-mythical-man-month.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://en.wikipedia.org/wiki/The_Mythical_Man-Month"
 order: 50

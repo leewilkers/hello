@@ -4,7 +4,6 @@ title: "Camera Lucida"
 type: book
 image: "/img/covers/barthes-camera-lucida.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://us.macmillan.com/books/9780374521349/camera-lucida"
 order: 50

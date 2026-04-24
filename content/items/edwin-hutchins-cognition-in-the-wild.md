@@ -4,7 +4,6 @@ title: "Cognition in the Wild"
 type: book
 image: "/img/covers/edwin-hutchins-cognition-in-the-wild.jpg"
 dest: shelf
-lane: machine
 topic: "Computing"
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
 dek: "MIT Press, 1995"

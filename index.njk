@@ -3,68 +3,34 @@ layout: base.njk
 pageClass: page-home
 ---
 
-<article class="home-instrument" aria-labelledby="home-title">
-  <header class="home-plate">
-    <img src="/img/lee.jpeg" alt="Lee Wilkers" class="photo">
-    <div>
-      <p class="home-fig">fig. 001 · leewilkers.com</p>
-      <h1 id="home-title" class="home-title">Lee Wilkers</h1>
-      <p class="home-tagline">Tools, media, and judgment.</p>
+<article class="archive-console home-console" aria-labelledby="home-title">
+  <section class="home-hero" id="main">
+    <div class="home-identity">
+      <img src="/img/lee.jpeg" alt="Lee Wilkers" class="photo">
+      <div>
+        <h1 id="home-title" class="home-title">Lee Wilkers</h1>
+        <p class="home-tagline">Tools, media, and judgment.</p>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <dl class="home-ledger">
-    <div class="home-row">
-      <dt>Author</dt>
-      <dd>
-        <p>Raised in the DC area. Working in Atlanta.</p>
-      </dd>
-    </div>
-
-    <div class="home-row">
-      <dt>Recently</dt>
-      <dd>
-        <ul class="home-recent">
-          <li>Focus Area on Compassion & Ethics (FACE), The Task Force for Global Health</li>
-          <li>Human Engagement Learning Platform, Rollins School of Public Health, Emory University</li>
-        </ul>
-      </dd>
+  <section class="console-grid" aria-label="Current records">
+    <div class="console-pane">
+      <h2>Author</h2>
+      <p>Raised in the DC area. Working in Atlanta.</p>
     </div>
 
-    <div class="home-row">
-      <dt>Contact</dt>
-      <dd>
-        <p>Now independent; limited availability for consulting: <a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
-      </dd>
+    <div class="console-pane">
+      <h2>Recently</h2>
+      <ul class="console-list">
+        <li>Focus Area on Compassion & Ethics (FACE), The Task Force for Global Health</li>
+        <li>Human Engagement Learning Platform, Rollins School of Public Health, Emory University</li>
+      </ul>
     </div>
 
-    <div class="home-row home-row-build">
-      <dt>Build</dt>
-      <dd>
-        <dl class="home-build">
-          <div>
-            <dt>Generator</dt>
-            <dd>Eleventy</dd>
-          </div>
-          <div>
-            <dt>CMS</dt>
-            <dd>Sveltia</dd>
-          </div>
-          <div>
-            <dt>Hosting</dt>
-            <dd>GitHub Pages</dd>
-          </div>
-          <div>
-            <dt>Repo</dt>
-            <dd>leewilkers/hello</dd>
-          </div>
-        </dl>
-      </dd>
+    <div class="console-pane">
+      <h2>Contact</h2>
+      <p>Now independent; limited availability for consulting: <a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
     </div>
-  </dl>
-
-  <footer class="home-caption">
-    <span>fig. 001 · home · April 2026</span>
-    <span class="dust">pardon the dust</span>
-  </footer>
+  </section>
 </article>

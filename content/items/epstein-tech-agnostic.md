@@ -4,7 +4,6 @@ title: "Tech Agnostic"
 type: book
 image: "/img/covers/epstein-tech-agnostic.jpg"
 dest: shelf
-lane: machine
 topic: "Computing"
 url: "https://mitpress.mit.edu/9780262048941/tech-agnostic/"
 order: 50

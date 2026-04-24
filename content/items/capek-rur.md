@@ -4,7 +4,6 @@ title: "R.U.R."
 type: book
 image: "/img/covers/capek-rur.jpg"
 dest: shelf
-lane: machine
 topic: "Language & Writing"
 url: "https://mitpress.mit.edu/9780262535540/rur/"
 order: 50

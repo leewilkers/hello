@@ -4,7 +4,6 @@ title: "Beyond Sticky Notes"
 type: book
 image: "/img/covers/mckercher-beyond-sticky-notes.jpg"
 dest: shelf
-lane: intervention
 topic: "Design & Craft"
 url: "https://www.beyondstickynotes.com/"
 order: 50

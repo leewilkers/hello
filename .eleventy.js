@@ -6,24 +6,38 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("google8f11425ab7fc438d.html");
 
+  function expectCollection(arr, filterName) {
+    if (!Array.isArray(arr)) {
+      throw new TypeError(`${filterName} expected an Eleventy collection array`);
+    }
+    return arr;
+  }
+
+  function expectData(item, filterName) {
+    if (!item || !item.data) {
+      throw new TypeError(`${filterName} expected collection items with a data object`);
+    }
+    return item.data;
+  }
+
+  function numericSortValue(item, key, filterName) {
+    const value = expectData(item, filterName)[key];
+    if (value === undefined || value === null || value === "") return 999;
+    const n = Number(value);
+    if (!Number.isFinite(n)) {
+      throw new TypeError(`${filterName} expected numeric ${key}; got ${JSON.stringify(value)}`);
+    }
+    return n;
+  }
+
   // Collection filters
   eleventyConfig.addFilter("where", function(arr, key, value) {
-    return (arr || []).filter(item => item.data[key] === value);
-  });
-
-  eleventyConfig.addFilter("findImage", function(arr) {
-    return (arr || []).find(item => item.data.image);
+    return expectCollection(arr, "where").filter(item => expectData(item, "where")[key] === value);
   });
 
   eleventyConfig.addFilter("sortBy", function(arr, key) {
-    return [...(arr || [])].sort((a, b) => (a.data[key] || 999) - (b.data[key] || 999));
-  });
-
-  eleventyConfig.addFilter("sortByDateDesc", function(arr) {
-    return [...(arr || [])].sort((a, b) => {
-      const da = a.data.date ? new Date(a.data.date).getTime() : 0;
-      const db = b.data.date ? new Date(b.data.date).getTime() : 0;
-      return db - da;
+    return [...expectCollection(arr, "sortBy")].sort((a, b) => {
+      return numericSortValue(a, key, "sortBy") - numericSortValue(b, key, "sortBy");
     });
   });
 
@@ -35,21 +49,15 @@ module.exports = function(eleventyConfig) {
       const tokens = first.split(/\s+/);
       return (tokens[tokens.length - 1] || "").toLowerCase();
     }
-    return [...(arr || [])].sort((a, b) => {
-      const sa = surname(a.data.author);
-      const sb = surname(b.data.author);
+    return [...expectCollection(arr, "sortByAuthor")].sort((a, b) => {
+      const ad = expectData(a, "sortByAuthor");
+      const bd = expectData(b, "sortByAuthor");
+      const sa = surname(ad.author);
+      const sb = surname(bd.author);
       if (sa < sb) return -1;
       if (sa > sb) return 1;
-      return (a.data.order || 999) - (b.data.order || 999);
+      return numericSortValue(a, "order", "sortByAuthor") - numericSortValue(b, "order", "sortByAuthor");
     });
-  });
-
-  // Date filter for stream month headers (handles Date objects and strings)
-  eleventyConfig.addFilter("monthYear", function(val) {
-    if (!val) return "";
-    const d = val instanceof Date ? val : new Date(val);
-    if (isNaN(d.getTime())) return "";
-    return d.toLocaleDateString("en-US", { month: "long", year: "numeric" }).toUpperCase();
   });
 
   // Ignore non-site files
@@ -62,6 +70,11 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("migrate-items.js");
   eleventyConfig.ignores.add("google8f11425ab7fc438d.html");
   eleventyConfig.ignores.add("_og-card.html");
+  eleventyConfig.ignores.add("_shelf_expansion_picks_2026-04-12.md");
+  eleventyConfig.ignores.add("qa/**");
+  eleventyConfig.ignores.add("source_reading/**");
+  eleventyConfig.ignores.add("claude_design/**");
+  eleventyConfig.ignores.add("scripts/**");
 
   return {
     dir: {

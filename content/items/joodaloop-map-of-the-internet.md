@@ -4,7 +4,6 @@ title: "map.joodaloop.com"
 type: site
 image: "/img/covers/joodaloop-map-of-the-internet.jpg"
 dest: shelf
-lane: maps
 topic: "Classification & Taxonomy"
 url: "https://map.joodaloop.com"
 order: 50

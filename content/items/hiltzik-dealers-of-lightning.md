@@ -4,7 +4,6 @@ title: "Dealers of Lightning"
 type: book
 image: "/img/covers/hiltzik-dealers-of-lightning.jpg"
 dest: shelf
-lane: machine
 topic: "Computing"
 url: "https://www.harpercollins.com/products/dealers-of-lightning-michael-a-hiltzik"
 order: 50

@@ -4,7 +4,6 @@ title: "That Dragon, Cancer"
 type: site
 image: "/img/covers/numinous-games-that-dragon-cancer.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://store.steampowered.com/app/419460/That_Dragon_Cancer/"
 dek: "Numinous Games, 2016"

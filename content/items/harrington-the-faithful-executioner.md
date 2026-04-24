@@ -4,7 +4,6 @@ title: "The Faithful Executioner"
 type: book
 image: "/img/covers/harrington-the-faithful-executioner.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://us.macmillan.com/books/9780809049929/the-faithful-executioner"
 order: 50

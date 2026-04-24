@@ -4,7 +4,6 @@ title: "Everything"
 type: site
 image: "/img/covers/david-oreilly-everything.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://store.steampowered.com/app/582270/Everything/"
 dek: "2017"

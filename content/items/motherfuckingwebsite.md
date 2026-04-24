@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Barry Smith"
 title: "motherfuckingwebsite.com"
 type: site
 image: "/img/covers/motherfuckingwebsite.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "http://motherfuckingwebsite.com"
 order: 50

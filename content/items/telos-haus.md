@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "telos.haus"
 title: "telos.haus"
 type: site
 image: "/img/covers/telos-haus.jpg"
 dest: shelf
-lane: making
 topic: "Design & Craft"
 url: "https://telos.haus"
 order: 50

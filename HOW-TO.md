@@ -1,66 +1,46 @@
-# How This Works
+# How This Site Works
 
-## Layout
+## Pages
 
-```
-┌────────────────────────────────┬──────────────────┐
-│  currently                     │     stream       │
-├────────┬────────┬──────────────┴┬─────────────────┤
-│ global │        │  design &     │ lists &         │
-│ health │ writing│  collaboration│ guides          │
-└────────┴────────┴───────────────┴─────────────────┘
-```
+- `/` comes from `index.njk`.
+- `/shelf/` comes from `shelf.njk`.
+- `/stream/` comes from `stream.njk`, but is hidden from the primary nav while content is being edited.
+- `/admin/` is the Sveltia CMS interface.
 
-## Tag Bar
+## Shelf
 
-All tags appear at top, sorted by frequency. Click to filter.
+The shelf is a topical index.
 
-- **Click tag** → filter to that tag
-- **Click another** → AND filter (shows items with BOTH tags)
-- **Click active tag** → deselect
-- **Click "all"** → clear filters
-- **URL updates** → `?tags=amr,ethics` (shareable)
+1. Topics are listed in `_data/topics.json`.
+2. Shelf records live in `content/items/*.md`.
+3. A shelf record uses `dest: shelf` and a `topic` matching `_data/topics.json`.
+4. `shelf.njk` groups records by topic and sorts them by `order`.
 
-## Tags → Channels
+The retired `lane` field should not be used.
 
-| Channel | Tags |
-|---------|------|
-| **currently** | `currently`, `pinned`, `thinking` |
-| **global health** | `globalhealth`, `amr`, `ethics`, `ntd`, `policy` |
-| **writing** | `writing`, `essay`, `blog`, `article`, `longform` |
-| **design & collaboration** | `design`, `collaboration`, `facilitation`, `process`, `hcd` |
-| **lists & guides** | `list`, `guide`, `howto`, `reference`, `resource` |
+## Stream
 
-## Daily Use
+Stream records also live in `content/items/*.md`.
 
-1. Save link in Raindrop
-2. Add 1-2 tags
-3. Optionally add note
-4. Site rebuilds daily → link appears
+Use `dest: stream`. Stream records may omit `topic`; they can use `source`, `date`, `dek`, `note`, `blurb`, or `quote` when useful.
 
-## Updating Old Links
+## Bulk Editing
 
-Edit tags in Raindrop → next rebuild picks them up.
+Use the local spreadsheet tools:
 
-With Raindrop MCP:
-> "Add tag 'ethics' to all my bookmarks about moral philosophy"
-
-## To Change Channels
-
-Edit `_data/channels.json`:
-
-```json
-{
-  "subcategories": [
-    {
-      "name": "new channel",
-      "query": "tag:newtag OR tag:othertag",
-      "limit": 10
-    }
-  ]
-}
+```bash
+python3 scripts/items_to_sheet.py
+python3 scripts/sheet_to_items.py --dry
+python3 scripts/sheet_to_items.py
 ```
 
-## Tag Bar Growth
+Then rebuild and validate:
 
-Tags auto-populate from all links. Use a new tag → appears in bar after rebuild.
+```bash
+npm run build
+python3 scripts/validate_items.py
+```
+
+## Non-Public Working Material
+
+`qa/`, `source_reading/`, and `claude_design/` are working/research folders. They are ignored by Eleventy and should not be treated as public site content.

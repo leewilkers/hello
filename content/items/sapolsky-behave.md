@@ -4,7 +4,6 @@ title: "Behave"
 type: book
 image: "/img/covers/sapolsky-behave.jpg"
 dest: shelf
-lane: looking
 topic: "Global Health & Policy"
 url: "https://www.penguinrandomhouse.com/books/240547/behave-by-robert-m-sapolsky/"
 order: 50

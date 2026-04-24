@@ -4,7 +4,6 @@ author: "Elliott Cost"
 url: "https://special.fish/"
 type: site
 dest: shelf
-lane: maps
 topic: "Classification & Taxonomy"
 order: 20
 note: ""

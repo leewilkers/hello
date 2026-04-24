@@ -4,7 +4,6 @@ title: "Scale"
 type: book
 image: "/img/covers/west-scale.jpg"
 dest: shelf
-lane: maps
 topic: "Ecology & Environment"
 url: "https://www.penguinrandomhouse.com/books/314049/scale-by-geoffrey-west/"
 order: 50

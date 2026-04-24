@@ -4,7 +4,6 @@ title: "On the Reception and Detection of Pseudo-Profound Bullshit"
 type: essay
 image: "/img/covers/pennycook-cheyne-pseudo-profound-bullshit.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://doi.org/10.1017/S1930297500006999"
 order: 50

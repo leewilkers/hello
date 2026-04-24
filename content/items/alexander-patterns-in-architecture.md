@@ -4,7 +4,6 @@ title: "Patterns in Architecture"
 type: slides
 image: "/img/covers/alexander-patterns-in-architecture.jpg"
 dest: shelf
-lane: making
 topic: "Architecture"
 url: "https://www.youtube.com/watch?v=98LdFA-_zfA"
 order: 50

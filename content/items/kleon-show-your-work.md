@@ -4,7 +4,6 @@ title: "Show Your Work!"
 type: book
 image: "/img/covers/kleon-show-your-work.jpg"
 dest: shelf
-lane: making
 topic: "Design & Craft"
 url: "https://austinkleon.com/show-your-work/"
 order: 50

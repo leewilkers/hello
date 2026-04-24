@@ -4,7 +4,6 @@ title: "Bending the Frame"
 type: book
 image: "/img/covers/ritchin-bending-the-frame.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://aperture.org/books/bending-the-frame/"
 order: 50

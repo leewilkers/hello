@@ -4,7 +4,6 @@ title: "The Argumentative Indian"
 type: book
 image: "/img/covers/sen-the-argumentative-indian.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://www.penguinrandomhouse.com/books/292377/the-argumentative-indian-by-amartya-sen/"
 order: 50

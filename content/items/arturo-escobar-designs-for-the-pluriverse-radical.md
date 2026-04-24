@@ -4,7 +4,6 @@ title: "Designs for the Pluriverse: Radical Interdependence, Autonomy, and the M
 type: book
 image: "/img/covers/arturo-escobar-designs-for-the-pluriverse-radical.jpg"
 dest: shelf
-lane: intervention
 topic: "Global Health & Policy"
 url: "https://www.dukeupress.edu/designs-for-the-pluriverse"
 dek: "Duke, 2018"

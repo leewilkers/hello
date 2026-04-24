@@ -4,7 +4,6 @@ title: "The Great Indoors"
 type: book
 image: "/img/covers/anthes-the-great-indoors.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://www.scientificamerican.com/book/the-great-indoors/"
 order: 50

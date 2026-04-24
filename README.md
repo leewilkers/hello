@@ -1,69 +1,48 @@
 # leewilkers.com
 
-A personal link archive. Things I clicked on that I may or may not have read.
+Personal homepage and curated shelf for Lee Wilkers.
 
-## Setup
-
-### 1. Get your Raindrop API token
-
-1. Go to [app.raindrop.io/settings/integrations](https://app.raindrop.io/settings/integrations)
-2. Click "Create new app"
-3. Click "Create Test Token" — copy it
-
-### 2. Add token to GitHub
-
-1. Repo → Settings → Secrets and variables → Actions
-2. New repository secret
-3. Name: `RAINDROP_TOKEN`
-4. Value: your token
-
-### 3. Enable GitHub Pages
-
-1. Repo → Settings → Pages
-2. Source: "GitHub Actions"
-
-### 4. Add your photo
-
-Put your photo at `img/lee.jpeg`
-
-## Local dev
+## Local Development
 
 ```bash
 npm install
 npm start
 ```
 
-## Customizing
+Build locally:
 
-### Channels
-
-Edit `_data/channels.json`:
-
-```json
-{
-  "name": "channel name",
-  "query": "tag:foo OR tag:bar",
-  "size": "w4 h-md",
-  "limit": 8
-}
+```bash
+npm run build
 ```
 
-### Books
+Validate content records:
 
-Edit `_data/books.json`
+```bash
+python3 scripts/validate_items.py
+```
 
-### Tags
+## Content Model
 
-Use whatever tags you want in Raindrop. Query syntax:
-- `tag:foo` — matches "foo"
-- `tag:foo OR tag:bar` — matches either
+- Pages live at the repo root as Eleventy templates.
+- Shelf and stream records live in `content/items/*.md`.
+- `_data/topics.json` is the canonical shelf topic list.
+- `dest: shelf` records appear on `/shelf/`.
+- `dest: stream` records appear on `/stream/`; stream is intentionally hidden from the primary nav while content is being edited.
 
-## Stack
+The old lane taxonomy is retired. Use `topic`.
 
-- [Eleventy](https://11ty.dev)
-- [Raindrop.io](https://raindrop.io)
-- GitHub Pages + Actions
+## Editing Content
 
----
+For single records, edit the Markdown frontmatter in `content/items/*.md` or use `/admin/`.
 
-*a handmade thing*
+For bulk edits, use the spreadsheet workflow in `scripts/README.md`:
+
+```bash
+python3 scripts/items_to_sheet.py
+python3 scripts/sheet_to_items.py --dry
+python3 scripts/sheet_to_items.py
+```
+
+## Deploy
+
+Push to `main`. GitHub Actions builds the Eleventy site and deploys to GitHub Pages.

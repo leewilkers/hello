@@ -4,7 +4,6 @@ title: "Scaling Impact: Innovation for the Public Good"
 type: book
 image: "/img/covers/robert-mclean-john-gargani-scaling-impact.jpg"
 dest: shelf
-lane: intervention
 topic: "Global Health & Policy"
 url: "https://idrc-crdi.ca/sites/default/files/openebooks/scalingimpact/index.html"
 dek: "Routledge/IDRC, 2019"

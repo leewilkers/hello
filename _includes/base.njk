@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-  You looked.
-  The engraving in the margin is clickable.
--->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,15 +25,14 @@
 
 <a href="#main" class="skip-link">Skip to content</a>
 
-<nav class="site-nav">
+<nav class="site-nav" aria-label="Primary">
   <a href="/" class="nav-name">Lee Wilkers</a>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       {# stream temporarily hidden – coming back when populated #}
     </div>
-    <button class="dimmer" aria-label="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"></button>
+    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></button>
   </div>
 </nav>
 
@@ -52,6 +47,13 @@
   {{ content | safe }}
 
 </main>
+
+<footer class="site-colophon" aria-label="Site colophon">
+  <span>Generator Eleventy</span>
+  <span>CMS Sveltia</span>
+  <span>Hosting GitHub Pages</span>
+  <span>Repo leewilkers/hello</span>
+</footer>
 
 <script>
   // theme toggle – plays the cat-hitting-light clip and flips theme at impact
@@ -141,8 +143,6 @@
       if (btn) btn.setAttribute('aria-pressed', saved === 'dark' ? 'true' : 'false');
     });
   })();
-
-  // margin-ghost retired — metadata (dek, quote, note) now lives permanently in-cell
 
   // dust
   (function(){
@@ -268,8 +268,6 @@
       if (idx && !idx.classList.contains('open')) idx.setAttribute('inert', '');
     }
   });
-
-  // hover-note cursor tooltip retired — notes now permanent marginalia (see .cell-note in CSS)
 </script>
 </body>
 </html>

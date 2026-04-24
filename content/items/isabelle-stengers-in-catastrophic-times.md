@@ -4,7 +4,6 @@ title: "In Catastrophic Times: Resisting the Coming Barbarism"
 type: book
 image: "/img/covers/isabelle-stengers-in-catastrophic-times.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://www.openhumanitiespress.org/books/titles/in-catastrophic-times/"
 dek: "Open Humanities, 2015"

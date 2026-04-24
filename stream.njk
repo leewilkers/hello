@@ -6,17 +6,49 @@ pageClass: page-stream
 ---
 
 {% set streamItems = collections.items | where("dest", "stream") | sortBy("order") %}
+{% set feedItems = [] %}
+{% set linkItems = [] %}
+{%- for item in streamItems -%}
+  {%- if item.data.title -%}
+    {% set linkItems = (linkItems.push(item), linkItems) %}
+  {%- else -%}
+    {% set feedItems = (feedItems.push(item), feedItems) %}
+  {%- endif -%}
+{%- endfor %}
 
-<p class="page-subtitle">Things I clicked on that I may or may not have read.</p>
+<article class="archive-console stream-console" id="main">
+  <p class="page-subtitle">Things I clicked on that I may or may not have read.</p>
 
-<ul class="stream-list">
-  {%- for item in streamItems %}
-  <li>
-    <a href="{{ item.data.url }}">
-      <span class="stream-author">{{ item.data.author }}</span>
-      {%- if item.data.title %}<span class="stream-title">{{ item.data.title }}</span>{%- endif %}
-    </a>
-    {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
-  </li>
-  {%- endfor %}
-</ul>
+  {%- if feedItems.length %}
+  <section class="stream-section" aria-labelledby="stream-feed">
+    <h2 class="stream-section-label" id="stream-feed">feed</h2>
+    <ul class="stream-list stream-list--feed">
+      {%- for item in feedItems %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="stream-author">{{ item.data.author }}</span>
+          {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+
+  {%- if linkItems.length %}
+  <section class="stream-section" aria-labelledby="stream-links">
+    <h2 class="stream-section-label" id="stream-links">links</h2>
+    <ul class="stream-list stream-list--links">
+      {%- for item in linkItems %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="stream-author">{{ item.data.author }}</span>
+          <span class="stream-title">{{ item.data.title }}</span>
+          {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+  {%- endif %}
+</article>

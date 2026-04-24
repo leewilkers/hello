@@ -4,7 +4,6 @@ title: "Design Ethics Beyond Duty and Virtue"
 type: book
 image: "/img/covers/danjou-design-ethics-beyond-duty-and-virtue.jpg"
 dest: shelf
-lane: knowing
 topic: "Ethics & Moral Philosophy"
 url: "https://www.routledge.com/Beyond-Duty-and-Virtue/dAnjou/p/book/9781138245303"
 order: 50

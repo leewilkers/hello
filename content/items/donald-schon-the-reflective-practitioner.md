@@ -4,7 +4,6 @@ title: "The Reflective Practitioner: How Professionals Think in Action"
 type: book
 image: "/img/covers/donald-schon-the-reflective-practitioner.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://archive.org/details/reflectivepracti0000scho"
 dek: "Basic Books, 1983"

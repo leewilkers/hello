@@ -6,11 +6,12 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
-      <li>
+      <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
         <a href="{{ item.data.url }}" class="cell-link">
-          <div class="cell-cover">
-            {% if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
-          </div>
+          <span class="cell-cover">
+            {%- if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
+          </span>
+          <span class="cell-type">{{ item.data.type }}</span>
           {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
           <span class="cell-author">{{ item.data.author }}</span>
           {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
@@ -25,26 +26,47 @@ pageClass: page-shelf
 
 <h1 class="sr-only">Shelf</h1>
 
+<header class="shelf-console-head" id="main">
+  <div class="shelf-console-head__title">
+    <p class="console-kicker">Shelf</p>
+    <p class="shelf-subtitle">Things on my desk.</p>
+  </div>
+  <div class="shelf-filter" role="search">
+    <label for="shelf-filter-input" class="sr-only">Filter shelf</label>
+    <input
+      id="shelf-filter-input"
+      type="search"
+      class="shelf-filter__input"
+      placeholder="filter"
+      autocomplete="off"
+      spellcheck="false">
+  </div>
+  <p class="console-status" data-shelf-status>
+    <span data-shelf-count="entries">{{ collections.items | where("dest", "shelf") | length }}</span> entries ·
+    <span data-shelf-count="topics">{{ topics | length }}</span> topics
+  </p>
+</header>
+
 <div class="library">
 
   <nav class="topic-index" id="topic-index" aria-label="Topics">
+    <p class="rail-label">Topics</p>
     {%- for topic in topics %}
       {%- set sidebarBucket = collections.items | where("dest", "shelf") | where("topic", topic) %}
       {%- if sidebarBucket.length %}
-    <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}">{{ topic }}</a>
+    <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}"><span>{{ topic }}</span><b>{{ sidebarBucket.length }}</b></a>
       {%- endif %}
     {%- endfor %}
   </nav>
 
-  <section class="grid-scroll" id="main" aria-label="Items">
-    <p class="shelf-subtitle">Things on my desk.</p>
+  <section class="grid-scroll" aria-label="Items">
     {%- for topic in topics %}
       {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
       {%- if bucket.length %}
-    <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" class="topic-section">
+    <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-count="{{ bucket.length }}" class="topic-section">
       <header class="section-label">
         <h2 class="section-label-name">{{ topic }}</h2>
-        <span class="section-label-count">{{ bucket.length }}</span>
+        <span class="section-label-count" data-section-count>{{ bucket.length }}</span>
       </header>
       <ul class="grid">
         {%- for item in bucket %}{{ cell(item) }}{%- endfor %}
@@ -52,10 +74,64 @@ pageClass: page-shelf
     </section>
       {%- endif %}
     {%- endfor %}
+    <p class="shelf-filter-empty" role="status" aria-live="polite" hidden>No matches.</p>
   </section>
 
 </div>
 
-<footer class="colophon">
-  {{ collections.items | where("dest", "shelf") | length }} entries across {{ topics | length }} topics · updated 2026-04
-</footer>
+<script>
+(function() {
+  var input = document.getElementById('shelf-filter-input');
+  if (!input) return;
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll('.topic-section'));
+  var railLinks = Array.prototype.slice.call(document.querySelectorAll('.topic-index a'));
+  var entriesCount = document.querySelector('[data-shelf-count="entries"]');
+  var topicsCount = document.querySelector('[data-shelf-count="topics"]');
+  var emptyMsg = document.querySelector('.shelf-filter-empty');
+
+  var totalEntries = entriesCount ? parseInt(entriesCount.textContent, 10) : 0;
+  var totalTopics = topicsCount ? parseInt(topicsCount.textContent, 10) : 0;
+
+  function norm(s) { return (s || '').toLowerCase().trim(); }
+
+  function applyFilter() {
+    var q = norm(input.value);
+    var visibleItems = 0;
+    var visibleTopics = 0;
+    var visibleBySlug = {};
+
+    sections.forEach(function(section) {
+      var items = section.querySelectorAll('li[data-search]');
+      var shown = 0;
+      items.forEach(function(li) {
+        var hay = norm(li.getAttribute('data-search'));
+        var match = q === '' || hay.indexOf(q) !== -1;
+        li.hidden = !match;
+        if (match) shown++;
+      });
+      section.hidden = shown === 0;
+      var slug = section.getAttribute('data-topic');
+      visibleBySlug[slug] = shown;
+      var countEl = section.querySelector('[data-section-count]');
+      if (countEl) countEl.textContent = shown;
+      if (shown > 0) { visibleTopics++; visibleItems += shown; }
+    });
+
+    railLinks.forEach(function(a) {
+      var slug = a.getAttribute('data-topic');
+      var shown = visibleBySlug[slug] || 0;
+      a.hidden = shown === 0;
+      var b = a.querySelector('b');
+      if (b) b.textContent = shown;
+    });
+
+    if (entriesCount) entriesCount.textContent = q ? visibleItems : totalEntries;
+    if (topicsCount) topicsCount.textContent = q ? visibleTopics : totalTopics;
+    if (emptyMsg) emptyMsg.hidden = !(q && visibleItems === 0);
+  }
+
+  input.addEventListener('input', applyFilter);
+  input.addEventListener('search', applyFilter);
+})();
+</script>

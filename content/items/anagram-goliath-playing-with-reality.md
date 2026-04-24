@@ -4,7 +4,6 @@ title: "Goliath: Playing with Reality"
 type: film
 image: "/img/covers/anagram-goliath-playing-with-reality.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://weareanagram.co.uk/project/goliath"
 dek: "Venice Immersive Grand Jury Prize, 2021"

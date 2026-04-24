@@ -4,7 +4,6 @@ title: "The Innovation Delusion: How Our Obsession with the New Has Disrupted th
 type: book
 image: "/img/covers/lee-vinsel-andrew-russell-the-innovation-delusion-how-our.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://www.penguinrandomhouse.com/books/576816/the-innovation-delusion-by-lee-vinsel-and-andrew-l-russell/"
 dek: "Currency, 2020"

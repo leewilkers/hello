@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "userinterface.wiki"
 title: "userinterface.wiki"
 type: site
 image: "/img/covers/userinterface-wiki.jpg"
 dest: shelf
-lane: making
 topic: "Design & Craft"
 url: "https://userinterface.wiki"
 order: 50

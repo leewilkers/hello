@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Alexander Bogdanov"
 title: "Tektology"
 type: concept
 image: "/img/covers/tektology.jpg"
 dest: shelf
-lane: maps
 topic: "Classification & Taxonomy"
 url: "https://en.wikipedia.org/wiki/Tektology"
 order: 50

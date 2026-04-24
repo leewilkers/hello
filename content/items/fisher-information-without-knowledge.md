@@ -4,7 +4,6 @@ title: "Information without knowledge: the effects of Internet search on learnin
 type: essay
 image: "/img/covers/fisher-information-without-knowledge.jpg"
 dest: shelf
-lane: machine
 topic: "Computing"
 url: "https://bpb-us-w2.wpmucdn.com/campuspress.yale.edu/dist/c/259/files/2021/02/Fisher-Information-without-knowledge-the-effects-of-Internet-search-on-learning-copy.pdf"
 order: 50

@@ -4,7 +4,6 @@ title: "Fast Software, the Best Software"
 type: essay
 image: "/img/covers/craig-mod-fast-software-the-best-software.jpg"
 dest: shelf
-lane: making
 topic: "Design & Craft"
 url: "https://craigmod.com/essays/fast_software/"
 dek: "craigmod.com, 2019"

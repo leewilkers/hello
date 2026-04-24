@@ -4,7 +4,6 @@ title: "Toward a Critical Technical Practice: Lessons Learned in Trying to Refor
 type: essay
 image: "/img/covers/phil-agre-toward-a-critical-technical-practice.jpg"
 dest: shelf
-lane: machine
 topic: "Science & Technology Studies"
 url: "https://pages.gseis.ucla.edu/faculty/agre/critical.html"
 dek: "in Bridging the Great Divide (Erlbaum), 1997"

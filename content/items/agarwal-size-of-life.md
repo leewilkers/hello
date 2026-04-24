@@ -4,7 +4,6 @@ title: "Size of Life"
 type: site
 image: "/img/covers/agarwal-size-of-life.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://neal.fun/size-of-life/"
 order: 50

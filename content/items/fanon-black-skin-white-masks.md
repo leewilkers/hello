@@ -4,7 +4,6 @@ title: "Black Skin, White Masks"
 type: book
 image: "/img/covers/fanon-black-skin-white-masks.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://groveatlantic.com/book/black-skin-white-masks/"
 order: 50

@@ -4,7 +4,6 @@ title: "Homo Ludens: A Study of the Play-Element in Culture"
 type: book
 image: "/img/covers/johan-huizinga-homo-ludens.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://archive.org/details/homoludensstudyo0000unse"
 dek: "Beacon Press, 1938"

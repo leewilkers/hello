@@ -4,7 +4,6 @@ title: "LOW←TECH MAGAZINE"
 type: site
 image: "/img/covers/kris-de-decker-low-tech-magazine.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://solar.lowtechmagazine.com"
 dek: "solar-powered server, 2007–"

@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Jack Linchuan Qiu"
 title: "Working-Class Network Society"
 type: essay
 image: "/img/covers/working-class-network-society.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://mitpress.mit.edu/9780262515856/working-class-network-society/"
 order: 50

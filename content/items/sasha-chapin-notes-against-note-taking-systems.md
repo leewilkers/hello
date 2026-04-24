@@ -4,7 +4,6 @@ title: "Notes Against Note-Taking Systems"
 type: essay
 image: "/img/covers/sasha-chapin-notes-against-note-taking-systems.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://sashachapin.substack.com/p/notes-against-note-taking-systems"
 dek: "sashachapin.substack.com, 2022"

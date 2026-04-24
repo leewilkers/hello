@@ -4,7 +4,6 @@ title: "Structures of Mediation: A Formal Approach to Brokerage in Transaction N
 type: essay
 image: "/img/covers/gould-fernandez-structures-of-mediation.jpg"
 dest: shelf
-lane: maps
 topic: "Classification & Taxonomy"
 url: "https://doi.org/10.1177/0049124189018001005"
 order: 50

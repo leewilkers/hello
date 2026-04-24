@@ -6,7 +6,6 @@ image: "/img/covers/ursula-k-le-guin-a-rant-about-technology.jpg"
 dest: shelf
 note: ""
 quote: "as if steel saucepans grew on trees"
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://www.ursulakleguin.com/a-rant-about-technology"
 dek: "2005"

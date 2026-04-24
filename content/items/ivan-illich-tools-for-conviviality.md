@@ -4,7 +4,6 @@ title: "Tools for Conviviality"
 type: book
 image: "/img/covers/ivan-illich-tools-for-conviviality.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Tech Criticism"
 url: "https://archive.org/details/illich-conviviality"
 dek: "Harper & Row, 1973"

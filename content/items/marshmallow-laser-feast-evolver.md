@@ -4,7 +4,6 @@ title: "Evolver"
 type: film
 image: "/img/covers/marshmallow-laser-feast-evolver.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://marshmallowlaserfeast.com/project/evolver/"
 dek: "Tribeca, 2022"

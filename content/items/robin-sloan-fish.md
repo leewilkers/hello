@@ -4,7 +4,6 @@ title: "Fish"
 type: essay
 image: "/img/covers/robin-sloan-fish.jpg"
 dest: shelf
-lane: experience
 topic: "Interfaces & Interaction"
 url: "https://www.robinsloan.com/fish/"
 dek: "robinsloan.com, 2012 — a tap essay"

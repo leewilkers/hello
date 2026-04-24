@@ -4,7 +4,6 @@ title: "The Cruel Radiance"
 type: book
 image: "/img/covers/linfield-the-cruel-radiance.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://press.uchicago.edu/ucp/books/book/chicago/C/bo12986981.html"
 order: 50

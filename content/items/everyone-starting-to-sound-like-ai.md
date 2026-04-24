@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Sam Kriss"
 title: "Everyone is starting to sound like AI, even in spoken language"
 type: essay
 image: "/img/covers/everyone-starting-to-sound-like-ai.jpg"
 dest: shelf
-lane: machine
 topic: "Language & Writing"
 url: "https://arxiv.org/abs/2409.01754"
 order: 50

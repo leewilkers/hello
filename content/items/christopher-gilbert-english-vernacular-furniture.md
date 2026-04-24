@@ -4,7 +4,6 @@ title: "English Vernacular Furniture, 1750–1900"
 type: book
 image: "/img/covers/christopher-gilbert-english-vernacular-furniture.jpg"
 dest: shelf
-lane: making
 topic: "Design & Craft"
 url: "https://www.amazon.com/English-Vernacular-Furniture-1750-1900-Studies/dp/0300047622"
 dek: "Yale University Press, 1991"

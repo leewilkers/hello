@@ -4,7 +4,6 @@ title: "Making Social Science Matter: Why Social Inquiry Fails and How It Can Su
 type: book
 image: "/img/covers/bent-flyvbjerg-making-social-science-matter-why-social.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://archive.org/details/makingsocialscie0000flyv"
 dek: "Cambridge, 2001"

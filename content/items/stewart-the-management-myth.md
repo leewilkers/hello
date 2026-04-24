@@ -4,7 +4,6 @@ title: "The Management Myth"
 type: book
 image: "/img/covers/stewart-the-management-myth.jpg"
 dest: shelf
-lane: intervention
 topic: "Global Health & Policy"
 url: "https://wwnorton.com/books/The-Management-Myth/"
 order: 50

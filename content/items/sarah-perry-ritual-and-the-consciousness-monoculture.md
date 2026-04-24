@@ -4,7 +4,6 @@ title: "Ritual and the Consciousness Monoculture"
 type: essay
 image: "/img/covers/sarah-perry-ritual-and-the-consciousness-monoculture.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://www.ribbonfarm.com/2015/01/08/ritual-and-the-consciousness-monoculture/"
 dek: "Ribbonfarm, 2015"

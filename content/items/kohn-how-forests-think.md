@@ -4,7 +4,6 @@ title: "How Forests Think"
 type: book
 image: "/img/covers/kohn-how-forests-think.jpg"
 dest: shelf
-lane: looking
 topic: "Ecology & Environment"
 url: "https://www.ucpress.edu/books/how-forests-think/paper"
 order: 50

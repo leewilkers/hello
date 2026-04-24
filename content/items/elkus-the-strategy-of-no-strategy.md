@@ -4,7 +4,6 @@ title: "The Strategy of No Strategy"
 type: essay
 image: "/img/covers/elkus-the-strategy-of-no-strategy.jpg"
 dest: shelf
-lane: maps
 topic: "Classification & Taxonomy"
 url: "https://aelkus.github.io/the-strategy-of-no-strategy"
 order: 50

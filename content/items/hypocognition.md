@@ -1,10 +1,9 @@
 ---
-author: ""
+author: "Kaidi Wu and David Dunning"
 title: "Hypocognition"
 type: concept
 image: "/img/covers/hypocognition.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://en.wikipedia.org/wiki/Hypocognition"
 order: 50

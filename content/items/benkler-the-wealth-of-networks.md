@@ -4,7 +4,6 @@ title: "The Wealth of Networks"
 type: book
 image: "/img/covers/benkler-the-wealth-of-networks.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://yalebooks.yale.edu/book/9780300125771/the-wealth-of-networks/"
 order: 50

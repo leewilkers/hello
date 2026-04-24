@@ -4,7 +4,6 @@ title: "What Theory is Not, Theorizing Is"
 type: essay
 image: "/img/covers/weick-what-theory-is-not-theorizing-is.jpg"
 dest: shelf
-lane: knowing
 topic: "Philosophy of Science"
 url: "https://doi.org/10.2307/2393789"
 order: 50

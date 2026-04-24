@@ -4,7 +4,6 @@ title: "Ways of Seeing"
 type: book
 image: "/img/covers/john-berger-ways-of-seeing.jpg"
 dest: shelf
-lane: looking
 topic: "Perception & Visualization"
 url: "https://en.wikipedia.org/wiki/Ways_of_Seeing"
 dek: "BBC / Penguin, 1972"

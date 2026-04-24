@@ -4,7 +4,6 @@ title: "From Tech Critique to Ways of Living"
 type: essay
 image: "/img/covers/alan-jacobs-from-tech-critique-to-ways-of-living.jpg"
 dest: shelf
-lane: infrastructure
 topic: "Infrastructure"
 url: "https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living"
 dek: "The New Atlantis, 2021"
