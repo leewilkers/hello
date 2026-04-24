@@ -373,133 +373,13 @@ p {
   color: var(--ink-faint);
 }
 
-.grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: start;
-  gap: 2rem 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-.grid li {
-  list-style: none;
-  display: block;
-}
-
-.grid li .cell-link {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  color: inherit;
-  text-decoration: none;
-}
-
-.grid li .cell-title {
-  display: block;
-  font-family: var(--serif);
-  font-size: 0.9rem;
-  line-height: 1.25;
-  color: var(--ink);
-  font-weight: 500;
-  margin-top: 0.3rem;
-}
-
-.grid li .cell-author {
-  display: block;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-light);
-  line-height: 1.3;
-}
-
-.grid li .cell-blurb {
-  display: block;
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: var(--ink-faint);
-  margin-top: 0.25rem;
-  /* soft clamp so long blurbs don't explode cell height */
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.grid li:hover .cell-title {
-  color: var(--accent);
-}
-
-/* :visited — color-only state, no prefix glyph.
-   Browser privacy partitioning makes :visited safe again. */
-.grid li .cell-link:visited .cell-title {
-  color: var(--accent-text);
-}
-
-/* Cell metadata — dek (publisher/year), quote (verbatim), note (Lee's voice).
-   All permanent (no hover gating). Italic serif, same size family as blurb. */
-.grid li .cell-dek {
-  display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.72rem;
-  line-height: 1.3;
-  color: var(--ink-faint);
-  margin-top: 0.05rem;
-}
-
-.grid li .cell-quote {
-  display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.78rem;
-  line-height: 1.45;
-  color: var(--ink-light);
-  margin-top: 0.45rem;
-}
-
-.grid li .cell-quote::before {
-  content: '\201C';
-}
-
-.grid li .cell-quote::after {
-  content: '\201D';
-}
-
-.grid li .cell-note {
-  display: block;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.72rem;
-  line-height: 1.4;
-  color: var(--ink-light);
-  margin-top: 0.45rem;
-}
-
-/* Colophon — single plain line, left-aligned */
-.page-shelf .colophon {
-  font-family: var(--serif);
-  font-size: 0.75rem;
-  line-height: 1.55;
-  color: var(--ink-faint);
-  padding: 3rem 0 1rem;
-  margin: 0;
-}
-
-/* Responsive — scale grid columns with viewport; hamburger + hidden sidebar on phones */
+/* Responsive — narrow sidebar + hamburger overlay on phones.
+   Grid column count is handled by the archive-instrument section below. */
 @media (max-width: 1280px) {
   .page-shelf .library {
     grid-template-columns: 210px minmax(0, 1fr);
     gap: 2rem;
   }
-  .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-}
-
-@media (max-width: 1024px) {
-  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (max-width: 767px) {
@@ -538,9 +418,6 @@ p {
     font-size: 1rem;
     padding: 0.4rem 0 0.4rem 1.2rem;
   }
-
-  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
-
 }
 
 /* ── cat switch overlay ──
@@ -953,103 +830,110 @@ body {
   text-transform: uppercase;
 }
 
+/* Shelf grid — Are.na-grammar, image-forward + archival metadata.
+   Covers display at native aspect (object-fit: contain inside min-height
+   frame so masonry is orderly). Text under each cover is metadata only:
+   type, title, author, dek. Blurb/quote/note stay in HTML for detail
+   views + screen readers but don't render at grid scale. */
 .grid {
-  display: block;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: start;
+  gap: 2.25rem 1.1rem;
+  margin: 0;
+  padding: 1.2rem 1rem 1.6rem;
 }
 
 .grid li {
-  border-bottom: 1px solid var(--rule-light);
-}
-
-.grid li:last-child {
-  border-bottom: 0;
+  list-style: none;
+  display: block;
+  border: 0;
 }
 
 .grid li .cell-link {
-  display: grid;
-  grid-template-columns: 3.75rem 6rem minmax(14rem, 1fr) minmax(10rem, 0.7fr) minmax(0, 1.25fr);
-  gap: 1rem;
-  align-items: start;
-  min-height: 4.75rem;
-  padding: 0.65rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  min-height: auto;
+  color: inherit;
+  text-decoration: none;
 }
 
 .grid li .cell-cover {
-  grid-column: 1;
-  grid-row: 1 / span 4;
   display: grid;
-  place-items: center;
-  width: 3rem;
-  height: 3.75rem;
-  border: 1px solid var(--rule);
-  background: color-mix(in srgb, var(--bg) 88%, white 12%);
+  place-items: end center;
+  width: 100%;
+  min-height: 9rem;
+  background: transparent;
+  border: 0;
+  overflow: visible;
+  margin-bottom: 0.55rem;
 }
 
 .grid li .cell-cover img {
   width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
   display: block;
+  box-shadow: 0 1px 0 0 var(--rule-light);
 }
 
 .grid li .cell-type {
-  grid-column: 2;
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--ink-muted);
+  line-height: 1.2;
+  margin-bottom: 0.18rem;
 }
 
 .grid li .cell-title {
-  grid-column: 3;
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.25;
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.22;
+  color: var(--ink);
 }
 
-.grid li .cell-author,
-.grid li .cell-dek {
-  grid-column: 4;
+.grid li .cell-author {
   font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: 0.62rem;
   line-height: 1.35;
-  letter-spacing: 0;
+  letter-spacing: 0.02em;
+  color: var(--ink-light);
+  margin-top: 0.18rem;
 }
 
 .grid li .cell-dek {
-  font-style: normal;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  line-height: 1.35;
   color: var(--ink-faint);
+  font-style: normal;
+  margin-top: 0.05rem;
 }
 
+/* Long-form metadata is kept in the DOM for detail views / screen readers
+   but not rendered in the grid view — keep it image-forward. */
 .grid li .cell-blurb,
 .grid li .cell-quote,
 .grid li .cell-note {
-  grid-column: 5;
-  margin: 0;
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: var(--ink-light);
-}
-
-.grid li .cell-quote,
-.grid li .cell-note {
-  font-size: 0.8rem;
-}
-
-.grid li:hover {
-  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  display: none;
 }
 
 .grid li:hover .cell-title {
-  color: var(--ink);
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+  text-underline-offset: 0.15em;
 }
 
 .grid li .cell-link:visited .cell-title {
-  color: var(--ink);
+  color: var(--ink-light);
 }
 
 .page-stream,
@@ -1132,6 +1016,10 @@ body {
   font-size: 1.1rem;
 }
 
+@media (max-width: 1200px) {
+  .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
 @media (max-width: 980px) {
   .console-grid {
     grid-template-columns: 1fr;
@@ -1151,24 +1039,7 @@ body {
     border-bottom: 1px solid var(--rule);
   }
 
-  .grid li .cell-link {
-    grid-template-columns: 3.5rem minmax(0, 1fr);
-  }
-
-  .grid li .cell-cover {
-    grid-column: 1;
-    grid-row: 1 / span 5;
-  }
-
-  .grid li .cell-type,
-  .grid li .cell-title,
-  .grid li .cell-author,
-  .grid li .cell-dek,
-  .grid li .cell-blurb,
-  .grid li .cell-quote,
-  .grid li .cell-note {
-    grid-column: 2;
-  }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
   .stream-list li a {
     grid-template-columns: minmax(0, 1fr);
@@ -1178,6 +1049,14 @@ body {
   .stream-source::before {
     display: none;
   }
+}
+
+@media (max-width: 720px) {
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 500px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 0.6rem; }
 }
 
 @media (max-width: 767px) {
