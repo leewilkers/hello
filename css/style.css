@@ -373,52 +373,8 @@ p {
   color: var(--ink-faint);
 }
 
-/* Responsive — narrow sidebar + hamburger overlay on phones.
-   Grid column count is handled by the archive-instrument section below. */
-@media (max-width: 1280px) {
-  .page-shelf .library {
-    grid-template-columns: 210px minmax(0, 1fr);
-    gap: 2rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .sidebar-toggle {
-    display: block;
-    top: 3.5rem;
-  }
-
-  .page-shelf .library {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding: 1rem 1.25rem 3rem;
-  }
-
-  .topic-index {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    max-height: none;
-    background: var(--bg);
-    padding: 4rem 1.5rem 2rem;
-    z-index: 90;
-    transform: translateX(-100%);
-    transition: transform 220ms ease;
-    -webkit-mask-image: none;
-            mask-image: none;
-  }
-
-  .topic-index.open {
-    transform: translateX(0);
-  }
-
-  .topic-index a {
-    font-size: 1rem;
-    padding: 0.4rem 0 0.4rem 1.2rem;
-  }
-}
+/* Tablet/mobile overlay pattern lives at the end of this file so it
+   wins source-order against the archive-instrument library grid rule. */
 
 /* ── cat switch overlay ──
    Video frame that appears under the dimmer, plays the cat clip,
@@ -849,6 +805,9 @@ body {
   list-style: none;
   display: block;
   border: 0;
+  min-width: 0;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .grid li .cell-link {
@@ -918,14 +877,6 @@ body {
   margin-top: 0.05rem;
 }
 
-/* Long-form metadata is kept in the DOM for detail views / screen readers
-   but not rendered in the grid view — keep it image-forward. */
-.grid li .cell-blurb,
-.grid li .cell-quote,
-.grid li .cell-note {
-  display: none;
-}
-
 .grid li:hover .cell-title {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -934,6 +885,85 @@ body {
 
 .grid li .cell-link:visited .cell-title {
   color: var(--ink-light);
+}
+
+/* Hover lift — gives the archive an alive feel without ornament. */
+.grid li .cell-cover {
+  transition: transform 180ms ease, filter 180ms ease;
+  transform: translateZ(0);  /* promote for smoother transform */
+}
+.grid li .cell-cover img {
+  transition: box-shadow 180ms ease;
+}
+.grid li .cell-link:hover .cell-cover {
+  transform: translateY(-2px);
+}
+.grid li .cell-link:hover .cell-cover img {
+  box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.12), 0 1px 0 0 var(--rule-light);
+}
+
+.grid li .cell-link[aria-expanded="true"] .cell-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+/* Inline detail panel — voice / quote / blurb reveal on click.
+   Bret-Victor / Craig-Mod note: you can explore without leaving place. */
+.cell-detail {
+  margin-top: 0.55rem;
+  padding: 0.55rem 0.7rem 0.65rem;
+  background: color-mix(in srgb, var(--bg) 92%, var(--ink) 8%);
+  border-left: 2px solid var(--ink);
+  font-family: var(--serif);
+  animation: cell-detail-in 180ms ease-out both;
+}
+
+@keyframes cell-detail-in {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cell-detail > * {
+  margin: 0;
+}
+
+.cell-detail > * + * {
+  margin-top: 0.35rem;
+}
+
+.cell-detail-note {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.cell-detail-quote {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--ink-light);
+  font-style: italic;
+}
+.cell-detail-quote::before { content: '\201C'; }
+.cell-detail-quote::after  { content: '\201D'; }
+
+.cell-detail-blurb {
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: var(--ink-faint);
+}
+
+.cell-detail-source {
+  display: inline-block;
+  margin-top: 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.04rem;
 }
 
 .page-stream,
@@ -1030,16 +1060,7 @@ body {
     border-right: 0;
   }
 
-  .page-shelf .library {
-    grid-template-columns: 1fr;
-  }
-
-  .topic-index {
-    border-right: 0;
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
   .stream-list li a {
     grid-template-columns: minmax(0, 1fr);
@@ -1185,5 +1206,48 @@ body {
   .shelf-console-head {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+  }
+}
+
+/* ── Responsive sidebar overlay (tablet + below) ────────────────
+   Must come after archive-instrument's .page-shelf .library rule
+   so source order wins at equal specificity. */
+@media (max-width: 1200px) {
+  .sidebar-toggle {
+    display: block;
+    top: 3.5rem;
+  }
+
+  .page-shelf .library {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 1rem 1.25rem 3rem;
+  }
+
+  .topic-index {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(22rem, 88%);
+    height: 100vh;
+    max-height: none;
+    background: var(--bg);
+    padding: 4rem 1.5rem 2rem;
+    z-index: 90;
+    transform: translateX(-100%);
+    transition: transform 220ms ease;
+    box-shadow: 2px 0 12px -6px rgba(0, 0, 0, 0.12);
+    -webkit-mask-image: none;
+            mask-image: none;
+    border-right: 0;
+  }
+
+  .topic-index.open {
+    transform: translateX(0);
+  }
+
+  .topic-index a {
+    font-size: 0.92rem;
+    padding: 0.4rem 0 0.4rem 1.2rem;
   }
 }

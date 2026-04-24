@@ -6,8 +6,9 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
+      {%- set hasDetail = item.data.note or item.data.quote or item.data.blurb %}
       <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
-        <a href="{{ item.data.url }}" class="cell-link">
+        <a href="{{ item.data.url }}" class="cell-link"{% if hasDetail %} aria-expanded="false"{% endif %}>
           <span class="cell-cover">
             {%- if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
           </span>
@@ -15,10 +16,15 @@ pageClass: page-shelf
           {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
           <span class="cell-author">{{ item.data.author }}</span>
           {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
-          {%- if item.data.blurb %}<span class="cell-blurb">{{ item.data.blurb }}</span>{% endif %}
-          {%- if item.data.quote %}<span class="cell-quote">{{ item.data.quote }}</span>{% endif %}
-          {%- if item.data.note %}<span class="cell-note">{{ item.data.note }}</span>{% endif %}
         </a>
+        {%- if hasDetail %}
+        <div class="cell-detail" hidden>
+          {%- if item.data.note %}<p class="cell-detail-note">{{ item.data.note }}</p>{% endif %}
+          {%- if item.data.quote %}<blockquote class="cell-detail-quote">{{ item.data.quote }}</blockquote>{% endif %}
+          {%- if item.data.blurb %}<p class="cell-detail-blurb">{{ item.data.blurb }}</p>{% endif %}
+          <a href="{{ item.data.url }}" class="cell-detail-source" rel="noopener">source →</a>
+        </div>
+        {%- endif %}
       </li>
 {% endmacro %}
 
@@ -133,5 +139,23 @@ pageClass: page-shelf
 
   input.addEventListener('input', applyFilter);
   input.addEventListener('search', applyFilter);
+})();
+
+// Shelf cells with voice/quote/blurb expand inline on primary click.
+// Cmd/ctrl/shift/middle-click still open the source URL per browser default.
+(function() {
+  var items = document.querySelectorAll('.grid li');
+  items.forEach(function(li) {
+    var link = li.querySelector('.cell-link');
+    var detail = li.querySelector('.cell-detail');
+    if (!link || !detail) return;
+    link.addEventListener('click', function(e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      e.preventDefault();
+      var expanded = link.getAttribute('aria-expanded') === 'true';
+      link.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      detail.hidden = expanded;
+    });
+  });
 })();
 </script>
