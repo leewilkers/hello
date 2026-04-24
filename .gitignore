@@ -17,4 +17,4 @@ scripts/
 .superpowers/
 claude_design/
 qa/
-img/ornaments/_extract/
+img/ornaments/_*

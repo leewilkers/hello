@@ -996,10 +996,6 @@ body {
 
 .grid li .cell-blurb {
   color: var(--ink-faint);
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 /* Related links — primary residual affordance now that voice is
