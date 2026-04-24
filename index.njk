@@ -1,21 +1,70 @@
 ---
 layout: base.njk
+pageClass: page-home
 ---
 
-<div class="header">
-  <img src="/img/lee.jpeg" alt="Lee Wilkers" class="photo">
-</div>
+<article class="home-instrument" aria-labelledby="home-title">
+  <header class="home-plate">
+    <img src="/img/lee.jpeg" alt="Lee Wilkers" class="photo">
+    <div>
+      <p class="home-fig">fig. 001 · leewilkers.com</p>
+      <h1 id="home-title" class="home-title">Lee Wilkers</h1>
+      <p class="home-tagline">Tools, media, and judgment.</p>
+    </div>
+  </header>
 
-<p>Tools, media, and judgment.</p>
+  <dl class="home-ledger">
+    <div class="home-row">
+      <dt>Author</dt>
+      <dd>
+        <p>Raised in the DC area. Working in Atlanta.</p>
+      </dd>
+    </div>
 
-<p>Raised in the DC area. Working in Atlanta.</p>
+    <div class="home-row">
+      <dt>Recently</dt>
+      <dd>
+        <ul class="home-recent">
+          <li>Focus Area on Compassion & Ethics (FACE), The Task Force for Global Health</li>
+          <li>Human Engagement Learning Platform, Rollins School of Public Health, Emory University</li>
+        </ul>
+      </dd>
+    </div>
 
-<p>Most recently:</p>
-<ul class="dashed">
-  <li>Focus Area on Compassion & Ethics (FACE), The Task Force for Global Health</li>
-  <li>Human Engagement Learning Platform, Rollins School of Public Health, Emory University</li>
-</ul>
+    <div class="home-row">
+      <dt>Contact</dt>
+      <dd>
+        <p>Now independent; limited availability for consulting: <a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
+      </dd>
+    </div>
 
-<p>Now independent; limited availability for consulting: <a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
+    <div class="home-row home-row-build">
+      <dt>Build</dt>
+      <dd>
+        <dl class="home-build">
+          <div>
+            <dt>Generator</dt>
+            <dd>Eleventy</dd>
+          </div>
+          <div>
+            <dt>CMS</dt>
+            <dd>Sveltia</dd>
+          </div>
+          <div>
+            <dt>Hosting</dt>
+            <dd>GitHub Pages</dd>
+          </div>
+          <div>
+            <dt>Repo</dt>
+            <dd>leewilkers/hello</dd>
+          </div>
+        </dl>
+      </dd>
+    </div>
+  </dl>
 
-<p class="dust">pardon the dust</p>
+  <footer class="home-caption">
+    <span>fig. 001 · home · April 2026</span>
+    <span class="dust">pardon the dust</span>
+  </footer>
+</article>
