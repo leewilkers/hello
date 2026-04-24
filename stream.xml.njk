@@ -1,0 +1,31 @@
+---
+permalink: /stream.xml
+eleventyExcludeFromCollections: true
+---
+{%- set feedItems = collections.items | where("dest", "stream") -%}
+{%- set feedItems = feedItems | sortBy("order") -%}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lee Wilkers – Stream</title>
+    <link>{{ site.url }}/stream/</link>
+    <atom:link href="{{ site.url }}/stream.xml" rel="self" type="application/rss+xml"/>
+    <description>Sites, feeds, and newsletters I follow.</description>
+    <language>en-us</language>
+    <lastBuildDate>{{ "now" | rssDate }}</lastBuildDate>
+    {%- for item in feedItems | take(30) %}
+    <item>
+      <title>{{ (item.data.title or item.data.author) | escape }}{%- if item.data.title and item.data.author %} — {{ item.data.author | escape }}{%- endif %}</title>
+      <link>{{ item.data.url }}</link>
+      <guid isPermaLink="false">{{ site.url }}/stream/#{{ item.fileSlug }}</guid>
+      <pubDate>{{ item.page.inputPath | gitCreated | rssDate }}</pubDate>
+      <description><![CDATA[
+        {%- if item.data.dek %}<p><em>{{ item.data.dek }}</em></p>{% endif %}
+        {%- if item.data.blurb %}<p>{{ item.data.blurb }}</p>{% endif %}
+        {%- if item.data.quote %}<blockquote>{{ item.data.quote }}</blockquote>{% endif %}
+        {%- if item.data.note %}<p>{{ item.data.note }}</p>{% endif %}
+      ]]></description>
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

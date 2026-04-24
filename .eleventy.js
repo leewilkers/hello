@@ -1,3 +1,5 @@
+const { execFileSync } = require("child_process");
+
 module.exports = function(eleventyConfig) {
   // Pass through static assets
   eleventyConfig.addPassthroughCopy("css");
@@ -5,6 +7,37 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("google8f11425ab7fc438d.html");
+
+  // First-commit date per file, for RSS pubDate / feed <updated>.
+  // Uses execFileSync (no shell) so filenames never get shell-expanded.
+  const gitCreatedCache = new Map();
+  eleventyConfig.addFilter("gitCreated", function(inputPath) {
+    if (!inputPath) return new Date().toISOString();
+    if (gitCreatedCache.has(inputPath)) return gitCreatedCache.get(inputPath);
+    try {
+      const iso = execFileSync(
+        "git",
+        ["log", "--diff-filter=A", "--follow", "--format=%aI", "-1", "--", inputPath],
+        { encoding: "utf8" }
+      ).trim();
+      const result = iso || new Date().toISOString();
+      gitCreatedCache.set(inputPath, result);
+      return result;
+    } catch (e) {
+      return new Date().toISOString();
+    }
+  });
+
+  eleventyConfig.addFilter("rssDate", function(iso) {
+    const d = (!iso || iso === "now") ? new Date() : new Date(iso);
+    return d.toUTCString();
+  });
+
+  // Nunjucks `slice` splits arrays into N groups, not Array.prototype.slice.
+  // `take(n)` gives the first n items, matching intuition.
+  eleventyConfig.addFilter("take", function(arr, n) {
+    return (Array.isArray(arr) ? arr : []).slice(0, n);
+  });
 
   function expectCollection(arr, filterName) {
     if (!Array.isArray(arr)) {
