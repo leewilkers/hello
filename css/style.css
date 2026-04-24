@@ -803,21 +803,13 @@ body {
 
 .grid li {
   list-style: none;
-  display: block;
+  display: flex;
+  flex-direction: column;
   border: 0;
   min-width: 0;
   overflow-wrap: break-word;
   hyphens: auto;
-}
-
-.grid li .cell-link {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 0;
-  min-height: auto;
-  color: inherit;
-  text-decoration: none;
+  cursor: default;
 }
 
 .grid li .cell-cover {
@@ -838,6 +830,16 @@ body {
   object-fit: contain;
   display: block;
   box-shadow: 0 1px 0 0 var(--rule-light);
+  filter: grayscale(1) contrast(1.08);
+  transition: filter 240ms ease;
+}
+
+/* Ambient state: covers sit grayscale, slightly punched, like plates
+   in a catalog. Hover blooms the one under consideration back to
+   full color and inkifies its related links. The card isn't a button
+   — it's an artifact the cursor is passing over. */
+.grid li:hover .cell-cover img {
+  filter: grayscale(0) contrast(1);
 }
 
 .grid li .cell-type {
@@ -851,12 +853,24 @@ body {
 }
 
 .grid li .cell-title {
+  display: block;
   margin: 0;
   font-family: var(--serif);
   font-size: 0.82rem;
   font-weight: 500;
   line-height: 1.22;
   color: var(--ink);
+  cursor: pointer;
+}
+
+.grid li .cell-title:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+.grid li .cell-title:visited {
+  color: var(--ink-light);
 }
 
 .grid li .cell-author {
@@ -877,135 +891,86 @@ body {
   margin-top: 0.05rem;
 }
 
-.grid li:hover .cell-title {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
+/* Always-visible voice — note / quote / blurb render beneath the
+   metadata cluster. Typographically quiet; covers dominate by scale,
+   voice by proximity. No panels, no borders, no reveal chrome. */
+.grid li .cell-note,
+.grid li .cell-quote,
+.grid li .cell-blurb {
+  margin: 0.4rem 0 0;
+  font-family: var(--serif);
+  font-size: 0.68rem;
+  line-height: 1.42;
 }
 
-.grid li .cell-link:visited .cell-title {
+.grid li .cell-note {
+  font-style: italic;
   color: var(--ink-light);
 }
 
-/* Hover lift — gives the archive an alive feel without ornament. */
-.grid li .cell-cover {
-  transition: transform 180ms ease, filter 180ms ease;
-  transform: translateZ(0);  /* promote for smoother transform */
+.grid li .cell-quote {
+  font-style: italic;
+  color: var(--ink-light);
 }
-.grid li .cell-cover img {
-  transition: box-shadow 180ms ease;
-}
-.grid li .cell-link:hover .cell-cover {
-  transform: translateY(-2px);
-}
-.grid li .cell-link:hover .cell-cover img {
-  box-shadow: 0 6px 14px -4px rgba(0, 0, 0, 0.12), 0 1px 0 0 var(--rule-light);
+.grid li .cell-quote::before { content: '\201C'; }
+.grid li .cell-quote::after  { content: '\201D'; }
+
+.grid li .cell-blurb {
+  color: var(--ink-faint);
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.grid li .cell-link[aria-expanded="true"] .cell-title {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-
-/* Related links — always visible row of small mono-caps link chips.
-   Each shelf item can have 1+ secondary references (author site,
-   review, excerpt, wiki, etc.) and they should be browsable without
-   expanding the detail panel. */
+/* Related links — stacked vertically, uniform, tight.
+   Ambient mute; bloom to warm accent on card hover. */
 .cell-links {
   list-style: none;
-  margin: 0.35rem 0 0;
+  margin: 0.45rem 0 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.18rem 0.55rem;
+  flex-direction: column;
+  gap: 0;
 }
 
 .cell-links li {
   list-style: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-.cell-links li + li::before {
-  content: '·';
-  color: var(--ink-muted);
-  margin-right: 0.55rem;
-  margin-left: -0.55rem;
+  display: block;
+  line-height: 1.25;
 }
 
 .cell-links a {
+  display: inline-block;
   font-family: var(--mono);
   font-size: 0.6rem;
   letter-spacing: 0.06em;
   text-transform: lowercase;
-  color: var(--ink-light);
-  border-bottom: 1px solid color-mix(in srgb, var(--ink-muted) 60%, transparent);
-  padding-bottom: 0.02rem;
-  transition: color 120ms ease, border-color 120ms ease;
+  color: var(--ink-muted);
+  border-bottom: 1px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease;
 }
 
-.cell-links a:hover {
-  color: var(--ink);
-  border-bottom-color: var(--ink);
+/* Card-hover blooms links into warm mustard (the site's original
+   kino-grade accent tone). The whole card is the focal unit. */
+.grid li:hover .cell-links a {
+  color: #c9a227;
 }
 
-/* Inline detail panel — voice / quote / blurb reveal on click.
-   Bret-Victor / Craig-Mod note: you can explore without leaving place. */
-.cell-detail {
-  margin-top: 0.55rem;
-  padding: 0.55rem 0.7rem 0.65rem;
-  background: color-mix(in srgb, var(--bg) 92%, var(--ink) 8%);
-  border-left: 2px solid var(--ink);
-  font-family: var(--serif);
-  animation: cell-detail-in 180ms ease-out both;
+[data-theme="dark"] .grid li:hover .cell-links a {
+  color: #d4ae3a;
 }
 
-@keyframes cell-detail-in {
-  from { opacity: 0; transform: translateY(-2px); }
-  to   { opacity: 1; transform: translateY(0); }
+.grid li .cell-links a:hover {
+  color: #c9a227;
+  border-bottom-color: #c9a227;
 }
 
-.cell-detail > * {
-  margin: 0;
-}
-
-.cell-detail > * + * {
-  margin-top: 0.35rem;
-}
-
-.cell-detail-note {
-  font-size: 0.76rem;
-  line-height: 1.45;
-  color: var(--ink);
-  font-style: italic;
-}
-
-.cell-detail-quote {
-  font-size: 0.76rem;
-  line-height: 1.45;
-  color: var(--ink-light);
-  font-style: italic;
-}
-.cell-detail-quote::before { content: '\201C'; }
-.cell-detail-quote::after  { content: '\201D'; }
-
-.cell-detail-blurb {
-  font-size: 0.74rem;
-  line-height: 1.45;
-  color: var(--ink-faint);
-}
-
-.cell-detail-source {
-  display: inline-block;
-  margin-top: 0.45rem;
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  border-bottom: 1px solid var(--ink);
-  padding-bottom: 0.04rem;
+[data-theme="dark"] .grid li .cell-links a:hover {
+  color: #d4ae3a;
+  border-bottom-color: #d4ae3a;
 }
 
 .page-stream,
