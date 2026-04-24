@@ -8,7 +8,7 @@ pageClass: page-shelf
 {% macro cell(item) %}
       <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
         <span class="cell-cover">
-          {%- if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
+          {%- if item.data.image %}{% shelfCover item.data.image, "" %}{% endif %}
         </span>
         <span class="cell-type">{{ item.data.type }}</span>
         {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}

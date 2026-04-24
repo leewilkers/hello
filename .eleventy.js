@@ -1,4 +1,7 @@
 const { execFileSync } = require("child_process");
+const Image = require("@11ty/eleventy-img");
+const path = require("path");
+const fs = require("fs");
 
 module.exports = function(eleventyConfig) {
   // Pass through static assets
@@ -37,6 +40,54 @@ module.exports = function(eleventyConfig) {
   // `take(n)` gives the first n items, matching intuition.
   eleventyConfig.addFilter("take", function(arr, n) {
     return (Array.isArray(arr) ? arr : []).slice(0, n);
+  });
+
+  // Shelf covers: pre-generate WebP + JPEG at 320/480/640 widths before the
+  // build starts, stash metadata in a cache, then a sync shortcode reads
+  // from the cache. Async shortcodes don't resolve inside Nunjucks macros,
+  // which is why we take this two-step approach.
+  const coverMetadataCache = new Map();
+
+  async function generateCover(src) {
+    const inputPath = src.startsWith("/") ? `.${src}` : src;
+    if (!fs.existsSync(inputPath)) return null;
+    return Image(inputPath, {
+      widths: [320, 480, 640],
+      formats: ["webp", "jpeg"],
+      outputDir: "./_site/img/covers-gen/",
+      urlPath: "/img/covers-gen/",
+      filenameFormat: function(id, src, width, format) {
+        const name = path.basename(src, path.extname(src));
+        return `${name}-${width}.${format}`;
+      },
+    });
+  }
+
+  eleventyConfig.on("eleventy.before", async () => {
+    const coversDir = "./img/covers";
+    if (!fs.existsSync(coversDir)) return;
+    const files = fs.readdirSync(coversDir);
+    await Promise.all(files.map(async (file) => {
+      const src = `/img/covers/${file}`;
+      try {
+        const metadata = await generateCover(src);
+        if (metadata) coverMetadataCache.set(src, metadata);
+      } catch (e) {
+        // Skip files Sharp can't parse (e.g., stray non-image files)
+      }
+    }));
+  });
+
+  eleventyConfig.addShortcode("shelfCover", function(src, alt) {
+    if (!src) return "";
+    const metadata = coverMetadataCache.get(src);
+    if (!metadata) return "";
+    return Image.generateHTML(metadata, {
+      alt: alt || "",
+      sizes: "(max-width: 500px) 50vw, (max-width: 980px) 30vw, 16vw",
+      loading: "lazy",
+      decoding: "async",
+    });
   });
 
   function expectCollection(arr, filterName) {
