@@ -12,16 +12,17 @@ Personal homepage and curated shelf. Live at https://leewilkers.com.
 ## Key Files
 
 ```
-index.njk             Homepage
-shelf.njk             Topic-index shelf
-stream.njk            Stream page; intentionally hidden from primary nav
-_includes/base.njk    HTML shell, nav, theme toggle, shelf sidebar behavior
-css/style.css         Site styles
-_data/site.json       Site metadata
-_data/topics.json     Canonical shelf topic list
-content/items/*.md    Shelf and stream records
-admin/config.yml      Sveltia CMS config
-scripts/README.md     Local bulk-edit workflow
+index.njk                       Homepage
+shelf.njk                       Topic-index shelf
+stream.njk                      Stream page; intentionally hidden from primary nav
+_includes/base.njk              HTML shell, nav, theme toggle, shelf sidebar behavior
+css/style.css                   Site styles
+_data/site.json                 Site metadata
+_data/topics.json               Canonical shelf topic list
+_data/stream_sections.json      Canonical stream section list (ordered)
+content/items/*.md              Shelf and stream records
+admin/config.yml                Sveltia CMS config
+scripts/README.md               Local bulk-edit workflow
 ```
 
 Working notes under `qa/`, `source_reading/`, and `claude_design/` are not public site content and must stay ignored by Eleventy.
@@ -61,7 +62,9 @@ Shelf items also require `topic`. Stream items may omit `topic`.
 
 `title` is usually required, but editorial-voice stream publications may intentionally leave it empty, for example `author: "Real Life"` and `title: ""`.
 
-Optional fields: `title`, `topic`, `dek`, `note`, `blurb`, `quote`, `source`, `links`, `featured`, `date`.
+Optional fields: `title`, `topic`, `section`, `dek`, `note`, `blurb`, `quote`, `source`, `links`, `featured`, `date`.
+
+`section` applies only to stream items with a title. Value must match a slug in `_data/stream_sections.json` (which is ordered — sections render in that order). Items without a `section` fall into the default `links` bucket. No-title items (editorial-voice publications) always render in the auto-generated `feed` section regardless of any `section` value.
 
 Valid `type` values: `book`, `essay`, `site`, `film`, `interview`, `slides`, `concept`.
 

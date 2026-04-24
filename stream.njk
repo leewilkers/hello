@@ -16,6 +16,25 @@ pageClass: page-stream
   {%- endif -%}
 {%- endfor %}
 
+{% set activeSections = stream_sections or [] %}
+{% set defaultLinks = [] %}
+{%- for item in linkItems -%}
+  {%- set sec = item.data.section -%}
+  {%- if not (sec and activeSections.indexOf(sec) != -1) -%}
+    {% set defaultLinks = (defaultLinks.push(item), defaultLinks) %}
+  {%- endif -%}
+{%- endfor %}
+
+{% macro streamRow(item) %}
+      <li>
+        <a href="{{ item.data.url }}">
+          <span class="stream-author">{{ item.data.author }}</span>
+          {%- if item.data.title %}<span class="stream-title">{{ item.data.title }}</span>{%- endif %}
+          {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
+        </a>
+      </li>
+{% endmacro %}
+
 <article class="archive-console stream-console" id="main">
   <p class="page-subtitle">Things I clicked on that I may or may not have read.</p>
 
@@ -35,19 +54,28 @@ pageClass: page-stream
   </section>
   {%- endif %}
 
-  {%- if linkItems.length %}
+  {%- for section in activeSections %}
+    {%- set bucket = [] %}
+    {%- for item in linkItems %}
+      {%- if item.data.section == section %}
+        {% set bucket = (bucket.push(item), bucket) %}
+      {%- endif %}
+    {%- endfor %}
+    {%- if bucket.length %}
+  <section class="stream-section" aria-labelledby="stream-{{ section | slug }}">
+    <h2 class="stream-section-label" id="stream-{{ section | slug }}">{{ section | lower }}</h2>
+    <ul class="stream-list stream-list--links">
+      {%- for item in bucket %}{{ streamRow(item) }}{%- endfor %}
+    </ul>
+  </section>
+    {%- endif %}
+  {%- endfor %}
+
+  {%- if defaultLinks.length %}
   <section class="stream-section" aria-labelledby="stream-links">
     <h2 class="stream-section-label" id="stream-links">links</h2>
     <ul class="stream-list stream-list--links">
-      {%- for item in linkItems %}
-      <li>
-        <a href="{{ item.data.url }}">
-          <span class="stream-author">{{ item.data.author }}</span>
-          <span class="stream-title">{{ item.data.title }}</span>
-          {%- if item.data.source %}<span class="stream-source">{{ item.data.source }}</span>{%- endif %}
-        </a>
-      </li>
-      {%- endfor %}
+      {%- for item in defaultLinks %}{{ streamRow(item) }}{%- endfor %}
     </ul>
   </section>
   {%- endif %}
