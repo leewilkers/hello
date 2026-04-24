@@ -14,9 +14,13 @@ pageClass: page-shelf
         {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
         <span class="cell-author">{{ item.data.author }}</span>
         {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
-        {%- if item.data.note %}<p class="cell-note">{{ item.data.note }}</p>{% endif %}
-        {%- if item.data.quote %}<blockquote class="cell-quote">{{ item.data.quote }}</blockquote>{% endif %}
-        {%- if item.data.blurb %}<p class="cell-blurb">{{ item.data.blurb }}</p>{% endif %}
+        {%- if item.data.note or item.data.quote or item.data.blurb %}
+        <div class="cell-voice">
+          {%- if item.data.note %}<p class="cell-note">{{ item.data.note }}</p>{% endif %}
+          {%- if item.data.quote %}<blockquote class="cell-quote">{{ item.data.quote }}</blockquote>{% endif %}
+          {%- if item.data.blurb %}<p class="cell-blurb">{{ item.data.blurb }}</p>{% endif %}
+        </div>
+        {%- endif %}
         <ul class="cell-links" aria-label="Links">
           {%- if item.data.url %}
           <li><a href="{{ item.data.url }}" rel="noopener">source</a></li>

@@ -560,6 +560,18 @@ body {
   margin: 0;
 }
 
+/* Shelf page title — "Shelf" is the page name and carries primary weight;
+   "Things on my desk." is the dek beneath. Title-first grammar, not the
+   LABEL-value grammar used on metadata surfaces elsewhere. */
+.page-shelf .console-kicker {
+  font-family: var(--serif);
+  font-size: 1.65rem;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
 .console-status {
   color: var(--ink-faint);
   text-align: right;
@@ -703,15 +715,17 @@ body {
   margin: 0 auto;
   border: 1px solid var(--rule);
   border-bottom: 0;
-  padding: 0.7rem 0.85rem;
+  padding: 0.7rem 0.85rem 1rem;
+  position: relative;
 }
 
 .shelf-console-head .shelf-subtitle {
-  margin: 0.2rem 0 0;
+  margin: 0.15rem 0 0;
   padding: 0;
   font-family: var(--serif);
-  font-size: 1rem;
-  color: var(--ink-light);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--ink-faint);
   letter-spacing: 0;
 }
 
@@ -815,14 +829,18 @@ body {
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
-/* Shelf page-header mark — sitting rabbit above the "Shelf" kicker.
-   Small, quiet, book-frontispiece grammar. */
+/* Shelf page-header mark — sitting rabbit straddles the bottom rule of
+   .shelf-console-head (half above, half below the line) so it reads as
+   a bookmark-style mark grounded in the content column. */
 .shelf-head-mark {
-  display: block;
-  width: 28px;
-  height: 31px;
+  position: absolute;
+  bottom: 0;
+  left: 0.85rem;
+  width: 32px;
+  height: 36px;
   fill: var(--ink);
-  margin: 0 0 0.35rem;
+  transform: translateY(50%);
+  pointer-events: none;
 }
 
 /* Shelf grid — Are.na-grammar, image-forward + archival metadata.
@@ -849,6 +867,7 @@ body {
   overflow-wrap: break-word;
   hyphens: auto;
   cursor: default;
+  position: relative;
 }
 
 .grid li .cell-cover {
@@ -929,16 +948,38 @@ body {
   margin-top: 0.05rem;
 }
 
-/* Always-visible voice — note / quote / blurb render beneath the
-   metadata cluster. Typographically quiet; covers dominate by scale,
-   voice by proximity. No panels, no borders, no reveal chrome. */
+/* Voice — note / quote / blurb — wrapped in `.cell-voice`, hidden on
+   hover-capable devices, revealed as a bordered overlay below the card.
+   Touch devices (no :hover) show voice inline so nothing is gated
+   behind an interaction they can't perform. */
 .grid li .cell-note,
 .grid li .cell-quote,
 .grid li .cell-blurb {
   margin: 0.4rem 0 0;
   font-family: var(--serif);
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   line-height: 1.42;
+}
+
+.grid li .cell-voice > :first-child { margin-top: 0; }
+
+@media (hover: hover) {
+  .grid li .cell-voice {
+    display: none;
+  }
+  .grid li:hover .cell-voice,
+  .grid li:focus-within .cell-voice {
+    display: block;
+    position: absolute;
+    top: calc(100% + 0.3rem);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 0.7rem 0.8rem;
+    box-shadow: 0 6px 16px rgba(17, 17, 17, 0.09);
+  }
 }
 
 .grid li .cell-note {
@@ -961,38 +1002,39 @@ body {
   overflow: hidden;
 }
 
-/* Related links — stacked vertically, uniform, tight.
-   Ambient mute; bloom to warm accent on card hover. */
+/* Related links — primary residual affordance now that voice is
+   hover-gated. Larger, readable, ambient muted at rest; card-hover
+   blooms the whole stack to mustard; a direct link-hover gets the
+   punchier treatment (weight + thicker underline). */
 .cell-links {
   list-style: none;
-  margin: 0.45rem 0 0;
+  margin: 0.55rem 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 0.1rem;
 }
 
 .cell-links li {
   list-style: none;
   display: block;
-  line-height: 1.25;
+  line-height: 1.35;
 }
 
 .cell-links a {
   display: inline-block;
   font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: lowercase;
   color: var(--ink-muted);
   border-bottom: 1px solid transparent;
   padding: 0;
   cursor: pointer;
-  transition: color 200ms ease, border-color 200ms ease;
+  transition: color 160ms ease, border-color 160ms ease, font-weight 160ms ease, border-bottom-width 160ms ease;
 }
 
-/* Card-hover blooms links into warm mustard (the site's original
-   kino-grade accent tone). The whole card is the focal unit. */
 .grid li:hover .cell-links a {
   color: #c9a227;
 }
@@ -1003,12 +1045,13 @@ body {
 
 .grid li .cell-links a:hover {
   color: #c9a227;
-  border-bottom-color: #c9a227;
+  font-weight: 600;
+  border-bottom: 2px solid #c9a227;
 }
 
 [data-theme="dark"] .grid li .cell-links a:hover {
   color: #d4ae3a;
-  border-bottom-color: #d4ae3a;
+  border-bottom: 2px solid #d4ae3a;
 }
 
 .page-stream,
