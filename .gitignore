@@ -15,3 +15,5 @@ _og-card.html
 __pycache__/
 scripts/
 .superpowers/
+claude_design/
+qa/

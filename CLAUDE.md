@@ -34,6 +34,16 @@ Working notes under `qa/`, `source_reading/`, and `claude_design/` are not publi
 - Stream renders records with `dest: stream`, but is not in the main nav while content is being edited.
 - Theme toggle uses the cat-light video; keep browser/reduced-motion fallbacks.
 
+### Visual grammar — `LABEL value`
+
+The site's load-bearing design pattern is mono-small-caps label + serif/content body, used in:
+- Colophon footer (`GENERATOR Eleventy`, `CMS Sveltia`, ...)
+- Home panes (`AUTHOR`, `RECENTLY`, `CONTACT`)
+- Shelf per-row cells (`BOOK`, `SLIDES`, `ESSAY` + author/pub/year cluster)
+- Stream section headers (`FEED`, `LINKS`)
+
+When adding a new metadata surface or category affordance, reuse this grammar. Do not invent a new visual language per surface.
+
 ## Dev
 
 ```bash
