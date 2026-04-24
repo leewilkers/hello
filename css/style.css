@@ -196,12 +196,15 @@ img { display: block; }
 
 /* ── homepage instrument ── */
 
+/* Home spot color migrated from cochineal (#a53838) to warm mustard
+   (#c9a227) to match the shelf-links hover palette — one accent
+   tone shared site-wide, not two competing warm reds. */
 .page-home {
-  --home-accent: #a53838;
+  --home-accent: #c9a227;
 }
 
 [data-theme="dark"] .page-home {
-  --home-accent: #d16a6a;
+  --home-accent: #d4ae3a;
 }
 
 .page-home a[href^="mailto"] {
@@ -592,7 +595,13 @@ body {
   max-width: 72px;
   min-width: 72px;
   border: 1px solid var(--ink);
-  filter: grayscale(1);
+  filter: grayscale(1) contrast(1.08);
+  transition: filter 240ms ease;
+  cursor: default;
+}
+
+.page-home .photo:hover {
+  filter: grayscale(0) contrast(1);
 }
 
 .home-title {
@@ -769,13 +778,18 @@ body {
   border-bottom: 0;
 }
 
+/* Full inverted section headers — white on black bar, all 17 sections.
+   Matches the shelfindex.uu.nl grammar; anchors each topic as a discrete
+   surface against the grayscale-covers archive below. */
 .section-label {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1rem;
   margin: 0;
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--rule);
+  padding: 0.6rem 0.9rem;
+  background: var(--ink);
+  color: var(--bg);
+  border-bottom: 0;
 }
 
 .section-label-name {
@@ -784,6 +798,11 @@ body {
   line-height: 1.25;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--bg);
+}
+
+.section-label-count {
+  color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
 /* Shelf grid — Are.na-grammar, image-forward + archival metadata.
@@ -860,17 +879,16 @@ body {
   font-weight: 500;
   line-height: 1.22;
   color: var(--ink);
-  cursor: pointer;
+  cursor: default;
 }
 
-.grid li .cell-title:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-
-.grid li .cell-title:visited {
-  color: var(--ink-light);
+/* Filter match highlight — weight, not color, to stay in palette */
+.grid li .cell-title mark,
+.grid li .cell-author mark {
+  background: transparent;
+  color: var(--ink);
+  font-weight: 700;
+  padding: 0;
 }
 
 .grid li .cell-author {
@@ -1053,6 +1071,22 @@ body {
   font-size: 1.1rem;
 }
 
+.error-body a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  color: var(--ink);
+  transition: color 120ms ease;
+}
+
+.error-body a:hover {
+  color: #c9a227;
+}
+
+[data-theme="dark"] .error-body a:hover {
+  color: #d4ae3a;
+}
+
 @media (max-width: 1200px) {
   .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
@@ -1213,6 +1247,11 @@ body {
   .shelf-console-head {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+  }
+
+  /* Prevent iOS auto-zoom on input focus — 16px is the magic number */
+  .shelf-filter__input {
+    font-size: 16px;
   }
 }
 

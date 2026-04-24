@@ -6,25 +6,25 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
-      {%- set hasLinks = item.data.links and item.data.links.length %}
       <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
         <span class="cell-cover">
           {%- if item.data.image %}<img src="{{ item.data.image }}" alt="" loading="lazy">{% endif %}
         </span>
         <span class="cell-type">{{ item.data.type }}</span>
-        {%- if item.data.title %}<a class="cell-title" href="{{ item.data.url }}">{{ item.data.title }}</a>{% endif %}
+        {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
         <span class="cell-author">{{ item.data.author }}</span>
         {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
         {%- if item.data.note %}<p class="cell-note">{{ item.data.note }}</p>{% endif %}
         {%- if item.data.quote %}<blockquote class="cell-quote">{{ item.data.quote }}</blockquote>{% endif %}
         {%- if item.data.blurb %}<p class="cell-blurb">{{ item.data.blurb }}</p>{% endif %}
-        {%- if hasLinks %}
-        <ul class="cell-links" aria-label="Related links">
-          {%- for link in item.data.links %}
+        <ul class="cell-links" aria-label="Links">
+          {%- if item.data.url %}
+          <li><a href="{{ item.data.url }}" rel="noopener">source</a></li>
+          {%- endif %}
+          {%- if item.data.links %}{%- for link in item.data.links %}
           <li><a href="{{ link.url }}" rel="noopener">{{ link.label }}</a></li>
-          {%- endfor %}
+          {%- endfor %}{%- endif %}
         </ul>
-        {%- endif %}
       </li>
 {% endmacro %}
 
@@ -43,7 +43,7 @@ pageClass: page-shelf
       id="shelf-filter-input"
       type="search"
       class="shelf-filter__input"
-      placeholder="filter"
+      placeholder="search title or author"
       autocomplete="off"
       spellcheck="false">
   </div>
@@ -99,7 +99,34 @@ pageClass: page-shelf
   var totalEntries = entriesCount ? parseInt(entriesCount.textContent, 10) : 0;
   var totalTopics = topicsCount ? parseInt(topicsCount.textContent, 10) : 0;
 
+  // Snapshot original text so we can restore when the filter clears
+  // or rebuild with <mark> nodes when it matches.
+  var highlightables = Array.prototype.slice.call(
+    document.querySelectorAll('.grid li .cell-title, .grid li .cell-author')
+  );
+  highlightables.forEach(function(el) {
+    el.setAttribute('data-original', el.textContent);
+  });
+
   function norm(s) { return (s || '').toLowerCase().trim(); }
+  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  function highlight(el, q) {
+    var original = el.getAttribute('data-original') || el.textContent;
+    while (el.firstChild) el.removeChild(el.firstChild);
+    if (!q) { el.appendChild(document.createTextNode(original)); return; }
+    var re = new RegExp('(' + escapeRegex(q) + ')', 'ig');
+    var parts = original.split(re);
+    parts.forEach(function(part, i) {
+      if (i % 2 === 1) {
+        var m = document.createElement('mark');
+        m.appendChild(document.createTextNode(part));
+        el.appendChild(m);
+      } else if (part) {
+        el.appendChild(document.createTextNode(part));
+      }
+    });
+  }
 
   function applyFilter() {
     var q = norm(input.value);
@@ -114,7 +141,13 @@ pageClass: page-shelf
         var hay = norm(li.getAttribute('data-search'));
         var match = q === '' || hay.indexOf(q) !== -1;
         li.hidden = !match;
-        if (match) shown++;
+        if (match) {
+          shown++;
+          var t = li.querySelector('.cell-title');
+          var a = li.querySelector('.cell-author');
+          if (t) highlight(t, q);
+          if (a) highlight(a, q);
+        }
       });
       section.hidden = shown === 0;
       var slug = section.getAttribute('data-topic');
