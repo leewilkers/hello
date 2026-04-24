@@ -779,17 +779,27 @@ body {
 }
 
 /* Full inverted section headers — white on black bar, all 17 sections.
-   Matches the shelfindex.uu.nl grammar; anchors each topic as a discrete
-   surface against the grayscale-covers archive below. */
+   Leaping rabbit left-marks each topic as a lead-in motif (directional,
+   "entering the warren for this topic"). Sitting rabbit lives on the
+   page header above (stationary, book-frontispiece mark). */
 .section-label {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.7rem;
   margin: 0;
   padding: 0.6rem 0.9rem;
   background: var(--ink);
   color: var(--bg);
   border-bottom: 0;
+  align-items: center;
+}
+
+.section-label-mark {
+  width: 22px;
+  height: 16px;
+  fill: var(--bg);
+  flex-shrink: 0;
+  display: block;
 }
 
 .section-label-name {
@@ -803,6 +813,16 @@ body {
 
 .section-label-count {
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
+}
+
+/* Shelf page-header mark — sitting rabbit above the "Shelf" kicker.
+   Small, quiet, book-frontispiece grammar. */
+.shelf-head-mark {
+  display: block;
+  width: 28px;
+  height: 31px;
+  fill: var(--ink);
+  margin: 0 0 0.35rem;
 }
 
 /* Shelf grid — Are.na-grammar, image-forward + archival metadata.

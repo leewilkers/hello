@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 40" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .ink { fill: #111; stroke: #111; }
+    @media (prefers-color-scheme: dark) { .ink { fill: #e8e2d4; stroke: #e8e2d4; } }
+  </style>
+  <g transform="translate(2, 4)">
+    <svg width="33" height="32" viewBox="0 0 55 60" overflow="visible">
+    <g transform="translate(0,60) scale(0.1,-0.1)">
+      <path class="ink" d="M280 492 c0 -5 7 -17 15 -28 27 -35 15 -40 -14 -5 -19 24 -33 32 -45 28 -23 -9 -4 -44 32 -60 15 -6 28 -12 29 -12 2 -1 -2 -15 -9 -31 -7 -20 -24 -35 -49 -46 -41 -17 -79 -68 -79 -105 0 -16 -4 -21 -15 -17 -11 5 -15 -1 -15 -17 1 -44 19 -54 97 -56 72 -2 103 10 64 25 -17 6 -18 9 -6 26 14 18 15 18 25 -8 5 -15 10 -32 10 -37 0 -12 37 -12 45 0 3 6 -1 13 -8 18 -22 12 -27 64 -10 90 9 14 13 34 10 51 -4 21 0 32 21 49 l27 21 -20 22 c-11 12 -30 26 -42 31 -13 5 -23 17 -23 27 0 19 -18 42 -32 42 -4 0 -8 -4 -8 -8z m19 -266 c-3 -3 -11 5 -18 17 -13 21 -12 21 5 5 10 -10 16 -20 13 -22z"/>
+    </g>
+    </svg>
+  </g>
+  <line class="ink" x1="38" y1="34" x2="486" y2="34" stroke-width="0.8"/>
+  <circle class="ink" cx="494" cy="34" r="1.8"/>
+</svg>
