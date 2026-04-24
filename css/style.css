@@ -908,6 +908,48 @@ body {
   text-underline-offset: 0.15em;
 }
 
+/* Related links — always visible row of small mono-caps link chips.
+   Each shelf item can have 1+ secondary references (author site,
+   review, excerpt, wiki, etc.) and they should be browsable without
+   expanding the detail panel. */
+.cell-links {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.18rem 0.55rem;
+}
+
+.cell-links li {
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cell-links li + li::before {
+  content: '·';
+  color: var(--ink-muted);
+  margin-right: 0.55rem;
+  margin-left: -0.55rem;
+}
+
+.cell-links a {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: var(--ink-light);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink-muted) 60%, transparent);
+  padding-bottom: 0.02rem;
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.cell-links a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
 /* Inline detail panel — voice / quote / blurb reveal on click.
    Bret-Victor / Craig-Mod note: you can explore without leaving place. */
 .cell-detail {

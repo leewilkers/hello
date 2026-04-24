@@ -7,6 +7,7 @@ pageClass: page-shelf
 
 {% macro cell(item) %}
       {%- set hasDetail = item.data.note or item.data.quote or item.data.blurb %}
+      {%- set hasLinks = item.data.links and item.data.links.length %}
       <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
         <a href="{{ item.data.url }}" class="cell-link"{% if hasDetail %} aria-expanded="false"{% endif %}>
           <span class="cell-cover">
@@ -17,6 +18,13 @@ pageClass: page-shelf
           <span class="cell-author">{{ item.data.author }}</span>
           {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
         </a>
+        {%- if hasLinks %}
+        <ul class="cell-links" aria-label="Related links">
+          {%- for link in item.data.links %}
+          <li><a href="{{ link.url }}" rel="noopener">{{ link.label }}</a></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
         {%- if hasDetail %}
         <div class="cell-detail" hidden>
           {%- if item.data.note %}<p class="cell-detail-note">{{ item.data.note }}</p>{% endif %}
