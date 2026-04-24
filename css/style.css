@@ -226,60 +226,11 @@ p {
   padding: 0.75rem 2rem 0;
 }
 
-.page-stream {
-  max-width: 520px;
-}
-
-.page-subtitle {
-  font-size: 0.8rem;
-  color: var(--ink-faint);
-  margin-bottom: 1.5rem;
-}
-
-/* stream list */
+/* stream list — base declaration, archive-instrument overrides below */
 .stream-list {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.stream-list li {
-  margin-bottom: 0.5rem;
-  line-height: 1.35;
-}
-
-.stream-list li a {
-  display: block;
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.stream-list li a:hover .stream-title {
-  color: var(--accent);
-}
-
-.stream-list li a:hover .stream-author {
-  color: var(--ink);
-}
-
-.stream-author {
-  display: block;
-  font-size: 0.7rem;
-  color: var(--ink-light);
-  margin-bottom: 0.05rem;
-}
-
-.stream-title {
-  font-size: 0.8rem;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.stream-source {
-  display: block;
-  font-size: 0.65rem;
-  color: var(--ink-faint);
-  margin-top: 0.1rem;
 }
 
 /* ── shelf page ────────────────────────── */
