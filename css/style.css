@@ -18,36 +18,6 @@ body {
   font-feature-settings: "onum" 1, "ss02" 1;
 }
 
-:root {
-  /* Kino color grade — warm highlights, hue ~30° (orange), ~4% saturation. */
-  /* Deakins-restrained, not Tony Scott. Ink stays neutral for reading speed. */
-  --bg: #fbf8f1;
-  --ink: #333;
-  --ink-light: #666;
-  --ink-faint: #5a5a5a;
-  --ink-muted: #aaa;
-  --rule: #e2dfd6;
-  --rule-light: #efece3;
-  --accent: #c9a227;
-  --accent-text: #8a6d15;
-  --nav-border: #edeae1;
-}
-
-[data-theme="dark"] {
-  /* Kino color grade — cool shadows, hue ~195° (teal), ~6% saturation. */
-  /* Subtle enough to read as "atmospheric" not "blue-tinted." */
-  --bg: #121618;
-  --ink: #d5d5d5;
-  --ink-light: #999;
-  --ink-faint: #8a8a8a;
-  --ink-muted: #555;
-  --rule: #262c2f;
-  --rule-light: #1e2325;
-  --accent: #c9a227;
-  --accent-text: #d4ae3a;
-  --nav-border: #262c2f;
-}
-
 a { color: inherit; text-decoration: none; }
 a[href^="mailto"] { color: var(--accent); }
 a[href^="mailto"]:hover { border-bottom: 1px solid var(--accent); }
@@ -912,15 +882,6 @@ body {
   cursor: default;
 }
 
-/* Filter match highlight — weight, not color, to stay in palette */
-.grid li .cell-title mark,
-.grid li .cell-author mark {
-  background: transparent;
-  color: var(--ink);
-  font-weight: 700;
-  padding: 0;
-}
-
 .grid li .cell-author {
   font-family: var(--mono);
   font-size: 0.58rem;
@@ -1137,6 +1098,157 @@ body {
   color: #3AA99F;
 }
 
+/* ── View toggle (grid ⇄ list) ─────────────────────────── */
+
+.shelf-view-toggle {
+  display: inline-flex;
+  gap: 0;
+  margin-left: 0.4rem;
+  border: 1px solid var(--rule-light);
+}
+
+.view-toggle-btn {
+  background: transparent;
+  border: 0;
+  padding: 0.22rem 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+
+.view-toggle-btn + .view-toggle-btn {
+  border-left: 1px solid var(--rule-light);
+}
+
+.view-toggle-btn:hover {
+  color: var(--ink);
+}
+
+.view-toggle-btn[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* ── List view — reading-log layout.
+   Each row: [thumb] [type/title/author/dek] [voice] [links]. Covers
+   shrink to a 44px marker; voice (note/quote/blurb) always visible. */
+
+.view-list .grid {
+  display: block;
+  padding: 0;
+}
+
+.view-list .grid li {
+  display: grid;
+  grid-template-columns: 44px minmax(200px, 1.6fr) minmax(0, 2fr) minmax(110px, auto);
+  column-gap: 1.1rem;
+  row-gap: 0.08rem;
+  align-items: start;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.view-list .grid li:last-child {
+  border-bottom: 0;
+}
+
+.view-list .grid li .cell-cover {
+  grid-column: 1;
+  grid-row: 1 / -1;
+  align-self: start;
+  min-height: 0;
+  margin: 0;
+  padding-top: 0.08rem;
+  place-items: start center;
+}
+
+.view-list .grid li .cell-cover img {
+  width: 44px;
+  height: auto;
+  box-shadow: 0 1px 0 0 var(--rule-light);
+}
+
+.view-list .grid li .cell-type,
+.view-list .grid li .cell-title,
+.view-list .grid li .cell-author,
+.view-list .grid li .cell-dek {
+  grid-column: 2;
+}
+
+.view-list .grid li .cell-title {
+  font-size: 0.9rem;
+  line-height: 1.28;
+  margin-top: 0.08rem;
+}
+
+.view-list .grid li .cell-author {
+  font-size: 0.62rem;
+  margin-top: 0.2rem;
+}
+
+.view-list .grid li .cell-dek {
+  font-size: 0.62rem;
+  margin-top: 0.1rem;
+}
+
+/* Voice always visible in list view — that's the point. Override
+   the hover-gated overlay from picture view. */
+.view-list .grid li .cell-voice {
+  grid-column: 3;
+  grid-row: 1 / -1;
+  align-self: start;
+  display: block !important;
+  position: static !important;
+  border: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin: 0;
+}
+
+.view-list .grid li .cell-voice > * {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.view-list .grid li .cell-voice > :first-child {
+  margin-top: 0;
+}
+
+.view-list .grid li .cell-links {
+  grid-column: 4;
+  grid-row: 1 / -1;
+  align-self: start;
+  margin: 0.1rem 0 0;
+}
+
+.view-list .grid li .cell-links a {
+  font-size: 0.7rem;
+}
+
+/* At narrow widths, list view collapses to a stacked layout per row
+   so nothing truncates awkwardly. */
+@media (max-width: 860px) {
+  .view-list .grid li {
+    grid-template-columns: 44px minmax(0, 1fr);
+    grid-template-areas:
+      "cover meta"
+      "cover voice"
+      "cover links";
+  }
+  .view-list .grid li .cell-cover { grid-area: cover; }
+  .view-list .grid li .cell-type,
+  .view-list .grid li .cell-title,
+  .view-list .grid li .cell-author,
+  .view-list .grid li .cell-dek { grid-area: meta; grid-column: auto; }
+  .view-list .grid li .cell-voice { grid-area: voice; grid-column: auto; grid-row: auto; }
+  .view-list .grid li .cell-links { grid-area: links; grid-column: auto; grid-row: auto; }
+}
+
 @media (max-width: 1200px) {
   .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
@@ -1195,10 +1307,6 @@ body {
     margin-top: 2.75rem;
   }
 
-  .shelf-filter {
-    margin-top: 0.5rem;
-  }
-
   .topic-index {
     border: 1px solid var(--rule);
     border-top: 0;
@@ -1214,17 +1322,6 @@ body {
     padding-right: 1rem;
   }
 }
-
-/* ── Tier 1 PRD pass (2026-04-24): stream section labels + shelf filter ── */
-
-/* Shelf filter relies on the [hidden] attribute; existing .grid li has
-   display: block which would otherwise override the UA stylesheet. */
-.topic-section[hidden],
-.grid li[hidden],
-.topic-index a[hidden] {
-  display: none !important;
-}
-
 
 .stream-section + .stream-section {
   border-top: 1px solid var(--rule);
@@ -1253,55 +1350,10 @@ body {
   align-items: center;
 }
 
-.shelf-filter {
-  display: flex;
-  align-items: center;
-}
-
-.shelf-filter__input {
-  width: 100%;
-  padding: 0.3rem 0.5rem;
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  background: transparent;
-  border: 1px solid var(--rule);
-  border-radius: 0;
-  outline: 0;
-  -webkit-appearance: none;
-          appearance: none;
-}
-
-.shelf-filter__input::placeholder {
-  color: var(--ink-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.shelf-filter__input:focus {
-  border-color: var(--ink);
-}
-
-.shelf-filter-empty {
-  padding: 1.25rem 0.75rem;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin: 0;
-}
-
 @media (max-width: 767px) {
   .shelf-console-head {
     grid-template-columns: 1fr;
     gap: 0.4rem;
-  }
-
-  /* Prevent iOS auto-zoom on input focus — 16px is the magic number */
-  .shelf-filter__input {
-    font-size: 16px;
   }
 }
 

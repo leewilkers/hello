@@ -6,7 +6,7 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
-      <li data-search="{{ (item.data.title or '') }} {{ item.data.author }}">
+      <li>
         <span class="cell-cover">
           {%- if item.data.image %}{% shelfCover item.data.image, "" %}{% endif %}
         </span>
@@ -57,19 +57,13 @@ pageClass: page-shelf
     <p class="console-kicker">Shelf</p>
     <p class="shelf-subtitle">Things on my desk.</p>
   </div>
-  <div class="shelf-filter" role="search">
-    <label for="shelf-filter-input" class="sr-only">Filter shelf</label>
-    <input
-      id="shelf-filter-input"
-      type="search"
-      class="shelf-filter__input"
-      placeholder="search title or author"
-      autocomplete="off"
-      spellcheck="false">
+  <div class="shelf-view-toggle" role="group" aria-label="View">
+    <button type="button" class="view-toggle-btn" data-view="grid" aria-pressed="true" title="Grid view"><span aria-hidden="true">▦</span><span class="sr-only">Grid view</span></button>
+    <button type="button" class="view-toggle-btn" data-view="list" aria-pressed="false" title="List view"><span aria-hidden="true">≡</span><span class="sr-only">List view</span></button>
   </div>
-  <p class="console-status" data-shelf-status>
-    <span data-shelf-count="entries">{{ collections.items | where("dest", "shelf") | length }}</span> entries ·
-    <span data-shelf-count="topics">{{ topics | length }}</span> topics
+  <p class="console-status">
+    {{ collections.items | where("dest", "shelf") | length }} entries ·
+    {{ topics | length }} topics
   </p>
 </header>
 
@@ -101,97 +95,31 @@ pageClass: page-shelf
     </section>
       {%- endif %}
     {%- endfor %}
-    <p class="shelf-filter-empty" role="status" aria-live="polite" hidden>No matches.</p>
   </section>
 
 </div>
 
 <script>
+// View toggle — grid (cover-first) vs list (reading-log). Persists to localStorage.
 (function() {
-  var input = document.getElementById('shelf-filter-input');
-  if (!input) return;
+  var scroll = document.querySelector('.grid-scroll');
+  var buttons = document.querySelectorAll('.view-toggle-btn');
+  if (!scroll || !buttons.length) return;
 
-  var sections = Array.prototype.slice.call(document.querySelectorAll('.topic-section'));
-  var railLinks = Array.prototype.slice.call(document.querySelectorAll('.topic-index a'));
-  var entriesCount = document.querySelector('[data-shelf-count="entries"]');
-  var topicsCount = document.querySelector('[data-shelf-count="topics"]');
-  var emptyMsg = document.querySelector('.shelf-filter-empty');
+  function apply(view) {
+    scroll.classList.toggle('view-list', view === 'list');
+    buttons.forEach(function(b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-view') === view ? 'true' : 'false');
+    });
+    try { localStorage.setItem('shelf-view', view); } catch (e) {}
+  }
 
-  var totalEntries = entriesCount ? parseInt(entriesCount.textContent, 10) : 0;
-  var totalTopics = topicsCount ? parseInt(topicsCount.textContent, 10) : 0;
+  var saved = 'grid';
+  try { saved = localStorage.getItem('shelf-view') || 'grid'; } catch (e) {}
+  apply(saved);
 
-  // Snapshot original text so we can restore when the filter clears
-  // or rebuild with <mark> nodes when it matches.
-  var highlightables = Array.prototype.slice.call(
-    document.querySelectorAll('.grid li .cell-title, .grid li .cell-author')
-  );
-  highlightables.forEach(function(el) {
-    el.setAttribute('data-original', el.textContent);
+  buttons.forEach(function(b) {
+    b.addEventListener('click', function() { apply(b.getAttribute('data-view')); });
   });
-
-  function norm(s) { return (s || '').toLowerCase().trim(); }
-  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-  function highlight(el, q) {
-    var original = el.getAttribute('data-original') || el.textContent;
-    while (el.firstChild) el.removeChild(el.firstChild);
-    if (!q) { el.appendChild(document.createTextNode(original)); return; }
-    var re = new RegExp('(' + escapeRegex(q) + ')', 'ig');
-    var parts = original.split(re);
-    parts.forEach(function(part, i) {
-      if (i % 2 === 1) {
-        var m = document.createElement('mark');
-        m.appendChild(document.createTextNode(part));
-        el.appendChild(m);
-      } else if (part) {
-        el.appendChild(document.createTextNode(part));
-      }
-    });
-  }
-
-  function applyFilter() {
-    var q = norm(input.value);
-    var visibleItems = 0;
-    var visibleTopics = 0;
-    var visibleBySlug = {};
-
-    sections.forEach(function(section) {
-      var items = section.querySelectorAll('li[data-search]');
-      var shown = 0;
-      items.forEach(function(li) {
-        var hay = norm(li.getAttribute('data-search'));
-        var match = q === '' || hay.indexOf(q) !== -1;
-        li.hidden = !match;
-        if (match) {
-          shown++;
-          var t = li.querySelector('.cell-title');
-          var a = li.querySelector('.cell-author');
-          if (t) highlight(t, q);
-          if (a) highlight(a, q);
-        }
-      });
-      section.hidden = shown === 0;
-      var slug = section.getAttribute('data-topic');
-      visibleBySlug[slug] = shown;
-      var countEl = section.querySelector('[data-section-count]');
-      if (countEl) countEl.textContent = shown;
-      if (shown > 0) { visibleTopics++; visibleItems += shown; }
-    });
-
-    railLinks.forEach(function(a) {
-      var slug = a.getAttribute('data-topic');
-      var shown = visibleBySlug[slug] || 0;
-      a.hidden = shown === 0;
-      var b = a.querySelector('b');
-      if (b) b.textContent = shown;
-    });
-
-    if (entriesCount) entriesCount.textContent = q ? visibleItems : totalEntries;
-    if (topicsCount) topicsCount.textContent = q ? visibleTopics : totalTopics;
-    if (emptyMsg) emptyMsg.hidden = !(q && visibleItems === 0);
-  }
-
-  input.addEventListener('input', applyFilter);
-  input.addEventListener('search', applyFilter);
 })();
 </script>
