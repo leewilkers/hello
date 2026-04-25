@@ -830,9 +830,9 @@ body {
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
-/* Shelf page-header mark — sitting rabbit perches on the TOP rule of
-   .shelf-console-head (half above, half below the line) so it reads
-   as a creature sitting on the page-header border. */
+/* Shelf page-header mark — sitting rabbit sits ON the top rule of
+   .shelf-console-head, feet touching the line (fully above, not
+   straddling) so it reads as a creature perched on the border. */
 .shelf-head-mark {
   position: absolute;
   top: 0;
@@ -840,7 +840,7 @@ body {
   width: 32px;
   height: 36px;
   fill: var(--ink);
-  transform: translateY(-50%);
+  transform: translateY(-100%);
   pointer-events: none;
 }
 
