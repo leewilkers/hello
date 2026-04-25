@@ -205,9 +205,21 @@
 
     updateActive(); // initial paint
 
-    // Mobile: clicking a sidebar link closes the overlay
+    // Click-nav: scroll so the target section-label lands at the same
+    // y-position as the clicked sidebar row (so left row ↔ right section
+    // header visually align). Also closes the mobile sidebar overlay.
     links.forEach(function(a) {
-      a.addEventListener('click', function() { closeSidebar(); });
+      a.addEventListener('click', function(e) {
+        var slug = a.getAttribute('data-topic');
+        var section = document.getElementById(slug);
+        if (section) {
+          e.preventDefault();
+          var linkY = a.getBoundingClientRect().top;
+          var sectionAbsY = section.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top: sectionAbsY - linkY, behavior: 'smooth' });
+        }
+        closeSidebar();
+      });
     });
   })();
 

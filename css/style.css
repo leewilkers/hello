@@ -782,11 +782,11 @@ body {
 .topic-section {
   margin: 0;
   border-bottom: 1px solid var(--rule);
-  scroll-margin-top: 1rem;
+  scroll-margin-top: 2.5rem;
 }
 
 .topic-section:first-child {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
 }
 
 .topic-section:last-child {
