@@ -31,8 +31,8 @@
   <a href="/" class="nav-name">Lee Wilkers</a>
   <div class="nav-right">
     <div class="nav-links">
+      <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
-      <span class="dead" aria-disabled="true">about</span>
       <span class="dead" aria-disabled="true">consulting</span>
       <span class="dead" aria-disabled="true">stream</span>
     </div>
