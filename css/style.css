@@ -460,6 +460,11 @@ body {
   font-family: var(--mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  backdrop-filter: blur(6px);
 }
 
 .nav-name,
@@ -1010,7 +1015,7 @@ body {
   top: 0;
   left: 0.85rem;
   width: auto;
-  height: 56px;
+  height: 72px;
   transform: translateY(-100%);
   pointer-events: none;
 }
