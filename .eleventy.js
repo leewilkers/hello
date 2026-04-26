@@ -159,6 +159,9 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("source_reading/**");
   eleventyConfig.ignores.add("claude_design/**");
   eleventyConfig.ignores.add("scripts/**");
+  // Internal handoffs / dry-run reports / agent kickoff prompts — committed for
+  // workflow history, but never published. Folder is project-local design process.
+  eleventyConfig.ignores.add("prompts/**");
 
   return {
     dir: {
