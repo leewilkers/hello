@@ -489,7 +489,9 @@ body {
   background: none;
   color: var(--ink-light);
   display: inline-flex;
-  gap: 0.35rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.22rem;
   font-family: var(--mono);
   font-size: 0.95rem;
   line-height: 1;
@@ -497,33 +499,65 @@ body {
 
 .dimmer::after { content: none; }
 
+.dimmer-icons {
+  display: inline-flex;
+  gap: 0.55rem;
+}
+
 .dimmer-sun,
 .dimmer-moon {
   display: inline-block;
-  padding-bottom: 0.08rem;
-  border-bottom: 1px solid transparent;
   color: var(--ink-muted);
-  transition: color 120ms ease, border-color 120ms ease;
+  transition: color 160ms ease;
 }
 
 :root .dimmer-sun {
   color: var(--ink);
-  border-bottom-color: var(--ink);
 }
 
 [data-theme="dark"] .dimmer-sun {
   color: var(--ink-muted);
-  border-bottom-color: transparent;
 }
 
 [data-theme="dark"] .dimmer-moon {
   color: var(--ink);
-  border-bottom-color: var(--ink);
 }
 
 .dimmer:hover .dimmer-sun,
 .dimmer:hover .dimmer-moon {
   color: var(--ink);
+}
+
+/* Skeuomorphic milled track + sliding knob — Teenage Engineering feel */
+.dimmer-track {
+  position: relative;
+  display: block;
+  width: 1.55rem;
+  height: 3px;
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 1px color-mix(in srgb, var(--ink) 35%, transparent),
+    0 1px 0 color-mix(in srgb, var(--bg) 80%, transparent);
+}
+
+.dimmer-knob {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow:
+    0 1px 1px color-mix(in srgb, var(--ink) 50%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--bg) 35%, transparent);
+  transition: left 220ms cubic-bezier(0.5, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .dimmer-knob {
+  left: calc(100% - 7px);
 }
 
 .page {
@@ -672,6 +706,23 @@ body {
 
 .console-list li::marker {
   color: var(--ink-muted);
+}
+
+.home-rabbit-rule {
+  margin: 3.5rem auto 1rem;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.home-rabbit-rule img {
+  display: inline-block;
+  width: clamp(220px, 38vw, 360px);
+  height: auto;
+}
+
+[data-theme="dark"] .home-rabbit-rule img {
+  filter: invert(1);
+  opacity: 0.75;
 }
 
 .site-colophon {
