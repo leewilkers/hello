@@ -754,21 +754,72 @@ body {
   color: var(--ink-muted);
 }
 
+/* Plain about-page layout — no boxes, no section dividers, just type + rabbit. */
+.home-plain {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1.5rem;
+}
+
+.home-plain .home-identity {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+  margin: 0 0 2rem;
+}
+
+.home-plain .home-section {
+  margin: 1.6rem 0;
+}
+
+.home-plain .home-section h2 {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+  color: var(--ink-faint);
+}
+
+.home-plain .home-section p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 52rem;
+}
+
+.home-plain .home-section ul {
+  list-style: disc outside;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.home-plain .home-section li {
+  padding: 0.12rem 0;
+  line-height: 1.45;
+}
+
+.home-plain .home-section li::marker {
+  color: var(--ink-muted);
+}
+
 .home-rabbit-rule {
-  margin: 3.5rem auto 1rem;
-  text-align: center;
-  opacity: 0.85;
+  margin: 3rem 0 0;
+  text-align: left;
+  opacity: 0.5;
 }
 
 .home-rabbit-rule img {
-  display: inline-block;
-  width: clamp(220px, 38vw, 360px);
+  display: block;
+  width: clamp(150px, 24vw, 220px);
   height: auto;
 }
 
 [data-theme="dark"] .home-rabbit-rule img {
   filter: invert(1);
-  opacity: 0.75;
+  opacity: 0.85; /* slight bump because invert tends to read fainter */
 }
 
 .site-colophon {
