@@ -77,12 +77,37 @@
     const button = document.querySelector('.dimmer');
 
     let audioCtx = null;
-    function playClickSound() {
+    function ensureAudio() {
       try {
         if (!audioCtx) {
           audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
-        const ctx = audioCtx;
+        return audioCtx;
+      } catch (e) { return null; }
+    }
+
+    function playPressSound() {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      // Soft press thump — low sine, ~50ms, quieter than the resolution click
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(110, t);
+      osc.frequency.exponentialRampToValueAtTime(75, t + 0.04);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.10, t + 0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+      osc.connect(g).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.06);
+    }
+
+    function playClickSound() {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      try {
         const t = ctx.currentTime;
 
         // Warm low "tock" — pitched-down sine, ~60ms
@@ -178,6 +203,15 @@
     }
 
     window.toggleTheme = playCatThenFlip;
+
+    // Press feedback — fires the moment the pointer goes down, before onclick.
+    // Pairs with CSS :active state on .dimmer for visual press-in.
+    if (button) {
+      button.addEventListener('pointerdown', function() {
+        if (button.disabled) return;
+        playPressSound();
+      });
+    }
   })();
 
   // FOUC restore – keep this untouched, runs as soon as parser hits it
