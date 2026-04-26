@@ -1539,6 +1539,19 @@ body {
   padding: 2rem 1.35rem 2.5rem;
 }
 
+.error-burrow {
+  display: block;
+  width: auto;
+  height: 96px;
+  margin: 0 0 1.25rem -0.4rem; /* nudge slightly left to align engraved ground line with text gutter */
+  opacity: 0.85;
+}
+
+[data-theme="dark"] .error-burrow {
+  filter: invert(1);
+  opacity: 0.7;
+}
+
 .error-body h1 {
   margin: 0 0 0.75rem;
   font-size: clamp(2rem, 5vw, 4rem);
