@@ -114,6 +114,28 @@ img { display: block; }
   color: var(--ink);
 }
 
+.nav-links {
+  gap: 0.45rem;
+}
+
+.nav-links .dead {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink-light) 40%, transparent);
+  cursor: default;
+}
+
+.nav-links > *:not(:last-child)::after {
+  content: " / ";
+  margin-left: 0.45rem;
+  color: color-mix(in srgb, var(--ink-light) 55%, transparent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+
 /* ── dimmer toggle ── */
 
 .dimmer {
@@ -638,20 +660,18 @@ body {
 }
 
 .console-list {
-  list-style: none;
+  list-style: disc outside;
   margin: 0;
-  padding: 0;
+  padding-left: 1.1rem;
 }
 
 .console-list li {
-  border-top: 1px solid var(--rule-light);
-  padding: 0.42rem 0;
+  padding: 0.18rem 0;
   line-height: 1.45;
 }
 
-.console-list li:first-child {
-  border-top: 0;
-  padding-top: 0;
+.console-list li::marker {
+  color: var(--ink-muted);
 }
 
 .site-colophon {
@@ -900,39 +920,26 @@ body {
   margin-top: 0.05rem;
 }
 
-/* Voice — note / quote / blurb — wrapped in `.cell-voice`, hidden on
-   hover-capable devices, revealed as a bordered overlay below the card.
-   Touch devices (no :hover) show voice inline so nothing is gated
-   behind an interaction they can't perform. */
+/* Voice — note / quote / blurb — wrapped in `.cell-voice`, rendered
+   as an always-visible ghost-card attached under the cell meta.
+   A subtle top rule separates it from the type/title/author block
+   so the annotation reads as a distinct layer, not a run-on. */
+.grid li .cell-voice {
+  margin-top: 0.45rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--rule-light);
+}
+
 .grid li .cell-note,
 .grid li .cell-quote,
 .grid li .cell-blurb {
-  margin: 0.4rem 0 0;
+  margin: 0.35rem 0 0;
   font-family: var(--serif);
-  font-size: 0.76rem;
-  line-height: 1.42;
+  font-size: 0.7rem;
+  line-height: 1.38;
 }
 
 .grid li .cell-voice > :first-child { margin-top: 0; }
-
-@media (hover: hover) {
-  .grid li .cell-voice {
-    display: none;
-  }
-  .grid li:hover .cell-voice,
-  .grid li:focus-within .cell-voice {
-    display: block;
-    position: absolute;
-    top: calc(100% + 0.3rem);
-    left: 0;
-    right: 0;
-    z-index: 20;
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    padding: 0.7rem 0.8rem;
-    box-shadow: 0 6px 16px rgba(17, 17, 17, 0.09);
-  }
-}
 
 .grid li .cell-note {
   font-style: italic;
@@ -1143,12 +1150,14 @@ body {
 
 .view-list .grid li {
   display: grid;
-  grid-template-columns: 44px minmax(200px, 1.6fr) minmax(0, 2fr) minmax(110px, auto);
-  column-gap: 1.1rem;
-  row-gap: 0.08rem;
+  grid-template-columns: minmax(200px, 1.3fr) minmax(0, 2.6fr) 130px;
+  column-gap: 1.4rem;
+  row-gap: 0.06rem;
   align-items: start;
-  padding: 0.75rem 0.9rem;
+  padding: 0.7rem 0.9rem;
   border-bottom: 1px solid var(--rule-light);
+  hyphens: none;
+  overflow-wrap: normal;
 }
 
 .view-list .grid li:last-child {
@@ -1156,63 +1165,47 @@ body {
 }
 
 .view-list .grid li .cell-cover {
-  grid-column: 1;
-  grid-row: 1 / -1;
-  align-self: start;
-  min-height: 0;
-  margin: 0;
-  padding-top: 0.08rem;
-  place-items: start center;
-}
-
-.view-list .grid li .cell-cover img {
-  width: 44px;
-  height: auto;
-  box-shadow: 0 1px 0 0 var(--rule-light);
+  display: none;
 }
 
 .view-list .grid li .cell-type,
 .view-list .grid li .cell-title,
 .view-list .grid li .cell-author,
 .view-list .grid li .cell-dek {
-  grid-column: 2;
+  grid-column: 1;
 }
 
 .view-list .grid li .cell-title {
-  font-size: 0.9rem;
-  line-height: 1.28;
-  margin-top: 0.08rem;
+  font-size: 0.82rem;
+  line-height: 1.25;
+  margin-top: 0.06rem;
 }
 
 .view-list .grid li .cell-author {
-  font-size: 0.62rem;
-  margin-top: 0.2rem;
+  font-size: 0.6rem;
+  margin-top: 0.18rem;
 }
 
 .view-list .grid li .cell-dek {
-  font-size: 0.62rem;
-  margin-top: 0.1rem;
+  font-size: 0.6rem;
+  margin-top: 0.08rem;
 }
 
-/* Voice always visible in list view — that's the point. Override
-   the hover-gated overlay from picture view. */
+/* In list view, voice has its own column — no top-rule needed (the
+   column separation does that work). */
 .view-list .grid li .cell-voice {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1 / -1;
   align-self: start;
-  display: block !important;
-  position: static !important;
-  border: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
   margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .view-list .grid li .cell-voice > * {
   margin-top: 0.3rem;
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.74rem;
+  line-height: 1.42;
 }
 
 .view-list .grid li .cell-voice > :first-child {
@@ -1220,33 +1213,42 @@ body {
 }
 
 .view-list .grid li .cell-links {
-  grid-column: 4;
+  grid-column: 3;
   grid-row: 1 / -1;
   align-self: start;
   margin: 0.1rem 0 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.7rem;
+}
+
+.view-list .grid li .cell-links li {
+  line-height: 1.2;
 }
 
 .view-list .grid li .cell-links a {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
+  white-space: nowrap;
 }
 
-/* At narrow widths, list view collapses to a stacked layout per row
-   so nothing truncates awkwardly. */
+/* At narrow widths, list view collapses voice + links to stack below
+   meta so nothing truncates awkwardly. */
 @media (max-width: 860px) {
   .view-list .grid li {
-    grid-template-columns: 44px minmax(0, 1fr);
-    grid-template-areas:
-      "cover meta"
-      "cover voice"
-      "cover links";
+    grid-template-columns: minmax(0, 1fr);
   }
-  .view-list .grid li .cell-cover { grid-area: cover; }
   .view-list .grid li .cell-type,
   .view-list .grid li .cell-title,
   .view-list .grid li .cell-author,
-  .view-list .grid li .cell-dek { grid-area: meta; grid-column: auto; }
-  .view-list .grid li .cell-voice { grid-area: voice; grid-column: auto; grid-row: auto; }
-  .view-list .grid li .cell-links { grid-area: links; grid-column: auto; grid-row: auto; }
+  .view-list .grid li .cell-dek,
+  .view-list .grid li .cell-voice,
+  .view-list .grid li .cell-links {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .view-list .grid li .cell-voice > * {
+    font-size: 0.78rem;
+  }
 }
 
 @media (max-width: 1200px) {

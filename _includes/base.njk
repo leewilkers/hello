@@ -32,7 +32,9 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
-      {# stream temporarily hidden – coming back when populated #}
+      <span class="dead" aria-disabled="true">about</span>
+      <span class="dead" aria-disabled="true">consulting</span>
+      <span class="dead" aria-disabled="true">stream</span>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></button>
   </div>
