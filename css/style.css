@@ -129,11 +129,13 @@ img { display: block; }
 
 .nav-links > *:not(:last-child)::after {
   content: " / ";
+  display: inline-block; /* breaks parent's text-decoration propagation onto the slash */
   margin-left: 0.45rem;
   color: color-mix(in srgb, var(--ink-light) 55%, transparent);
   font-weight: 600;
   letter-spacing: 0.08em;
   pointer-events: none;
+  text-decoration: none;
 }
 
 /* ── dimmer toggle ── */
@@ -470,14 +472,16 @@ body {
 
 .nav-links a {
   color: var(--ink-light);
-  border-bottom: 1px solid transparent;
   padding-bottom: 0.08rem;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
 .nav-links a.active,
 .nav-links a:hover {
   color: var(--ink);
-  border-bottom-color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--ink);
 }
 
 .dimmer {
@@ -805,20 +809,21 @@ body {
 }
 
 .home-rabbit-rule {
-  margin: 3rem 0 0;
+  margin: 5rem 0 0;
   text-align: left;
-  opacity: 0.5;
+  opacity: 0.32;
+  pointer-events: none;
 }
 
 .home-rabbit-rule img {
   display: block;
-  width: clamp(150px, 24vw, 220px);
+  width: clamp(280px, 52vw, 480px);
   height: auto;
 }
 
 [data-theme="dark"] .home-rabbit-rule img {
   filter: invert(1);
-  opacity: 0.85; /* slight bump because invert tends to read fainter */
+  opacity: 0.55; /* slight bump because invert tends to read fainter */
 }
 
 .site-colophon {
@@ -832,6 +837,12 @@ body {
   font-size: 0.68rem;
   line-height: 1.35;
   color: var(--ink-muted);
+}
+
+.site-colophon .colophon-dust {
+  flex-basis: 100%;
+  font-style: italic;
+  color: var(--ink-faint);
 }
 
 .page-shelf {

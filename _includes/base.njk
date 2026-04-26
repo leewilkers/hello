@@ -34,7 +34,7 @@
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <span class="dead" aria-disabled="true" title="in progress – pardon the dust">consulting</span>
-      <a href="/stream/" {% if page.url == "/stream/" %}class="active"{% endif %}>stream</a>
+      <span class="dead" aria-disabled="true" title="in progress – pardon the dust">stream</span>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
   </div>
@@ -53,6 +53,7 @@
 </main>
 
 <footer class="site-colophon" aria-label="Site colophon">
+  <span class="colophon-dust">Pardon the dust – site in progress.</span>
   <span>Generator Eleventy</span>
   <span>CMS Sveltia</span>
   <span>Hosting GitHub Pages</span>
