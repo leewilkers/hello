@@ -897,11 +897,18 @@ body {
 }
 
 .section-label-mark {
-  width: 22px;
-  height: 16px;
-  fill: var(--bg);
+  width: 44px;
+  height: auto;
   flex-shrink: 0;
   display: block;
+  /* Engraved PNG is black-on-transparent. Section bar is dark in light theme,
+     so invert to render the rabbit in cream. Dark theme flips bar to cream
+     so we drop the invert. */
+  filter: invert(1);
+}
+
+[data-theme="dark"] .section-label-mark {
+  filter: none;
 }
 
 .section-label-name {
@@ -924,11 +931,14 @@ body {
   position: absolute;
   top: 0;
   left: 0.85rem;
-  width: 32px;
-  height: 36px;
-  fill: var(--ink);
+  width: auto;
+  height: 56px;
   transform: translateY(-100%);
   pointer-events: none;
+}
+
+[data-theme="dark"] .shelf-head-mark {
+  filter: invert(1);
 }
 
 /* Shelf grid — Are.na-grammar, image-forward + archival metadata.

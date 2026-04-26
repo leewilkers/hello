@@ -36,24 +36,9 @@ pageClass: page-shelf
 
 <h1 class="sr-only">Shelf</h1>
 
-<svg class="shelf-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
-  <defs>
-    <symbol id="rabbit-sitting" viewBox="0 0 55 60">
-      <g transform="translate(0,60) scale(0.1,-0.1)">
-        <path d="M280 492 c0 -5 7 -17 15 -28 27 -35 15 -40 -14 -5 -19 24 -33 32 -45 28 -23 -9 -4 -44 32 -60 15 -6 28 -12 29 -12 2 -1 -2 -15 -9 -31 -7 -20 -24 -35 -49 -46 -41 -17 -79 -68 -79 -105 0 -16 -4 -21 -15 -17 -11 5 -15 -1 -15 -17 1 -44 19 -54 97 -56 72 -2 103 10 64 25 -17 6 -18 9 -6 26 14 18 15 18 25 -8 5 -15 10 -32 10 -37 0 -12 37 -12 45 0 3 6 -1 13 -8 18 -22 12 -27 64 -10 90 9 14 13 34 10 51 -4 21 0 32 21 49 l27 21 -20 22 c-11 12 -30 26 -42 31 -13 5 -23 17 -23 27 0 19 -18 42 -32 42 -4 0 -8 -4 -8 -8z m19 -266 c-3 -3 -11 5 -18 17 -13 21 -12 21 5 5 10 -10 16 -20 13 -22z"/>
-      </g>
-    </symbol>
-    <symbol id="rabbit-leaping" viewBox="0 0 95 70">
-      <g transform="translate(0,70) scale(0.1,-0.1)">
-        <path d="M640 480 c0 -5 14 -25 30 -43 46 -53 35 -56 -13 -3 -43 45 -77 60 -77 32 0 -18 66 -76 85 -76 20 0 19 -24 -1 -41 -11 -9 -40 -13 -83 -12 -175 4 -277 10 -289 17 -6 4 -17 4 -22 1 -15 -9 8 -35 31 -35 17 0 17 -1 1 -30 -15 -27 -21 -30 -52 -25 -23 4 -46 0 -65 -9 -17 -9 -40 -16 -52 -16 -12 0 -25 -5 -28 -10 -9 -15 46 -11 75 5 14 8 34 14 45 14 11 1 -11 -15 -50 -34 -51 -25 -63 -34 -45 -35 14 0 40 9 59 21 29 17 43 20 92 14 51 -6 64 -4 104 18 25 14 45 22 45 19 0 -9 145 -43 185 -43 115 -1 164 -6 192 -17 17 -8 40 -12 50 -10 11 3 -3 11 -37 23 -33 12 -48 21 -37 23 10 2 32 -1 49 -7 17 -6 40 -11 52 -10 12 0 -6 10 -39 20 -35 12 -76 18 -97 15 -40 -4 -41 -4 -32 32 5 16 14 22 35 22 53 0 46 55 -10 85 -16 8 -32 26 -35 40 -10 40 -66 87 -66 55z"/>
-      </g>
-    </symbol>
-  </defs>
-</svg>
-
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">
-    <svg class="shelf-head-mark" aria-hidden="true"><use href="#rabbit-sitting"/></svg>
+    <img class="shelf-head-mark" src="/img/rabbits/sitter.png" alt="" aria-hidden="true">
     <p class="console-kicker">Shelf</p>
     <p class="shelf-subtitle">Things on my desk.</p>
   </div>
@@ -85,7 +70,7 @@ pageClass: page-shelf
       {%- if bucket.length %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-count="{{ bucket.length }}" class="topic-section">
       <header class="section-label">
-        <svg class="section-label-mark" aria-hidden="true"><use href="#rabbit-leaping"/></svg>
+        <img class="section-label-mark" src="/img/rabbits/runner-lg.png" alt="" aria-hidden="true">
         <h2 class="section-label-name">{{ topic }}</h2>
         <span class="section-label-count" data-section-count>{{ bucket.length }}</span>
       </header>
