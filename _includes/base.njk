@@ -76,12 +76,55 @@
     const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
 
+    let audioCtx = null;
+    function playClickSound() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const ctx = audioCtx;
+        const t = ctx.currentTime;
+
+        // Warm low "tock" — pitched-down sine, ~60ms
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(165, t);
+        osc.frequency.exponentialRampToValueAtTime(95, t + 0.06);
+        const oscGain = ctx.createGain();
+        oscGain.gain.setValueAtTime(0.0001, t);
+        oscGain.gain.exponentialRampToValueAtTime(0.18, t + 0.005);
+        oscGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+        osc.connect(oscGain).connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.1);
+
+        // High-frequency snap — bandpassed noise burst, ~12ms
+        const buf = ctx.createBuffer(1, Math.max(1, Math.floor(ctx.sampleRate * 0.012)), ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        const decay = ctx.sampleRate * 0.0015;
+        for (let i = 0; i < data.length; i++) {
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / decay);
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buf;
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass';
+        bp.frequency.value = 2400;
+        bp.Q.value = 3;
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.value = 0.08;
+        noise.connect(bp).connect(noiseGain).connect(ctx.destination);
+        noise.start(t);
+      } catch (e) { /* audio unsupported — silent fallback */ }
+    }
+
     function instantFlip() {
       const d = document.documentElement;
       const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
       d.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       if (button) button.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+      playClickSound();
     }
 
     function playCatThenFlip() {
