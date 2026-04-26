@@ -808,22 +808,40 @@ body {
   color: var(--ink-muted);
 }
 
-.home-rabbit-rule {
+/* Home footer motif: rabbit emerges from burrow on the left, runs along the
+   trail in the middle, dots fade off rightward into open page space — the
+   "follow the thread" out of the home/burrow into the world. */
+.home-trail-row {
+  display: flex;
+  align-items: end;
+  gap: 1.4rem;
+  width: 100%;
   margin: 5rem 0 0;
-  text-align: left;
   opacity: 0.32;
   pointer-events: none;
 }
 
-.home-rabbit-rule img {
+.home-trail-burrow {
   display: block;
-  width: clamp(280px, 52vw, 480px);
-  height: auto;
+  width: auto;
+  height: 56px;
+  flex: 0 0 auto;
 }
 
-[data-theme="dark"] .home-rabbit-rule img {
-  filter: invert(1);
+.home-trail-path {
+  display: block;
+  height: auto;
+  width: clamp(220px, 32vw, 340px);
+  flex: 0 0 auto;
+}
+
+[data-theme="dark"] .home-trail-row {
   opacity: 0.55; /* slight bump because invert tends to read fainter */
+}
+
+[data-theme="dark"] .home-trail-burrow,
+[data-theme="dark"] .home-trail-path {
+  filter: invert(1);
 }
 
 .site-colophon {
