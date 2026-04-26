@@ -984,6 +984,7 @@ body {
   height: auto;
   flex-shrink: 0;
   display: block;
+  transform: translateY(-2px);
   /* Engraved PNG is black-on-transparent. Section bar is dark in light theme,
      so invert to render the rabbit in cream. Dark theme flips bar to cream
      so we drop the invert. */
@@ -1007,15 +1008,14 @@ body {
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
-/* Shelf page-header mark — sitting rabbit sits ON the top rule of
-   .shelf-console-head, feet touching the line (fully above, not
-   straddling) so it reads as a creature perched on the border. */
+/* Shelf page-header mark — keep the engraving below native size so it
+   stays crisp, with its ground line landing on the console rule. */
 .shelf-head-mark {
   position: absolute;
   top: 0;
   left: 0.85rem;
   width: auto;
-  height: 72px;
+  height: 44px;
   transform: translateY(-100%);
   pointer-events: none;
 }
