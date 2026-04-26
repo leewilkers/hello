@@ -845,6 +845,17 @@ body {
   color: var(--ink-faint);
 }
 
+.site-colophon .colophon-fleuron {
+  display: inline-block;
+  font-family: var(--serif);
+  font-size: 1.45em;
+  line-height: 0.8;
+  vertical-align: -0.18em;
+  font-style: normal;
+  color: var(--ink-muted);
+  margin-left: 0.15em;
+}
+
 .page-shelf {
   height: auto;
   min-height: calc(100vh - 46px);
