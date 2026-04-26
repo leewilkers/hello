@@ -818,7 +818,7 @@ body {
    "follow the rabbit out the burrow." Single composite engraved asset. */
 .home-about-trail {
   margin: 4.5rem 0 0;
-  opacity: 0.55;
+  opacity: 0.78;
   pointer-events: none;
 }
 
@@ -830,7 +830,7 @@ body {
 }
 
 [data-theme="dark"] .home-about-trail {
-  opacity: 0.7; /* slight bump because invert tends to read fainter */
+  opacity: 0.92; /* slight bump because invert tends to read fainter */
 }
 
 [data-theme="dark"] .home-about-trail img {
@@ -879,7 +879,7 @@ body {
   justify-content: space-between;
   gap: 2rem;
   max-width: 1500px;
-  margin: 0 auto;
+  margin: 2.75rem auto 0;
   border: 1px solid var(--rule);
   border-bottom: 0;
   padding: 0.7rem 0.85rem 1rem;
@@ -1474,20 +1474,24 @@ body {
 @media (max-width: 620px) {
   .site-nav {
     align-items: flex-start;
+    justify-content: flex-start;
     gap: 0.7rem;
     padding: 0.6rem 0.8rem;
+    width: 100vw;
+    max-width: 100vw;
   }
 
   .nav-right {
     min-width: 0;
-    gap: 0.65rem;
+    margin-left: 1.2rem;
+    gap: 0.45rem;
   }
 
   .nav-links {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: flex-end;
     gap: 0.14rem 0.32rem;
-    max-width: 11rem;
+    max-width: none;
   }
 
   .nav-name,
@@ -1500,8 +1504,12 @@ body {
     display: none;
   }
 
-  .nav-links > *:not(:last-child)::after {
-    margin-left: 0.32rem;
+  .dimmer {
+    display: none;
+  }
+
+  .nav-links > *::after {
+    content: none !important;
   }
 
   .page-stream {
