@@ -12,7 +12,5 @@ quote: "in the swampy lowlands, problems are messy and confusing and incapable o
 links:
   - label: "wiki (concept)"
     url: "https://en.wikipedia.org/wiki/Reflective_practice"
-  - label: "archive.org"
-    url: "https://archive.org/details/reflectivepracti0000scho"
 order: 17
 ---

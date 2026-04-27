@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/capek-rur.jpg"
 dest: shelf
 topic: "Language & Writing"
-url: "https://mitpress.mit.edu/9780262535540/rur/"
+url: "https://mitpress.mit.edu/9780262544504/r-u-r-and-the-vision-of-artificial-life/"
 order: 50
 dek: "MIT Press, 2004"
 note: ""

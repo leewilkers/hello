@@ -4,7 +4,7 @@ title: "Photography's Other Histories"
 type: book
 image: "/img/covers/christopher-pinney-nicolas-peterson-eds-photography-s-other.jpg"
 dest: shelf
-topic: "Perception & Visualization"
+topic: "Photography"
 url: "https://dukeupress.edu/photographys-other-histories"
 dek: "Duke, 2003"
 note: ""

@@ -4,7 +4,7 @@ author: "Elliott Cost"
 url: "https://special.fish/"
 type: site
 dest: shelf
-topic: "Classification & Taxonomy"
+topic: "Information, Maps & Taxonomy"
 order: 20
 note: ""
 blurb: "a social network made of personal websites"

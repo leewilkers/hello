@@ -8,8 +8,6 @@ topic: "Bureaucracy & Institutions"
 url: "https://www.astralcodexten.com/p/your-book-review-the-anti-politics"
 dek: "Cambridge, 1990"
 links:
-  - label: "review"
-    url: "https://www.astralcodexten.com/p/your-book-review-the-anti-politics"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Anti-Politics_Machine"
 note: ""

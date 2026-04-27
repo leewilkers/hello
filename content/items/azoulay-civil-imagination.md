@@ -4,8 +4,8 @@ title: "Civil Imagination"
 type: book
 image: "/img/covers/azoulay-civil-imagination.jpg"
 dest: shelf
-topic: "Classification & Taxonomy"
-url: "https://www.versobooks.com/products/64-civil-imagination"
+topic: "Photography"
+url: "https://www.versobooks.com/products/2256-civil-imagination"
 order: 50
 dek: "Verso, 2015"
 note: ""

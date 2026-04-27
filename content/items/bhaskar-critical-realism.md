@@ -1,15 +1,15 @@
 ---
 author: "Roy Bhaskar"
 title: "Critical Realism and the Ontology of Persons"
-type: book
+type: essay
 image: "/img/covers/bhaskar-critical-realism.jpg"
 dest: shelf
-topic: "Classification & Taxonomy"
-url: "https://www.routledge.com/The-Philosophy-of-MetaReality/Bhaskar/p/book/9780367580476"
+topic: "Philosophy General"
+url: "https://doi.org/10.1080/14767430.2020.1734736"
 order: 50
-dek: "Routledge, 2020"
+dek: "Journal of Critical Realism, 2020"
 note: ""
-blurb: "Roy Bhaskar's philosophical framework holding that reality is stratified across empirical, actual, and real domains."
+blurb: "Roy Bhaskar's Journal of Critical Realism article on critical realist ontology and the understanding of persons."
 quote: ""
 links: []
 ---

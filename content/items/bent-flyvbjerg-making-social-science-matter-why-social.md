@@ -9,8 +9,6 @@ url: "https://archive.org/details/makingsocialscie0000flyv"
 dek: "Cambridge, 2001"
 note: ""
 blurb: "the case against physics envy"
-links:
-  - label: "archive.org"
-    url: "https://archive.org/details/makingsocialscie0000flyv"
+links: []
 order: 12
 ---

@@ -118,18 +118,20 @@ collections:
         options:
           - { label: "Architecture", value: "Architecture" }
           - { label: "Bureaucracy & Institutions", value: "Bureaucracy & Institutions" }
-          - { label: "Classification & Taxonomy", value: "Classification & Taxonomy" }
           - { label: "Computing", value: "Computing" }
           - { label: "Design & Craft", value: "Design & Craft" }
           - { label: "Ecology & Environment", value: "Ecology & Environment" }
-          - { label: "Education", value: "Education" }
           - { label: "Ethics & Moral Philosophy", value: "Ethics & Moral Philosophy" }
           - { label: "Ethnography", value: "Ethnography" }
           - { label: "Global Health & Policy", value: "Global Health & Policy" }
+          - { label: "Information, Maps & Taxonomy", value: "Information, Maps & Taxonomy" }
           - { label: "Infrastructure", value: "Infrastructure" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }
           - { label: "Perception & Visualization", value: "Perception & Visualization" }
+          - { label: "Photography", value: "Photography" }
+          - { label: "Play & Performance", value: "Play & Performance" }
+          - { label: "Philosophy General", value: "Philosophy General" }
           - { label: "Philosophy of Science", value: "Philosophy of Science" }
           - { label: "Science & Technology Studies", value: "Science & Technology Studies" }
           - { label: "Tech Criticism", value: "Tech Criticism" }

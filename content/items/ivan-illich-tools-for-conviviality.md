@@ -10,8 +10,6 @@ dek: "Harper & Row, 1973"
 note: ""
 quote: "every institution eventually becomes its opposite"
 links:
-  - label: "full text"
-    url: "https://archive.org/details/illich-conviviality"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Tools_for_Conviviality"
 order: 1

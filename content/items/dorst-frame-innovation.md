@@ -4,7 +4,7 @@ title: "Frame Innovation"
 type: book
 image: "/img/covers/dorst-frame-innovation.jpg"
 dest: shelf
-topic: "Classification & Taxonomy"
+topic: "Information, Maps & Taxonomy"
 url: "https://mitpress.mit.edu/9780262324311/frame-innovation/"
 order: 50
 dek: "MIT Press, 2015"

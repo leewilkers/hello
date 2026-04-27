@@ -11,6 +11,6 @@ note: ""
 quote: "when there is no bridge, people become the bridge"
 links:
   - label: "full text"
-    url: "https://eprints-gro.gold.ac.uk/1946/1/Simone_2004a.pdf"
+    url: "https://eprints-gro.gold.ac.uk/id/eprint/1946/1/Simone_2004a.pdf"
 order: 28
 ---

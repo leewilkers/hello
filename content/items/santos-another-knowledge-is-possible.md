@@ -4,7 +4,7 @@ title: "Another Knowledge Is Possible"
 type: book
 image: "/img/covers/santos-another-knowledge-is-possible.jpg"
 dest: shelf
-topic: "Philosophy of Science"
+topic: "Philosophy General"
 url: "https://www.versobooks.com/products/1975-another-knowledge-is-possible"
 order: 50
 dek: "Verso, 2008"

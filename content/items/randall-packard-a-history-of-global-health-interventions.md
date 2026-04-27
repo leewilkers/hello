@@ -9,8 +9,6 @@ url: "https://archive.org/details/historyofglobalh0000pack"
 dek: "Johns Hopkins, 2016"
 note: "magic bullets, every time"
 links:
-  - label: "archive.org"
-    url: "https://archive.org/details/historyofglobalh0000pack"
   - label: "review"
     url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5872019/"
 order: 19

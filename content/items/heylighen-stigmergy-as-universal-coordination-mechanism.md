@@ -4,8 +4,8 @@ title: "Stigmergy as a Universal Coordination Mechanism"
 type: essay
 image: "/img/covers/heylighen-stigmergy-as-universal-coordination-mechanism.jpg"
 dest: shelf
-topic: "Classification & Taxonomy"
-url: "https://doi.org/10.1080/01onal.2016.1120190"
+topic: "Information, Maps & Taxonomy"
+url: "https://doi.org/10.1016/j.cogsys.2015.12.002"
 order: 50
 dek: "Cognitive Systems Research, 2016"
 note: ""

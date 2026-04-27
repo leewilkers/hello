@@ -8,8 +8,6 @@ topic: "Perception & Visualization"
 url: "https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"
 dek: "Bantam, 1967"
 links:
-  - label: "full text"
-    url: "https://archive.org/details/pdfy-vNiFct6b-L5ucJEa"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Medium_Is_the_Massage"
 note: "not a typo"

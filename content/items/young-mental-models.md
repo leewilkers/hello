@@ -4,7 +4,7 @@ title: "Mental Models"
 type: book
 image: "/img/covers/young-mental-models.jpg"
 dest: shelf
-topic: "Classification & Taxonomy"
+topic: "Information, Maps & Taxonomy"
 url: "https://rosenfeldmedia.com/books/mental-models/"
 order: 50
 dek: "Rosenfeld Media, 2008"

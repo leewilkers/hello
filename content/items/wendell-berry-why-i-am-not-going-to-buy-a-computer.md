@@ -7,9 +7,7 @@ dest: shelf
 topic: "Infrastructure"
 url: "https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf"
 dek: "Harper's, 1987"
-links:
-  - label: "full text"
-    url: "https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf"
+links: []
 note: "exactly what it sounds like"
 order: 11
 ---

@@ -9,8 +9,6 @@ url: "https://en.wikipedia.org/wiki/The_Journalist_and_the_Murderer"
 dek: "Knopf, 1990"
 note: ""
 quote: "every journalist who is not too stupid or too full of himself to notice what is going on knows that what he does is morally indefensible."
-links:
-  - label: "wiki"
-    url: "https://en.wikipedia.org/wiki/The_Journalist_and_the_Murderer"
+links: []
 order: 19
 ---

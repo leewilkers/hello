@@ -4,8 +4,8 @@ title: "Understanding a Photograph"
 type: book
 image: "/img/covers/berger-understanding-a-photograph.jpg"
 dest: shelf
-topic: "Perception & Visualization"
-url: "https://www.penguinrandomhouse.com/books/221687/understanding-a-photograph-by-john-berger/"
+topic: "Photography"
+url: "https://store.aperture.org/products/understanding-a-photograph"
 order: 50
 dek: "Aperture, 2013"
 note: ""

@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/mazzucato-the-value-of-everything.jpg"
 dest: shelf
 topic: "Global Health & Policy"
-url: "https://www.publicaffairsbooks.com/titles/mariana-mazzucato/the-value-of-everything/9781610396745"
+url: "https://www.hachettebookgroup.com/titles/mariana-mazzucato/the-value-of-everything/9781610396752/?lens=publicaffairs"
 order: 50
 dek: "PublicAffairs, 2020"
 note: ""

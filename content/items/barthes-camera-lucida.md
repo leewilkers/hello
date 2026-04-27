@@ -4,7 +4,7 @@ title: "Camera Lucida"
 type: book
 image: "/img/covers/barthes-camera-lucida.jpg"
 dest: shelf
-topic: "Perception & Visualization"
+topic: "Photography"
 url: "https://us.macmillan.com/books/9780374521349/camera-lucida"
 order: 50
 dek: "Hill and Wang, 1981"

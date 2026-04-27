@@ -32,8 +32,8 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
-      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <span class="dead" aria-disabled="true" title="in progress – pardon the dust">consulting</span>
+      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <span class="dead" aria-disabled="true" title="in progress – pardon the dust">stream</span>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
@@ -56,8 +56,6 @@
   <span class="colophon-dust">Pardon the dust – workin on it <span class="colophon-fleuron" aria-hidden="true">❧</span></span>
   <span>Generator Eleventy</span>
   <span>CMS Sveltia</span>
-  <span>Hosting GitHub Pages</span>
-  <span>Repo leewilkers/hello</span>
 </footer>
 
 <script>
@@ -234,13 +232,29 @@
   (function() {
     var sections = document.querySelectorAll('.topic-section');
     var links = document.querySelectorAll('.topic-index a');
+    var index = document.getElementById('topic-index');
     if (!sections.length || !links.length) return;
 
     var linkMap = {};
     links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
 
+    function navOffset() {
+      var nav = document.querySelector('.site-nav');
+      return nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+    }
+
+    function keepActiveLinkVisible(a) {
+      if (!index || !a) return;
+      var linkTop = a.offsetTop;
+      var linkBottom = linkTop + a.offsetHeight;
+      var viewTop = index.scrollTop;
+      var viewBottom = viewTop + index.clientHeight;
+      if (linkTop < viewTop) index.scrollTop = linkTop;
+      else if (linkBottom > viewBottom) index.scrollTop = linkBottom - index.clientHeight;
+    }
+
     function updateActive() {
-      var referenceY = 100; // just below site nav
+      var referenceY = navOffset();
       var active = null;
       var best = Infinity;
 
@@ -267,8 +281,12 @@
       links.forEach(function(a) {
         var isActive = a.getAttribute('data-topic') === active;
         a.classList.toggle('active', isActive);
-        if (isActive) a.setAttribute('aria-current', 'true');
-        else a.removeAttribute('aria-current');
+        if (isActive) {
+          a.setAttribute('aria-current', 'true');
+          keepActiveLinkVisible(a);
+        } else {
+          a.removeAttribute('aria-current');
+        }
       });
     }
 
@@ -285,18 +303,16 @@
 
     updateActive(); // initial paint
 
-    // Click-nav: scroll so the target section-label lands at the same
-    // y-position as the clicked sidebar row (so left row ↔ right section
-    // header visually align). Also closes the mobile sidebar overlay.
+    // Click-nav: respect the section's CSS scroll-margin so the sticky
+    // site nav and the topic highlight use the same reference point.
     links.forEach(function(a) {
       a.addEventListener('click', function(e) {
         var slug = a.getAttribute('data-topic');
         var section = document.getElementById(slug);
         if (section) {
           e.preventDefault();
-          var linkY = a.getBoundingClientRect().top;
-          var sectionAbsY = section.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top: sectionAbsY - linkY, behavior: 'smooth' });
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history.pushState) history.pushState(null, '', '#' + slug);
         }
         closeSidebar();
       });
@@ -326,8 +342,8 @@
       btn.setAttribute('aria-expanded', 'false');
       if (wasOpen) btn.focus();
     }
-    // inert only matters at mobile; harmless at desktop where overlay isn't used
-    if (window.matchMedia('(max-width: 767px)').matches) {
+    // Keep off-canvas topic links out of the tab order whenever the overlay is hidden.
+    if (window.matchMedia('(max-width: 1200px)').matches) {
       idx.setAttribute('inert', '');
     }
   }
@@ -343,13 +359,21 @@
     var idx = document.getElementById('topic-index');
     if (idx && idx.classList.contains('open')) closeSidebar();
   });
-  // Set inert on mobile load (desktop ignores)
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      var idx = document.getElementById('topic-index');
-      if (idx && !idx.classList.contains('open')) idx.setAttribute('inert', '');
+  function syncSidebarMode() {
+    var idx = document.getElementById('topic-index');
+    var btn = document.querySelector('.sidebar-toggle');
+    if (!idx) return;
+    if (window.matchMedia('(max-width: 1200px)').matches) {
+      if (!idx.classList.contains('open')) idx.setAttribute('inert', '');
+    } else {
+      idx.removeAttribute('inert');
+      idx.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
     }
-  });
+  }
+  document.addEventListener('DOMContentLoaded', syncSidebarMode);
+  window.addEventListener('resize', syncSidebarMode);
 </script>
 </body>
 </html>

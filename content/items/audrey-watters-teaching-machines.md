@@ -4,7 +4,7 @@ title: "Teaching Machines"
 type: book
 image: "/img/covers/audrey-watters-teaching-machines.jpg"
 dest: shelf
-topic: "Education"
+topic: "Computing"
 order: 12
 url: "https://mitpress.mit.edu/9780262546065/teaching-machines/"
 dek: "MIT Press, 2021"

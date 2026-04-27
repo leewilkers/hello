@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/postrel-the-fabric-of-civilization.jpg"
 dest: shelf
 topic: "Global Health & Policy"
-url: "https://www.basicbooks.com/titles/virginia-postrel/the-fabric-of-civilization/9781541617612"
+url: "https://www.hachettebookgroup.com/titles/virginia-postrel/the-fabric-of-civilization/9781541617612/?lens=basic-books"
 order: 50
 dek: "Basic Books, 2020"
 note: ""
