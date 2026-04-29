@@ -115,9 +115,12 @@
       return conv;
     }
 
-    // Piano voice — fast hammer attack, inharmonic upper partials,
-    // per-harmonic decay (highs die fast, fundamental sustains),
-    // brightness sweep (LP rolls down during decay = piano timbre evolution).
+    // Piano voice — FM synthesis (DX7-style e-piano).
+    // Carrier:Modulator ratio 1:1 produces all integer harmonics like a real
+    // string, but with modulation-index envelope decay that mimics how piano
+    // brightness fades during sustain. This is the canonical electric-piano
+    // patch — Rhodes/Wurlitzer territory. Sounds like a real instrument
+    // because it IS one (DX7 e-piano is on thousands of records).
     function playPianoNote(freq, when, sustain) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -125,12 +128,12 @@
       const sus = sustain || 2.5;
       const reverb = getReverb(ctx);
 
-      // (1) Hammer strike — brief filtered noise burst, gives "key was struck"
-      // perception + treble content for that button-press feel.
-      const nLen = Math.floor(ctx.sampleRate * 0.025);
+      // (1) Hammer strike — brief bandpass-filtered noise. Gives the button
+      // its treble click + the perceptual "key was struck" cue.
+      const nLen = Math.floor(ctx.sampleRate * 0.020);
       const nBuf = ctx.createBuffer(1, nLen, ctx.sampleRate);
       const nData = nBuf.getChannelData(0);
-      const nDecay = ctx.sampleRate * 0.003;
+      const nDecay = ctx.sampleRate * 0.0025;
       for (let i = 0; i < nLen; i++) {
         nData[i] = (Math.random() * 2 - 1) * Math.exp(-i / nDecay);
       }
@@ -138,74 +141,84 @@
       noise.buffer = nBuf;
       const nBp = ctx.createBiquadFilter();
       nBp.type = 'bandpass';
-      // Bandpass center scales with note — higher notes get brighter strike.
-      nBp.frequency.value = Math.max(2500, freq * 6);
-      nBp.Q.value = 1.5;
+      nBp.frequency.value = Math.max(2200, freq * 5);
+      nBp.Q.value = 1.4;
       const nGain = ctx.createGain();
-      nGain.gain.value = 0.05;
+      nGain.gain.value = 0.045;
       noise.connect(nBp).connect(nGain).connect(ctx.destination);
       noise.start(t);
 
-      // (2) Sustained tone — 5 partials, slight inharmonicity (real piano
-      // strings stretch ~0.5% per harmonic). Per-harmonic decay times
-      // mimic struck-string physics: high partials die first.
-      const harmonics = [
-        { mul: 1.000, gain: 0.22,  decayMul: 1.00, detune: 0   },
-        { mul: 2.005, gain: 0.09,  decayMul: 0.65, detune: -3  },
-        { mul: 3.012, gain: 0.035, decayMul: 0.40, detune: 5   },
-        { mul: 4.022, gain: 0.014, decayMul: 0.25, detune: -2  },
-        { mul: 5.041, gain: 0.005, decayMul: 0.15, detune: 4   }
-      ];
+      // (2) FM e-piano voice — two slightly-detuned voices for chorus shimmer.
+      [-4, 4].forEach(function(detune) {
+        // Carrier — what you hear (pitched output).
+        const carrier = ctx.createOscillator();
+        carrier.type = 'sine';
+        carrier.frequency.value = freq;
+        carrier.detune.value = detune;
 
-      // Filter sweep: bright at attack, mellower on decay.
-      // This is the *single* trick that makes synth tones read as "piano-ish"
-      // rather than "synth pad" — real strings progressively lose high partials.
-      const lp = ctx.createBiquadFilter();
-      lp.type = 'lowpass';
-      lp.frequency.setValueAtTime(5500, t);
-      lp.frequency.exponentialRampToValueAtTime(1400, t + sus);
-      lp.Q.value = 0.5;
+        // Modulator — modulates the carrier's frequency.
+        // Ratio 1:1 (modulator freq = carrier freq) → integer harmonics emerge
+        // in the carrier's spectrum as the modulation index changes.
+        const modulator = ctx.createOscillator();
+        modulator.type = 'sine';
+        modulator.frequency.value = freq;
+        modulator.detune.value = detune;
 
-      harmonics.forEach(function(h) {
-        const osc = ctx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.value = freq * h.mul;
-        osc.detune.value = h.detune;
-        const g = ctx.createGain();
-        const noteSus = sus * h.decayMul;
-        g.gain.setValueAtTime(0.0001, t);
-        // 5ms piano-style attack — fast enough to feel struck, not swollen.
-        g.gain.exponentialRampToValueAtTime(h.gain, t + 0.005);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + noteSus);
-        osc.connect(g).connect(lp);
-        osc.start(t);
-        osc.stop(t + noteSus + 0.05);
+        // Modulation depth in Hz (controls modulation index = depth/freq).
+        // Index 2.5 → bright, percussive attack (lots of upper partials)
+        // Index 0.4 → smooth, mellow body (mostly fundamental + low partials)
+        // Decay from peak → rest = "brightness fades during sustain" — the
+        // DEFINING characteristic of a real struck-string instrument.
+        const modDepth = ctx.createGain();
+        modDepth.gain.setValueAtTime(0.0001, t);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 2.5, t + 0.005);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.4, t + 0.40);
+        modDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        modulator.connect(modDepth).connect(carrier.frequency);
+
+        // Carrier amplitude envelope — fast attack, exponential decay.
+        const carrierGain = ctx.createGain();
+        carrierGain.gain.setValueAtTime(0.0001, t);
+        carrierGain.gain.exponentialRampToValueAtTime(0.15, t + 0.005);
+        carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        carrier.connect(carrierGain).connect(ctx.destination);
+
+        // Light reverb send — spatial body without wash.
+        const sendGain = ctx.createGain();
+        sendGain.gain.value = 0.22;
+        carrierGain.connect(sendGain).connect(reverb);
+
+        modulator.start(t);
+        carrier.start(t);
+        modulator.stop(t + sus + 0.1);
+        carrier.stop(t + sus + 0.1);
       });
-
-      // Mostly dry — clarity over wash. ~25% reverb send for spatial body only.
-      lp.connect(ctx.destination);
-      const sendGain = ctx.createGain();
-      sendGain.gain.value = 0.25;
-      lp.connect(sendGain).connect(reverb);
     }
 
-    // Press — first note of the two-note phrase.
-    //   L→D (goingDark=true):  N1 (D4)  → start of rising fifth
-    //   D→L (goingDark=false): N4 (C#5) → start of falling fifth
-    // Sustain long enough to ring under the resolve note ~1s later.
+    // Press — single first note. Direction-aware, conventional intuition:
+    //   D→L (goingDark=false): going to LIGHT = rise. Press N1 (D4 — low).
+    //   L→D (goingDark=true):  going to DARK  = fall. Press N4 (C#5 — high).
     function playPressNote(goingDark) {
-      const freq = goingDark ? PIANO.N1 : PIANO.N4;
+      const freq = goingDark ? PIANO.N4 : PIANO.N1;
       playPianoNote(freq, undefined, 3.0);
     }
 
-    // Resolve — second note, fires at the cat-paw impact moment.
-    //   L→D: N3 (A4)  → completes ascending P5 from D4. Stable, satisfying.
-    //   D→L: N2 (F#4) → completes descending P5 from C#5. Lands on Dmaj7's 3rd.
+    // Resolve — TWO notes (a chord) at cat-paw impact. The "satisfying" beat.
+    //   D→L (going light, RISING):  press N1 → resolve [N3 + N4] = A4 + C#5
+    //   L→D (going dark, FALLING):  press N4 → resolve [N2 + N1] = F#4 + D4
+    // Both directions complete a Dmaj7 voicing across press+resolve = full
+    // 4-note chord arpeggiated in different orders. The two resolve notes
+    // play with a 25ms stagger so the chord feels human-struck, not robotic.
     function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
-      const freq = goingDark ? PIANO.N3 : PIANO.N2;
-      playPianoNote(freq, ctx.currentTime, 2.8);
+      const t = ctx.currentTime;
+      const pair = goingDark
+        ? [PIANO.N2, PIANO.N1]   // F#4 + D4  (falling — major 3rd interval)
+        : [PIANO.N3, PIANO.N4];  // A4 + C#5  (rising — major 3rd interval)
+      pair.forEach(function(f, i) {
+        playPianoNote(f, t + i * 0.025, 2.8);
+      });
     }
 
     function instantFlip() {
