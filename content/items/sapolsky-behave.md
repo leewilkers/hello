@@ -4,7 +4,7 @@ title: "Behave: The Biology of Humans at Our Best and Worst"
 type: book
 image: "/img/covers/sapolsky-behave.jpg"
 dest: shelf
-topic: "Ecology & Life Sciences"
+topic: "Nature & Life"
 url: "https://www.penguinrandomhouse.com/books/240547/behave-by-robert-m-sapolsky/"
 order: 50
 dek: "Penguin Press, 2017"

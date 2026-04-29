@@ -4,7 +4,7 @@ title: "How Forests Think: Toward an Anthropology Beyond the Human"
 type: book
 image: "/img/covers/kohn-how-forests-think.jpg"
 dest: shelf
-topic: "Ecology & Life Sciences"
+topic: "Nature & Life"
 url: "https://www.ucpress.edu/books/how-forests-think/paper"
 order: 50
 dek: "University of California Press, 2013"

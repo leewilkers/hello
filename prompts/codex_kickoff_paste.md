@@ -69,7 +69,7 @@ THE 22 SHELF TOPICS (canonical, from _data/topics.json)
   Architecture & Built Environment
   Classification, Diagrams & Representation
   Design
-  Ecology & Life Sciences
+  Nature & Life
   Ethics & Moral Philosophy
   Experiences
   Furniture & Craft
@@ -84,8 +84,8 @@ THE 22 SHELF TOPICS (canonical, from _data/topics.json)
   Potpourri
   Social Theory
   Tech Culture
-  Tech History, STS & Criticism
-  Technology, general
+  Tech History & Critique
+  Technology & Ways of Living
   Visual Culture
   Web
 

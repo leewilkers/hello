@@ -103,7 +103,7 @@ Lee's site is a static Eleventy site. Raindrop is upstream of it — what gets s
   Architecture & Built Environment
   Classification, Diagrams & Representation
   Design
-  Ecology & Life Sciences
+  Nature & Life
   Ethics & Moral Philosophy
   Experiences
   Furniture & Craft
@@ -118,8 +118,8 @@ Lee's site is a static Eleventy site. Raindrop is upstream of it — what gets s
   Potpourri
   Social Theory
   Tech Culture
-  Tech History, STS & Criticism
-  Technology, general
+  Tech History & Critique
+  Technology & Ways of Living
   Visual Culture
   Web
   ```

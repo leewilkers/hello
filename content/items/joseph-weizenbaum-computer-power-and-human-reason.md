@@ -4,7 +4,7 @@ title: 'Computer Power and Human Reason: From Judgment to Calculation'
 type: book
 image: /img/covers/joseph-weizenbaum-computer-power-and-human-reason.jpg
 dest: shelf
-topic: 'Technology, general'
+topic: 'Technology & Ways of Living'
 url: 'https://archive.org/details/computerpowerhum0000weiz_v0i3'
 dek: 'W. H. Freeman, 1976'
 note: ''

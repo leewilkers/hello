@@ -126,7 +126,7 @@ collections:
           - { label: "Architecture & Built Environment", value: "Architecture & Built Environment" }
           - { label: "Classification, Diagrams & Representation", value: "Classification, Diagrams & Representation" }
           - { label: "Design", value: "Design" }
-          - { label: "Ecology & Life Sciences", value: "Ecology & Life Sciences" }
+          - { label: "Nature & Life", value: "Nature & Life" }
           - { label: "Ethics & Moral Philosophy", value: "Ethics & Moral Philosophy" }
           - { label: "Experiences", value: "Experiences" }
           - { label: "Furniture & Craft", value: "Furniture & Craft" }
@@ -141,8 +141,8 @@ collections:
           - { label: "Potpourri", value: "Potpourri" }
           - { label: "Social Theory", value: "Social Theory" }
           - { label: "Tech Culture", value: "Tech Culture" }
-          - { label: "Tech History, STS & Criticism", value: "Tech History, STS & Criticism" }
-          - { label: "Technology, general", value: "Technology, general" }
+          - { label: "Tech History & Critique", value: "Tech History & Critique" }
+          - { label: "Technology & Ways of Living", value: "Technology & Ways of Living" }
           - { label: "Visual Culture", value: "Visual Culture" }
           - { label: "Web", value: "Web" }
         hint: "For shelf items. Alphabetical topical index."

@@ -6,7 +6,7 @@ title: >-
 type: essay
 image: /img/covers/forsythe-new-bottles-old-wine.jpg
 dest: stream
-topic: 'Tech History, STS & Criticism'
+topic: 'Tech History & Critique'
 url: 'https://doi.org/10.1177/030631296026003003'
 order: 50
 dek: 'Social Studies of Science, 1996'

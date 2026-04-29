@@ -4,7 +4,7 @@ title: "The Whale and the Reactor: A Search for Limits in an Age of High Technol
 type: book
 image: "/img/covers/langdon-winner-the-whale-and-the-reactor.jpg"
 dest: shelf
-topic: "Tech History, STS & Criticism"
+topic: "Tech History & Critique"
 url: "https://sciencepolicy.colorado.edu/students/envs_5110/whale_reactor.pdf"
 dek: "University of Chicago Press, 1986"
 note: ""
