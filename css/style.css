@@ -1030,7 +1030,7 @@ body {
   left: 0.85rem;
   width: auto;
   height: 48px;
-  transform: translateY(calc(-100% + 11px));
+  transform: translateY(-100%);
   opacity: 0.66;
   pointer-events: none;
 }
