@@ -85,92 +85,127 @@
       } catch (e) { return null; }
     }
 
-    // Long, smeared reverb — Music-for-Airports tail. Cached once per ctx.
+    // 4-note palette across Dmaj7 — numbered low to high.
+    // Pattern (1→3, 4→2): toggling back-and-forth traces ↑↑↓↓ as a
+    // looping melodic phrase: D4 A4 C#5 F#4 D4 A4 C#5 F#4...
+    const PIANO = {
+      N1: 293.66, // D4   (lowest — root, dark anchor)
+      N2: 369.99, // F#4  (low-mid — major 3rd)
+      N3: 440.00, // A4   (high-mid — perfect 5th)
+      N4: 554.37  // C#5  (highest — maj7, treble bite)
+    };
+
+    // Short reverb tail — light wash, lets each note breathe.
     function getReverb(ctx) {
       if (ctx._reverbBus) return ctx._reverbBus;
-      const seconds = 4.5;
+      const seconds = 1.8;
       const sr = ctx.sampleRate;
       const len = Math.floor(sr * seconds);
       const buf = ctx.createBuffer(2, len, sr);
       for (let ch = 0; ch < 2; ch++) {
         const d = buf.getChannelData(ch);
         for (let i = 0; i < len; i++) {
-          // Slower decay curve — exponent ~1.8 holds the tail longer than ~2.6.
-          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 1.8);
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.0);
         }
       }
       const conv = ctx.createConvolver();
       conv.buffer = buf;
-      const wet = ctx.createGain();
-      wet.gain.value = 0.65; // heavy wet — Eno not piano-recital
-      conv.connect(wet).connect(ctx.destination);
+      conv.connect(ctx.destination);
       ctx._reverbBus = conv;
       return conv;
     }
 
-    // One sustained tone. Slow swell, very long tail, mostly reverb.
-    // Two voices detuned ~7 cents = chorused shimmer; no harmonics stack.
-    // The reverb does the work — sound design here is intentionally thin.
+    // Piano voice — fast hammer attack, inharmonic upper partials,
+    // per-harmonic decay (highs die fast, fundamental sustains),
+    // brightness sweep (LP rolls down during decay = piano timbre evolution).
     function playPianoNote(freq, when, sustain) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
-      const sus = sustain || 4.5;
+      const sus = sustain || 2.5;
       const reverb = getReverb(ctx);
 
-      // Soft lowpass — keeps it from sounding like a sine wave on a phone.
+      // (1) Hammer strike — brief filtered noise burst, gives "key was struck"
+      // perception + treble content for that button-press feel.
+      const nLen = Math.floor(ctx.sampleRate * 0.025);
+      const nBuf = ctx.createBuffer(1, nLen, ctx.sampleRate);
+      const nData = nBuf.getChannelData(0);
+      const nDecay = ctx.sampleRate * 0.003;
+      for (let i = 0; i < nLen; i++) {
+        nData[i] = (Math.random() * 2 - 1) * Math.exp(-i / nDecay);
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = nBuf;
+      const nBp = ctx.createBiquadFilter();
+      nBp.type = 'bandpass';
+      // Bandpass center scales with note — higher notes get brighter strike.
+      nBp.frequency.value = Math.max(2500, freq * 6);
+      nBp.Q.value = 1.5;
+      const nGain = ctx.createGain();
+      nGain.gain.value = 0.05;
+      noise.connect(nBp).connect(nGain).connect(ctx.destination);
+      noise.start(t);
+
+      // (2) Sustained tone — 5 partials, slight inharmonicity (real piano
+      // strings stretch ~0.5% per harmonic). Per-harmonic decay times
+      // mimic struck-string physics: high partials die first.
+      const harmonics = [
+        { mul: 1.000, gain: 0.22,  decayMul: 1.00, detune: 0   },
+        { mul: 2.005, gain: 0.09,  decayMul: 0.65, detune: -3  },
+        { mul: 3.012, gain: 0.035, decayMul: 0.40, detune: 5   },
+        { mul: 4.022, gain: 0.014, decayMul: 0.25, detune: -2  },
+        { mul: 5.041, gain: 0.005, decayMul: 0.15, detune: 4   }
+      ];
+
+      // Filter sweep: bright at attack, mellower on decay.
+      // This is the *single* trick that makes synth tones read as "piano-ish"
+      // rather than "synth pad" — real strings progressively lose high partials.
       const lp = ctx.createBiquadFilter();
       lp.type = 'lowpass';
-      lp.frequency.value = 1800;
-      lp.Q.value = 0.4;
+      lp.frequency.setValueAtTime(5500, t);
+      lp.frequency.exponentialRampToValueAtTime(1400, t + sus);
+      lp.Q.value = 0.5;
 
-      // Two voices, slightly detuned — chorus pad.
-      [-7, 7].forEach(function(detune) {
+      harmonics.forEach(function(h) {
         const osc = ctx.createOscillator();
         osc.type = 'sine';
-        osc.frequency.value = freq;
-        osc.detune.value = detune;
+        osc.frequency.value = freq * h.mul;
+        osc.detune.value = h.detune;
         const g = ctx.createGain();
-        // Slow swell-in (~120ms), decay over full sustain.
+        const noteSus = sus * h.decayMul;
         g.gain.setValueAtTime(0.0001, t);
-        g.gain.exponentialRampToValueAtTime(0.10, t + 0.12);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        // 5ms piano-style attack — fast enough to feel struck, not swollen.
+        g.gain.exponentialRampToValueAtTime(h.gain, t + 0.005);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + noteSus);
         osc.connect(g).connect(lp);
         osc.start(t);
-        osc.stop(t + sus + 0.1);
+        osc.stop(t + noteSus + 0.05);
       });
 
-      // Mostly wet, a bit of dry for presence.
-      const dryGain = ctx.createGain();
-      dryGain.gain.value = 0.55;
-      lp.connect(dryGain).connect(ctx.destination);
-      lp.connect(reverb);
+      // Mostly dry — clarity over wash. ~25% reverb send for spatial body only.
+      lp.connect(ctx.destination);
+      const sendGain = ctx.createGain();
+      sendGain.gain.value = 0.25;
+      lp.connect(sendGain).connect(reverb);
     }
 
-    // Press — one quiet pedal tone. Sustains under the resolve interval.
+    // Press — first note of the two-note phrase.
+    //   L→D (goingDark=true):  N1 (D4)  → start of rising fifth
+    //   D→L (goingDark=false): N4 (C#5) → start of falling fifth
+    // Sustain long enough to ring under the resolve note ~1s later.
     function playPressNote(goingDark) {
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      // Going light: low D (D3) — anchor that the higher fifth lifts off from
-      // Going dark:  high A (A5) — bright glimmer that sinks back to earth
-      const freq = goingDark ? 880.00 : 146.83;
-      playPianoNote(freq, undefined, 5.0);
+      const freq = goingDark ? PIANO.N1 : PIANO.N4;
+      playPianoNote(freq, undefined, 3.0);
     }
 
-    // Resolve — ONE perfect fifth, both notes together. No arpeggio, no chord stack.
-    // The interval rings into the press note's sustain → cloud, not phrase.
+    // Resolve — second note, fires at the cat-paw impact moment.
+    //   L→D: N3 (A4)  → completes ascending P5 from D4. Stable, satisfying.
+    //   D→L: N2 (F#4) → completes descending P5 from C#5. Lands on Dmaj7's 3rd.
     function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
-      const t = ctx.currentTime;
-      // Going light  (rising):  A4 + E5 — perfect fifth high above the D3 pedal
-      // Going dark   (falling): D4 + A4 — perfect fifth low below the A5 glimmer
-      const pair = goingDark
-        ? [293.66, 440.00]   // D4 + A4
-        : [440.00, 659.25];  // A4 + E5
-      pair.forEach(function(f) {
-        playPianoNote(f, t, 4.0);
-      });
+      const freq = goingDark ? PIANO.N3 : PIANO.N2;
+      playPianoNote(freq, ctx.currentTime, 2.8);
     }
 
     function instantFlip() {
