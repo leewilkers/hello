@@ -839,7 +839,7 @@ body {
 .home-about-trail img {
   display: block;
   width: 100%;
-  max-width: 920px;
+  max-width: 52rem;
   height: auto;
 }
 
