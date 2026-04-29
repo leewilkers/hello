@@ -782,7 +782,7 @@ body {
 }
 
 .home-dust {
-  margin: 2.5rem 0 0;
+  margin: 1.25rem 0 0;
   font-family: var(--serif);
   font-style: italic;
   font-size: 0.88rem;
@@ -792,11 +792,9 @@ body {
 
 .home-dust__fleuron {
   display: inline-block;
-  font-family: var(--serif);
-  font-size: 1.2em;
-  line-height: 0.8;
-  vertical-align: -0.18em;
-  margin: 0 0.18em;
+  font-size: 0.95em;
+  vertical-align: 0.02em;
+  margin: 0 0.22em;
 }
 
 .home-plain .home-section h2 {
@@ -831,7 +829,7 @@ body {
   color: var(--ink-muted);
 }
 
-/* Home footer motif: leaping rabbit on a dotted trail. */
+/* Home footer motif: rabbit emerges from burrow, runs along a dotted trail. */
 .home-about-trail {
   margin: 4.5rem 0 0;
   opacity: 0.78;
@@ -841,7 +839,7 @@ body {
 .home-about-trail img {
   display: block;
   width: 100%;
-  max-width: 520px;
+  max-width: 720px;
   height: auto;
 }
 
