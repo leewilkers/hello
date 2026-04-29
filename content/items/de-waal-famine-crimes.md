@@ -4,7 +4,7 @@ title: "Famine Crimes: Politics & the Disaster Relief Industry in Africa"
 type: book
 image: "/img/covers/de-waal-famine-crimes.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://www.press.indiana.edu/9780253211101/famine-crimes/"
 order: 50
 dek: "Indiana University Press, 1997"

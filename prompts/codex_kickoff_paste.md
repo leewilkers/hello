@@ -65,37 +65,33 @@ STREAM (default, expect ~85–90% of items)
   editorial publications (Real Life, Paris Review, etc.), ephemera.
   Linkblog character. No topic required. Optional section slug.
 
-THE 26 SHELF TOPICS (canonical, from _data/topics.json)
+THE 22 SHELF TOPICS (canonical, from _data/topics.json)
   Architecture & Built Environment
-  Creativity
+  Classification, Diagrams & Representation
   Design
   Ecology & Life Sciences
-  Epidemiology
   Ethics & Moral Philosophy
+  Experiences
   Furniture & Craft
-  Global Health & Policy
-  Information, Maps & Taxonomy
-  Infrastructure
+  Games, Play & Performance
+  Global Health, Aid & Development
+  Infrastructure & Maintenance
   Interfaces & Interaction
-  Internet
   Language & Writing
-  Measurement
-  Media
+  Measurement, Value & Scale
   Methods, Evidence & Judgement
   Organizations, Institutions & Strategy
-  Photography
-  Play & Performance
   Potpourri
   Social Theory
-  Software
   Tech Culture
   Tech History, STS & Criticism
-  Thinking
+  Technology, general
   Visual Culture
+  Web
 
 REFERENCE FILES IN REPO (read for grounding before sorting)
   CLAUDE.md                       project overview + item frontmatter spec
-  _data/topics.json               the 26 topics
+  _data/topics.json               the 22 topics
   _data/stream_sections.json      stream sections (currently [])
   content/items/*.md              253 existing site items — useful for
                                   calibrating "what kind of thing has

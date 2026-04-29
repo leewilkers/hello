@@ -1,19 +1,17 @@
 [
   "Architecture & Built Environment",
+  "Classification, Diagrams & Representation",
   "Design",
   "Ecology & Life Sciences",
-  "Epidemiology",
   "Ethics & Moral Philosophy",
   "Experiences",
   "Furniture & Craft",
   "Games, Play & Performance",
-  "Global Health & Policy",
-  "Information, Maps & Taxonomy",
-  "Infrastructure",
+  "Global Health, Aid & Development",
+  "Infrastructure & Maintenance",
   "Interfaces & Interaction",
-  "Internet",
   "Language & Writing",
-  "Measurement",
+  "Measurement, Value & Scale",
   "Methods, Evidence & Judgement",
   "Organizations, Institutions & Strategy",
   "Potpourri",
@@ -21,5 +19,6 @@
   "Tech Culture",
   "Tech History, STS & Criticism",
   "Technology, general",
-  "Visual Culture"
+  "Visual Culture",
+  "Web"
 ]

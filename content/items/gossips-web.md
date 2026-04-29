@@ -4,7 +4,7 @@ author: "Gossip's Web"
 url: "https://gossipsweb.net/"
 type: site
 dest: shelf
-topic: "Internet"
+topic: "Web"
 order: 31
 note: ""
 blurb: "the people behind the URLs"

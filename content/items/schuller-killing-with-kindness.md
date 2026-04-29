@@ -4,7 +4,7 @@ title: "Killing with Kindness: Haiti, International Aid, and NGOs"
 type: book
 image: "/img/covers/schuller-killing-with-kindness.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://www.rutgersuniversitypress.org/killing-with-kindness/9780813553061/"
 order: 50
 dek: "Rutgers University Press, 2012"

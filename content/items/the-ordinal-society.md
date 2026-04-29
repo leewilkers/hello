@@ -4,7 +4,7 @@ title: The Ordinal Society
 type: essay
 image: /img/covers/the-ordinal-society.jpg
 dest: shelf
-topic: Measurement
+topic: "Measurement, Value & Scale"
 url: 'https://www.hup.harvard.edu/books/9780674971141'
 order: 50
 dek: 'Harvard University Press, 2024'

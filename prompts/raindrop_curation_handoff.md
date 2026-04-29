@@ -101,31 +101,27 @@ Lee's site is a static Eleventy site. Raindrop is upstream of it — what gets s
 - **Topics (canonical, from `_data/topics.json`):**
   ```
   Architecture & Built Environment
-  Creativity
+  Classification, Diagrams & Representation
   Design
   Ecology & Life Sciences
-  Epidemiology
   Ethics & Moral Philosophy
+  Experiences
   Furniture & Craft
-  Global Health & Policy
-  Information, Maps & Taxonomy
-  Infrastructure
+  Games, Play & Performance
+  Global Health, Aid & Development
+  Infrastructure & Maintenance
   Interfaces & Interaction
-  Internet
   Language & Writing
-  Measurement
-  Media
+  Measurement, Value & Scale
   Methods, Evidence & Judgement
   Organizations, Institutions & Strategy
-  Photography
-  Play & Performance
   Potpourri
   Social Theory
-  Software
   Tech Culture
   Tech History, STS & Criticism
-  Thinking
+  Technology, general
   Visual Culture
+  Web
   ```
 
 ### stream — link feed (default bucket)

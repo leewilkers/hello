@@ -4,7 +4,7 @@ title: "Lazy, Crazy, and Disgusting: Stigma and the Undoing of Global Health"
 type: book
 image: "/img/covers/brewis-lazy-crazy-and-disgusting.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://www.press.jhu.edu/books/title/12649/lazy-crazy-and-disgusting"
 order: 50
 dek: "Johns Hopkins University Press, 2022"

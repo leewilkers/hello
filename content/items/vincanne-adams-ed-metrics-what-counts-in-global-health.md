@@ -4,7 +4,7 @@ title: "Metrics: What Counts in Global Health"
 type: book
 image: "/img/covers/vincanne-adams-ed-metrics-what-counts-in-global-health.jpg"
 dest: shelf
-topic: "Measurement"
+topic: "Measurement, Value & Scale"
 url: "https://www.dukeupress.edu/metrics"
 dek: "Duke, 2016"
 note: ""

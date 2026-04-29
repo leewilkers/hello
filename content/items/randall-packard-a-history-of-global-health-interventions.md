@@ -4,7 +4,7 @@ title: "A History of Global Health: Interventions into the Lives of Other People
 type: book
 image: "/img/covers/randall-packard-a-history-of-global-health-interventions.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://archive.org/details/historyofglobalh0000pack"
 dek: "Johns Hopkins, 2016"
 note: "magic bullets, every time"

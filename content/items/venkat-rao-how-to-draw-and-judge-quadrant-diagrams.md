@@ -4,7 +4,7 @@ title: How to Draw and Judge Quadrant Diagrams
 type: essay
 image: /img/covers/venkat-rao-how-to-draw-and-judge-quadrant-diagrams.jpg
 dest: shelf
-topic: 'Information, Maps & Taxonomy'
+topic: "Classification, Diagrams & Representation"
 url: 'https://www.ribbonfarm.com/2009/04/20/how-to-draw-and-judge-quadrant-diagrams/'
 dek: 'Ribbonfarm, 2009'
 links:

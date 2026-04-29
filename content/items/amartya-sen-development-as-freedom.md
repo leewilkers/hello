@@ -4,7 +4,7 @@ title: "Development as Freedom"
 type: book
 image: "/img/covers/amartya-sen-development-as-freedom.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://global.oup.com/academic/product/development-as-freedom-9780198297581"
 dek: "Oxford University Press, 1999"
 note: ""

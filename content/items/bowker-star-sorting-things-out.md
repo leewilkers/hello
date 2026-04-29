@@ -4,7 +4,7 @@ title: "Sorting Things Out: Classification and Its Consequences"
 type: book
 image: "/img/covers/bowker-star-sorting-things-out.jpg"
 dest: shelf
-topic: "Information, Maps & Taxonomy"
+topic: "Classification, Diagrams & Representation"
 url: "https://mitpress.mit.edu/9780262522953/sorting-things-out/"
 order: 50
 dek: "MIT Press, 2000"

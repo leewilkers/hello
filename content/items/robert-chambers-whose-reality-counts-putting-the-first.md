@@ -4,7 +4,7 @@ title: "Whose Reality Counts? Putting the First Last"
 type: book
 image: "/img/covers/robert-chambers-whose-reality-counts-putting-the-first.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Global Health, Aid & Development"
 url: "https://practicalactionpublishing.com/book/432/whose-reality-counts"
 dek: "Intermediate Technology Publications, 1997"
 note: ""
