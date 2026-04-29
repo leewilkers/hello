@@ -85,70 +85,116 @@
       } catch (e) { return null; }
     }
 
-    function playPressSound() {
+    // Synthesize a small reverb impulse response — exponentially decaying noise.
+    // Cached on the ctx so the convolver buffer is built once per session.
+    function getReverb(ctx) {
+      if (ctx._reverbBus) return ctx._reverbBus;
+      const seconds = 2.4;
+      const sr = ctx.sampleRate;
+      const len = Math.floor(sr * seconds);
+      const buf = ctx.createBuffer(2, len, sr);
+      for (let ch = 0; ch < 2; ch++) {
+        const d = buf.getChannelData(ch);
+        for (let i = 0; i < len; i++) {
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+        }
+      }
+      const conv = ctx.createConvolver();
+      conv.buffer = buf;
+      const wet = ctx.createGain();
+      wet.gain.value = 0.42;
+      conv.connect(wet).connect(ctx.destination);
+      ctx._reverbBus = conv;
+      return conv;
+    }
+
+    // Antique-piano voice — sine harmonics with slight detune,
+    // soft attack, long decay, lowpass + reverb. Brian-Eno-ish.
+    function playPianoNote(freq, when, sustain) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = (when !== undefined) ? when : ctx.currentTime;
+      const sus = sustain || 1.8;
+      const reverb = getReverb(ctx);
+
+      // Per-note bus: lowpass softens harshness for that antique feel.
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = 2200;
+      lp.Q.value = 0.6;
+
+      // Harmonics with declining gain — fundamental + 2nd, 3rd, 4th.
+      // Slight detune per harmonic gives chorusing warmth.
+      const harmonics = [
+        { mul: 1.0, gain: 0.16, detune: 0  },
+        { mul: 2.0, gain: 0.06, detune: 4  },
+        { mul: 3.0, gain: 0.03, detune: -3 },
+        { mul: 4.0, gain: 0.014, detune: 6 }
+      ];
+
+      harmonics.forEach(function(h) {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq * h.mul;
+        osc.detune.value = h.detune;
+        const g = ctx.createGain();
+        // ADSR: ~30ms attack (soft swell), exponential decay over `sus` seconds
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(h.gain, t + 0.030);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        osc.connect(g).connect(lp);
+        osc.start(t);
+        osc.stop(t + sus + 0.1);
+      });
+
+      // Send dry to destination AND wet to reverb bus — natural piano-in-room.
+      lp.connect(ctx.destination);
+      lp.connect(reverb);
+    }
+
+    // Press — single contemplative note. The pedal tone the arpeggio resolves to.
+    //  going light: low D (D3) — pedal under the rising Dmaj9 arpeggio
+    //  going dark:  high A (A5) — glimmer above the falling Bm9 arpeggio
+    function playPressNote(goingDark) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const freq = goingDark ? 880.00 : 146.83;
+      playPianoNote(freq, undefined, 2.4);
+    }
+
+    // Resolve — extended-chord arpeggio, ~650ms unfolding.
+    // Voicings are American-Football / shoegaze: Dmaj9 (rising) ↔ Bm11 (falling).
+    // Both share D, F#, A so they feel like the same harmonic space rotated.
+    function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime;
-      // Soft press thump — low sine, ~50ms, quieter than the resolution click
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(110, t);
-      osc.frequency.exponentialRampToValueAtTime(75, t + 0.04);
-      const g = ctx.createGain();
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.10, t + 0.004);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-      osc.connect(g).connect(ctx.destination);
-      osc.start(t);
-      osc.stop(t + 0.06);
-    }
 
-    function playClickSound() {
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      try {
-        const t = ctx.currentTime;
+      // Dark→light  (RISING):   Dmaj9 unfolding — D4 F#4 A4 C#5 E5
+      //                         (root, 3, 5, maj7, 9)  bright, open, lifting
+      // Light→dark  (FALLING):  Bm11 falling — F#5 C#5 A4 E4 B3
+      //                         (5, 9, b3-of-relative, 11, root)  hangs, ambiguous, indie
+      const notes = goingDark
+        ? [739.99, 554.37, 440.00, 329.63, 246.94]   // F#5 C#5 A4 E4 B3
+        : [293.66, 369.99, 440.00, 554.37, 659.25];  // D4 F#4 A4 C#5 E5
 
-        // Warm low "tock" — pitched-down sine, ~60ms
-        const osc = ctx.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(165, t);
-        osc.frequency.exponentialRampToValueAtTime(95, t + 0.06);
-        const oscGain = ctx.createGain();
-        oscGain.gain.setValueAtTime(0.0001, t);
-        oscGain.gain.exponentialRampToValueAtTime(0.18, t + 0.005);
-        oscGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
-        osc.connect(oscGain).connect(ctx.destination);
-        osc.start(t);
-        osc.stop(t + 0.1);
-
-        // High-frequency snap — bandpassed noise burst, ~12ms
-        const buf = ctx.createBuffer(1, Math.max(1, Math.floor(ctx.sampleRate * 0.012)), ctx.sampleRate);
-        const data = buf.getChannelData(0);
-        const decay = ctx.sampleRate * 0.0015;
-        for (let i = 0; i < data.length; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / decay);
-        }
-        const noise = ctx.createBufferSource();
-        noise.buffer = buf;
-        const bp = ctx.createBiquadFilter();
-        bp.type = 'bandpass';
-        bp.frequency.value = 2400;
-        bp.Q.value = 3;
-        const noiseGain = ctx.createGain();
-        noiseGain.gain.value = 0.08;
-        noise.connect(bp).connect(noiseGain).connect(ctx.destination);
-        noise.start(t);
-      } catch (e) { /* audio unsupported — silent fallback */ }
+      const stagger = 0.115;
+      notes.forEach(function(f, i) {
+        // Top notes ring slightly longer for that shoegaze tail; bottom notes shorter.
+        const sus = 1.6 + (i * 0.08);
+        playPianoNote(f, t + i * stagger, sus);
+      });
     }
 
     function instantFlip() {
       const d = document.documentElement;
-      const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
+      const wasInDark = d.getAttribute('data-theme') === 'dark';
+      const goingDark = !wasInDark;
+      const next = goingDark ? 'dark' : '';
       d.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      if (button) button.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
-      playClickSound();
+      if (button) button.setAttribute('aria-pressed', goingDark ? 'true' : 'false');
+      playResolveChord(goingDark);
     }
 
     function playCatThenFlip() {
@@ -208,7 +254,8 @@
     if (button) {
       button.addEventListener('pointerdown', function() {
         if (button.disabled) return;
-        playPressSound();
+        const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
+        playPressNote(goingDark);
       });
     }
   })();
