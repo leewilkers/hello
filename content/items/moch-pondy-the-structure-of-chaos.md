@@ -4,7 +4,7 @@ title: "The Structure of Chaos: Organized Anarchy as a Response to Ambiguity"
 type: essay
 image: "/img/covers/moch-pondy-the-structure-of-chaos.jpg"
 dest: shelf
-topic: "Bureaucracy & Institutions"
+topic: "Organizations, Institutions & Strategy"
 url: "https://doi.org/10.2307/2392181"
 order: 50
 dek: "Administrative Science Quarterly, 1977"

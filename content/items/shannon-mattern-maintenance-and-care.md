@@ -1,6 +1,6 @@
 ---
 author: "Shannon Mattern"
-title: "Maintenance and Care"
+title: "Maintenance and Care: Fixing a Broken World"
 type: essay
 image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
 dest: shelf

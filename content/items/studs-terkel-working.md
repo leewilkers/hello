@@ -4,7 +4,7 @@ title: "Working: People Talk About What They Do All Day and How They Feel About 
 type: book
 image: "/img/covers/studs-terkel-working.jpg"
 dest: shelf
-topic: "Philosophy of Science"
+topic: "Social Theory"
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
 note: ""

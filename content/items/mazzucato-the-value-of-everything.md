@@ -1,10 +1,10 @@
 ---
 author: "Mariana Mazzucato"
-title: "The Value of Everything"
+title: "The Value of Everything: Making and Taking in the Global Economy"
 type: book
 image: "/img/covers/mazzucato-the-value-of-everything.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Measurement"
 url: "https://www.hachettebookgroup.com/titles/mariana-mazzucato/the-value-of-everything/9781610396752/?lens=publicaffairs"
 order: 50
 dek: "PublicAffairs, 2020"

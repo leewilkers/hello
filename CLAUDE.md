@@ -66,9 +66,9 @@ Optional fields: `title`, `topic`, `section`, `dek`, `note`, `blurb`, `quote`, `
 
 `section` applies only to stream items with a title. Value must match a slug in `_data/stream_sections.json` (which is ordered — sections render in that order). Items without a `section` fall into the default `links` bucket. No-title items (editorial-voice publications) always render in the auto-generated `feed` section regardless of any `section` value.
 
-Valid `type` values: `book`, `essay`, `site`, `film`, `interview`, `slides`, `concept`.
+Valid `type` values: `book`, `essay`, `journal article`, `paper`, `working paper`, `report`, `site`, `tool`, `project`, `film`, `interview`, `slides`, `concept`.
 
-Valid `dest` values: `shelf`, `stream`.
+Valid `dest` values: `shelf`, `stream`, `remove`. Use `remove` to keep the Markdown record while omitting the item from public shelf and stream views.
 
 `links` is a list of `{label, url}` objects. The spreadsheet workflow preserves it but does not edit it.
 

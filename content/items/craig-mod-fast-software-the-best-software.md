@@ -1,14 +1,16 @@
 ---
-author: "Craig Mod"
-title: "Fast Software, the Best Software"
+author: Craig Mod
+title: 'Fast Software, the Best Software'
 type: essay
-image: "/img/covers/craig-mod-fast-software-the-best-software.jpg"
-dest: shelf
-topic: "Design & Craft"
-url: "https://craigmod.com/essays/fast_software/"
-dek: "craigmod.com, 2019"
-note: ""
-blurb: "speed in software is like speed in a workshop tool – it changes what you're willing to try"
+image: /img/covers/craig-mod-fast-software-the-best-software.jpg
+dest: stream
+topic: Software
+url: 'https://craigmod.com/essays/fast_software/'
+dek: 'craigmod.com, 2019'
+note: ''
+blurb: >-
+  speed in software is like speed in a workshop tool – it changes what you're
+  willing to try
 order: 9
 links: []
 ---

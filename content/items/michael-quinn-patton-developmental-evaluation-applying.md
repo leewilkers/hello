@@ -4,7 +4,7 @@ title: "Developmental Evaluation: Applying Complexity Concepts to Enhance Innova
 type: book
 image: "/img/covers/michael-quinn-patton-developmental-evaluation-applying.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Design"
 url: "https://www.guilford.com/books/Developmental-Evaluation/Michael-Quinn-Patton/9781606238721"
 dek: "Guilford, 2010"
 note: ""

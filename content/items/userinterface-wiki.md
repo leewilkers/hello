@@ -4,7 +4,7 @@ title: "userinterface.wiki"
 type: site
 image: "/img/covers/userinterface-wiki.jpg"
 dest: shelf
-topic: "Design & Craft"
+topic: "Interfaces & Interaction"
 url: "https://userinterface.wiki"
 order: 50
 dek: "userinterface.wiki"

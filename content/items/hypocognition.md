@@ -1,15 +1,17 @@
 ---
-author: "Kaidi Wu and David Dunning"
-title: "Hypocognition"
+author: Kaidi Wu and David Dunning
+title: Hypocognition
 type: concept
-image: "/img/covers/hypocognition.jpg"
+image: /img/covers/hypocognition.jpg
 dest: shelf
-topic: "Perception & Visualization"
-url: "https://en.wikipedia.org/wiki/Hypocognition"
+topic: Potpourri
+url: 'https://en.wikipedia.org/wiki/Hypocognition'
 order: 50
-dek: "Wikipedia"
-note: ""
-blurb: "Kaidi Wu and David Dunning on hypocognition — lacking conceptual vocabulary to perceive, name, or reason about a phenomenon."
-quote: ""
+dek: Wikipedia
+note: ''
+blurb: >-
+  Kaidi Wu and David Dunning on hypocognition — lacking conceptual vocabulary to
+  perceive, name, or reason about a phenomenon.
+quote: ''
 links: []
 ---

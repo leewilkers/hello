@@ -1,6 +1,6 @@
 ---
 author: "Alex de Waal"
-title: "Famine Crimes"
+title: "Famine Crimes: Politics & the Disaster Relief Industry in Africa"
 type: book
 image: "/img/covers/de-waal-famine-crimes.jpg"
 dest: shelf

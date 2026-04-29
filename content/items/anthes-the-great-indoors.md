@@ -1,10 +1,10 @@
 ---
 author: "Emily Anthes"
-title: "The Great Indoors"
+title: "The Great Indoors: The Surprising Science of How Buildings Shape Our Behavior, Health, and Happiness"
 type: book
 image: "/img/covers/anthes-the-great-indoors.jpg"
 dest: shelf
-topic: "Infrastructure"
+topic: "Architecture & Built Environment"
 url: "https://us.macmillan.com/books/9781250798817/thegreatindoors/"
 order: 50
 dek: "Scientific American / Farrar, Straus and Giroux, 2020"

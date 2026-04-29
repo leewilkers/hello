@@ -1,18 +1,20 @@
 ---
-author: "Wendy Chun"
-title: "Updating to Remain the Same: Habitual New Media"
+author: Wendy Chun
+title: 'Updating to Remain the Same: Habitual New Media'
 type: book
-image: "/img/covers/wendy-chun-updating-to-remain-the-same.jpg"
+image: /img/covers/wendy-chun-updating-to-remain-the-same.jpg
 dest: shelf
-topic: "Computing"
+topic: Tech History, STS & Criticism
 order: 14
-url: "https://mitpress.mit.edu/9780262534727/updating-to-remain-the-same/"
-dek: "MIT Press, 2016"
-note: ""
-quote: "to stay the same, you must keep updating – habit is not the absence of change but its constant repetition"
+url: 'https://mitpress.mit.edu/9780262534727/updating-to-remain-the-same/'
+dek: 'MIT Press, 2016'
+note: ''
+quote: >-
+  to stay the same, you must keep updating – habit is not the absence of change
+  but its constant repetition
 links:
-  - label: "wiki"
-    url: "https://en.wikipedia.org/wiki/Wendy_Hui_Kyong_Chun"
-  - label: "archive.org"
-    url: "https://archive.org/details/updatingtoremain0000chun"
+  - label: wiki
+    url: 'https://en.wikipedia.org/wiki/Wendy_Hui_Kyong_Chun'
+  - label: archive.org
+    url: 'https://archive.org/details/updatingtoremain0000chun'
 ---

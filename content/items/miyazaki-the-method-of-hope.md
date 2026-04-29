@@ -1,11 +1,11 @@
 ---
 author: "Hirokazu Miyazaki"
-title: "The Method of Hope"
+title: "The Method of Hope: Anthropology, Philosophy, and Fijian Knowledge"
 type: book
 image: "/img/covers/miyazaki-the-method-of-hope.jpg"
 dest: shelf
-topic: "Ethnography"
-url: "https://www.sup.org/books/title/?id=6902"
+topic: "Potpourri"
+url: "https://www.sup.org/books/cite/?id=6376"
 order: 50
 dek: "Stanford University Press, 2004"
 note: ""

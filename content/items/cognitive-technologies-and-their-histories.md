@@ -4,7 +4,7 @@ title: "Cognitive Technologies and Their Histories"
 type: essay
 image: "/img/covers/cognitive-technologies-and-their-histories.jpg"
 dest: shelf
-topic: "Information, Maps & Taxonomy"
+topic: "Tech History, STS & Criticism"
 url: "https://onlinelibrary.wiley.com/doi/10.1111/tops.70035"
 order: 50
 dek: "Topics in Cognitive Science, 2024"

@@ -3,8 +3,7 @@ author: "Hundred Rabbits"
 title: "Hundred Rabbits"
 type: site
 image: "/img/covers/hundred-rabbits.jpg"
-dest: shelf
-topic: "Design & Craft"
+dest: stream
 url: "https://100r.co"
 order: 11
 links:

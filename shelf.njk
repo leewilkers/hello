@@ -6,12 +6,25 @@ pageClass: page-shelf
 ---
 
 {% macro cell(item) %}
+      {%- set primaryUrl = item.data.url %}
       <li>
         <span class="cell-cover">
-          {%- if item.data.image %}{% shelfCover item.data.image, "" %}{% endif %}
+          {%- if item.data.image %}
+            {%- if primaryUrl %}
+          <a href="{{ primaryUrl }}" target="_blank" rel="noopener" aria-label="Open source for {{ item.data.title or item.data.author }}">{% shelfCover item.data.image, "" %}</a>
+            {%- else %}
+          {% shelfCover item.data.image, "" %}
+            {%- endif %}
+          {%- endif %}
         </span>
         <span class="cell-type">{{ item.data.type }}</span>
-        {%- if item.data.title %}<span class="cell-title">{{ item.data.title }}</span>{% endif %}
+        {%- if item.data.title %}
+          {%- if primaryUrl %}
+        <a class="cell-title" href="{{ primaryUrl }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+          {%- else %}
+        <span class="cell-title">{{ item.data.title }}</span>
+          {%- endif %}
+        {%- endif %}
         <span class="cell-author">{{ item.data.author }}</span>
         {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
         {%- if item.data.note or item.data.quote or item.data.blurb %}
@@ -23,10 +36,10 @@ pageClass: page-shelf
         {%- endif %}
         <ul class="cell-links" aria-label="Links">
           {%- if item.data.url %}
-          <li><a href="{{ item.data.url }}" rel="noopener">source</a></li>
+          <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">source</a></li>
           {%- endif %}
           {%- if item.data.links %}{%- for link in item.data.links %}
-          <li><a href="{{ link.url }}" rel="noopener">{{ link.label }}</a></li>
+          <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a></li>
           {%- endfor %}{%- endif %}
         </ul>
       </li>

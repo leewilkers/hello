@@ -4,7 +4,7 @@ title: "Magic Ink: Information Software and the Graphical Interface"
 type: essay
 image: "/img/covers/bret-victor-magic-ink-information-software-and-the.jpg"
 dest: shelf
-topic: "Design & Craft"
+topic: "Interfaces & Interaction"
 url: "https://worrydream.com/MagicInk/"
 dek: "worrydream.com, March 2006"
 note: "why are you clicking"

@@ -1,11 +1,11 @@
 ---
 author: "Boaventura de Sousa Santos"
-title: "Another Knowledge Is Possible"
+title: "Another Knowledge Is Possible: Beyond Northern Epistemologies"
 type: book
 image: "/img/covers/santos-another-knowledge-is-possible.jpg"
 dest: shelf
-topic: "Philosophy General"
-url: "https://www.versobooks.com/products/1975-another-knowledge-is-possible"
+topic: "Social Theory"
+url: "https://www.versobooks.com/products/1996-another-knowledge-is-possible"
 order: 50
 dek: "Verso, 2008"
 note: ""

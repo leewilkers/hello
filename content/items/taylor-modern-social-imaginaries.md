@@ -4,7 +4,7 @@ title: "Modern Social Imaginaries"
 type: book
 image: "/img/covers/taylor-modern-social-imaginaries.jpg"
 dest: shelf
-topic: "Perception & Visualization"
+topic: "Social Theory"
 url: "https://www.dukeupress.edu/modern-social-imaginaries"
 order: 50
 dek: "Duke University Press, 2003"

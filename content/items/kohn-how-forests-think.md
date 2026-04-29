@@ -1,10 +1,10 @@
 ---
 author: "Eduardo Kohn"
-title: "How Forests Think"
+title: "How Forests Think: Toward an Anthropology Beyond the Human"
 type: book
 image: "/img/covers/kohn-how-forests-think.jpg"
 dest: shelf
-topic: "Ecology & Environment"
+topic: "Ecology & Life Sciences"
 url: "https://www.ucpress.edu/books/how-forests-think/paper"
 order: 50
 dek: "University of California Press, 2013"

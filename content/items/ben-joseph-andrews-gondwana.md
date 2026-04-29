@@ -4,7 +4,7 @@ title: "Gondwana"
 type: film
 image: "/img/covers/ben-joseph-andrews-gondwana.jpg"
 dest: shelf
-topic: "Ecology & Environment"
+topic: "Ecology & Life Sciences"
 url: "https://gondwanavr.com/"
 dek: "Sundance New Frontier, 2022"
 order: 10

@@ -1,15 +1,17 @@
 ---
-author: "Stephen Toulmin"
-title: "The Recovery of Practical Philosophy"
+author: Stephen Toulmin
+title: The Recovery of Practical Philosophy
 type: essay
-image: "/img/covers/toulmin-the-recovery-of-practical-philosophy.jpg"
+image: /img/covers/toulmin-the-recovery-of-practical-philosophy.jpg
 dest: shelf
-topic: "Philosophy General"
-url: "https://doi.org/10.1080/00029890.1988.11972082"
+topic: Ethics & Moral Philosophy
+url: 'https://doi.org/10.1080/00029890.1988.11972082'
 order: 50
-dek: "The American Scholar, 1988"
-note: ""
-blurb: "Stephen Toulmin's 1988 American Scholar essay arguing for a recovery of context-sensitive practical wisdom alongside formal method."
-quote: ""
+dek: 'The American Scholar, 1988'
+note: ''
+blurb: >-
+  Stephen Toulmin's 1988 American Scholar essay arguing for a recovery of
+  context-sensitive practical wisdom alongside formal method.
+quote: ''
 links: []
 ---

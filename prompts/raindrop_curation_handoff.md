@@ -95,28 +95,37 @@ Lee's site is a static Eleventy site. Raindrop is upstream of it — what gets s
 ### shelf — high-bar topical influence index
 
 - **Purpose:** load-bearing influences. Things that shaped how Lee thinks. Permanent reference.
-- **Form:** each item lives under exactly one **topic** from a fixed 17-item list and carries editorial voice (dek/blurb/quote/note) when published.
-- **Valid types:** `book`, `essay`, `site`, `film`, `interview`, `slides`, `concept`.
+- **Form:** each item lives under exactly one **topic** from a fixed 26-item list and carries editorial voice (dek/blurb/quote/note) when published.
+- **Valid types:** `book`, `essay`, `journal article`, `paper`, `working paper`, `report`, `site`, `tool`, `project`, `film`, `interview`, `slides`, `concept`.
 - **Site rendering:** topical index, mono-small-caps label + serif body. Each row shows e.g. `BOOK <title> <author> <year>` plus optional dek/blurb/quote/note.
 - **Topics (canonical, from `_data/topics.json`):**
   ```
-  Architecture
-  Bureaucracy & Institutions
-  Classification & Taxonomy
-  Computing
-  Design & Craft
-  Ecology & Environment
-  Education
+  Architecture & Built Environment
+  Creativity
+  Design
+  Ecology & Life Sciences
+  Epidemiology
   Ethics & Moral Philosophy
-  Ethnography
+  Furniture & Craft
   Global Health & Policy
+  Information, Maps & Taxonomy
   Infrastructure
   Interfaces & Interaction
+  Internet
   Language & Writing
-  Perception & Visualization
-  Philosophy of Science
-  Science & Technology Studies
-  Tech Criticism
+  Measurement
+  Media
+  Methods, Evidence & Judgement
+  Organizations, Institutions & Strategy
+  Photography
+  Play & Performance
+  Potpourri
+  Social Theory
+  Software
+  Tech Culture
+  Tech History, STS & Criticism
+  Thinking
+  Visual Culture
   ```
 
 ### stream — link feed (default bucket)
@@ -132,7 +141,7 @@ Lee expects stream to **dwarf** shelf (e.g. ~150 stream / ~20 shelf out of 169).
 ### Reference files in this repo (read for grounding)
 
 - `CLAUDE.md` — project overview, item frontmatter spec
-- `_data/topics.json` — the 17 shelf topics
+- `_data/topics.json` — the 26 shelf topics
 - `_data/stream_sections.json` — stream section slugs (currently empty)
 - `content/items/*.md` — 253 existing item records; useful for calibrating "what kind of thing has Lee already shelved vs streamed"
 
@@ -145,7 +154,7 @@ Lee expects stream to **dwarf** shelf (e.g. ~150 stream / ~20 shelf out of 169).
 **Per-bookmark decision rules — default STREAM. Promote to SHELF only if ALL hold:**
 
 1. Lee would plausibly write a 1–3 sentence blurb or pull a quote about it.
-2. It maps cleanly to ONE of the 17 topics.
+2. It maps cleanly to ONE of the 26 topics.
 3. It's a primary work — a book, a canonical essay, a named concept, a person's site treated as a body of work, a film, slide deck, or interview — not a single news item or one-off post.
 4. It would still feel relevant 2 years from now.
 
@@ -206,7 +215,7 @@ If unsure → STREAM. If something looks like junk / dead link / accidental save
 
 ## Semantic issues
 - Synonym clusters (2+ tags doing the same job)
-- Overlap with the 17 shelf topics — which tags duplicate a topic
+- Overlap with the 26 shelf topics — which tags duplicate a topic
 - Dead/orphan tags (count = 1 and not part of an axis)
 - Missing axes — concepts that recur in titles/excerpts but have no tag
 - Channel-style tags — list separately, do not mix with subject

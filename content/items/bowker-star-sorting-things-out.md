@@ -1,6 +1,6 @@
 ---
 author: "Geoffrey Bowker, Susan Leigh Star"
-title: "Sorting Things Out"
+title: "Sorting Things Out: Classification and Its Consequences"
 type: book
 image: "/img/covers/bowker-star-sorting-things-out.jpg"
 dest: shelf

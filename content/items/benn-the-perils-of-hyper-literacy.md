@@ -4,7 +4,7 @@ title: "The Perils of Hyper-Literacy"
 type: essay
 image: "/img/covers/benn-the-perils-of-hyper-literacy.jpg"
 dest: shelf
-topic: "Perception & Visualization"
+topic: "Language & Writing"
 url: "https://engelsbergideas.com/notebook/the-perils-of-hyper-literacy/"
 order: 50
 dek: "engelsbergideas.com"

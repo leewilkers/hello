@@ -1,10 +1,10 @@
 ---
 author: "Jack Linchuan Qiu"
-title: "Working-Class Network Society"
+title: "Working-Class Network Society: Communication Technology and the Information Have-Less in Urban China"
 type: essay
 image: "/img/covers/working-class-network-society.jpg"
 dest: shelf
-topic: "Infrastructure"
+topic: "Internet"
 url: "https://mitpress.mit.edu/9780262515856/working-class-network-society/"
 order: 50
 dek: "MIT Press"

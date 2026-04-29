@@ -1,13 +1,13 @@
 ---
-author: "Wendell Berry"
-title: "Why I Am Not Going to Buy a Computer"
+author: Wendell Berry
+title: Why I Am Not Going to Buy a Computer
 type: essay
-image: "/img/covers/wendell-berry-why-i-am-not-going-to-buy-a-computer.jpg"
+image: /img/covers/wendell-berry-why-i-am-not-going-to-buy-a-computer.jpg
 dest: shelf
-topic: "Infrastructure"
-url: "https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf"
-dek: "Harper's, 1987"
+topic: 'Tech History, STS & Criticism'
+url: 'https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf'
+dek: 'Harper''s, 1987'
 links: []
-note: "exactly what it sounds like"
+note: exactly what it sounds like
 order: 11
 ---

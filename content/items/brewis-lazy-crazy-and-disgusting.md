@@ -1,6 +1,6 @@
 ---
 author: "Alexandra Brewis"
-title: "Lazy, Crazy, and Disgusting"
+title: "Lazy, Crazy, and Disgusting: Stigma and the Undoing of Global Health"
 type: book
 image: "/img/covers/brewis-lazy-crazy-and-disgusting.jpg"
 dest: shelf

@@ -1,6 +1,6 @@
 ---
 author: "Karel Capek"
-title: "R.U.R."
+title: "R.U.R. and the Vision of Artificial Life"
 type: book
 image: "/img/covers/capek-rur.jpg"
 dest: shelf

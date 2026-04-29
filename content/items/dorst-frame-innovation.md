@@ -1,10 +1,10 @@
 ---
 author: "Kees Dorst"
-title: "Frame Innovation"
+title: "Frame Innovation: Create New Thinking by Design"
 type: book
 image: "/img/covers/dorst-frame-innovation.jpg"
 dest: shelf
-topic: "Information, Maps & Taxonomy"
+topic: "Design"
 url: "https://mitpress.mit.edu/9780262324311/frame-innovation/"
 order: 50
 dek: "MIT Press, 2015"

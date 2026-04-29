@@ -52,8 +52,14 @@ collections:
         widget: select
         options:
           - { label: "Book", value: "book" }
-          - { label: "Writing", value: "essay" }
+          - { label: "Essay", value: "essay" }
+          - { label: "Journal Article", value: "journal article" }
+          - { label: "Paper", value: "paper" }
+          - { label: "Working Paper", value: "working paper" }
+          - { label: "Report", value: "report" }
           - { label: "Site", value: "site" }
+          - { label: "Tool", value: "tool" }
+          - { label: "Project", value: "project" }
           - { label: "Film", value: "film" }
           - { label: "Interview", value: "interview" }
           - { label: "Slides", value: "slides" }
@@ -64,6 +70,7 @@ collections:
         options:
           - { label: "Shelf", value: "shelf" }
           - { label: "Stream", value: "stream" }
+          - { label: "Remove", value: "remove" }
       - label: URL
         name: url
         widget: string
@@ -116,25 +123,29 @@ collections:
         widget: select
         required: false
         options:
-          - { label: "Architecture", value: "Architecture" }
-          - { label: "Bureaucracy & Institutions", value: "Bureaucracy & Institutions" }
-          - { label: "Computing", value: "Computing" }
-          - { label: "Design & Craft", value: "Design & Craft" }
-          - { label: "Ecology & Environment", value: "Ecology & Environment" }
+          - { label: "Architecture & Built Environment", value: "Architecture & Built Environment" }
+          - { label: "Design", value: "Design" }
+          - { label: "Ecology & Life Sciences", value: "Ecology & Life Sciences" }
+          - { label: "Epidemiology", value: "Epidemiology" }
           - { label: "Ethics & Moral Philosophy", value: "Ethics & Moral Philosophy" }
-          - { label: "Ethnography", value: "Ethnography" }
+          - { label: "Experiences", value: "Experiences" }
+          - { label: "Furniture & Craft", value: "Furniture & Craft" }
+          - { label: "Games, Play & Performance", value: "Games, Play & Performance" }
           - { label: "Global Health & Policy", value: "Global Health & Policy" }
           - { label: "Information, Maps & Taxonomy", value: "Information, Maps & Taxonomy" }
           - { label: "Infrastructure", value: "Infrastructure" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
+          - { label: "Internet", value: "Internet" }
           - { label: "Language & Writing", value: "Language & Writing" }
-          - { label: "Perception & Visualization", value: "Perception & Visualization" }
-          - { label: "Photography", value: "Photography" }
-          - { label: "Play & Performance", value: "Play & Performance" }
-          - { label: "Philosophy General", value: "Philosophy General" }
-          - { label: "Philosophy of Science", value: "Philosophy of Science" }
-          - { label: "Science & Technology Studies", value: "Science & Technology Studies" }
-          - { label: "Tech Criticism", value: "Tech Criticism" }
+          - { label: "Measurement", value: "Measurement" }
+          - { label: "Methods, Evidence & Judgement", value: "Methods, Evidence & Judgement" }
+          - { label: "Organizations, Institutions & Strategy", value: "Organizations, Institutions & Strategy" }
+          - { label: "Potpourri", value: "Potpourri" }
+          - { label: "Social Theory", value: "Social Theory" }
+          - { label: "Tech Culture", value: "Tech Culture" }
+          - { label: "Tech History, STS & Criticism", value: "Tech History, STS & Criticism" }
+          - { label: "Technology, general", value: "Technology, general" }
+          - { label: "Visual Culture", value: "Visual Culture" }
         hint: "For shelf items. Alphabetical topical index."
       - label: Image
         name: image

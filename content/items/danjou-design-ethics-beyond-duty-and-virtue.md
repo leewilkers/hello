@@ -4,7 +4,7 @@ title: "Design Ethics Beyond Duty and Virtue"
 type: book
 image: "/img/covers/danjou-design-ethics-beyond-duty-and-virtue.jpg"
 dest: shelf
-topic: "Ethics & Moral Philosophy"
+topic: "Design"
 url: "https://www.cambridgescholars.com/product/978-1-4438-9123-3"
 order: 50
 dek: "Cambridge Scholars, 2017"

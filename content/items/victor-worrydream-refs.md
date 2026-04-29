@@ -4,7 +4,7 @@ title: "worrydream.com/refs/"
 type: site
 image: "/img/covers/victor-worrydream-refs.jpg"
 dest: shelf
-topic: "Computing"
+topic: "Interfaces & Interaction"
 url: "https://worrydream.com/refs/"
 order: 50
 dek: "worrydream.com"

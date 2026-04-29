@@ -3,8 +3,7 @@ title: "Asterisk"
 author: "Asterisk Magazine"
 url: "https://asteriskmag.com/"
 type: site
-dest: shelf
-topic: "Ethics & Moral Philosophy"
+dest: stream
 order: 25
 dek: "2022–"
 note: ""

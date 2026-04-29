@@ -1,10 +1,10 @@
 ---
 author: "Soetsu Yanagi"
-title: "The Unknown Craftsman"
+title: "The Unknown Craftsman: A Japanese Insight into Beauty"
 type: book
 image: "/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg"
 dest: shelf
-topic: "Design & Craft"
+topic: "Furniture & Craft"
 url: "https://www.penguinrandomhouse.com/books/563597/the-unknown-craftsman-by-soetsu-yanagi-adapted-by-bernard-leach/"
 dek: "Kodansha International, 1972"
 links:

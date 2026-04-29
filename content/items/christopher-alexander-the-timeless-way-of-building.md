@@ -4,7 +4,7 @@ title: "The Timeless Way of Building"
 type: book
 image: "/img/covers/christopher-alexander-the-timeless-way-of-building.jpg"
 dest: shelf
-topic: "Architecture"
+topic: "Architecture & Built Environment"
 url: "https://www.patternlanguage.com/bookstore/timeless-way-of-building.html"
 dek: "Oxford University Press, 1979"
 links:

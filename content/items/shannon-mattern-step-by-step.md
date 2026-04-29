@@ -1,6 +1,6 @@
 ---
 author: "Shannon Mattern"
-title: "Step by Step"
+title: "Step by Step: A Political Ecology of the Repair Manual"
 type: essay
 image: "/img/covers/shannon-mattern-step-by-step.jpg"
 dest: shelf

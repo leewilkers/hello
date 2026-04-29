@@ -1,10 +1,10 @@
 ---
 author: "M. Mitchell Waldrop"
-title: "The Dream Machine"
+title: "The Dream Machine: J.C.R. Licklider and the Revolution That Made Computing Personal"
 type: book
 image: "/img/covers/waldrop-the-dream-machine.jpg"
 dest: shelf
-topic: "Computing"
+topic: "Tech History, STS & Criticism"
 url: "https://press.stripe.com/the-dream-machine"
 order: 50
 dek: "Stripe Press, 2018"

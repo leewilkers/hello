@@ -4,7 +4,7 @@ title: "The Humane Representation of Thought"
 type: slides
 image: "/img/covers/victor-humane-representation-of-thought.jpg"
 dest: shelf
-topic: "Computing"
+topic: "Language & Writing"
 url: "https://vimeo.com/115154289"
 order: 50
 dek: "UIST Closing Keynote, 2014"

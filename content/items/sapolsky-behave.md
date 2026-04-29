@@ -1,10 +1,10 @@
 ---
 author: "Robert M. Sapolsky"
-title: "Behave"
+title: "Behave: The Biology of Humans at Our Best and Worst"
 type: book
 image: "/img/covers/sapolsky-behave.jpg"
 dest: shelf
-topic: "Global Health & Policy"
+topic: "Ecology & Life Sciences"
 url: "https://www.penguinrandomhouse.com/books/240547/behave-by-robert-m-sapolsky/"
 order: 50
 dek: "Penguin Press, 2017"

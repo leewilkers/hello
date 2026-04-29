@@ -1,10 +1,10 @@
 ---
 author: "Yochai Benkler"
-title: "The Wealth of Networks"
+title: "The Wealth of Networks: How Social Production Transforms Markets and Freedom"
 type: book
 image: "/img/covers/benkler-the-wealth-of-networks.jpg"
 dest: shelf
-topic: "Infrastructure"
+topic: "Internet"
 url: "https://yalebooks.yale.edu/book/9780300125771/the-wealth-of-networks/"
 order: 50
 dek: "Yale University Press, 2006"

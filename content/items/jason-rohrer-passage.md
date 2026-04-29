@@ -1,12 +1,14 @@
 ---
-author: "Jason Rohrer"
-title: "Passage"
+author: Jason Rohrer
+title: Passage
 type: site
-image: "/img/covers/jason-rohrer-passage.jpg"
+image: /img/covers/jason-rohrer-passage.jpg
 dest: shelf
-topic: "Interfaces & Interaction"
-url: "https://hcsoftware.sourceforge.net/passage/"
-dek: "2007"
+topic: 'Games, Play & Performance'
+url: 'https://hcsoftware.sourceforge.net/passage/'
+dek: '2007'
 order: 5
-blurb: "Jason Rohrer's 2007 five-minute game compressing an entire human life; one of the first video games acquired by MoMA."
+blurb: >-
+  Jason Rohrer's 2007 five-minute game compressing an entire human life; one of
+  the first video games acquired by MoMA.
 ---

@@ -3,8 +3,7 @@ author: "Ink & Switch"
 title: "Ink & Switch"
 type: site
 image: "/img/covers/ink-switch.jpg"
-dest: shelf
-topic: "Design & Craft"
+dest: stream
 url: "https://www.inkandswitch.com"
 order: 12
 links: []

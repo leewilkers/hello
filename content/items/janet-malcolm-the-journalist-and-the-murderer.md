@@ -4,7 +4,7 @@ title: "The Journalist and the Murderer"
 type: book
 image: "/img/covers/janet-malcolm-the-journalist-and-the-murderer.jpg"
 dest: shelf
-topic: "Philosophy of Science"
+topic: "Language & Writing"
 url: "https://en.wikipedia.org/wiki/The_Journalist_and_the_Murderer"
 dek: "Knopf, 1990"
 note: ""

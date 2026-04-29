@@ -56,37 +56,46 @@ Raindrop:
 SHELF (high bar, expect ~10–15% of items)
   Topical index of load-bearing influences — things that shaped how
   Lee thinks. Permanent reference. Each shelf item lives under exactly
-  one topic from the fixed 17-topic list and carries editorial voice
+  one topic from the fixed 26-topic list and carries editorial voice
   (dek/blurb/quote/note) when published to the site.
-  Valid types: book, essay, site, film, interview, slides, concept.
+  Valid types: book, essay, journal article, paper, working paper, report, site, tool, project, film, interview, slides, concept.
 
 STREAM (default, expect ~85–90% of items)
   Link feed — interesting reads, signal, single-author newsletters,
   editorial publications (Real Life, Paris Review, etc.), ephemera.
   Linkblog character. No topic required. Optional section slug.
 
-THE 17 SHELF TOPICS (canonical, from _data/topics.json)
-  Architecture
-  Bureaucracy & Institutions
-  Classification & Taxonomy
-  Computing
-  Design & Craft
-  Ecology & Environment
-  Education
+THE 26 SHELF TOPICS (canonical, from _data/topics.json)
+  Architecture & Built Environment
+  Creativity
+  Design
+  Ecology & Life Sciences
+  Epidemiology
   Ethics & Moral Philosophy
-  Ethnography
+  Furniture & Craft
   Global Health & Policy
+  Information, Maps & Taxonomy
   Infrastructure
   Interfaces & Interaction
+  Internet
   Language & Writing
-  Perception & Visualization
-  Philosophy of Science
-  Science & Technology Studies
-  Tech Criticism
+  Measurement
+  Media
+  Methods, Evidence & Judgement
+  Organizations, Institutions & Strategy
+  Photography
+  Play & Performance
+  Potpourri
+  Social Theory
+  Software
+  Tech Culture
+  Tech History, STS & Criticism
+  Thinking
+  Visual Culture
 
 REFERENCE FILES IN REPO (read for grounding before sorting)
   CLAUDE.md                       project overview + item frontmatter spec
-  _data/topics.json               the 17 topics
+  _data/topics.json               the 26 topics
   _data/stream_sections.json      stream sections (currently [])
   content/items/*.md              253 existing site items — useful for
                                   calibrating "what kind of thing has
@@ -143,7 +152,7 @@ Input: all 169 bookmarks across all collections.
 Per-bookmark decision rules. Default STREAM. Promote to SHELF only if
 ALL hold:
   1. Lee would plausibly write a 1–3 sentence blurb or pull a quote.
-  2. It maps cleanly to ONE of the 17 topics.
+  2. It maps cleanly to ONE of the 26 topics.
   3. It's a primary work — book, canonical essay, named concept, a
      person's site treated as a body of work, film, slide deck,
      interview — not a single news item or one-off post.
@@ -196,7 +205,7 @@ Output file: prompts/_outputs/<DATE>_phase-2_tag_audit.md
 
 ## Semantic issues
 - Synonym clusters (2+ tags doing same job)
-- Overlap with the 17 shelf topics — which tags duplicate a topic
+- Overlap with the 26 shelf topics — which tags duplicate a topic
 - Dead/orphan tags (count = 1 and not part of an axis)
 - Missing axes — concepts that recur in titles/excerpts but lack a tag
 - channel:* tags listed separately — routing, not subject

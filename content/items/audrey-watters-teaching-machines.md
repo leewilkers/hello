@@ -1,10 +1,10 @@
 ---
 author: "Audrey Watters"
-title: "Teaching Machines"
+title: "Teaching Machines: The History of Personalized Learning"
 type: book
 image: "/img/covers/audrey-watters-teaching-machines.jpg"
 dest: shelf
-topic: "Computing"
+topic: "Tech History, STS & Criticism"
 order: 12
 url: "https://mitpress.mit.edu/9780262546065/teaching-machines/"
 dek: "MIT Press, 2021"

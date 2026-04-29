@@ -3,8 +3,7 @@ title: "html.energy"
 author: "Laurel Schwulst & Elliott Cost"
 url: "https://html.energy/"
 type: site
-dest: shelf
-topic: "Design & Craft"
+dest: stream
 order: 21
 note: ""
 blurb: "HTML as creative medium"

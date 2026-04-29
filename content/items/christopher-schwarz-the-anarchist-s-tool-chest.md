@@ -4,7 +4,7 @@ title: "The Anarchist's Tool Chest"
 type: book
 image: "/img/covers/christopher-schwarz-the-anarchist-s-tool-chest.jpg"
 dest: shelf
-topic: "Design & Craft"
+topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/the-anarchists-tool-chest"
 dek: "Lost Art Press, 2010"
 note: "build the chest first"
