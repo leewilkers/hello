@@ -59,10 +59,14 @@
 
 </main>
 
+{% if page.url == "/" %}
+<div class="home-trail-band" aria-hidden="true">
+  <img src="/img/rabbits/about-trail.png" alt="" width="2172" height="156">
+</div>
+{% endif %}
+
 <footer class="site-colophon" aria-label="Site colophon">
   <span class="colophon-dust">※ pardon dust. workin on it <span class="kao kao--day">( ノ・_・)ノ</span><span class="kao kao--night">( ノ-_ -)ノ</span></span>
-  <span>Generator Eleventy</span>
-  <span>CMS Sveltia</span>
 </footer>
 
 <script>

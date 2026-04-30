@@ -927,7 +927,7 @@ body {
 
 .home-title {
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: 1.65rem;
   font-weight: 700;
   line-height: 1.15;
   margin: 0;
@@ -1009,30 +1009,41 @@ body {
 
 .home-plain .home-section h2 {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.5rem;
   color: var(--ink-faint);
+}
+
+/* About-page reading scale — unify p and li on EB Garamond at one size.
+   Without the family override on li, the cascade hands li to --serif
+   (Source Serif 4, taller x-height) while p gets --reading (EB Garamond,
+   smaller x-height) — same px size, two visual sizes. The font-family
+   line on .home-plain .home-section is the actual fix; the size bump
+   is the readability bump. */
+.home-plain .home-section {
+  font-family: var(--reading);
 }
 
 .home-plain .home-section p {
   margin: 0;
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 1.125rem;
+  line-height: 1.65;
   max-width: 52rem;
 }
 
 .home-plain .home-section ul {
   list-style: disc outside;
   margin: 0;
-  padding-left: 1.15rem;
+  padding-left: 1.25rem;
 }
 
 .home-plain .home-section li {
-  padding: 0.12rem 0;
-  line-height: 1.45;
+  padding: 0.18rem 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
 }
 
 .home-plain .home-section li::marker {
@@ -1041,6 +1052,51 @@ body {
 
 /* About-page hare: parked. Asset at img/rabbits/hare-engraved.png stays
    on disk for when the rabbit motif returns refined. */
+
+/* About-page trail band — burrow → dotted path → leaping hare across the
+   bottom of the viewport. Rendered as a body-level sibling (not inside
+   .page-home), so no 100vw breakout math is needed — width:100% just
+   resolves to the body width. Body becomes a flex column on the about
+   page only (via :has()) so the trail can margin-top:auto its way to
+   the bottom of the viewport. Image height is capped via clamp() so
+   the natural 3:1 aspect doesn't eat half the viewport at wide widths.
+   No position:fixed, no vw-units on type, no fixed pixel heights —
+   everything scales proportionally under Chrome zoom. */
+body:has(.home-trail-band) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body:has(.home-trail-band) .page-home {
+  min-height: 0;
+}
+
+.home-trail-band {
+  width: 100%;
+  margin-top: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-trail-band img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Source PNG is alpha-encoded AND cropped tight to the ink bbox
+     (2172×156, aspect ~13.9:1), so width:100% + height:auto gives the
+     band's height directly from the image's natural proportions —
+     no object-fit gymnastics, no transparent padding. */
+  opacity: 0.18;
+}
+
+[data-theme="dark"] .home-trail-band img {
+  /* Flip black ink to light against the dark page bg. With the source
+     now alpha-encoded (no rectangular bg), invert acts only on the
+     ink pixels — no rectangle artifact. */
+  filter: invert(1);
+  opacity: 0.12;
+}
 
 .site-colophon {
   display: flex;
@@ -1061,11 +1117,11 @@ body {
   right: 0.95rem;
   z-index: 50;
   font-family: var(--sans);
-  font-size: 1.15rem;
+  font-size: 0.92rem;
   line-height: 1.35;
   font-style: italic;
   color: var(--ink-faint);
-  opacity: 0.55;
+  opacity: 0.28;
   pointer-events: none;
 }
 
