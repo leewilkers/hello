@@ -3,7 +3,7 @@ author: "Alexander Bogdanov"
 title: "Tektology"
 type: concept
 image: "/img/covers/tektology.jpg"
-dest: shelf
+dest: stream
 topic: "Classification, Diagrams & Representation"
 url: "https://en.wikipedia.org/wiki/Tektology"
 order: 50
