@@ -1077,6 +1077,17 @@ body {
   border-bottom: 1px solid var(--home-accent);
 }
 
+/* Disabled affordances on the homepage nav (Consulting, Stream until those
+   pages exist). Read as links — same accent color as live ones — but the
+   dotted underline + not-allowed cursor flag them as not-yet. The hover
+   tooltip ("in progress – pardon the dust") still fires from the title attr. */
+.home-plain .home-nav .dead {
+  color: var(--home-accent);
+  text-decoration: underline dotted;
+  text-underline-offset: 0.18em;
+  cursor: not-allowed;
+}
+
 /* About-page trail band — burrow → dotted path → leaping hare across the
    bottom of the viewport. Rendered as a body-level sibling (not inside
    .page-home), so no 100vw breakout math is needed — width:100% just
