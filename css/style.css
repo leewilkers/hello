@@ -1053,6 +1053,30 @@ body {
 /* About-page hare: parked. Asset at img/rabbits/hare-engraved.png stays
    on disk for when the rabbit motif returns refined. */
 
+/* About-page subdivider — quiet horizontal rule between body and nav links.
+   Matches the structural --rule-light color used elsewhere on the site. */
+.home-plain .home-divider {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 2.4rem 0 1.8rem;
+  width: 100%;
+}
+
+/* About-page nav-link list — descriptive phrase + colon + linked target.
+   Slightly tighter line-height than body prose to read as a list, not paragraphs. */
+.home-plain .home-nav p {
+  margin: 0.35rem 0;
+  line-height: 1.5;
+}
+
+.home-plain .home-nav a {
+  color: var(--home-accent);
+}
+
+.home-plain .home-nav a:hover {
+  border-bottom: 1px solid var(--home-accent);
+}
+
 /* About-page trail band — burrow → dotted path → leaping hare across the
    bottom of the viewport. Rendered as a body-level sibling (not inside
    .page-home), so no 100vw breakout math is needed — width:100% just
