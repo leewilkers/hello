@@ -39,15 +39,18 @@
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <span class="dead" aria-disabled="true" title="in progress – pardon the dust">stream</span>
     </div>
+    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
     <button class="loop-tally" aria-label="Loop dimmer" title="Loop the dimmer" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">LOOP</span></button>
-    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
+    <button class="theme-lock" aria-label="Lock theme during loop" title="Lock current theme — loop without flipping" aria-pressed="false" onclick="toggleThemeLock()"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path class="theme-lock-shackle" d="M 3.5 6 L 3.5 4 a 2.5 2.5 0 0 1 5 0 L 8.5 6" stroke="currentColor" stroke-width="1.1" fill="none" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5.5" rx="0.8" fill="currentColor"/></svg></button>
   </div>
 </nav>
 
-<div class="cat-switch-frame" aria-hidden="true">
-  <video class="cat-switch-video" muted playsinline preload="auto">
-    <source src="/img/cat_light.mp4" type="video/mp4">
-  </video>
+<div class="cat-switch-frame">
+  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
+    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
+      <source src="/img/cat_light.mp4" type="video/mp4">
+    </video>
+  </a>
 </div>
 
 <main class="page {{ pageClass }}">
@@ -79,13 +82,60 @@
     const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
+    const lockBtn = document.querySelector('.theme-lock');
 
-    // Loop mode — when armed, each completed cat-cycle auto-fires the next.
-    // The cat clip itself is the metronome (~2.4s/cycle). State persists across
-    // header page nav via sessionStorage so the music doesn't break when you
-    // click "shelf" or "about". Cleared on tab close (right scope).
+    // Loop mode — audio rhythm is driven by deterministic JS setTimeout chains,
+    // NOT by video rendering. The video-detected hit moment has variable load/
+    // decode latency per cycle (each src change re-loads the file), which made
+    // the audio loop sound uneven even after we fixed the per-direction timing.
+    // Two-timer architecture:
+    //   loopPressTimer:  press-note → resolve-chord at +PRESS_TO_HIT_MS (900ms)
+    //   loopNextTimer:   resolve-chord → next press-note at +(LOOP_BEAT_MS - 900)
+    // The cat video plays in parallel for visual; if it's a few frames off, the
+    // ear doesn't notice but the audio rhythm stays rock-solid.
+    const VIDEO_RATE = 0.75;         // slow the cat-paw motion to a deliberate glide
+    const LOOP_BEAT_MS = 4200;       // total time between press-notes
+    const PRESS_TO_HIT_MS = (HIT_SECONDS_FWD * 1000) / VIDEO_RATE;  // 1200ms — matches slowed video hit
     let loopArmed = false;
-    let loopReducedTimer = null;
+    let loopPressTimer = null;
+    let loopNextTimer = null;
+    let themeLocked = false;
+    let loopDirection = null;        // when locked, tracks alternating direction
+    let droneOsc = null;             // sub-bass D2 drone — kept across fade cycles
+    let droneGain = null;
+
+    // Cat controller — single source of truth for video state. Onended handler
+    // attached once at init so it always cleans up `is-playing` regardless of
+    // whether the video was started via manual click (playCatThenFlip) or loop
+    // (fireCycle). Eliminates the "cat sticky" class of bugs.
+    // Button-disabled handling: only re-enables if loop is NOT armed (loop
+    // owns the "always-disabled-while-armed" state).
+    const catCtl = (function() {
+      if (!video || !frame) return { play: function(){}, reset: function(){} };
+      video.addEventListener('ended', function() {
+        frame.classList.remove('is-playing');
+        if (button && !loopArmed) {
+          setTimeout(function() { button.disabled = false; }, 200);
+        }
+      });
+      return {
+        play: function(goingDark) {
+          if (reduced || video.readyState < 3) return;
+          if (button && !loopArmed) button.disabled = true;
+          video.src = goingDark ? VIDEO_FWD : VIDEO_REV;
+          video.currentTime = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
+          video.playbackRate = VIDEO_RATE;
+          frame.classList.add('is-playing');
+          const p = video.play();
+          if (p && p.catch) p.catch(function() {});
+        },
+        reset: function() {
+          frame.classList.remove('is-playing');
+          try { video.pause(); } catch (e) {}
+          if (button && !loopArmed) button.disabled = false;
+        }
+      };
+    })();
 
     let audioCtx = null;
     function ensureAudio() {
@@ -107,98 +157,110 @@
       N4: 554.37  // C#5  (highest — maj7, treble bite)
     };
 
-    // Short reverb tail — light wash, lets each note breathe.
+    // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
+    // before first reflections (the note speaks, THEN the room blooms), and
+    // treble decays faster than bass (HF absorption by air/carpet/walls).
+    // Per-channel decay rates differ slightly for stereo decorrelation.
     function getReverb(ctx) {
       if (ctx._reverbBus) return ctx._reverbBus;
-      const seconds = 1.8;
+      const seconds = 9.0;       // chapel-scale wash; notes bloom and bleed
+      const preDelay = 0.035;    // 35ms silent intro — sense of space
       const sr = ctx.sampleRate;
       const len = Math.floor(sr * seconds);
+      const preLen = Math.floor(sr * preDelay);
       const buf = ctx.createBuffer(2, len, sr);
       for (let ch = 0; ch < 2; ch++) {
         const d = buf.getChannelData(ch);
+        const decayPower = ch === 0 ? 2.0 : 2.4;
         for (let i = 0; i < len; i++) {
-          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.0);
+          if (i < preLen) { d[i] = 0; continue; }
+          const tailPos = (i - preLen) / (len - preLen);
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - tailPos, decayPower);
         }
       }
       const conv = ctx.createConvolver();
       conv.buffer = buf;
-      conv.connect(ctx.destination);
+      // Heavy lowpass — removes white-noise-IR hash, leaves warm low-mid wash.
+      // Music for Airports has little above ~4kHz in the wet signal.
+      const damp = ctx.createBiquadFilter();
+      damp.type = 'lowpass';
+      damp.frequency.value = 1800;
+      damp.Q.value = 0.5;
+      conv.connect(damp).connect(ctx.destination);
       ctx._reverbBus = conv;
       return conv;
     }
 
-    // Piano voice — FM synthesis (DX7-style e-piano).
-    // Carrier:Modulator ratio 1:1 produces all integer harmonics like a real
-    // string, but with modulation-index envelope decay that mimics how piano
-    // brightness fades during sustain. This is the canonical electric-piano
-    // patch — Rhodes/Wurlitzer territory. Sounds like a real instrument
-    // because it IS one (DX7 e-piano is on thousands of records).
-    function playPianoNote(freq, when, sustain) {
+    // Pad voice — FM synthesis tuned for ambient bloom.
+    // No hammer noise (pads don't strike). Slow attack (~110ms). Long sustain
+    // so notes overlap into a harmonic cloud. Low mod-index peak keeps the
+    // attack soft, no upper-partial sizzle. Stereo-panned per voice for the
+    // watercolor spread. DX7 patch territory — Eno's Apollo, Music for Airports.
+    function playPianoNote(freq, when, sustain, sendOverride) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
-      const sus = sustain || 2.5;
+      const sus = sustain || 9.0;     // long enough that 3+ notes overlap
+      const send = sendOverride !== undefined ? sendOverride : 0.65;
       const reverb = getReverb(ctx);
 
-      // (1) Hammer strike — brief bandpass-filtered noise. Gives the button
-      // its treble click + the perceptual "key was struck" cue.
-      const nLen = Math.floor(ctx.sampleRate * 0.020);
-      const nBuf = ctx.createBuffer(1, nLen, ctx.sampleRate);
-      const nData = nBuf.getChannelData(0);
-      const nDecay = ctx.sampleRate * 0.0025;
-      for (let i = 0; i < nLen; i++) {
-        nData[i] = (Math.random() * 2 - 1) * Math.exp(-i / nDecay);
-      }
-      const noise = ctx.createBufferSource();
-      noise.buffer = nBuf;
-      const nBp = ctx.createBiquadFilter();
-      nBp.type = 'bandpass';
-      nBp.frequency.value = Math.max(2200, freq * 5);
-      nBp.Q.value = 1.4;
-      const nGain = ctx.createGain();
-      nGain.gain.value = 0.045;
-      noise.connect(nBp).connect(nGain).connect(ctx.destination);
-      noise.start(t);
-
-      // (2) FM e-piano voice — two slightly-detuned voices for chorus shimmer.
-      [-4, 4].forEach(function(detune) {
-        // Carrier — what you hear (pitched output).
+      // Two slightly-detuned voices for chorus shimmer; each panned to its
+      // own stereo position so the chorus also spreads spatially.
+      [-4, 4].forEach(function(detune, idx) {
         const carrier = ctx.createOscillator();
         carrier.type = 'sine';
         carrier.frequency.value = freq;
         carrier.detune.value = detune;
 
-        // Modulator — modulates the carrier's frequency.
-        // Ratio 1:1 (modulator freq = carrier freq) → integer harmonics emerge
-        // in the carrier's spectrum as the modulation index changes.
         const modulator = ctx.createOscillator();
         modulator.type = 'sine';
         modulator.frequency.value = freq;
         modulator.detune.value = detune;
 
-        // Modulation depth in Hz (controls modulation index = depth/freq).
-        // Index 2.5 → bright, percussive attack (lots of upper partials)
-        // Index 0.4 → smooth, mellow body (mostly fundamental + low partials)
-        // Decay from peak → rest = "brightness fades during sustain" — the
-        // DEFINING characteristic of a real struck-string instrument.
+        // Pad-like mod envelope: slow rise to a low peak, slow fall.
+        // Index 0.7 → soft bell-pad (fundamental + 2nd partial mostly)
+        // Index 0.2 → just the fundamental (pure sine sustain)
         const modDepth = ctx.createGain();
         modDepth.gain.setValueAtTime(0.0001, t);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 2.5, t + 0.005);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.4, t + 0.40);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.7, t + 0.110);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.2, t + 2.0);
         modDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
         modulator.connect(modDepth).connect(carrier.frequency);
 
-        // Carrier amplitude envelope — fast attack, exponential decay.
+        // Slow attack (~110ms = pad), very long decay to silence.
         const carrierGain = ctx.createGain();
         carrierGain.gain.setValueAtTime(0.0001, t);
-        carrierGain.gain.exponentialRampToValueAtTime(0.15, t + 0.005);
+        carrierGain.gain.exponentialRampToValueAtTime(0.085, t + 0.110);
         carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
-        carrier.connect(carrierGain).connect(ctx.destination);
 
-        // Light reverb send — spatial body without wash.
+        // Tremolo — AM at 4.5Hz (Wurlitzer-territory). LFO modulates a
+        // dedicated gain stage AFTER the envelope so the wobble doesn't fight
+        // the attack/decay shape. Per-voice phase offset (0 vs π) creates
+        // stereo motion — left dips while right rises = Leslie cabinet feel.
+        const tremoloGain = ctx.createGain();
+        tremoloGain.gain.value = 1.0;  // base; LFO will swing around this
+        const tremoloLfo = ctx.createOscillator();
+        tremoloLfo.type = 'sine';
+        tremoloLfo.frequency.value = 4.5;
+        const tremoloDepth = ctx.createGain();
+        tremoloDepth.gain.value = 0.22;  // ±22% amplitude swing
+        tremoloLfo.connect(tremoloDepth).connect(tremoloGain.gain);
+        // Phase offset between the two voices — start the second LFO half a
+        // cycle later so they're inverse-phase.
+        const lfoStart = t + (idx === 0 ? 0 : (1 / 4.5) / 2);
+        tremoloLfo.start(lfoStart);
+        tremoloLfo.stop(t + sus + 0.1);
+
+        // Stereo pan per voice — chorus shimmer spreads spatially across L/R.
+        const panner = ctx.createStereoPanner();
+        panner.pan.value = idx === 0 ? -0.35 : 0.35;
+        carrier.connect(carrierGain).connect(tremoloGain).connect(panner).connect(ctx.destination);
+
+        // Reverb send — heavy wet bus by default; press-notes can override
+        // (high C#5 press is dried because its tail bleeds into next chord).
         const sendGain = ctx.createGain();
-        sendGain.gain.value = 0.22;
-        carrierGain.connect(sendGain).connect(reverb);
+        sendGain.gain.value = send;
+        panner.connect(sendGain).connect(reverb);
 
         modulator.start(t);
         carrier.start(t);
@@ -210,9 +272,46 @@
     // Press — single first note. Direction-aware, conventional intuition:
     //   D→L (goingDark=false): going to LIGHT = rise. Press N1 (D4 — low).
     //   L→D (goingDark=true):  going to DARK  = fall. Press N4 (C#5 — high).
+    // Shimmer — pure-sine bell octave-up, very slow attack + long sustain.
+    // Sits as a halo above the main FM voice. Quiet enough that you don't
+    // hear it as its own event, just as sparkle on top.
+    function playShimmer(freq, when, sustain, sendOverride) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = (when !== undefined) ? when : ctx.currentTime;
+      const sus = (sustain || 9.0) * 1.4;
+      const send = sendOverride !== undefined ? sendOverride : 0.55;
+      const reverb = getReverb(ctx);
+
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq * 2;  // octave up
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.045, t + 0.250);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+      osc.connect(gain).connect(ctx.destination);
+
+      const sendGain = ctx.createGain();
+      sendGain.gain.value = send;
+      gain.connect(sendGain).connect(reverb);
+
+      osc.start(t);
+      osc.stop(t + sus + 0.5);
+    }
+
     function playPressNote(goingDark) {
-      const freq = goingDark ? PIANO.N4 : PIANO.N1;
-      playPianoNote(freq, undefined, 3.0);
+      // C#5 press (going dark) is dried — its high register bleeds into the
+      // next resolve chord otherwise. D4 press (going light) keeps full wash;
+      // it's the bass root and its tail grounds the chord above it.
+      if (goingDark) {
+        playPianoNote(PIANO.N4, undefined, 4.0, 0.18);
+        playShimmer(PIANO.N4, undefined, 4.0, 0.08);  // shimmer also dried
+      } else {
+        playPianoNote(PIANO.N1, undefined, 9.0);
+        playShimmer(PIANO.N1, undefined, 9.0);
+      }
     }
 
     // Resolve — TWO notes (a chord) at cat-paw impact. The "satisfying" beat.
@@ -228,12 +327,15 @@
       const pair = goingDark
         ? [PIANO.N2, PIANO.N1]   // F#4 + D4  (falling — major 3rd interval)
         : [PIANO.N3, PIANO.N4];  // A4 + C#5  (rising — major 3rd interval)
-      pair.forEach(function(f, i) {
-        playPianoNote(f, t + i * 0.025, 2.8);
+      pair.forEach(function(f) {
+        playPianoNote(f, t, 9.0);
+        playShimmer(f, t, 9.0);
       });
     }
 
-    function instantFlip() {
+    // DOM-only theme flip (no audio). Used by both the manual click path
+    // (via instantFlip) and the loop's deterministic timer chain.
+    function applyThemeFlip() {
       const d = document.documentElement;
       const wasInDark = d.getAttribute('data-theme') === 'dark';
       const goingDark = !wasInDark;
@@ -241,7 +343,59 @@
       d.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       if (button) button.setAttribute('aria-pressed', goingDark ? 'true' : 'false');
+      return goingDark;
+    }
+
+    function instantFlip() {
+      const goingDark = applyThemeFlip();
       playResolveChord(goingDark);
+    }
+
+    // Loop cycle — JS-timer-driven audio rhythm, video plays in parallel for
+    // visual only. The press-note fires now; the resolve-chord + theme-flip
+    // fire at exactly +PRESS_TO_HIT_MS; the next cycle fires at +LOOP_BEAT_MS.
+    // No video timing dependency = no per-cycle load-latency jitter.
+    function fireCycle() {
+      if (!loopArmed) return;
+
+      // Direction: when unlocked, derives from current theme (so a manual
+      // dimmer click between cycles re-syncs). When locked, alternates an
+      // internal flag so the music still progresses without flipping theme.
+      let goingDark;
+      if (themeLocked) {
+        if (loopDirection === null) {
+          loopDirection = document.documentElement.getAttribute('data-theme') !== 'dark';
+        } else {
+          loopDirection = !loopDirection;
+        }
+        goingDark = loopDirection;
+      } else {
+        loopDirection = null;
+        goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
+      }
+
+      // Audio: press immediately (this is beat zero of the cycle)
+      playPressNote(goingDark);
+
+      // Visual: cat clip plays in parallel — but only when NOT locked. With
+      // theme locked, the paw motion would imply a theme change that won't
+      // happen, so we leave the cat off-screen and just play music.
+      if (!themeLocked) catCtl.play(goingDark);
+
+      // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
+      if (loopPressTimer) clearTimeout(loopPressTimer);
+      loopPressTimer = setTimeout(function() {
+        loopPressTimer = null;
+        if (!loopArmed) return;
+        if (!themeLocked) applyThemeFlip();
+        playResolveChord(goingDark);
+        // Schedule next cycle
+        if (loopNextTimer) clearTimeout(loopNextTimer);
+        loopNextTimer = setTimeout(function() {
+          loopNextTimer = null;
+          if (loopArmed) fireCycle();
+        }, LOOP_BEAT_MS - PRESS_TO_HIT_MS);
+      }, PRESS_TO_HIT_MS);
     }
 
     function playCatThenFlip() {
@@ -249,12 +403,10 @@
 
       const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
       const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
-      const safetyMs = hitAt * 1000 + 500;
-      if (button) button.disabled = true;
+      const seekFrom = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
+      const safetyMs = ((hitAt - seekFrom) / VIDEO_RATE) * 1000 + 500;
 
-      video.src = goingDark ? VIDEO_FWD : VIDEO_REV;
-      video.currentTime = 0;
-      frame.classList.add('is-playing');
+      catCtl.play(goingDark);
 
       let flipped = false;
       function doFlip() {
@@ -264,7 +416,6 @@
       }
 
       const safety = setTimeout(doFlip, safetyMs);
-
       function tick() {
         if (flipped) return;
         if (video.currentTime >= hitAt) {
@@ -274,27 +425,7 @@
         }
         requestAnimationFrame(tick);
       }
-
-      video.onended = function() {
-        frame.classList.remove('is-playing');
-        setTimeout(function() { if (button) button.disabled = false; }, 200);
-        // Loop continuation — 250ms of breath between cycles lets the resolve-
-        // chord reverb tail settle before the next press-note hits.
-        if (loopArmed) setTimeout(playCatThenFlip, 250);
-      };
-
-      const p = video.play();
-      if (p && p.then) {
-        p.then(function() { requestAnimationFrame(tick); })
-         .catch(function() {
-           clearTimeout(safety);
-           frame.classList.remove('is-playing');
-           if (button) button.disabled = false;
-           instantFlip();
-         });
-      } else {
-        requestAnimationFrame(tick);
-      }
+      requestAnimationFrame(tick);
     }
 
     window.toggleTheme = playCatThenFlip;
@@ -309,40 +440,123 @@
       });
     }
 
-    // Reduced-motion loop — instantFlip on a fixed cadence, since onended
-    // never fires (no video plays). Tempo matches the cat-cycle's effective
-    // beat so users in either mode hear the same musical pulse.
-    function startReducedLoop() {
-      if (loopReducedTimer) return;
-      loopReducedTimer = setInterval(function() {
-        if (!loopArmed) return stopReducedLoop();
-        instantFlip();
-      }, 2400);
-    }
-    function stopReducedLoop() {
-      if (loopReducedTimer) { clearInterval(loopReducedTimer); loopReducedTimer = null; }
-    }
-
     function setLoopUI(armed) {
       if (!loopBtn) return;
       loopBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
       loopBtn.classList.toggle('is-armed', armed);
     }
 
+    function setLockUI(locked) {
+      if (!lockBtn) return;
+      lockBtn.setAttribute('aria-pressed', locked ? 'true' : 'false');
+      lockBtn.classList.toggle('is-locked', locked);
+    }
+
+    function toggleThemeLock() {
+      themeLocked = !themeLocked;
+      setLockUI(themeLocked);
+      if (themeLocked) {
+        // Hide any cat clip in flight from the pre-lock cycle
+        catCtl.reset();
+      } else {
+        // Re-sync direction tracker to actual theme on next cycle
+        loopDirection = null;
+      }
+    }
+    window.toggleThemeLock = toggleThemeLock;
+
+    // Drone — D2 + D3 layered (sub-bass + bass). D2 alone is below most laptop
+    // speakers' rolloff (~150Hz), so we double it with D3 for audibility on any
+    // playback. Eno's "On Land" trick — octave-doubled drone reads as a single
+    // huge low tone but reproduces on small speakers.
+    // Fades in 4s on arm, fades out 4s on disarm. Re-arming during fade-out
+    // cancels the fade-out and ramps back up — no oscillator leak.
+    function startDrone() {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      const peak = 0.075;
+
+      // Re-arm during fade-out: cancel scheduled stop, re-fade-in
+      if (droneOsc && droneGain) {
+        const g = droneGain.gain;
+        g.cancelScheduledValues(t);
+        g.setValueAtTime(g.value, t);
+        g.exponentialRampToValueAtTime(peak, t + 3.0);
+        return;
+      }
+
+      const reverb = getReverb(ctx);
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(peak, t + 4.0);
+      gain.connect(ctx.destination);
+
+      // Two oscillators — D2 (sub) and D3 (audible-on-laptops bass).
+      // Slightly detuned for chorus shimmer at the low end.
+      const oscD2 = ctx.createOscillator();
+      oscD2.type = 'sine';
+      oscD2.frequency.value = PIANO.N1 / 4;  // D2 = 73.4Hz
+      oscD2.detune.value = -3;
+      oscD2.connect(gain);
+
+      const oscD3 = ctx.createOscillator();
+      oscD3.type = 'sine';
+      oscD3.frequency.value = PIANO.N1 / 2;  // D3 = 146.8Hz
+      oscD3.detune.value = +3;
+      oscD3.connect(gain);
+
+      // Light reverb send for spatial weight
+      const sendGain = ctx.createGain();
+      sendGain.gain.value = 0.22;
+      gain.connect(sendGain).connect(reverb);
+
+      oscD2.start();
+      oscD3.start();
+      droneOsc = { sub: oscD2, bass: oscD3 };
+      droneGain = gain;
+    }
+
+    function stopDrone() {
+      if (!droneOsc || !droneGain) return;
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = ctx.currentTime;
+      const oscRef = droneOsc;
+      const gainRef = droneGain;
+      droneOsc = null;
+      droneGain = null;
+      const g = gainRef.gain;
+      g.cancelScheduledValues(t);
+      g.setValueAtTime(g.value, t);
+      g.exponentialRampToValueAtTime(0.0001, t + 4.0);
+      try { oscRef.sub.stop(t + 4.5); } catch (e) {}
+      try { oscRef.bass.stop(t + 4.5); } catch (e) {}
+    }
+
+    // fireCycle now self-drives via setTimeout chain — reduced-motion path is
+    // handled inside fireCycle (skips video block when reduced is true).
     function startLoopCycle() {
-      if (reduced) { startReducedLoop(); return; }
-      // If a cycle is already in flight (button disabled), the existing
-      // onended handler will pick up loopArmed and continue — no kick needed.
-      if (button && button.disabled) return;
-      playCatThenFlip();
+      fireCycle();
     }
 
     function toggleLoop() {
       loopArmed = !loopArmed;
       try { sessionStorage.setItem('loop_armed', loopArmed ? '1' : '0'); } catch (e) {}
       setLoopUI(loopArmed);
-      if (loopArmed) startLoopCycle();
-      else stopReducedLoop();
+      if (loopArmed) {
+        // Loop owns the dimmer while running — manual clicks would conflict
+        if (button) button.disabled = true;
+        startLoopCycle();
+      } else {
+        if (loopPressTimer) { clearTimeout(loopPressTimer); loopPressTimer = null; }
+        if (loopNextTimer) { clearTimeout(loopNextTimer); loopNextTimer = null; }
+        // Clear lock state too — reset for next arming
+        if (themeLocked) { themeLocked = false; setLockUI(false); }
+        loopDirection = null;
+        catCtl.reset();
+        if (button) button.disabled = false;
+      }
     }
 
     window.toggleLoop = toggleLoop;
@@ -355,17 +569,52 @@
       if (sessionStorage.getItem('loop_armed') === '1') {
         loopArmed = true;
         setLoopUI(true);
-        if (reduced) {
-          startReducedLoop();
-        } else if (video) {
-          if (video.readyState >= 3) {
-            playCatThenFlip();
+        if (button) button.disabled = true;  // loop owns dimmer while armed
+
+        // Audio defer — if ctx is suspended (no user gesture on new page),
+        // wait for first interaction before starting drone + cycle. Otherwise
+        // events queue up on a frozen audio clock and slam together when
+        // ctx finally resumes.
+        function kickoff() {
+          if (!loopArmed) return;
+          if (reduced || !video || video.readyState >= 3) {
+            fireCycle();
           } else {
             video.addEventListener('loadeddata', function once() {
               video.removeEventListener('loadeddata', once);
-              if (loopArmed) playCatThenFlip();
+              if (loopArmed) fireCycle();
             });
           }
+        }
+
+        const ctx = ensureAudio();
+        if (ctx && ctx.state === 'running') {
+          kickoff();
+        } else if (ctx) {
+          // Try resume (some browsers honor cross-page gesture). If still
+          // suspended, defer until first user interaction.
+          const tryResume = ctx.resume();
+          if (tryResume && tryResume.then) {
+            tryResume.then(function() {
+              if (ctx.state === 'running') kickoff();
+              else deferKickoff();
+            }).catch(deferKickoff);
+          } else {
+            deferKickoff();
+          }
+        }
+
+        function deferKickoff() {
+          const handler = function() {
+            document.removeEventListener('pointerdown', handler);
+            document.removeEventListener('keydown', handler);
+            // Resume ctx now that we have a gesture
+            const c = ensureAudio();
+            if (c && c.state === 'suspended') c.resume();
+            if (loopArmed) kickoff();
+          };
+          document.addEventListener('pointerdown', handler, { once: true });
+          document.addEventListener('keydown', handler, { once: true });
         }
       }
     } catch (e) {}

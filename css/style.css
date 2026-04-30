@@ -1041,20 +1041,8 @@ body {
   color: var(--ink-muted);
 }
 
-/* About-page hare: woodcut engraving sized to column width, faded. */
-.home-hare {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 4rem 0 0;
-  opacity: 0.1;
-}
-
-[data-theme="dark"] .home-hare {
-  opacity: 0.15;
-  filter: invert(1);
-}
+/* About-page hare: parked. Asset at img/rabbits/hare-engraved.png stays
+   on disk for when the rabbit motif returns refined. */
 
 .site-colophon {
   display: flex;
