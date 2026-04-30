@@ -332,7 +332,7 @@
       const d = document.documentElement;
       const wasInDark = d.getAttribute('data-theme') === 'dark';
       const goingDark = !wasInDark;
-      const next = goingDark ? 'dark' : '';
+      const next = goingDark ? 'dark' : 'light';
       d.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       if (button) button.setAttribute('aria-pressed', goingDark ? 'true' : 'false');

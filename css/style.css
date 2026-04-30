@@ -460,6 +460,25 @@ p {
   --nav-border: #343331;  /* flexoki-850 */
 }
 
+/* Auto-dark for OS-level dark preference, unless user explicitly chose light.
+   Mirrors the variable redefinitions only — palette covers ~80% of dark mode.
+   The remaining `[data-theme="dark"] .selector` rules (kaomoji eye swap, dimmer
+   states, image filter inverts) still require an explicit toggle. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #100F0F;
+    --ink: #CECDC3;
+    --ink-light: #B7B5AC;
+    --ink-faint: #878580;
+    --ink-muted: #575653;
+    --rule: #d5d1c7;
+    --rule-light: #343331;
+    --accent: #3AA99F;
+    --accent-text: #3AA99F;
+    --nav-border: #343331;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -988,27 +1007,6 @@ body {
   margin: 1.6rem 0;
 }
 
-.home-dust {
-  position: absolute;
-  left: 76%;
-  bottom: 70%;
-  margin: 0;
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 0.82rem;
-  line-height: 1.35;
-  color: var(--ink-faint);
-  white-space: nowrap;
-  transform: translateX(-100%);
-}
-
-.home-dust__fleuron {
-  display: inline-block;
-  font-size: 0.95em;
-  vertical-align: 0.02em;
-  margin: 0 0.22em;
-}
-
 .home-plain .home-section h2 {
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -1504,20 +1502,6 @@ body {
   border-bottom: 1px solid var(--rule);
 }
 
-.stream-head-mark {
-  position: absolute;
-  top: 0;
-  left: 0.85rem;
-  width: auto;
-  height: 64px;
-  transform: translateY(-100%);
-  pointer-events: none;
-}
-
-[data-theme="dark"] .stream-head-mark {
-  filter: invert(1);
-}
-
 .page-stream .console-kicker {
   margin: 0;
   font-family: var(--serif);
@@ -1820,19 +1804,6 @@ body {
 
 .error-body {
   padding: 2rem 1.35rem 2.5rem;
-}
-
-.error-burrow {
-  display: block;
-  width: auto;
-  height: 96px;
-  margin: 0 0 1.25rem -0.4rem; /* nudge slightly left to align engraved ground line with text gutter */
-  opacity: 0.85;
-}
-
-[data-theme="dark"] .error-burrow {
-  filter: invert(1);
-  opacity: 0.7;
 }
 
 .error-body h1 {
