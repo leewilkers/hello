@@ -1,30 +1,16 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 @font-face {
-  font-family: 'Junicode';
-  src: url('/fonts/Junicode/Junicode.ttf') format('truetype');
-  font-weight: 400;
+  font-family: 'EB Garamond';
+  src: url('/fonts/EB-Garamond/EBGaramond.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Junicode';
-  src: url('/fonts/Junicode/Junicode-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Junicode';
-  src: url('/fonts/Junicode/Junicode-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Junicode';
-  src: url('/fonts/Junicode/Junicode-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
+  font-family: 'EB Garamond';
+  src: url('/fonts/EB-Garamond/EBGaramond-Italic.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: italic;
   font-display: swap;
 }
@@ -35,7 +21,7 @@ html { scroll-behavior: smooth; }
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
-  --reading: 'Junicode', 'Source Serif 4', Georgia, serif;
+  --reading: 'EB Garamond', 'Source Serif 4', Georgia, serif;
 }
 
 body {
@@ -48,7 +34,7 @@ body {
   font-feature-settings: "onum" 1, "ss02" 1;
 }
 
-/* Junicode reading face — scoped to About (home) prose and Shelf voice cards. */
+/* EB Garamond reading face — scoped to About (home) prose and Shelf voice cards. */
 .page-home .home-section p,
 .page-shelf .cell-note,
 .page-shelf .cell-quote,
@@ -176,49 +162,7 @@ img { display: block; }
   text-decoration: none;
 }
 
-/* ── dimmer toggle ── */
-
-.dimmer {
-  width: 14px;
-  height: 26px;
-  background: none;
-  border: 1.5px solid var(--ink-muted);
-  border-radius: 7px;
-  cursor: pointer;
-  position: relative;
-  padding: 0;
-  margin-left: 0.5rem;
-}
-
-.dimmer:hover {
-  border-color: var(--ink-light);
-}
-
-.dimmer::after {
-  content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: var(--ink-muted);
-  border-radius: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: top 200ms ease, background 200ms ease;
-  top: 2px;
-}
-
-.dimmer:hover::after {
-  background: var(--ink-light);
-}
-
-[data-theme="dark"] .dimmer::after {
-  top: calc(100% - 10px);
-  background: var(--accent);
-}
-
-[data-theme="dark"] .dimmer {
-  border-color: var(--ink-faint);
-}
+/* ── dimmer toggle (TE-style — see also block ~line 548 for full chiclet redesign) ── */
 
 .page {
   max-width: 520px;
@@ -545,10 +489,14 @@ body {
   text-decoration-color: var(--ink);
 }
 
+/* DIMMER — TE faceplate sibling of .loop-tally
+   Same polymer/shadow/bevel vocabulary as the LOOP keycap so the two read as
+   one instrument panel. Continuous L↔R slug (continuous-feeling slide) vs
+   LOOP's binary punch-out — affordance shape ↔ degrees of freedom. */
 .dimmer {
   width: auto;
   height: auto;
-  padding: 0.1rem 0.35rem;
+  padding: 4px 6px 5px;
   border: 0;
   border-radius: 0;
   background: none;
@@ -556,9 +504,8 @@ body {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.22rem;
+  gap: 4px;
   font-family: var(--mono);
-  font-size: 0.95rem;
   line-height: 1;
 }
 
@@ -566,26 +513,34 @@ body {
 
 .dimmer-icons {
   display: inline-flex;
-  gap: 0.55rem;
+  gap: 14px;
+  width: 32px;
+  justify-content: space-between;
+  padding: 0 2px;
 }
 
+/* Sun/moon — debossed glyphs (south-edge highlight = printed-on feel).
+   Active glyph (matching current theme) is dark ink; inactive is muted. */
 .dimmer-sun,
 .dimmer-moon {
   display: inline-block;
-  color: var(--ink-muted);
+  font-size: 9px;
+  line-height: 1;
+  color: color-mix(in srgb, var(--ink) 35%, transparent);
+  text-shadow: 0 0.5px 0 color-mix(in srgb, var(--bg) 65%, transparent);
   transition: color 160ms ease;
 }
 
 :root .dimmer-sun {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 88%, transparent);
 }
 
 [data-theme="dark"] .dimmer-sun {
-  color: var(--ink-muted);
+  color: color-mix(in srgb, var(--ink) 32%, transparent);
 }
 
 [data-theme="dark"] .dimmer-moon {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 88%, transparent);
 }
 
 .dimmer:hover .dimmer-sun,
@@ -593,73 +548,79 @@ body {
   color: var(--ink);
 }
 
-/* Skeuomorphic two-position switch — Teenage Engineering feel
-   Track is a milled groove; slug is a hard-edged thumb-grip that snaps L/R. */
+/* Track — milled cavity. Cavity floor darkens toward center via radial
+   gradient; top wall throws shadow, bottom wall catches light. */
 .dimmer-track {
   position: relative;
   display: block;
-  width: 1.7rem;
-  height: 9px;
-  background: color-mix(in srgb, var(--ink) 14%, transparent);
-  border-radius: 2px;
-  box-shadow:
-    inset 0 1px 1.5px color-mix(in srgb, var(--ink) 38%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, var(--bg) 60%, transparent),
-    0 1px 0 color-mix(in srgb, var(--bg) 80%, transparent);
-}
-
-.dimmer-knob {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  width: calc(50% - 1px);
-  height: 7px;
-  border-radius: 1.5px;
+  width: 32px;
+  height: 13px;
+  border-radius: 6.5px;
   background:
-    repeating-linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--bg) 22%, transparent) 0 1px,
-      transparent 1px 2px
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--bg) 28%, var(--ink)) 0%,
-      var(--ink) 55%,
-      color-mix(in srgb, var(--ink) 80%, #000) 100%
-    );
+    radial-gradient(ellipse 80% 60% at 50% 50%,
+      color-mix(in srgb, #000 30%, var(--bg)) 0%,
+      color-mix(in srgb, #000 16%, var(--bg)) 70%,
+      color-mix(in srgb, var(--ink) 14%, var(--bg)) 100%);
   box-shadow:
-    0 1px 1.5px color-mix(in srgb, var(--ink) 55%, transparent),
-    inset 0 1px 0 color-mix(in srgb, var(--bg) 30%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, #000 40%, transparent);
-  transition:
-    left 280ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 90ms cubic-bezier(0.4, 0, 1, 1),
-    box-shadow 90ms ease-out;
-  transform-origin: center;
-}
-
-[data-theme="dark"] .dimmer-knob {
-  left: calc(50% + 0px);
-}
-
-/* press-down feedback — slug compresses, track sinks deeper */
-.dimmer:active .dimmer-knob {
-  transform: scaleY(0.7);
-  box-shadow:
-    0 0 0 color-mix(in srgb, var(--ink) 0%, transparent),
-    inset 0 1px 0 color-mix(in srgb, var(--bg) 20%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, #000 55%, transparent);
-}
-
-.dimmer-track {
+    inset 0 1.5px 2px color-mix(in srgb, #000 42%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 70%, transparent),
+    inset 1px 0 0 color-mix(in srgb, #000 18%, transparent),
+    inset -1px 0 0 color-mix(in srgb, #000 18%, transparent),
+    0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent);
   transition: box-shadow 90ms ease-out;
 }
 
+/* Slug — sibling part to .loop-tally keycap. Same crown highlight, same
+   6-layer bevel. Travels L↔R; bounce on slide makes the loop tick visible. */
+.dimmer-knob {
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  width: 13px;
+  height: 10px;
+  border-radius: 3px;
+  background:
+    radial-gradient(ellipse 130% 70% at 50% -10%,
+      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
+      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
+      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
+  box-shadow:
+    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
+    0 1px 0 color-mix(in srgb, #000 32%, transparent),
+    0 1.5px 2px color-mix(in srgb, #000 22%, transparent);
+  transition:
+    left 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
+    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+[data-theme="dark"] .dimmer-knob {
+  left: calc(100% - 14.5px);
+}
+
+/* Press — slug travels 0.5px down into its track; bevel inverts. Same
+   timing/bezier as LOOP key so both controls feel like the same product. */
+.dimmer:active .dimmer-knob {
+  transform: translateY(0.5px);
+  box-shadow:
+    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent);
+}
+
+/* Track deepens on press to sell the slug-pushed-in feel */
 .dimmer:active .dimmer-track {
   box-shadow:
-    inset 0 2px 2.5px color-mix(in srgb, var(--ink) 55%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, var(--bg) 50%, transparent),
-    0 0.5px 0 color-mix(in srgb, var(--bg) 60%, transparent);
+    inset 0 2.5px 3px color-mix(in srgb, #000 55%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 55%, transparent),
+    inset 1px 0 0 color-mix(in srgb, #000 28%, transparent),
+    inset -1px 0 0 color-mix(in srgb, #000 28%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -679,68 +640,100 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.22rem;
-  padding: 0.22rem 0.5rem 0.18rem;
+  gap: 3px;
+  padding: 4px 8px 5px;
   border: 0;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  border-radius: 2.5px;
+  /* Polymer keycap — radial highlight at top fakes the molded crown.
+     Surface tints toward ink in both themes so the key reads as a discrete
+     hardware control floating above the page. */
+  background:
+    radial-gradient(ellipse 130% 70% at 50% -10%,
+      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
+      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
+      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
+  /* Layered bevel — top hairline crown, bottom edge shadow, side chamfers,
+     baseplate drop. Reads as a real injection-molded chiclet from across the room. */
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--bg) 70%, transparent),
-    inset 0 -1px 1px color-mix(in srgb, var(--ink) 18%, transparent),
-    0 1px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
+    0 1px 0 color-mix(in srgb, #000 28%, transparent),
+    0 1.5px 2px color-mix(in srgb, #000 18%, transparent);
   cursor: pointer;
   font-family: var(--mono);
   line-height: 1;
-  transition: box-shadow 90ms ease-out, transform 90ms ease-out;
+  transition:
+    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
+    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1);
 }
 
+/* LED in a recessed well — single element, two states.
+   Off: only inset shadow (dark dot in a pit).
+   Armed: outset bloom appears (lens powered on) plus hot center highlight. */
 .loop-tally-led {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: color-mix(in srgb, var(--ink) 18%, transparent);
-  box-shadow: inset 0 0.5px 1px color-mix(in srgb, var(--ink) 35%, transparent);
-  transition: background 140ms ease, box-shadow 200ms ease;
+  background: color-mix(in srgb, #000 70%, var(--ink));
+  box-shadow:
+    inset 0 0.5px 1px color-mix(in srgb, #000 80%, transparent),
+    0 0.5px 0 color-mix(in srgb, var(--bg) 50%, transparent);
+  transition: background 100ms ease, box-shadow 200ms ease;
 }
 
+/* Engraved label — printed-on-plastic feel via 0.5px highlight beneath each
+   glyph (south-edge highlight = debossed; north-edge would be embossed). */
 .loop-tally-label {
-  font-size: 0.58rem;
-  letter-spacing: 0.09em;
-  color: color-mix(in srgb, var(--ink-light) 75%, transparent);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  color: color-mix(in srgb, var(--ink) 72%, transparent);
+  text-shadow: 0 0.5px 0 color-mix(in srgb, var(--bg) 65%, transparent);
 }
 
 .loop-tally:hover .loop-tally-label {
-  color: var(--ink-light);
+  color: var(--ink);
 }
 
+/* Press — keycap travels 1px down into its well; bevel inverts (top edge
+   becomes shadow, baseplate drop collapses). Snap timing 70ms with sharp
+   bezier ends — no spring. */
 .loop-tally:active {
-  transform: translateY(0.5px);
+  transform: translateY(1px);
   box-shadow:
-    inset 0 1.5px 2px color-mix(in srgb, var(--ink) 30%, transparent),
-    inset 0 -1px 0 color-mix(in srgb, var(--bg) 50%, transparent),
-    0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
+    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent);
 }
 
-/* Armed — tally LED lights warm orange (Flexoki) with soft glow */
+/* Armed — LED lens lights warm orange (Flexoki). Hot center, tight bloom,
+   then a softer outer halo. Three concentric shadows = real lit-LED depth. */
 .loop-tally.is-armed .loop-tally-led {
   background: #DA702C;
   box-shadow:
-    0 0 4px color-mix(in srgb, #DA702C 70%, transparent),
-    0 0 1px color-mix(in srgb, #DA702C 90%, transparent),
-    inset 0 0.5px 0.5px color-mix(in srgb, #FFFCF0 40%, transparent);
+    inset 0 0.5px 0.5px color-mix(in srgb, #FFE9C8 70%, transparent),
+    0 0 0 0.5px color-mix(in srgb, #DA702C 95%, transparent),
+    0 0 2.5px #DA702C,
+    0 0 6px color-mix(in srgb, #DA702C 55%, transparent);
 }
 
 .loop-tally.is-armed .loop-tally-label {
   color: var(--ink);
 }
 
-/* Dark theme — amber instead of orange (Flexoki yellow-600), reads cleaner on black */
+/* Dark theme — amber lens (Flexoki yellow-600), reads cleaner on black bg */
 [data-theme="dark"] .loop-tally.is-armed .loop-tally-led {
   background: #D0A215;
   box-shadow:
-    0 0 4px color-mix(in srgb, #D0A215 70%, transparent),
-    0 0 1px color-mix(in srgb, #D0A215 90%, transparent),
-    inset 0 0.5px 0.5px color-mix(in srgb, #100F0F 40%, transparent);
+    inset 0 0.5px 0.5px color-mix(in srgb, #FFE9C8 60%, transparent),
+    0 0 0 0.5px color-mix(in srgb, #D0A215 95%, transparent),
+    0 0 2.5px #D0A215,
+    0 0 6px color-mix(in srgb, #D0A215 55%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -951,34 +944,24 @@ body {
   color: var(--ink-muted);
 }
 
-/* Home footer motif: burrow anchored left, dotted-trail + rabbit anchored right.
-   Pinned to viewport bottom. */
+/* Home footer motif: burrow + dotted trail + leaping hare, single composition.
+   Pinned to viewport bottom. Asset is tight-cropped (16:1) so we can let it
+   render at natural height with no manual cropping. */
 .home-about-trail {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 130px;
-  opacity: 0.85;
+  width: 100vw;
   pointer-events: none;
-  overflow: hidden;
   z-index: 1;
 }
 
-.home-about-trail__burrow {
-  position: absolute;
-  left: 2.5rem;
-  bottom: 0;
-  height: 105px;
-  width: auto;
-}
-
-.home-about-trail__runner {
-  position: absolute;
-  right: -8%;
-  bottom: 8px;
-  width: 55%;
+.home-about-trail img {
+  display: block;
+  width: 100%;
   height: auto;
+  opacity: 0.88;
 }
 
 [data-theme="dark"] .home-about-trail {
