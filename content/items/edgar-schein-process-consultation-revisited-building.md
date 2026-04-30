@@ -3,7 +3,7 @@ author: "Edgar Schein"
 title: "Process Consultation Revisited: Building the Helping Relationship"
 type: book
 image: "/img/covers/edgar-schein-process-consultation-revisited-building.jpg"
-dest: shelf
+dest: stream
 topic: "Organizations, Institutions & Strategy"
 url: "https://www.goodreads.com/book/show/341190"
 dek: "Addison-Wesley, 1998"

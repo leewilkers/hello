@@ -3,7 +3,7 @@ author: "Boaventura de Sousa Santos"
 title: "Another Knowledge Is Possible: Beyond Northern Epistemologies"
 type: book
 image: "/img/covers/santos-another-knowledge-is-possible.jpg"
-dest: shelf
+dest: remove
 topic: "Potpourri"
 url: "https://www.versobooks.com/products/1996-another-knowledge-is-possible"
 order: 50

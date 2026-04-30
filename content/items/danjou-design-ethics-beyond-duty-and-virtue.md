@@ -3,7 +3,7 @@ author: "Philippe d'Anjou"
 title: "Design Ethics Beyond Duty and Virtue"
 type: book
 image: "/img/covers/danjou-design-ethics-beyond-duty-and-virtue.jpg"
-dest: shelf
+dest: stream
 topic: "Design"
 url: "https://www.cambridgescholars.com/product/978-1-4438-9123-3"
 order: 50

@@ -3,7 +3,7 @@ author: "userinterface.wiki"
 title: "userinterface.wiki"
 type: site
 image: "/img/covers/userinterface-wiki.jpg"
-dest: shelf
+dest: stream
 topic: "Interfaces & Interaction"
 url: "https://userinterface.wiki"
 order: 50

@@ -3,7 +3,7 @@ author: Indi Young
 title: 'Mental Models: Aligning Design Strategy with Human Behavior'
 type: book
 image: /img/covers/young-mental-models.jpg
-dest: shelf
+dest: stream
 topic: Design
 url: 'https://rosenfeldmedia.com/books/mental-models/'
 order: 50

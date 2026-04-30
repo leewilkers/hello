@@ -3,7 +3,7 @@ author: "The Maintainers"
 title: "The Maintainers"
 type: site
 image: "/img/covers/the-maintainers.jpg"
-dest: shelf
+dest: stream
 topic: "Infrastructure & Maintenance"
 url: "https://themaintainers.org"
 order: 1
