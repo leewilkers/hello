@@ -49,6 +49,8 @@ body {
 .page-shelf .cell-quote,
 .page-shelf .cell-blurb {
   font-family: var(--reading);
+  font-size: 1.0625rem;
+  line-height: 1.75;
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variant-ligatures: common-ligatures contextual;
 }
@@ -772,6 +774,70 @@ body {
   .loop-tally-led {
     transition: none;
   }
+}
+
+/* THEME LOCK — appears only when LOOP is armed (sibling combinator on .is-armed).
+   Same TE keycap vocabulary, smaller footprint. Locked-state lights the icon
+   accent like the LOOP LED does when armed. */
+.theme-lock {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 2.5px;
+  background:
+    radial-gradient(ellipse 130% 70% at 50% -10%,
+      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
+      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
+      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
+  box-shadow:
+    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
+    0 1px 0 color-mix(in srgb, #000 32%, transparent),
+    0 1.5px 2px color-mix(in srgb, #000 22%, transparent);
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+  cursor: pointer;
+  transition:
+    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
+    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1),
+    color 140ms ease;
+}
+
+/* Reveal when adjacent LOOP key is armed */
+.loop-tally.is-armed ~ .theme-lock {
+  display: inline-flex;
+}
+
+.theme-lock:hover {
+  color: var(--ink);
+}
+
+.theme-lock:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
+    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
+    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
+    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent),
+    0 0 0 color-mix(in srgb, #000 0%, transparent);
+}
+
+.theme-lock.is-locked {
+  color: #DA702C;
+}
+
+[data-theme="dark"] .theme-lock.is-locked {
+  color: #D0A215;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-lock { transition: none; }
 }
 
 .page {
