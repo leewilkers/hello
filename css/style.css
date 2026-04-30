@@ -1122,7 +1122,7 @@ body:has(.home-trail-band) .page-home {
      (2172×156, aspect ~13.9:1), so width:100% + height:auto gives the
      band's height directly from the image's natural proportions —
      no object-fit gymnastics, no transparent padding. */
-  opacity: 0.18;
+  opacity: 0.13;
 }
 
 [data-theme="dark"] .home-trail-band img {
@@ -1130,7 +1130,7 @@ body:has(.home-trail-band) .page-home {
      now alpha-encoded (no rectangular bg), invert acts only on the
      ink pixels — no rectangle artifact. */
   filter: invert(1);
-  opacity: 0.12;
+  opacity: 0.09;
 }
 
 .site-colophon {
