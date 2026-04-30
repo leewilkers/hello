@@ -13,6 +13,6 @@ note: ''
 blurb: >-
   Florence Nightingale David's 1962 history of probability and statistics from
   antiquity to Newton.
-quote: ''
+quote: ""
 links: []
 ---

@@ -11,6 +11,6 @@ order: 50
 dek: 'Data & Society, 2021'
 note: ''
 blurb: An Xiao Mina on how expertise creates narrow viewpoints on complex problems.
-quote: ''
+quote: ""
 links: []
 ---

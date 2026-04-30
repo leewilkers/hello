@@ -8,10 +8,7 @@ topic: 'Technology & Ways of Living'
 url: 'https://archive.org/details/computerpowerhum0000weiz_v0i3'
 dek: 'W. H. Freeman, 1976'
 note: ''
-quote: >-
-  I had not realized that extremely short exposures to a relatively simple
-  computer program could induce powerful delusional thinking in quite normal
-  people
+quote: ""
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Computer_Power_and_Human_Reason'

@@ -8,7 +8,7 @@ topic: "Design"
 url: "https://archive.org/details/reflectivepracti0000scho"
 dek: "Basic Books, 1983"
 note: ""
-quote: "in the swampy lowlands, problems are messy and confusing and incapable of technical solution. The irony is that in the swamp lie the problems of greatest human concern."
+quote: ""
 links:
   - label: "wiki (concept)"
     url: "https://en.wikipedia.org/wiki/Reflective_practice"

@@ -5,7 +5,7 @@ type: essay
 image: /img/covers/ursula-k-le-guin-a-rant-about-technology.jpg
 dest: shelf
 note: ''
-quote: as if steel saucepans grew on trees
+quote: ""
 topic: 'Technology & Ways of Living'
 url: 'https://www.ursulakleguin.com/a-rant-about-technology'
 dek: '2005'

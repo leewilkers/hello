@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Robert Michael Pyle's essay on the compounding cycle by which disconnection
   from nature breeds indifference that accelerates further habitat loss.
-quote: What is the extinction of the condor to a child who's never known a wren?
+quote: ""
 links: []
 ---

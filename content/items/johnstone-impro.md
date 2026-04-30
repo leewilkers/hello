@@ -13,9 +13,6 @@ note: ''
 blurb: >-
   Keith Johnstone's 1979 manual on improvisation — status, spontaneity,
   narrative, and mask work.
-quote: >-
-  There are people who prefer to say 'Yes,' and there are people who prefer to
-  say 'No.' Those who say 'Yes' are rewarded by the adventures they have, and
-  those who say 'No' are rewarded by the safety they attain.
+quote: ""
 links: []
 ---

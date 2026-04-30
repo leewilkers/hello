@@ -8,7 +8,7 @@ topic: "Ethics & Moral Philosophy"
 url: "https://press.princeton.edu/books/paperback/9780691169163/primates-and-philosophers"
 dek: "Princeton, 2006"
 note: ""
-quote: "‘it’s the animal in us,’ we often hear when we’ve been bad. But why not when we’re good?"
+quote: ""
 links:
   - label: "archive.org"
     url: "https://archive.org/details/primatesphilosop0000waal"

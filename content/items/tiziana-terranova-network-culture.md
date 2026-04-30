@@ -8,7 +8,7 @@ topic: "Tech / Web Culture"
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
 note: ""
-quote: "simultaneously voluntarily given and unwaged, enjoyed and exploited"
+quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Tiziana_Terranova"

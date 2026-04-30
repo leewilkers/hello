@@ -13,6 +13,6 @@ blurb: >-
   Nelson Goodman's 1968 analytic philosophy of art arguing that artworks are
   symbolic systems whose function is not to resemble reality but to denote,
   express, or exemplify.
-quote: ''
+quote: ""
 links: []
 ---

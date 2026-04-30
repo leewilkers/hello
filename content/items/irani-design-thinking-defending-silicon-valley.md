@@ -14,6 +14,6 @@ note: ''
 blurb: >-
   Lilly Irani's 2018 Catalyst essay arguing that 'design thinking' naturalizes
   empathy as expertise held by Silicon Valley elites.
-quote: ''
+quote: ""
 links: []
 ---

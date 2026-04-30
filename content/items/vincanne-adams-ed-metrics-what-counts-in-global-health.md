@@ -8,7 +8,7 @@ topic: "Measurement, Value & Scale"
 url: "https://www.dukeupress.edu/metrics"
 dek: "Duke, 2016"
 note: ""
-quote: "these days, lacking data may be even more tragic than lacking health"
+quote: ""
 links:
   - label: "review"
     url: "https://blogs.lse.ac.uk/lsereviewofbooks/2017/01/18/book-review-metrics-what-counts-in-global-health-edited-by-vincanne-adams/"

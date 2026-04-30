@@ -11,6 +11,6 @@ order: 50
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Homo_Ludens'
-quote: civilization arises and unfolds in and as play
+quote: ""
 blurb: Johan Huizinga's 1938 study of play as a foundational element of culture.
 ---

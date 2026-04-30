@@ -11,8 +11,6 @@ links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Technics_and_Civilization'
 note: ''
-quote: >-
-  one ate, not upon feeling hungry, but when prompted by the clock: one slept,
-  not when one was tired, but when the clock sanctioned it
+quote: ""
 order: 3
 ---

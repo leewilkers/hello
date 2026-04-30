@@ -15,6 +15,6 @@ blurb: >-
   Diana Forsythe's 1996 paper showing that designers of an AI patient-education
   system built in a physician's worldview while believing they produced a
   neutral tool.
-quote: ''
+quote: ""
 links: []
 ---

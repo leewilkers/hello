@@ -14,6 +14,6 @@ note: ''
 blurb: >-
   Greg Epstein's 2024 MIT Press argument that technology has become the dominant
   faith of the 21st century, calling for critical tech agnosticism.
-quote: ''
+quote: ""
 links: []
 ---

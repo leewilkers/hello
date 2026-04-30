@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Indi Young's 2008 guide to building research-grounded maps of users'
   underlying goals and reasoning.
-quote: ''
+quote: ""
 links: []
 ---

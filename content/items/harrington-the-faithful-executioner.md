@@ -14,6 +14,6 @@ note: ''
 blurb: >-
   Joel F. Harrington's 2013 history of Meister Frantz Schmidt, Nuremberg's
   executioner for over forty years, reconstructed from his personal journal.
-quote: ''
+quote: ""
 links: []
 ---

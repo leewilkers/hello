@@ -8,7 +8,7 @@ topic: "Organizations, Institutions & Strategy"
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
 note: ""
-quote: "interviews, conventionally conducted, were meaningless. Conditioned cliches were certain to come."
+quote: ""
 links:
   - label: "wiki (author)"
     url: "https://en.wikipedia.org/wiki/Studs_Terkel"

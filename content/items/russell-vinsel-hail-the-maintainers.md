@@ -8,7 +8,7 @@ topic: "Infrastructure & Maintenance"
 url: "https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"
 dek: "Aeon, 2016"
 note: ""
-quote: "the most unappreciated and undervalued forms of labor involve the maintenance of existing things"
+quote: ""
 order: 3
 links: []
 ---

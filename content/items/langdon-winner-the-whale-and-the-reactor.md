@@ -8,7 +8,7 @@ topic: "Tech History & Critique"
 url: "https://sciencepolicy.colorado.edu/students/envs_5110/whale_reactor.pdf"
 dek: "University of Chicago Press, 1986"
 note: ""
-quote: "if you have cornucopia in your grasp, you do not worry about its shape"
+quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Langdon_Winner"

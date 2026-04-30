@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Sean Goedecke's 2025 blog post applying James C. Scott's concept of legibility
   to large software companies.
-quote: ''
+quote: ""
 links: []
 ---

@@ -13,8 +13,6 @@ note: ''
 blurb: >-
   Susan Sontag's 2003 examination of war photography and the ethics of
   spectatorship.
-quote: >-
-  Compassion is an unstable emotion. It needs to be translated into action, or
-  it withers.
+quote: ""
 links: []
 ---

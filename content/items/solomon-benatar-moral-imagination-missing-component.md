@@ -9,6 +9,6 @@ url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.002
 dek: "PLoS Medicine, 2005"
 links: []
 note: ""
-quote: "we lack the capacity to imagine how our actions affect others whose lives we cannot see"
+quote: ""
 order: 10
 ---

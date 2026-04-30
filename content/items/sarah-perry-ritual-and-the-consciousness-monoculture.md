@@ -10,9 +10,7 @@ url: >-
 dek: 'Ribbonfarm, 2015'
 source: ribbonfarm.com
 note: ''
-quote: >-
-  we have replaced ritual with individual choice, and individual choice is
-  lonely
+quote: ""
 order: 23
 links:
   - label: author (Ribbonfarm)

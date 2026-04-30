@@ -8,7 +8,7 @@ topic: "Furniture & Craft"
 url: "https://godine.com/products/why-we-make-things-and-why-it-matters"
 dek: "Godine, 2013"
 note: ""
-quote: "in the workshop, wishing won't make it so"
+quote: ""
 order: 9
 links: []
 ---

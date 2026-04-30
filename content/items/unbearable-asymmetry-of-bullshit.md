@@ -10,8 +10,6 @@ order: 50
 dek: 'Quillette, 2016'
 note: ''
 blurb: Brian Earp's 2016 essay applying Brandolini's Law to scientific publishing.
-quote: >-
-  The amount of energy necessary to refute bullshit is an order of magnitude
-  bigger than to produce it.
+quote: ""
 links: []
 ---

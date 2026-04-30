@@ -12,6 +12,6 @@ links:
   - label: lectures
     url: 'https://archive.org/details/the-real-world-of-technology/part-1.mp3'
 note: ''
-quote: 'in political terms, prescriptive technologies are designs for compliance'
+quote: ""
 order: 2
 ---

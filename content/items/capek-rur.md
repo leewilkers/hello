@@ -10,6 +10,6 @@ order: 50
 dek: "MIT Press, 2004"
 note: ""
 blurb: "Karel Čapek's 1920 play that introduced the word 'robot.'"
-quote: "The product of the human brain has escaped the control of human hands. This is the comedy of science."
+quote: ""
 links: []
 ---

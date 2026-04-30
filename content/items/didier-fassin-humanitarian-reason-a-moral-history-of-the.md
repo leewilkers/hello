@@ -8,7 +8,7 @@ topic: "Ethics & Moral Philosophy"
 url: "https://www.ucpress.edu/books/humanitarian-reason/paper"
 dek: "UC Press, 2011"
 note: ""
-quote: "inequality is replaced by exclusion, domination is transformed into misfortune, injustice is articulated as suffering, violence is expressed in terms of trauma"
+quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Didier_Fassin"

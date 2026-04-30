@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Stephen Toulmin's 1988 American Scholar essay arguing for a recovery of
   context-sensitive practical wisdom alongside formal method.
-quote: ''
+quote: ""
 links: []
 ---

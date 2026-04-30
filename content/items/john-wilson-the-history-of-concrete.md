@@ -9,7 +9,7 @@ url: "https://variety.com/2026/film/reviews/the-history-of-concrete-review-john-
 dek: "Magnolia Pictures, 2026"
 source: "Variety"
 note: ""
-quote: "the least interesting subject imaginable.\" \"gum is like the bird shit of people"
+quote: ""
 order: 1
 links:
   - label: "IMDB"

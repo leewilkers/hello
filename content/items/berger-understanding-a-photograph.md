@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Geoff Dyer–edited selection of John Berger's essays on photography, ranging
   across 40 years.
-quote: ''
+quote: ""
 links: []
 ---

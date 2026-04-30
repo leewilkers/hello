@@ -10,6 +10,6 @@ order: 50
 dek: "Yale University Press, 2006"
 note: ""
 blurb: "Yochai Benkler's 2006 argument that networked technologies enable peer-based, non-market social production."
-quote: "Information, knowledge, and culture are central to human freedom and human development."
+quote: ""
 links: []
 ---

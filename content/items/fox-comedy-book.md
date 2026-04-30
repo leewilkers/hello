@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Jesse David Fox's 2023 account of how comedy became the dominant cultural form
   of the early 21st century.
-quote: ''
+quote: ""
 links: []
 ---

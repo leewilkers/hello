@@ -11,6 +11,6 @@ order: 50
 dek: 'Free Press, 1986'
 note: ''
 blurb: ''
-quote: ''
+quote: ""
 links: []
 ---

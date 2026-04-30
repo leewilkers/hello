@@ -13,6 +13,6 @@ blurb: >-
   Ariella Azoulay's 2008 argument that photography constitutes a civil contract:
   anyone depicted becomes a member of a 'citizenry of photography' with mutual
   obligations.
-quote: ''
+quote: ""
 links: []
 ---

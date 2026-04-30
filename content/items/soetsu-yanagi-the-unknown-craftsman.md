@@ -13,6 +13,6 @@ links:
   - label: "archive.org"
     url: "https://archive.org/details/unknowncraftsman0000yana"
 note: ""
-quote: "the plain and unagitated, the uncalculated, the harmless, the straightforward, the natural, the innocent, the humble, the modest: where does beauty lie if not in these qualities?"
+quote: ""
 order: 18
 ---

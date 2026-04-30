@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Kaidi Wu and David Dunning on hypocognition — lacking conceptual vocabulary to
   perceive, name, or reason about a phenomenon.
-quote: ''
+quote: ""
 links: []
 ---

@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Sam Dragga and Dan Voss's 2001 paper arguing that conventional data graphics
   depicting death and injury achieve 'inhumanity as though it were objectivity.'
-quote: ''
+quote: ""
 links: []
 ---

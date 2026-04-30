@@ -8,7 +8,7 @@ topic: "Potpourri"
 url: "https://chsmc.org/2025/01/archivists/"
 dek: "chsmc.org, January 2025"
 note: ""
-quote: "preservation is not the default on the internet; it is a choice that has to be made again and again"
+quote: ""
 order: 6
 links: []
 ---

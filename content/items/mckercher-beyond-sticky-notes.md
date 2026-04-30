@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Kelly Ann McKercher's 2020 guide to co-design — covering the mindsets and
   methods required to genuinely share power with communities.
-quote: ''
+quote: ""
 links: []
 ---

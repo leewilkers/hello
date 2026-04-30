@@ -10,6 +10,6 @@ order: 50
 dek: 'Aperture, 2013'
 note: ''
 blurb: Fred Ritchin's 2013 Aperture book on photojournalism in the digital era.
-quote: ''
+quote: ""
 links: []
 ---

@@ -11,6 +11,6 @@ links:
   - label: BBC series (archive.org)
     url: 'https://archive.org/details/WaysofSeeing'
 note: ''
-quote: seeing comes before words
+quote: ""
 order: 24
 ---

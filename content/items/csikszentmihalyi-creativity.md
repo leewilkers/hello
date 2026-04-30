@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Mihaly Csikszentmihalyi's 1996 study based on interviews with 91 creative
   individuals examining flow states and creative contribution.
-quote: ''
+quote: ""
 links: []
 ---

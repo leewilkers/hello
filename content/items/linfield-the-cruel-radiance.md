@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Susie Linfield's 2010 defense of looking at photographs of political violence
   — arguing against Sontag and the postmoderns.
-quote: ''
+quote: ""
 links: []
 ---

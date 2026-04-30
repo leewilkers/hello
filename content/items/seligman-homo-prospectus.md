@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Seligman, Railton, Baumeister, and Sripada's argument that the defining human
   capacity is prospection — simulating and evaluating futures — not memory.
-quote: ''
+quote: ""
 links: []
 ---

@@ -10,9 +10,6 @@ order: 50
 dek: 'ribbonfarm.com, 2014'
 note: ''
 blurb: ''
-quote: >-
-  Crash-only programs crash safely and recover quickly. There is only one way to
-  stop such software—by crashing it—and only one way to bring it up—by
-  initiating recovery.
+quote: ""
 links: []
 ---

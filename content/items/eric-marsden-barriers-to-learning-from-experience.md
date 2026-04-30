@@ -8,7 +8,7 @@ topic: "Methods, Evidence & Judgement"
 url: "https://risk-engineering.org/static/PDF/slides-barriers-learning.pdf"
 dek: "risk-engineering.org"
 note: ""
-quote: "the social costs of accidents make learning very important; the politics of blame, however, make learning very difficult"
+quote: ""
 order: 38
 links:
   - label: "risk-engineering.org"

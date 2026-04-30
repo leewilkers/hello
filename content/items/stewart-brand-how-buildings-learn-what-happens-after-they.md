@@ -11,6 +11,6 @@ links:
   - label: "BBC documentary"
     url: "https://www.youtube.com/watch?v=maTkAcDbrEY"
 note: ""
-quote: "almost no buildings adapt well. They’re designed not to adapt; also budgeted and financed not to, constructed not to, administered not to, maintained not to, regulated and taxed not to, even remodeled not to."
+quote: ""
 order: 16
 ---

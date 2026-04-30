@@ -10,6 +10,6 @@ order: 50
 dek: "Knopf, 2021"
 note: ""
 blurb: "Kazuo Ishiguro's 2021 novel narrated by Klara, an Artificial Friend."
-quote: "There was something very special, but it wasn't inside Josie. It was inside those who loved her."
+quote: ""
 links: []
 ---

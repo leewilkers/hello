@@ -8,7 +8,7 @@ topic: "Global Health, Aid & Development"
 url: "https://practicalactionpublishing.com/book/432/whose-reality-counts"
 dek: "Intermediate Technology Publications, 1997"
 note: ""
-quote: "whose reality counts? All the deceit of development lies in who answers that question."
+quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Robert_Chambers_(development_scholar)"

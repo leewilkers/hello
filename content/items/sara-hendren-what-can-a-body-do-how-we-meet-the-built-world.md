@@ -8,7 +8,7 @@ topic: "Architecture & Built Environment"
 url: "https://www.penguinrandomhouse.com/books/561049/what-can-a-body-do-by-sara-hendren/"
 dek: "Riverhead, 2020"
 note: ""
-quote: "all technology is assistive technology"
+quote: ""
 links:
   - label: "talk"
     url: "https://vimeo.com/channels/eyeo2015/134764010"

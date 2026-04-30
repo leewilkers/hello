@@ -9,9 +9,7 @@ url: >-
   https://www.upress.umn.edu/9781517904876/on-the-mode-of-existence-of-technical-objects/
 dek: 'Univocal / University of Minnesota Press, 1958 / 2017'
 note: ''
-quote: >-
-  the machine is a stranger in which what is human is locked in, unrecognized,
-  materialized and enslaved, but human nonetheless
+quote: ""
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Gilbert_Simondon'

@@ -8,7 +8,7 @@ topic: "Infrastructure & Maintenance"
 url: "https://doi.org/10.1215/08992363-16-3-407"
 dek: "Public Culture, 2004"
 note: ""
-quote: "when there is no bridge, people become the bridge"
+quote: ""
 links:
   - label: "full text"
     url: "https://eprints-gro.gold.ac.uk/id/eprint/1946/1/Simone_2004a.pdf"

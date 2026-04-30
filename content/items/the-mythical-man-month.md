@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Fred Brooks's 1975 essays on software engineering, drawing on his experience
   managing IBM's OS/360.
-quote: Adding manpower to a late software project makes it later.
+quote: ""
 links: []
 ---

@@ -13,6 +13,6 @@ blurb: >-
   Dietmar Offenhuber's 2023 MIT Press argument that data is material rather than
   abstract, proposing 'autographic design' built on traces and
   self-inscriptions.
-quote: ''
+quote: ""
 links: []
 ---

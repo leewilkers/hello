@@ -8,7 +8,7 @@ topic: "Global Health, Aid & Development"
 url: "https://global.oup.com/academic/product/development-as-freedom-9780198297581"
 dek: "Oxford University Press, 1999"
 note: ""
-quote: "what people can actually do and be"
+quote: ""
 order: 27
 links:
   - label: "wiki (author)"

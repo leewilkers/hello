@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Can Duruk's essay modeling workplace attention to show mathematically why deep
   focus is near-impossible under typical office conditions.
-quote: ''
+quote: ""
 links: []
 ---

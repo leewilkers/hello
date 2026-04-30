@@ -13,6 +13,6 @@ blurb: >-
   Pennycook and Cheyne's 2015 paper defining and empirically studying
   'pseudo-profound bullshit' — syntactically coherent statements that sound
   meaningful but are empty.
-quote: ''
+quote: ""
 links: []
 ---

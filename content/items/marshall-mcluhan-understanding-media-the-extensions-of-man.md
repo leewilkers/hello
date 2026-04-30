@@ -8,7 +8,7 @@ topic: "Visual Culture & Media"
 url: 'https://archive.org/details/understandingmed0000mclu'
 dek: 'McGraw-Hill, 1964'
 note: ''
-quote: the content of any medium is always another medium
+quote: ""
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Understanding_Media'

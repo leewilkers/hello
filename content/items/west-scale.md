@@ -15,6 +15,6 @@ blurb: >-
   Geoffrey West's 2017 synthesis of Santa Fe Institute research showing that
   metabolism, lifespan, growth, urban innovation, and corporate mortality all
   obey mathematical scaling laws.
-quote: ''
+quote: ""
 links: []
 ---

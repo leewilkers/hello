@@ -8,7 +8,7 @@ topic: "Potpourri"
 url: "https://press.princeton.edu/books/paperback/9780691120652/friction"
 dek: "Princeton, 2005"
 note: ""
-quote: "zones of awkward engagement"
+quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Anna_Tsing"

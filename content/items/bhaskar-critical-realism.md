@@ -12,6 +12,6 @@ note: ''
 blurb: >-
   Roy Bhaskar's Journal of Critical Realism article on critical realist ontology
   and the understanding of persons.
-quote: ''
+quote: ""
 links: []
 ---
