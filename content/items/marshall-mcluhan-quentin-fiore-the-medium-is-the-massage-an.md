@@ -10,6 +10,7 @@ dek: 'Bantam, 1967'
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/The_Medium_Is_the_Massage'
-note: not a typo
+note: ""
+tooltip: "not a typo"
 order: 6
 ---

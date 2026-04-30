@@ -19,10 +19,11 @@ pageClass: page-shelf
         </span>
         <span class="cell-type">{{ item.data.type }}</span>
         {%- if item.data.title %}
+          {%- set tip = item.data.tooltip %}
           {%- if primaryUrl %}
-        <a class="cell-title" href="{{ primaryUrl }}" target="_blank" rel="noopener">{{ item.data.title }}</a>
+        <a class="cell-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
           {%- else %}
-        <span class="cell-title">{{ item.data.title }}</span>
+        <span class="cell-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
           {%- endif %}
         {%- endif %}
         <span class="cell-author">{{ item.data.author }}</span>
