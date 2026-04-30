@@ -39,6 +39,7 @@
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <span class="dead" aria-disabled="true" title="in progress – pardon the dust">stream</span>
     </div>
+    <button class="loop-tally" aria-label="Loop dimmer" title="Loop the dimmer" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">LOOP</span></button>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true">☀</span><span class="dimmer-moon" aria-hidden="true">☾</span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
   </div>
 </nav>
@@ -56,7 +57,7 @@
 </main>
 
 <footer class="site-colophon" aria-label="Site colophon">
-  <span class="colophon-dust">Pardon the dust – workin on it <span class="colophon-fleuron" aria-hidden="true">❧</span></span>
+  <span class="colophon-dust">※ pardon dust. workin on it <span class="kao kao--day">( ノ・_・)ノ</span><span class="kao kao--night">( ノ-_ -)ノ</span></span>
   <span>Generator Eleventy</span>
   <span>CMS Sveltia</span>
 </footer>
@@ -77,6 +78,14 @@
     const frame  = document.querySelector('.cat-switch-frame');
     const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
+    const loopBtn = document.querySelector('.loop-tally');
+
+    // Loop mode — when armed, each completed cat-cycle auto-fires the next.
+    // The cat clip itself is the metronome (~2.4s/cycle). State persists across
+    // header page nav via sessionStorage so the music doesn't break when you
+    // click "shelf" or "about". Cleared on tab close (right scope).
+    let loopArmed = false;
+    let loopReducedTimer = null;
 
     let audioCtx = null;
     function ensureAudio() {
@@ -269,6 +278,9 @@
       video.onended = function() {
         frame.classList.remove('is-playing');
         setTimeout(function() { if (button) button.disabled = false; }, 200);
+        // Loop continuation — 250ms of breath between cycles lets the resolve-
+        // chord reverb tail settle before the next press-note hits.
+        if (loopArmed) setTimeout(playCatThenFlip, 250);
       };
 
       const p = video.play();
@@ -296,6 +308,67 @@
         playPressNote(goingDark);
       });
     }
+
+    // Reduced-motion loop — instantFlip on a fixed cadence, since onended
+    // never fires (no video plays). Tempo matches the cat-cycle's effective
+    // beat so users in either mode hear the same musical pulse.
+    function startReducedLoop() {
+      if (loopReducedTimer) return;
+      loopReducedTimer = setInterval(function() {
+        if (!loopArmed) return stopReducedLoop();
+        instantFlip();
+      }, 2400);
+    }
+    function stopReducedLoop() {
+      if (loopReducedTimer) { clearInterval(loopReducedTimer); loopReducedTimer = null; }
+    }
+
+    function setLoopUI(armed) {
+      if (!loopBtn) return;
+      loopBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
+      loopBtn.classList.toggle('is-armed', armed);
+    }
+
+    function startLoopCycle() {
+      if (reduced) { startReducedLoop(); return; }
+      // If a cycle is already in flight (button disabled), the existing
+      // onended handler will pick up loopArmed and continue — no kick needed.
+      if (button && button.disabled) return;
+      playCatThenFlip();
+    }
+
+    function toggleLoop() {
+      loopArmed = !loopArmed;
+      try { sessionStorage.setItem('loop_armed', loopArmed ? '1' : '0'); } catch (e) {}
+      setLoopUI(loopArmed);
+      if (loopArmed) startLoopCycle();
+      else stopReducedLoop();
+    }
+
+    window.toggleLoop = toggleLoop;
+
+    // Auto-resume across header page nav — sessionStorage survives full-page
+    // loads within a tab. iOS Safari may require a user gesture before the
+    // first AudioContext.resume(); the LED stays on either way and audio
+    // engages on next interaction. Acceptable degradation.
+    try {
+      if (sessionStorage.getItem('loop_armed') === '1') {
+        loopArmed = true;
+        setLoopUI(true);
+        if (reduced) {
+          startReducedLoop();
+        } else if (video) {
+          if (video.readyState >= 3) {
+            playCatThenFlip();
+          } else {
+            video.addEventListener('loadeddata', function once() {
+              video.removeEventListener('loadeddata', once);
+              if (loopArmed) playCatThenFlip();
+            });
+          }
+        }
+      }
+    } catch (e) {}
   })();
 
   // FOUC restore – keep this untouched, runs as soon as parser hits it

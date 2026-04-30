@@ -1,11 +1,41 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+@font-face {
+  font-family: 'Junicode';
+  src: url('/fonts/Junicode/Junicode.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Junicode';
+  src: url('/fonts/Junicode/Junicode-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Junicode';
+  src: url('/fonts/Junicode/Junicode-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Junicode';
+  src: url('/fonts/Junicode/Junicode-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  --reading: 'Junicode', 'Source Serif 4', Georgia, serif;
 }
 
 body {
@@ -16,6 +46,14 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   font-feature-settings: "onum" 1, "ss02" 1;
+}
+
+/* Junicode reading face — scoped to About (home) prose and Shelf voice cards. */
+.page-home .home-section p,
+.page-shelf .cell-note,
+.page-shelf .cell-quote,
+.page-shelf .cell-blurb {
+  font-family: var(--reading);
 }
 
 a { color: inherit; text-decoration: none; }
@@ -633,6 +671,85 @@ body {
   }
 }
 
+/* LOOP button — TE punch-out tally
+   Different physical shape from .dimmer on purpose: dimmer = continuous slug-in-track,
+   loop = binary punch-out with tally LED. Affordance shape matches degrees of freedom. */
+.loop-tally {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  padding: 0.22rem 0.5rem 0.18rem;
+  border: 0;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg) 70%, transparent),
+    inset 0 -1px 1px color-mix(in srgb, var(--ink) 18%, transparent),
+    0 1px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+  cursor: pointer;
+  font-family: var(--mono);
+  line-height: 1;
+  transition: box-shadow 90ms ease-out, transform 90ms ease-out;
+}
+
+.loop-tally-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  box-shadow: inset 0 0.5px 1px color-mix(in srgb, var(--ink) 35%, transparent);
+  transition: background 140ms ease, box-shadow 200ms ease;
+}
+
+.loop-tally-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.09em;
+  color: color-mix(in srgb, var(--ink-light) 75%, transparent);
+}
+
+.loop-tally:hover .loop-tally-label {
+  color: var(--ink-light);
+}
+
+.loop-tally:active {
+  transform: translateY(0.5px);
+  box-shadow:
+    inset 0 1.5px 2px color-mix(in srgb, var(--ink) 30%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--bg) 50%, transparent),
+    0 0 0 color-mix(in srgb, var(--ink) 0%, transparent);
+}
+
+/* Armed — tally LED lights warm orange (Flexoki) with soft glow */
+.loop-tally.is-armed .loop-tally-led {
+  background: #DA702C;
+  box-shadow:
+    0 0 4px color-mix(in srgb, #DA702C 70%, transparent),
+    0 0 1px color-mix(in srgb, #DA702C 90%, transparent),
+    inset 0 0.5px 0.5px color-mix(in srgb, #FFFCF0 40%, transparent);
+}
+
+.loop-tally.is-armed .loop-tally-label {
+  color: var(--ink);
+}
+
+/* Dark theme — amber instead of orange (Flexoki yellow-600), reads cleaner on black */
+[data-theme="dark"] .loop-tally.is-armed .loop-tally-led {
+  background: #D0A215;
+  box-shadow:
+    0 0 4px color-mix(in srgb, #D0A215 70%, transparent),
+    0 0 1px color-mix(in srgb, #D0A215 90%, transparent),
+    inset 0 0.5px 0.5px color-mix(in srgb, #100F0F 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop-tally,
+  .loop-tally-led {
+    transition: none;
+  }
+}
+
 .page {
   max-width: none;
   min-height: calc(100vh - 46px);
@@ -782,12 +899,17 @@ body {
 }
 
 .home-dust {
-  margin: 1.25rem 0 0;
+  position: absolute;
+  left: 76%;
+  bottom: 70%;
+  margin: 0;
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.88rem;
-  line-height: 1.45;
+  font-size: 0.82rem;
+  line-height: 1.35;
   color: var(--ink-faint);
+  white-space: nowrap;
+  transform: translateX(-100%);
 }
 
 .home-dust__fleuron {
@@ -829,17 +951,33 @@ body {
   color: var(--ink-muted);
 }
 
-/* Home footer motif: rabbit emerges from burrow, runs along a dotted trail. */
+/* Home footer motif: burrow anchored left, dotted-trail + rabbit anchored right.
+   Pinned to viewport bottom. */
 .home-about-trail {
-  margin: 4.5rem 0 0;
-  opacity: 0.78;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 130px;
+  opacity: 0.85;
   pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.home-about-trail img {
-  display: block;
-  width: 100%;
-  max-width: 52rem;
+.home-about-trail__burrow {
+  position: absolute;
+  left: 2.5rem;
+  bottom: 0;
+  height: 105px;
+  width: auto;
+}
+
+.home-about-trail__runner {
+  position: absolute;
+  right: -8%;
+  bottom: 8px;
+  width: 55%;
   height: auto;
 }
 
@@ -865,10 +1003,22 @@ body {
 }
 
 .site-colophon .colophon-dust {
-  flex-basis: 100%;
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.95rem;
+  z-index: 50;
+  font-family: var(--sans);
+  font-size: 1.15rem;
+  line-height: 1.35;
   font-style: italic;
   color: var(--ink-faint);
+  opacity: 0.55;
+  pointer-events: none;
 }
+
+.colophon-dust .kao--night { display: none; }
+[data-theme="dark"] .colophon-dust .kao--day { display: none; }
+[data-theme="dark"] .colophon-dust .kao--night { display: inline; }
 
 .site-colophon .colophon-fleuron {
   display: inline-block;
@@ -1237,6 +1387,25 @@ body {
 [data-theme="dark"] .grid li .cell-links a:hover {
   color: #3AA99F;
   border-bottom: 2px solid #3AA99F;
+}
+
+/* Shelf hover spotlight — when any cell is hovered or keyboard-focused,
+   the others soften and desaturate slightly. Hover-pointer only, so touch
+   devices don't get stuck states; transition disabled for reduced-motion. */
+@media (hover: hover) {
+  .grid li {
+    transition: filter 220ms ease, opacity 220ms ease;
+  }
+  .grid-scroll:has(.grid li:hover, .grid li:focus-visible) .grid li:not(:hover):not(:focus-visible) {
+    filter: blur(0.5px) saturate(0.6);
+    opacity: 0.75;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid li {
+    transition: none;
+  }
 }
 
 .page-error {
