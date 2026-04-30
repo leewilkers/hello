@@ -4,7 +4,7 @@ title: 'Camera Lucida: Reflections on Photography'
 type: book
 image: /img/covers/barthes-camera-lucida.jpg
 dest: shelf
-topic: Visual Culture
+topic: Visual Culture & Media
 url: 'https://us.macmillan.com/books/9780374521349/camera-lucida'
 order: 50
 dek: 'Hill and Wang, 1981'

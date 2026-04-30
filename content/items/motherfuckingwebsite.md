@@ -4,7 +4,7 @@ title: "motherfuckingwebsite.com"
 type: site
 image: "/img/covers/motherfuckingwebsite.jpg"
 dest: shelf
-topic: "Web"
+topic: "Web Stuff"
 url: "http://motherfuckingwebsite.com"
 order: 50
 dek: "motherfuckingwebsite.com"

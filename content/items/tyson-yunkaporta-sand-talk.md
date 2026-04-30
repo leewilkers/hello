@@ -4,7 +4,7 @@ title: 'Sand Talk: How Indigenous Thinking Can Save the World'
 type: book
 image: /img/covers/tyson-yunkaporta-sand-talk.jpg
 dest: remove
-topic: Social Theory
+topic: Potpourri
 url: 'https://www.harpercollins.com/products/sand-talk-tyson-yunkaporta'
 dek: 'HarperOne, 2019'
 note: carving to think

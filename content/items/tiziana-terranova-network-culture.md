@@ -4,7 +4,7 @@ title: "Network Culture: Politics for the Information Age"
 type: book
 image: "/img/covers/tiziana-terranova-network-culture.jpg"
 dest: shelf
-topic: "Tech Culture"
+topic: "Tech / Web Culture"
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
 note: ""

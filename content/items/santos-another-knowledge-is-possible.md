@@ -4,7 +4,7 @@ title: "Another Knowledge Is Possible: Beyond Northern Epistemologies"
 type: book
 image: "/img/covers/santos-another-knowledge-is-possible.jpg"
 dest: shelf
-topic: "Social Theory"
+topic: "Potpourri"
 url: "https://www.versobooks.com/products/1996-another-knowledge-is-possible"
 order: 50
 dek: "Verso, 2008"

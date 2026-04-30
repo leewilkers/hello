@@ -6,7 +6,7 @@ image: /img/covers/tara-isabella-burton-rational-magic.jpg
 dest: shelf
 note: ''
 blurb: how do you get the sacred without violence
-topic: Tech Culture
+topic: Tech / Web Culture
 url: 'https://www.thenewatlantis.com/publications/rational-magic'
 dek: 'The New Atlantis, 2023'
 source: The New Atlantis

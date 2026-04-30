@@ -4,7 +4,7 @@ title: LOW←TECH MAGAZINE
 type: site
 image: /img/covers/kris-de-decker-low-tech-magazine.jpg
 dest: stream
-topic: Tech Culture
+topic: Tech / Web Culture
 url: 'https://solar.lowtechmagazine.com'
 dek: 'solar-powered server, 2007–'
 note: goes offline when it's cloudy

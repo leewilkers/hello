@@ -4,7 +4,7 @@ title: "Working-Class Network Society: Communication Technology and the Informat
 type: essay
 image: "/img/covers/working-class-network-society.jpg"
 dest: shelf
-topic: "Web"
+topic: "Web Stuff"
 url: "https://mitpress.mit.edu/9780262515856/working-class-network-society/"
 order: 50
 dek: "MIT Press"

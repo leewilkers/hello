@@ -4,7 +4,7 @@ title: "Gods With Anuses: Reframing our Common Humanity"
 type: essay
 image: "/img/covers/gods-with-anuses.jpg"
 dest: shelf
-topic: "Social Theory"
+topic: "Potpourri"
 url: "https://www.themarginalian.org/2024/03/15/gods-with-anuses/"
 order: 50
 dek: "The Marginalian, 2024"
