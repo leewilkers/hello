@@ -34,12 +34,23 @@ body {
   font-feature-settings: "onum" 1, "ss02" 1;
 }
 
-/* EB Garamond reading face — scoped to About (home) prose and Shelf voice cards. */
-.page-home .home-section p,
+/* EB Garamond reading face — scoped to About (home) prose and Shelf voice cards.
+   Homepage gets the full optical-size + leading + ligature treatment;
+   shelf voice keeps cell-tuned sizing but inherits the face and OT features. */
+.page-home .home-section p {
+  font-family: var(--reading);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-variant-ligatures: common-ligatures contextual;
+}
+
 .page-shelf .cell-note,
 .page-shelf .cell-quote,
 .page-shelf .cell-blurb {
   font-family: var(--reading);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-variant-ligatures: common-ligatures contextual;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -376,6 +387,23 @@ p {
   opacity: 1;
 }
 
+/* Source link wraps the video — only clickable while the cat is on screen.
+   Inherits pointer-events from frame when hidden; activates with .is-playing. */
+.cat-switch-link {
+  display: block;
+  cursor: pointer;
+  pointer-events: none;
+  transition: filter 160ms ease;
+}
+
+.cat-switch-frame.is-playing .cat-switch-link {
+  pointer-events: auto;
+}
+
+.cat-switch-link:hover {
+  filter: brightness(1.08);
+}
+
 .cat-switch-video {
   display: block;
   width: 100%;
@@ -513,34 +541,37 @@ body {
 
 .dimmer-icons {
   display: inline-flex;
-  gap: 14px;
-  width: 32px;
-  justify-content: space-between;
-  padding: 0 2px;
+  gap: 8px;
+  align-items: center;
 }
 
-/* Sun/moon — debossed glyphs (south-edge highlight = printed-on feel).
-   Active glyph (matching current theme) is dark ink; inactive is muted. */
+/* Sun/moon — geometric monochrome SVG. currentColor inherits from the span,
+   so the rules below drive both fill (sun disc, moon body) and stroke (sun
+   radial ticks). Active = full ink; inactive = ~50% mix. */
 .dimmer-sun,
 .dimmer-moon {
-  display: inline-block;
-  font-size: 9px;
-  line-height: 1;
-  color: color-mix(in srgb, var(--ink) 35%, transparent);
-  text-shadow: 0 0.5px 0 color-mix(in srgb, var(--bg) 65%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: color-mix(in srgb, var(--ink) 50%, transparent);
   transition: color 160ms ease;
 }
 
+.dimmer-sun svg,
+.dimmer-moon svg {
+  display: block;
+}
+
 :root .dimmer-sun {
-  color: color-mix(in srgb, var(--ink) 88%, transparent);
+  color: var(--ink);
 }
 
 [data-theme="dark"] .dimmer-sun {
-  color: color-mix(in srgb, var(--ink) 32%, transparent);
+  color: color-mix(in srgb, var(--ink) 50%, transparent);
 }
 
 [data-theme="dark"] .dimmer-moon {
-  color: color-mix(in srgb, var(--ink) 88%, transparent);
+  color: var(--ink);
 }
 
 .dimmer:hover .dimmer-sun,
@@ -812,7 +843,7 @@ body {
 .home-title {
   font-family: var(--serif);
   font-size: 1.4rem;
-  font-weight: 550;
+  font-weight: 700;
   line-height: 1.15;
   margin: 0;
   white-space: nowrap;
@@ -944,31 +975,18 @@ body {
   color: var(--ink-muted);
 }
 
-/* Home footer motif: burrow + dotted trail + leaping hare, single composition.
-   Pinned to viewport bottom. Asset is tight-cropped (16:1) so we can let it
-   render at natural height with no manual cropping. */
-.home-about-trail {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.home-about-trail img {
+/* About-page hare: woodcut engraving sized to column width, faded. */
+.home-hare {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
-  opacity: 0.88;
+  margin: 4rem 0 0;
+  opacity: 0.1;
 }
 
-[data-theme="dark"] .home-about-trail {
-  opacity: 0.92; /* slight bump because invert tends to read fainter */
-}
-
-[data-theme="dark"] .home-about-trail img {
+[data-theme="dark"] .home-hare {
+  opacity: 0.15;
   filter: invert(1);
 }
 
