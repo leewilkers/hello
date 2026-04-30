@@ -55,10 +55,6 @@ pageClass: page-shelf
     <p class="console-kicker">Shelf</p>
     <p class="shelf-subtitle">Things on my desk.</p>
   </div>
-  <div class="shelf-view-toggle" role="group" aria-label="View">
-    <button type="button" class="view-toggle-btn" data-view="grid" aria-pressed="true" title="Grid view"><span aria-hidden="true">▦</span><span class="sr-only">Grid view</span></button>
-    <button type="button" class="view-toggle-btn" data-view="list" aria-pressed="false" title="List view"><span aria-hidden="true">≡</span><span class="sr-only">List view</span></button>
-  </div>
   <p class="console-status">
     {{ collections.items | where("dest", "shelf") | length }} entries ·
     {{ topics | length }} topics
@@ -97,27 +93,3 @@ pageClass: page-shelf
 
 </div>
 
-<script>
-// View toggle — grid (cover-first) vs list (reading-log). Persists to localStorage.
-(function() {
-  var scroll = document.querySelector('.grid-scroll');
-  var buttons = document.querySelectorAll('.view-toggle-btn');
-  if (!scroll || !buttons.length) return;
-
-  function apply(view) {
-    scroll.classList.toggle('view-list', view === 'list');
-    buttons.forEach(function(b) {
-      b.setAttribute('aria-pressed', b.getAttribute('data-view') === view ? 'true' : 'false');
-    });
-    try { localStorage.setItem('shelf-view', view); } catch (e) {}
-  }
-
-  var saved = 'grid';
-  try { saved = localStorage.getItem('shelf-view') || 'grid'; } catch (e) {}
-  apply(saved);
-
-  buttons.forEach(function(b) {
-    b.addEventListener('click', function() { apply(b.getAttribute('data-view')); });
-  });
-})();
-</script>
