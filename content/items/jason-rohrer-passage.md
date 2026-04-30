@@ -4,7 +4,7 @@ title: Passage
 type: site
 image: /img/covers/jason-rohrer-passage.jpg
 dest: shelf
-topic: 'Games, Play & Performance'
+topic: "Experiences"
 url: 'https://hcsoftware.sourceforge.net/passage/'
 dek: '2007'
 order: 5

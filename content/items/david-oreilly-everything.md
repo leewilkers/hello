@@ -4,7 +4,7 @@ title: Everything
 type: site
 image: /img/covers/david-oreilly-everything.jpg
 dest: shelf
-topic: 'Games, Play & Performance'
+topic: "Experiences"
 url: 'https://store.steampowered.com/app/582270/Everything/'
 dek: '2017'
 links:

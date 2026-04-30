@@ -4,7 +4,7 @@ title: Hypocognition
 type: concept
 image: /img/covers/hypocognition.jpg
 dest: shelf
-topic: Potpourri
+topic: "Language & Writing"
 url: 'https://en.wikipedia.org/wiki/Hypocognition'
 order: 50
 dek: Wikipedia

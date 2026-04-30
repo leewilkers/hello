@@ -4,7 +4,7 @@ title: "The Delusion of Knowledge Transfer: The Impact of Foreign Aid Experts on
 type: book
 image: "/img/covers/koch-weingart-the-delusion-of-knowledge-transfer.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Global Health, Aid & Development"
 url: "https://africanminds.co.za/the-delusion-of-knowledge-transfer/"
 order: 50
 dek: "African Minds, 2016"

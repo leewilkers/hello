@@ -4,7 +4,7 @@ title: "A Big Little Idea Called Legibility"
 type: essay
 image: "/img/covers/venkat-rao-a-big-little-idea-called-legibility.jpg"
 dest: shelf
-topic: "Potpourri"
+topic: "Global Health, Aid & Development"
 url: "https://www.ribbonfarm.com/2010/07/26/a-big-little-idea-called-legibility/"
 dek: "Ribbonfarm, 2010"
 note: ""

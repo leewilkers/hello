@@ -4,7 +4,7 @@ title: "Klara and the Sun"
 type: book
 image: "/img/covers/ishiguro-klara-and-the-sun.jpg"
 dest: shelf
-topic: "Language & Writing"
+topic: "Technology & Ways of Living"
 url: "https://www.penguinrandomhouse.com/books/653441/klara-and-the-sun-by-kazuo-ishiguro/"
 order: 50
 dek: "Knopf, 2021"
