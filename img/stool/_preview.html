@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Stool mark — size preview</title>
+<style>
+  body { font-family: 'Source Serif Pro', Georgia, serif; background: #f6f1e7; color: #2a261f; padding: 2rem 3rem; max-width: 920px; margin: 0 auto; }
+  h1 { font-weight: 400; font-size: 1.4rem; border-bottom: 1px solid #c9bfa9; padding-bottom: 0.5rem; }
+  h2 { font-weight: 400; font-size: 1.05rem; margin-top: 2.4rem; color: #5a5448; }
+  .row { display: flex; align-items: center; gap: 1.5rem; padding: 0.9rem 0; border-bottom: 1px dashed #d8cfb9; }
+  .label { font-size: 0.78rem; color: #7a7363; min-width: 12ch; font-family: ui-monospace, monospace; }
+  .swatch { display: flex; align-items: center; gap: 0.6rem; }
+  .name { font-size: 1.4rem; letter-spacing: 0.01em; }
+  .hero { background: #fff; border: 1px solid #d8cfb9; padding: 1.5rem; display: inline-block; }
+  img.svg, object { display: inline-block; vertical-align: middle; }
+  .dark { background: #1c1a16; color: #e8e2d4; padding: 1.4rem 1.6rem; margin-top: 1.2rem; border-radius: 4px; }
+  .dark .label { color: #b8af9b; }
+  .dark .name { color: #e8e2d4; }
+</style>
+</head>
+<body>
+
+<h1>Stool mark — size preview</h1>
+
+<h2>SVG (simplified) — sticky-header alongside name</h2>
+
+<div class="row">
+  <div class="label">28px (small)</div>
+  <div class="swatch">
+    <img class="svg" src="../ornaments/stool-mark.svg" height="28" alt="">
+    <span class="name" style="font-size: 1.1rem;">Lee Wilkers</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="label">32px</div>
+  <div class="swatch">
+    <img class="svg" src="../ornaments/stool-mark.svg" height="32" alt="">
+    <span class="name" style="font-size: 1.25rem;">Lee Wilkers</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="label">40px</div>
+  <div class="swatch">
+    <img class="svg" src="../ornaments/stool-mark.svg" height="40" alt="">
+    <span class="name" style="font-size: 1.5rem;">Lee Wilkers</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="label">56px</div>
+  <div class="swatch">
+    <img class="svg" src="../ornaments/stool-mark.svg" height="56" alt="">
+    <span class="name" style="font-size: 1.9rem;">Lee Wilkers</span>
+  </div>
+</div>
+
+<div class="dark">
+  <div class="label">dark mode (32px)</div>
+  <div class="swatch" style="margin-top: 0.6rem;">
+    <img class="svg" src="../ornaments/stool-mark.svg" height="32" alt="">
+    <span class="name" style="font-size: 1.25rem;">Lee Wilkers</span>
+  </div>
+</div>
+
+<h2>PNG (engraved, with hatching) — hero / og-image / large</h2>
+
+<div class="row">
+  <div class="label">stool-sm 200px</div>
+  <img src="stool-sm.png" height="120" alt="">
+</div>
+<div class="row">
+  <div class="label">stool-md 400px</div>
+  <img src="stool-md.png" height="200" alt="">
+</div>
+
+<div class="hero" style="margin-top: 1rem;">
+  <div class="label" style="margin-bottom: 0.6rem;">stool-lg 1200px (full)</div>
+  <img src="stool-lg.png" width="320" alt="">
+</div>
+
+<h2>Side-by-side: same height, engraved vs simplified</h2>
+<p style="font-size: 0.85rem; color: #7a7363;">At sticky-header sizes (28–40px) the engraved hatching aliases to grey smudge — simplified SVG keeps the silhouette legible.</p>
+
+<div class="row">
+  <div class="label">PNG @ 32px</div>
+  <img src="stool-sm.png" height="32" alt="">
+  <div class="label">SVG @ 32px</div>
+  <img class="svg" src="../ornaments/stool-mark.svg" height="32" alt="">
+</div>
+<div class="row">
+  <div class="label">PNG @ 56px</div>
+  <img src="stool-sm.png" height="56" alt="">
+  <div class="label">SVG @ 56px</div>
+  <img class="svg" src="../ornaments/stool-mark.svg" height="56" alt="">
+</div>
+
+</body>
+</html>
