@@ -1072,6 +1072,47 @@ body {
   width: 100%;
 }
 
+/* Consulting page — running prose. Inherits .home-plain typography
+   and width; adds comfortable paragraph spacing for sustained reading. */
+.home-plain .consulting-prose p + p {
+  margin-top: 1.05rem;
+}
+
+.home-plain .consulting-contact {
+  margin-top: 1.6rem;
+}
+
+/* Consulting page picks up the site accent so mailto + prose links
+   read as links rather than plain text (the global a-rule strips
+   color and underline by default). */
+.page-consulting {
+  --home-accent: #24837B;
+}
+
+[data-theme="dark"] .page-consulting {
+  --home-accent: #3AA99F;
+}
+
+/* Persistent thin underline on prose links — running text needs a
+   non-hover signal that "in good hands" is a link. Mailto follows the
+   site convention (hover-only underline). */
+.home-plain .consulting-prose a:not([href^="mailto"]) {
+  color: var(--home-accent);
+  border-bottom: 1px solid var(--home-accent);
+}
+
+.home-plain .consulting-prose a:not([href^="mailto"]):hover {
+  border-bottom-color: transparent;
+}
+
+.page-consulting a[href^="mailto"] {
+  color: var(--home-accent);
+}
+
+.page-consulting a[href^="mailto"]:hover {
+  border-bottom-color: var(--home-accent);
+}
+
 /* About-page nav-link list — descriptive phrase + colon + linked target.
    Slightly tighter line-height than body prose to read as a list, not paragraphs. */
 .home-plain .home-nav p {
