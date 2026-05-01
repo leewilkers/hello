@@ -111,8 +111,10 @@
     const VIDEO_RATE = 0.9;          // a little slower than source, but no longer syrupy
     const LOOP_BEAT_MS = 4000;       // total time between press-notes
     const PRESS_TO_HIT_MS = (HIT_SECONDS_FWD * 1000) / VIDEO_RATE;  // 1000ms — matches the paw hit
-    const CAT_FADE_IN_MS = 130;
-    const CAT_FADE_OUT_MS = 1050;
+    const CAT_MANUAL_FADE_IN_MS = 130;
+    const CAT_MANUAL_FADE_OUT_MS = 1050;
+    const CAT_LOOP_FADE_IN_MS = 420;
+    const CAT_LOOP_FADE_OUT_MS = 1500;
     let loopArmed = false;
     let loopPressTimer = null;
     let loopNextTimer = null;
@@ -127,27 +129,31 @@
     // owns the "always-disabled-while-armed" state).
     const catCtl = (function() {
       if (!video || !frame) return { play: function(){}, reset: function(){} };
+      let activeFadeOutMs = CAT_MANUAL_FADE_OUT_MS;
       video.addEventListener('ended', function() {
-        frame.style.setProperty('--cat-fade-ms', CAT_FADE_OUT_MS + 'ms');
+        frame.style.setProperty('--cat-fade-ms', activeFadeOutMs + 'ms');
         frame.classList.remove('is-playing');
         if (button && !loopArmed) {
-          setTimeout(function() { button.disabled = false; }, CAT_FADE_OUT_MS + 80);
+          setTimeout(function() { button.disabled = false; }, activeFadeOutMs + 80);
         }
       });
       return {
-        play: function(goingDark) {
+        play: function(goingDark, mode) {
           if (reduced || video.readyState < 3) return;
           if (button && !loopArmed) button.disabled = true;
+          const loopMode = mode === 'loop';
+          const fadeInMs = loopMode ? CAT_LOOP_FADE_IN_MS : CAT_MANUAL_FADE_IN_MS;
+          activeFadeOutMs = loopMode ? CAT_LOOP_FADE_OUT_MS : CAT_MANUAL_FADE_OUT_MS;
           video.src = goingDark ? VIDEO_FWD : VIDEO_REV;
           video.currentTime = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
           video.playbackRate = VIDEO_RATE;
-          frame.style.setProperty('--cat-fade-ms', CAT_FADE_IN_MS + 'ms');
+          frame.style.setProperty('--cat-fade-ms', fadeInMs + 'ms');
           frame.classList.add('is-playing');
           const p = video.play();
           if (p && p.catch) p.catch(function() {});
         },
         reset: function() {
-          frame.style.setProperty('--cat-fade-ms', CAT_FADE_OUT_MS + 'ms');
+          frame.style.setProperty('--cat-fade-ms', activeFadeOutMs + 'ms');
           frame.classList.remove('is-playing');
           try { video.pause(); } catch (e) {}
           if (button && !loopArmed) button.disabled = false;
@@ -403,7 +409,7 @@
       // Visual: cat clip plays in parallel — but only when NOT locked. With
       // theme locked, the paw motion would imply a theme change that won't
       // happen, so we leave the cat off-screen and just play music.
-      if (!themeLocked) catCtl.play(goingDark);
+      if (!themeLocked) catCtl.play(goingDark, 'loop');
 
       // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
       if (loopPressTimer) clearTimeout(loopPressTimer);

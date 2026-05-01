@@ -371,8 +371,9 @@ p {
 
 /* ── cat switch overlay ──
    Video frame that appears under the dimmer, plays the cat clip,
-   and fades out after the theme flips. JS keeps fade-in short and fade-out
-   long so the loop reads like inhale/exhale instead of a blink.
+   and fades out after the theme flips. Manual clicks use the normal release;
+   loop mode gets a perceptible fade-in and a slightly longer fade-out so the
+   cat breathes in/out with only a small empty beat before the next cycle.
    position: fixed specifically avoids the .page-shelf overflow:hidden clip trap. */
 
 .cat-switch-frame {
