@@ -1034,6 +1034,10 @@ body {
   max-width: 52rem;
 }
 
+.home-plain .home-intro p + p {
+  margin-top: 0.35rem;
+}
+
 .home-plain .home-section ul {
   list-style: disc outside;
   margin: 0;
@@ -1110,6 +1114,7 @@ body:has(.home-trail-band) .page-home {
 .home-trail-band {
   width: 100%;
   margin-top: auto;
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
   pointer-events: none;
   user-select: none;
 }
@@ -1122,7 +1127,7 @@ body:has(.home-trail-band) .page-home {
      (2172×156, aspect ~13.9:1), so width:100% + height:auto gives the
      band's height directly from the image's natural proportions —
      no object-fit gymnastics, no transparent padding. */
-  opacity: 0.13;
+  opacity: 0.17;
 }
 
 [data-theme="dark"] .home-trail-band img {
@@ -1146,23 +1151,24 @@ body:has(.home-trail-band) .page-home {
   color: var(--ink-muted);
 }
 
-.site-colophon .colophon-dust {
-  position: fixed;
-  bottom: 0.5rem;
-  right: 0.95rem;
-  z-index: 50;
+.home-plain .home-dust {
+  margin-top: 1.1rem;
+}
+
+.home-plain .home-dust .colophon-dust {
   font-family: var(--sans);
-  font-size: 0.92rem;
+  font-size: 1.05rem;
   line-height: 1.35;
   font-style: italic;
   color: var(--ink-faint);
-  opacity: 0.28;
+  opacity: 0.4;
   pointer-events: none;
 }
 
 .colophon-dust .kao--night { display: none; }
 [data-theme="dark"] .colophon-dust .kao--day { display: none; }
 [data-theme="dark"] .colophon-dust .kao--night { display: inline; }
+[data-theme="dark"] .home-plain .home-dust .colophon-dust { opacity: 0.32; }
 
 .site-colophon .colophon-fleuron {
   display: inline-block;

@@ -65,10 +65,6 @@
 </div>
 {% endif %}
 
-<footer class="site-colophon" aria-label="Site colophon">
-  <span class="colophon-dust">※ pardon dust. workin on it <span class="kao kao--day">( ノ・_・)ノ</span><span class="kao kao--night">( ノ-_ -)ノ</span></span>
-</footer>
-
 <script>
   // theme toggle – plays the cat-hitting-light clip and flips theme at impact
   (function() {
@@ -105,10 +101,6 @@
     let loopNextTimer = null;
     let themeLocked = false;
     let loopDirection = null;        // when locked, tracks alternating direction
-    let droneOsc = null;             // sub-bass D2 drone — kept across fade cycles
-    let droneGain = null;
-    let tapeNodes = null;            // tape hiss + vinyl crackle texture
-    let tapeCrackleTimer = null;
 
     // Cat controller — single source of truth for video state. Onended handler
     // attached once at init so it always cleans up `is-playing` regardless of
@@ -202,12 +194,13 @@
     // so notes overlap into a harmonic cloud. Low mod-index peak keeps the
     // attack soft, no upper-partial sizzle. Stereo-panned per voice for the
     // watercolor spread. DX7 patch territory — Eno's Apollo, Music for Airports.
-    function playPianoNote(freq, when, sustain, sendOverride) {
+    function playPianoNote(freq, when, sustain, sendOverride, levelOverride, fadeProfile) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
       const sus = sustain || 9.0;     // long enough that 3+ notes overlap
       const send = sendOverride !== undefined ? sendOverride : 0.65;
+      const level = levelOverride !== undefined ? levelOverride : 0.085;
       const reverb = getReverb(ctx);
 
       // Two slightly-detuned voices for chorus shimmer; each panned to its
@@ -236,8 +229,17 @@
         // Slow attack (~110ms = pad), very long decay to silence.
         const carrierGain = ctx.createGain();
         carrierGain.gain.setValueAtTime(0.0001, t);
-        carrierGain.gain.exponentialRampToValueAtTime(0.085, t + 0.110);
-        carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        carrierGain.gain.exponentialRampToValueAtTime(level, t + 0.110);
+        if (fadeProfile) {
+          const holdUntil = t + (fadeProfile.hold || 0.75);
+          const fadeUntil = t + (fadeProfile.fadeTo || 2.0);
+          const tailLevel = Math.max(0.0001, level * (fadeProfile.tailRatio || 0.18));
+          carrierGain.gain.setValueAtTime(level, holdUntil);
+          carrierGain.gain.exponentialRampToValueAtTime(tailLevel, fadeUntil);
+          carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        } else {
+          carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        }
 
         // Warmth filter — gentle lowpass with slight resonance. Rolls off the
         // brittle highs the FM voice generates, giving the patch the warm,
@@ -299,15 +301,15 @@
     }
 
     function playPressNote(goingDark) {
-      // C#5 press (going dark) is dried — its high register bleeds into the
-      // next resolve chord otherwise. D4 press (going light) keeps full wash;
-      // it's the bass root and its tail grounds the chord above it.
+      // Direction-aware press. The D4 press that starts dark→light blooms,
+      // then ducks into a quiet tail so it doesn't cloud the next gesture.
+      // C#5 press while going dark is dried a bit, but not clipped.
       if (goingDark) {
         playPianoNote(PIANO.N4, undefined, 4.0, 0.18);
-        playShimmer(PIANO.N4, undefined, 4.0, 0.08);  // shimmer also dried
+        playShimmer(PIANO.N4, undefined, 4.0, 0.08);
       } else {
-        playPianoNote(PIANO.N1, undefined, 9.0);
-        playShimmer(PIANO.N1, undefined, 9.0);
+        playPianoNote(PIANO.N1, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
+        playShimmer(PIANO.N1, undefined, 3.2, 0.06);
       }
     }
 
@@ -321,13 +323,17 @@
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime;
-      const pair = goingDark
-        ? [PIANO.N2, PIANO.N1]   // F#4 + D4  (falling — major 3rd interval)
-        : [PIANO.N3, PIANO.N4];  // A4 + C#5  (rising — major 3rd interval)
-      pair.forEach(function(f) {
-        playPianoNote(f, t, 9.0);
-        playShimmer(f, t, 9.0);
-      });
+      if (goingDark) {
+        playPianoNote(PIANO.N2, t, 9.0);
+        playShimmer(PIANO.N2, t, 9.0);
+        playPianoNote(PIANO.N1, t, 9.0);
+        playShimmer(PIANO.N1, t, 9.0);
+      } else {
+        [PIANO.N3, PIANO.N4].forEach(function(f) {
+          playPianoNote(f, t, 9.0);
+          playShimmer(f, t, 9.0);
+        });
+      }
     }
 
     // DOM-only theme flip (no audio). Used by both the manual click path
@@ -462,206 +468,6 @@
     }
     window.toggleThemeLock = toggleThemeLock;
 
-    // Drone — D2 + D3 layered (sub-bass + bass). D2 alone is below most laptop
-    // speakers' rolloff (~150Hz), so we double it with D3 for audibility on any
-    // playback. Eno's "On Land" trick — octave-doubled drone reads as a single
-    // huge low tone but reproduces on small speakers.
-    // Fades in 4s on arm, fades out 4s on disarm. Re-arming during fade-out
-    // cancels the fade-out and ramps back up — no oscillator leak.
-    function startDrone() {
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      const t = ctx.currentTime;
-      const peak = 0.075;
-
-      // Re-arm during fade-out: cancel scheduled stop, re-fade-in
-      if (droneOsc && droneGain) {
-        const g = droneGain.gain;
-        g.cancelScheduledValues(t);
-        g.setValueAtTime(g.value, t);
-        g.exponentialRampToValueAtTime(peak, t + 3.0);
-        return;
-      }
-
-      const reverb = getReverb(ctx);
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(peak, t + 4.0);
-      gain.connect(ctx.destination);
-
-      // Two oscillators — D2 (sub) and D3 (audible-on-laptops bass).
-      // Slightly detuned for chorus shimmer at the low end.
-      const oscD2 = ctx.createOscillator();
-      oscD2.type = 'sine';
-      oscD2.frequency.value = PIANO.N1 / 4;  // D2 = 73.4Hz
-      oscD2.detune.value = -3;
-      oscD2.connect(gain);
-
-      const oscD3 = ctx.createOscillator();
-      oscD3.type = 'sine';
-      oscD3.frequency.value = PIANO.N1 / 2;  // D3 = 146.8Hz
-      oscD3.detune.value = +3;
-      oscD3.connect(gain);
-
-      // Light reverb send for spatial weight
-      const sendGain = ctx.createGain();
-      sendGain.gain.value = 0.22;
-      gain.connect(sendGain).connect(reverb);
-
-      oscD2.start();
-      oscD3.start();
-      droneOsc = { sub: oscD2, bass: oscD3 };
-      droneGain = gain;
-    }
-
-    // Tape texture — continuous filtered noise (hiss) + sparse impulse crackles
-    // (vinyl dust). Adds the "this was recorded once, played back" quality.
-    function startTape() {
-      if (tapeNodes) return;
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      const t = ctx.currentTime;
-
-      // 4-second brown-noise loop (integrated white noise = -6dB/oct rolloff,
-      // energy in the lows — reads as bassy fuzz, not hiss).
-      const sr = ctx.sampleRate;
-      const noiseBuf = ctx.createBuffer(1, Math.floor(sr * 4), sr);
-      const noiseData = noiseBuf.getChannelData(0);
-      let last = 0;
-      for (let i = 0; i < noiseData.length; i++) {
-        const white = Math.random() * 2 - 1;
-        last = (last + 0.02 * white) / 1.02;
-        noiseData[i] = last * 3.5;
-      }
-      const noiseSrc = ctx.createBufferSource();
-      noiseSrc.buffer = noiseBuf;
-      noiseSrc.loop = true;
-
-      // Wider band for ocean character — rumble (200-400Hz) + splash (800-1400Hz).
-      // Below 150Hz cut (laptop rolloff), above 1400Hz cut (no hissy fizz).
-      const hp = ctx.createBiquadFilter();
-      hp.type = 'highpass';
-      hp.frequency.value = 150;
-      const lp = ctx.createBiquadFilter();
-      lp.type = 'lowpass';
-      lp.frequency.value = 1400;
-      lp.Q.value = 0.7;
-
-      const hissGain = ctx.createGain();
-      hissGain.gain.setValueAtTime(0.0001, t);
-      hissGain.gain.exponentialRampToValueAtTime(1.0, t + 4.0);
-
-      // Wave-cycle amplitude LFOs — slower than before (0.06/0.09Hz = 11s/17s
-      // periods) for real ocean-wave pacing. Bigger depths so each crest is
-      // audible above the trough.
-      const variation = ctx.createGain();
-      variation.gain.value = 0.06;
-      const lfo1 = ctx.createOscillator();
-      lfo1.type = 'sine';
-      lfo1.frequency.value = 0.06;
-      const lfo1Depth = ctx.createGain();
-      lfo1Depth.gain.value = 0.04;
-      lfo1.connect(lfo1Depth).connect(variation.gain);
-
-      const lfo2 = ctx.createOscillator();
-      lfo2.type = 'sine';
-      lfo2.frequency.value = 0.09;
-      const lfo2Depth = ctx.createGain();
-      lfo2Depth.gain.value = 0.025;
-      lfo2.connect(lfo2Depth).connect(variation.gain);
-
-      // Stereo wash — slow pan LFO at wave rate moves the noise L↔R like
-      // surf rolling along the shore.
-      const wavePanner = ctx.createStereoPanner();
-      wavePanner.pan.value = 0;
-      const panLfo = ctx.createOscillator();
-      panLfo.type = 'sine';
-      panLfo.frequency.value = 0.07;
-      const panDepth = ctx.createGain();
-      panDepth.gain.value = 0.4;
-      panLfo.connect(panDepth).connect(wavePanner.pan);
-
-      lfo1.start(t);
-      lfo2.start(t + 1.5);
-      panLfo.start(t + 0.7);
-      lfo1.stop(t + 1e9);
-      lfo2.stop(t + 1e9);
-      panLfo.stop(t + 1e9);
-
-      noiseSrc.connect(hp).connect(lp).connect(hissGain).connect(variation).connect(wavePanner).connect(ctx.destination);
-      noiseSrc.start();
-      tapeNodes = { src: noiseSrc, gain: hissGain, lfo1: lfo1, lfo2: lfo2, panLfo: panLfo };
-
-      // Vinyl crackle — sparse impulse pops at random intervals
-      function scheduleCrackle() {
-        if (!tapeNodes) return;
-        const delay = 500 + Math.random() * 2000;  // 0.5–2.5s
-        tapeCrackleTimer = setTimeout(function() {
-          if (!tapeNodes) return;
-          fireCrackle();
-          scheduleCrackle();
-        }, delay);
-      }
-      function fireCrackle() {
-        const c = ensureAudio();
-        if (!c) return;
-        const ct = c.currentTime;
-        const len = Math.floor(c.sampleRate * 0.012);  // ~12ms pop
-        const buf = c.createBuffer(1, len, c.sampleRate);
-        const data = buf.getChannelData(0);
-        const decay = c.sampleRate * 0.002;
-        for (let i = 0; i < len; i++) {
-          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / decay);
-        }
-        const src = c.createBufferSource();
-        src.buffer = buf;
-        const bp = c.createBiquadFilter();
-        bp.type = 'bandpass';
-        bp.frequency.value = 2500;
-        bp.Q.value = 1.5;
-        const g = c.createGain();
-        g.gain.value = 0.022 + Math.random() * 0.018;  // varied loudness
-        src.connect(bp).connect(g).connect(c.destination);
-        src.start(ct);
-      }
-      scheduleCrackle();
-    }
-
-    function stopTape() {
-      if (!tapeNodes) return;
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      const t = ctx.currentTime;
-      const ref = tapeNodes;
-      tapeNodes = null;
-      if (tapeCrackleTimer) { clearTimeout(tapeCrackleTimer); tapeCrackleTimer = null; }
-      const g = ref.gain.gain;
-      g.cancelScheduledValues(t);
-      g.setValueAtTime(g.value, t);
-      g.exponentialRampToValueAtTime(0.0001, t + 2.5);
-      try { ref.src.stop(t + 3.0); } catch (e) {}
-      try { ref.lfo1.stop(t + 3.0); } catch (e) {}
-      try { ref.lfo2.stop(t + 3.0); } catch (e) {}
-      try { ref.panLfo.stop(t + 3.0); } catch (e) {}
-    }
-
-    function stopDrone() {
-      if (!droneOsc || !droneGain) return;
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      const t = ctx.currentTime;
-      const oscRef = droneOsc;
-      const gainRef = droneGain;
-      droneOsc = null;
-      droneGain = null;
-      const g = gainRef.gain;
-      g.cancelScheduledValues(t);
-      g.setValueAtTime(g.value, t);
-      g.exponentialRampToValueAtTime(0.0001, t + 4.0);
-      try { oscRef.sub.stop(t + 4.5); } catch (e) {}
-      try { oscRef.bass.stop(t + 4.5); } catch (e) {}
-    }
-
     // fireCycle now self-drives via setTimeout chain — reduced-motion path is
     // handled inside fireCycle (skips video block when reduced is true).
     function startLoopCycle() {
@@ -675,7 +481,6 @@
       if (loopArmed) {
         // Loop owns the dimmer while running — manual clicks would conflict
         if (button) button.disabled = true;
-        startTape();
         startLoopCycle();
       } else {
         if (loopPressTimer) { clearTimeout(loopPressTimer); loopPressTimer = null; }
@@ -683,7 +488,6 @@
         // Clear lock state too — reset for next arming
         if (themeLocked) { themeLocked = false; setLockUI(false); }
         loopDirection = null;
-        stopTape();
         catCtl.reset();
         if (button) button.disabled = false;
       }
@@ -702,12 +506,11 @@
         if (button) button.disabled = true;  // loop owns dimmer while armed
 
         // Audio defer — if ctx is suspended (no user gesture on new page),
-        // wait for first interaction before starting drone + cycle. Otherwise
+        // wait for first interaction before starting the cycle. Otherwise
         // events queue up on a frozen audio clock and slam together when
         // ctx finally resumes.
         function kickoff() {
           if (!loopArmed) return;
-          startTape();
           if (reduced || !video || video.readyState >= 3) {
             fireCycle();
           } else {
