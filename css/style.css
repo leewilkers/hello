@@ -1038,6 +1038,12 @@ body {
   margin-top: 0.35rem;
 }
 
+.home-plain .home-section.home-work li {
+  font-size: 1.04rem;
+  line-height: 1.45;
+  padding: 0.08rem 0;
+}
+
 .home-plain .home-section ul {
   list-style: disc outside;
   margin: 0;
@@ -1092,29 +1098,12 @@ body {
   cursor: not-allowed;
 }
 
-/* About-page trail band — burrow → dotted path → leaping hare across the
-   bottom of the viewport. Rendered as a body-level sibling (not inside
-   .page-home), so no 100vw breakout math is needed — width:100% just
-   resolves to the body width. Body becomes a flex column on the about
-   page only (via :has()) so the trail can margin-top:auto its way to
-   the bottom of the viewport. Image height is capped via clamp() so
-   the natural 3:1 aspect doesn't eat half the viewport at wide widths.
-   No position:fixed, no vw-units on type, no fixed pixel heights —
-   everything scales proportionally under Chrome zoom. */
-body:has(.home-trail-band) {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-body:has(.home-trail-band) .page-home {
-  min-height: 0;
-}
-
+/* About-page trail band — burrow → dotted path → leaping hare. It acts as
+   the footer-ish divider before the lower nav/contact block. */
 .home-trail-band {
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+  width: 100vw;
+  margin: clamp(0.6rem, 1.4vh, 1rem) 0 clamp(0.9rem, 2vh, 1.45rem) 50%;
+  transform: translateX(-50%);
   pointer-events: none;
   user-select: none;
 }
