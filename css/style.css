@@ -1108,6 +1108,10 @@ body {
   user-select: none;
 }
 
+.home-trail-band + .home-nav {
+  margin-top: clamp(3.25rem, 4.6vh, 4rem);
+}
+
 .home-trail-band img {
   display: block;
   width: 100%;
