@@ -1,0 +1,205 @@
+---
+layout: base.njk
+title: Brico Color Variations
+pageClass: page-brico-colors
+fontPreview: bricolage-eb
+permalink: /type/bricolage/colors/
+---
+
+{% set variants = [
+  {
+    id: "current",
+    query: "default",
+    name: "Current Brico",
+    note: "Claude-exact typography with the current granite-blue link and neutral trail.",
+    swatches: ["#FFFCF0", "#100F0F", "#6F6E69", "#2D5184", "#9F9D96"],
+    light: {
+      bg: "#FFFCF0", ink: "#100F0F", body: "#575653", muted: "#6F6E69",
+      rule: "#CECDC3", label: "#6F6E69", link: "#2D5184", trail: "#9F9D96",
+      subtitle: "#3A3A3A", aside: "#6F6E69", surface: "#F2F0E5"
+    },
+    dark: {
+      bg: "#100F0F", ink: "#CECDC3", body: "#B7B5AC", muted: "#878580",
+      rule: "#343331", label: "#9F9D96", link: "#8AA8D8", trail: "#878580",
+      subtitle: "#B7B5AC", aside: "#878580", surface: "#1C1B1A"
+    }
+  },
+  {
+    id: "granite-fern",
+    query: "brico-granite-fern",
+    name: "Granite Fern",
+    note: "Most conservative candidate: paper/ink stays editorial; fern only lives in the trail.",
+    swatches: ["#F4F2EC", "#161616", "#69665F", "#2D5184", "#748064"],
+    light: {
+      bg: "#F4F2EC", ink: "#161616", body: "#4E4B45", muted: "#69665F",
+      rule: "#CAC5B8", label: "#69665F", link: "#2D5184", trail: "#748064",
+      subtitle: "#3A3A3A", aside: "#6D6960", surface: "#ECE8DD"
+    },
+    dark: {
+      bg: "#121315", ink: "#D6D2C7", body: "#BDB8AB", muted: "#928E84",
+      rule: "#343538", label: "#AAA396", link: "#88A6CC", trail: "#72836C",
+      subtitle: "#BDB8AB", aside: "#928E84", surface: "#191A1C"
+    }
+  },
+  {
+    id: "sand-moss-blue",
+    query: "brico-sand-moss-blue",
+    name: "Sand Moss Blue",
+    selected: true,
+    note: "Warmer paper, soil-neutral labels, moss trail, blue links kept recognizable.",
+    swatches: ["#F6F1E7", "#191612", "#6B655A", "#315A7D", "#6A7D63"],
+    light: {
+      bg: "#F6F1E7", ink: "#191612", body: "#4D473E", muted: "#6B655A",
+      rule: "#D2CABD", label: "#6B655A", link: "#315A7D", trail: "#6A7D63",
+      subtitle: "#3C382F", aside: "#706859", surface: "#EDE5D8"
+    },
+    dark: {
+      bg: "#14120F", ink: "#DED6C6", body: "#C1B7A6", muted: "#998F7E",
+      rule: "#38332D", label: "#AEA390", link: "#89A6C3", trail: "#6A7D63",
+      subtitle: "#C1B7A6", aside: "#998F7E", surface: "#1C1915"
+    }
+  },
+  {
+    id: "ink-water",
+    query: "brico-ink-water",
+    name: "Ink Water",
+    note: "Cleaner and more modern: cool graphite neutrals, water-blue links, juniper trail.",
+    swatches: ["#F7F6EF", "#141516", "#626668", "#285F7C", "#607972"],
+    light: {
+      bg: "#F7F6EF", ink: "#141516", body: "#474A4B", muted: "#626668",
+      rule: "#CCD0CC", label: "#626668", link: "#285F7C", trail: "#607972",
+      subtitle: "#393C3E", aside: "#666A6A", surface: "#EEEDE6"
+    },
+    dark: {
+      bg: "#101214", ink: "#D8D6CD", body: "#BFBCB1", muted: "#96958B",
+      rule: "#303437", label: "#AAA79D", link: "#8FB5C4", trail: "#667F78",
+      subtitle: "#BFBCB1", aside: "#96958B", surface: "#171A1C"
+    }
+  },
+  {
+    id: "lichen-slate",
+    query: "brico-lichen-slate",
+    name: "Lichen Slate",
+    note: "The most nature-modern one: mineral surface, lichen trail, quiet slate-blue links.",
+    swatches: ["#F1F0E8", "#151714", "#666A60", "#345D77", "#75816D"],
+    light: {
+      bg: "#F1F0E8", ink: "#151714", body: "#4A4C46", muted: "#666A60",
+      rule: "#C9CCC1", label: "#666A60", link: "#345D77", trail: "#75816D",
+      subtitle: "#383B35", aside: "#686D61", surface: "#E8E7DE"
+    },
+    dark: {
+      bg: "#111412", ink: "#D5D4C8", body: "#BCBBB0", muted: "#939489",
+      rule: "#313630", label: "#A8A89B", link: "#88A9BC", trail: "#718169",
+      subtitle: "#BCBBB0", aside: "#939489", surface: "#171B18"
+    }
+  }
+] %}
+
+{% set greenStudies = [
+  { name: "selected bay laurel", hex: "#6A7D63", note: "selected Sand Moss Blue trail" },
+  { name: "dry sage", hex: "#858B73", note: "grey, dusty, least green" },
+  { name: "lichen stone", hex: "#7A846F", note: "mineral, low-chroma" },
+  { name: "fern ash", hex: "#6F805F", note: "leafier but still muted" },
+  { name: "moss bark", hex: "#707A58", note: "earthier, warmer" },
+  { name: "reed shadow", hex: "#858464", note: "reed/khaki, riskier yellow" },
+  { name: "juniper grey", hex: "#667D73", note: "cooler, modern" },
+  { name: "wet stone", hex: "#6E7B70", note: "neutral-green, quiet" },
+  { name: "eucalyptus", hex: "#748878", note: "soft blue-green" },
+  { name: "olive soot", hex: "#686F55", note: "darker, less polite" },
+  { name: "pine smoke", hex: "#5E715F", note: "dark evergreen, can get heavy" },
+  { name: "celadon dull", hex: "#8A927A", note: "lighter, more air" },
+  { name: "willow grey", hex: "#8D927F", note: "almost neutral" },
+  { name: "sea moss", hex: "#617A6D", note: "cooler and wetter" },
+  { name: "field olive", hex: "#777B5D", note: "military-adjacent if pushed" },
+  { name: "lichen blue", hex: "#718376", note: "green with blue restraint" },
+  { name: "mold line", hex: "#5F7356", note: "alive but maybe too assertive" }
+] %}
+
+{% macro open_link(variant, theme) -%}
+/type/bricolage/?palette={{ variant.query }}&amp;theme={{ theme }}
+{%- endmacro %}
+
+{% macro specimen(variant, mode, theme) %}
+  <article class="brico-specimen brico-specimen--{{ theme }}" style="--sample-bg: {{ mode.bg }}; --sample-ink: {{ mode.ink }}; --sample-body: {{ mode.body }}; --sample-muted: {{ mode.muted }}; --sample-rule: {{ mode.rule }}; --sample-label: {{ mode.label }}; --sample-link: {{ mode.link }}; --sample-trail: {{ mode.trail }}; --sample-subtitle: {{ mode.subtitle }}; --sample-aside: {{ mode.aside }}; --sample-surface: {{ mode.surface }};">
+    <p class="brico-specimen-mode">{{ theme }}</p>
+    <h3>Lee Wilkers</h3>
+    <p class="brico-specimen-subtitle">Research, strategy, and sensemaking for health, science, and public-interest work.</p>
+    <div class="brico-specimen-body">
+      <p>As an independent consultant, I help people and organizations make sense of evidence, context, and competing priorities.</p>
+      <p>I&rsquo;ve spent 10+ years in and around global health ethics, after earlier work in humanitarian relief, ecology, and other formative detours.</p>
+      <p class="brico-specimen-aside">Social scientist by training. Generalist by practice.</p>
+    </div>
+    <section class="brico-mini-section">
+      <h4>Most recently</h4>
+      <ul>
+        <li><strong>Focus Area on Compassion &amp; Ethics</strong><br>The Task Force for Global Health</li>
+        <li><strong>Human Engagement Learning Platform</strong><br>Rollins School of Public Health, Emory University</li>
+      </ul>
+    </section>
+    <p class="brico-specimen-aside">Raised in the DC area. Based in Atlanta.</p>
+    <div class="brico-specimen-trail" aria-hidden="true"></div>
+    <section class="brico-mini-pages">
+      <h4>Pages</h4>
+      <p><a href="#">Shelf</a>: things on my desk, informing current work and thinking.</p>
+      <p><a href="#">Contact</a>: lee@leewilkers.com</p>
+    </section>
+  </article>
+{% endmacro %}
+
+<article class="brico-colors" id="main">
+  <header class="brico-colors-head">
+    <p class="brico-colors-kicker">Brico color lab</p>
+    <h1>Ink, paper, prose, code, with a little living edge.</h1>
+    <p>Preview-only color directions for the Brico homepage. The full-page links open the real Brico route with the palette applied; the default homepage stays unchanged until one earns it.</p>
+  </header>
+
+  <section class="brico-green-studies" id="green-studies" aria-labelledby="green-studies-title">
+    <div class="brico-green-head">
+      <p class="brico-colors-kicker">Green studies</p>
+      <h2 id="green-studies-title">Same palette, different living edge.</h2>
+      <p>These hold Sand Moss Blue constant and vary only the rabbit/trail green. The useful range is narrow: too yellow gets sickly; too saturated starts looking like a UI success state.</p>
+    </div>
+
+    <div class="brico-green-grid" aria-label="Green trail color studies">
+      {% for green in greenStudies %}
+      <article class="brico-green-card" style="--green-study: {{ green.hex }}">
+        <div class="brico-green-surface brico-green-surface--light">
+          <span class="brico-green-trail" aria-hidden="true"></span>
+        </div>
+        <div class="brico-green-surface brico-green-surface--dark">
+          <span class="brico-green-trail" aria-hidden="true"></span>
+        </div>
+        <div class="brico-green-meta">
+          <h3>{{ green.name }}</h3>
+          <p><span>{{ green.hex }}</span>{{ green.note }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <div class="brico-color-stack" aria-label="Brico color candidates">
+    {% for variant in variants %}
+    <section class="brico-color-card{% if variant.selected %} is-selected{% endif %}" id="{{ variant.id }}">
+      <div class="brico-color-card-copy">
+        <p class="brico-color-card-kicker">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}{% if variant.selected %} / selected{% endif %}</p>
+        <h2>{{ variant.name }}</h2>
+        <p>{{ variant.note }}</p>
+        <div class="brico-swatches" aria-hidden="true">
+          {% for swatch in variant.swatches %}
+          <span style="background: {{ swatch }}"></span>
+          {% endfor %}
+        </div>
+        <p class="brico-open-links">
+          <a href="{{ open_link(variant, "light") }}">open light</a>
+          <a href="{{ open_link(variant, "dark") }}">open dark</a>
+        </p>
+      </div>
+      <div class="brico-specimen-pair">
+        {{ specimen(variant, variant.light, "light") }}
+        {{ specimen(variant, variant.dark, "dark") }}
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+</article>

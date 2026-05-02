@@ -1,0 +1,422 @@
+.page-brico-colors {
+  max-width: none;
+  padding: 0;
+}
+
+.brico-colors {
+  width: min(1380px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 5rem) 0 7rem;
+}
+
+.page-brico-colors + .site-colophon {
+  position: static;
+  width: min(1380px, calc(100vw - 2rem));
+  max-width: none;
+  margin: -4.5rem auto 2rem;
+  justify-content: flex-start;
+}
+
+.brico-colors-head {
+  max-width: 54rem;
+  margin-bottom: clamp(2.25rem, 5vw, 3.75rem);
+}
+
+.brico-colors-kicker,
+.brico-color-card-kicker,
+.brico-open-links,
+.brico-specimen-mode,
+.brico-mini-section h4 {
+  font-family: var(--mono);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.brico-colors-kicker {
+  margin: 0 0 0.65rem;
+  font-size: 0.78rem;
+  color: var(--section-label);
+}
+
+.brico-colors-head h1 {
+  max-width: 44rem;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(2.35rem, 6vw, 5rem);
+  font-weight: 600;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+.brico-colors-head p:not(.brico-colors-kicker) {
+  max-width: 42rem;
+  margin: 1rem 0 0;
+  font-family: var(--reading);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.48;
+  color: var(--ink-light);
+}
+
+.brico-green-studies {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: clamp(3.25rem, 7vw, 5rem);
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--rule-light);
+}
+
+.brico-green-head {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 46rem;
+}
+
+.brico-green-head h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  font-weight: 600;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+
+.brico-green-head p:not(.brico-colors-kicker) {
+  margin: 0;
+  font-family: var(--reading);
+  font-size: 1.12rem;
+  line-height: 1.5;
+  color: var(--ink-light);
+}
+
+.brico-green-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 0.9rem;
+}
+
+.brico-green-card {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.brico-green-surface {
+  min-width: 0;
+  height: 4rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--green-rule);
+  background: var(--green-bg);
+  overflow: hidden;
+}
+
+.brico-green-surface--light {
+  --green-bg: #F6F1E7;
+  --green-rule: #D2CABD;
+}
+
+.brico-green-surface--dark {
+  --green-bg: #14120F;
+  --green-rule: #38332D;
+}
+
+.brico-green-trail {
+  display: block;
+  width: calc(100% + 1.3rem);
+  height: 100%;
+  margin: 0 -0.65rem;
+  background: var(--green-study);
+  opacity: 0.58;
+  -webkit-mask: url("/img/rabbits/about-trail.png") center / 105% auto no-repeat;
+  mask: url("/img/rabbits/about-trail.png") center / 105% auto no-repeat;
+}
+
+.brico-green-surface--dark .brico-green-trail {
+  opacity: 0.7;
+}
+
+.brico-green-meta {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.brico-green-meta h3 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.brico-green-meta p {
+  margin: 0;
+  font-family: var(--reading);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--ink-light);
+}
+
+.brico-green-meta span {
+  font-family: var(--mono);
+  font-size: 0.74em;
+  letter-spacing: 0.03em;
+  color: var(--ink-muted);
+}
+
+.brico-green-meta span::after {
+  content: " / ";
+}
+
+.brico-color-stack {
+  display: grid;
+  gap: clamp(3rem, 6vw, 4.75rem);
+}
+
+.brico-color-card {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.62fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--rule-light);
+}
+
+.brico-color-card.is-selected {
+  border-top-color: var(--accent);
+}
+
+.brico-color-card.is-selected .brico-color-card-kicker {
+  color: var(--accent);
+}
+
+.brico-color-card-copy {
+  position: sticky;
+  top: 4.5rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.brico-color-card-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+.brico-color-card h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+  font-weight: 600;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.brico-color-card-copy > p:not(.brico-color-card-kicker):not(.brico-open-links) {
+  max-width: 22rem;
+  margin: 0;
+  font-family: var(--reading);
+  font-size: 1.08rem;
+  line-height: 1.48;
+  color: var(--ink-light);
+}
+
+.brico-swatches {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(1.5rem, 1fr));
+  width: min(15rem, 100%);
+  height: 1.75rem;
+  border: 1px solid var(--rule-light);
+}
+
+.brico-swatches span {
+  display: block;
+}
+
+.brico-open-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 0.95rem;
+  margin: 0;
+  font-size: 0.68rem;
+}
+
+.brico-open-links a {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+
+.brico-open-links a:hover {
+  border-bottom-color: transparent;
+}
+
+.brico-specimen-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.brico-specimen {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto auto auto 1fr;
+  gap: 0.78rem;
+  min-height: 37rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--sample-rule);
+  border-radius: 2px;
+  background: var(--sample-bg);
+  color: var(--sample-ink);
+  overflow: hidden;
+}
+
+.brico-specimen-mode {
+  justify-self: start;
+  margin: 0;
+  font-size: 0.64rem;
+  color: var(--sample-muted);
+}
+
+.brico-specimen h3 {
+  margin: 0;
+  font-family: "Bricolage Grotesque", "IBM Plex Sans", sans-serif;
+  font-size: clamp(1.95rem, 4vw, 2.4rem);
+  font-weight: 600;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.brico-specimen-subtitle {
+  max-width: 28rem;
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.28rem;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--sample-subtitle);
+}
+
+.brico-specimen-body {
+  display: grid;
+  gap: 0.38rem;
+  margin-top: 0.45rem;
+}
+
+.brico-specimen p,
+.brico-specimen li {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.04rem;
+  line-height: 1.5;
+}
+
+.brico-specimen p {
+  margin: 0;
+}
+
+.brico-specimen strong {
+  font-weight: 700;
+}
+
+.brico-specimen-aside {
+  color: var(--sample-aside);
+  font-style: italic;
+}
+
+.brico-mini-section {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+}
+
+.brico-mini-section h4 {
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--sample-label);
+}
+
+.brico-mini-section ul {
+  display: grid;
+  gap: 0.42rem;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.brico-mini-section li::marker {
+  color: var(--sample-muted);
+}
+
+.brico-specimen-trail {
+  width: calc(100% + 2.7rem);
+  height: 3.2rem;
+  margin: 0.25rem -1.35rem 0;
+  background: var(--sample-trail);
+  opacity: 0.52;
+  -webkit-mask: url("/img/rabbits/about-trail.png") center / 100% auto no-repeat;
+  mask: url("/img/rabbits/about-trail.png") center / 100% auto no-repeat;
+}
+
+.brico-mini-pages {
+  align-self: end;
+  display: grid;
+  gap: 0.32rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--sample-rule);
+}
+
+.brico-mini-pages h4 {
+  margin: 0 0 0.15rem;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.brico-mini-pages a {
+  color: var(--sample-link);
+  border-bottom: 1px solid var(--sample-link);
+}
+
+@media (max-width: 980px) {
+  .brico-color-card {
+    grid-template-columns: 1fr;
+  }
+
+  .brico-color-card-copy {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .brico-colors {
+    width: min(100% - 1rem, 40rem);
+    padding-bottom: 6rem;
+  }
+
+  .page-brico-colors + .site-colophon {
+    width: min(100% - 1rem, 40rem);
+    margin-top: -3.5rem;
+  }
+
+  .brico-specimen-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .brico-specimen {
+    min-height: auto;
+  }
+
+  .brico-green-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .brico-green-grid {
+    grid-template-columns: 1fr;
+  }
+}

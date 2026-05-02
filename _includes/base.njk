@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"{% if fontPreview %} data-font="{{ fontPreview }}"{% endif %}>
+<html lang="en"{% if fontPreview %} data-font="{{ fontPreview }}"{% endif %}{% if palettePreview %} data-palette="{{ palettePreview }}"{% endif %}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +59,9 @@
           'bricolage-eb': true,
           'plex-pair': true
         };
-        if (palette && palette !== 'default') {
+        if (palette === 'default') {
+          document.documentElement.removeAttribute('data-palette');
+        } else if (palette) {
           document.documentElement.setAttribute('data-palette', palette);
         }
         if (font && fontPreview[font]) {
@@ -83,6 +85,9 @@
   {% endif %}
   {% if pageClass == "page-color-lab" %}
   <link rel="stylesheet" href="/css/color-lab.css">
+  {% endif %}
+  {% if pageClass == "page-brico-colors" %}
+  <link rel="stylesheet" href="/css/brico-colors.css">
   {% endif %}
 </head>
 <body>
