@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"{% if fontPreview %} data-font="{{ fontPreview }}"{% endif %}{% if palettePreview %} data-palette="{{ palettePreview }}"{% endif %}>
+<html lang="en" data-theme="dark"{% if fontPreview %} data-font="{{ fontPreview }}"{% endif %}{% if palettePreview %} data-palette="{{ palettePreview }}"{% endif %}>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +30,7 @@
         var params = new URLSearchParams(window.location.search);
         var palette = params.get('palette');
         var theme = params.get('theme');
+        var savedTheme = localStorage.getItem('theme');
         var font = params.get('font');
         var fontPreview = {
           'current-eb': true,
@@ -75,6 +76,8 @@
         }
         if (theme === 'light' || theme === 'dark') {
           document.documentElement.setAttribute('data-theme', theme);
+        } else if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
         }
       } catch (e) {}
     })();
@@ -129,7 +132,7 @@
 <footer class="site-colophon" aria-label="Colophon">
   <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
   <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
-  <span>Colors: <a href="https://stephango.com/flexoki" target="_blank" rel="noopener noreferrer">Flexoki</a></span>
+  <span>Colors: <a href="/type/bricolage/colors/">custom Sand Moss Blue</a></span>
 </footer>
 
 <script>
