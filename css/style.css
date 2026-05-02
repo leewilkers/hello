@@ -197,15 +197,15 @@ html { scroll-behavior: smooth; }
 
 :root[data-font="bricolage-eb"] {
   --serif: 'Bricolage Grotesque', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --reading: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  --reading: 'IBM Plex Serif', Georgia, serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --home-title-size: 2.4rem;
   --home-title-weight: 600;
   --home-title-line: 1.05;
   --home-title-letter: -0.02em;
   --home-title-variation: "opsz" 96;
-  --home-subtitle-size: 1.32rem;
-  --home-subtitle-line: 1.34;
+  --home-subtitle-size: 1.12rem;
+  --home-subtitle-line: 1.42;
   --home-subtitle-weight: 500;
   --home-subtitle-style: normal;
   --home-subtitle-color: var(--brico-subtitle, #34312d);
@@ -213,10 +213,10 @@ html { scroll-behavior: smooth; }
   --home-label-weight: 600;
   --home-label-line: 1.25;
   --home-label-spacing: 0.14em;
-  --reading-size: 1.125rem;
-  --reading-line: 1.6;
-  --reading-list-line: 1.55;
-  --reading-work-size: 1.125rem;
+  --reading-size: 1rem;
+  --reading-line: 1.7;
+  --reading-list-line: 1.6;
+  --reading-work-size: 0.98rem;
   --reading-work-line: 1.55;
 }
 
@@ -2733,6 +2733,8 @@ body {
 
 .page-home,
 .page-error {
+  position: relative;
+  z-index: 2;
   max-width: 1180px;
   margin: 0 auto;
 }
@@ -2895,20 +2897,64 @@ body {
 }
 
 :root[data-font="bricolage-eb"] .home-identity {
-  margin-bottom: 1.55rem;
+  margin-bottom: 1.7rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain {
+  max-width: 700px;
+}
+
+:root[data-font="bricolage-eb"] .home-subtitle {
+  max-width: 38rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-section p {
+  max-width: 42.5rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-intro p + p {
+  margin-top: 0.64rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-lede {
+  color: color-mix(in srgb, var(--ink) 92%, var(--bg));
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-aside {
   font-family: var(--reading);
-  font-size: var(--reading-size);
+  font-size: 0.95rem;
   font-style: normal;
   font-weight: 400;
-  line-height: var(--reading-line);
-  color: var(--ink);
+  line-height: 1.48;
+  color: color-mix(in srgb, var(--ink) 72%, var(--bg));
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-intro .home-aside {
-  margin-top: 0.45rem;
+  margin-top: 1rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-intro .home-aside + .home-aside {
+  margin-top: 0.1rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-meta {
+  display: grid;
+  gap: 0.42rem;
+  max-width: 42.5rem;
+  margin-top: 1.05rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--section-label) 42%, transparent);
+  font-family: var(--reading);
+  font-size: 0.96rem;
+  font-weight: 400;
+  line-height: 1.48;
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--ink) 74%, var(--bg));
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-work {
+  margin-top: 1.75rem;
+  margin-bottom: 1.95rem;
 }
 
 :root[data-theme="dark"][data-font="bricolage-eb"] {
@@ -2916,7 +2962,12 @@ body {
 }
 
 :root[data-theme="dark"][data-font="bricolage-eb"] .home-plain .home-aside {
-  color: var(--ink);
+  color: color-mix(in srgb, var(--ink) 72%, var(--bg));
+}
+
+:root[data-theme="dark"][data-font="bricolage-eb"] .home-plain .home-meta {
+  border-left-color: color-mix(in srgb, var(--section-label) 42%, transparent);
+  color: color-mix(in srgb, var(--ink) 74%, var(--bg));
 }
 
 @media (prefers-color-scheme: dark) {
@@ -2925,7 +2976,12 @@ body {
   }
 
   :root[data-font="bricolage-eb"]:not([data-theme="light"]) .home-plain .home-aside {
-    color: var(--ink);
+    color: color-mix(in srgb, var(--ink) 72%, var(--bg));
+  }
+
+  :root[data-font="bricolage-eb"]:not([data-theme="light"]) .home-plain .home-meta {
+    border-left-color: color-mix(in srgb, var(--section-label) 42%, transparent);
+    color: color-mix(in srgb, var(--ink) 74%, var(--bg));
   }
 }
 
@@ -3157,6 +3213,28 @@ body {
   padding: 0.08rem 0;
 }
 
+:root[data-font="bricolage-eb"] .home-work-details summary {
+  gap: 0.58rem;
+}
+
+:root[data-font="bricolage-eb"] .home-work-title {
+  font-size: var(--home-label-size);
+  letter-spacing: var(--home-label-spacing);
+  color: var(--section-label);
+}
+
+:root[data-font="bricolage-eb"] .home-work-cue {
+  gap: 0.28rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+:root[data-font="bricolage-eb"] .home-work-cue::before {
+  font-size: 1em;
+}
+
 /* About-page hare: parked. Asset at img/rabbits/hare-engraved.png stays
    on disk for when the rabbit motif returns refined. */
 
@@ -3243,14 +3321,24 @@ body {
 
 :root[data-font="bricolage-eb"] .home-plain .home-nav h2,
 :root[data-font="bricolage-eb"] .home-plain .home-contact h2 {
-  font-family: var(--reading);
-  font-size: 1.55rem;
-  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 600;
   letter-spacing: 0;
-  line-height: 1.1;
+  line-height: 1.15;
   text-transform: none;
   color: var(--ink);
-  margin-bottom: 0.72rem;
+  margin-bottom: 0.55rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-nav p,
+:root[data-font="bricolage-eb"] .home-plain .home-contact p {
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-section li strong {
+  font-weight: 600;
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-nav a,
@@ -3275,7 +3363,7 @@ body {
   position: fixed;
   left: 0;
   bottom: clamp(3rem, 6.5vh, 4.75rem);
-  z-index: 20;
+  z-index: 1;
   width: 100vw;
   margin: 0;
   pointer-events: none;

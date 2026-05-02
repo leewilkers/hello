@@ -30,7 +30,6 @@
         var params = new URLSearchParams(window.location.search);
         var palette = params.get('palette');
         var theme = params.get('theme');
-        var savedTheme = localStorage.getItem('theme');
         var font = params.get('font');
         var fontPreview = {
           'current-eb': true,
@@ -76,8 +75,6 @@
         }
         if (theme === 'light' || theme === 'dark') {
           document.documentElement.setAttribute('data-theme', theme);
-        } else if (savedTheme === 'light' || savedTheme === 'dark') {
-          document.documentElement.setAttribute('data-theme', savedTheme);
         }
       } catch (e) {}
     })();
@@ -414,11 +411,8 @@
     }
 
     // Resolve — TWO notes (a chord) at cat-paw impact. The "satisfying" beat.
-    //   D→L (going light, RISING):  press N1 → resolve [N3 + N4] = A4 + C#5
-    //   L→D (going dark, FALLING):  press N4 → resolve [N2 + N1] = F#4 + D4
-    // Both directions complete a Dmaj7 voicing across press+resolve = full
-    // 4-note chord arpeggiated in different orders. The two resolve notes
-    // play with a 25ms stagger so the chord feels human-struck, not robotic.
+    // Keep the original music shapes here; dark/light assignment is inverted
+    // only at the call sites via musicDirection().
     function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -444,14 +438,19 @@
       const goingDark = !wasInDark;
       const next = goingDark ? 'dark' : 'light';
       d.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
       if (button) button.setAttribute('aria-pressed', goingDark ? 'true' : 'false');
       return goingDark;
     }
 
+    function musicDirection(goingDark) {
+      // Music treats dark/light as inverted now: same visual toggle, opposite
+      // phrase direction.
+      return !goingDark;
+    }
+
     function instantFlip() {
       const goingDark = applyThemeFlip();
-      playResolveChord(goingDark);
+      playResolveChord(musicDirection(goingDark));
     }
 
     // Loop cycle — JS-timer-driven audio rhythm, video plays in parallel for
@@ -477,13 +476,15 @@
         goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
       }
 
+      const musicGoingDark = musicDirection(goingDark);
+
       // Audio: press immediately (this is beat zero of the cycle)
-      playPressNote(goingDark);
+      playPressNote(musicGoingDark);
 
       // Visual: cat clip plays in parallel — but only when NOT locked. With
       // theme locked, the paw motion would imply a theme change that won't
       // happen, so we leave the cat off-screen and just play music.
-      if (!themeLocked) catCtl.play(goingDark, 'loop');
+      if (!themeLocked) catCtl.play(musicGoingDark, 'loop');
 
       // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
       if (loopPressTimer) clearTimeout(loopPressTimer);
@@ -491,7 +492,7 @@
         loopPressTimer = null;
         if (!loopArmed) return;
         if (!themeLocked) applyThemeFlip();
-        playResolveChord(goingDark);
+        playResolveChord(musicGoingDark);
         // Schedule next cycle
         if (loopNextTimer) clearTimeout(loopNextTimer);
         loopNextTimer = setTimeout(function() {
@@ -505,11 +506,12 @@
       if (reduced || !video || video.readyState < 3) return instantFlip();
 
       const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
-      const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
-      const seekFrom = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
+      const musicGoingDark = musicDirection(goingDark);
+      const hitAt = musicGoingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
+      const seekFrom = musicGoingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
       const safetyMs = ((hitAt - seekFrom) / VIDEO_RATE) * 1000 + 500;
 
-      catCtl.play(goingDark);
+      catCtl.play(musicGoingDark);
 
       let flipped = false;
       function doFlip() {
@@ -539,7 +541,7 @@
       button.addEventListener('pointerdown', function() {
         if (button.disabled) return;
         const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
-        playPressNote(goingDark);
+        playPressNote(musicDirection(goingDark));
       });
     }
 
@@ -654,16 +656,13 @@
     } catch (e) {}
   })();
 
-  // FOUC restore – keep this untouched, runs as soon as parser hits it
+  // Theme control state. The HTML opens dark by default; URL ?theme=light/dark
+  // may override for previews, but regular opens intentionally do not persist
+  // a prior light-mode test.
   (function() {
-    const saved = localStorage.getItem('theme');
-    if (saved && !document.documentElement.hasAttribute('data-theme')) {
-      document.documentElement.setAttribute('data-theme', saved);
-    }
-    // sync aria-pressed on dimmer once DOM is ready
     document.addEventListener('DOMContentLoaded', function() {
       var btn = document.querySelector('.dimmer');
-      var theme = document.documentElement.getAttribute('data-theme') || saved;
+      var theme = document.documentElement.getAttribute('data-theme');
       if (btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
     });
   })();
