@@ -37,10 +37,10 @@ pageClass: page-shelf
         {%- endif %}
         <ul class="cell-links" aria-label="Links">
           {%- if item.data.url %}
-          <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">source</a></li>
+          <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.url | linkLabel(item.data.source_label) }}</a></li>
           {%- endif %}
           {%- if item.data.links %}{%- for link in item.data.links %}
-          <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a></li>
+          <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.url | linkLabel(link.label) }}</a></li>
           {%- endfor %}{%- endif %}
         </ul>
       </li>

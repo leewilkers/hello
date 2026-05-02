@@ -137,6 +137,10 @@ module.exports = function(eleventyConfig) {
     return [...expectCollection(arr, "sortByAuthor")].sort((a, b) => {
       const ad = expectData(a, "sortByAuthor");
       const bd = expectData(b, "sortByAuthor");
+      // Pinned items float to the top of their topic, outside alphabetization.
+      const pa = ad.pinned ? 0 : 1;
+      const pb = bd.pinned ? 0 : 1;
+      if (pa !== pb) return pa - pb;
       const sa = surname(ad.author);
       const sb = surname(bd.author);
       if (sa < sb) return -1;
@@ -145,7 +149,142 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Map a URL to a representative link label.
+  // - If `override` is truthy, use it verbatim (hand-curated wins).
+  // - Otherwise infer from host: ".pdf" / monoskop / archive.org → "full source",
+  //   publisher domains → publisher name, publication domains → publication name.
+  // - Falls back to the bare host minus "www." for unknown hosts.
+  // Hosts are stored without leading "www."; lookup strips it before matching.
+  const LINK_LABEL_MAP = {
+    // Full-source / archives — display by site name, "(PDF)" appended if URL is a PDF
+    "monoskop.org": "monoskop",
+    "archive.org": "archive.org",
+    "web.archive.org": "archive.org",
+    "libgen.is": "libgen",
+    "libgen.rs": "libgen",
+    "arxiv.org": "arxiv",
+    "escholarship.org": "escholarship",
+    // DOIs and library catalogs
+    "doi.org": "DOI",
+    "openlibrary.org": "Open Library",
+    "en.wikipedia.org": "Wikipedia",
+    "wikipedia.org": "Wikipedia",
+    // Video
+    "youtube.com": "video",
+    "youtu.be": "video",
+    "vimeo.com": "Vimeo",
+    // University presses
+    "mitpress.mit.edu": "MIT Press",
+    "press.princeton.edu": "Princeton University Press",
+    "global.oup.com": "Oxford University Press",
+    "academic.oup.com": "Oxford University Press",
+    "dukeupress.edu": "Duke University Press",
+    "yalebooks.yale.edu": "Yale University Press",
+    "ucpress.edu": "UC Press",
+    "sup.org": "Stanford University Press",
+    "press.jhu.edu": "Johns Hopkins University Press",
+    "press.indiana.edu": "Indiana University Press",
+    "rutgersuniversitypress.org": "Rutgers University Press",
+    "press.uchicago.edu": "University of Chicago Press",
+    "hup.harvard.edu": "Harvard University Press",
+    "upress.umn.edu": "University of Minnesota Press",
+    "cambridge.org": "Cambridge University Press",
+    "cup.columbia.edu": "Columbia University Press",
+    "uncpress.org": "UNC Press",
+    "openhumanitiespress.org": "Open Humanities Press",
+    // Trade / commercial publishers
+    "routledge.com": "Routledge",
+    "penguinrandomhouse.com": "Penguin Random House",
+    "hachettebookgroup.com": "Hachette",
+    "versobooks.com": "Verso",
+    "plutobooks.com": "Pluto Press",
+    "urbanomic.com": "Urbanomic",
+    "lostartpress.com": "Lost Art Press",
+    "us.macmillan.com": "Macmillan",
+    "harpercollins.com": "HarperCollins",
+    "bloomsbury.com": "Bloomsbury",
+    "groveatlantic.com": "Grove Atlantic",
+    "simonandschuster.com": "Simon & Schuster",
+    "wwnorton.com": "W. W. Norton",
+    "pushkinpress.com": "Pushkin Press",
+    "godine.com": "Godine",
+    "hackettpublishing.com": "Hackett",
+    "e-elgar.com": "Edward Elgar",
+    "press.stripe.com": "Stripe Press",
+    "practicalactionpublishing.com": "Practical Action",
+    "africanminds.co.za": "African Minds",
+    // Journals / journal aggregators
+    "wiley.com": "Wiley",
+    "onlinelibrary.wiley.com": "Wiley",
+    "link.springer.com": "Springer",
+    "sciencedirect.com": "ScienceDirect",
+    "nature.com": "Nature",
+    "sk.sagepub.com": "Sage Knowledge",
+    "journals.plos.org": "PLOS",
+    "hbr.org": "HBR",
+    // Magazines / publications
+    "theparisreview.org": "Paris Review",
+    "placesjournal.org": "Places Journal",
+    "aeon.co": "Aeon",
+    "asteriskmag.com": "Asterisk",
+    "theatlantic.com": "The Atlantic",
+    "thenewatlantis.com": "The New Atlantis",
+    "nybooks.com": "NYRB",
+    "nplusonemag.com": "n+1",
+    "lrb.co.uk": "LRB",
+    "popularmechanics.com": "Popular Mechanics",
+    "theguardian.com": "The Guardian",
+    "vox.com": "Vox",
+    "artforum.com": "Artforum",
+    "variety.com": "Variety",
+    "quillette.com": "Quillette",
+    "astralcodexten.com": "Astral Codex Ten",
+    "engelsbergideas.com": "Engelsberg Ideas",
+    "e-flux.com": "e-flux",
+    "aperture.org": "Aperture",
+    "store.aperture.org": "Aperture",
+    "letterboxd.com": "Letterboxd",
+    // Personal / blog sites where the name is more useful than the host
+    "worrydream.com": "Bret Victor",
+    "ribbonfarm.com": "Ribbonfarm",
+    "robinsloan.com": "Robin Sloan",
+    "themarginalian.org": "The Marginalian",
+    "theconvivialsociety.substack.com": "The Convivial Society",
+    "patternlanguage.com": "patternlanguage.com",
+  };
+
+  function linkLabelFromUrl(url) {
+    if (!url) return "link";
+    let host, pathname;
+    try {
+      const parsed = new URL(url);
+      host = parsed.host.toLowerCase();
+      pathname = parsed.pathname || "";
+    } catch (e) {
+      return "link";
+    }
+    const stripped = host.replace(/^www\./, "");
+    let base = LINK_LABEL_MAP[host] || LINK_LABEL_MAP[stripped];
+    if (!base) {
+      if (host.endsWith(".substack.com")) {
+        const name = stripped.replace(/\.substack\.com$/, "");
+        base = name ? name.replace(/-/g, " ") : "Substack";
+      } else {
+        base = stripped;
+      }
+    }
+    // Append "(PDF)" if the URL points to a PDF.
+    if (/\.pdf$/i.test(pathname)) return `${base} (PDF)`;
+    return base;
+  }
+
+  eleventyConfig.addFilter("linkLabel", function(url, override) {
+    if (override && String(override).trim()) return String(override).trim();
+    return linkLabelFromUrl(url);
+  });
+
   // Ignore non-site files
+  eleventyConfig.ignores.add("AGENTS.md");
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("HOW-TO.md");
   eleventyConfig.ignores.add("CLAUDE.md");
