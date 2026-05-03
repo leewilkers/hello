@@ -2,6 +2,7 @@
 author: "Bret Victor"
 title: "Up and Down the Ladder of Abstraction: A Systematic Approach to Interactive Visualization"
 type: essay
+interactive: true
 image: "/img/covers/bret-victor-up-and-down-the-ladder-of-abstraction.jpg"
 dest: shelf
 topic: "Interfaces & Interaction"

@@ -5,6 +5,63 @@ permalink: /shelf/
 pageClass: page-shelf
 ---
 
+{% set typeSymbols = {
+  "archive": { label: "Archive", symbol: "archive" },
+  "audio": { label: "Audio", symbol: "wave-sine" },
+  "book": { label: "Book", symbol: "book" },
+  "concept": { label: "Concept", symbol: "bulb" },
+  "dataset": { label: "Dataset", symbol: "database" },
+  "essay": { label: "Essay", symbol: "article" },
+  "film": { label: "Film", symbol: "movie" },
+  "game": { label: "Game", symbol: "hand-finger" },
+  "image": { label: "Image", symbol: "photo" },
+  "installation": { label: "Installation", symbol: "cube" },
+  "interview": { label: "Interview", symbol: "messages" },
+  "journal article": { label: "Journal article", symbol: "microscope" },
+  "lecture": { label: "Lecture", symbol: "podium" },
+  "map": { label: "Map", symbol: "map-2" },
+  "note": { label: "Note", symbol: "notes" },
+  "paper": { label: "Paper", symbol: "microscope" },
+  "photo": { label: "Photo", symbol: "photo" },
+  "project": { label: "Project", symbol: "cube" },
+  "report": { label: "Report", symbol: "file-text" },
+  "site": { label: "Website", symbol: "browser" },
+  "slides": { label: "Slides", symbol: "presentation" },
+  "software": { label: "Software", symbol: "terminal-2" },
+  "talk": { label: "Talk", symbol: "podium" },
+  "tool": { label: "Tool", symbol: "terminal-2" },
+  "video": { label: "Video", symbol: "video" },
+  "vr": { label: "VR", symbol: "hand-finger" },
+  "working paper": { label: "Working paper", symbol: "microscope" },
+  "unknown": { label: "Item type", symbol: "notes" }
+} %}
+
+{% macro typeSymbol(item, className) %}
+  {%- set rawType = item.data.type or "unknown" -%}
+  {%- set key = rawType | lower -%}
+  {%- set isInteractive = item.data.interactive or key == "vr" or key == "game" -%}
+  {%- if typeSymbols[key] -%}
+    {%- set label = typeSymbols[key].label -%}
+    {%- set symbol = item.data.type_symbol or typeSymbols[key].symbol -%}
+  {%- else -%}
+    {%- set label = rawType -%}
+    {%- set symbol = item.data.type_symbol or typeSymbols.unknown.symbol -%}
+  {%- endif -%}
+  {%- if isInteractive -%}
+    {%- set symbol = item.data.type_symbol or "hand-finger" -%}
+    {%- if label == "VR" -%}
+      {%- set label = "Interactive VR" -%}
+    {%- else -%}
+      {%- set label = "Interactive " ~ (label | lower) -%}
+    {%- endif -%}
+  {%- endif -%}
+        <span class="{{ className }} item-type-symbol" data-type="{{ rawType | escape }}" data-symbol="{{ symbol | escape }}" role="img" aria-label="{{ label | escape }}" title="{{ label | escape }}">
+          <svg class="item-type-symbol__icon" aria-hidden="true" focusable="false">
+            <use href="#item-type-{{ symbol }}"></use>
+          </svg>
+        </span>
+{% endmacro %}
+
 {% macro cell(item, topic) %}
       {%- set primaryUrl = item.data.url %}
       {%- set hoverVoice = item.data | shelfHoverVoice %}
@@ -29,7 +86,8 @@ pageClass: page-shelf
             </ul>
           </span>
         </span>
-        <span class="cell-type">{{ item.data.type }}</span>
+        <span class="cell-heading">
+        {{ typeSymbol(item, "cell-type") }}
         {%- if item.data.title %}
           {%- set tip = item.data.tooltip %}
           {%- if primaryUrl %}
@@ -38,6 +96,7 @@ pageClass: page-shelf
         <span class="cell-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
           {%- endif %}
         {%- endif %}
+        </span>
         <span class="cell-author">{{ item.data.author }}</span>
         {%- if item.data.dek %}<span class="cell-dek">{{ item.data.dek }}</span>{% endif %}
         <div class="shelf-card-controls">
@@ -52,8 +111,8 @@ pageClass: page-shelf
 {% macro listCell(item, topic) %}
       {%- set primaryUrl = item.data.url %}
       <li class="shelf-list-row" data-shelf-id="{{ item.fileSlug }}" data-shelf-origin="{{ topic | slug }}"{% if not item.data.shelf_list %} hidden{% endif %}>
-        <span class="shelf-list-type">{{ item.data.type }}</span>
         <span class="shelf-list-main">
+          {{ typeSymbol(item, "shelf-list-type") }}
           {%- if item.data.title %}
             {%- set tip = item.data.tooltip %}
             {%- if primaryUrl %}
@@ -83,6 +142,9 @@ pageClass: page-shelf
 <button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()">☰</button>
 
 <h1 class="sr-only">Shelf</h1>
+
+{% include "type-symbols.njk" %}
+
 
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">

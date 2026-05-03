@@ -2,7 +2,7 @@
 author: Dietmar Offenhuber
 title: 'Autographic Design: The Matter of Data in a Self-Inscribing World'
 type: book
-image: /img/covers/offenhuber-autographic-design.jpg
+image: /img/covers/offenhuber-autographic-design.avif
 dest: shelf
 topic: Design
 url: 'https://mitpress.mit.edu/9780262547024/autographic-design/'

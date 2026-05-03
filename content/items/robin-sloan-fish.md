@@ -2,6 +2,7 @@
 author: Robin Sloan
 title: 'Fish: a tap essay'
 type: essay
+interactive: true
 image: /img/covers/robin-sloan-fish.jpg
 dest: shelf
 topic: Experiences
