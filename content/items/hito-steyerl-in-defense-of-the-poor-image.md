@@ -3,6 +3,7 @@ author: Hito Steyerl
 title: In Defense of the Poor Image
 type: essay
 image: /img/covers/hito-steyerl-in-defense-of-the-poor-image.jpg
+shelf_list: true
 dest: shelf
 note: ''
 quote: ""

@@ -3,6 +3,7 @@ author: "Julio Frenk, Octavio Gomez-Dantes"
 title: "False Dichotomies in Global Health"
 type: essay
 image: "/img/covers/frenk-gomez-dantes-false-dichotomies-in-global-health.jpg"
+shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1136/bmj.j4070"

@@ -3,6 +3,7 @@ author: "Bruno Latour"
 title: "Matters of Fact, Matters of Concern"
 type: essay
 image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
+shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"
 url: "https://thewinteranthology.com/"

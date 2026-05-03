@@ -3,6 +3,7 @@ author: Kaidi Wu and David Dunning
 title: Hypocognition
 type: concept
 image: /img/covers/hypocognition.jpg
+shelf_list: true
 dest: shelf
 topic: "Language & Writing"
 url: 'https://en.wikipedia.org/wiki/Hypocognition'

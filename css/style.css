@@ -3588,6 +3588,19 @@ body {
   color: var(--ink-faint);
 }
 
+.shelf-export-fallback {
+  flex-basis: 100%;
+  width: min(100%, 48rem);
+  min-height: 8rem;
+  resize: vertical;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 0.82rem/1.45 var(--mono);
+}
+
 .page-shelf .library {
   grid-template-columns: 280px minmax(0, 1fr);
   gap: 0;

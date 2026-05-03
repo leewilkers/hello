@@ -3,6 +3,7 @@ author: "Daniel Kelly and Evan Westra"
 title: "Why does moral progress feel preachy and annoying?"
 type: essay
 image: "/img/covers/why-does-moral-progress-feel-preachy.jpg"
+shelf_list: true
 dest: shelf
 topic: "Ethics & Moral Imagination"
 url: "https://aeon.co/essays/why-does-moral-progress-feel-so-preachy-and-annoying"

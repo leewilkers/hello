@@ -8,7 +8,7 @@ pageClass: page-shelf
 {% macro cell(item, topic) %}
       {%- set primaryUrl = item.data.url %}
       {%- set hoverVoice = item.data | shelfHoverVoice %}
-      <li class="shelf-card" data-shelf-id="{{ item.fileSlug }}" data-shelf-origin="{{ topic | slug }}">
+      <li class="shelf-card" data-shelf-id="{{ item.fileSlug }}" data-shelf-origin="{{ topic | slug }}"{% if item.data.shelf_list %} hidden{% endif %}>
         <span class="cell-cover">
           <span class="cell-cover-panel">
           {%- if item.data.image %}
@@ -51,7 +51,7 @@ pageClass: page-shelf
 
 {% macro listCell(item, topic) %}
       {%- set primaryUrl = item.data.url %}
-      <li class="shelf-list-row" data-shelf-id="{{ item.fileSlug }}" data-shelf-origin="{{ topic | slug }}" hidden>
+      <li class="shelf-list-row" data-shelf-id="{{ item.fileSlug }}" data-shelf-origin="{{ topic | slug }}"{% if not item.data.shelf_list %} hidden{% endif %}>
         <span class="shelf-list-type">{{ item.data.type }}</span>
         <span class="shelf-list-main">
           {%- if item.data.title %}

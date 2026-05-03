@@ -1258,13 +1258,27 @@
 	      document.body.appendChild(textarea);
 	      textarea.select();
 	      try {
-	        document.execCommand('copy');
+	        if (!document.execCommand('copy')) throw new Error('copy command failed');
 	        return Promise.resolve();
 	      } catch (e) {
 	        return Promise.reject(e);
 	      } finally {
 	        textarea.remove();
 	      }
+	    }
+
+	    function showExportFallback(text) {
+	      var existing = document.querySelector('[data-shelf-export-fallback]');
+	      if (existing) existing.remove();
+	      var textarea = document.createElement('textarea');
+	      textarea.className = 'shelf-export-fallback';
+	      textarea.setAttribute('data-shelf-export-fallback', '');
+	      textarea.setAttribute('aria-label', 'Shelf curation JSON');
+	      textarea.value = text;
+	      var controls = document.querySelector('.shelf-review-controls');
+	      (controls || document.body).appendChild(textarea);
+	      textarea.focus();
+	      textarea.select();
 	    }
 
 	    function applyInitialState() {
@@ -1308,7 +1322,8 @@
 	        copyText(text).then(function() {
 	          setStatus('curation JSON copied');
 	        }).catch(function() {
-	          setStatus('copy failed');
+	          showExportFallback(text);
+	          setStatus('copy failed; select text below');
 	        });
 	      });
 	    }

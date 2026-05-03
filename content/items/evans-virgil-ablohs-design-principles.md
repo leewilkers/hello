@@ -3,6 +3,7 @@ author: "Benedict Evans"
 title: "Virgil Abloh's Design Principles"
 type: essay
 image: "/img/covers/evans-virgil-ablohs-design-principles.jpg"
+shelf_list: true
 dest: shelf
 topic: "Design"
 url: "https://www.ben-evans.com/benedictevans/2021/12/2/virgil-ablohs-design-principles"

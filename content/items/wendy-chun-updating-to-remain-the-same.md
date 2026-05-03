@@ -3,8 +3,9 @@ author: Wendy Chun
 title: 'Updating to Remain the Same: Habitual New Media'
 type: book
 image: /img/covers/wendy-chun-updating-to-remain-the-same.jpg
+shelf_list: true
 dest: shelf
-topic: "Technology & Critique"
+topic: "Media"
 order: 14
 url: 'https://mitpress.mit.edu/9780262534727/updating-to-remain-the-same/'
 dek: 'MIT Press, 2016'

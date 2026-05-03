@@ -3,6 +3,7 @@ author: "Maria Popova"
 title: "Gods With Anuses: Reframing our Common Humanity"
 type: essay
 image: "/img/covers/gods-with-anuses.jpg"
+shelf_list: true
 dest: shelf
 topic: "Potpourri"
 url: "https://www.themarginalian.org/2024/03/15/gods-with-anuses/"

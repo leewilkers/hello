@@ -3,6 +3,7 @@ author: "Clare Coffey"
 title: "How 'post-rationalism' is reshaping tech culture"
 type: essay
 image: "/img/covers/how-post-rationalism-is-reshaping-tech-culture.jpg"
+shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"
 url: "https://www.vox.com/the-highlight/23894951/post-rationalism-tech-culture"

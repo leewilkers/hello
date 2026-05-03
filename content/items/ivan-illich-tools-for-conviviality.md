@@ -3,6 +3,7 @@ author: Ivan Illich
 title: Tools for Conviviality
 type: book
 image: /img/covers/ivan-illich-tools-for-conviviality.jpg
+shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: 'https://archive.org/details/illich-conviviality'

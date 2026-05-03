@@ -3,6 +3,7 @@ author: Gilbert Simondon
 title: On the Mode of Existence of Technical Objects
 type: book
 image: /img/covers/gilbert-simondon-on-the-mode-of-existence-of-technical-objects.jpg
+shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: >-

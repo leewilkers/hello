@@ -3,6 +3,7 @@ author: "Bill Hillier, Julienne Hanson"
 title: "The Social Logic of Space"
 type: book
 image: "/img/covers/hillier-the-social-logic-of-space.jpg"
+shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://openlibrary.org/works/OL16963958W"

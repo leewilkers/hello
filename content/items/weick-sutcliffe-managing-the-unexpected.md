@@ -3,6 +3,7 @@ author: "Karl E. Weick, Kathleen M. Sutcliffe"
 title: "Managing the Unexpected: Sustained Performance in a Complex World"
 type: book
 image: "/img/covers/weick-sutcliffe-managing-the-unexpected.jpg"
+shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"
 url: "https://www.wiley-vch.de/en/areas-interest/finance-economics-law/business-management-13ba/general-introductory-business-management-13ba0/managing-the-unexpected-978-1-118-86241-4"

@@ -3,6 +3,7 @@ author: "Sam Kriss"
 title: "Everyone is starting to sound like AI, even in spoken language"
 type: essay
 image: "/img/covers/everyone-starting-to-sound-like-ai.jpg"
+shelf_list: true
 dest: shelf
 topic: "Language & Writing"
 url: "https://arxiv.org/abs/2409.01754"

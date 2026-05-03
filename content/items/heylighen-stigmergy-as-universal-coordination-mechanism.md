@@ -3,6 +3,7 @@ author: "Francis Heylighen"
 title: "Stigmergy as a Universal Coordination Mechanism"
 type: essay
 image: "/img/covers/heylighen-stigmergy-as-universal-coordination-mechanism.jpg"
+shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://doi.org/10.1016/j.cogsys.2015.12.002"

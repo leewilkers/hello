@@ -3,6 +3,7 @@ author: Alan Jacobs
 title: From Tech Critique to Ways of Living
 type: essay
 image: /img/covers/alan-jacobs-from-tech-critique-to-ways-of-living.jpg
+shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: >-

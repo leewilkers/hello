@@ -3,6 +3,7 @@ author: "Andrew Russell & Lee Vinsel"
 title: "Hail the Maintainers"
 type: essay
 image: "/img/covers/russell-vinsel-hail-the-maintainers.jpg"
+shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://aeon.co/essays/innovation-is-overvalued-maintenance-often-matters-more"

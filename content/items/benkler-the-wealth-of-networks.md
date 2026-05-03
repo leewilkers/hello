@@ -4,7 +4,7 @@ title: "The Wealth of Networks: How Social Production Transforms Markets and Fre
 type: book
 image: "/img/covers/benkler-the-wealth-of-networks.jpg"
 dest: shelf
-topic: "Potpourri"
+topic: "Social Science & Anthropology"
 url: "https://yalebooks.yale.edu/book/9780300125771/the-wealth-of-networks/"
 order: 50
 dek: "Yale University Press, 2006"

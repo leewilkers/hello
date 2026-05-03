@@ -3,6 +3,7 @@ author: "Stefan Koch, Peter Weingart"
 title: "The Delusion of Knowledge Transfer: The Impact of Foreign Aid Experts on Policy-making in South Africa and Tanzania"
 type: book
 image: "/img/covers/koch-weingart-the-delusion-of-knowledge-transfer.jpg"
+shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"
 url: "https://africanminds.co.za/the-delusion-of-knowledge-transfer/"

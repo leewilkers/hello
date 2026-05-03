@@ -3,6 +3,7 @@ author: "Shannon Mattern"
 title: "A City Is Not a Computer"
 type: essay
 image: "/img/covers/mattern-a-city-is-not-a-computer.jpg"
+shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://placesjournal.org/article/a-city-is-not-a-computer/"

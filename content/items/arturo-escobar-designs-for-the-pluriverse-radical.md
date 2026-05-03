@@ -3,6 +3,7 @@ author: "Arturo Escobar"
 title: "Designs for the Pluriverse: Radical Interdependence, Autonomy, and the Making of Worlds"
 type: book
 image: "/img/covers/arturo-escobar-designs-for-the-pluriverse-radical.jpg"
+shelf_list: true
 dest: shelf
 topic: "Design"
 url: "https://www.dukeupress.edu/designs-for-the-pluriverse"

@@ -3,7 +3,7 @@ author: "Barry Smith"
 title: "motherfuckingwebsite.com"
 type: site
 image: "/img/covers/motherfuckingwebsite.jpg"
-dest: shelf
+dest: stream
 topic: "Web Culture & Internet"
 url: "http://motherfuckingwebsite.com"
 order: 50

@@ -159,6 +159,12 @@ collections:
         default: true
         required: false
         hint: "Legacy field. The shelf review page starts all items as covers; use the page's Move to list button for manual review."
+      - label: Shelf list row
+        name: shelf_list
+        widget: boolean
+        default: false
+        required: false
+        hint: "When true, this shelf item renders as a compact list row instead of a cover card."
       - label: Display Order
         name: order
         widget: number

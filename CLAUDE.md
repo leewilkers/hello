@@ -64,7 +64,7 @@ Shelf items also require `topic`. Stream items may omit `topic`.
 
 Optional fields: `title`, `topic`, `section`, `dek`, `note`, `blurb`, `quote`, `source`, `links`, `featured`, `date`.
 
-Shelf review controls are local browser presentation toggles: every item starts in the cover grid, and the shelf page's "Move to list" button moves only that item into the compact list for the current browser session. Do not use old `featured: false` frontmatter as automatic approval to move items down.
+Shelf review controls are browser presentation toggles while curating. Once Lee asks to save the pass, persist compact rows by setting `shelf_list: true` in item frontmatter. Default/absent `shelf_list` means cover card. Do not use old `featured: false` frontmatter as automatic approval to move items down.
 
 `section` applies only to stream items with a title. Value must match a slug in `_data/stream_sections.json` (which is ordered — sections render in that order). Items without a `section` fall into the default `links` bucket. No-title items (editorial-voice publications) always render in the auto-generated `feed` section regardless of any `section` value.
 

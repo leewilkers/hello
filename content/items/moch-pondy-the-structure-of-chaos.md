@@ -3,6 +3,7 @@ author: "Michael Moch, Louis Pondy"
 title: "The Structure of Chaos: Organized Anarchy as a Response to Ambiguity"
 type: essay
 image: "/img/covers/moch-pondy-the-structure-of-chaos.jpg"
+shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://doi.org/10.2307/2392181"

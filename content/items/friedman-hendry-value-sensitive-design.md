@@ -3,6 +3,7 @@ author: "Batya Friedman, David G. Hendry"
 title: "Value Sensitive Design: Shaping Technology with Moral Imagination"
 type: book
 image: "/img/covers/friedman-hendry-value-sensitive-design.jpg"
+shelf_list: true
 dest: shelf
 topic: "Design"
 url: "https://mitpress.mit.edu/9780262039536/value-sensitive-design/"

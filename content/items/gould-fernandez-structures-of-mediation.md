@@ -3,6 +3,7 @@ author: "Roger Gould, Roberto Fernandez"
 title: "Structures of Mediation: A Formal Approach to Brokerage in Transaction Networks"
 type: essay
 image: "/img/covers/gould-fernandez-structures-of-mediation.jpg"
+shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://doi.org/10.1177/0049124189018001005"

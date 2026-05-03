@@ -3,6 +3,7 @@ author: "Adam Elkus"
 title: "The Strategy of No Strategy"
 type: essay
 image: "/img/covers/elkus-the-strategy-of-no-strategy.jpg"
+shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://www.ribbonfarm.com/2017/02/23/the-strategy-of-no-strategy/"

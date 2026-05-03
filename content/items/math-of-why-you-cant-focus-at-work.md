@@ -3,6 +3,7 @@ author: Can Duruk
 title: The Math of Why You Can't Focus at Work
 type: essay
 image: /img/covers/math-of-why-you-cant-focus-at-work.jpg
+shelf_list: true
 dest: shelf
 topic: "Organizations & Work"
 url: 'https://justoffbyone.com/posts/math-of-why-you-cant-focus-at-work/'

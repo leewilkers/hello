@@ -3,6 +3,7 @@ author: "André Spicer"
 title: "Playing the Bullshit Game: How Empty and Misleading Communication Takes Over Organizations"
 type: paper
 image: "/img/covers/spicer-playing-the-bullshit-game-how-empty.jpg"
+shelf_list: true
 dest: shelf
 topic: "Bullshit"
 url: "https://doi.org/10.1177/2631787720929704"

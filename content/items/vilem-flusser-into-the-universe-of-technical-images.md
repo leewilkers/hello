@@ -3,6 +3,7 @@ author: Vilém Flusser
 title: Into the Universe of Technical Images
 type: book
 image: /img/covers/vilem-flusser-into-the-universe-of-technical-images.jpg
+shelf_list: true
 dest: shelf
 topic: "Media"
 url: >-

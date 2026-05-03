@@ -3,6 +3,7 @@ author: "Nathan Caplan"
 title: "The Two-Communities Theory and Knowledge Utilization"
 type: essay
 image: "/img/covers/caplan-two-communities-theory.jpg"
+shelf_list: true
 dest: shelf
 topic: "Language & Writing"
 url: "https://doi.org/10.1177/000276427902200308"

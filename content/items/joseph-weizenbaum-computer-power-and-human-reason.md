@@ -3,6 +3,7 @@ author: Joseph Weizenbaum
 title: 'Computer Power and Human Reason: From Judgment to Calculation'
 type: book
 image: /img/covers/joseph-weizenbaum-computer-power-and-human-reason.jpg
+shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: 'https://archive.org/details/computerpowerhum0000weiz_v0i3'

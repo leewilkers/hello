@@ -4,7 +4,7 @@ title: "The Value of Everything: Making and Taking in the Global Economy"
 type: book
 image: "/img/covers/mazzucato-the-value-of-everything.jpg"
 dest: shelf
-topic: "Measurement, Value & Scale"
+topic: "Potpourri"
 url: "https://www.hachettebookgroup.com/titles/mariana-mazzucato/the-value-of-everything/9781610396752/?lens=publicaffairs"
 order: 50
 dek: "PublicAffairs, 2020"

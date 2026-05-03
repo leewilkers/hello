@@ -3,6 +3,7 @@ author: "Langdon Winner"
 title: "Do Artifacts Have Politics?"
 type: essay
 image: "/img/covers/winner-do-artifacts-have-politics.jpg"
+shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: "https://doi.org/10.2307/20024652"

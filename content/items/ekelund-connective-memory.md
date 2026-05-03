@@ -3,6 +3,7 @@ author: "Robin Ekelund"
 title: "Connective Memory"
 type: concept
 image: "/img/covers/robin-ekelund-connective-memory.jpg"
+shelf_list: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://link.springer.com/rwe/10.1007/978-3-030-93789-8_72-1"

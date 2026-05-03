@@ -3,6 +3,7 @@ author: Roy Bhaskar
 title: Critical Realism and the Ontology of Persons
 type: essay
 image: /img/covers/bhaskar-critical-realism.jpg
+shelf_list: true
 dest: shelf
 topic: "Ethics & Moral Imagination"
 url: 'https://doi.org/10.1080/14767430.2020.1734736'

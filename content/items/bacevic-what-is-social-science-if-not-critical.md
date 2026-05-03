@@ -3,6 +3,7 @@ author: "Jana Bacevic"
 title: "What is social science if not critical?"
 type: essay
 image: "/img/covers/bacevic-what-is-social-science-if-not-critical.jpg"
+shelf_list: true
 dest: shelf
 topic: "Social Science & Anthropology"
 url: "https://janabacevic.net/2023/04/03/what-is-social-science-if-not-critical/"
