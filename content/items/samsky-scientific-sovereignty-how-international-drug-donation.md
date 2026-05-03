@@ -3,6 +3,7 @@ author: "Ari Samsky"
 title: "Scientific Sovereignty: How International Drug Donation Programs Reshape Health, Disease, and the State"
 type: paper
 image: "/img/covers/samsky-scientific-sovereignty-how-international-drug-donation.jpg"
+shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1111/j.1548-1360.2012.01145.x"

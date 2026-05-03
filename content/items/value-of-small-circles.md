@@ -3,6 +3,7 @@ author: "Aeon"
 title: "The value of small circles in an era obsessed with scale"
 type: essay
 image: "/img/covers/value-of-small-circles.jpg"
+shelf_list: true
 dest: shelf
 topic: "Data, Evidence, & Epidemiology"
 url: "https://aeon.co/essays/the-value-of-small-circles-in-an-era-obsessed-with-scale"

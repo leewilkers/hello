@@ -3,6 +3,7 @@ author: "Nancy Krieger"
 title: "Theorizing Epidemiology, the Stories Bodies Tell"
 type: essay
 image: "/img/covers/krieger-theorizing-epidemiology.jpg"
+shelf_list: true
 dest: shelf
 topic: "Data, Evidence, & Epidemiology"
 url: "https://global.oup.com/academic/product/living-and-dying-in-a-world-on-fire-9780197756232"

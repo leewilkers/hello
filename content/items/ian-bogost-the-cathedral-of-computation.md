@@ -3,6 +3,7 @@ author: "Ian Bogost"
 title: "The Cathedral of Computation"
 type: essay
 image: "/img/covers/ian-bogost-the-cathedral-of-computation.jpg"
+shelf_list: true
 dest: shelf
 note: ""
 blurb: "replace algorithm with God and ask if the meaning changes"

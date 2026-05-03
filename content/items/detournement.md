@@ -3,6 +3,7 @@ author: "Situationist International"
 title: "Detournement"
 type: concept
 image: "/img/covers/detournement.jpg"
+shelf_list: true
 dest: shelf
 topic: "Design"
 url: "https://en.wikipedia.org/wiki/D%C3%A9tournement"

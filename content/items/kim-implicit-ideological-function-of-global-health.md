@@ -5,7 +5,7 @@ type: paper
 image: "/img/covers/kim-implicit-ideological-function-of-global-health.jpg"
 shelf_list: true
 dest: shelf
-topic: "Organizations & Work"
+topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1136/bmjgh-2021-005620"
 order: 50
 dek: "BMJ Global Health, 2021"

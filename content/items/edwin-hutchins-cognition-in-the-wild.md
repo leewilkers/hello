@@ -3,7 +3,6 @@ author: "Edwin Hutchins"
 title: "Cognition in the Wild"
 type: book
 image: "/img/covers/edwin-hutchins-cognition-in-the-wild.jpg"
-shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
