@@ -123,28 +123,30 @@ collections:
         widget: select
         required: false
         options:
-          - { label: "Architecture & Built Environment", value: "Architecture & Built Environment" }
-          - { label: "Classification, Diagrams & Representation", value: "Classification, Diagrams & Representation" }
+          - { label: "Architecture, Infrastructure, & Maintenance", value: "Architecture, Infrastructure, & Maintenance" }
           - { label: "Design", value: "Design" }
           - { label: "Nature & Life", value: "Nature & Life" }
-          - { label: "Ethics & Moral Philosophy", value: "Ethics & Moral Philosophy" }
+          - { label: "Ethics & Moral Imagination", value: "Ethics & Moral Imagination" }
           - { label: "Experiences", value: "Experiences" }
+          - { label: "Fiction", value: "Fiction" }
           - { label: "Furniture & Craft", value: "Furniture & Craft" }
           - { label: "Games, Play & Performance", value: "Games, Play & Performance" }
           - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
-          - { label: "Infrastructure & Maintenance", value: "Infrastructure & Maintenance" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }
           - { label: "Measurement, Value & Scale", value: "Measurement, Value & Scale" }
-          - { label: "Methods, Evidence & Judgement", value: "Methods, Evidence & Judgement" }
-          - { label: "Organizations, Institutions & Strategy", value: "Organizations, Institutions & Strategy" }
+          - { label: "Data, Evidence, & Epidemiology", value: "Data, Evidence, & Epidemiology" }
+          - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
+          - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
+          - { label: "Strategy & Coordination", value: "Strategy & Coordination" }
+          - { label: "Organizations & Work", value: "Organizations & Work" }
           - { label: "Potpourri", value: "Potpourri" }
-          - { label: "Social Theory", value: "Social Theory" }
-          - { label: "Tech Culture", value: "Tech Culture" }
-          - { label: "Tech History & Critique", value: "Tech History & Critique" }
-          - { label: "Technology & Ways of Living", value: "Technology & Ways of Living" }
-          - { label: "Visual Culture", value: "Visual Culture" }
-          - { label: "Web", value: "Web" }
+          - { label: "Bullshit", value: "Bullshit" }
+          - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
+          - { label: "Technology & Critique", value: "Technology & Critique" }
+          - { label: "Media", value: "Media" }
+          - { label: "Memory & Archives", value: "Memory & Archives" }
+          - { label: "Photography & Journalism", value: "Photography & Journalism" }
         hint: "For shelf items. Alphabetical topical index."
       - label: Image
         name: image
@@ -154,9 +156,9 @@ collections:
       - label: Featured
         name: featured
         widget: boolean
-        default: false
+        default: true
         required: false
-        hint: "Optional editorial flag for future layout use."
+        hint: "Legacy field. The shelf review page starts all items as covers; use the page's Move to list button for manual review."
       - label: Display Order
         name: order
         widget: number

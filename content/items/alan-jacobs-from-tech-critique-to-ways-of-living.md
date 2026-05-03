@@ -4,7 +4,7 @@ title: From Tech Critique to Ways of Living
 type: essay
 image: /img/covers/alan-jacobs-from-tech-critique-to-ways-of-living.jpg
 dest: shelf
-topic: "Technology & Ways of Living"
+topic: "Technology & Critique"
 url: >-
   https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living
 dek: 'The New Atlantis, 2021'

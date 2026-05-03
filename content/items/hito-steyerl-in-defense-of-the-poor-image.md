@@ -6,7 +6,7 @@ image: /img/covers/hito-steyerl-in-defense-of-the-poor-image.jpg
 dest: shelf
 note: ''
 quote: ""
-topic: Visual Culture & Media
+topic: "Media"
 url: 'https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image/'
 dek: 'e-flux, 2009'
 source: e-flux.com

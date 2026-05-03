@@ -4,7 +4,7 @@ title: "map.joodaloop.com"
 type: site
 image: "/img/covers/joodaloop-map-of-the-internet.jpg"
 dest: shelf
-topic: "Web Stuff"
+topic: "Web Culture & Internet"
 url: "https://map.joodaloop.com"
 order: 50
 dek: "map.joodaloop.com"

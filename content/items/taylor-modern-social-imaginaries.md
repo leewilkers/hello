@@ -4,7 +4,7 @@ title: "Modern Social Imaginaries"
 type: book
 image: "/img/covers/taylor-modern-social-imaginaries.jpg"
 dest: shelf
-topic: "Potpourri"
+topic: "Social Science & Anthropology"
 url: "https://www.dukeupress.edu/modern-social-imaginaries"
 order: 50
 dek: "Duke University Press, 2003"

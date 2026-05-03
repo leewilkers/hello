@@ -4,7 +4,7 @@ author: "Elliott Cost & Kristoffer Tjalve"
 url: "https://internetphonebook.net/"
 type: site
 dest: shelf
-topic: "Web Stuff"
+topic: "Web Culture & Internet"
 order: 5
 dek: "Athens & Rotterdam, 2025"
 note: ""

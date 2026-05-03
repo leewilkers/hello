@@ -4,7 +4,7 @@ title: "Welcome to the Future Nauseous"
 type: essay
 image: "/img/covers/rao-welcome-to-the-future-nauseous.jpg"
 dest: shelf
-topic: "Tech / Web Culture"
+topic: "Web Culture & Internet"
 url: "https://www.ribbonfarm.com/2012/05/09/welcome-to-the-future-nauseous/"
 order: 50
 dek: "ribbonfarm.com, 2012"

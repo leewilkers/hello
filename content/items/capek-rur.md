@@ -4,7 +4,7 @@ title: "R.U.R. and the Vision of Artificial Life"
 type: book
 image: "/img/covers/capek-rur.jpg"
 dest: shelf
-topic: "Tech History & Critique"
+topic: "Fiction"
 url: "https://mitpress.mit.edu/9780262544504/r-u-r-and-the-vision-of-artificial-life/"
 order: 50
 dek: "MIT Press, 2004"

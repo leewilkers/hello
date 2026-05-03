@@ -4,7 +4,7 @@ title: "Matters of Fact, Matters of Concern"
 type: essay
 image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
 dest: shelf
-topic: "Methods, Evidence & Judgement"
+topic: "Sensemaking & Judgement"
 url: "https://thewinteranthology.com/"
 order: 50
 dek: "The Winter Anthology"

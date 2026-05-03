@@ -4,7 +4,7 @@ title: "Structures of Mediation: A Formal Approach to Brokerage in Transaction N
 type: essay
 image: "/img/covers/gould-fernandez-structures-of-mediation.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Strategy & Coordination"
 url: "https://doi.org/10.1177/0049124189018001005"
 order: 50
 dek: "Sociological Methodology, 1989"

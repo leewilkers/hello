@@ -4,7 +4,7 @@ title: "Tracing Genres Through Organizations: A Sociocultural Approach to Inform
 type: book
 image: "/img/covers/spinuzzi-tracing-genres-through-organizations.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Organizations & Work"
 url: "https://mitpress.mit.edu/9780262693431/tracing-genres-through-organizations/"
 order: 50
 dek: "MIT Press, 2003"

@@ -4,7 +4,7 @@ title: "Crafting a Job: Revisioning Employees as Active Crafters of Their Work"
 type: paper
 image: "/img/covers/wrzesniewski-crafting-a-job-revisioning-employees-as.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Organizations & Work"
 url: "https://doi.org/10.2307/259118"
 order: 50
 dek: "Academy of Management Review, 2001"

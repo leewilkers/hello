@@ -4,7 +4,7 @@ title: Understanding a Photograph
 type: book
 image: /img/covers/berger-understanding-a-photograph.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Photography & Journalism"
 url: 'https://store.aperture.org/products/understanding-a-photograph'
 order: 50
 dek: 'Aperture, 2013'

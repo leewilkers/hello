@@ -4,7 +4,7 @@ title: "The Strategy of No Strategy"
 type: essay
 image: "/img/covers/elkus-the-strategy-of-no-strategy.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Strategy & Coordination"
 url: "https://www.ribbonfarm.com/2017/02/23/the-strategy-of-no-strategy/"
 order: 50
 dek: "Ribbonfarm, 2017"

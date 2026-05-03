@@ -4,7 +4,7 @@ title: "The Maintainers"
 type: site
 image: "/img/covers/the-maintainers.jpg"
 dest: stream
-topic: "Infrastructure & Maintenance"
+topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://themaintainers.org"
 order: 1
 links: []

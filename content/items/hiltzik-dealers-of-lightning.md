@@ -4,7 +4,7 @@ title: "Dealers of Lightning: Xerox PARC and the Dawn of the Computer Age"
 type: book
 image: "/img/covers/hiltzik-dealers-of-lightning.jpg"
 dest: shelf
-topic: "Tech History & Critique"
+topic: "Technology & Critique"
 url: "https://www.harpercollins.com/products/dealers-of-lightning-michael-a-hiltzik"
 order: 50
 dek: "HarperBusiness, 1999"

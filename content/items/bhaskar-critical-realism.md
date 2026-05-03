@@ -4,7 +4,7 @@ title: Critical Realism and the Ontology of Persons
 type: essay
 image: /img/covers/bhaskar-critical-realism.jpg
 dest: shelf
-topic: Ethics & Moral Philosophy
+topic: "Ethics & Moral Imagination"
 url: 'https://doi.org/10.1080/14767430.2020.1734736'
 order: 50
 dek: 'Journal of Critical Realism, 2020'

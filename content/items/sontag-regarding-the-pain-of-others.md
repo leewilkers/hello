@@ -4,7 +4,7 @@ title: Regarding the Pain of Others
 type: book
 image: /img/covers/sontag-regarding-the-pain-of-others.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Photography & Journalism"
 url: >-
   https://www.penguinrandomhouse.com/books/97529/regarding-the-pain-of-others-by-susan-sontag/
 order: 50

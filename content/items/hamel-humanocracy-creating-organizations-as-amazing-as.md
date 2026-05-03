@@ -4,7 +4,7 @@ title: "Humanocracy, Updated and Expanded: Creating Organizations as Amazing as 
 type: book
 image: "/img/covers/hamel-humanocracy-creating-organizations-as-amazing-as.jpg"
 dest: shelf
-topic: "Ethics & Moral Philosophy"
+topic: "Ethics & Moral Imagination"
 url: "https://openlibrary.org/works/OL42543151W"
 order: 50
 dek: "Harvard Business Review Press, 2025"

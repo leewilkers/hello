@@ -4,7 +4,7 @@ title: "Friction: An Ethnography of Global Connection"
 type: book
 image: "/img/covers/anna-tsing-friction-an-ethnography-of-global-connection.jpg"
 dest: shelf
-topic: "Potpourri"
+topic: "Social Science & Anthropology"
 url: "https://press.princeton.edu/books/paperback/9780691120652/friction"
 dek: "Princeton, 2005"
 note: ""

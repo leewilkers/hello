@@ -4,7 +4,7 @@ title: "The Knowledge-Creating Company: How Japanese Companies Create the Dynami
 type: book
 image: "/img/covers/nonaka-takeuchi-the-knowledge-creating-company.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Organizations & Work"
 url: "https://global.oup.com/academic/product/the-knowledge-creating-company-9780195092691"
 order: 50
 dek: "Oxford University Press, 1995"

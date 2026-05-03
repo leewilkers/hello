@@ -4,7 +4,7 @@ title: "Maintenance and Care: Fixing a Broken World"
 type: essay
 image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
 dest: shelf
-topic: "Infrastructure & Maintenance"
+topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://placesjournal.org/article/maintenance-and-care/"
 dek: "Places Journal, 2018"
 note: ""

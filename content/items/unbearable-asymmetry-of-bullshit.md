@@ -4,7 +4,7 @@ title: The Unbearable Asymmetry of Bullshit in Science
 type: essay
 image: /img/covers/unbearable-asymmetry-of-bullshit.jpg
 dest: shelf
-topic: "Methods, Evidence & Judgement"
+topic: "Bullshit"
 url: 'https://quillette.com/2016/02/15/the-unbearable-asymmetry-of-bullshit/'
 order: 50
 dek: 'Quillette, 2016'

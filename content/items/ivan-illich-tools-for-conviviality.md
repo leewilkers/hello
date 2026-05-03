@@ -4,7 +4,7 @@ title: Tools for Conviviality
 type: book
 image: /img/covers/ivan-illich-tools-for-conviviality.jpg
 dest: shelf
-topic: 'Technology & Ways of Living'
+topic: "Technology & Critique"
 url: 'https://archive.org/details/illich-conviviality'
 dek: 'Harper & Row, 1973'
 note: ''

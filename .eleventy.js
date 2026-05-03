@@ -149,6 +149,62 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  function normalizeShelfText(value) {
+    return String(value || "").replace(/\s+/g, " ").trim();
+  }
+
+  function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function stripShelfBlurbBoilerplate(text, data) {
+    let result = normalizeShelfText(text);
+    const author = normalizeShelfText(data && data.author);
+    if (author) {
+      const authorForms = new Set([author]);
+      const beforeComma = author.split(",")[0].trim();
+      if (beforeComma) authorForms.add(beforeComma);
+      const tokens = beforeComma.split(/\s+/).filter(Boolean);
+      if (tokens.length) authorForms.add(tokens[tokens.length - 1]);
+      authorForms.forEach((name) => {
+        result = result.replace(new RegExp(`^${escapeRegExp(name)}(?:'s|')\\s+`, "i"), "");
+      });
+    }
+    result = result.replace(/^\d{4}\s+/, "");
+    result = result.replace(/^(?:[a-z&.\s-]{2,35}\s+)?(?:book|essay|article|paper|study|ethnography|account|argument|collection|chapter|website|keynote|novel|survey|biography|monograph)\s+(?:on|about|of|using|showing that|arguing that|examining|tracing|defining|introducing|presenting)\s+/i, "");
+    return normalizeShelfText(result);
+  }
+
+  function shelfWords(value) {
+    const stop = new Set(["the", "and", "for", "with", "that", "this", "from", "into", "about", "after", "what", "when", "where", "while", "whose", "your", "our", "how"]);
+    return normalizeShelfText(value).toLowerCase()
+      .replace(/['’]/g, "")
+      .replace(/[^a-z0-9\s-]/g, " ")
+      .split(/\s+/)
+      .map((word) => word.replace(/s$/, ""))
+      .filter((word) => word.length > 2 && !stop.has(word));
+  }
+
+  function repeatsTitle(text, title) {
+    const textWords = shelfWords(text);
+    if (!textWords.length) return false;
+    const titleWords = new Set(shelfWords(title));
+    if (!titleWords.size) return false;
+    const shared = textWords.filter((word) => titleWords.has(word)).length;
+    return shared / textWords.length >= 0.48;
+  }
+
+  eleventyConfig.addFilter("shelfHoverVoice", function(data) {
+    if (!data || typeof data !== "object") return null;
+    const note = normalizeShelfText(data.note);
+    if (note && note.length <= 90 && !repeatsTitle(note, data.title)) return { kind: "note", text: note };
+    const quote = normalizeShelfText(data.quote);
+    if (quote && quote.length <= 90 && !repeatsTitle(quote, data.title)) return { kind: "quote", text: quote };
+    const blurb = stripShelfBlurbBoilerplate(data.blurb, data);
+    if (!blurb || blurb.length > 72 || repeatsTitle(blurb, data.title)) return null;
+    return { kind: "blurb", text: blurb };
+  });
+
   // Map a URL to a representative link label.
   // - If `override` is truthy, use it verbatim (hand-curated wins).
   // - Otherwise infer from host: ".pdf" / monoskop / archive.org → "full source",

@@ -4,7 +4,7 @@ title: "The Method of Hope: Anthropology, Philosophy, and Fijian Knowledge"
 type: book
 image: "/img/covers/miyazaki-the-method-of-hope.jpg"
 dest: shelf
-topic: "Methods, Evidence & Judgement"
+topic: "Social Science & Anthropology"
 url: "https://www.sup.org/books/cite/?id=6376"
 order: 50
 dek: "Stanford University Press, 2004"

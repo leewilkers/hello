@@ -4,7 +4,7 @@ title: 'Art and Illusion: A Study in the Psychology of Pictorial Representation'
 type: book
 image: /img/covers/gombrich-art-and-illusion.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Media"
 url: 'https://press.princeton.edu/books/paperback/9780691070001/art-and-illusion'
 order: 50
 dek: 'Phaidon, 1977'

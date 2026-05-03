@@ -4,7 +4,7 @@ title: 'Languages of Art: An Approach to a Theory of Symbols'
 type: book
 image: /img/covers/goodman-languages-of-art.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Media"
 url: 'https://www.hackettpublishing.com/languages-of-art'
 order: 50
 dek: 'Hackett, 1968'

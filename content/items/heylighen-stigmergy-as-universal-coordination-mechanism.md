@@ -4,7 +4,7 @@ title: "Stigmergy as a Universal Coordination Mechanism"
 type: essay
 image: "/img/covers/heylighen-stigmergy-as-universal-coordination-mechanism.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Strategy & Coordination"
 url: "https://doi.org/10.1016/j.cogsys.2015.12.002"
 order: 50
 dek: "Cognitive Systems Research, 2016"

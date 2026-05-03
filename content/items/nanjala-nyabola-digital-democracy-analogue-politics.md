@@ -4,7 +4,7 @@ title: "Digital Democracy, Analogue Politics: How the Internet Era is Transformi
 type: book
 image: "/img/covers/nanjala-nyabola-digital-democracy-analogue-politics.jpg"
 dest: shelf
-topic: "Tech History & Critique"
+topic: "Technology & Critique"
 url: "https://en.wikipedia.org/wiki/Digital_Democracy,_Analogue_Politics"
 dek: "Zed, 2018"
 note: ""

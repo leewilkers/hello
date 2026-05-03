@@ -4,7 +4,7 @@ title: "The Dream Machine: J.C.R. Licklider and the Revolution That Made Computi
 type: book
 image: "/img/covers/waldrop-the-dream-machine.jpg"
 dest: shelf
-topic: "Tech History & Critique"
+topic: "Technology & Critique"
 url: "https://press.stripe.com/the-dream-machine"
 order: 50
 dek: "Stripe Press, 2018"

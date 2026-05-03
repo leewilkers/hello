@@ -6,7 +6,7 @@ title: >-
 type: book
 image: /img/covers/epstein-tech-agnostic.jpg
 dest: shelf
-topic: Tech / Web Culture
+topic: "Web Culture & Internet"
 url: 'https://mitpress.mit.edu/9780262049207/tech-agnostic/'
 order: 50
 dek: 'MIT Press, 2024'

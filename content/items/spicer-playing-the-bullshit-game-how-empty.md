@@ -4,7 +4,7 @@ title: "Playing the Bullshit Game: How Empty and Misleading Communication Takes 
 type: paper
 image: "/img/covers/spicer-playing-the-bullshit-game-how-empty.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Bullshit"
 url: "https://doi.org/10.1177/2631787720929704"
 order: 50
 dek: "Organization Theory, 2020"

@@ -4,7 +4,7 @@ title: 'Bending the Frame: Photojournalism, Documentary, and the Citizen'
 type: book
 image: /img/covers/ritchin-bending-the-frame.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Photography & Journalism"
 url: 'https://aperture.org/books/bending-the-frame/'
 order: 50
 dek: 'Aperture, 2013'

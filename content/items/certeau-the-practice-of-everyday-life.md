@@ -4,7 +4,7 @@ title: "The Practice of Everyday Life"
 type: book
 image: "/img/covers/certeau-the-practice-of-everyday-life.jpg"
 dest: shelf
-topic: "Methods, Evidence & Judgement"
+topic: "Social Science & Anthropology"
 url: "https://openlibrary.org/books/OL3175677M/The_practice_of_everyday_life"
 order: 50
 dek: "University of California Press, 1984"

@@ -4,7 +4,7 @@ title: "The Management Myth: Why the Experts Keep Getting It Wrong"
 type: book
 image: "/img/covers/stewart-the-management-myth.jpg"
 dest: shelf
-topic: "Organizations, Institutions & Strategy"
+topic: "Organizations & Work"
 url: "https://wwnorton.com/books/The-Management-Myth/"
 order: 50
 dek: "W. W. Norton, 2009"

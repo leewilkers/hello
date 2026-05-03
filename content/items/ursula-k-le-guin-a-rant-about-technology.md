@@ -6,7 +6,7 @@ image: /img/covers/ursula-k-le-guin-a-rant-about-technology.jpg
 dest: shelf
 note: ''
 quote: ""
-topic: 'Technology & Ways of Living'
+topic: "Technology & Critique"
 url: 'https://www.ursulakleguin.com/a-rant-about-technology'
 dek: '2005'
 source: ursulakleguin.com

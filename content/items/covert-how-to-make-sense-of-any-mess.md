@@ -4,7 +4,7 @@ title: "How to Make Sense of Any Mess"
 type: book
 image: "/img/covers/covert-how-to-make-sense-of-any-mess.jpg"
 dest: shelf
-topic: "Classification, Diagrams & Representation"
+topic: "Sensemaking & Judgement"
 url: "https://www.howtomakesenseofanymess.com/"
 order: 50
 dek: "CreateSpace, 2014"

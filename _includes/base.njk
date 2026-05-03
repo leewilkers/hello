@@ -670,16 +670,54 @@
   // tab
   (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
 
-  // scroll-spy — rAF-throttled scroll listener.  Robust for short sections
-  // (IntersectionObserver with -60% bottom rootMargin skipped 1-item sections.)
+  // scroll-spy — rAF-throttled scroll listener. Highlight the topic that
+  // occupies at least half the usable viewport; fall back to the most visible
+  // section for short or between-section states.
   (function() {
-    var sections = document.querySelectorAll('.topic-section');
-    var links = document.querySelectorAll('.topic-index a');
-    var index = document.getElementById('topic-index');
-    if (!sections.length || !links.length) return;
+	    var sections = document.querySelectorAll('.topic-section');
+	    var links = document.querySelectorAll('.topic-index a');
+	    var index = document.getElementById('topic-index');
+	    if (!sections.length || !links.length) return;
+	    var hashSlugMigrations = {
+	      'organizations-institutions-and-strategy': 'organizations-and-work',
+	      'social-science': 'social-science-and-anthropology',
+	      'tech-web-culture': 'web-culture-and-internet',
+	      'web-stuff': 'web-culture-and-internet',
+	      'tech-history-and-critique': 'technology-and-critique',
+	      'technology-and-ways-of-living': 'technology-and-critique',
+	      'visual-culture-and-media': 'media',
+	      'visual-culture': 'media',
+	      'ethics-and-moral-philosophy': 'ethics-and-moral-imagination',
+	      'data-and-epidemiology': 'data-evidence-and-epidemiology',
+	      'methods-evidence-and-judgement': 'sensemaking-and-judgement',
+	      'methods-and-judgement': 'sensemaking-and-judgement',
+	      'classification-diagrams-and-representation': 'sensemaking-and-judgement',
+	      'architecture-and-built-environment': 'architecture-infrastructure-and-maintenance',
+	      'infrastructure-and-maintenance': 'architecture-infrastructure-and-maintenance'
+	    };
 
-    var linkMap = {};
-    links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
+	    var linkMap = {};
+	    links.forEach(function(a) { linkMap[a.getAttribute('data-topic')] = a; });
+
+	    function currentHashSlug() {
+	      return window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+	    }
+
+	    function normalizeTopicSlug(slug) {
+	      return hashSlugMigrations[slug] || slug;
+	    }
+
+	    function scrollToTopicSlug(rawSlug, replaceHash) {
+	      var slug = normalizeTopicSlug(rawSlug);
+	      var section = slug && document.getElementById(slug);
+	      if (!section) return false;
+	      if (rawSlug !== slug && replaceHash && history.replaceState) {
+	        history.replaceState(null, '', '#' + slug);
+	      }
+	      section.scrollIntoView({ behavior: 'auto', block: 'start' });
+	      requestAnimationFrame(updateActive);
+	      return true;
+	    }
 
     function navOffset() {
       var nav = document.querySelector('.site-nav');
@@ -697,29 +735,29 @@
     }
 
     function updateActive() {
-      var referenceY = navOffset();
+      var viewTop = navOffset();
+      var viewBottom = window.innerHeight;
+      var viewHeight = Math.max(1, viewBottom - viewTop);
       var active = null;
-      var best = Infinity;
+      var bestShare = 0;
+      var fallback = null;
+      var fallbackVisible = 0;
 
-      // Pick the section whose top has crossed the reference line most recently
       sections.forEach(function(s) {
         var r = s.getBoundingClientRect();
-        if (r.top <= referenceY && r.bottom > referenceY) {
-          var dist = referenceY - r.top;
-          if (dist < best) { best = dist; active = s.dataset.topic; }
+        var visible = Math.max(0, Math.min(r.bottom, viewBottom) - Math.max(r.top, viewTop));
+        var share = visible / viewHeight;
+        if (share >= 0.5 && share > bestShare) {
+          bestShare = share;
+          active = s.dataset.topic;
+        }
+        if (visible > fallbackVisible) {
+          fallbackVisible = visible;
+          fallback = s.dataset.topic;
         }
       });
 
-      // Fallback: first section fully visible, or first section if all below fold
-      if (!active) {
-        for (var i = 0; i < sections.length; i++) {
-          var r = sections[i].getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) {
-            active = sections[i].dataset.topic;
-            break;
-          }
-        }
-      }
+      if (!active) active = fallback;
 
       links.forEach(function(a) {
         var isActive = a.getAttribute('data-topic') === active;
@@ -744,13 +782,23 @@
       }
     }, { passive: true });
 
-    updateActive(); // initial paint
+	    window.addEventListener('load', function() {
+	      if (!scrollToTopicSlug(currentHashSlug(), true)) updateActive();
+	    });
+	    window.addEventListener('hashchange', function() {
+	      if (!scrollToTopicSlug(currentHashSlug(), true)) requestAnimationFrame(updateActive);
+	    });
+
+	    if (!scrollToTopicSlug(currentHashSlug(), true)) {
+	      updateActive(); // initial paint
+	      requestAnimationFrame(updateActive);
+	    }
 
     // Click-nav: respect the section's CSS scroll-margin so the sticky
     // site nav and the topic highlight use the same reference point.
     links.forEach(function(a) {
       a.addEventListener('click', function(e) {
-        var slug = a.getAttribute('data-topic');
+	        var slug = normalizeTopicSlug(a.getAttribute('data-topic'));
         var section = document.getElementById(slug);
         if (section) {
           e.preventDefault();
@@ -760,10 +808,626 @@
         closeSidebar();
       });
     });
-  })();
+	  })();
 
-  // Mobile hamburger overlay: open/close with focus-trap + Escape + body scroll-lock
-  function openSidebar() {
+	  // Shelf curation controls — local-only review state. Browser actions are
+	  // reversible review notes until explicitly exported/applied to Markdown.
+	  (function() {
+	    var LIST_STORAGE_KEY = 'shelf:list-items:v1';
+	    var LIST_BACKUP_STORAGE_KEY = 'shelf:list-items:backup:v1';
+	    var TOPIC_STORAGE_KEY = 'shelf:topic-items:v1';
+	    var TOPIC_BACKUP_STORAGE_KEY = 'shelf:topic-items:backup:v1';
+	    var CUSTOM_TOPICS_STORAGE_KEY = 'shelf:custom-topics:v1';
+	    var CUSTOM_TOPICS_BACKUP_STORAGE_KEY = 'shelf:custom-topics:backup:v1';
+	    var DEST_STORAGE_KEY = 'shelf:dest-items:v1';
+	    var DEST_BACKUP_STORAGE_KEY = 'shelf:dest-items:backup:v1';
+	    var TOPIC_SLUG_MIGRATIONS = {
+	      'organizations-institutions-and-strategy': 'organizations-and-work',
+	      'social-science': 'social-science-and-anthropology',
+	      'tech-web-culture': 'web-culture-and-internet',
+	      'web-stuff': 'web-culture-and-internet',
+	      'tech-history-and-critique': 'technology-and-critique',
+	      'technology-and-ways-of-living': 'technology-and-critique',
+	      'visual-culture-and-media': 'media',
+	      'visual-culture': 'media',
+	      'ethics-and-moral-philosophy': 'ethics-and-moral-imagination',
+	      'data-and-epidemiology': 'data-evidence-and-epidemiology',
+	      'methods-evidence-and-judgement': 'sensemaking-and-judgement',
+	      'methods-and-judgement': 'sensemaking-and-judgement',
+	      'classification-diagrams-and-representation': 'sensemaking-and-judgement',
+	      'architecture-and-built-environment': 'architecture-infrastructure-and-maintenance',
+	      'infrastructure-and-maintenance': 'architecture-infrastructure-and-maintenance'
+	    };
+	    var page = document.querySelector('.page-shelf');
+	    if (!page) return;
+	    var gridScroll = page.querySelector('.grid-scroll');
+	    var topicIndex = page.querySelector('.topic-index');
+	    var undoStack = [];
+	    var undoButton = document.querySelector('[data-shelf-undo]');
+	    var topicForm = document.querySelector('[data-shelf-topic-form]');
+	    var exportButton = document.querySelector('[data-shelf-export]');
+	    var status = document.querySelector('[data-shelf-status]');
+	    var armedItemId = '';
+
+	    function readJson(key, fallback) {
+	      try {
+	        var raw = window.localStorage && window.localStorage.getItem(key);
+	        return raw ? JSON.parse(raw) : fallback;
+	      } catch (e) {
+	        return fallback;
+	      }
+	    }
+
+	    function writeJson(key, value, backupKey, emptyValue) {
+	      try {
+	        if (!window.localStorage) return;
+	        var next = JSON.stringify(value);
+	        var current = window.localStorage.getItem(key);
+	        if (backupKey && current && current !== emptyValue && current !== next) {
+	          window.localStorage.setItem(backupKey, current);
+	        }
+	        window.localStorage.setItem(key, next);
+	      } catch (e) {}
+	    }
+
+	    function readListState() {
+	      var parsed = readJson(LIST_STORAGE_KEY, []);
+	      return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+	    }
+
+	    function writeListState(ids) {
+	      writeJson(LIST_STORAGE_KEY, ids, LIST_BACKUP_STORAGE_KEY, '[]');
+	    }
+
+	    function readTopicState() {
+	      var parsed = readJson(TOPIC_STORAGE_KEY, {});
+	      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+	      var migrated = {};
+	      Object.keys(parsed).forEach(function(id) {
+	        var topic = parsed[id];
+	        if (typeof topic === 'string') migrated[id] = TOPIC_SLUG_MIGRATIONS[topic] || topic;
+	      });
+	      return migrated;
+	    }
+
+	    function writeTopicState(map) {
+	      writeJson(TOPIC_STORAGE_KEY, map, TOPIC_BACKUP_STORAGE_KEY, '{}');
+	    }
+
+	    function readDestState() {
+	      var parsed = readJson(DEST_STORAGE_KEY, {});
+	      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+	      var cleaned = {};
+	      Object.keys(parsed).forEach(function(id) {
+	        if (parsed[id] === 'stream' || parsed[id] === 'remove') cleaned[id] = parsed[id];
+	      });
+	      return cleaned;
+	    }
+
+	    function writeDestState(map) {
+	      writeJson(DEST_STORAGE_KEY, map, DEST_BACKUP_STORAGE_KEY, '{}');
+	    }
+
+	    function readCustomTopics() {
+	      var parsed = readJson(CUSTOM_TOPICS_STORAGE_KEY, []);
+	      if (!Array.isArray(parsed)) return [];
+	      return parsed.map(function(topic) {
+	        if (typeof topic === 'string') return { name: topic, slug: slugifyTopic(topic) };
+	        if (topic && typeof topic.name === 'string') {
+	          return { name: topic.name, slug: topic.slug || slugifyTopic(topic.name) };
+	        }
+	        return null;
+	      }).filter(function(topic) {
+	        return topic && topic.name && topic.slug;
+	      });
+	    }
+
+	    function writeCustomTopics(topics) {
+	      writeJson(CUSTOM_TOPICS_STORAGE_KEY, topics, CUSTOM_TOPICS_BACKUP_STORAGE_KEY, '[]');
+	    }
+
+	    function setStatus(message) {
+	      if (!status) return;
+	      status.textContent = message || '';
+	      if (message) {
+	        window.clearTimeout(setStatus.timer);
+	        setStatus.timer = window.setTimeout(function() { status.textContent = ''; }, 2600);
+	      }
+	    }
+
+	    function slugifyTopic(name) {
+	      return String(name || '')
+	        .normalize('NFKD')
+	        .replace(/[\u0300-\u036f]/g, '')
+	        .toLowerCase()
+	        .replace(/&/g, ' and ')
+	        .replace(/[^a-z0-9]+/g, '-')
+	        .replace(/^-+|-+$/g, '');
+	    }
+
+	    function updateUndoButton() {
+	      if (!undoButton) return;
+	      undoButton.disabled = undoStack.length === 0;
+	    }
+
+	    function normalTopicSelector(topic) {
+	      return '.topic-section[data-topic="' + CSS.escape(topic) + '"]:not([data-curation-dest])';
+	    }
+
+	    function getItemPair(id) {
+	      return {
+	        card: page.querySelector('.shelf-card[data-shelf-id="' + CSS.escape(id) + '"]'),
+	        row: page.querySelector('.shelf-list-row[data-shelf-id="' + CSS.escape(id) + '"]')
+	      };
+	    }
+
+	    function getItemTopic(card) {
+	      return card.dataset.shelfTopic || card.getAttribute('data-shelf-origin');
+	    }
+
+	    function getItemDest(card) {
+	      var section = card && card.closest('.topic-section[data-curation-dest]');
+	      return section ? section.dataset.curationDest : 'shelf';
+	    }
+
+	    function currentState(id) {
+	      var pair = getItemPair(id);
+	      if (!pair.card || !pair.row) return null;
+	      var dest = getItemDest(pair.card);
+	      return {
+	        id: id,
+	        listed: dest === 'shelf' ? !pair.row.hidden : readListState().indexOf(id) !== -1,
+	        topic: getItemTopic(pair.card),
+	        dest: dest
+	      };
+	    }
+
+	    function rememberState(id) {
+	      var state = currentState(id);
+	      if (!state) return;
+	      undoStack.push(state);
+	      updateUndoButton();
+	    }
+
+	    function clearArmedItem() {
+	      armedItemId = '';
+	      page.querySelectorAll('.is-topic-armed').forEach(function(el) {
+	        el.classList.remove('is-topic-armed');
+	      });
+	      page.classList.remove('is-choosing-topic');
+	    }
+
+	    function armItem(id) {
+	      clearArmedItem();
+	      var pair = getItemPair(id);
+	      if (!pair.card || !pair.row) return;
+	      armedItemId = id;
+	      (pair.card.hidden ? pair.row : pair.card).classList.add('is-topic-armed');
+	      page.classList.add('is-choosing-topic');
+	      setStatus('choose a topic or bin');
+	    }
+
+	    function updateListEmptyState(section) {
+	      var list = section && section.querySelector('.shelf-list');
+	      if (!list) return;
+	      var hasVisibleRows = !!list.querySelector('.shelf-list-row:not([hidden])');
+	      list.classList.toggle('is-empty', !hasVisibleRows);
+	    }
+
+	    function updateTopicCount(section) {
+	      if (!section) return;
+	      var count = section.querySelectorAll('.shelf-card').length;
+	      section.dataset.topicCount = String(count);
+	      var label = section.querySelector('[data-section-count]');
+	      if (label) label.textContent = String(count);
+	      var link = topicIndex && topicIndex.querySelector('a[data-topic="' + CSS.escape(section.dataset.topic) + '"] b');
+	      if (link) link.textContent = String(count);
+	    }
+
+	    function updateSections(sections) {
+	      sections.filter(Boolean).forEach(function(section, index, arr) {
+	        if (arr.indexOf(section) !== index) return;
+	        updateListEmptyState(section);
+	        updateTopicCount(section);
+	      });
+	    }
+
+	    function persistCurrentState() {
+	      var listed = Array.from(page.querySelectorAll('.topic-section:not([data-curation-dest]) .shelf-list-row:not([hidden])')).map(function(row) {
+	        return row.dataset.shelfId;
+	      });
+	      var topicMap = {};
+	      var destMap = {};
+	      page.querySelectorAll('.shelf-card').forEach(function(card) {
+	        var topic = getItemTopic(card);
+	        if (topic !== card.getAttribute('data-shelf-origin')) {
+	          topicMap[card.dataset.shelfId] = topic;
+	        }
+	        var dest = getItemDest(card);
+	        if (dest !== 'shelf') destMap[card.dataset.shelfId] = dest;
+	      });
+	      writeListState(listed);
+	      writeTopicState(topicMap);
+	      writeDestState(destMap);
+	    }
+
+	    function setListed(id, listed, persist) {
+	      var pair = getItemPair(id);
+	      var card = pair.card;
+	      var row = pair.row;
+	      if (!card || !row) return;
+	      card.hidden = listed;
+	      row.hidden = !listed;
+	      updateListEmptyState(card.closest('.topic-section') || row.closest('.topic-section'));
+
+	      if (persist) {
+	        var ids = readListState().filter(function(existing) { return existing !== id; });
+	        if (listed) ids.push(id);
+	        writeListState(ids);
+	      }
+	    }
+
+	    function moveItemToTopic(id, topic, persist) {
+	      var pair = getItemPair(id);
+	      var card = pair.card;
+	      var row = pair.row;
+	      var target = page.querySelector(normalTopicSelector(topic));
+	      if (!card || !row || !target) return false;
+
+	      var sourceSections = [card.closest('.topic-section'), row.closest('.topic-section')].filter(Boolean);
+	      var grid = target.querySelector('.grid');
+	      var list = target.querySelector('.shelf-list');
+	      if (grid) grid.appendChild(card);
+	      if (list) list.appendChild(row);
+	      card.dataset.shelfTopic = topic;
+	      row.dataset.shelfTopic = topic;
+	      updateSections(sourceSections.concat([target]));
+
+	      if (persist) persistCurrentState();
+	      return true;
+	    }
+
+	    function moveItemToDestination(id, dest, persist) {
+	      var pair = getItemPair(id);
+	      var card = pair.card;
+	      var row = pair.row;
+	      if (!card || !row) return false;
+
+	      if (dest === 'shelf') {
+	        var topic = getItemTopic(card);
+	        if (!moveItemToTopic(id, topic, false)) return false;
+	        setListed(id, readListState().indexOf(id) !== -1, false);
+	        if (persist) persistCurrentState();
+	        return true;
+	      }
+
+	      var target = page.querySelector('.topic-section[data-curation-dest="' + CSS.escape(dest) + '"]');
+	      if (!target) return false;
+	      var sourceSections = [card.closest('.topic-section'), row.closest('.topic-section')].filter(Boolean);
+	      var grid = target.querySelector('.grid');
+	      var list = target.querySelector('.shelf-list');
+	      if (grid) grid.appendChild(card);
+	      if (list) list.appendChild(row);
+	      card.hidden = true;
+	      row.hidden = false;
+	      updateSections(sourceSections.concat([target]));
+	      if (persist) persistCurrentState();
+	      return true;
+	    }
+
+	    function restoreState(state) {
+	      if (!state) return;
+	      moveItemToTopic(state.id, state.topic, false);
+	      if (state.dest && state.dest !== 'shelf') {
+	        moveItemToDestination(state.id, state.dest, false);
+	      } else {
+	        setListed(state.id, state.listed, false);
+	      }
+	      persistCurrentState();
+	      updateUndoButton();
+	    }
+
+	    function getDropTarget(el) {
+	      return el && el.closest('.topic-section, .topic-index a[data-topic]');
+	    }
+
+	    function getDropTopic(target) {
+	      if (!target || target.dataset.curationDest) return '';
+	      return target.dataset.topic || '';
+	    }
+
+	    function getDropDest(target) {
+	      if (!target) return '';
+	      return target.dataset.curationDest || '';
+	    }
+
+	    function createTopicSection(topic) {
+	      if (!gridScroll) return null;
+	      var section = document.createElement('section');
+	      section.id = topic.slug;
+	      section.dataset.topic = topic.slug;
+	      section.dataset.topicName = topic.name;
+	      section.dataset.topicCount = '0';
+	      section.className = 'topic-section topic-section--custom';
+
+	      var header = document.createElement('header');
+	      header.className = 'section-label';
+	      var img = document.createElement('img');
+	      img.className = 'section-label-mark';
+	      img.src = '/img/rabbits/runner-lg.png';
+	      img.alt = '';
+	      img.setAttribute('aria-hidden', 'true');
+	      var title = document.createElement('h2');
+	      title.className = 'section-label-name';
+	      title.textContent = topic.name;
+	      var count = document.createElement('span');
+	      count.className = 'section-label-count';
+	      count.dataset.sectionCount = '';
+	      count.textContent = '0';
+	      header.appendChild(img);
+	      header.appendChild(title);
+	      header.appendChild(count);
+
+	      var grid = document.createElement('ul');
+	      grid.className = 'grid';
+	      var list = document.createElement('ul');
+	      list.className = 'shelf-list is-empty';
+	      list.setAttribute('aria-label', topic.name + ' list items');
+	      section.appendChild(header);
+	      section.appendChild(grid);
+	      section.appendChild(list);
+
+	      var firstCuration = gridScroll.querySelector('.topic-section[data-curation-dest]');
+	      gridScroll.insertBefore(section, firstCuration || null);
+	      return section;
+	    }
+
+	    function createTopicRailLink(topic) {
+	      if (!topicIndex) return null;
+	      var link = document.createElement('a');
+	      link.href = '#' + topic.slug;
+	      link.dataset.topic = topic.slug;
+	      var label = document.createElement('span');
+	      label.textContent = topic.name;
+	      var count = document.createElement('b');
+	      count.textContent = '0';
+	      link.appendChild(label);
+	      link.appendChild(count);
+	      var firstCuration = topicIndex.querySelector('a[data-curation-dest]');
+	      topicIndex.insertBefore(link, firstCuration || null);
+	      link.addEventListener('click', topicRailClick);
+	      return link;
+	    }
+
+	    function ensureCustomTopic(topic, persist) {
+	      var rawName = topic && typeof topic === 'object' ? topic.name : topic;
+	      var name = String(rawName || '').trim();
+	      var slug = topic && typeof topic === 'object' && topic.slug ? topic.slug : slugifyTopic(name);
+	      if (!name || !slug) return null;
+	      var normalized = { name: name, slug: slug };
+	      var existing = page.querySelector('.topic-section[data-topic="' + CSS.escape(slug) + '"]');
+	      if (!existing) {
+	        createTopicSection(normalized);
+	        createTopicRailLink(normalized);
+	      }
+	      if (persist) {
+	        var topics = readCustomTopics();
+	        if (!topics.some(function(t) { return t.slug === slug; })) {
+	          topics.push(normalized);
+	          writeCustomTopics(topics);
+	        }
+	      }
+	      return normalized;
+	    }
+
+	    function topicRailClick(e) {
+	      var a = e.currentTarget || e.target.closest('a[data-topic]');
+	      if (!a) return;
+	      var slug = a.getAttribute('data-topic');
+	      var section = document.getElementById(slug);
+	      if (section) {
+	        e.preventDefault();
+	        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	        if (history.pushState) history.pushState(null, '', '#' + slug);
+	        closeSidebar();
+	      }
+	    }
+
+	    function curationSnapshot() {
+	      persistCurrentState();
+	      return {
+	        version: 1,
+	        exportedAt: new Date().toISOString(),
+	        source: location.href,
+	        listItems: readListState(),
+	        topicItems: readTopicState(),
+	        destinationItems: readDestState(),
+	        customTopics: readCustomTopics()
+	      };
+	    }
+
+	    function copyText(text) {
+	      if (navigator.clipboard && navigator.clipboard.writeText) {
+	        return navigator.clipboard.writeText(text);
+	      }
+	      var textarea = document.createElement('textarea');
+	      textarea.value = text;
+	      textarea.setAttribute('readonly', '');
+	      textarea.style.position = 'fixed';
+	      textarea.style.left = '-9999px';
+	      document.body.appendChild(textarea);
+	      textarea.select();
+	      try {
+	        document.execCommand('copy');
+	        return Promise.resolve();
+	      } catch (e) {
+	        return Promise.reject(e);
+	      } finally {
+	        textarea.remove();
+	      }
+	    }
+
+	    function applyInitialState() {
+	      readCustomTopics().forEach(function(topic) { ensureCustomTopic(topic, false); });
+	      var topicMap = readTopicState();
+	      Object.keys(topicMap).forEach(function(id) { moveItemToTopic(id, topicMap[id], false); });
+	      readListState().forEach(function(id) { setListed(id, true, false); });
+	      var destMap = readDestState();
+	      Object.keys(destMap).forEach(function(id) { moveItemToDestination(id, destMap[id], false); });
+	      page.querySelectorAll('.topic-section').forEach(function(section) {
+	        updateListEmptyState(section);
+	        updateTopicCount(section);
+	      });
+	    }
+
+	    if (document.readyState === 'loading') {
+	      document.addEventListener('DOMContentLoaded', applyInitialState);
+	    } else {
+	      applyInitialState();
+	    }
+
+	    if (topicForm) {
+	      topicForm.addEventListener('submit', function(e) {
+	        e.preventDefault();
+	        var input = topicForm.querySelector('input[name="topic"]');
+	        var topic = ensureCustomTopic(input && input.value, true);
+	        if (!topic) return;
+	        if (input) input.value = '';
+	        setStatus('added ' + topic.name);
+	        var section = document.getElementById(topic.slug);
+	        if (section) {
+	          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	          if (history.pushState) history.pushState(null, '', '#' + topic.slug);
+	        }
+	      });
+	    }
+
+	    if (exportButton) {
+	      exportButton.addEventListener('click', function() {
+	        var text = JSON.stringify(curationSnapshot(), null, 2);
+	        copyText(text).then(function() {
+	          setStatus('curation JSON copied');
+	        }).catch(function() {
+	          setStatus('copy failed');
+	        });
+	      });
+	    }
+
+	    document.addEventListener('click', function(e) {
+	      if (!armedItemId) return;
+	      if (e.target.closest('[data-shelf-id]')) return;
+	      var target = getDropTarget(e.target);
+	      var topic = getDropTopic(target);
+	      var dest = getDropDest(target);
+	      if (!target || (!topic && !dest)) return;
+	      e.preventDefault();
+	      e.stopPropagation();
+	      rememberState(armedItemId);
+	      if (dest) moveItemToDestination(armedItemId, dest, false);
+	      else moveItemToTopic(armedItemId, topic, false);
+	      persistCurrentState();
+	      clearArmedItem();
+	      setStatus(dest ? (dest === 'remove' ? 'removed item' : 'moved to ' + dest) : 'moved topic');
+	    }, true);
+
+	    document.addEventListener('click', function(e) {
+	      var armBtn = e.target.closest('[data-shelf-arm-topic]');
+	      if (armBtn) {
+	        if (!page.contains(armBtn)) return;
+	        var armedItem = armBtn.closest('[data-shelf-id]');
+	        if (!armedItem) return;
+	        e.preventDefault();
+	        armItem(armedItem.getAttribute('data-shelf-id'));
+	        return;
+	      }
+
+	      var destBtn = e.target.closest('[data-shelf-dest]');
+	      var actionBtn = e.target.closest('[data-shelf-action]');
+	      var btn = destBtn || actionBtn;
+	      if (!btn) return;
+	      if (!page.contains(btn)) return;
+	      var item = btn.closest('[data-shelf-id]');
+	      if (!item) return;
+	      e.preventDefault();
+	      var id = item.getAttribute('data-shelf-id');
+	      rememberState(id);
+
+	      if (destBtn) {
+	        var dest = destBtn.getAttribute('data-shelf-dest');
+	        moveItemToDestination(id, dest, false);
+	        setStatus(dest === 'remove' ? 'removed item' : 'moved to ' + dest);
+	      } else {
+	        var action = actionBtn.getAttribute('data-shelf-action');
+	        if (action === 'cover') {
+	          moveItemToDestination(id, 'shelf', false);
+	          setListed(id, false, false);
+	          setStatus('restored cover');
+	        } else {
+	          setListed(id, action === 'list', false);
+	          setStatus(action === 'list' ? 'moved to list' : 'updated item');
+	        }
+	      }
+	      persistCurrentState();
+	    });
+
+	    if (undoButton) {
+	      undoButton.addEventListener('click', function() {
+	        var state = undoStack.pop();
+	        restoreState(state);
+	      });
+	      updateUndoButton();
+	    }
+
+	    page.addEventListener('dragstart', function(e) {
+	      var item = e.target.closest('.shelf-card, .shelf-list-row');
+	      if (!item || !item.dataset.shelfId) return;
+	      page.classList.add('is-dragging-shelf-item');
+	      item.classList.add('is-dragging');
+	      e.dataTransfer.effectAllowed = 'move';
+	      e.dataTransfer.setData('text/plain', item.dataset.shelfId);
+	    });
+
+	    page.addEventListener('dragend', function() {
+	      page.classList.remove('is-dragging-shelf-item');
+	      page.querySelectorAll('.is-dragging, .is-drop-target').forEach(function(el) {
+	        el.classList.remove('is-dragging', 'is-drop-target');
+	      });
+	    });
+
+	    page.addEventListener('dragover', function(e) {
+	      var target = getDropTarget(e.target);
+	      if (!target) return;
+	      e.preventDefault();
+	      e.dataTransfer.dropEffect = 'move';
+	      target.classList.add('is-drop-target');
+	    });
+
+	    page.addEventListener('dragleave', function(e) {
+	      var target = getDropTarget(e.target);
+	      if (!target || target.contains(e.relatedTarget)) return;
+	      target.classList.remove('is-drop-target');
+	    });
+
+	    page.addEventListener('drop', function(e) {
+	      var target = getDropTarget(e.target);
+	      var topic = getDropTopic(target);
+	      var dest = getDropDest(target);
+	      if (!target || (!topic && !dest)) return;
+	      e.preventDefault();
+	      var id = e.dataTransfer.getData('text/plain');
+	      if (id) {
+	        rememberState(id);
+	        if (dest) moveItemToDestination(id, dest, false);
+	        else moveItemToTopic(id, topic, false);
+	        persistCurrentState();
+	        clearArmedItem();
+	      }
+	      target.classList.remove('is-drop-target');
+	    });
+	  })();
+
+	  // Mobile hamburger overlay: open/close with focus-trap + Escape + body scroll-lock
+	  function openSidebar() {
     var idx = document.getElementById('topic-index');
     var btn = document.querySelector('.sidebar-toggle');
     if (!idx) return;

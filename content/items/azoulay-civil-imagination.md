@@ -4,7 +4,7 @@ title: 'Civil Imagination: A Political Ontology of Photography'
 type: book
 image: /img/covers/azoulay-civil-imagination.jpg
 dest: shelf
-topic: Visual Culture & Media
+topic: "Photography & Journalism"
 url: 'https://www.versobooks.com/products/2256-civil-imagination'
 order: 50
 dek: 'Verso, 2015'
