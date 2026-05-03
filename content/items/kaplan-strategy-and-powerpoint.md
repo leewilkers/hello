@@ -1,7 +1,7 @@
 ---
 author: "Sarah Kaplan"
 title: "Strategy and PowerPoint"
-type: book
+type: paper
 image: "/img/covers/kaplan-strategy-and-powerpoint.jpg"
 shelf_list: true
 dest: shelf

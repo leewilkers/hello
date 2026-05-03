@@ -1,7 +1,7 @@
 ---
 author: Eliza McNitt
 title: Spheres
-type: film
+type: vr
 image: /img/covers/eliza-mcnitt-spheres.jpg
 dest: shelf
 topic: Experiences

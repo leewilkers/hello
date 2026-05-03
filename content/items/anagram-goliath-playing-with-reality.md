@@ -1,7 +1,7 @@
 ---
 author: Anagram
 title: 'Goliath: Playing with Reality'
-type: film
+type: vr
 image: /img/covers/anagram-goliath-playing-with-reality.jpg
 dest: shelf
 topic: Experiences

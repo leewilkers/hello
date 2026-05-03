@@ -1,7 +1,7 @@
 ---
 author: Roger Ross Williams
 title: Traveling While Black
-type: film
+type: vr
 image: /img/covers/roger-ross-williams-traveling-while-black.jpg
 dest: remove
 topic: Experiences

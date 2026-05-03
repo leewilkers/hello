@@ -1,7 +1,7 @@
 ---
 author: David OReilly
 title: Everything
-type: site
+type: game
 image: /img/covers/david-oreilly-everything.jpg
 dest: shelf
 topic: "Experiences"

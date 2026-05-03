@@ -1,7 +1,7 @@
 ---
 author: 'Ryan Green, Amy Green'
 title: 'That Dragon, Cancer'
-type: site
+type: game
 image: /img/covers/numinous-games-that-dragon-cancer.jpg
 dest: shelf
 topic: "Experiences"

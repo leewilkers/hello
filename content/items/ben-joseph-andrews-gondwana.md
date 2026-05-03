@@ -1,7 +1,7 @@
 ---
 author: "Ben Joseph Andrews, Emma Roberts"
 title: "Gondwana"
-type: film
+type: vr
 image: "/img/covers/ben-joseph-andrews-gondwana.jpg"
 dest: shelf
 topic: "Experiences"

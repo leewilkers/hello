@@ -1,7 +1,7 @@
 ---
 author: "Jack Linchuan Qiu"
 title: "Working-Class Network Society: Communication Technology and the Information Have-Less in Urban China"
-type: essay
+type: book
 image: "/img/covers/working-class-network-society.jpg"
 dest: shelf
 topic: "Technology & Critique"

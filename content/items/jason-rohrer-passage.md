@@ -1,7 +1,7 @@
 ---
 author: Jason Rohrer
 title: Passage
-type: site
+type: game
 image: /img/covers/jason-rohrer-passage.jpg
 dest: shelf
 topic: "Experiences"

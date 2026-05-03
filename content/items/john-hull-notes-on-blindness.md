@@ -1,7 +1,7 @@
 ---
 author: John Hull
 title: 'Notes on Blindness: Into Darkness'
-type: film
+type: vr
 image: /img/covers/john-hull-notes-on-blindness.jpg
 dest: shelf
 topic: Experiences

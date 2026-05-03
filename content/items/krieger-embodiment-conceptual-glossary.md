@@ -1,7 +1,7 @@
 ---
 author: "Nancy Krieger"
 title: "Embodiment: A Conceptual Glossary for Epidemiology"
-type: essay
+type: paper
 image: "/img/covers/krieger-embodiment-conceptual-glossary.jpg"
 shelf_list: true
 dest: shelf

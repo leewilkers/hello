@@ -1,7 +1,7 @@
 ---
 author: 'Marion Fourcade, Kieran Healy'
 title: The Ordinal Society
-type: essay
+type: book
 image: /img/covers/the-ordinal-society.jpg
 dest: shelf
 topic: "Data, Evidence, & Epidemiology"

@@ -1,7 +1,7 @@
 ---
 author: Anagram
 title: 'Impulse: Playing with Reality'
-type: film
+type: vr
 image: /img/covers/anagram-impulse-playing-with-reality.jpg
 dest: shelf
 topic: Experiences

@@ -60,7 +60,10 @@ collections:
           - { label: "Site", value: "site" }
           - { label: "Tool", value: "tool" }
           - { label: "Project", value: "project" }
+          - { label: "Game", value: "game" }
           - { label: "Film", value: "film" }
+          - { label: "VR", value: "vr" }
+          - { label: "Installation", value: "installation" }
           - { label: "Interview", value: "interview" }
           - { label: "Slides", value: "slides" }
           - { label: "Concept", value: "concept" }

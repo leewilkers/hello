@@ -1,7 +1,7 @@
 ---
 author: Marshmallow Laser Feast
 title: Evolver
-type: film
+type: vr
 image: /img/covers/marshmallow-laser-feast-evolver.jpg
 dest: shelf
 topic: Experiences
