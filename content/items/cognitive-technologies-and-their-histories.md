@@ -3,6 +3,7 @@ author: "Topics in Cognitive Science"
 title: "Cognitive Technologies and Their Histories"
 type: essay
 image: "/img/covers/cognitive-technologies-and-their-histories.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Technology & Critique"

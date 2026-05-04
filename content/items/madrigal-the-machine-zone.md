@@ -3,6 +3,7 @@ author: "Alexis C. Madrigal"
 title: "The Machine Zone: This Is Where You Go When You Just Can't Stop Looking at Pictures on Facebook"
 type: essay
 image: "/img/covers/madrigal-the-machine-zone.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"

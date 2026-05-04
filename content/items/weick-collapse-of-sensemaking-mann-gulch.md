@@ -3,6 +3,7 @@ author: "Karl E. Weick"
 title: "The Collapse of Sensemaking in Organizations: The Mann Gulch Disaster"
 type: essay
 image: "/img/covers/weick-collapse-of-sensemaking-mann-gulch.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

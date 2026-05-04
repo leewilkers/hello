@@ -3,6 +3,7 @@ author: "John Wilson"
 title: "The History of Concrete"
 type: film
 image: "/img/covers/john-wilson-the-history-of-concrete.jpg"
+cover_label: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://variety.com/2026/film/reviews/the-history-of-concrete-review-john-wilson-1236637530/"

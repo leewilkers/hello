@@ -3,6 +3,7 @@ author: An Xiao Mina
 title: 'Elephant Problems: Limitations of Expertise'
 type: essay
 image: /img/covers/mina-elephant-problems.jpg
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"

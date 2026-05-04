@@ -3,6 +3,7 @@ author: "Virgil Abloh Archive"
 title: "Virgil Abloh: The Codes"
 type: "archive"
 image: "/img/covers/evans-virgil-ablohs-design-principles.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Design"

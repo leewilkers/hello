@@ -1,17 +1,18 @@
 ---
 author: "Shannon Mattern"
-title: "A City Is Not a Computer"
-type: essay
+title: "A City Is Not a Computer: Other Urban Intelligences"
+type: book
 image: "/img/covers/mattern-a-city-is-not-a-computer.jpg"
-cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
-url: "https://placesjournal.org/article/a-city-is-not-a-computer/"
+url: "https://press.princeton.edu/books/paperback/9780691208053/a-city-is-not-a-computer"
 order: 50
-dek: "Places Journal, 2017"
+dek: "Princeton University Press, 2021"
 note: ""
-blurb: "Shannon Mattern's 2017 Places Journal essay arguing that urban intelligence encompasses forms of knowledge that resist algorithmic reduction."
+blurb: "Mattern's book on urban intelligence beyond computational systems, attending to libraries, repair networks, public spaces, and the many ways cities know."
 quote: ""
-links: []
+links:
+  - label: "Places essay"
+    url: "https://placesjournal.org/article/a-city-is-not-a-computer/"
 ---

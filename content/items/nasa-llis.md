@@ -3,6 +3,7 @@ author: "NASA"
 title: "Lessons Learned Information System (LLIS)"
 type: archive
 image: "/img/covers/nasa-llis.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

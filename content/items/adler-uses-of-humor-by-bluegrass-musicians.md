@@ -3,6 +3,7 @@ author: "Thomas A. Adler"
 title: "The Uses of Humor by Bluegrass Musicians"
 type: "journal article"
 image: "/img/covers/adler-uses-of-humor-by-bluegrass-musicians.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Humor"

@@ -3,6 +3,7 @@ author: "Karl E. Weick"
 title: "Drop Your Tools: An Allegory for Organizational Studies"
 type: essay
 image: "/img/covers/weick-drop-your-tools.jpg"
+cover_label: true
 dest: shelf
 topic: "Organizations & Work"
 url: "https://doi.org/10.2307/2393722"

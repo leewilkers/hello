@@ -3,6 +3,7 @@ author: "Andrew Russell & Lee Vinsel"
 title: "Hail the Maintainers"
 type: essay
 image: "/img/covers/russell-vinsel-hail-the-maintainers.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"

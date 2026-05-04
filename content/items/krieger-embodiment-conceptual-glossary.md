@@ -3,6 +3,7 @@ author: "Nancy Krieger"
 title: "Embodiment: A Conceptual Glossary for Epidemiology"
 type: paper
 image: "/img/covers/krieger-embodiment-conceptual-glossary.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Data, Evidence, & Epidemiology"

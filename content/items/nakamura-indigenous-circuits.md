@@ -3,6 +3,7 @@ author: "Lisa Nakamura"
 title: "Indigenous Circuits: Navajo Women and the Racialization of Early Electronic Manufacture"
 type: "journal article"
 image: "/img/covers/nakamura-indigenous-circuits.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

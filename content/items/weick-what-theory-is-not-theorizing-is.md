@@ -3,6 +3,7 @@ author: "Karl Weick"
 title: "What Theory is Not, Theorizing Is"
 type: essay
 image: "/img/covers/weick-what-theory-is-not-theorizing-is.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

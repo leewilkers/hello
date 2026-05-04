@@ -3,6 +3,7 @@ author: "Smithsonian American Women's History Museum"
 title: "Hazel Fellows and the Women Who Made the Apollo Spacesuits"
 type: essay
 image: "/img/covers/smithsonian-hazel-fellows-apollo-spacesuits.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

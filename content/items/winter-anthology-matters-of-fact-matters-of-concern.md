@@ -1,16 +1,18 @@
 ---
 author: "Bruno Latour"
-title: "Matters of Fact, Matters of Concern"
+title: "Why Has Critique Run out of Steam? From Matters of Fact to Matters of Concern"
 type: essay
 image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"
-url: "https://winteranthology.com/?author=latour&title=critique&vol=5"
+url: "http://www.bruno-latour.fr/sites/default/files/89-CRITICAL-INQUIRY-GB.pdf"
 order: 50
-dek: "The Winter Anthology"
+dek: "Critical Inquiry, 2004"
 note: ""
-blurb: "Bruno Latour's 2004 Critical Inquiry essay arguing that critique has exhausted itself by debunking facts, proposing a shift from matters of fact to matters of concern."
+blurb: "Latour's essay arguing that critique has exhausted itself by debunking facts, proposing a shift from matters of fact to matters of concern."
 quote: ""
-links: []
+links:
+  - label: "doi"
+    url: "https://doi.org/10.1086/421123"
 ---
