@@ -3,6 +3,8 @@ author: "André Spicer"
 title: "From inboxing to thought showers: how business bullshit took over"
 type: essay
 image: "/img/covers/spicer-from-inboxing-to-thought-showers.jpg"
+cover_label: true
+cover_label_text: "Business Bullshit Took Over"
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

@@ -3,6 +3,8 @@ author: "chrislgarry"
 title: "Apollo 11 Guidance Computer Source Code"
 type: tool
 image: "/img/covers/garry-apollo-11-source-code.jpg"
+cover_label: true
+cover_label_text: "Apollo 11 Source Code"
 shelf_list: true
 dest: shelf
 topic: "Space"

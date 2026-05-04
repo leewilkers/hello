@@ -3,6 +3,7 @@ author: WikiWikiWeb
 title: 'Word Processors: Stupid and Inefficient'
 type: essay
 image: /img/covers/word-processors-stupid-and-inefficient.jpg
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: Interfaces & Interaction

@@ -3,6 +3,8 @@ author: "Hiromu Yakura, Ezequiel Lopez-Lopez, Levin Brinkmann, Ignacio Serna, Pr
 title: "Empirical evidence of Large Language Model's influence on human spoken communication"
 type: "paper"
 image: "/img/covers/everyone-starting-to-sound-like-ai.jpg"
+cover_label: true
+cover_label_text: "LLM Influence on Speech"
 shelf_list: true
 dest: shelf
 topic: "Language & Writing"

@@ -3,6 +3,8 @@ author: "Aleksy Domke"
 title: "Skylines I’ve Never Seen: Net-Real China as Hopeium"
 type: "essay"
 image: "/img/covers/skylines-ive-never-seen-net-real-china-as-hopeium.jpg"
+cover_label: true
+cover_label_text: "Skylines I’ve Never Seen"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/05/01/skylines-ive-never-seen-net-real-china-as-hopeium/"

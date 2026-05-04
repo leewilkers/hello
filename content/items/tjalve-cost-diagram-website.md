@@ -3,6 +3,7 @@ author: "Kristoffer Tjalve, Elliott Cost"
 title: "Diagram Website"
 type: site
 image: "/img/covers/tjalve-cost-diagram-website.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"

@@ -3,6 +3,8 @@ author: "Daniele Gambetta"
 title: "Beyond the Faust and the Hype-Imaginaries of Large Language Text Models"
 type: "essay"
 image: "/img/covers/beyond-the-faust-and-the-hype-imaginaries-of-large-language-text-models.jpg"
+cover_label: true
+cover_label_text: "Beyond the Faust and the Hype"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2023/11/30/beyond-the-faust-and-the-hype-about-imaginaries-and-social-aspects-of-artificial-intelligence/"

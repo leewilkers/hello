@@ -4,6 +4,7 @@ title: 'Fish: a tap essay'
 type: essay
 interactive: true
 image: /img/covers/robin-sloan-fish.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://www.robinsloan.com/fish/'

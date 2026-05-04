@@ -4,6 +4,8 @@ title: "Up and Down the Ladder of Abstraction: A Systematic Approach to Interact
 type: essay
 interactive: true
 image: "/img/covers/bret-victor-up-and-down-the-ladder-of-abstraction.jpg"
+cover_label: true
+cover_label_text: "Ladder of Abstraction"
 dest: shelf
 topic: "Interfaces & Interaction"
 url: "https://worrydream.com/LadderOfAbstraction/"

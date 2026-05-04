@@ -3,6 +3,7 @@ author: "Solomon R. Benatar"
 title: "Moral Imagination: The Missing Component in Global Health"
 type: essay
 image: "/img/covers/solomon-benatar-moral-imagination-missing-component.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Ethics & Moral Imagination"

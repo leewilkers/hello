@@ -3,6 +3,7 @@ author: "L.M. Sacasas"
 title: "The Questions Concerning Technology"
 type: essay
 image: "/img/covers/l-m-sacasas-the-questions-concerning-technology.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 note: "41 questions, no answers"

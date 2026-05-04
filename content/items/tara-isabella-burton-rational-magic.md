@@ -3,6 +3,7 @@ author: Tara Isabella Burton
 title: Rational Magic
 type: essay
 image: /img/covers/tara-isabella-burton-rational-magic.jpg
+cover_label: true
 dest: shelf
 note: ''
 blurb: how do you get the sacred without violence

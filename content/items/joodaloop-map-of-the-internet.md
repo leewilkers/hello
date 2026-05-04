@@ -3,6 +3,7 @@ author: "joodaloop"
 title: "map.joodaloop.com"
 type: site
 image: "/img/covers/joodaloop-map-of-the-internet.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"

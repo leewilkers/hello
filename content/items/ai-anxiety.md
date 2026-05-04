@@ -3,6 +3,7 @@ author: "Jordi Viader Guerrero, Dmitry Muravyov, Erica Gargaglione, Aarón Moren
 title: "AI_Anxiety"
 type: "project"
 image: "/img/covers/ai-anxiety.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Technology & Critique"
 url: "https://networkcultures.org/blog/publication/ai_anxiety/"

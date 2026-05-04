@@ -3,6 +3,7 @@ author: "Chase McCoy"
 title: "We could all be archivists"
 type: essay
 image: "/img/covers/chase-mccoy-we-could-all-be-archivists.jpg"
+cover_label: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://chsmc.org/2025/01/archivists/"

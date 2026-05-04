@@ -3,6 +3,8 @@ author: "Noura Tafeche"
 title: "The Kawayoku Tales: Aestheticisation of Violence in Military, Gaming, Social Media Cultures and Other Stories"
 type: "essay"
 image: "/img/covers/the-kawayoku-tales-aestheticisation-of-violence-in-military-gaming-social-media-cultur.jpg"
+cover_label: true
+cover_label_text: "The Kawayoku Tales"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2024/12/10/the-kawayoku-tales-aestheticisation-of-violence-in-military-gaming-social-media-cultures-and-other-stories/"

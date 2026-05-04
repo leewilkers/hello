@@ -3,6 +3,8 @@ author: "Bret Victor"
 title: "Magic Ink: Information Software and the Graphical Interface"
 type: essay
 image: "/img/covers/bret-victor-magic-ink-information-software-and-the.jpg"
+cover_label: true
+cover_label_text: "Magic Ink"
 shelf_list: true
 dest: shelf
 topic: "Interfaces & Interaction"

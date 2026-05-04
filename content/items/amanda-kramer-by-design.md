@@ -3,6 +3,7 @@ author: Amanda Kramer
 title: By Design
 type: film
 image: /img/covers/amanda-kramer-by-design.jpg
+cover_label: true
 dest: shelf
 topic: "Furniture & Craft"
 url: 'https://letterboxd.com/film/by-design-2025/'

@@ -3,6 +3,8 @@ author: "Juli Laczkó"
 title: "All Computers Are Broken: Rethinking the Technosphere along the Lines of Repair and Maintenance Work"
 type: "essay"
 image: "/img/covers/all-computers-are-broken-rethinking-the-technosphere-along-the-lines-of-repair-and-mai.jpg"
+cover_label: true
+cover_label_text: "All Computers Are Broken"
 dest: "shelf"
 topic: "Media"
 url: "https://networkcultures.org/longform/2025/01/14/all-computers-are-broken-rethinking-the-technosphere-along-the-lines-of-repair-and-maintenance-work/"

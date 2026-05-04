@@ -10,6 +10,7 @@ note: ""
 dek: "Interviews with the people behind personal websites"
 blurb: "the people behind the URLs"
 image: "/img/covers/gossips-web.jpg"
+cover_label: true
 links:
   - label: "interviews"
     url: "https://blog.gossipsweb.net/"

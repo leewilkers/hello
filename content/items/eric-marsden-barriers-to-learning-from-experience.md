@@ -3,6 +3,7 @@ author: "Eric Marsden"
 title: "Barriers to Learning from Experience"
 type: slides
 image: "/img/covers/eric-marsden-barriers-to-learning-from-experience.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

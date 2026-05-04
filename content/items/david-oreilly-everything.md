@@ -3,6 +3,7 @@ author: David OReilly
 title: Everything
 type: game
 image: /img/covers/david-oreilly-everything.jpg
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: 'https://store.steampowered.com/app/582270/Everything/'

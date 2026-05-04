@@ -3,6 +3,8 @@ author: Maggie Appleton
 title: 'Tools for Thought as Cultural Practices, not Computational Objects'
 type: essay
 image: /img/covers/maggie-appleton-tools-for-thought-as-cultural-practices-not.jpg
+cover_label: true
+cover_label_text: "Tools for Thought as Cultural Practices"
 dest: shelf
 note: ''
 blurb: 'distinctly computer-oriented, male, American, middle-class'

@@ -3,6 +3,7 @@ author: Janet Cardiff
 title: The Forty Part Motet
 type: installation
 image: /img/covers/janet-cardiff-the-forty-part-motet.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://cardiffmiller.com/installations/the-forty-part-motet/'

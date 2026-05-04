@@ -3,6 +3,8 @@ author: "Nolwenn Maudet"
 title: "Algorithms vs Interactions: The Revenge of Artificial Intelligence over Design"
 type: "essay"
 image: "/img/covers/algorithms-vs-interactions-the-revenge-of-artificial-intelligence-over-design.jpg"
+cover_label: true
+cover_label_text: "Algorithms vs Interactions"
 dest: "shelf"
 topic: "Design"
 url: "https://networkcultures.org/longform/2024/09/05/algorithms-vs-interactions-the-revenge-of-artificial-intelligence-over-design/"

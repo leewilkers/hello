@@ -3,6 +3,7 @@ author: "Simone Robutti"
 title: "Seven Mantras for Political Holism"
 type: "essay"
 image: "/img/covers/seven-mantras-for-political-holism.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/03/18/seven-mantras-for-political-holism/"

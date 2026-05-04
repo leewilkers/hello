@@ -3,6 +3,8 @@ author: "AbdouMaliq Simone"
 title: "People as Infrastructure: Intersecting Fragments in Johannesburg"
 type: essay
 image: "/img/covers/abdoumaliq-simone-people-as-infrastructure.jpg"
+cover_label: true
+cover_label_text: "People as Infrastructure"
 shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"

@@ -205,6 +205,17 @@ module.exports = function(eleventyConfig) {
     return { kind: "blurb", text: blurb };
   });
 
+  eleventyConfig.addFilter("shelfIdentityYear", function(data) {
+    if (!data || typeof data !== "object") return "";
+    const candidates = [data.year, data.date, data.published, data.dek];
+    for (const value of candidates) {
+      const text = normalizeShelfText(value);
+      const match = text.match(/\b(1[5-9]\d{2}|20\d{2})\b/);
+      if (match) return match[1];
+    }
+    return "";
+  });
+
   // Map a URL to a representative link label.
   // - If `override` is truthy, use it verbatim (hand-curated wins).
   // - Otherwise infer from host: ".pdf" / monoskop / archive.org → "full source",

@@ -3,6 +3,7 @@ author: John Hull
 title: 'Notes on Blindness: Into Darkness'
 type: vr
 image: /img/covers/john-hull-notes-on-blindness.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://www.meta.com/experiences/notes-on-blindness/1946326588770583/'

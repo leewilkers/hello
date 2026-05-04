@@ -3,6 +3,7 @@ author: 'Ryan Green, Amy Green'
 title: 'That Dragon, Cancer'
 type: game
 image: /img/covers/numinous-games-that-dragon-cancer.jpg
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: 'https://store.steampowered.com/app/419460/That_Dragon_Cancer/'

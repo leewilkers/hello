@@ -3,6 +3,8 @@ author: "Shannon Mattern"
 title: "Maintenance and Care: Fixing a Broken World"
 type: essay
 image: "/img/covers/shannon-mattern-maintenance-and-care.jpg"
+cover_label: true
+cover_label_text: "Maintenance and Care"
 shelf_list: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"

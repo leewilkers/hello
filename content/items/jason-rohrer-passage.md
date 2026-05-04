@@ -3,6 +3,7 @@ author: Jason Rohrer
 title: Passage
 type: game
 image: /img/covers/jason-rohrer-passage.jpg
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: 'https://hcsoftware.sourceforge.net/passage/'

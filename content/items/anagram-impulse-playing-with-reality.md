@@ -3,6 +3,7 @@ author: Anagram
 title: 'Impulse: Playing with Reality'
 type: vr
 image: /img/covers/anagram-impulse-playing-with-reality.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: >-

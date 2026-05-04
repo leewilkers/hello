@@ -3,6 +3,8 @@ author: Venkatesh Rao
 title: How to Draw and Judge Quadrant Diagrams
 type: essay
 image: /img/covers/venkat-rao-how-to-draw-and-judge-quadrant-diagrams.jpg
+cover_label: true
+cover_label_text: "Quadrant Diagrams"
 dest: shelf
 topic: "Sensemaking & Judgement"
 url: 'https://www.ribbonfarm.com/2009/04/20/how-to-draw-and-judge-quadrant-diagrams/'

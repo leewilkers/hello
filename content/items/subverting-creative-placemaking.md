@@ -3,6 +3,8 @@ author: "Sebastian Olma, Renée Van Oploo"
 title: "Subverting “Creative Placemaking:” How a Berlin Art Stunt Turned into a Model for Democratic Urban Development"
 type: "essay"
 image: "/img/covers/subverting-creative-placemaking.jpg"
+cover_label: true
+cover_label_text: "Subverting Creative Placemaking"
 dest: "shelf"
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://networkcultures.org/longform/2025/12/16/subverting-creative-placemaking-how-a-berlin-art-stunt-turned-into-a-model-for-democratic-urban-development/"

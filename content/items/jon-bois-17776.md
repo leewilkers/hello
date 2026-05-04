@@ -3,6 +3,7 @@ author: Jon Bois
 title: '17776'
 type: essay
 image: /img/covers/jon-bois-17776.jpg
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: 'https://www.sbnation.com/a/17776-football'

@@ -3,6 +3,8 @@ author: "Charles Eames, Ray Eames"
 title: "Powers of Ten and the Relative Size of Things in the Universe"
 type: film
 image: "/img/covers/eames-powers-of-ten.jpg"
+cover_label: true
+cover_label_text: "Powers of Ten"
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

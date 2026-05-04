@@ -3,6 +3,8 @@ author: "Morgane Billuart"
 title: "THE VOID | Video in an Envelope #1 – GIFTED"
 type: "video"
 image: "/img/covers/the-void-video-in-an-envelope-1-gifted.jpg"
+cover_label: true
+cover_label_text: "THE VOID: GIFTED"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/the-void-video-in-an-envelope-1-gifted/"

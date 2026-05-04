@@ -3,6 +3,8 @@ author: "Linch"
 title: "Middlemen Are Eating the World (And That's Good, Actually)"
 type: essay
 image: "/img/covers/linch-middlemen-are-eating-the-world.jpg"
+cover_label: true
+cover_label_text: "Middlemen Are Eating the World"
 shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"

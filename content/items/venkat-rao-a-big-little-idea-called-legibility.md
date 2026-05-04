@@ -3,6 +3,8 @@ author: "Venkatesh Rao"
 title: "A Big Little Idea Called Legibility"
 type: essay
 image: "/img/covers/venkat-rao-a-big-little-idea-called-legibility.jpg"
+cover_label: true
+cover_label_text: "Legibility"
 shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"

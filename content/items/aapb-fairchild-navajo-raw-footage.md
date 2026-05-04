@@ -3,6 +3,8 @@ author: "American Archive of Public Broadcasting"
 title: "Fairchild Camera and Instrument Corporation on Navajo Nation: Raw Footage"
 type: video
 image: "/img/covers/aapb-fairchild-navajo-raw-footage.jpg"
+cover_label: true
+cover_label_text: "Fairchild on Navajo Nation"
 shelf_list: true
 dest: shelf
 topic: "Space"

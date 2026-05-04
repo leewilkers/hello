@@ -67,16 +67,41 @@ pageClass: page-shelf
 {% macro cell(item, topic) %}
       {%- set primaryUrl = item.data.url %}
       {%- set hoverVoice = item.data | shelfHoverVoice %}
-      <li class="shelf-card">
+      {%- set identityYear = item.data | shelfIdentityYear %}
+      {%- set showCoverLabel = item.data.cover_label or item.data.cover_label_text %}
+      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}">
         <span class="cell-cover">
           <span class="cell-cover-panel">
           {%- if item.data.image %}
             {% shelfCover item.data.image, "" %}
           {%- endif %}
           </span>
+          {%- if showCoverLabel %}
+          <span class="cell-cover-stamp" aria-hidden="true">
+            <span class="cell-cover-stamp-title">{{ item.data.cover_label_text or item.data.title }}</span>
+            {%- if item.data.author or identityYear %}
+            <span class="cell-cover-stamp-meta">
+              {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
+              {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+            </span>
+            {%- endif %}
+          </span>
+          {%- endif %}
+          {%- if primaryUrl %}
+          <a class="cell-cover-primary" href="{{ primaryUrl }}" target="_blank" rel="noopener" aria-label="Open {{ item.data.title | escape }}"></a>
+          {%- endif %}
           <span class="cell-cover-overlay">
+            <span class="cell-cover-identity" aria-hidden="true">
+              <span class="cell-cover-title">{{ item.data.title }}</span>
+              {%- if item.data.author or identityYear %}
+              <span class="cell-cover-meta">
+                {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
+                {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+              </span>
+              {%- endif %}
+            </span>
             {%- if hoverVoice %}
-            <span class="cell-hover-text cell-hover-text--{{ hoverVoice.kind }}">{{ hoverVoice.text }}</span>
+            <span class="cell-hover-note cell-hover-note--{{ hoverVoice.kind }}" aria-hidden="true">{{ hoverVoice.text }}</span>
             {%- endif %}
             <ul class="cell-links" aria-label="Links">
             {%- if item.data.url %}

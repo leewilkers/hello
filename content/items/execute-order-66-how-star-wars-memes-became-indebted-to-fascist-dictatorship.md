@@ -3,6 +3,8 @@ author: "Pim van den Berg"
 title: "Execute Order 66: How Star Wars Memes Became Indebted to Fascist Dictatorship"
 type: "essay"
 image: "/img/covers/execute-order-66-how-star-wars-memes-became-indebted-to-fascist-dictatorship.jpg"
+cover_label: true
+cover_label_text: "Execute Order 66"
 dest: "shelf"
 topic: "Humor"
 url: "https://networkcultures.org/blog/publication/execute-order-66-how-star-wars-memes-became-indebted-to-fascist-dictatorship/"

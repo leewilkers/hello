@@ -3,6 +3,8 @@ author: Brandolini's Law
 title: The Unbearable Asymmetry of Bullshit in Science
 type: essay
 image: /img/covers/unbearable-asymmetry-of-bullshit.jpg
+cover_label: true
+cover_label_text: "Asymmetry of Bullshit in Science"
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

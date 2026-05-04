@@ -3,6 +3,7 @@ author: "Leon Magalhaes Schoyerer"
 title: "syntropic rhizomes"
 type: "essay"
 image: "/img/covers/syntropic-rhizomes.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/05/07/syntropic-rhizomes/"

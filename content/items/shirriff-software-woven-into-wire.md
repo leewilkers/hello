@@ -3,6 +3,8 @@ author: "Ken Shirriff"
 title: "Software Woven into Wire: Core Rope and the Apollo Guidance Computer"
 type: essay
 image: "/img/covers/shirriff-software-woven-into-wire.jpg"
+cover_label: true
+cover_label_text: "Software Woven into Wire"
 shelf_list: true
 dest: shelf
 topic: "Space"

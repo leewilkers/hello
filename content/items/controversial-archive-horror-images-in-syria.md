@@ -3,6 +3,8 @@ author: "Enrico De Angelis"
 title: "The Controversial Archive: Negotiating Horror Images in Syria"
 type: "essay"
 image: "/img/covers/controversial-archive-horror-images-in-syria.jpg"
+cover_label: true
+cover_label_text: "The Controversial Archive"
 dest: "shelf"
 topic: "Memory & Archives"
 url: "https://networkcultures.org/blog/publication/the-controversial-archive-negotiating-horror-images-in-syria/"

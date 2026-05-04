@@ -3,6 +3,7 @@ author: Sam Green
 title: 32 Sounds
 type: film
 image: /img/covers/sam-green-32-sounds.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://32sounds.com/'

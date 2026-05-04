@@ -3,6 +3,7 @@ author: "Ben Joseph Andrews, Emma Roberts"
 title: "Gondwana"
 type: vr
 image: "/img/covers/ben-joseph-andrews-gondwana.jpg"
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: "https://gondwanavr.com/"

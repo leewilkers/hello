@@ -3,6 +3,8 @@ author: "Samantha Shorey, Daniela Rosner"
 title: "Making Core Memory: An Experiment in Troubling Computing Histories"
 type: "journal article"
 image: "/img/covers/shorey-rosner-making-core-memory.jpg"
+cover_label: true
+cover_label_text: "Making Core Memory"
 shelf_list: true
 dest: shelf
 topic: "Space"

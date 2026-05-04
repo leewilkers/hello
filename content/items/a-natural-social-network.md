@@ -3,6 +3,7 @@ author: "Marco Simonetti"
 title: "A Natural Social Network"
 type: "essay"
 image: "/img/covers/a-natural-social-network.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Social Science & Anthropology"
 url: "https://networkcultures.org/longform/2021/06/17/a-natural-social-network/"
