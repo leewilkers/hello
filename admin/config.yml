@@ -137,7 +137,6 @@ collections:
           - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }
-          - { label: "Measurement, Value & Scale", value: "Measurement, Value & Scale" }
           - { label: "Data, Evidence, & Epidemiology", value: "Data, Evidence, & Epidemiology" }
           - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
           - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
@@ -147,6 +146,7 @@ collections:
           - { label: "Bullshit", value: "Bullshit" }
           - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
           - { label: "Technology & Critique", value: "Technology & Critique" }
+          - { label: "Outer Space", value: "Outer Space" }
           - { label: "Media", value: "Media" }
           - { label: "Memory & Archives", value: "Memory & Archives" }
           - { label: "Photography & Journalism", value: "Photography & Journalism" }

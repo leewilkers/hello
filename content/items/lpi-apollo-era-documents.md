@@ -1,0 +1,14 @@
+---
+author: "Lunar and Planetary Institute"
+title: "Apollo-Era Documents"
+type: site
+image: "/img/covers/lpi-apollo-era-documents.jpg"
+shelf_list: true
+dest: shelf
+topic: "Outer Space"
+url: "https://www.lpi.usra.edu/lunar/documents/"
+order: 50
+dek: "LPI resource"
+blurb: "A technical-document archive for Apollo exploration strategies, hardware, geological tools, landing sites, lunar rovers, and mission summaries."
+featured: false
+---
