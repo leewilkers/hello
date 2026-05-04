@@ -3,6 +3,8 @@ author: "Christian Becksvoort"
 title: "With the Grain: A Craftsman's Guide to Understanding Wood"
 type: book
 image: "/img/covers/becksvoort-with-the-grain.jpg"
+cover_label: true
+cover_label_text: "With the Grain"
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/with-the-grain-a-craftsman-s-guide-to-understanding-wood"

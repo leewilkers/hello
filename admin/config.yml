@@ -131,30 +131,31 @@ collections:
         required: false
         options:
           - { label: "Architecture, Infrastructure, & Maintenance", value: "Architecture, Infrastructure, & Maintenance" }
+          - { label: "Bullshit", value: "Bullshit" }
+          - { label: "Data, Evidence, & Epidemiology", value: "Data, Evidence, & Epidemiology" }
           - { label: "Design", value: "Design" }
-          - { label: "Nature & Life", value: "Nature & Life" }
           - { label: "Ethics & Moral Imagination", value: "Ethics & Moral Imagination" }
           - { label: "Experiences", value: "Experiences" }
           - { label: "Fiction", value: "Fiction" }
           - { label: "Furniture & Craft", value: "Furniture & Craft" }
           - { label: "Games, Play & Performance", value: "Games, Play & Performance" }
-          - { label: "Humor", value: "Humor" }
           - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
+          - { label: "Hospitality & Service", value: "Hospitality & Service" }
+          - { label: "Humor", value: "Humor" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }
-          - { label: "Data, Evidence, & Epidemiology", value: "Data, Evidence, & Epidemiology" }
-          - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
-          - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
-          - { label: "Strategy & Coordination", value: "Strategy & Coordination" }
-          - { label: "Organizations & Work", value: "Organizations & Work" }
-          - { label: "Potpourri", value: "Potpourri" }
-          - { label: "Bullshit", value: "Bullshit" }
-          - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
-          - { label: "Technology & Critique", value: "Technology & Critique" }
-          - { label: "Space", value: "Space" }
           - { label: "Media", value: "Media" }
           - { label: "Memory & Archives", value: "Memory & Archives" }
+          - { label: "Nature & Life", value: "Nature & Life" }
+          - { label: "Organizations & Work", value: "Organizations & Work" }
           - { label: "Photography & Journalism", value: "Photography & Journalism" }
+          - { label: "Potpourri", value: "Potpourri" }
+          - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
+          - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
+          - { label: "Space", value: "Space" }
+          - { label: "Strategy & Coordination", value: "Strategy & Coordination" }
+          - { label: "Technology & Critique", value: "Technology & Critique" }
+          - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
         hint: "For shelf items. Alphabetical topical index."
       - label: Image
         name: image

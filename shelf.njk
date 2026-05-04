@@ -69,6 +69,9 @@ pageClass: page-shelf
       {%- set hoverVoice = item.data | shelfHoverVoice %}
       {%- set identityYear = item.data | shelfIdentityYear %}
       {%- set showCoverLabel = item.data.cover_label or item.data.cover_label_text %}
+      {%- set typeKey = (item.data.type or "unknown") | lower %}
+      {%- set quietCoverTypes = ["book", "essay", "paper", "journal article", "report", "working paper"] %}
+      {%- set showCoverTypeMark = item.data.interactive or typeKey not in quietCoverTypes %}
       <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}">
         <span class="cell-cover">
           <span class="cell-cover-panel">
@@ -76,9 +79,12 @@ pageClass: page-shelf
             {% shelfCover item.data.image, "" %}
           {%- endif %}
           </span>
+          {%- if showCoverTypeMark %}
+          <span class="cell-cover-type-mark" aria-hidden="true">{{ typeSymbol(item, "cell-cover-type") }}</span>
+          {%- endif %}
           {%- if showCoverLabel %}
           <span class="cell-cover-stamp" aria-hidden="true">
-            <span class="cell-cover-stamp-title">{{ item.data.cover_label_text or item.data.title }}</span>
+            <span class="cell-cover-stamp-title">{{ item.data.title }}</span>
             {%- if item.data.author or identityYear %}
             <span class="cell-cover-stamp-meta">
               {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
@@ -92,7 +98,10 @@ pageClass: page-shelf
           {%- endif %}
           <span class="cell-cover-overlay">
             <span class="cell-cover-identity" aria-hidden="true">
-              <span class="cell-cover-title">{{ item.data.title }}</span>
+              <span class="cell-cover-title-row">
+                {%- if showCoverTypeMark %}{{ typeSymbol(item, "cell-cover-identity-type") }}{% endif -%}
+                <span class="cell-cover-title">{{ item.data.title }}</span>
+              </span>
               {%- if item.data.author or identityYear %}
               <span class="cell-cover-meta">
                 {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}

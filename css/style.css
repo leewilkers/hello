@@ -3898,6 +3898,39 @@ body {
   outline-offset: -2px;
 }
 
+.cell-cover-type-mark {
+  position: absolute;
+  top: 0.36rem;
+  right: 0.36rem;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: clamp(2.35rem, 1.7rem + 1.25vw, 3.15rem);
+  height: clamp(2.35rem, 1.7rem + 1.25vw, 3.15rem);
+  color: #fff;
+  mix-blend-mode: difference;
+  opacity: 0.78;
+  pointer-events: none;
+  transition: color 160ms ease, opacity 160ms ease, transform 160ms ease;
+}
+
+.cell-cover-type-mark .cell-cover-type {
+  --shelf-type-symbol-color: currentColor !important;
+  --shelf-type-symbol-size: clamp(1.58rem, 1.1rem + 0.88vw, 2.1rem);
+  color: currentColor;
+  opacity: 1;
+}
+
+.cell-cover-type-mark .item-type-symbol__icon {
+  stroke-width: 1.85;
+}
+
+.grid li:hover .cell-cover-type-mark,
+.grid li:focus-within .cell-cover-type-mark {
+  opacity: 0;
+  transform: translateY(-0.06rem);
+}
+
 .grid li .cell-cover img {
   width: 100%;
   max-width: 100%;
@@ -3933,26 +3966,43 @@ body {
 
 .cell-cover-stamp {
   position: absolute;
-  inset: auto 0 0;
+  inset: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 0.16rem;
   justify-content: flex-end;
-  min-height: 58%;
-  padding: 1.45rem 0.44rem 0.4rem;
+  min-height: 0;
+  padding: clamp(2.4rem, 18%, 4rem) 0.44rem 0.4rem;
   color: #FFF9ED;
+  background: none;
+  isolation: isolate;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.cell-cover-stamp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background:
     linear-gradient(
       to top,
-      color-mix(in srgb, #050505 76%, transparent) 0%,
-      color-mix(in srgb, #050505 64%, transparent) 36%,
-      color-mix(in srgb, #050505 30%, transparent) 72%,
-      color-mix(in srgb, #050505 8%, transparent) 90%,
+      color-mix(in srgb, #050505 78%, transparent) 0%,
+      color-mix(in srgb, #050505 64%, transparent) 18%,
+      color-mix(in srgb, #050505 42%, transparent) 44%,
+      color-mix(in srgb, #050505 18%, transparent) 72%,
       transparent 100%
     );
   pointer-events: none;
-  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.grid li.shelf-card--cover-label .cell-cover-panel img {
+  object-fit: contain;
+  object-position: top center;
+  height: 100%;
+  max-height: 100%;
 }
 
 .grid li:hover .cell-cover-stamp,
@@ -3962,14 +4012,16 @@ body {
 }
 
 .cell-cover-stamp-title {
+  position: relative;
+  z-index: 1;
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-family: var(--serif);
-  font-size: clamp(0.72rem, 0.66rem + 0.16vw, 0.86rem);
-  font-weight: 620;
-  line-height: 1.1;
+  font-size: clamp(0.94rem, 0.86rem + 0.22vw, 1.14rem);
+  font-weight: 650;
+  line-height: 1.06;
   text-wrap: balance;
   -webkit-text-stroke: 0.018em color-mix(in srgb, #050505 86%, transparent);
   paint-order: stroke fill;
@@ -3982,15 +4034,17 @@ body {
 }
 
 .cell-cover-stamp-meta {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 0.08rem 0.36rem;
   overflow: hidden;
   font-family: var(--mono);
-  font-size: clamp(0.48rem, 0.44rem + 0.1vw, 0.56rem);
+  font-size: clamp(0.58rem, 0.52rem + 0.14vw, 0.68rem);
   font-weight: 600;
   letter-spacing: 0.04em;
-  line-height: 1.18;
+  line-height: 1.2;
   color: color-mix(in srgb, #FFF9ED 84%, transparent);
   text-shadow:
     0 1px 0 #050505,
@@ -4208,20 +4262,36 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: stretch;
-  gap: 0.18rem;
-  padding: 0.58rem 0.5rem 0.48rem;
-  background:
-    linear-gradient(
-      to top,
-      color-mix(in srgb, #050505 91%, transparent) 0%,
-      color-mix(in srgb, #050505 76%, transparent) 52%,
-      color-mix(in srgb, #050505 26%, transparent) 78%,
-      transparent 100%
-    );
+  gap: 0.22rem;
+  padding: 0.66rem 0.56rem 0.52rem;
+  background: none;
+  isolation: isolate;
   opacity: 0;
   transform: translateY(0.14rem);
   pointer-events: none;
   transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.cell-cover-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      to top,
+      color-mix(in srgb, #050505 78%, transparent) 0%,
+      color-mix(in srgb, #050505 62%, transparent) 22%,
+      color-mix(in srgb, #050505 38%, transparent) 50%,
+      color-mix(in srgb, #050505 15%, transparent) 78%,
+      transparent 100%
+    );
+  pointer-events: none;
+}
+
+.cell-cover-overlay > * {
+  position: relative;
+  z-index: 1;
 }
 
 .cell-cover-identity,
@@ -4238,15 +4308,33 @@ body {
   padding: 0;
 }
 
+.cell-cover-title-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.28rem;
+}
+
+.cell-cover-title-row .cell-cover-title:first-child {
+  grid-column: 1 / -1;
+}
+
+.cell-cover-identity-type {
+  --shelf-type-symbol-color: color-mix(in srgb, #F6F1E8 78%, transparent);
+  --shelf-type-symbol-size: clamp(0.74rem, 0.66rem + 0.2vw, 0.92rem);
+  margin-top: 0.09rem;
+  filter: drop-shadow(0 0.08rem 0.22rem color-mix(in srgb, #050505 84%, transparent));
+}
+
 .cell-cover-title {
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   font-family: var(--serif);
-  font-size: clamp(0.76rem, 0.72rem + 0.18vw, 0.92rem);
-  font-weight: 560;
-  line-height: 1.1;
+  font-size: clamp(0.96rem, 0.88rem + 0.24vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.06;
   text-wrap: balance;
 }
 
@@ -4256,7 +4344,7 @@ body {
   gap: 0.08rem 0.42rem;
   margin-top: 0.16rem;
   font-family: var(--mono);
-  font-size: clamp(0.5rem, 0.46rem + 0.12vw, 0.6rem);
+  font-size: clamp(0.59rem, 0.53rem + 0.16vw, 0.72rem);
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.25;
@@ -4270,7 +4358,7 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-family: var(--mono);
-  font-size: clamp(0.48rem, 0.45rem + 0.1vw, 0.56rem);
+  font-size: clamp(0.56rem, 0.51rem + 0.14vw, 0.66rem);
   font-weight: 500;
   letter-spacing: 0.015em;
   line-height: 1.28;
@@ -4317,7 +4405,7 @@ body {
   max-width: 100%;
   overflow-wrap: anywhere;
   font-family: var(--mono);
-  font-size: clamp(0.48rem, 0.45rem + 0.1vw, 0.54rem);
+  font-size: clamp(0.55rem, 0.5rem + 0.12vw, 0.64rem);
   font-weight: 650;
   letter-spacing: 0.04em;
   text-transform: lowercase;
@@ -4998,7 +5086,7 @@ a.shelf-list-title:hover {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.64rem 0.34rem; }
 
   .grid li .cell-heading {
-    --shelf-card-title-size: 0.64rem;
+    --shelf-card-title-size: 0.74rem;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     margin: 0.14rem 0 0;
