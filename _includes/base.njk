@@ -810,6 +810,7 @@
     });
 	  })();
 
+{% if shelfCuration %}
 	  // Shelf curation controls — local-only review state. Browser actions are
 	  // reversible review notes until explicitly exported/applied to Markdown.
 	  (function() {
@@ -1440,6 +1441,7 @@
 	      target.classList.remove('is-drop-target');
 	    });
 	  })();
+{% endif %}
 
 	  // Mobile hamburger overlay: open/close with focus-trap + Escape + body scroll-lock
 	  function openSidebar() {
