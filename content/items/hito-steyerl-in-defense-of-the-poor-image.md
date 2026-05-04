@@ -6,6 +6,7 @@ image: /img/covers/hito-steyerl-in-defense-of-the-poor-image.jpg
 shelf_list: true
 dest: shelf
 note: ''
+blurb: "Steyerl defends degraded, circulating images as political artifacts of access, speed, compression, and digital publics."
 quote: ""
 topic: "Media"
 url: 'https://www.e-flux.com/journal/10/61362/in-defense-of-the-poor-image/'

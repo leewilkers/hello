@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/haise-never-panic-early.jpg"
 dest: shelf
 topic: "Strategy & Coordination"
-url: "https://www.smithsonianbooks.com/store/aviation-military-history/never-panic-early/"
+url: "https://www.smithsonianbooks.com/store/aviation-military-history/never-panic-early-an-apollo-13-astronauts-journey/"
 order: 50
 dek: "Smithsonian Books, 2022"
 note: ""

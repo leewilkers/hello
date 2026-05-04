@@ -6,7 +6,7 @@ image: "/img/covers/gould-fernandez-structures-of-mediation.jpg"
 shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
-url: "https://doi.org/10.1177/0049124189018001005"
+url: "https://www.jstor.org/stable/270949"
 order: 50
 dek: "Sociological Methodology, 1989"
 note: ""

@@ -8,6 +8,7 @@ topic: "Data, Evidence, & Epidemiology"
 url: "https://www.dukeupress.edu/metrics"
 dek: "Duke, 2016"
 note: ""
+blurb: "Adams and contributors examine how metrics shape what global health can see, value, fund, and ignore."
 quote: ""
 links:
   - label: "review"

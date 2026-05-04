@@ -11,6 +11,7 @@ links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Technics_and_Civilization'
 note: ''
+blurb: "Mumford traces the rise of modern technics and its influence on work, cities, time, and culture."
 quote: ""
 order: 3
 ---

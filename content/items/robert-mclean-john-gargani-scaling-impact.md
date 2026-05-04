@@ -11,5 +11,6 @@ links:
   - label: "publisher"
     url: "https://www.routledge.com/Scaling-Impact-Innovation-for-the-Public-Good/McLean-Gargani/p/book/9781138605565"
 note: "the \"science\" of scaling"
+blurb: "McLean and Gargani distinguish scaling impact from simply growing programs, emphasizing context, systems, and public value."
 order: 8
 ---

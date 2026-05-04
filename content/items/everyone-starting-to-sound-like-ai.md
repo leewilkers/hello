@@ -1,7 +1,7 @@
 ---
-author: "Sam Kriss"
-title: "Everyone is starting to sound like AI, even in spoken language"
-type: essay
+author: "Hiromu Yakura, Ezequiel Lopez-Lopez, Levin Brinkmann, Ignacio Serna, Prateek Gupta, Ivan Soraperra, Iyad Rahwan"
+title: "Empirical evidence of Large Language Model's influence on human spoken communication"
+type: "paper"
 image: "/img/covers/everyone-starting-to-sound-like-ai.jpg"
 shelf_list: true
 dest: shelf
@@ -10,7 +10,7 @@ url: "https://arxiv.org/abs/2409.01754"
 order: 50
 dek: "arXiv, 2024"
 note: ""
-blurb: "Sam Kriss's 2025 NYT Magazine essay on the feedback loop in which humans increasingly mimic AI language patterns."
+blurb: "Yakura and colleagues analyze academic talk transcripts and find increased use of words associated with ChatGPT after its release."
 quote: ""
 links: []
 ---

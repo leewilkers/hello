@@ -6,7 +6,7 @@ image: "/img/covers/why-does-moral-progress-feel-preachy.jpg"
 shelf_list: true
 dest: shelf
 topic: "Ethics & Moral Imagination"
-url: "https://aeon.co/essays/why-does-moral-progress-feel-so-preachy-and-annoying"
+url: "https://aeon.co/essays/why-does-moral-progress-feel-preachy-and-annoying"
 order: 50
 dek: "aeon.co, 2024"
 note: ""

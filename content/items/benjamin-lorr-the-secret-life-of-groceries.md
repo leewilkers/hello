@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/benjamin-lorr-the-secret-life-of-groceries.jpg"
 dest: shelf
 topic: "Organizations & Work"
-url: "https://www.penguinrandomhouse.com/books/566284/the-secret-life-of-groceries-by-benjamin-lorr/"
+url: "https://www.benjaminlorr.net/book/the-secret-life-of-groceries/"
 order: 50
 dek: "Avery, 2020"
 note: ""

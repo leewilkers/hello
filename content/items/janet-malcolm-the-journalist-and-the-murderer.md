@@ -8,6 +8,7 @@ topic: "Language & Writing"
 url: "https://en.wikipedia.org/wiki/The_Journalist_and_the_Murderer"
 dek: "Knopf, 1990"
 note: ""
+blurb: "Malcolm examines the moral compromises in journalism through the relationship between a reporter and a convicted murderer."
 quote: ""
 links: []
 order: 19

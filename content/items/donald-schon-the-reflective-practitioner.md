@@ -8,6 +8,7 @@ topic: "Design"
 url: "https://archive.org/details/reflectivepracti0000scho"
 dek: "Basic Books, 1983"
 note: ""
+blurb: "Schon describes professional knowledge as reflective action in messy situations rather than the mechanical application of theory."
 quote: ""
 links:
   - label: "wiki (concept)"

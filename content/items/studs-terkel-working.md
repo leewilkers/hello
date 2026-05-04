@@ -8,6 +8,7 @@ topic: "Organizations & Work"
 url: "https://studsterkel.wfmt.com/"
 dek: "Pantheon, 1974"
 note: ""
+blurb: "Terkel gathers oral histories of work, showing how jobs shape identity, dignity, frustration, and social life."
 quote: ""
 links:
   - label: "wiki (author)"

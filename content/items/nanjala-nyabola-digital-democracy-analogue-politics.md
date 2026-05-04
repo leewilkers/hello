@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/nanjala-nyabola-digital-democracy-analogue-politics.jpg"
 dest: shelf
 topic: "Technology & Critique"
-url: "https://en.wikipedia.org/wiki/Digital_Democracy,_Analogue_Politics"
+url: "https://kclpure.kcl.ac.uk/portal/en/publications/digital-democracy-analogue-politics-how-the-internet-era-is-trans/"
 dek: "Zed, 2018"
 note: ""
 blurb: "the internet arrived, the politics didn't change"

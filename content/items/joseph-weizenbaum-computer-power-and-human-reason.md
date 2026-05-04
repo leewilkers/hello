@@ -8,6 +8,7 @@ topic: "Sensemaking & Judgement"
 url: 'https://archive.org/details/computerpowerhum0000weiz_v0i3'
 dek: 'W. H. Freeman, 1976'
 note: ''
+blurb: "Weizenbaum warns against confusing computation with judgment, especially where moral and human questions are at stake."
 quote: ""
 links:
   - label: wiki

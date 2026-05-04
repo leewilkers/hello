@@ -8,6 +8,7 @@ topic: "Web Culture & Internet"
 url: "https://www.plutobooks.com/9780745317489/network-culture/"
 dek: "Pluto Press, 2004"
 note: ""
+blurb: "Terranova analyzes network culture through information politics, digital labor, communication, and the changing public sphere."
 quote: ""
 links:
   - label: "wiki"

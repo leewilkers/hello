@@ -10,7 +10,7 @@ url: 'https://wiki.c2.com/?WordProcessorsStupidAndInefficient'
 order: 50
 dek: wiki.c2.com
 note: ''
-blurb: ''
+blurb: "This WikiWikiWeb essay argues that word processors often obstruct plain-text thinking, structure, and efficient writing."
 quote: ""
 links: []
 ---

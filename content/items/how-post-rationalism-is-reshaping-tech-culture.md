@@ -1,16 +1,16 @@
 ---
-author: "Clare Coffey"
+author: "Tara Isabella Burton"
 title: "How 'post-rationalism' is reshaping tech culture"
 type: essay
 image: "/img/covers/how-post-rationalism-is-reshaping-tech-culture.jpg"
 shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"
-url: "https://www.vox.com/the-highlight/23894951/post-rationalism-tech-culture"
+url: "https://www.thenewatlantis.com/publications/rational-magic"
 order: 50
-dek: "Vox, 2023"
+dek: "The New Atlantis, 2023"
 note: ""
-blurb: "Clare Coffey's 2023 New Atlantis essay on a 'postrationalist turn' among online communities toward religion and skepticism of quantified approaches to the good life."
+blurb: "Tara Isabella Burton's essay on Silicon Valley's postrationalist turn toward ritual, religion, and the limits of technocratic reason."
 quote: ""
 links: []
 ---

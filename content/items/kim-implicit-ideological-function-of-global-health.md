@@ -9,5 +9,6 @@ topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1136/bmjgh-2021-005620"
 order: 50
 dek: "BMJ Global Health, 2021"
+blurb: "Kim argues that global health can reproduce power relations by treating technical intervention as politically neutral."
 featured: false
 ---

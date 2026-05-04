@@ -12,6 +12,7 @@ links:
   - label: lectures
     url: 'https://archive.org/details/the-real-world-of-technology/part-1.mp3'
 note: ''
+blurb: "Franklin distinguishes holistic and prescriptive technologies while asking how technical systems organize power and daily life."
 quote: ""
 order: 2
 ---

@@ -6,7 +6,7 @@ image: "/img/covers/robles-anderson-svensson-one-damn-slide-after-another.jpg"
 shelf_list: true
 dest: shelf
 topic: "Interfaces & Interaction"
-url: "https://doi.org/10.1162/COMJ_a_00341"
+url: "https://computationalculture.net/one-damn-slide-after-another-powerpoint-at-every-occasion-for-speech/"
 order: 50
 dek: "Computational Culture, 2016"
 note: ""

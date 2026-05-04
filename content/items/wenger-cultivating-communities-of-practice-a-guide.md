@@ -8,5 +8,6 @@ topic: "Organizations & Work"
 url: "https://openlibrary.org/isbn/9781578513307"
 order: 50
 dek: "Harvard Business School Press, 2002"
+blurb: "Wenger, McDermott, and Snyder show how communities of practice support learning, knowledge sharing, and organizational capability."
 featured: false
 ---

@@ -9,5 +9,6 @@ topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://www.contextbook.com/"
 order: 50
 dek: "O'Reilly Media, 2014"
+blurb: "Hinton explains context as the surrounding structure that makes information, language, and interaction meaningful."
 featured: false
 ---

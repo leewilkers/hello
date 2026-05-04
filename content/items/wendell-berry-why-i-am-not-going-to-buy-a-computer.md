@@ -9,5 +9,6 @@ url: 'https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.p
 dek: 'Harper''s, 1987'
 links: []
 note: exactly what it sounds like
+blurb: "Berry explains his refusal of the computer as an argument about tools, work, dependence, and household economy."
 order: 11
 ---

@@ -8,6 +8,7 @@ topic: "Global Health, Aid & Development"
 url: "https://global.oup.com/academic/product/development-as-freedom-9780198297581"
 dek: "Oxford University Press, 1999"
 note: ""
+blurb: "Sen reframes development as the expansion of real freedoms rather than only income, growth, or institutional targets."
 quote: ""
 order: 27
 links:

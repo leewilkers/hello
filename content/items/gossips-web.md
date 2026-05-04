@@ -7,6 +7,7 @@ dest: shelf
 topic: "Web Culture & Internet"
 order: 31
 note: ""
+dek: "Interviews with the people behind personal websites"
 blurb: "the people behind the URLs"
 image: "/img/covers/gossips-web.jpg"
 links:

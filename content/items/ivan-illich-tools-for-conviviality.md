@@ -8,6 +8,7 @@ topic: "Technology & Critique"
 url: 'https://archive.org/details/illich-conviviality'
 dek: 'Harper & Row, 1973'
 note: ''
+blurb: "Illich argues for tools and institutions that enlarge human autonomy rather than producing dependence on expert systems."
 quote: ""
 links:
   - label: wiki

@@ -8,6 +8,7 @@ topic: "Strategy & Coordination"
 url: "https://www.routledge.com/Drift-into-Failure-From-Hunting-Broken-Components-to-Understanding-Complex/Dekker/p/book/9781409422211"
 dek: "CRC Press, 2011"
 note: ""
+blurb: "Dekker explains failure as a gradual drift inside complex systems rather than a simple chain of broken parts."
 quote: ""
 order: 37
 links:

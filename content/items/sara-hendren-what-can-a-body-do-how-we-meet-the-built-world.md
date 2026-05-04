@@ -9,6 +9,7 @@ topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://www.penguinrandomhouse.com/books/561049/what-can-a-body-do-by-sara-hendren/"
 dek: "Riverhead, 2020"
 note: ""
+blurb: "Hendren shows how disability, design, and the built world reveal richer questions about bodies and assistance."
 quote: ""
 links:
   - label: "talk"

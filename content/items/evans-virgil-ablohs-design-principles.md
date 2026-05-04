@@ -1,16 +1,16 @@
 ---
-author: "Benedict Evans"
-title: "Virgil Abloh's Design Principles"
-type: essay
+author: "Virgil Abloh Archive"
+title: "Virgil Abloh: The Codes"
+type: "archive"
 image: "/img/covers/evans-virgil-ablohs-design-principles.jpg"
 shelf_list: true
 dest: shelf
 topic: "Design"
-url: "https://www.ben-evans.com/benedictevans/2021/12/2/virgil-ablohs-design-principles"
+url: "https://www.grandpalais.fr/en/program/virgil-abloh-codes"
 order: 50
-dek: "ben-evans.com, 2021"
+dek: "Grand Palais, 2025"
 note: ""
-blurb: "Benedict Evans's 2021 essay on Virgil Abloh's design language — the 3% rule, the readymade, the quotation mark."
+blurb: "An archive-backed exhibition tracing Abloh's recurring design codes across fashion, footwear, architecture, music, advertising, and more."
 quote: ""
 links: []
 ---

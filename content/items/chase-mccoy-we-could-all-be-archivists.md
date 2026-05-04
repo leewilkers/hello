@@ -8,6 +8,7 @@ topic: "Memory & Archives"
 url: "https://chsmc.org/2025/01/archivists/"
 dek: "chsmc.org, January 2025"
 note: ""
+blurb: "McCoy makes a case for everyday web archiving as a shared practice of care for fragile digital culture."
 quote: ""
 order: 6
 links: []

@@ -8,5 +8,6 @@ topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://openlibrary.org/works/OL3923609W"
 order: 50
 dek: "Harvard University Press, 1964"
+blurb: "Alexander sets out an early design method for resolving conflicts between human needs, form, and context."
 featured: false
 ---

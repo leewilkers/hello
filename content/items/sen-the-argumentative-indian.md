@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/sen-the-argumentative-indian.jpg"
 dest: shelf
 topic: "Potpourri"
-url: "https://www.penguinrandomhouse.com/books/292377/the-argumentative-indian-by-amartya-sen/"
+url: "https://sen.scholars.harvard.edu/publications/argumentative-indian"
 order: 50
 dek: "Picador, 2006"
 note: ""

@@ -9,5 +9,6 @@ topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1016/j.worlddev.2019.104706"
 order: 50
 dek: "World Development, 2020"
+blurb: "Fukuda-Parr and Muchhala recover the Global South ideas and actors behind the Sustainable Development Goals."
 featured: false
 ---

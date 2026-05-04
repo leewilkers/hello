@@ -11,6 +11,7 @@ links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Unsettling_of_America"
 note: ""
+blurb: "Berry criticizes industrial agriculture and defends agrarian culture, local responsibility, and care for land."
 quote: ""
 order: 31
 ---

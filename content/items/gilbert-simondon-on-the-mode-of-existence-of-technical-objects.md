@@ -10,6 +10,7 @@ url: >-
   https://www.upress.umn.edu/9781517904876/on-the-mode-of-existence-of-technical-objects/
 dek: 'Univocal / University of Minnesota Press, 1958 / 2017'
 note: ''
+blurb: "Simondon asks how technical objects evolve, mediate human life, and deserve philosophical attention on their own terms."
 quote: ""
 links:
   - label: wiki

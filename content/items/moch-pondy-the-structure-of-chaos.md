@@ -6,7 +6,7 @@ image: "/img/covers/moch-pondy-the-structure-of-chaos.jpg"
 shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
-url: "https://doi.org/10.2307/2392181"
+url: "https://www.jstor.org/stable/2391967"
 order: 50
 dek: "Administrative Science Quarterly, 1977"
 note: ""

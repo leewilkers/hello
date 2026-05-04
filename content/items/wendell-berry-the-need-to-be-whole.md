@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/wendell-berry-the-need-to-be-whole.jpg"
 dest: shelf
 topic: "Ethics & Moral Imagination"
-url: "https://www.counterpointpress.com/books/the-need-to-be-whole/"
+url: "https://openlibrary.org/works/OL27847401W/The_Need_to_Be_Whole"
 order: 50
 dek: "Counterpoint, 2022"
 note: ""

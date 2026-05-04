@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/wendell-berry-the-world-ending-fire.jpg"
 dest: shelf
 topic: "Nature & Life"
-url: "https://www.penguinrandomhouse.com/books/549648/the-world-ending-fire-by-wendell-berry-selected-and-with-an-introduction-by-paul-kingsnorth/"
+url: "https://www.counterpointpress.com/books/the-world-ending-fire/"
 order: 50
 dek: "Counterpoint, 2017"
 note: ""

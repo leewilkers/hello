@@ -8,6 +8,7 @@ topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/the-anarchists-tool-chest"
 dek: "Lost Art Press, 2010"
 note: "build the chest first"
+blurb: "Schwarz uses the tool chest as a practical argument for craft, durable tools, and independence from throwaway systems."
 links:
   - label: "free PDF"
     url: "https://blog.lostartpress.com/2024/04/14/a-free-download-now-and-forever-the-anarchists-tool-chest/"

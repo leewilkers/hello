@@ -8,6 +8,7 @@ topic: "Technology & Critique"
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
 dek: "MIT Press, 1995"
 note: ""
+blurb: "Hutchins shows cognition distributed across people, instruments, routines, and environments aboard a naval navigation team."
 quote: ""
 links:
   - label: "wiki"

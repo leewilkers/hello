@@ -8,6 +8,7 @@ topic: "Ethics & Moral Imagination"
 url: "https://press.princeton.edu/books/paperback/9780691169163/primates-and-philosophers"
 dek: "Princeton, 2006"
 note: ""
+blurb: "de Waal connects morality to primate social life, sympathy, reciprocity, and the evolutionary roots of ethical behavior."
 quote: ""
 links:
   - label: "archive.org"

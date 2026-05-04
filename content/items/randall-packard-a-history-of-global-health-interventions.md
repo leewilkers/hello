@@ -8,6 +8,7 @@ topic: "Global Health, Aid & Development"
 url: "https://archive.org/details/historyofglobalh0000pack"
 dek: "Johns Hopkins, 2016"
 note: "magic bullets, every time"
+blurb: "Packard traces global health interventions through colonial, philanthropic, and development histories that shaped public health practice."
 links:
   - label: "review"
     url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5872019/"

@@ -5,7 +5,7 @@ type: "journal article"
 image: "/img/covers/adler-uses-of-humor-by-bluegrass-musicians.jpg"
 shelf_list: true
 dest: shelf
-topic: "Games, Play & Performance"
+topic: "Humor"
 url: "https://www.thomasadler.com/bluegrass-music/uses-of-humor-by-bg-musicians"
 order: 50
 dek: "Mid-America Folklore, 1982"

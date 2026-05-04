@@ -9,6 +9,7 @@ topic: "Sensemaking & Judgement"
 url: "https://risk-engineering.org/static/PDF/slides-barriers-learning.pdf"
 dek: "risk-engineering.org"
 note: ""
+blurb: "Marsden summarizes why organizations struggle to learn from accidents, near misses, and operational feedback."
 quote: ""
 order: 38
 links:

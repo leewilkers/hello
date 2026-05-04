@@ -9,7 +9,7 @@ url: "https://lostartpress.com/products/american-peasant-signed-by-the-author"
 order: 50
 dek: "Lost Art Press, 2024"
 note: ""
-blurb: ""
+blurb: "Schwarz studies vernacular furniture and household making as a durable, democratic alternative to disposable consumption."
 quote: ""
 links: []
 ---

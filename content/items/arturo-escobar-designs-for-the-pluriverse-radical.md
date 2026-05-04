@@ -9,6 +9,7 @@ topic: "Design"
 url: "https://www.dukeupress.edu/designs-for-the-pluriverse"
 dek: "Duke, 2018"
 note: ""
+blurb: "Escobar argues for design practices that support many ways of living rather than one universal model of progress."
 quote: ""
 links:
   - label: "wiki"

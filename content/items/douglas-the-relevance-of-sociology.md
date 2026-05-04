@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/douglas-the-relevance-of-sociology.jpg"
 dest: shelf
 topic: "Social Science & Anthropology"
-url: "https://www.russellsage.org/publications/relevance-sociology"
+url: "https://openlibrary.org/books/OL4575011M/The_relevance_of_sociology."
 order: 50
 dek: "Russell Sage Foundation, 1970"
 note: ""

@@ -6,7 +6,7 @@ image: "/img/covers/kaplan-strategy-and-powerpoint.jpg"
 shelf_list: true
 dest: shelf
 topic: "Interfaces & Interaction"
-url: "https://doi.org/10.1287/orsc.1100.0599"
+url: "https://doi.org/10.1287/orsc.1100.0531"
 order: 50
 dek: "Organization Science, 2011"
 note: ""

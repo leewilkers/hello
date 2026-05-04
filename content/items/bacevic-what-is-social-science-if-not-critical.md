@@ -6,7 +6,7 @@ image: "/img/covers/bacevic-what-is-social-science-if-not-critical.jpg"
 shelf_list: true
 dest: shelf
 topic: "Social Science & Anthropology"
-url: "https://janabacevic.net/2023/04/03/what-is-social-science-if-not-critical/"
+url: "https://durham-repository.worktribe.com/output/2873204/what-is-social-science-if-not-critical"
 order: 50
 dek: "janabacevic.net, 2023"
 note: ""

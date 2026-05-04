@@ -10,6 +10,7 @@ url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.002
 dek: "PLoS Medicine, 2005"
 links: []
 note: ""
+blurb: "Benatar argues that global health ethics needs moral imagination to see obligations across distance, inequality, and power."
 quote: ""
 order: 10
 ---

@@ -11,6 +11,7 @@ links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/The_Medium_Is_the_Massage'
 note: ""
+blurb: "McLuhan and Fiore turn media theory into a visual argument about how communication environments reshape perception."
 tooltip: "not a typo"
 order: 6
 ---

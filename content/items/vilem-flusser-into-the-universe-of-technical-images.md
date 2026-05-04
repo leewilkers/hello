@@ -10,6 +10,7 @@ url: >-
   https://www.upress.umn.edu/book-division/books/into-the-universe-of-technical-images
 dek: 'University of Minnesota Press, 1985 / 2011'
 note: ''
+blurb: "Flusser examines technical images and the apparatuses that produce new forms of imagination, culture, and control."
 quote: ""
 links:
   - label: wiki

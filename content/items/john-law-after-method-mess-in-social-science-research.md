@@ -9,6 +9,7 @@ topic: "Social Science & Anthropology"
 url: "https://www.routledge.com/After-Method-Mess-in-Social-Science-Research/Law/p/book/9780415341752"
 dek: "Routledge, 2004"
 note: ""
+blurb: "Law argues that social research methods must make room for mess, multiplicity, uncertainty, and realities that resist neatness."
 quote: ""
 order: 25
 links:

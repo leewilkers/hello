@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/mark-johnson-moral-imagination.jpg"
 dest: shelf
 topic: "Ethics & Moral Imagination"
-url: "https://press.uchicago.edu/ucp/books/book/chicago/M/bo3684038.html"
+url: "https://press.uchicago.edu/ucp/books/book/chicago/M/bo3684141.html"
 order: 50
 dek: "University of Chicago Press, 1993"
 note: ""

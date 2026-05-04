@@ -9,6 +9,7 @@ url: "https://variety.com/2026/film/reviews/the-history-of-concrete-review-john-
 dek: "Magnolia Pictures, 2026"
 source: "Variety"
 note: ""
+blurb: "Wilson traces concrete as a material history of modern building, infrastructure, engineering, and environmental consequence."
 quote: ""
 order: 1
 links:

@@ -13,6 +13,7 @@ links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Sociological_Imagination"
 note: ""
+blurb: "Mills defines sociological imagination as the ability to connect private troubles with public structures and historical change."
 quote: ""
 order: 18
 ---

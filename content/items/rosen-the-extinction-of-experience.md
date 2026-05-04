@@ -1,17 +1,15 @@
 ---
-author: Robert Michael Pyle
-title: The Extinction of Experience
+author: "Christine Rosen"
+title: "The Extinction of Experience: Being Human in a Disembodied World"
 type: book
 image: /img/covers/rosen-the-extinction-of-experience.jpg
 dest: shelf
 topic: Nature & Life
-url: 'https://www.harpercollins.com/products/the-thunder-tree-robert-michael-pyle'
+url: "https://wwnorton.com/books/9780393241716"
 order: 50
-dek: 'Houghton Mifflin, 1993'
+dek: "W. W. Norton, 2024"
 note: ''
-blurb: >-
-  Robert Michael Pyle's essay on the compounding cycle by which disconnection
-  from nature breeds indifference that accelerates further habitat loss.
+blurb: "Christine Rosen's argument that screen-mediated life is eroding face-to-face, embodied, and place-based forms of human experience."
 quote: ""
 links: []
 ---

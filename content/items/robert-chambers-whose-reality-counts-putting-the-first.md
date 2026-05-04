@@ -8,6 +8,7 @@ topic: "Global Health, Aid & Development"
 url: "https://practicalactionpublishing.com/book/432/whose-reality-counts"
 dek: "Intermediate Technology Publications, 1997"
 note: ""
+blurb: "Chambers argues for participatory development practices that reverse professional dominance and take marginalized knowledge seriously."
 quote: ""
 links:
   - label: "wiki"

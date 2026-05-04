@@ -7,6 +7,7 @@ dest: shelf
 topic: "Web Culture & Internet"
 order: 20
 note: ""
+dek: "special.fish"
 blurb: "a social network made of personal websites"
 image: "/img/covers/special-fish.jpg"
 links:

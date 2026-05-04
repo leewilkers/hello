@@ -8,5 +8,6 @@ topic: "Global Health, Aid & Development"
 url: "https://openlibrary.org/works/OL19840537W"
 order: 50
 dek: "Oxfam, 2010"
+blurb: "Cornwall and Eade collect critiques of the buzzwords that make development discourse sound progressive while hiding power."
 featured: false
 ---

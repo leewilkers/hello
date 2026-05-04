@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/de-waal-famine-crimes.jpg"
 dest: shelf
 topic: "Global Health, Aid & Development"
-url: "https://www.press.indiana.edu/9780253211101/famine-crimes/"
+url: "https://openlibrary.org/books/OL682754M/Famine_crimes"
 order: 50
 dek: "Indiana University Press, 1997"
 note: ""

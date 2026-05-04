@@ -1,16 +1,16 @@
 ---
-author: "Maria Popova"
+author: "Quique Autrey"
 title: "Gods With Anuses: Reframing our Common Humanity"
 type: essay
 image: "/img/covers/gods-with-anuses.jpg"
 shelf_list: true
 dest: shelf
 topic: "Potpourri"
-url: "https://www.themarginalian.org/2024/03/15/gods-with-anuses/"
+url: "https://sublationmedia.com/gods-with-anuses-reframing-our-common-humanity/"
 order: 50
-dek: "The Marginalian, 2024"
+dek: "Sublation Media, 2024"
 note: ""
-blurb: "Maria Popova's essay using Ernest Becker's paradox — divine cognition in a mortal, animal body."
+blurb: "Quique Autrey's essay using Ernest Becker's phrase to frame common humanity through shared finitude and non-belonging."
 quote: ""
 links: []
 ---

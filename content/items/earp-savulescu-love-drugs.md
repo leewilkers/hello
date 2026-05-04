@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/earp-savulescu-love-drugs.jpg"
 dest: shelf
 topic: "Ethics & Moral Imagination"
-url: "https://www.sup.org/books/title/?id=29610"
+url: "https://www.sup.org/books/title?id=27130"
 order: 50
 dek: "Stanford University Press, 2020"
 note: ""

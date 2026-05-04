@@ -13,6 +13,7 @@ links:
   - label: "archive.org"
     url: "https://archive.org/details/unknowncraftsman0000yana"
 note: ""
+blurb: "Yanagi explores the beauty of anonymous craft, everyday objects, and the mingei tradition."
 quote: ""
 order: 18
 ---

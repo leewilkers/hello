@@ -9,6 +9,7 @@ topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://doi.org/10.1215/08992363-16-3-407"
 dek: "Public Culture, 2004"
 note: ""
+blurb: "Simone argues that urban life in Johannesburg is held together by provisional social networks as much as by formal systems."
 quote: ""
 links:
   - label: "full text"

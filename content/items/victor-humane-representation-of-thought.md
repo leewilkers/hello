@@ -1,7 +1,7 @@
 ---
 author: "Bret Victor"
 title: "The Humane Representation of Thought"
-type: slides
+type: "video"
 image: "/img/covers/victor-humane-representation-of-thought.jpg"
 dest: shelf
 topic: "Interfaces & Interaction"

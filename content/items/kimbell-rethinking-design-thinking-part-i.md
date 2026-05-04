@@ -9,5 +9,6 @@ topic: "Sensemaking & Judgement"
 url: "https://doi.org/10.2752/175470811x13071166525216"
 order: 50
 dek: "Design and Culture, 2011"
+blurb: "Kimbell critiques design thinking by tracing how it packages design practice for management and organizational change."
 featured: false
 ---

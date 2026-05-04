@@ -52,6 +52,7 @@ collections:
         widget: select
         options:
           - { label: "Book", value: "book" }
+          - { label: "Case Study", value: "case study" }
           - { label: "Essay", value: "essay" }
           - { label: "Journal Article", value: "journal article" }
           - { label: "Paper", value: "paper" }
@@ -67,6 +68,7 @@ collections:
           - { label: "VR", value: "vr" }
           - { label: "Installation", value: "installation" }
           - { label: "Interview", value: "interview" }
+          - { label: "Magazine", value: "magazine" }
           - { label: "Slides", value: "slides" }
           - { label: "Concept", value: "concept" }
       - label: Destination
@@ -136,6 +138,7 @@ collections:
           - { label: "Fiction", value: "Fiction" }
           - { label: "Furniture & Craft", value: "Furniture & Craft" }
           - { label: "Games, Play & Performance", value: "Games, Play & Performance" }
+          - { label: "Humor", value: "Humor" }
           - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }

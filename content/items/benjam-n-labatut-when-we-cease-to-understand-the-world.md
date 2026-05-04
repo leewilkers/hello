@@ -11,6 +11,7 @@ links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/When_We_Cease_to_Understand_the_World'
 note: ''
+blurb: "Labatut blends fiction and history to explore scientific genius, abstraction, and the moral vertigo of discovery."
 quote: ""
 order: 33
 ---

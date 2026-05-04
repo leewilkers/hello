@@ -11,6 +11,7 @@ links:
   - label: BBC series (archive.org)
     url: 'https://archive.org/details/WaysofSeeing'
 note: ''
+blurb: "Berger shows how images, especially in art and advertising, train ways of looking shaped by class, gender, and power."
 quote: ""
 order: 24
 ---

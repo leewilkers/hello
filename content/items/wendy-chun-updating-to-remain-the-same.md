@@ -10,6 +10,7 @@ order: 14
 url: 'https://mitpress.mit.edu/9780262534727/updating-to-remain-the-same/'
 dek: 'MIT Press, 2016'
 note: ''
+blurb: "Chun analyzes new media through habits, networks, and the recurring promise that technical change will transform society."
 quote: ""
 links:
   - label: wiki

@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/lakoff-turner-more-than-cool-reason.jpg"
 dest: shelf
 topic: "Language & Writing"
-url: "https://press.uchicago.edu/ucp/books/book/chicago/M/bo3614692.html"
+url: "https://press.uchicago.edu/ucp/books/book/chicago/M/bo3774967.html"
 order: 50
 dek: "University of Chicago Press, 1989"
 note: ""

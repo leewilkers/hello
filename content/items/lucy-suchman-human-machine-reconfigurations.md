@@ -9,6 +9,7 @@ url: >-
   https://www.cambridge.org/core/books/humanmachine-reconfigurations/9D53E602BA9BB5209271460F92D00EFE
 dek: 'Cambridge, 2007'
 note: ''
+blurb: "Suchman revisits plans and situated action to show how human-machine relations are improvised, embodied, and socially organized."
 quote: ""
 links:
   - label: wiki

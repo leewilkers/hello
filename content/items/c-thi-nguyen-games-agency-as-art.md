@@ -9,7 +9,7 @@ url: "https://global.oup.com/academic/product/games-9780190052089"
 order: 50
 dek: "Oxford, 2020"
 note: ""
-blurb: ""
+blurb: "Nguyen treats games as artworks built from temporary agencies, goals, and constraints we enter for the experience."
 quote: ""
 links: []
 ---

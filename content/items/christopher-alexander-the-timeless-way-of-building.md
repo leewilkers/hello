@@ -11,6 +11,7 @@ links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/The_Timeless_Way_of_Building"
 note: ""
+blurb: "Alexander argues that living buildings and towns grow from patterns that allow people to repair and adapt their environments."
 quote: ""
 order: 1
 ---

@@ -9,7 +9,7 @@ url: "https://www.artforum.com/features/alyssa-k-loh-on-virtual-reality-and-empa
 order: 50
 dek: "Artforum, 2022"
 note: ""
-blurb: ""
+blurb: "Loh questions the claim that virtual reality reliably produces empathy, asking what kinds of distance it preserves or disguises."
 quote: ""
 links: []
 ---

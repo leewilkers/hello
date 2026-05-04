@@ -9,5 +9,6 @@ topic: "Global Health, Aid & Development"
 url: "https://doi.org/10.1177/1367877909356720"
 order: 50
 dek: "International Journal of Cultural Studies, 2010"
+blurb: "Chouliaraki analyzes humanitarian communication after pity, where irony, distance, and lifestyle politics reshape appeals to care."
 featured: false
 ---

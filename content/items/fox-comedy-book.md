@@ -4,7 +4,7 @@ title: 'Comedy Book: How Comedy Conquered Culture—and the Magic That Makes It 
 type: book
 image: /img/covers/fox-comedy-book.jpg
 dest: shelf
-topic: 'Games, Play & Performance'
+topic: Humor
 url: 'https://us.macmillan.com/books/9780374604714/comedybook/'
 order: 50
 dek: 'Simon & Schuster, 2023'

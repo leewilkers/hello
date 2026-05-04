@@ -8,5 +8,6 @@ topic: "Organizations & Work"
 url: "https://openlibrary.org/works/OL42543151W"
 order: 50
 dek: "Harvard Business Review Press, 2025"
+blurb: "Hamel and Zanini argue for organizations that reduce bureaucracy and give people more room for initiative and judgment."
 featured: false
 ---

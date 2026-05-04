@@ -5,8 +5,7 @@ type: book
 image: /img/covers/sontag-regarding-the-pain-of-others.jpg
 dest: shelf
 topic: "Photography & Journalism"
-url: >-
-  https://www.penguinrandomhouse.com/books/97529/regarding-the-pain-of-others-by-susan-sontag/
+url: "https://us.macmillan.com/books/9780312422196/regardingthepainofothers/"
 order: 50
 dek: 'Picador, 2003'
 note: ''

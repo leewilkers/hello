@@ -10,7 +10,7 @@ url: >-
 order: 50
 dek: 'Free Press, 1986'
 note: ''
-blurb: ''
+blurb: "Carse contrasts games played to win with games played to keep possibility, surprise, and participation alive."
 quote: ""
 links: []
 ---

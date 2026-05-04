@@ -8,6 +8,7 @@ topic: "Furniture & Craft"
 url: "https://godine.com/products/why-we-make-things-and-why-it-matters"
 dek: "Godine, 2013"
 note: ""
+blurb: "Korn reflects on craft as a way of learning attention, agency, material judgment, and a meaningful life."
 quote: ""
 order: 9
 links: []

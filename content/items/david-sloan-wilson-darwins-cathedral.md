@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/david-sloan-wilson-darwins-cathedral.jpg"
 dest: shelf
 topic: "Social Science & Anthropology"
-url: "https://press.uchicago.edu/ucp/books/book/chicago/D/bo3626267.html"
+url: "https://press.uchicago.edu/ucp/books/book/chicago/D/bo3623162.html"
 order: 50
 dek: "University of Chicago Press, 2002"
 note: ""

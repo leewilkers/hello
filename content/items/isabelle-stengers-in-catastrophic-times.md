@@ -9,6 +9,7 @@ topic: "Potpourri"
 url: "https://www.openhumanitiespress.org/books/titles/in-catastrophic-times/"
 dek: "Open Humanities, 2015"
 note: ""
+blurb: "Stengers calls for ways of thinking and acting that resist barbarism amid ecological and political catastrophe."
 quote: ""
 links:
   - label: "full text"

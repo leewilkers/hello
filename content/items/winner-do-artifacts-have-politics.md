@@ -6,7 +6,7 @@ image: "/img/covers/winner-do-artifacts-have-politics.jpg"
 shelf_list: true
 dest: shelf
 topic: "Technology & Critique"
-url: "https://doi.org/10.2307/20024652"
+url: "https://www.jstor.org/stable/20024652"
 order: 50
 dek: "Daedalus, 1980"
 note: ""

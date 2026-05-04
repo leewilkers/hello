@@ -8,6 +8,7 @@ topic: "Media"
 url: 'https://archive.org/details/understandingmed0000mclu'
 dek: 'McGraw-Hill, 1964'
 note: ''
+blurb: "McLuhan argues that media are extensions of human senses and social organization, not merely channels for content."
 quote: ""
 links:
   - label: wiki
