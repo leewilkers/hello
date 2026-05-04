@@ -1,11 +1,11 @@
 ---
 author: "Kipp Teague"
 title: "The Project Apollo Archive"
-type: site
+type: archive
 image: "/img/covers/project-apollo-archive.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://apolloarchive.com/"
 order: 50
 dek: "ApolloArchive.com"

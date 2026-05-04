@@ -5,7 +5,7 @@ type: "journal article"
 image: "/img/covers/shorey-rosner-making-core-memory.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://www.technologystories.org/making-core-memory/"
 order: 50
 dek: "Technology's Stories, 2019"

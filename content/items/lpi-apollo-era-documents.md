@@ -1,11 +1,11 @@
 ---
 author: "Lunar and Planetary Institute"
 title: "Apollo-Era Documents"
-type: site
+type: archive
 image: "/img/covers/lpi-apollo-era-documents.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://www.lpi.usra.edu/lunar/documents/"
 order: 50
 dek: "LPI resource"

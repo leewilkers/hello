@@ -5,7 +5,7 @@ type: "journal article"
 image: "/img/covers/nakamura-indigenous-circuits.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://lisanakamura.net/wp-content/uploads/2011/01/indigenous-circuits-nakamura-aq.pdf"
 order: 50
 dek: "American Quarterly, 2014"

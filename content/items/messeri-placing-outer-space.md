@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/messeri-placing-outer-space.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://www.dukeupress.edu/placing-outer-space"
 order: 50
 dek: "Duke University Press, 2016"

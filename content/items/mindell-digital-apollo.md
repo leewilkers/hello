@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/mindell-digital-apollo.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://mitpress.mit.edu/9780262516105/digital-apollo/"
 order: 50
 dek: "MIT Press, 2008"

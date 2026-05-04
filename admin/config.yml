@@ -58,10 +58,12 @@ collections:
           - { label: "Working Paper", value: "working paper" }
           - { label: "Report", value: "report" }
           - { label: "Site", value: "site" }
+          - { label: "Archive", value: "archive" }
           - { label: "Tool", value: "tool" }
           - { label: "Project", value: "project" }
           - { label: "Game", value: "game" }
           - { label: "Film", value: "film" }
+          - { label: "Video", value: "video" }
           - { label: "VR", value: "vr" }
           - { label: "Installation", value: "installation" }
           - { label: "Interview", value: "interview" }
@@ -146,7 +148,7 @@ collections:
           - { label: "Bullshit", value: "Bullshit" }
           - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
           - { label: "Technology & Critique", value: "Technology & Critique" }
-          - { label: "Outer Space", value: "Outer Space" }
+          - { label: "Space", value: "Space" }
           - { label: "Media", value: "Media" }
           - { label: "Memory & Archives", value: "Memory & Archives" }
           - { label: "Photography & Journalism", value: "Photography & Journalism" }

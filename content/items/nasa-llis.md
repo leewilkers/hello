@@ -1,11 +1,11 @@
 ---
 author: "NASA"
 title: "Lessons Learned Information System (LLIS)"
-type: site
+type: archive
 image: "/img/covers/nasa-llis.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://llis.nasa.gov/"
 order: 50
 dek: "NASA"

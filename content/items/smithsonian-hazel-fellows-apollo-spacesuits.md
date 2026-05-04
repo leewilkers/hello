@@ -5,7 +5,7 @@ type: essay
 image: "/img/covers/smithsonian-hazel-fellows-apollo-spacesuits.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://womenshistory.si.edu/blog/hazel-fellows-and-women-who-made-apollo-spacesuits"
 order: 50
 dek: "Smithsonian, 2024"

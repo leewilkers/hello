@@ -93,9 +93,9 @@ Second-batch item files created: 18
 
 Second-batch duplicate skipped: Cambridge `On the Reception and Detection of Pseudo-Profound Bullshit` was already present at `content/items/pennycook-cheyne-pseudo-profound-bullshit.md`; I updated its metadata only.
 
-## Third Batch: Links / Outer Space / Archives / Coordination
+## Third Batch: Links / Space / Archives / Coordination
 
-Placement rule: Lee approved one new public topic, `Outer Space`, after providing the `## (Outer) Space` heading. I did not rename, collapse, or retopic existing Shelf topics. Non-space links were researched individually and placed in the closest existing topic.
+Placement rule: Lee approved one new public topic, `Space`, after providing the `## (Outer) Space` heading, then asked to shorten the label from `Outer Space` to `Space`. I did not rename, collapse, or retopic existing Shelf topics. Non-space links were researched individually and placed in the closest existing topic.
 
 Note: the Computer History Museum `Indigenous Circuits` page was folded into Lisa Nakamura's `Indigenous Circuits` item as a secondary link, rather than added as a separate duplicate item.
 
@@ -107,26 +107,26 @@ Note: the Computer History Museum `Indigenous Circuits` page was folded into Lis
 | Kristoffer Tjalve, Elliott Cost - Diagram Website | Web Culture & Internet | Web-native map/diagram object; more internet-form than general design. | https://diagram.website/ |
 | Luca Messarra, Chris Freeland, Juliya Ziskina - Vanishing Culture | Memory & Archives | Fragile cultural record, preservation, and archival loss. | https://archive.org/details/vanishing-culture-2026 |
 | Elizabeth Wayland Barber - Women's Work | Furniture & Craft | Textile, cloth, fiber work, and material culture. | https://fashionhistory.fitnyc.edu/source-database/time-period/ancient-world/womens-work-the-first-20000-years-women-cloth-and-society-in-early-times-1995/ |
-| Charles Eames, Ray Eames - Powers of Ten | Sensemaking & Judgement | Scale, visual explanation, and reasoning from nested views; not an outer-space shelf item despite the cosmic imagery. | https://www.eamesoffice.com/the-work/powers-of-ten/ |
-| Lisa Messeri - Placing Outer Space | Outer Space | Ethnography of planetary scientists and imagined other worlds. | https://www.dukeupress.edu/placing-outer-space |
-| Valerie Olson - Into the Extreme | Outer Space | Ethnography of human spaceflight systems and politics beyond Earth. | https://www.upress.umn.edu/9781517902551/into-the-extreme/ |
-| Janet Vertesi - Seeing Like a Rover | Outer Space | Mars rover science as distributed social/technical practice. | https://press.uchicago.edu/ucp/books/book/chicago/S/bo18295743.html |
-| Juan Francisco Salazar, Alice Gorman (eds.) - The Routledge Handbook of Social Studies of Outer Space | Outer Space | Direct anchor for social studies of space. | https://www.routledge.com/The-Routledge-Handbook-of-Social-Studies-of-Outer-Space/Salazar-Gorman/p/book/9781032248745 |
-| James S. J. Schwartz, Tony Milligan (eds.) - The Ethics of Space Exploration | Outer Space | Space exploration ethics; topic-specific rather than general ethics. | https://link.springer.com/book/10.1007/978-3-319-39827-3 |
-| Lisa Nakamura - Indigenous Circuits | Outer Space | Navajo women, semiconductor manufacture, and Apollo-era electronics; folded related CHM essay into `links`. | https://lisanakamura.net/wp-content/uploads/2011/01/indigenous-circuits-nakamura-aq.pdf |
-| American Archive of Public Broadcasting - Fairchild Camera and Instrument Corporation on Navajo Nation: Raw Footage | Outer Space | Primary historical footage related to the Fairchild/Navajo electronics labor cluster. | https://americanarchive.org/catalog/cpb-aacip-207-483j9qpk |
-| Samantha Shorey, Daniela Rosner - Making Core Memory | Outer Space | Core-memory craft, gendered labor, and computing histories adjacent to Apollo hardware. | https://www.technologystories.org/making-core-memory/ |
-| Ken Shirriff - Software Woven into Wire | Outer Space | Apollo Guidance Computer core-rope software as material/technical history. | https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html |
-| Smithsonian American Women's History Museum - Hazel Fellows and the Women Who Made the Apollo Spacesuits | Outer Space | Apollo spacesuit making, craft labor, and women's work. | https://womenshistory.si.edu/blog/hazel-fellows-and-women-who-made-apollo-spacesuits |
-| NASA - Lessons Learned Information System (LLIS) | Outer Space | NASA operational learning and institutional memory. | https://llis.nasa.gov/ |
-| Boris Chertok - Rockets and People | Outer Space | Spaceflight memoir/history in NASA's history series. | https://www.nasa.gov/history/history-publications-and-resources/nasa-history-series/rockets-and-people/ |
-| Michael Collins - Carrying the Fire: An Astronaut's Journeys Manuscript | Outer Space | Archival manuscript record for an Apollo astronaut memoir. | https://sova.si.edu/record/nasm.xxxx.0399 |
-| David A. Mindell - Digital Apollo | Outer Space | Human-machine control in Apollo spaceflight. | https://mitpress.mit.edu/9780262516105/digital-apollo/ |
-| Nicholas de Monchaux - Spacesuit | Outer Space | Apollo spacesuits as architecture, engineering, fashion, and craft. | https://sts-program.mit.edu/book/spacesuit-fashioning-apollo/ |
-| Roger D. Launius - Apollo: A Retrospective Analysis | Outer Space | NASA historical analysis of Apollo. | https://www.nasa.gov/wp-content/uploads/2023/04/sp-4503-apollo.pdf |
-| Edgar M. Cortright (ed.) - Apollo Expeditions to the Moon | Outer Space | NASA Apollo history volume. | https://archive.org/details/apollo-expeditions-to-the-moon |
-| Kipp Teague - The Project Apollo Archive | Outer Space | Apollo image archive. | https://apolloarchive.com/ |
-| Lunar and Planetary Institute - Apollo-Era Documents | Outer Space | Technical document archive for Apollo/lunar materials. | https://www.lpi.usra.edu/lunar/documents/ |
-| chrislgarry - Apollo 11 Guidance Computer Source Code | Outer Space | Apollo software artifact. | https://github.com/chrislgarry/apollo-11 |
+| Charles Eames, Ray Eames - Powers of Ten | Sensemaking & Judgement | Scale, visual explanation, and reasoning from nested views; not a Space shelf item despite the cosmic imagery. | https://www.eamesoffice.com/the-work/powers-of-ten/ |
+| Lisa Messeri - Placing Outer Space | Space | Ethnography of planetary scientists and imagined other worlds. | https://www.dukeupress.edu/placing-outer-space |
+| Valerie Olson - Into the Extreme | Space | Ethnography of human spaceflight systems and politics beyond Earth. | https://www.upress.umn.edu/9781517902551/into-the-extreme/ |
+| Janet Vertesi - Seeing Like a Rover | Space | Mars rover science as distributed social/technical practice. | https://press.uchicago.edu/ucp/books/book/chicago/S/bo18295743.html |
+| Juan Francisco Salazar, Alice Gorman (eds.) - The Routledge Handbook of Social Studies of Outer Space | Space | Direct anchor for social studies of space. | https://www.routledge.com/The-Routledge-Handbook-of-Social-Studies-of-Outer-Space/Salazar-Gorman/p/book/9781032248745 |
+| James S. J. Schwartz, Tony Milligan (eds.) - The Ethics of Space Exploration | Space | Space exploration ethics; topic-specific rather than general ethics. | https://link.springer.com/book/10.1007/978-3-319-39827-3 |
+| Lisa Nakamura - Indigenous Circuits | Space | Navajo women, semiconductor manufacture, and Apollo-era electronics; folded related CHM essay into `links`. | https://lisanakamura.net/wp-content/uploads/2011/01/indigenous-circuits-nakamura-aq.pdf |
+| American Archive of Public Broadcasting - Fairchild Camera and Instrument Corporation on Navajo Nation: Raw Footage | Space | Primary historical footage related to the Fairchild/Navajo electronics labor cluster. | https://americanarchive.org/catalog/cpb-aacip-207-483j9qpk |
+| Samantha Shorey, Daniela Rosner - Making Core Memory | Space | Core-memory craft, gendered labor, and computing histories adjacent to Apollo hardware. | https://www.technologystories.org/making-core-memory/ |
+| Ken Shirriff - Software Woven into Wire | Space | Apollo Guidance Computer core-rope software as material/technical history. | https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html |
+| Smithsonian American Women's History Museum - Hazel Fellows and the Women Who Made the Apollo Spacesuits | Space | Apollo spacesuit making, craft labor, and women's work. | https://womenshistory.si.edu/blog/hazel-fellows-and-women-who-made-apollo-spacesuits |
+| NASA - Lessons Learned Information System (LLIS) | Space | NASA operational learning and institutional memory. | https://llis.nasa.gov/ |
+| Boris Chertok - Rockets and People | Space | Spaceflight memoir/history in NASA's history series. | https://www.nasa.gov/history/history-publications-and-resources/nasa-history-series/rockets-and-people/ |
+| Michael Collins - Carrying the Fire: An Astronaut's Journeys Manuscript | Space | Archival manuscript record for an Apollo astronaut memoir. | https://sova.si.edu/record/nasm.xxxx.0399 |
+| David A. Mindell - Digital Apollo | Space | Human-machine control in Apollo spaceflight. | https://mitpress.mit.edu/9780262516105/digital-apollo/ |
+| Nicholas de Monchaux - Spacesuit | Space | Apollo spacesuits as architecture, engineering, fashion, and craft. | https://sts-program.mit.edu/book/spacesuit-fashioning-apollo/ |
+| Roger D. Launius - Apollo: A Retrospective Analysis | Space | NASA historical analysis of Apollo. | https://www.nasa.gov/wp-content/uploads/2023/04/sp-4503-apollo.pdf |
+| Edgar M. Cortright (ed.) - Apollo Expeditions to the Moon | Space | NASA Apollo history volume. | https://archive.org/details/apollo-expeditions-to-the-moon |
+| Kipp Teague - The Project Apollo Archive | Space | Apollo image archive. | https://apolloarchive.com/ |
+| Lunar and Planetary Institute - Apollo-Era Documents | Space | Technical document archive for Apollo/lunar materials. | https://www.lpi.usra.edu/lunar/documents/ |
+| chrislgarry - Apollo 11 Guidance Computer Source Code | Space | Apollo software artifact. | https://github.com/chrislgarry/apollo-11 |
 
 Third-batch item files created: 27

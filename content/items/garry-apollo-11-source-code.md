@@ -5,7 +5,7 @@ type: tool
 image: "/img/covers/garry-apollo-11-source-code.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://github.com/chrislgarry/apollo-11"
 order: 50
 dek: "GitHub repository"

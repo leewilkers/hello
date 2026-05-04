@@ -1,11 +1,11 @@
 ---
 author: "American Archive of Public Broadcasting"
 title: "Fairchild Camera and Instrument Corporation on Navajo Nation: Raw Footage"
-type: site
+type: video
 image: "/img/covers/aapb-fairchild-navajo-raw-footage.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://americanarchive.org/catalog/cpb-aacip-207-483j9qpk"
 order: 50
 dek: "archival footage"

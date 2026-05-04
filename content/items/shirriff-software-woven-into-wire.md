@@ -5,7 +5,7 @@ type: essay
 image: "/img/covers/shirriff-software-woven-into-wire.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html"
 order: 50
 dek: "Ken Shirriff's blog, 2019"

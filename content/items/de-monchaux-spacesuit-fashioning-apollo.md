@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/de-monchaux-spacesuit-fashioning-apollo.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://sts-program.mit.edu/book/spacesuit-fashioning-apollo/"
 order: 50
 dek: "MIT Press, 2011"

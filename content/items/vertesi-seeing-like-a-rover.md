@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/vertesi-seeing-like-a-rover.jpg"
 shelf_list: true
 dest: shelf
-topic: "Outer Space"
+topic: "Space"
 url: "https://press.uchicago.edu/ucp/books/book/chicago/S/bo18295743.html"
 order: 50
 dek: "University of Chicago Press, 2015"
