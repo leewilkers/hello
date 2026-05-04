@@ -3308,8 +3308,8 @@ body {
   border-bottom: 1px solid var(--home-accent);
 }
 
-/* Disabled affordances on the homepage nav (Consulting, Stream until those
-   pages exist). Read as links — same accent color as live ones — but the
+/* Disabled affordances on the homepage nav (Consulting, Stream
+   until those pages are ready). Read as links – same accent color as live ones – but the
    dotted underline + not-allowed cursor flag them as not-yet. The hover
    tooltip ("in progress – pardon the dust") still fires from the title attr. */
 .home-plain .home-nav .dead {
@@ -3432,6 +3432,66 @@ body {
 }
 
 [data-theme="dark"] .home-fixed-dust .kao--night {
+  display: inline;
+}
+
+.page-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - 46px);
+  max-width: none;
+  padding: clamp(4rem, 15vh, 7rem) clamp(1rem, 5vw, 2.5rem);
+}
+
+.dust-page {
+  width: min(100%, 42rem);
+}
+
+.dust-placeholder {
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.65rem, 2vw, 1rem);
+  text-align: center;
+  color: var(--ink-muted);
+  user-select: none;
+}
+
+.dust-placeholder-copy {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(0.92rem, 0.74rem + 0.8vw, 1.32rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.dust-placeholder-kao {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: clamp(4rem, 14vw, 8.25rem);
+  line-height: 0.95;
+  color: var(--ink);
+  opacity: 0.78;
+}
+
+.dust-placeholder .kao--night {
+  display: none;
+}
+
+.error-console .dust-placeholder {
+  padding: clamp(1.25rem, 6vh, 3.6rem) 1.35rem 2.6rem;
+}
+
+[data-theme="dark"] .dust-placeholder {
+  color: var(--ink-light);
+}
+
+[data-theme="dark"] .dust-placeholder .kao--day {
+  display: none;
+}
+
+[data-theme="dark"] .dust-placeholder .kao--night {
   display: inline;
 }
 
