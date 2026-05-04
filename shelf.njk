@@ -138,6 +138,48 @@ pageClass: page-shelf
       </li>
 {% endmacro %}
 
+{% macro textCell(item) %}
+      {%- set primaryUrl = item.data.url %}
+      {%- set hoverVoice = item.data | shelfHoverVoice %}
+      {%- set identityYear = item.data | shelfIdentityYear %}
+      <li class="shelf-card shelf-card--text">
+        <span class="cell-text-card">
+          <span class="cell-text-top">
+            {{ typeSymbol(item, "cell-text-type") }}
+            <span class="cell-text-kind">{{ item.data.type or "item" }}</span>
+          </span>
+          {%- if item.data.title %}
+          {%- set tip = item.data.tooltip %}
+          {%- if primaryUrl %}
+          <a class="cell-text-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
+          {%- else %}
+          <span class="cell-text-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
+          {%- endif %}
+          {%- endif %}
+          {%- if item.data.author or identityYear %}
+          <span class="cell-text-meta">
+            {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
+            {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+          </span>
+          {%- endif %}
+          {%- if item.data.dek %}
+          <span class="cell-text-dek">{{ item.data.dek }}</span>
+          {%- endif %}
+          {%- if hoverVoice %}
+          <span class="cell-text-note cell-text-note--{{ hoverVoice.kind }}">{{ hoverVoice.text }}</span>
+          {%- endif %}
+          <ul class="cell-text-links" aria-label="Links">
+            {%- if item.data.url %}
+            <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.url | linkLabel(item.data.source_label) }}</a></li>
+            {%- endif %}
+            {%- if item.data.links %}{%- for link in item.data.links %}
+            <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.url | linkLabel(link.label) }}</a></li>
+            {%- endfor %}{%- endif %}
+          </ul>
+        </span>
+      </li>
+{% endmacro %}
+
 <button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()">☰</button>
 
 <h1 class="sr-only">Shelf</h1>
@@ -177,7 +219,9 @@ pageClass: page-shelf
         <span class="section-label-count" data-section-count>{{ bucket.length }}</span>
       </header>
       <ul class="grid">
-        {%- for item in bucket %}{{ cell(item, topic) }}{%- endfor %}
+        {%- for item in bucket %}
+          {%- if item.data.shelf_list and not item.data.image %}{{ textCell(item) }}{%- else %}{{ cell(item, topic) }}{%- endif %}
+        {%- endfor %}
       </ul>
     </section>
     {%- endfor %}

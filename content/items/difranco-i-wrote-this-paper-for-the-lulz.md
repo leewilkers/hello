@@ -3,6 +3,7 @@ author: "Ralph DiFranco"
 title: "I Wrote this Paper for the Lulz: The Ethics of Internet Trolling"
 type: "journal article"
 image: "/img/covers/difranco-i-wrote-this-paper-for-the-lulz.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

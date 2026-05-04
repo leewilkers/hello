@@ -3,6 +3,7 @@ author: "Filip Buekens, Maarten Boudry"
 title: "The Dark Side of the Loon: Explaining the Temptations of Obscurantism"
 type: "journal article"
 image: "/img/covers/buekens-boudry-dark-side-of-the-loon.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

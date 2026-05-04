@@ -3,6 +3,7 @@ author: "Neil Postman"
 title: "Bullshit and the Art of Crap-Detection"
 type: essay
 image: "/img/covers/postman-bullshit-and-the-art-of-crap-detection.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

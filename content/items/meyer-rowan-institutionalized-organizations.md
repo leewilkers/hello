@@ -3,6 +3,7 @@ author: "John W. Meyer, Brian Rowan"
 title: "Institutionalized Organizations: Formal Structure as Myth and Ceremony"
 type: "journal article"
 image: "/img/covers/meyer-rowan-institutionalized-organizations.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

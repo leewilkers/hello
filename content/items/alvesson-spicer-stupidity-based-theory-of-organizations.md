@@ -3,6 +3,7 @@ author: "Mats Alvesson, Andre Spicer"
 title: "A Stupidity-Based Theory of Organizations"
 type: "journal article"
 image: "/img/covers/alvesson-spicer-stupidity-based-theory-of-organizations.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

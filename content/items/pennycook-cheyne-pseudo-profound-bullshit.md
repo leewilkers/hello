@@ -3,6 +3,7 @@ author: "Gordon Pennycook, James Allan Cheyne, Nathaniel Barr, Derek J. Koehler,
 title: "On the Reception and Detection of Pseudo-Profound Bullshit"
 type: "journal article"
 image: /img/covers/pennycook-cheyne-pseudo-profound-bullshit.jpg
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

@@ -3,6 +3,7 @@ author: "Lars Thøger Christensen, Dan Kärreman, Andreas Rasche"
 title: "Bullshit and Organization Studies"
 type: paper
 image: "/img/covers/christensen-bullshit-and-organization-studies.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

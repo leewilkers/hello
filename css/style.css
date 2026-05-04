@@ -3815,6 +3815,18 @@ body {
   padding: 0.44rem 0.38rem 0.7rem;
 }
 
+@media (min-width: 1320px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1680px) {
+  .grid {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+  }
+}
+
 .grid li {
   list-style: none;
   display: flex;
@@ -4187,6 +4199,8 @@ body {
 
 .grid li:hover .cell-type,
 .grid li:focus-within .cell-type,
+.grid li.shelf-card--text:hover .cell-text-type,
+.grid li.shelf-card--text:focus-within .cell-text-type,
 .shelf-list-row:hover .shelf-list-type,
 .shelf-list-row:focus-within .shelf-list-type {
   color: var(
@@ -4544,6 +4558,202 @@ body {
   margin: 0;
   padding: 0.35rem 0.8rem 1.05rem;
   border-top: 1px solid var(--rule-light);
+}
+
+.grid li.shelf-card--text {
+  min-height: 0;
+}
+
+.cell-text-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  aspect-ratio: 4 / 5.4;
+  min-height: 0;
+  overflow: hidden;
+  padding: clamp(0.56rem, 0.5rem + 0.16vw, 0.72rem);
+  color: var(--ink);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--bg) 94%, var(--ink) 6%) 0%,
+      color-mix(in srgb, var(--bg) 86%, var(--ink) 14%) 100%
+    );
+  border: 1px solid color-mix(in srgb, var(--rule) 72%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--bg) 82%, transparent),
+    0 1px 0 color-mix(in srgb, var(--rule-light) 72%, transparent);
+}
+
+[data-theme="dark"] .cell-text-card {
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--bg) 90%, #fff 6%) 0%,
+      color-mix(in srgb, var(--bg) 76%, #fff 13%) 100%
+    );
+  border-color: color-mix(in srgb, var(--rule) 82%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 8%, transparent),
+    0 1px 0 color-mix(in srgb, #000 72%, transparent);
+}
+
+.cell-text-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 15% 0%,
+      color-mix(in srgb, var(--accent-rest) 10%, transparent) 0%,
+      transparent 52%
+    );
+  opacity: 0.75;
+}
+
+.cell-text-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.cell-text-top {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  min-width: 0;
+  margin-bottom: 0.44rem;
+}
+
+.cell-text-type {
+  --shelf-type-symbol-size: clamp(0.74rem, 0.64rem + 0.22vw, 0.92rem);
+}
+
+.cell-text-kind {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: clamp(0.54rem, 0.49rem + 0.11vw, 0.63rem);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.cell-text-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  font-family: var(--serif);
+  font-size: clamp(0.9rem, 0.82rem + 0.2vw, 1.08rem);
+  font-weight: 620;
+  line-height: 1.08;
+  color: var(--ink);
+  text-decoration: none;
+  text-wrap: balance;
+}
+
+a.cell-text-title:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+}
+
+.cell-text-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.08rem 0.34rem;
+  margin-top: 0.34rem;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: clamp(0.56rem, 0.51rem + 0.12vw, 0.65rem);
+  font-weight: 560;
+  letter-spacing: 0.035em;
+  line-height: 1.24;
+  color: var(--ink-light);
+}
+
+.cell-text-dek,
+.cell-text-note {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 0.34rem;
+  font-family: var(--mono);
+  font-size: clamp(0.52rem, 0.48rem + 0.1vw, 0.61rem);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.3;
+  color: var(--ink-faint);
+}
+
+.cell-text-note {
+  opacity: 0;
+  max-height: 0;
+  margin-top: 0;
+  transition: opacity 140ms ease, max-height 140ms ease, margin-top 140ms ease;
+}
+
+.cell-text-note--quote {
+  font-style: italic;
+}
+
+.cell-text-note--quote::before { content: '\201C'; }
+.cell-text-note--quote::after  { content: '\201D'; }
+
+.grid li.shelf-card--text:hover .cell-text-note,
+.grid li.shelf-card--text:focus-within .cell-text-note {
+  opacity: 1;
+  max-height: 3.4em;
+  margin-top: 0.32rem;
+}
+
+.cell-text-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.12rem 0.24rem;
+  margin: auto 0 0;
+  padding: 0.42rem 0 0;
+}
+
+.cell-text-links li {
+  list-style: none;
+  min-width: 0;
+  padding: 0;
+}
+
+.cell-text-links a {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: clamp(0.52rem, 0.48rem + 0.1vw, 0.6rem);
+  font-weight: 650;
+  letter-spacing: 0.045em;
+  line-height: 1.2;
+  text-transform: lowercase;
+  color: var(--ink-muted);
+  border-bottom: 1px solid color-mix(in srgb, currentColor 44%, transparent);
+}
+
+.grid li.shelf-card--text:hover .cell-text-links a,
+.grid li.shelf-card--text:focus-within .cell-text-links a {
+  color: var(--accent-rest);
+}
+
+.cell-text-links a:hover {
+  color: var(--accent);
+  border-bottom-color: currentColor;
 }
 
 .shelf-list.is-empty {
