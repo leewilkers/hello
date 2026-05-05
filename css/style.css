@@ -5165,15 +5165,15 @@ a.shelf-list-title:hover {
 
   .nav-right {
     min-width: 0;
-    margin-left: 1.2rem;
+    margin-left: auto;
     gap: 0.45rem;
   }
 
   .nav-links {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-end;
     gap: 0.14rem 0.32rem;
-    max-width: none;
+    max-width: 13rem;
   }
 
   .nav-name,
@@ -5187,6 +5187,11 @@ a.shelf-list-title:hover {
   }
 
   .dimmer {
+    display: none;
+  }
+
+  .loop-tally,
+  .theme-lock {
     display: none;
   }
 
