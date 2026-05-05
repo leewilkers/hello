@@ -2882,7 +2882,7 @@ body {
 
 .home-plain .home-meta {
   max-width: 52rem;
-  margin-top: 1.4rem;
+  margin-top: 1.45rem;
 }
 
 .home-plain .home-meta p {
@@ -2891,6 +2891,10 @@ body {
 
 .home-plain .home-meta p + p {
   margin-top: 0.35rem;
+}
+
+.home-plain .home-section .home-history {
+  margin-top: 1.55rem;
 }
 
 .home-plain .home-section ul {
@@ -2952,11 +2956,15 @@ body {
 
 :root[data-font="bricolage-eb"] .home-plain .home-meta {
   max-width: 42.5rem;
-  margin-top: 1.65rem;
+  margin-top: 1.7rem;
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-meta p + p {
   margin-top: 0.32rem;
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-section .home-history {
+  margin-top: 1.55rem;
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-work {
@@ -5370,7 +5378,14 @@ a.shelf-list-title:hover {
   }
 
   .home-fixed-dust {
-    font-size: 0.86rem;
+    max-width: min(12rem, calc(100vw - 12.75rem));
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .home-trail-band {
+    bottom: 5rem;
   }
 }
 
