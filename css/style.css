@@ -3388,15 +3388,15 @@ body {
 }
 
 .home-dust-motif {
-  --dust-sign-size: clamp(0.88rem, 0.64rem + 1.4vw, 1.9rem);
-  position: relative;
-  left: 50%;
-  z-index: 0;
-  width: 100vw;
+  position: fixed;
+  right: clamp(0.75rem, 1.4vw, 1.25rem);
+  bottom: clamp(0.45rem, 1vh, 0.75rem);
+  z-index: 21;
+  max-width: min(32rem, calc(100vw - 2rem));
   box-sizing: border-box;
-  margin: clamp(2.5rem, 5vh, 4rem) 0 clamp(2.1rem, 4vh, 3.5rem);
-  padding-inline: clamp(0.25rem, 2vw, 1.25rem);
-  transform: translateX(-50%);
+  margin: 0;
+  padding: 0;
+  transform: none;
   display: grid;
   place-items: center;
   opacity: 0.22;
@@ -3404,12 +3404,36 @@ body {
   user-select: none;
 }
 
+.home-dust-motif .dust-placeholder {
+  --dust-sign-size: clamp(0.72rem, 0.67rem + 0.13vw, 0.8rem);
+  --home-dust-copy-offset: 2.78em;
+  --home-dust-kao-size: 2.15em;
+  opacity: 1;
+}
+
+.home-dust-motif .dust-placeholder-copy {
+  font-size: 1em;
+  inset-inline-start: var(--home-dust-copy-offset);
+}
+
+.home-dust-motif .dust-placeholder-stage {
+  padding-inline-end: clamp(5.6rem, 6.4vw, 6.4rem);
+}
+
+.home-dust-motif .dust-placeholder-kao {
+  font-size: var(--home-dust-kao-size);
+}
+
 .home-dust-motif + .home-nav {
   margin-top: 0;
 }
 
 [data-theme="dark"] .home-dust-motif {
-  opacity: 0.28;
+  opacity: 0.16;
+}
+
+[data-theme="dark"] .home-dust-motif .dust-placeholder {
+  opacity: 1;
 }
 
 .page-placeholder {
@@ -3425,12 +3449,13 @@ body {
 }
 
 .dust-placeholder {
-  --dust-sign-size: clamp(0.92rem, 0.74rem + 0.8vw, 1.32rem);
+  --dust-sign-size: clamp(0.74rem, 0.58rem + 0.5vw, 1rem);
   display: grid;
   place-items: center;
   font-size: var(--dust-sign-size);
   text-align: center;
   color: var(--ink-muted);
+  opacity: 0.28;
   user-select: none;
 }
 
@@ -3448,7 +3473,7 @@ body {
   margin: 0;
   font-family: var(--mono);
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.35;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -3461,7 +3486,7 @@ body {
   font-size: 3.4em;
   line-height: 0.9;
   color: var(--ink);
-  opacity: 0.78;
+  opacity: 0.64;
 }
 
 .dust-placeholder .kao--night {
@@ -3480,6 +3505,7 @@ body {
 
 [data-theme="dark"] .dust-placeholder {
   color: var(--ink-light);
+  opacity: 0.23;
 }
 
 [data-theme="dark"] .dust-placeholder .kao--day {
@@ -5373,15 +5399,28 @@ a.shelf-list-title:hover {
   }
 
   .home-dust-motif {
-    --dust-sign-size: clamp(0.78rem, 2.65vw, 0.9rem);
-    margin-block: clamp(2rem, 5vh, 3rem) clamp(1.8rem, 4vh, 2.5rem);
-    opacity: 0.2;
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    margin: 0.95rem 0 0 auto;
+    transform: none;
+    justify-items: end;
+  }
+
+  .home-dust-motif .dust-placeholder {
+    --dust-sign-size: 0.66rem;
+    --home-dust-copy-offset: 2.54em;
+    --home-dust-kao-size: 1.95em;
+  }
+
+  .home-dust-motif .dust-placeholder-kao {
+    font-size: var(--home-dust-kao-size);
   }
 }
 
 @media (max-width: 380px) {
   .home-dust-motif {
-    --dust-sign-size: 0.78rem;
+    max-width: 100%;
   }
 }
 
