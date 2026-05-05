@@ -3399,7 +3399,7 @@ body {
   transform: none;
   display: grid;
   place-items: center;
-  opacity: 0.22;
+  opacity: 1;
   pointer-events: none;
   user-select: none;
 }
@@ -3408,6 +3408,7 @@ body {
   --dust-sign-size: clamp(0.72rem, 0.67rem + 0.13vw, 0.8rem);
   --home-dust-copy-offset: 2.78em;
   --home-dust-kao-size: 2.15em;
+  color: color-mix(in srgb, var(--section-label) 72%, var(--ink-light));
   opacity: 1;
 }
 
@@ -3422,6 +3423,8 @@ body {
 
 .home-dust-motif .dust-placeholder-kao {
   font-size: var(--home-dust-kao-size);
+  color: color-mix(in srgb, var(--section-label) 72%, var(--ink-light));
+  opacity: 0.68;
 }
 
 .home-dust-motif + .home-nav {
@@ -3433,6 +3436,12 @@ body {
 }
 
 [data-theme="dark"] .home-dust-motif .dust-placeholder {
+  color: var(--ink-light);
+  opacity: 1;
+}
+
+[data-theme="dark"] .home-dust-motif .dust-placeholder-kao {
+  color: var(--ink-light);
   opacity: 1;
 }
 
