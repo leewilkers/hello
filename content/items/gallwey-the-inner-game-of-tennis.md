@@ -4,7 +4,7 @@ title: "The Inner Game of Tennis"
 type: book
 image: /img/covers/gallwey-the-inner-game-of-tennis.jpg
 dest: shelf
-topic: "Games, Play & Performance"
+topic: "Inner Space"
 url: "https://www.penguinrandomhouse.com/books/57757/the-inner-game-of-tennis-50th-anniversary-edition-by-w-timothy-gallwey/"
 order: 50
 dek: "Random House, 1974"

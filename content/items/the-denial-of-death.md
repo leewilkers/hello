@@ -4,7 +4,7 @@ title: "The Denial of Death"
 type: "book"
 image: "/img/covers/the-denial-of-death.jpg"
 dest: "shelf"
-topic: "Potpourri"
+topic: "Inner Space"
 url: "https://en.wikipedia.org/wiki/The_Denial_of_Death"
 order: 18
 dek: "Wikipedia, 1973"

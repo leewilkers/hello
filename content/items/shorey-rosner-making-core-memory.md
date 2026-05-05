@@ -7,7 +7,7 @@ cover_label: true
 cover_label_text: "Making Core Memory"
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://www.technologystories.org/making-core-memory/"
 order: 50
 dek: "Technology's Stories, 2019"

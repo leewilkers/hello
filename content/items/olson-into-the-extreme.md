@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/olson-into-the-extreme.jpg"
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://www.upress.umn.edu/9781517902551/into-the-extreme/"
 order: 50
 dek: "University of Minnesota Press, 2018"

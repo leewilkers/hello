@@ -120,6 +120,14 @@ module.exports = function(eleventyConfig) {
     return expectCollection(arr, "where").filter(item => expectData(item, "where")[key] === value);
   });
 
+  eleventyConfig.addFilter("nonEmptyShelfTopics", function(topics, items) {
+    const shelfTopics = new Set(expectCollection(items, "nonEmptyShelfTopics").flatMap((item) => {
+      const data = expectData(item, "nonEmptyShelfTopics");
+      return data.dest === "shelf" && data.topic ? [data.topic] : [];
+    }));
+    return (Array.isArray(topics) ? topics : []).filter((topic) => shelfTopics.has(topic));
+  });
+
   eleventyConfig.addFilter("sortBy", function(arr, key) {
     return [...expectCollection(arr, "sortBy")].sort((a, b) => {
       return numericSortValue(a, key, "sortBy") - numericSortValue(b, key, "sortBy");

@@ -5,7 +5,7 @@ type: vr
 image: /img/covers/john-hull-notes-on-blindness.jpg
 cover_label: true
 dest: shelf
-topic: Experiences
+topic: "Inner Space"
 url: 'https://www.meta.com/experiences/notes-on-blindness/1946326588770583/'
 dek: 'Middleton, Spinney, Colinart & La Burthe, 2016'
 links:

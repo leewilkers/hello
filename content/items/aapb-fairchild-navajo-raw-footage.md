@@ -6,7 +6,7 @@ image: "/img/covers/aapb-fairchild-navajo-raw-footage.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://americanarchive.org/catalog/cpb-aacip-207-483j9qpk"
 order: 50
 dek: "archival footage"

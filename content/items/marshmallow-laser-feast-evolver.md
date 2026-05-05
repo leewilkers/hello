@@ -5,7 +5,7 @@ type: vr
 image: /img/covers/marshmallow-laser-feast-evolver.jpg
 cover_label: true
 dest: shelf
-topic: Experiences
+topic: "Inner Space"
 url: 'https://marshmallowlaserfeast.com/project/evolver/'
 dek: 'Tribeca, 2022'
 order: 15

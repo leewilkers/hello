@@ -142,17 +142,18 @@ collections:
           - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
           - { label: "Hospitality & Service", value: "Hospitality & Service" }
           - { label: "Humor", value: "Humor" }
+          - { label: "Inner Space", value: "Inner Space" }
           - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
           - { label: "Language & Writing", value: "Language & Writing" }
           - { label: "Media", value: "Media" }
           - { label: "Memory & Archives", value: "Memory & Archives" }
           - { label: "Nature & Life", value: "Nature & Life" }
           - { label: "Organizations & Work", value: "Organizations & Work" }
+          - { label: "(Outer) Space", value: "(Outer) Space" }
           - { label: "Photography & Journalism", value: "Photography & Journalism" }
           - { label: "Potpourri", value: "Potpourri" }
           - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
           - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
-          - { label: "Space", value: "Space" }
           - { label: "Strategy & Coordination", value: "Strategy & Coordination" }
           - { label: "Technology & Critique", value: "Technology & Critique" }
           - { label: "Web Culture & Internet", value: "Web Culture & Internet" }

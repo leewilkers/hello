@@ -6,7 +6,7 @@ image: /img/covers/hypocognition.jpg
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Language & Writing"
+topic: "Inner Space"
 url: 'https://en.wikipedia.org/wiki/Hypocognition'
 order: 50
 dek: Wikipedia

@@ -1015,7 +1015,12 @@ function render() {
 }
 
 function visibleTopics() {
-  return DROP_TOPICS.filter((topic) => topic === STREAM_TOPIC || (state.orderByTopic[topic] || []).length);
+  return DROP_TOPICS.filter((topic) => {
+    if (topic === STREAM_TOPIC) return true;
+    const currentCount = (state.orderByTopic[topic] || []).length;
+    const sourceCount = (defaultOrder[topic] || []).length;
+    return currentCount || sourceCount === 0;
+  });
 }
 
 function renderTopicRail() {

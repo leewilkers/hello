@@ -5,7 +5,7 @@ type: book
 image: "/img/covers/chertok-rockets-and-people.jpg"
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://www.nasa.gov/history/history-publications-and-resources/nasa-history-series/rockets-and-people/"
 order: 50
 dek: "NASA SP-4110"

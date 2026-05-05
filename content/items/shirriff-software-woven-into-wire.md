@@ -7,7 +7,7 @@ cover_label: true
 cover_label_text: "Software Woven into Wire"
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html"
 order: 50
 dek: "Ken Shirriff's blog, 2019"

@@ -6,7 +6,7 @@ image: "/img/covers/nasa-llis.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://llis.nasa.gov/"
 order: 50
 dek: "NASA"

@@ -180,6 +180,7 @@ pageClass: page-shelf
 
 {% include "type-symbols.njk" %}
 
+{%- set shelfTopics = topics | nonEmptyShelfTopics(collections.items) %}
 
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">
@@ -189,7 +190,7 @@ pageClass: page-shelf
   </div>
   <p class="console-status">
     {{ collections.items | where("dest", "shelf") | length }} entries ·
-    {{ topics | length }} topics
+    {{ shelfTopics | length }} topics
   </p>
 </header>
 
@@ -197,14 +198,14 @@ pageClass: page-shelf
 
   <nav class="topic-index" id="topic-index" aria-label="Topics">
     <p class="rail-label">Topics</p>
-    {%- for topic in topics %}
+    {%- for topic in shelfTopics %}
       {%- set sidebarBucket = collections.items | where("dest", "shelf") | where("topic", topic) %}
     <a href="#{{ topic | slug }}" data-topic="{{ topic | slug }}"><span>{{ topic }}</span><b>{{ sidebarBucket.length }}</b></a>
     {%- endfor %}
   </nav>
 
   <section class="grid-scroll" aria-label="Items">
-    {%- for topic in topics %}
+    {%- for topic in shelfTopics %}
       {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
       {%- set listItems = bucket | where("shelf_list", true) %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-name="{{ topic }}" data-topic-count="{{ bucket.length }}" class="topic-section">

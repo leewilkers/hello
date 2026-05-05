@@ -7,7 +7,7 @@ cover_label: true
 cover_label_text: "Apollo 11 Source Code"
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://github.com/chrislgarry/apollo-11"
 order: 50
 dek: "GitHub repository"

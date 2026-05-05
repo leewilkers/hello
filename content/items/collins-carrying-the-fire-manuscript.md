@@ -6,7 +6,7 @@ image: "/img/covers/collins-carrying-the-fire-manuscript.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://sova.si.edu/record/nasm.xxxx.0399"
 order: 50
 dek: "Smithsonian SOVA, 1973-1974"

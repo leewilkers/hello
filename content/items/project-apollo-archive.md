@@ -6,7 +6,7 @@ image: "/img/covers/project-apollo-archive.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Space"
+topic: "(Outer) Space"
 url: "https://apolloarchive.com/"
 order: 50
 dek: "ApolloArchive.com"
