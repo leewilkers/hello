@@ -383,6 +383,17 @@ img { display: block; }
   cursor: default;
 }
 
+.nav-links a.semi-live,
+.nav-links a.semi-live.active,
+.nav-links a.semi-live:hover {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink-light) 40%, transparent);
+  text-decoration: none;
+}
+
 .nav-links > *:not(:last-child)::after {
   content: " / ";
   display: inline-block; /* breaks parent's text-decoration propagation onto the slash */
@@ -3313,15 +3324,22 @@ body {
   border-bottom: 1px solid var(--home-accent);
 }
 
-/* Disabled affordances on the homepage nav (Consulting, Stream
-   until those pages are ready). Read as links – same accent color as live ones – but the
-   dotted underline + not-allowed cursor flag them as not-yet. The hover
-   tooltip ("in progress – pardon the dust") still fires from the title attr. */
+/* Semi-live affordances on the homepage nav (Consulting, Stream
+   while those pages are dust placeholders). They are real links, but keep the
+   "not yet" visual treatment. The title attr keeps the dust tooltip. */
 .home-plain .home-nav .dead {
   color: var(--home-accent);
   text-decoration: underline dotted;
   text-underline-offset: 0.18em;
   cursor: not-allowed;
+}
+
+.home-plain .home-nav a.semi-live,
+.home-plain .home-nav a.semi-live:hover {
+  color: var(--home-accent);
+  border-bottom: 0;
+  text-decoration: underline dotted;
+  text-underline-offset: 0.18em;
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-nav h2,
@@ -3358,6 +3376,13 @@ body {
 }
 
 :root[data-font="bricolage-eb"] .home-plain .home-nav .dead {
+  color: var(--home-accent);
+  text-decoration-color: var(--home-accent);
+}
+
+:root[data-font="bricolage-eb"] .home-plain .home-nav a.semi-live,
+:root[data-font="bricolage-eb"] .home-plain .home-nav a.semi-live:hover {
+  border-bottom: 0;
   color: var(--home-accent);
   text-decoration-color: var(--home-accent);
 }

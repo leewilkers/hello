@@ -21,7 +21,7 @@
 - Preserve existing visible copy unless Lee explicitly asks for copy changes.
 - Prefer Lee's exact phrases over generated consulting/positioning prose.
 - For personal-site copy, treat Lee's use of `hospitality` as the broader ethic of care, welcome, attention, and making people feel held; do not reduce it to food service or restaurants unless Lee explicitly says so.
-- Do not turn Stream on in primary nav unless Lee explicitly asks. If Lee says Consulting or Stream should be "semi-live," that means active nav/homepage links to dust-placeholder pages, not dead nav spans.
+- Do not turn Stream on in primary nav unless Lee explicitly asks. If Lee says Consulting or Stream should be "semi-live," that means real clickable nav/homepage links that still look visually dead/in-progress, pointing to the full dust-placeholder treatment. Do not use dead spans or a plain text stub; use the complete placeholder component with the large kaomoji and its light/dark effect.
 - Do not bulk-retopic shelf/stream items or normalize taxonomy without a review report first.
 - Do not rename, collapse, add, or delete Shelf topics without asking Lee first and getting explicit approval. Topic-count cleanup is not implicit permission to rename or restructure the taxonomy.
 - When adding Shelf items from a mixed list or a batch of links, research and place each item individually. Do not assume every item in the batch belongs to the same topic unless Lee explicitly says so; if Lee gives a heuristic like "err toward Bullshit unless obviously not," use that heuristic while preserving obvious exceptions.
