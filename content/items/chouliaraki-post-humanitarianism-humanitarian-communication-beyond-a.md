@@ -3,6 +3,7 @@ author: "Lilie Chouliaraki"
 title: "Post-humanitarianism: Humanitarian Communication Beyond a Politics of Pity"
 type: paper
 image: "/img/covers/chouliaraki-post-humanitarianism-humanitarian-communication-beyond-a.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"

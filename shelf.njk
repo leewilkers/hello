@@ -138,45 +138,39 @@ pageClass: page-shelf
       </li>
 {% endmacro %}
 
-{% macro textCell(item) %}
+{% macro listRow(item) %}
       {%- set primaryUrl = item.data.url %}
-      {%- set hoverVoice = item.data | shelfHoverVoice %}
       {%- set identityYear = item.data | shelfIdentityYear %}
-      <li class="shelf-card shelf-card--text">
-        <span class="cell-text-card">
-          <span class="cell-text-top">
-            {{ typeSymbol(item, "cell-text-type") }}
-            <span class="cell-text-kind">{{ item.data.type or "item" }}</span>
-          </span>
+      <li class="shelf-list-row">
+        <span class="shelf-list-main">
+          {{ typeSymbol(item, "shelf-list-type") }}
           {%- if item.data.title %}
           {%- set tip = item.data.tooltip %}
           {%- if primaryUrl %}
-          <a class="cell-text-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
+          <a class="shelf-list-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
           {%- else %}
-          <span class="cell-text-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
+          <span class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
           {%- endif %}
           {%- endif %}
           {%- if item.data.author or identityYear %}
-          <span class="cell-text-meta">
-            {%- if item.data.author %}<span>{{ item.data.author }}</span>{% endif -%}
-            {%- if identityYear %}<span>{{ identityYear }}</span>{% endif -%}
+          <span class="shelf-list-author">
+            {%- if item.data.author %}{{ item.data.author }}{% endif -%}
+            {%- if item.data.author and identityYear %}, {% endif -%}
+            {%- if identityYear %}{{ identityYear }}{% endif -%}
           </span>
           {%- endif %}
           {%- if item.data.dek %}
-          <span class="cell-text-dek">{{ item.data.dek }}</span>
+          <span class="shelf-list-dek">{{ item.data.dek }}</span>
           {%- endif %}
-          {%- if hoverVoice %}
-          <span class="cell-text-note cell-text-note--{{ hoverVoice.kind }}">{{ hoverVoice.text }}</span>
-          {%- endif %}
-          <ul class="cell-text-links" aria-label="Links">
+        </span>
+        <ul class="shelf-list-links" aria-label="Links">
             {%- if item.data.url %}
             <li><a href="{{ item.data.url }}" target="_blank" rel="noopener">{{ item.data.url | linkLabel(item.data.source_label) }}</a></li>
             {%- endif %}
             {%- if item.data.links %}{%- for link in item.data.links %}
             <li><a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.url | linkLabel(link.label) }}</a></li>
             {%- endfor %}{%- endif %}
-          </ul>
-        </span>
+        </ul>
       </li>
 {% endmacro %}
 
@@ -212,6 +206,7 @@ pageClass: page-shelf
   <section class="grid-scroll" aria-label="Items">
     {%- for topic in topics %}
       {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
+      {%- set listItems = bucket | where("shelf_list", true) %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-name="{{ topic }}" data-topic-count="{{ bucket.length }}" class="topic-section">
       <header class="section-label">
         <img class="section-label-mark" src="/img/rabbits/runner-lg.png" alt="" aria-hidden="true">
@@ -220,9 +215,14 @@ pageClass: page-shelf
       </header>
       <ul class="grid">
         {%- for item in bucket %}
-          {%- if item.data.shelf_list and not item.data.image %}{{ textCell(item) }}{%- else %}{{ cell(item, topic) }}{%- endif %}
+          {%- if not item.data.shelf_list %}{{ cell(item, topic) }}{%- endif %}
         {%- endfor %}
       </ul>
+      {%- if listItems.length %}
+      <ul class="shelf-list" aria-label="{{ topic | escape }} compact shelf items">
+        {%- for item in listItems %}{{ listRow(item) }}{%- endfor %}
+      </ul>
+      {%- endif %}
     </section>
     {%- endfor %}
   </section>

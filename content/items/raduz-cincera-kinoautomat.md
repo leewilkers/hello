@@ -3,6 +3,7 @@ author: Radúz Činčera
 title: Kinoautomat
 type: film
 image: /img/covers/raduz-cincera-kinoautomat.jpg
+cover_label: true
 dest: shelf
 topic: "Experiences"
 url: 'https://en.wikipedia.org/wiki/Kinoautomat'

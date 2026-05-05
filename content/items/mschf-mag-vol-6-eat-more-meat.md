@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 6: Eat More Meat, Watch More Fox, Stop Printing the Bible, Stick Your Hands in Your Mouth"
 type: magazine
 image: "/img/covers/mschf-mag-vol-6-eat-more-meat.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://emmwmfsptbsyhiym.mschfmag.com/"

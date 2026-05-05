@@ -3,6 +3,7 @@ author: "Dylan Thomas Doyle, Jed R. Brubaker"
 title: "Digital Legacy: A Systematic Literature Review"
 type: journal article
 image: "/img/covers/doyle-brubaker-digital-legacy.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Memory & Archives"

@@ -3,6 +3,7 @@ author: Anagram
 title: 'Goliath: Playing with Reality'
 type: vr
 image: /img/covers/anagram-goliath-playing-with-reality.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://weareanagram.co.uk/project/goliath'

@@ -3,6 +3,7 @@ author: "Michael W. Hancock"
 title: "RAW"
 type: "essay"
 image: "/img/covers/hancock-raw.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://digitalcommons.imsa.edu/eng_pr/12/"

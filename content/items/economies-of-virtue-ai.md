@@ -3,6 +3,7 @@ author: "Thao Phan, Jake Goldenfein, Declan Kuch, Monique Mann (eds.)"
 title: "TOD #46: Economies of Virtue – The Circulation of ‘Ethics’ in AI"
 type: "book"
 image: "/img/covers/economies-of-virtue-ai.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Ethics & Moral Imagination"
 url: "https://networkcultures.org/blog/publication/economies-of-virtue-the-circulation-of-ethics-in-ai/"

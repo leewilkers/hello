@@ -3,6 +3,7 @@ author: "Michel Foucault"
 title: "Nietzsche, Genealogy, History"
 type: essay
 image: "/img/covers/foucault-nietzsche-genealogy-history.jpg"
+cover_label: true
 dest: shelf
 topic: "Social Science & Anthropology"
 url: "https://philarchive.org/rec/FOUNGH"

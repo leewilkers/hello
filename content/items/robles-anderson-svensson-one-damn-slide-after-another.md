@@ -3,6 +3,7 @@ author: "Erica Robles-Anderson, Patrik Svensson"
 title: "One Damn Slide After Another"
 type: essay
 image: "/img/covers/robles-anderson-svensson-one-damn-slide-after-another.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Interfaces & Interaction"

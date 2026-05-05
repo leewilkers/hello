@@ -3,6 +3,7 @@ author: "Lucy Kimbell"
 title: "Rethinking Design Thinking: Part II"
 type: paper
 image: "/img/covers/kimbell-rethinking-design-thinking-part-ii.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

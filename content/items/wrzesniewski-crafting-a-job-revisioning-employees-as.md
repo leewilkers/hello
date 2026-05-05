@@ -3,6 +3,7 @@ author: "Amy Wrzesniewski, Jane E. Dutton"
 title: "Crafting a Job: Revisioning Employees as Active Crafters of Their Work"
 type: paper
 image: "/img/covers/wrzesniewski-crafting-a-job-revisioning-employees-as.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Organizations & Work"

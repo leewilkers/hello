@@ -3,6 +3,7 @@ author: "Donna Haraway"
 title: "Situated Knowledges"
 type: essay
 image: "/img/covers/haraway-situated-knowledges.jpg"
+cover_label: true
 dest: shelf
 topic: "Sensemaking & Judgement"
 url: "https://doi.org/10.2307/3178066"

@@ -3,6 +3,7 @@ author: "Kieran Healy"
 title: "The Plain Person's Guide to Plain Text Social Science"
 type: essay
 image: "/img/covers/healy-plain-persons-guide-to-plain-text.jpg"
+cover_label: true
 dest: shelf
 topic: "Social Science & Anthropology"
 url: "https://plain-text.co/"

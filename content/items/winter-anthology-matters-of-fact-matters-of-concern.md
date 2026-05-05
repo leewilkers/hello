@@ -3,6 +3,7 @@ author: "Bruno Latour"
 title: "Why Has Critique Run out of Steam? From Matters of Fact to Matters of Concern"
 type: essay
 image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Sensemaking & Judgement"

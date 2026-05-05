@@ -3,6 +3,7 @@ author: "Ezequiel Soriano"
 title: "From Shitposting to Shitpublishing"
 type: "essay"
 image: "/img/covers/from-shitposting-to-shitpublishing.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/02/10/from-shitposting-to-shitpublishing/"

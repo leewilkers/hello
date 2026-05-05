@@ -3,6 +3,7 @@ author: "Armin Medosch"
 title: "TOD #58 The Rise of the Network Commons: A History of Community Infrastructure"
 type: "book"
 image: "/img/covers/rise-of-the-network-commons.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/tod-58-the-rise-of-the-network-commons-a-history-of-community-infrastructure/"

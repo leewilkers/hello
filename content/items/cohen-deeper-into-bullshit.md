@@ -3,6 +3,7 @@ author: "G. A. Cohen"
 title: "Deeper into Bullshit"
 type: essay
 image: "/img/covers/cohen-deeper-into-bullshit.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

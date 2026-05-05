@@ -350,6 +350,13 @@ module.exports = function(eleventyConfig) {
     return linkLabelFromUrl(url);
   });
 
+  eleventyConfig.addFilter("toJson", function(value) {
+    return JSON.stringify(value)
+      .replace(/</g, "\\u003c")
+      .replace(/>/g, "\\u003e")
+      .replace(/&/g, "\\u0026");
+  });
+
   // Ignore non-site files
   eleventyConfig.ignores.add("AGENTS.md");
   eleventyConfig.ignores.add("README.md");

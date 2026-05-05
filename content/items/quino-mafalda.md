@@ -3,6 +3,7 @@ author: "Quino"
 title: "Mafalda"
 type: "site"
 image: "/img/covers/quino-mafalda.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://www.quino.com.ar/mafaldaenglish"

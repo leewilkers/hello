@@ -3,6 +3,7 @@ author: "Richard P. Feynman"
 title: "Cargo Cult Science"
 type: essay
 image: "/img/covers/feynman-cargo-cult-science.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"

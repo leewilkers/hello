@@ -3,6 +3,7 @@ author: "Lynn Sharp Paine"
 title: "Managing for Organizational Integrity: My Take After Three Decades"
 type: paper
 image: "/img/covers/paine-managing-for-organizational-integrity-my-take.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Organizations & Work"

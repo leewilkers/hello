@@ -3,6 +3,7 @@ author: "Ellen Emilie Henriksen"
 title: "Algorithmically Generated Memories"
 type: journal article
 image: "/img/covers/ellen-henriksen-algorithmically-generated-memories.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Memory & Archives"

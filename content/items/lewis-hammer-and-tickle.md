@@ -3,6 +3,7 @@ author: "Ben Lewis"
 title: "Hammer & Tickle"
 type: "film"
 image: "/img/covers/lewis-hammer-and-tickle.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://benlewisprojects.com/films/hammer-tickle"

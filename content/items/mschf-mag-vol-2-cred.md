@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 2: Cred"
 type: magazine
 image: "/img/covers/mschf-mag-vol-2-cred.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://cred.mschfmag.com/"

@@ -3,6 +3,7 @@ author: "Sarah Kaplan"
 title: "Strategy and PowerPoint"
 type: paper
 image: "/img/covers/kaplan-strategy-and-powerpoint.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Interfaces & Interaction"

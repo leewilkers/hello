@@ -3,6 +3,7 @@ author: "Venkatesh Rao"
 title: "Welcome to the Future Nauseous"
 type: essay
 image: "/img/covers/rao-welcome-to-the-future-nauseous.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"

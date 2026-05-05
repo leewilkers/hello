@@ -3,6 +3,7 @@ author: "Roger D. Launius"
 title: "Apollo: A Retrospective Analysis"
 type: report
 image: "/img/covers/launius-apollo-retrospective-analysis.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

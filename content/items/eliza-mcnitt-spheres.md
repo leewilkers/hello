@@ -3,6 +3,7 @@ author: Eliza McNitt
 title: Spheres
 type: vr
 image: /img/covers/eliza-mcnitt-spheres.jpg
+cover_label: true
 dest: shelf
 topic: Experiences
 url: 'https://www.meta.com/experiences/spheres/3789736921099233/'

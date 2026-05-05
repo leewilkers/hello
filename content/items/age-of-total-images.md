@@ -3,6 +3,7 @@ author: "Ana Peraica"
 title: "TOD #34: The Age of Total Images: Disappearance of a Subjective Viewpoint in Post-digital Photography"
 type: "book"
 image: "/img/covers/age-of-total-images.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Media"
 url: "https://networkcultures.org/blog/publication/tod34-the-age-of-total-images-disappearance-of-a-subjective-viewpoint-in-post-digital-photography/"

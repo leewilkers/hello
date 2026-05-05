@@ -3,6 +3,7 @@ author: "Michael Collins"
 title: "Carrying the Fire: An Astronaut's Journeys Manuscript"
 type: archive
 image: "/img/covers/collins-carrying-the-fire-manuscript.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

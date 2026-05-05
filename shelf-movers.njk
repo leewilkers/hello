@@ -1,0 +1,1627 @@
+---
+permalink: /shelf-movers/index.html
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Shelf Movers Board</title>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #100f0f;
+  --surface: #1c1b1a;
+  --surface-soft: #242321;
+  --ink: #cecdc3;
+  --ink-light: #b7b5ac;
+  --ink-faint: #878580;
+  --ink-muted: #575653;
+  --rule: #343331;
+  --rule-strong: #575653;
+  --accent: #3aa99f;
+  --yellow: #d0a215;
+  --orange: #da702c;
+  --green: #879a39;
+  --red: #d14d41;
+  --serif: Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Sans", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--sans);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); scroll-behavior: smooth; }
+body { margin: 0; min-height: 100vh; background: var(--bg); line-height: 1.38; }
+a { color: inherit; text-decoration: none; }
+.export-output {
+  width: 100%;
+  min-height: min(46vh, 30rem);
+  max-height: min(58vh, 34rem);
+  overflow: auto;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--bg) 88%, var(--surface-soft));
+  color: var(--ink);
+  border-radius: 3px;
+  padding: 0.72rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  backdrop-filter: blur(18px);
+}
+.header-inner {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.58rem, 1.18rem + 1.22vw, 2.42rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+.subtitle {
+  max-width: 58rem;
+  margin: 0.32rem 0 0;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+.badge,
+.status-line {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule-strong);
+  border-radius: 999px;
+  padding: 0.32rem 0.62rem;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+.status-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.46rem 0.8rem;
+  margin-top: 0.82rem;
+  color: var(--ink-muted);
+}
+.status-line b { color: var(--ink-light); }
+.status-line .changed b { color: var(--green); }
+.status-line .stream b { color: var(--orange); }
+.status-line .display b { color: var(--accent); }
+.quiet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem 0.8rem;
+  margin-top: 0.58rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.quiet-actions a {
+  color: var(--ink-faint);
+  text-underline-offset: 0.16em;
+}
+.quiet-actions a:hover,
+.quiet-actions a:focus-visible {
+  color: var(--accent);
+  outline: 0;
+  text-decoration: underline;
+}
+.quiet-actions a[aria-disabled="true"] {
+  color: var(--ink-muted);
+  pointer-events: none;
+  opacity: 0.48;
+}
+
+.library {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 2.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+.topic-index {
+  position: sticky;
+  top: 8.25rem;
+  align-self: start;
+  max-height: calc(100vh - 9.25rem);
+  overflow-y: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.16rem;
+  scrollbar-width: thin;
+}
+.topic-index .topic-rail-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.42rem;
+  align-items: baseline;
+  border-left: 1px solid transparent;
+  padding: 0.13rem 0 0.13rem 0.46rem;
+  color: var(--ink-faint);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+.topic-index .topic-link {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.topic-index .topic-rail-row:hover,
+.topic-index .topic-rail-row:focus-within,
+.topic-index .topic-rail-row.is-drop-target {
+  border-left-color: var(--accent);
+  color: var(--ink);
+  outline: 0;
+}
+.topic-index .topic-rail-row.sortable-rail-hover {
+  border-left-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  color: var(--ink);
+}
+.topic-index .topic-rail-row.is-active {
+  color: var(--accent);
+}
+.topic-index .topic-rail-row[data-drop-topic="Stream"] {
+  color: color-mix(in srgb, var(--orange) 72%, var(--ink-faint));
+}
+.topic-index .topic-count {
+  color: var(--yellow);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.topic-edit-link {
+  display: inline-grid;
+  place-items: center;
+  width: 1.08rem;
+  height: 1.08rem;
+  border-radius: 50%;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+}
+.topic-edit-link:hover,
+.topic-edit-link:focus-visible {
+  color: var(--accent);
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+.topic-inline-editor {
+  display: inline-block;
+  min-width: min(100%, 9rem);
+  max-width: 100%;
+  padding: 0.02rem 0.16rem 0.04rem;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface-soft) 80%, var(--accent) 8%);
+  border: 1px solid color-mix(in srgb, var(--accent) 64%, var(--rule));
+  border-radius: 2px;
+  outline: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+.topic-heading-main .topic-inline-editor {
+  text-transform: uppercase;
+}
+.topic-inline-editor:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.grid-scroll { min-width: 0; }
+.topic-section {
+  scroll-margin-top: 8.6rem;
+  margin-bottom: 2.4rem;
+}
+.topic-section[data-drop-topic="Stream"] {
+  margin-top: 3rem;
+}
+.topic-section.is-drop-target .topic-heading {
+  color: var(--accent);
+}
+.quiet-list-zone.is-drop-target .quiet-list-heading,
+.quiet-list-body.is-drop-target {
+  color: var(--accent);
+}
+.topic-section[data-drop-topic="Stream"].is-drop-target .topic-heading {
+  color: var(--orange);
+}
+.topic-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+  margin: 0 0 0.72rem;
+  color: var(--ink-light);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.topic-heading-main {
+  display: inline-flex;
+  gap: 0.36rem;
+  align-items: baseline;
+  min-width: 0;
+}
+.topic-heading .topic-edit-link {
+  font-size: 0.68rem;
+}
+.topic-heading span {
+  color: var(--yellow);
+  font-variant-numeric: tabular-nums;
+}
+.topic-heading-main .topic-title {
+  color: inherit;
+}
+.topic-section[data-drop-topic="Stream"] .topic-heading span {
+  color: var(--orange);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  gap: clamp(0.58rem, 0.48rem + 0.36vw, 0.9rem);
+  min-height: 9rem;
+}
+.grid.is-empty {
+  border: 1px dashed var(--rule-strong);
+  min-height: 9rem;
+}
+.grid.is-empty.grid--quiet-only {
+  min-height: 4.2rem;
+}
+.grid.is-empty::after {
+  content: "Drop here";
+  display: grid;
+  min-height: 9rem;
+  place-items: center;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.grid.is-empty.grid--quiet-only::after {
+  min-height: 4.2rem;
+}
+.grid.is-drop-target,
+.quiet-list-body.is-drop-target {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+.quiet-list-zone {
+  margin-top: 0.82rem;
+  padding-top: 0.46rem;
+  border-top: 1px solid var(--rule);
+}
+.quiet-list-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.42rem;
+  margin: 0 0 0.22rem;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.quiet-list-heading span {
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.quiet-list-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 0 1.1rem;
+  min-height: 2rem;
+}
+.quiet-list-body.is-empty {
+  border: 1px dashed color-mix(in srgb, var(--rule-strong) 72%, transparent);
+  min-height: 2.55rem;
+}
+.quiet-list-body.is-empty::after {
+  content: "Drop here";
+  display: grid;
+  min-height: 2.55rem;
+  place-items: center start;
+  padding-left: 0.5rem;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.shelf-card {
+  position: relative;
+  min-width: 0;
+  list-style: none;
+  cursor: grab;
+}
+.shelf-list-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(4.4rem, auto);
+  gap: 0.7rem;
+  align-items: baseline;
+  min-width: 0;
+  padding: 0.34rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--rule) 82%, transparent);
+  color: var(--ink-light);
+  cursor: grab;
+}
+.shelf-list-row:first-child {
+  border-top: 0;
+}
+.shelf-list-row:active { cursor: grabbing; }
+.shelf-list-row:hover,
+.shelf-list-row:focus-visible {
+  color: var(--ink);
+  outline: 0;
+}
+.shelf-list-row.is-changed {
+  color: color-mix(in srgb, var(--green) 70%, var(--ink));
+}
+.shelf-list-main {
+  min-width: 0;
+  line-height: 1.22;
+}
+.shelf-list-type {
+  display: inline-grid;
+  place-items: center;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.34rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  vertical-align: -0.12em;
+}
+.shelf-list-title {
+  display: inline;
+  color: inherit;
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  font-weight: 560;
+  line-height: 1.18;
+}
+.shelf-list-meta,
+.shelf-list-dek {
+  margin-left: 0.38rem;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 0.61rem;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+.shelf-list-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.12rem 0.38rem;
+  margin: 0;
+  padding: 0;
+}
+.shelf-list-links li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shelf-list-links a {
+  color: var(--ink-muted);
+  border-bottom: 1px solid transparent;
+  font-family: var(--mono);
+  font-size: 0.61rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: lowercase;
+}
+.shelf-list-links a:hover,
+.shelf-list-links a:focus-visible {
+  color: var(--accent);
+  border-bottom-color: currentColor;
+  outline: 0;
+}
+.shelf-card:active { cursor: grabbing; }
+.shelf-card.is-changed .cell-cover {
+  border-color: color-mix(in srgb, var(--green) 76%, var(--rule));
+}
+.shelf-card.is-stream .cell-cover {
+  border-color: color-mix(in srgb, var(--orange) 76%, var(--rule));
+}
+.cell-cover {
+  position: relative;
+  display: grid;
+  aspect-ratio: 3 / 4.2;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--rule) 82%, transparent);
+  background: color-mix(in srgb, var(--surface) 82%, var(--bg));
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+.shelf-card:hover .cell-cover,
+.shelf-card:focus-within .cell-cover {
+  border-color: var(--accent);
+}
+.shelf-card.is-dragging .cell-cover {
+  transform: rotate(1deg);
+}
+.cell-cover-panel {
+  position: relative;
+  display: inline-grid;
+  place-items: start center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  isolation: isolate;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cell-cover-panel img {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  display: block;
+  transition: filter 160ms ease;
+}
+.shelf-card:hover .cell-cover-panel img,
+.shelf-card:focus-within .cell-cover-panel img {
+  filter: brightness(0.68) saturate(0.9);
+}
+.cell-cover-panel .no-image {
+  display: grid;
+  place-items: center;
+  padding: 0.6rem;
+  color: var(--ink-muted);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-align: center;
+}
+.cell-cover-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  gap: 0.22rem;
+  padding: 0.66rem 0.56rem 0.52rem;
+  background: none;
+  isolation: isolate;
+  opacity: 0;
+  transform: translateY(0.14rem);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.cell-cover-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(
+      to top,
+      color-mix(in srgb, #050505 78%, transparent) 0%,
+      color-mix(in srgb, #050505 62%, transparent) 22%,
+      color-mix(in srgb, #050505 38%, transparent) 50%,
+      color-mix(in srgb, #050505 15%, transparent) 78%,
+      transparent 100%
+    );
+  pointer-events: none;
+}
+.cell-cover-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+.shelf-card:hover .cell-cover-overlay,
+.shelf-card:focus-within .cell-cover-overlay,
+.shelf-card.is-changed .cell-cover-overlay {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.cell-cover-identity {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  color: #f6f1e8;
+  background: transparent;
+}
+.cell-cover-title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: #f6f1e8;
+  font-family: var(--serif);
+  font-size: clamp(0.96rem, 0.88rem + 0.24vw, 1.18rem);
+  font-weight: 600;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.cell-cover-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.08rem 0.42rem;
+  margin-top: 0.16rem;
+  color: color-mix(in srgb, #f6f1e8 72%, transparent);
+  font-family: var(--mono);
+  font-size: clamp(0.59rem, 0.53rem + 0.16vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+.cell-hover-note {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: color-mix(in srgb, #f6f1e8 86%, transparent);
+  font-family: var(--mono);
+  font-size: clamp(0.56rem, 0.51rem + 0.14vw, 0.66rem);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.28;
+}
+.cell-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.12rem 0.2rem;
+  max-width: 100%;
+}
+.cell-links li {
+  list-style: none;
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  line-height: 1.35;
+}
+.cell-links a {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: #c1d9f7;
+  background: color-mix(in srgb, #050505 32%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, #c1d9f7 70%, transparent);
+  padding: 0.05rem 0.1rem;
+  font-family: var(--mono);
+  font-size: clamp(0.55rem, 0.5rem + 0.12vw, 0.64rem);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-transform: lowercase;
+}
+.cell-links a:hover,
+.cell-links a:focus-visible {
+  color: #f0f6ff;
+  background: color-mix(in srgb, #050505 90%, transparent);
+  border-bottom-color: currentColor;
+  outline: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+.cell-heading {
+  display: block;
+  min-width: 0;
+  margin-top: 0.28rem;
+  line-height: 1.2;
+}
+.cell-title {
+  display: -webkit-box;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0;
+  color: var(--ink);
+  cursor: grab;
+  font-family: var(--serif);
+  font-size: 0.72rem;
+  font-weight: 540;
+  line-height: 1.2;
+}
+.shelf-card:hover .cell-title,
+.shelf-card:focus-within .cell-title {
+  color: var(--accent);
+}
+.status-pill {
+  position: absolute;
+  top: 0.38rem;
+  right: 0.38rem;
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--green) 68%, var(--rule));
+  background: color-mix(in srgb, var(--bg) 76%, var(--green));
+  color: color-mix(in srgb, var(--green) 82%, var(--ink));
+  padding: 0.18rem 0.28rem;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.status-pill.stream {
+  border-color: color-mix(in srgb, var(--orange) 72%, var(--rule));
+  background: color-mix(in srgb, var(--bg) 76%, var(--orange));
+  color: color-mix(in srgb, var(--orange) 84%, var(--ink));
+}
+.drop-note {
+  margin: 0.35rem 0 0;
+  color: var(--ink-muted);
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  font-style: italic;
+}
+.export-panel {
+  position: fixed;
+  inset: auto 1rem 1rem;
+  z-index: 80;
+  max-width: 1080px;
+  margin: 0 auto;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--surface) 96%, var(--bg));
+  box-shadow: 0 26px 100px rgba(0, 0, 0, 0.48);
+  padding: 0.9rem;
+}
+.export-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.export-head h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+}
+.export-head p {
+  margin: 0.2rem 0 0;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  font-style: italic;
+}
+.hidden { display: none !important; }
+
+@media (min-width: 1320px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+}
+@media (max-width: 900px) {
+  .library {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0.75rem 1rem 2.5rem;
+  }
+  .topic-index {
+    position: static;
+    max-height: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+  .topic-section { scroll-margin-top: 13rem; }
+}
+@media (max-width: 600px) {
+  .title-row { display: block; }
+  .badge { margin-top: 0.56rem; }
+  .status-line { gap: 0.32rem 0.58rem; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shelf-list-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.22rem;
+  }
+  .shelf-list-links {
+    justify-content: flex-start;
+  }
+}
+</style>
+</head>
+<body>
+{%- set shelfItems = collections.items | where("dest", "shelf") -%}
+<header class="app-header">
+  <div class="header-inner">
+    <div class="title-row">
+      <div>
+        <h1>Shelf Movers Board</h1>
+        <p class="subtitle">Same Shelf, loosened: drag cards between topics, or into Stream. Nothing touches frontmatter until export.</p>
+      </div>
+      <span class="badge">{{ shelfItems | length }} Shelf items</span>
+    </div>
+    <div class="status-line" id="stats"></div>
+    <nav class="quiet-actions" aria-label="Shelf movers actions">
+      <a href="#export" id="exportLink">Export moves</a>
+      <a href="#copy" id="copyLink" aria-disabled="true">Copy export</a>
+      <a href="#reset" id="resetLink">Clear local moves</a>
+    </nav>
+  </div>
+</header>
+
+<main class="library">
+  <nav class="topic-index" id="topicRail" aria-label="Topic drop rail"></nav>
+  <div class="grid-scroll" id="board" aria-label="Shelf movers board"></div>
+</main>
+
+<section id="exportPanel" class="export-panel hidden" aria-live="polite">
+  <div class="export-head">
+    <div>
+      <h2>Export Shelf Moves</h2>
+      <p>Paste this back when you want the moves applied to item frontmatter.</p>
+    </div>
+    <a href="#close" id="closeExportLink">Close</a>
+  </div>
+  <pre id="exportText" class="export-output" tabindex="0"></pre>
+  <nav class="quiet-actions" aria-label="Export actions">
+    <a href="#copy-export" id="copyExportLink">Copy export</a>
+  </nav>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script>
+const STORAGE_KEY = "shelfMovers.v1";
+const STREAM_TOPIC = "Stream";
+const TOPICS = {{ topics | toJson | safe }};
+const DROP_TOPICS = [...TOPICS, STREAM_TOPIC];
+const ITEMS = [
+{%- for topic in topics %}
+  {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
+  {%- for item in bucket %}
+  {
+    path: {{ item.inputPath | toJson | safe }},
+    slug: {{ item.fileSlug | toJson | safe }},
+    title: {{ item.data.title | toJson | safe }},
+    author: {{ item.data.author | toJson | safe }},
+    oldTopic: {{ topic | toJson | safe }},
+    type: {{ item.data.type | toJson | safe }},
+    year: {{ item.data | shelfIdentityYear | toJson | safe }},
+    image: {{ item.data.image | toJson | safe }},
+    url: {{ (item.data.url or "") | toJson | safe }},
+    links: {{ (item.data.links or []) | toJson | safe }},
+    dek: {{ (item.data.dek or "") | toJson | safe }},
+    note: {{ (item.data.note or "") | toJson | safe }},
+    blurb: {{ (item.data.blurb or "") | toJson | safe }},
+    quote: {{ (item.data.quote or "") | toJson | safe }},
+    shelfList: {{ (item.data.shelf_list or false) | toJson | safe }},
+    currentDest: "shelf",
+    oldIndex: {{ loop.index0 }}
+  },
+  {%- endfor %}
+{%- endfor %}
+];
+
+const itemByPath = new Map(ITEMS.map((item) => [item.path, item]));
+const defaultOrder = TOPICS.reduce((acc, topic) => {
+  acc[topic] = ITEMS.filter((item) => item.oldTopic === topic)
+    .sort((a, b) => a.oldIndex - b.oldIndex)
+    .map((item) => item.path);
+  return acc;
+}, {});
+defaultOrder[STREAM_TOPIC] = [];
+
+const state = {
+  orderByTopic: {},
+  streamByPath: {},
+  shelfListByPath: {},
+  topicLabelByTopic: {}
+};
+
+const els = {
+  board: document.getElementById("board"),
+  topicRail: document.getElementById("topicRail"),
+  stats: document.getElementById("stats"),
+  exportPanel: document.getElementById("exportPanel"),
+  exportText: document.getElementById("exportText"),
+  copyLink: document.getElementById("copyLink")
+};
+
+let sortables = [];
+let draggedPath = "";
+let pointerDrag = null;
+
+function cloneDefaultOrder() {
+  return Object.fromEntries(DROP_TOPICS.map((topic) => [topic, [...(defaultOrder[topic] || [])]]));
+}
+
+function loadStoredState() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    state.orderByTopic = parsed && parsed.orderByTopic ? parsed.orderByTopic : cloneDefaultOrder();
+    state.streamByPath = parsed && parsed.streamByPath ? parsed.streamByPath : {};
+    state.shelfListByPath = parsed && parsed.shelfListByPath ? parsed.shelfListByPath : {};
+    state.topicLabelByTopic = parsed && parsed.topicLabelByTopic ? parsed.topicLabelByTopic : {};
+  } catch (error) {
+    state.orderByTopic = cloneDefaultOrder();
+    state.streamByPath = {};
+    state.shelfListByPath = {};
+    state.topicLabelByTopic = {};
+  }
+  sanitizeState();
+}
+
+function sanitizeState() {
+  const nextOrder = Object.fromEntries(DROP_TOPICS.map((topic) => [topic, []]));
+  const placed = new Set();
+  for (const path of Object.keys(state.streamByPath || {})) {
+    if (!itemByPath.has(path) || placed.has(path)) continue;
+    nextOrder[STREAM_TOPIC].push(path);
+    placed.add(path);
+  }
+  for (const topic of DROP_TOPICS) {
+    const paths = Array.isArray(state.orderByTopic[topic]) ? state.orderByTopic[topic] : [];
+    for (const path of paths) {
+      if (!itemByPath.has(path) || placed.has(path)) continue;
+      nextOrder[topic].push(path);
+      placed.add(path);
+    }
+  }
+  for (const item of ITEMS) {
+    if (!placed.has(item.path)) {
+      const topic = state.streamByPath[item.path] ? STREAM_TOPIC : item.oldTopic;
+      nextOrder[topic].push(item.path);
+      placed.add(item.path);
+    }
+  }
+  const cleanStream = {};
+  for (const path of nextOrder[STREAM_TOPIC]) {
+    if (itemByPath.has(path)) cleanStream[path] = true;
+  }
+  const cleanShelfList = {};
+  for (const [path, value] of Object.entries(state.shelfListByPath || {})) {
+    const item = itemByPath.get(path);
+    if (!item) continue;
+    const nextValue = value === true || value === "true";
+    if (nextValue !== Boolean(item.shelfList)) cleanShelfList[path] = nextValue;
+  }
+  const cleanLabels = {};
+  for (const [topic, label] of Object.entries(state.topicLabelByTopic || {})) {
+    if (!DROP_TOPICS.includes(topic)) continue;
+    const cleanLabel = String(label || "").trim();
+    if (cleanLabel && cleanLabel !== topic) cleanLabels[topic] = cleanLabel;
+  }
+  state.orderByTopic = nextOrder;
+  state.streamByPath = cleanStream;
+  state.shelfListByPath = cleanShelfList;
+  state.topicLabelByTopic = cleanLabels;
+}
+
+function saveState() {
+  sanitizeState();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    orderByTopic: state.orderByTopic,
+    streamByPath: state.streamByPath,
+    shelfListByPath: state.shelfListByPath,
+    topicLabelByTopic: state.topicLabelByTopic,
+    updatedAt: new Date().toISOString()
+  }));
+}
+
+function isShelfList(item) {
+  if (!item) return false;
+  const override = state.shelfListByPath[item.path];
+  if (override === true || override === "true") return true;
+  if (override === false || override === "false") return false;
+  return Boolean(item.shelfList);
+}
+
+function setShelfListOverride(path, shelfList) {
+  const item = itemByPath.get(path);
+  if (!item) return;
+  const nextValue = Boolean(shelfList);
+  if (nextValue === Boolean(item.shelfList)) delete state.shelfListByPath[path];
+  else state.shelfListByPath[path] = nextValue;
+}
+
+function locationFor(path) {
+  for (const topic of DROP_TOPICS) {
+    const index = state.orderByTopic[topic].indexOf(path);
+    if (index >= 0) return { topic, index };
+  }
+  const item = itemByPath.get(path);
+  return { topic: item ? item.oldTopic : "", index: -1 };
+}
+
+function itemStatus(item) {
+  const loc = locationFor(item.path);
+  const stream = loc.topic === STREAM_TOPIC || Boolean(state.streamByPath[item.path]);
+  const topicMoved = !stream && loc.topic !== item.oldTopic;
+  const orderMoved = !stream && loc.topic === item.oldTopic && loc.index !== item.oldIndex;
+  const shelfList = isShelfList(item);
+  const displayMoved = shelfList !== Boolean(item.shelfList);
+  return {
+    topic: loc.topic,
+    index: loc.index,
+    shelfList,
+    displayMoved,
+    topicMoved,
+    orderMoved,
+    stream,
+    changed: topicMoved || orderMoved || stream || displayMoved
+  };
+}
+
+function topicSlug(topic) {
+  return topic.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function topicLabel(topic) {
+  return state.topicLabelByTopic[topic] || topic;
+}
+
+function render() {
+  destroySortables();
+  renderTopicRail();
+  els.board.innerHTML = DROP_TOPICS.map(topicSectionMarkup).join("");
+  bindTopicEditors();
+  bindCards();
+  bindDropTargets();
+  initSortables();
+  renderStats();
+}
+
+function renderTopicRail() {
+  els.topicRail.innerHTML = DROP_TOPICS.map((topic) => {
+    const count = state.orderByTopic[topic] ? state.orderByTopic[topic].length : 0;
+    const changed = countChangedInTopic(topic);
+    const changedText = changed ? ` / ${changed}` : "";
+    const label = topicLabel(topic);
+    return `
+      <span class="topic-rail-row" data-drop-topic="${escapeAttr(topic)}" data-rail-topic="${escapeAttr(topic)}">
+        <a class="topic-link" href="#${topicSlug(topic)}" data-no-sort>${escapeHtml(label)}</a>
+        <span class="topic-count">${count}${changedText}</span>
+        ${topicEditLink(topic, label)}
+      </span>
+    `;
+  }).join("");
+}
+
+function topicSectionMarkup(topic) {
+  const paths = state.orderByTopic[topic] || [];
+  const cardPaths = topic === STREAM_TOPIC ? paths : paths.filter((path) => {
+    const item = itemByPath.get(path);
+    return item && !isShelfList(item);
+  });
+  const listPaths = topic === STREAM_TOPIC ? [] : paths.filter((path) => {
+    const item = itemByPath.get(path);
+    return item && isShelfList(item);
+  });
+  const empty = cardPaths.length ? "" : " is-empty";
+  const quietOnly = !cardPaths.length && listPaths.length ? " grid--quiet-only" : "";
+  const streamNote = topic === STREAM_TOPIC ? `<p class="drop-note">Drop here to mark items for Stream.</p>` : "";
+  const label = topicLabel(topic);
+  return `
+    <section class="topic-section" id="${topicSlug(topic)}" data-drop-topic="${escapeAttr(topic)}">
+      <h2 class="topic-heading">
+        <span class="topic-heading-main"><span class="topic-title">${escapeHtml(label)}</span>${topicEditLink(topic, label)}</span>
+        <span>${paths.length}${countChangedInTopic(topic) ? ` / ${countChangedInTopic(topic)}` : ""}</span>
+      </h2>
+      ${streamNote}
+      <div class="grid${empty}${quietOnly}" data-topic-body="${escapeAttr(topic)}" data-card-topic="${escapeAttr(topic)}">
+        ${cardPaths.map((path) => {
+          const item = itemByPath.get(path);
+          return item ? cardMarkup(item) : "";
+        }).join("")}
+      </div>
+      ${topic === STREAM_TOPIC ? "" : quietListMarkup(topic, listPaths)}
+    </section>
+  `;
+}
+
+function quietListMarkup(topic, paths) {
+  const empty = paths.length ? "" : " is-empty";
+  return `
+    <section class="quiet-list-zone${empty}" data-list-topic="${escapeAttr(topic)}" aria-label="${escapeAttr(topicLabel(topic))} quiet list">
+      <h3 class="quiet-list-heading">Quiet list <span>${paths.length}</span></h3>
+      <div class="quiet-list-body${empty}" data-list-body="${escapeAttr(topic)}" data-list-topic="${escapeAttr(topic)}">
+        ${paths.map((path) => {
+          const item = itemByPath.get(path);
+          return item ? listRowMarkup(item) : "";
+        }).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function countChangedInTopic(topic) {
+  return (state.orderByTopic[topic] || [])
+    .map((path) => itemByPath.get(path))
+    .filter(Boolean)
+    .filter((item) => itemStatus(item).changed)
+    .length;
+}
+
+function topicEditLink(topic, label) {
+  return `<a href="#edit-topic" class="topic-edit-link" data-edit-topic="${escapeAttr(topic)}" data-no-sort aria-label="Edit topic text for ${escapeAttr(label)}" title="Edit topic text">&#9998;</a>`;
+}
+
+function cardMarkup(item) {
+  const status = itemStatus(item);
+  const classes = [
+    "shelf-card",
+    status.changed ? "is-changed" : "",
+    status.stream ? "is-stream" : ""
+  ].filter(Boolean).join(" ");
+  const metaParts = [item.author, item.year, item.type].filter(Boolean);
+  const hoverNote = item.note || item.quote || item.blurb || item.dek || "";
+  return `
+    <article class="${classes}" data-path="${escapeAttr(item.path)}" draggable="true" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
+      ${status.changed ? `<span class="status-pill${status.stream ? " stream" : ""}">${status.stream ? "stream" : "moved"}</span>` : ""}
+      <span class="cell-cover">
+        <span class="cell-cover-panel">${coverMarkup(item)}</span>
+        <span class="cell-cover-overlay">
+          <span class="cell-cover-identity" aria-hidden="true">
+            <span class="cell-cover-title">${escapeHtml(item.title || "Untitled")}</span>
+            ${metaParts.length ? `<span class="cell-cover-meta">${metaParts.map((part) => `<span>${escapeHtml(part)}</span>`).join("")}</span>` : ""}
+          </span>
+          ${hoverNote ? `<span class="cell-hover-note" aria-hidden="true">${escapeHtml(hoverNote)}</span>` : ""}
+          ${linksMarkup(item)}
+        </span>
+      </span>
+      <span class="cell-heading">
+        <span class="cell-title">${escapeHtml(item.title || "Untitled")}</span>
+      </span>
+    </article>
+  `;
+}
+
+function listRowMarkup(item) {
+  const status = itemStatus(item);
+  const classes = [
+    "shelf-list-row",
+    status.changed ? "is-changed" : ""
+  ].filter(Boolean).join(" ");
+  const metaParts = [item.author, item.year].filter(Boolean);
+  return `
+    <article class="${classes}" data-path="${escapeAttr(item.path)}" draggable="true" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
+      <span class="shelf-list-main">
+        <span class="shelf-list-type" aria-hidden="true">${escapeHtml(typeMark(item))}</span>
+        <span class="shelf-list-title">${escapeHtml(item.title || "Untitled")}</span>
+        ${metaParts.length ? `<span class="shelf-list-meta">${metaParts.map((part) => escapeHtml(part)).join(" / ")}</span>` : ""}
+        ${item.dek ? `<span class="shelf-list-dek">${escapeHtml(item.dek)}</span>` : ""}
+      </span>
+      ${listLinksMarkup(item)}
+    </article>
+  `;
+}
+
+function typeMark(item) {
+  const type = String(item.type || "item").trim();
+  return type ? type.slice(0, 1).toUpperCase() : "I";
+}
+
+function coverMarkup(item) {
+  if (!item.image) return `<span class="no-image">${escapeHtml(item.title || "No image")}</span>`;
+  return `<img src="${escapeAttr(item.image)}" alt="">`;
+}
+
+function linksMarkup(item) {
+  const links = [];
+  if (item.url) links.push({ url: item.url, label: linkLabel(item.url) });
+  if (Array.isArray(item.links)) {
+    for (const link of item.links) {
+      if (link && link.url) links.push({ url: link.url, label: link.label || linkLabel(link.url) });
+    }
+  }
+  if (!links.length) return "";
+  return `<ul class="cell-links" aria-label="Links">${links.map((link) => `<li><a href="${escapeAttr(link.url)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a></li>`).join("")}</ul>`;
+}
+
+function listLinksMarkup(item) {
+  const links = [];
+  if (item.url) links.push({ url: item.url, label: linkLabel(item.url) });
+  if (Array.isArray(item.links)) {
+    for (const link of item.links) {
+      if (link && link.url) links.push({ url: link.url, label: link.label || linkLabel(link.url) });
+    }
+  }
+  if (!links.length) return `<ul class="shelf-list-links" aria-label="Links"></ul>`;
+  return `<ul class="shelf-list-links" aria-label="Links">${links.map((link) => `<li><a href="${escapeAttr(link.url)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a></li>`).join("")}</ul>`;
+}
+
+function linkLabel(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.hostname.replace(/^www\./, "");
+  } catch (error) {
+    return "source";
+  }
+}
+
+function bindCards() {
+  els.board.querySelectorAll("[data-path]").forEach((card) => {
+    card.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("a")) return;
+      pointerDrag = {
+        path: card.dataset.path || "",
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        moved: false
+      };
+      if (pointerDrag.path && card.setPointerCapture) card.setPointerCapture(event.pointerId);
+    });
+    card.addEventListener("pointermove", (event) => {
+      if (!pointerDrag || pointerDrag.pointerId !== event.pointerId || pointerDrag.path !== card.dataset.path) return;
+      const moved = Math.abs(event.clientX - pointerDrag.startX) + Math.abs(event.clientY - pointerDrag.startY);
+      if (moved < 10) return;
+      pointerDrag.moved = true;
+      draggedPath = pointerDrag.path;
+      card.classList.add("is-dragging");
+      markDropTargetAt(event.clientX, event.clientY);
+    });
+    card.addEventListener("pointerup", (event) => {
+      if (!pointerDrag || pointerDrag.pointerId !== event.pointerId || pointerDrag.path !== card.dataset.path) return;
+      const path = pointerDrag.path;
+      const moved = pointerDrag.moved;
+      const target = dropTargetFromPoint(event.clientX, event.clientY);
+      const decision = dropDecisionFromTarget(target);
+      const targetTopic = decision ? decision.topic : "";
+      const currentTopic = path ? locationFor(path).topic : "";
+      const item = itemByPath.get(path);
+      const displayChanged = item && decision && typeof decision.shelfList === "boolean" && decision.shelfList !== isShelfList(item);
+      clearDropState();
+      if (moved && targetTopic && path && item && (targetTopic !== currentTopic || displayChanged)) {
+        moveItemToTopic(path, targetTopic, { shelfList: decision.shelfList });
+      }
+    });
+    card.addEventListener("pointercancel", clearDropState);
+    card.addEventListener("dragstart", (event) => {
+      draggedPath = card.dataset.path || "";
+      card.classList.add("is-dragging");
+      if (event.dataTransfer && draggedPath) {
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", draggedPath);
+      }
+    });
+    card.addEventListener("dragend", clearDropState);
+  });
+}
+
+function bindTopicEditors() {
+  document.querySelectorAll("[data-edit-topic]").forEach((link) => {
+    link.addEventListener("pointerdown", (event) => {
+      event.stopPropagation();
+    });
+    link.addEventListener("mousedown", (event) => {
+      event.stopPropagation();
+    });
+    link.addEventListener("dragstart", (event) => event.preventDefault());
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      startTopicInlineEdit(link.dataset.editTopic || "", link);
+    });
+  });
+}
+
+function startTopicInlineEdit(topic, trigger) {
+  if (!DROP_TOPICS.includes(topic)) return;
+  const scope = trigger.closest(".topic-rail-row, .topic-heading-main");
+  const label = scope ? scope.querySelector(".topic-link, .topic-title") : null;
+  if (!label) return;
+  const existing = scope.querySelector(".topic-inline-editor");
+  if (existing) {
+    existing.focus();
+    return;
+  }
+  const current = topicLabel(topic);
+  const editor = document.createElement("span");
+  editor.className = "topic-inline-editor";
+  editor.contentEditable = "true";
+  editor.dataset.noSort = "";
+  editor.dataset.editingTopic = topic;
+  editor.setAttribute("role", "textbox");
+  editor.setAttribute("aria-label", `Edit topic text for ${current}`);
+  editor.spellcheck = false;
+  editor.textContent = current;
+  let finished = false;
+  const finish = (save) => {
+    if (finished) return;
+    finished = true;
+    if (save) {
+      const cleanNext = editor.textContent.replace(/\s+/g, " ").trim();
+      if (!cleanNext || cleanNext === topic) delete state.topicLabelByTopic[topic];
+      else state.topicLabelByTopic[topic] = cleanNext;
+      saveState();
+    }
+    render();
+  };
+  editor.addEventListener("pointerdown", (event) => event.stopPropagation());
+  editor.addEventListener("mousedown", (event) => event.stopPropagation());
+  editor.addEventListener("dragstart", (event) => event.preventDefault());
+  editor.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      finish(true);
+    }
+    if (event.key === "Escape") {
+      event.preventDefault();
+      finish(false);
+    }
+  });
+  editor.addEventListener("blur", () => finish(true));
+  label.replaceWith(editor);
+  requestAnimationFrame(() => {
+    editor.focus();
+    const range = document.createRange();
+    range.selectNodeContents(editor);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  });
+}
+
+function bindDropTargets() {
+  document.querySelectorAll("[data-drop-topic], [data-card-topic], [data-list-topic]").forEach((target) => {
+    target.addEventListener("dragover", (event) => {
+      if (!draggedPath) return;
+      event.preventDefault();
+      event.stopPropagation();
+      event.dataTransfer.dropEffect = "move";
+      clearDropHighlights();
+      target.classList.add("is-drop-target");
+    });
+    target.addEventListener("dragleave", () => target.classList.remove("is-drop-target"));
+    target.addEventListener("drop", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const path = event.dataTransfer.getData("text/plain") || draggedPath;
+      const decision = dropDecisionFromTarget(target);
+      const topic = decision ? decision.topic : "";
+      clearDropState();
+      if (path && topic && itemByPath.has(path)) moveItemToTopic(path, topic, { shelfList: decision.shelfList });
+    });
+  });
+}
+
+function initSortables() {
+  if (!window.Sortable) return;
+  const boardSortables = [...els.board.querySelectorAll("[data-topic-body], [data-list-body]")].map((body) => new Sortable(body, {
+    group: "shelf-movers",
+    animation: 150,
+    draggable: ".shelf-card, .shelf-list-row",
+    filter: "[data-no-sort], a",
+    preventOnFilter: false,
+    ghostClass: "sortable-ghost",
+    chosenClass: "sortable-chosen",
+    dragClass: "sortable-drag",
+    fallbackOnBody: true,
+    swapThreshold: 0.65,
+    onStart(event) {
+      draggedPath = event.item ? event.item.dataset.path || "" : "";
+    },
+    onEnd(event) {
+      if (event.to && event.to.dataset.railTopic) return;
+      syncOrderFromDom();
+      saveState();
+      render();
+    }
+  }));
+  const railSortables = [...els.topicRail.querySelectorAll("[data-rail-topic]")].map((row) => new Sortable(row, {
+    group: { name: "shelf-movers", pull: false, put: true },
+    sort: false,
+    animation: 80,
+    draggable: ".shelf-card, .shelf-list-row",
+    filter: "[data-no-sort], a",
+    preventOnFilter: false,
+    ghostClass: "sortable-ghost",
+    chosenClass: "sortable-chosen",
+    dragClass: "sortable-drag",
+    fallbackOnBody: true,
+    emptyInsertThreshold: 42,
+    onMove(event) {
+      clearRailHover();
+      if (event.to) event.to.classList.add("sortable-rail-hover");
+      return true;
+    },
+    onAdd(event) {
+      const path = event.item ? event.item.dataset.path || "" : "";
+      const topic = event.to ? event.to.dataset.railTopic || "" : "";
+      clearRailHover();
+      if (event.item && event.item.parentNode) event.item.parentNode.removeChild(event.item);
+      if (!path || !topic || !itemByPath.has(path)) {
+        render();
+        return;
+      }
+      if (topic === locationFor(path).topic) {
+        render();
+        return;
+      }
+      moveItemToTopic(path, topic);
+    },
+    onEnd() {
+      clearRailHover();
+    }
+  }));
+  sortables = [...boardSortables, ...railSortables];
+}
+
+function destroySortables() {
+  sortables.forEach((sortable) => sortable.destroy());
+  sortables = [];
+}
+
+function syncOrderFromDom() {
+  const next = Object.fromEntries(DROP_TOPICS.map((topic) => [topic, []]));
+  const nextShelfList = { ...(state.shelfListByPath || {}) };
+  els.board.querySelectorAll(".topic-section").forEach((section) => {
+    const topic = section.dataset.dropTopic;
+    if (!DROP_TOPICS.includes(topic)) return;
+    const seen = new Set();
+    const grid = section.querySelector("[data-topic-body]");
+    const list = section.querySelector("[data-list-body]");
+    if (grid) {
+      [...grid.querySelectorAll("[data-path]")].forEach((card) => {
+        const path = card.dataset.path;
+        if (!path || seen.has(path)) return;
+        seen.add(path);
+        next[topic].push(path);
+        if (topic !== STREAM_TOPIC) setShelfListDecision(nextShelfList, path, false);
+      });
+    }
+    if (list) {
+      [...list.querySelectorAll("[data-path]")].forEach((card) => {
+        const path = card.dataset.path;
+        if (!path || seen.has(path)) return;
+        seen.add(path);
+        next[topic].push(path);
+        setShelfListDecision(nextShelfList, path, true);
+      });
+    }
+  });
+  state.orderByTopic = next;
+  state.streamByPath = Object.fromEntries((next[STREAM_TOPIC] || []).map((path) => [path, true]));
+  state.shelfListByPath = nextShelfList;
+  sanitizeState();
+}
+
+function setShelfListDecision(target, path, shelfList) {
+  const item = itemByPath.get(path);
+  if (!item) return;
+  const nextValue = Boolean(shelfList);
+  if (nextValue === Boolean(item.shelfList)) delete target[path];
+  else target[path] = nextValue;
+}
+
+function moveItemToTopic(path, topic, options = {}) {
+  if (!DROP_TOPICS.includes(topic)) return;
+  for (const entryTopic of DROP_TOPICS) {
+    state.orderByTopic[entryTopic] = (state.orderByTopic[entryTopic] || []).filter((entry) => entry !== path);
+  }
+  state.orderByTopic[topic] = [...(state.orderByTopic[topic] || []), path];
+  if (topic === STREAM_TOPIC) state.streamByPath[path] = true;
+  else delete state.streamByPath[path];
+  if (typeof options.shelfList === "boolean" && topic !== STREAM_TOPIC) setShelfListOverride(path, options.shelfList);
+  saveState();
+  render();
+}
+
+function dropTargetFromPoint(x, y) {
+  const target = document.elementFromPoint(x, y);
+  return target ? target.closest("[data-card-topic], [data-list-topic], [data-drop-topic]") : null;
+}
+
+function dropDecisionFromTarget(target) {
+  if (!target) return null;
+  if (target.dataset.listTopic) return { topic: target.dataset.listTopic, shelfList: true };
+  if (target.dataset.cardTopic) return { topic: target.dataset.cardTopic, shelfList: false };
+  if (target.dataset.dropTopic) return { topic: target.dataset.dropTopic };
+  return null;
+}
+
+function markDropTargetAt(x, y) {
+  clearDropHighlights();
+  const target = dropTargetFromPoint(x, y);
+  if (target && draggedPath) target.classList.add("is-drop-target");
+  return target;
+}
+
+function clearDropHighlights() {
+  document.querySelectorAll(".is-drop-target").forEach((target) => target.classList.remove("is-drop-target"));
+}
+
+function clearRailHover() {
+  document.querySelectorAll(".sortable-rail-hover").forEach((target) => target.classList.remove("sortable-rail-hover"));
+}
+
+function clearDropState() {
+  draggedPath = "";
+  pointerDrag = null;
+  clearDropHighlights();
+  clearRailHover();
+  document.querySelectorAll(".is-dragging").forEach((card) => card.classList.remove("is-dragging"));
+}
+
+function resetBoard() {
+  if (!window.confirm("Clear all local Shelf movers decisions? This only resets browser state.")) return;
+  state.orderByTopic = cloneDefaultOrder();
+  state.streamByPath = {};
+  state.shelfListByPath = {};
+  saveState();
+  render();
+}
+
+function renderStats() {
+  const decisions = exportDecisions();
+  const topicRenames = topicRenameDecisions();
+  const stream = decisions.filter((item) => item.moveToStream).length;
+  const topicMoved = decisions.filter((item) => item.oldTopic !== item.newTopicKey).length;
+  const orderChanged = decisions.filter((item) => item.oldIndex !== item.newIndex).length;
+  const displayChanged = decisions.filter((item) => item.oldShelfList !== item.newShelfList).length;
+  els.stats.innerHTML = [
+    `<span><b>${ITEMS.length}</b> total shelf</span>`,
+    `<span class="changed"><b>${decisions.length}</b> changed</span>`,
+    `<span><b>${topicMoved}</b> topic moves</span>`,
+    `<span><b>${orderChanged}</b> order changes</span>`,
+    `<span class="display"><b>${displayChanged}</b> display</span>`,
+    `<span class="stream"><b>${stream}</b> stream</span>`,
+    `<span><b>${topicRenames.length}</b> topic text edits</span>`
+  ].join("");
+  els.copyLink.setAttribute("aria-disabled", (decisions.length || topicRenames.length) ? "false" : "true");
+}
+
+function exportDecisions() {
+  return ITEMS.map((item) => {
+    const status = itemStatus(item);
+    if (!status.changed) return null;
+    return {
+      path: item.path.replace(/^\.\//, ""),
+      title: item.title,
+      oldTopic: item.oldTopic,
+      newTopic: status.stream ? item.oldTopic : topicLabel(status.topic),
+      newTopicKey: status.stream ? item.oldTopic : status.topic,
+      oldIndex: item.oldIndex,
+      newIndex: status.stream ? item.oldIndex : status.index,
+      oldShelfList: Boolean(item.shelfList),
+      newShelfList: status.shelfList,
+      moveToStream: status.stream,
+      currentDest: item.currentDest
+    };
+  }).filter(Boolean);
+}
+
+function topicRenameDecisions() {
+  return TOPICS.map((topic) => ({
+    oldTopic: topic,
+    newTopic: topicLabel(topic)
+  })).filter((rename) => rename.oldTopic !== rename.newTopic);
+}
+
+function exportPayload() {
+  const decisions = exportDecisions();
+  const topicRenames = topicRenameDecisions();
+  return {
+    exportedAt: new Date().toISOString(),
+    source: "shelf-movers",
+    localStorageKey: STORAGE_KEY,
+    counts: {
+      totalShelfItems: ITEMS.length,
+      changedItems: decisions.length,
+      streamMarked: decisions.filter((item) => item.moveToStream).length,
+      topicMoved: decisions.filter((item) => item.oldTopic !== item.newTopicKey).length,
+      orderChanged: decisions.filter((item) => item.oldIndex !== item.newIndex).length,
+      displayChanged: decisions.filter((item) => item.oldShelfList !== item.newShelfList).length,
+      topicTextEdited: topicRenames.length
+    },
+    topicRenames,
+    decisions
+  };
+}
+
+function showExport() {
+  els.exportText.textContent = JSON.stringify(exportPayload(), null, 2);
+  els.exportPanel.classList.remove("hidden");
+  els.exportText.focus();
+}
+
+async function copyExport() {
+  const text = JSON.stringify(exportPayload(), null, 2);
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    showExport();
+    els.exportText.textContent = text;
+    els.exportText.focus();
+  }
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replace(/'/g, "&#39;");
+}
+
+function stopLink(event) {
+  event.preventDefault();
+}
+
+loadStoredState();
+render();
+
+document.getElementById("exportLink").addEventListener("click", (event) => {
+  stopLink(event);
+  showExport();
+});
+document.getElementById("copyLink").addEventListener("click", (event) => {
+  stopLink(event);
+  if (event.currentTarget.getAttribute("aria-disabled") !== "true") copyExport();
+});
+document.getElementById("resetLink").addEventListener("click", (event) => {
+  stopLink(event);
+  resetBoard();
+});
+document.getElementById("closeExportLink").addEventListener("click", (event) => {
+  stopLink(event);
+  els.exportPanel.classList.add("hidden");
+});
+document.getElementById("copyExportLink").addEventListener("click", (event) => {
+  stopLink(event);
+  copyExport();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") els.exportPanel.classList.add("hidden");
+});
+</script>
+</body>
+</html>

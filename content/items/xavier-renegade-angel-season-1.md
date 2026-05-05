@@ -3,6 +3,7 @@ author: "Vernon Chatman, John Lee, Jim Tozzi, Alyson Levy"
 title: "Xavier: Renegade Angel: Season 1"
 type: "video"
 image: "/img/covers/xavier-renegade-angel-season-1.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://www.rottentomatoes.com/tv/xavier_renegade_angel/s01"

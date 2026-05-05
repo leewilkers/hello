@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 1: Bread"
 type: magazine
 image: "/img/covers/mschf-mag-vol-1-bread.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://bread.mschfmag.com/"

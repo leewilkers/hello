@@ -3,6 +3,7 @@ author: "Robert Popper, Peter Serafinowicz"
 title: "Look Around You"
 type: "video"
 image: "/img/covers/look-around-you.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://www.comedy.co.uk/tv/look_around_you/"

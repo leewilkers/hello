@@ -3,6 +3,7 @@ author: "Sakiko Fukuda-Parr, Bhumika Muchhala"
 title: "The Southern Origins of Sustainable Development Goals: Ideas, Actors, Aspirations"
 type: paper
 image: "/img/covers/fukuda-parr-southern-origins-of-sdgs.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Global Health, Aid & Development"

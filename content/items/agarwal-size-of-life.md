@@ -3,6 +3,7 @@ author: "Neal Agarwal"
 title: "Size of Life"
 type: site
 image: "/img/covers/agarwal-size-of-life.jpg"
+cover_label: true
 dest: shelf
 topic: "Nature & Life"
 url: "https://neal.fun/size-of-life/"

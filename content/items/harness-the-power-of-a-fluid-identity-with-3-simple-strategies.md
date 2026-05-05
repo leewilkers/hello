@@ -3,6 +3,7 @@ author: "Marloes de Valk"
 title: "Harness the Power of a Fluid Identity with 3 Simple Strategies"
 type: "essay"
 image: "/img/covers/harness-the-power-of-a-fluid-identity-with-3-simple-strategies.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/harness-the-power-of-a-fluid-identity-with-3-simple-strategies-by-marloes-de-valk/"

@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 5: Bam!"
 type: magazine
 image: "/img/covers/mschf-mag-vol-5-bam.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://bam.mschfmag.com/"

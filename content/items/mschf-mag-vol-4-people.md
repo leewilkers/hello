@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 4: People"
 type: magazine
 image: "/img/covers/mschf-mag-vol-4-people.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://people.mschfmag.com/"

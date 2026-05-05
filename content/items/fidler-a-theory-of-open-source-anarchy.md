@@ -3,6 +3,7 @@ author: "David Fidler"
 title: "A Theory of Open-Source Anarchy"
 type: essay
 image: "/img/covers/fidler-a-theory-of-open-source-anarchy.jpg"
+cover_label: true
 dest: shelf
 topic: "Global Health, Aid & Development"
 url: "https://www.repository.law.indiana.edu/ijgls/vol15/iss1/11/"

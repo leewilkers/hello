@@ -3,6 +3,7 @@ author: "dril"
 title: "WINT.CO"
 type: "site"
 image: "/img/covers/dril-wint-co.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://www.wint.co/"

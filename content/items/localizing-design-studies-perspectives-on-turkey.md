@@ -3,6 +3,7 @@ author: "Deniz Hasirci, Tuba DoÄŸu, Deniz Avci, Gozde Damla Turhan-Haskara, AybÃ
 title: "TOD #53 Localizing Design Studies: Perspectives on Turkey"
 type: "book"
 image: "/img/covers/localizing-design-studies-perspectives-on-turkey.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/localizing-design-studies-perspectives-on-turkey/"

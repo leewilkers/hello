@@ -3,6 +3,7 @@ author: "Ivana Emily Škoro"
 title: "‘Look at This Graph’: An Essay on Structural Silliness"
 type: "essay"
 image: "/img/covers/look-at-this-graph-an-essay-on-structural-silliness.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://networkcultures.org/longform/2024/03/25/look-at-this-graph/"

@@ -3,6 +3,7 @@ author: Stephen Toulmin
 title: The Recovery of Practical Philosophy
 type: essay
 image: /img/covers/toulmin-the-recovery-of-practical-philosophy.jpg
+cover_label: true
 dest: shelf
 topic: "Ethics & Moral Imagination"
 url: "https://www.jstor.org/stable/41211544"

@@ -3,6 +3,7 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 3: VS"
 type: magazine
 image: "/img/covers/mschf-mag-vol-3-vs.jpg"
+cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://versus.mschfmag.com/"

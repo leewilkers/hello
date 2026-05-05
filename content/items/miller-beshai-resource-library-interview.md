@@ -3,6 +3,7 @@ author: "Meg Miller, Alison Beshai"
 title: "An Interview With Alison Beshai of Resource Library"
 type: interview
 image: "/img/covers/miller-beshai-resource-library-interview.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Memory & Archives"

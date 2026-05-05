@@ -3,6 +3,7 @@ author: "Andrew Hoskins"
 title: "AI & Collective Memory"
 type: journal article
 image: "/img/covers/andrew-hoskins-ai-and-collective-memory.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Memory & Archives"

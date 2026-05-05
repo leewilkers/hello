@@ -3,6 +3,7 @@ author: "A. Peter McGraw, Caleb Warren"
 title: "Benign violations: making immoral behavior funny"
 type: "journal article"
 image: "/img/covers/mcgraw-warren-benign-violations.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Humor"
 url: "https://pubmed.ncbi.nlm.nih.gov/20587696/"

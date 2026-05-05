@@ -3,6 +3,7 @@ author: "Amy C. Edmondson and Laura Feldman"
 title: "Phase Zero: Introducing New Services at IDEO (A)"
 type: "case study"
 image: "/img/covers/edmondson-feldman-phase-zero-introducing-new-services-at-ideo-a.jpg"
+cover_label: true
 dest: shelf
 topic: "Design"
 url: "https://store.hbr.org/product/phase-zero-introducing-new-services-at-ideo-a/605069"

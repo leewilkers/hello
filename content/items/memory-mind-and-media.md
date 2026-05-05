@@ -3,6 +3,7 @@ author: "Cambridge University Press"
 title: "Memory, Mind & Media"
 type: site
 image: "/img/covers/memory-mind-and-media.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Memory & Archives"

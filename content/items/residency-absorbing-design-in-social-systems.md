@@ -3,6 +3,7 @@ author: "Residency"
 title: "Absorbing Design in Social Systems"
 type: essay
 image: "/img/covers/residency-absorbing-design-in-social-systems.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Design"

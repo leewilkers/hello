@@ -3,6 +3,7 @@ author: "Kipp Teague"
 title: "The Project Apollo Archive"
 type: archive
 image: "/img/covers/project-apollo-archive.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Space"

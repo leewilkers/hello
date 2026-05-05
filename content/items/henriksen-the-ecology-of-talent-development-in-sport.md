@@ -3,6 +3,7 @@ author: "Kristoffer Henriksen"
 title: "The Ecology of Talent Development in Sport: A Multiple Case Study of Successful Athletic Talent Development Environments in Scandinavia"
 type: paper
 image: "/img/covers/henriksen-the-ecology-of-talent-development-in-sport.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"

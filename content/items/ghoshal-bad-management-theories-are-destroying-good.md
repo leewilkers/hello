@@ -3,6 +3,7 @@ author: "Sumantra Ghoshal"
 title: "Bad Management Theories Are Destroying Good Management Practices"
 type: paper
 image: "/img/covers/ghoshal-bad-management-theories-are-destroying-good.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Organizations & Work"

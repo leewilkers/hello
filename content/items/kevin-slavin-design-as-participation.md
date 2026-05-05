@@ -3,6 +3,7 @@ author: "Kevin Slavin"
 title: "Design as Participation"
 type: essay
 image: "/img/covers/kevin-slavin-design-as-participation.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Design"

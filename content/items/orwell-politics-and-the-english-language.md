@@ -3,6 +3,7 @@ author: "George Orwell"
 title: "Politics and the English Language"
 type: essay
 image: "/img/covers/orwell-politics-and-the-english-language.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Bullshit"
