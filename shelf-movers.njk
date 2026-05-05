@@ -1006,7 +1006,7 @@ function topicLabel(topic) {
 function render() {
   destroySortables();
   renderTopicRail();
-  els.board.innerHTML = DROP_TOPICS.map(topicSectionMarkup).join("");
+  els.board.innerHTML = visibleTopics().map(topicSectionMarkup).join("");
   bindTopicEditors();
   bindCards();
   bindDropTargets();
@@ -1014,8 +1014,12 @@ function render() {
   renderStats();
 }
 
+function visibleTopics() {
+  return DROP_TOPICS.filter((topic) => topic === STREAM_TOPIC || (state.orderByTopic[topic] || []).length);
+}
+
 function renderTopicRail() {
-  els.topicRail.innerHTML = DROP_TOPICS.map((topic) => {
+  els.topicRail.innerHTML = visibleTopics().map((topic) => {
     const count = state.orderByTopic[topic] ? state.orderByTopic[topic].length : 0;
     const changed = countChangedInTopic(topic);
     const changedText = changed ? ` / ${changed}` : "";
