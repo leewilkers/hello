@@ -3,6 +3,7 @@ author: "Lisa Messeri, M. J. Crockett"
 title: "Artificial Intelligence and Illusions of Understanding in Scientific Research"
 type: "journal article"
 image: "/img/covers/messeri-crockett-ai-illusions-of-understanding.jpg"
+shelf_list: true
 dest: stream
 url: "https://doi.org/10.1038/s41586-024-07146-0"
 order: 50

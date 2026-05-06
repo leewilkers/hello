@@ -3,6 +3,7 @@ author: "Suzanne W. Simard et al."
 title: "Net transfer of carbon between ectomycorrhizal tree species in the field"
 type: journal article
 image: "/img/covers/simard-net-transfer-of-carbon.jpg"
+shelf_list: true
 dest: shelf
 topic: "Nature & Life"
 url: "https://www.nature.com/articles/41557"

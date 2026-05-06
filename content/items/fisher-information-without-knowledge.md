@@ -3,6 +3,7 @@ author: "Matthew Fisher, Mariel K. Goddu, Frank C. Keil"
 title: "Information without knowledge: the effects of Internet search on learning"
 type: paper
 image: "/img/covers/fisher-information-without-knowledge.jpg"
+shelf_list: true
 dest: stream
 url: "https://bpb-us-w2.wpmucdn.com/campuspress.yale.edu/dist/c/259/files/2021/02/Fisher-Information-without-knowledge-the-effects-of-Internet-search-on-learning-copy.pdf"
 order: 50

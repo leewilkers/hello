@@ -3,6 +3,7 @@ author: "Robin Hunicke, Marc LeBlanc, and Robert Zubek"
 title: "MDA: A Formal Approach to Game Design and Game Research"
 type: paper
 image: "/img/covers/hunicke-leblanc-zubek-mda.jpg"
+shelf_list: true
 dest: shelf
 topic: "Games, Play & Performance"
 url: "https://users.cs.northwestern.edu/~hunicke/MDA.pdf"

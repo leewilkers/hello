@@ -4,6 +4,7 @@ title: "Benign violations: making immoral behavior funny"
 type: "journal article"
 image: "/img/covers/mcgraw-warren-benign-violations.jpg"
 cover_label: true
+shelf_list: true
 dest: "shelf"
 topic: "Humor"
 url: "https://pubmed.ncbi.nlm.nih.gov/20587696/"

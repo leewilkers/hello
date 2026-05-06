@@ -3,6 +3,7 @@ author: "Leandro Benedini Brusadin"
 title: "The Gift Theory and the Triad of Hospitality Ancient and Modern"
 type: paper
 image: "/img/covers/brusadin-gift-theory-triad-of-hospitality.jpg"
+shelf_list: true
 dest: shelf
 topic: "Hospitality & Service"
 url: "https://ertr.tamu.edu/files/2019/02/297-811-1-SM.pdf"
