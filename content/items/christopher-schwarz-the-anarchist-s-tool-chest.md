@@ -3,6 +3,7 @@ author: "Christopher Schwarz"
 title: "The Anarchist's Tool Chest"
 type: book
 image: "/img/covers/christopher-schwarz-the-anarchist-s-tool-chest.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Furniture & Craft"

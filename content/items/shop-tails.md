@@ -3,6 +3,7 @@ author: "Nancy R. Hiller"
 title: "Shop Tails: The Animals Who Help Us Make Things Work"
 type: "book"
 image: "/img/covers/shop-tails.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/shop-tails"

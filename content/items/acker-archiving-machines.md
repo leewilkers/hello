@@ -3,6 +3,7 @@ author: "Amelia Acker"
 title: "Archiving Machines: From Punch Cards to Platforms"
 type: book
 image: "/img/covers/amelia-acker-archiving-machines.jpg"
+cover_label: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://mitpress.mit.edu/9780262553247/archiving-machines/"

@@ -3,6 +3,7 @@ author: "Carlo Palazzolo, Riccardo Vio (eds.)"
 title: "In the Footsteps of Le Corbusier"
 type: book
 image: "/img/covers/in-the-footsteps-of-le-corbusier.jpg"
+cover_label: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://openlibrary.org/works/OL18301722W/In_the_footsteps_of_Le_Corbusier"

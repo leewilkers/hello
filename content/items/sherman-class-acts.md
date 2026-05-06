@@ -3,6 +3,7 @@ author: "Rachel Sherman"
 title: "Class Acts: Service and Inequality in Luxury Hotels"
 type: book
 image: "/img/covers/sherman-class-acts.jpg"
+cover_label: true
 dest: shelf
 topic: "Hospitality"
 url: "https://www.ucpress.edu/books/class-acts/paper"

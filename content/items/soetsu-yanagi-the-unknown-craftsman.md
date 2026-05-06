@@ -3,6 +3,7 @@ author: "Soetsu Yanagi"
 title: "The Unknown Craftsman: A Japanese Insight into Beauty"
 type: book
 image: "/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Furniture & Craft"

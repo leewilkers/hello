@@ -5,6 +5,7 @@ title: >-
   Sixteenth Century
 type: book
 image: /img/covers/harrington-the-faithful-executioner.jpg
+cover_label: true
 dest: shelf
 topic: "Organizations & Work"
 url: 'https://us.macmillan.com/books/9780809049929/the-faithful-executioner'

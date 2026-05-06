@@ -3,7 +3,6 @@ author: Wendell Berry
 title: Why I Am Not Going to Buy a Computer
 type: essay
 image: /img/covers/wendell-berry-why-i-am-not-going-to-buy-a-computer.jpg
-cover_label: true
 dest: shelf
 topic: "Tech"
 url: 'https://classes.matthewjbrown.net/teaching-files/philtech/berry-computer.pdf'

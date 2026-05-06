@@ -3,6 +3,7 @@ author: Johan Huizinga
 title: 'Homo Ludens: A Study of the Play-Element in Culture'
 type: book
 image: /img/covers/johan-huizinga-homo-ludens.jpg
+cover_label: true
 dest: shelf
 topic: "Games"
 url: 'https://archive.org/details/homoludensstudyo0000unse'

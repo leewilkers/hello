@@ -3,6 +3,7 @@ author: "Gaston Bachelard"
 title: "The Poetics of Space"
 type: book
 image: "/img/covers/bachelard-the-poetics-of-space.jpg"
+cover_label: true
 dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://www.penguinrandomhouse.com/books/316841/the-poetics-of-space-by-gaston-bachelard/"

@@ -3,6 +3,7 @@ author: "Christopher Schwarz"
 title: "Campaign Furniture: A Manual of Portable Furniture Design and Construction"
 type: book
 image: "/img/covers/schwarz-campaign-furniture.jpg"
+cover_label: true
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/campaign-furniture"

@@ -3,6 +3,7 @@ author: "Clay Spinuzzi"
 title: "Tracing Genres Through Organizations: A Sociocultural Approach to Information Design"
 type: book
 image: "/img/covers/spinuzzi-tracing-genres-through-organizations.jpg"
+cover_label: true
 dest: shelf
 topic: "Organizations & Work"
 url: "https://mitpress.mit.edu/9780262693431/tracing-genres-through-organizations/"

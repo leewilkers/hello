@@ -3,6 +3,7 @@ author: "Jonathan Glover"
 title: "Humanity: A Moral History of the Twentieth Century"
 type: book
 image: "/img/covers/glover-humanity.jpg"
+cover_label: true
 dest: shelf
 topic: "Ethics"
 url: "https://yalebooks.yale.edu/book/9780300087154/humanity/"

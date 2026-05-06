@@ -3,6 +3,7 @@ author: "Joan Fontcuberta"
 title: "Pandora's Camera: Photogr@phy After Photography"
 type: book
 image: "/img/covers/fontcuberta-pandoras-camera.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Photography & Journalism"

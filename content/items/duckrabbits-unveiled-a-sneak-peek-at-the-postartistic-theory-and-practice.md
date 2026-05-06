@@ -3,6 +3,7 @@ author: "Kacper Greń (visuals), Kuba Szreder (text)"
 title: "Duckrabbits Unveiled: A Sneak Peek at the Postartistic Theory and Practice"
 type: "book"
 image: "/img/covers/duckrabbits-unveiled-a-sneak-peek-at-the-postartistic-theory-and-practice.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Media"
 url: "https://networkcultures.org/blog/publication/duckrabbits-unveiled-a-sneak-peek-at-the-postartistic-theory-and-practice/"

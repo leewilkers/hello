@@ -3,6 +3,7 @@ author: "Maja Korczyńska"
 title: "INTERACTIONS"
 type: "book"
 image: "/img/covers/interactions.jpg"
+cover_label: true
 dest: "shelf"
 topic: "Interfaces"
 url: "https://networkcultures.org/blog/publication/interactions/"

@@ -3,6 +3,7 @@ author: "Joan Rivers, Richard Meryman"
 title: "Enter Talking"
 type: "book"
 image: "/img/covers/joan-rivers-enter-talking.jpg"
+cover_label: true
 shelf_list: true
 dest: shelf
 topic: "Humor"

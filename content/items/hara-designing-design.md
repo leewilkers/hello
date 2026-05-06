@@ -3,6 +3,7 @@ author: "Kenya Hara"
 title: "Designing Design"
 type: book
 image: "/img/covers/hara-designing-design.jpg"
+cover_label: true
 dest: shelf
 topic: "Design"
 url: "https://www.lars-mueller-publishers.com/designing-design"
