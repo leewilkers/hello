@@ -106,7 +106,7 @@
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
-    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-icons"><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span></button>
+    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
     <button class="loop-tally" aria-label="Loop dimmer" title="Loop the dimmer" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">LOOP</span></button>
     <button class="theme-lock" aria-label="Lock theme during loop" title="Lock current theme — loop without flipping" aria-pressed="false" onclick="toggleThemeLock()"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path class="theme-lock-shackle" d="M 3.5 6 L 3.5 4 a 2.5 2.5 0 0 1 5 0 L 8.5 6" stroke="currentColor" stroke-width="1.1" fill="none" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5.5" rx="0.8" fill="currentColor"/></svg></button>
   </div>
@@ -171,7 +171,7 @@
     let loopPressTimer = null;
     let loopNextTimer = null;
     let themeLocked = false;
-    let loopDirection = null;        // when locked, tracks alternating direction
+    let loopDirection = null;        // while locked, tracks alternating performance direction
 
     // Cat controller — manual clicks release on the video end; loop mode
     // releases from the music clock so the visual breath follows the note
@@ -241,14 +241,16 @@
       } catch (e) { return null; }
     }
 
-    // 4-note palette across Dmaj7 — numbered low to high.
-    // Pattern (1→3, 4→2): toggling back-and-forth traces ↑↑↓↓ as a
-    // looping melodic phrase: D4 A4 C#5 F#4 D4 A4 C#5 F#4...
+    // Winner shape from the B-flat audition page:
+    // Bb3 -> D4+A4 / Bb4 -> Bb3+F4+G4.
+    // The phrase is split across two switch presses/loop cycles.
     const PIANO = {
-      N1: 293.66, // D4   (lowest — root, dark anchor)
-      N2: 369.99, // F#4  (low-mid — major 3rd)
-      N3: 440.00, // A4   (high-mid — perfect 5th)
-      N4: 554.37  // C#5  (highest — maj7, treble bite)
+      BB3: 233.08,
+      D4: 293.66,
+      F4: 349.23,
+      G4: 392.00,
+      A4: 440.00,
+      BB4: 466.16
     };
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
@@ -286,10 +288,8 @@
     }
 
     // Pad voice — FM synthesis tuned for ambient bloom.
-    // No hammer noise (pads don't strike). Slow attack (~110ms). Long sustain
-    // so notes overlap into a harmonic cloud. Low mod-index peak keeps the
-    // attack soft, no upper-partial sizzle. Stereo-panned per voice for the
-    // watercolor spread. DX7 patch territory — Eno's Apollo, Music for Airports.
+    // Slower attack keeps the switch from feeling struck; low gravity is
+    // handled musically in the final chord rather than by literal octaves.
     function playPianoNote(freq, when, sustain, sendOverride, levelOverride, fadeProfile) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -298,6 +298,7 @@
       const send = sendOverride !== undefined ? sendOverride : 0.65;
       const level = levelOverride !== undefined ? levelOverride : 0.085;
       const reverb = getReverb(ctx);
+      const attack = 0.230;
 
       // Two slightly-detuned voices for chorus shimmer; each panned to its
       // own stereo position so the chorus also spreads spatially.
@@ -312,20 +313,19 @@
         modulator.frequency.value = freq;
         modulator.detune.value = detune;
 
-        // Pad-like mod envelope: slow rise to a low peak, slow fall.
-        // Index 0.7 → soft bell-pad (fundamental + 2nd partial mostly)
-        // Index 0.2 → just the fundamental (pure sine sustain)
+        // Pad-like mod envelope: slow rise to a lower peak, slow fall.
+        // The reduced peak dials back the bite without making the note blank.
         const modDepth = ctx.createGain();
         modDepth.gain.setValueAtTime(0.0001, t);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.7, t + 0.110);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.2, t + 2.0);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.42, t + attack);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.16, t + 2.4);
         modDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
         modulator.connect(modDepth).connect(carrier.frequency);
 
-        // Slow attack (~110ms = pad), very long decay to silence.
+        // Slow attack, very long decay to silence.
         const carrierGain = ctx.createGain();
         carrierGain.gain.setValueAtTime(0.0001, t);
-        carrierGain.gain.exponentialRampToValueAtTime(level, t + 0.110);
+        carrierGain.gain.exponentialRampToValueAtTime(level, t + attack);
         if (fadeProfile) {
           const holdUntil = t + (fadeProfile.hold || 0.75);
           const fadeUntil = t + (fadeProfile.fadeTo || 2.0);
@@ -352,7 +352,7 @@
         carrier.connect(carrierGain).connect(warmth).connect(panner).connect(ctx.destination);
 
         // Reverb send — heavy wet bus by default; press-notes can override
-        // (high C#5 press is dried because its tail bleeds into next chord).
+        // (high A4 press is dried because its tail bleeds into next chord).
         const sendGain = ctx.createGain();
         sendGain.gain.value = send;
         panner.connect(sendGain).connect(reverb);
@@ -362,11 +362,45 @@
         modulator.stop(t + sus + 0.1);
         carrier.stop(t + sus + 0.1);
       });
+
+      if (freq >= PIANO.A4) {
+        playHighColor(freq, t + 0.080, sus, level * 0.16, reverb);
+      }
     }
 
-    // Press — single first note. Direction-aware, conventional intuition:
-    //   D→L (goingDark=false): going to LIGHT = rise. Press N1 (D4 — low).
-    //   L→D (goingDark=true):  going to DARK  = fall. Press N4 (C#5 — high).
+    function playHighColor(freq, when, sustain, level, reverb) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const sus = sustain || 7.0;
+      const color = ctx.createOscillator();
+      color.type = 'triangle';
+      color.frequency.value = freq * 1.5;
+      color.detune.value = 5;
+
+      const colorGain = ctx.createGain();
+      colorGain.gain.setValueAtTime(0.0001, t);
+      colorGain.gain.exponentialRampToValueAtTime(Math.max(0.0005, level), t + 0.580);
+      colorGain.gain.exponentialRampToValueAtTime(0.0001, t + sus * 0.82);
+
+      const colorFilter = ctx.createBiquadFilter();
+      colorFilter.type = 'bandpass';
+      colorFilter.frequency.value = Math.min(2400, freq * 3.2);
+      colorFilter.Q.value = 0.85;
+
+      const colorPan = ctx.createStereoPanner();
+      colorPan.pan.value = 0.24;
+      color.connect(colorGain).connect(colorFilter).connect(colorPan).connect(ctx.destination);
+
+      const colorSend = ctx.createGain();
+      colorSend.gain.value = 0.48;
+      colorPan.connect(colorSend).connect(reverb);
+      color.start(t);
+      color.stop(t + sus + 0.3);
+    }
+
+    // Press — single first note. firstHalf=true gives the winning first press
+    // (Bb3); firstHalf=false gives the second press (Bb4).
     // Shimmer — pure-sine bell octave-up, very slow attack + long sustain.
     // Sits as a halo above the main FM voice. Quiet enough that you don't
     // hear it as its own event, just as sparkle on top.
@@ -384,7 +418,7 @@
 
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.045, t + 0.250);
+      gain.gain.exponentialRampToValueAtTime(0.030, t + 0.460);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
       osc.connect(gain).connect(ctx.destination);
 
@@ -396,36 +430,33 @@
       osc.stop(t + sus + 0.5);
     }
 
-    function playPressNote(goingDark) {
-      // Direction-aware press. The D4 press that starts dark→light blooms,
-      // then ducks into a quiet tail so it doesn't cloud the next gesture.
-      // C#5 press while going dark is dried a bit, but not clipped.
-      if (goingDark) {
-        playPianoNote(PIANO.N4, undefined, 4.0, 0.18);
-        playShimmer(PIANO.N4, undefined, 4.0, 0.08);
+    function playPressNote(firstHalf) {
+      if (firstHalf) {
+        playPianoNote(PIANO.BB3, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
+        playShimmer(PIANO.BB3, undefined, 3.2, 0.06);
       } else {
-        playPianoNote(PIANO.N1, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
-        playShimmer(PIANO.N1, undefined, 3.2, 0.06);
+        playPianoNote(PIANO.BB4, undefined, 4.4, 0.16, 0.064, { hold: 0.62, fadeTo: 1.9, tailRatio: 0.14 });
+        playShimmer(PIANO.BB4, undefined, 3.0, 0.05);
       }
     }
 
-    // Resolve — TWO notes (a chord) at cat-paw impact. The "satisfying" beat.
-    // Keep the original music shapes here; dark/light assignment is inverted
-    // only at the call sites via musicDirection().
-    function playResolveChord(goingDark) {
+    // Resolve — two notes at cat-paw impact: D4+A4, then low-root sixth.
+    // The dark/light assignment is inverted only at call sites via musicDirection().
+    function playResolveChord(firstHalf) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime;
-      if (goingDark) {
-        playPianoNote(PIANO.N2, t, 9.0);
-        playShimmer(PIANO.N2, t, 9.0);
-        playPianoNote(PIANO.N1, t, 9.0);
-        playShimmer(PIANO.N1, t, 9.0);
+      if (firstHalf) {
+        playPianoNote(PIANO.D4, t, 9.0);
+        playShimmer(PIANO.D4, t, 9.0);
+        playPianoNote(PIANO.A4, t, 8.2, 0.58, 0.074);
+        playShimmer(PIANO.A4, t, 7.0, 0.08);
       } else {
-        [PIANO.N3, PIANO.N4].forEach(function(f) {
-          playPianoNote(f, t, 9.0);
-          playShimmer(f, t, 9.0);
-        });
+        playPianoNote(PIANO.BB3, t, 9.8, 0.56, 0.060);
+        playPianoNote(PIANO.F4, t, 9.4, 0.62, 0.056);
+        playShimmer(PIANO.F4, t, 6.8, 0.038);
+        playPianoNote(PIANO.G4, t, 9.2, 0.68, 0.050);
+        playShimmer(PIANO.G4, t, 6.4, 0.034);
       }
     }
 
@@ -480,10 +511,9 @@
       // Audio: press immediately (this is beat zero of the cycle)
       playPressNote(musicGoingDark);
 
-      // Visual: cat clip plays in parallel — but only when NOT locked. With
-      // theme locked, the paw motion would imply a theme change that won't
-      // happen, so we leave the cat off-screen and just play music.
-      if (!themeLocked) catCtl.play(musicGoingDark, 'loop');
+      // Visual: cat clip keeps performing even when LOOP has pinned the page
+      // theme. The lock is the room lighting; the cat/audio loop is the piece.
+      catCtl.play(musicGoingDark, 'loop');
 
       // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
       if (loopPressTimer) clearTimeout(loopPressTimer);
@@ -557,6 +587,7 @@
     }
 
     function toggleThemeLock() {
+      if (loopArmed) return;
       themeLocked = !themeLocked;
       setLockUI(themeLocked);
       if (themeLocked) {
@@ -580,6 +611,9 @@
       try { sessionStorage.setItem('loop_armed', loopArmed ? '1' : '0'); } catch (e) {}
       setLoopUI(loopArmed);
       if (loopArmed) {
+        themeLocked = true;
+        setLockUI(true);
+        loopDirection = null;
         // Loop owns the dimmer while running — manual clicks would conflict
         if (button) button.disabled = true;
         startLoopCycle();
@@ -603,7 +637,10 @@
     try {
       if (sessionStorage.getItem('loop_armed') === '1') {
         loopArmed = true;
+        themeLocked = true;
+        loopDirection = null;
         setLoopUI(true);
+        setLockUI(true);
         if (button) button.disabled = true;  // loop owns dimmer while armed
 
         // Audio defer — if ctx is suspended (no user gesture on new page),

@@ -1,0 +1,823 @@
+---
+layout: base.njk
+title: B-flat progression audition
+pageClass: page-bb-progressions
+permalink: /bb-progressions/
+---
+
+<article class="bb-lab" id="main" data-bb-lab>
+  <header class="bb-lab-head">
+    <p class="bb-lab-kicker">B-flat audio sketches</p>
+    <h1>Restful nostalgic B-flat finals</h1>
+    <p>Sixth-colored shoegaze landings around the #10 feel, all using the same cat-timed lead-in against <a href="https://www.inbflat.net/" target="_blank" rel="noopener noreferrer">In B Flat</a>. Switch previews play one half per click.</p>
+  </header>
+
+  <div class="bb-transport" aria-label="Global playback controls">
+    <button class="bb-field-button" type="button" data-bb-field aria-pressed="false">In B Flat field</button>
+    <button class="bb-stop-all" type="button" data-bb-stop>stop all</button>
+    <a class="bb-source-link" href="https://www.inbflat.net/faq.html" target="_blank" rel="noopener noreferrer">In B Flat FAQ</a>
+    <span class="bb-field-status" data-bb-field-status>organic loop idle</span>
+  </div>
+
+  <div class="bb-grid" data-bb-grid aria-label="B-flat ambient gesture options"></div>
+</article>
+
+<script>
+  (function() {
+    const root = document.querySelector('[data-bb-lab]');
+    if (!root) return;
+
+    const NOTE_FREQ = {
+      Bb2: 116.54,
+      D3: 146.83,
+      F3: 174.61,
+      G3: 196.00,
+      A3: 220.00,
+      Bb3: 233.08,
+      C4: 261.63,
+      D4: 293.66,
+      Eb4: 311.13,
+      F4: 349.23,
+      G4: 392.00,
+      A4: 440.00,
+      Bb4: 466.16,
+      C5: 523.25,
+      D5: 587.33,
+      Eb5: 622.25,
+      F5: 698.46
+    };
+
+    const CAT_VIDEO_DURATION = 2.15;
+    const CAT_VIDEO_FPS = 20;
+    const CAT_HIT_SECONDS_FWD = 0.90;
+    const CAT_HIT_SECONDS_REV = CAT_VIDEO_DURATION - CAT_HIT_SECONDS_FWD - (1 / CAT_VIDEO_FPS);
+    const CAT_VIDEO_FWD = '/img/cat_light.mp4';
+    const CAT_VIDEO_REV = '/img/cat_light_rev.mp4';
+    const CAT_VIDEO_RATE = 0.9;
+    const CAT_PRESS_TO_HIT_MS = 1000;
+    const SWITCH_HALF_SECONDS = 4.0;
+
+    const PROGRESSIONS = [
+      {
+        id: 'thirteen-eleven',
+        name: '13 to 11',
+        notes: ['Bb3', 'D4', 'A4', 'F4', 'C5', 'Bb4', 'G3'],
+        path: 'Bb3 -> D4+A4 / Bb4 -> D4+G3',
+        mood: 'your splice, with a few quiet particles between',
+        duration: 18.8,
+        looseness: 0.24,
+        cycles: [
+          [
+            { at: 0.00, notes: ['Bb3'], sustain: 7.4, level: 0.030, send: 0.26 },
+            { at: 1.43, notes: ['D4', 'A4'], sustain: 7.9, level: 0.027, send: 0.66 },
+            { at: 4.86, notes: ['F4'], sustain: 5.4, level: 0.017, send: 0.52 },
+            { at: 7.34, notes: ['C5'], sustain: 5.8, level: 0.016, send: 0.72 },
+            { at: 10.92, notes: ['Bb4'], sustain: 6.2, level: 0.024, send: 0.66 },
+            { at: 12.68, notes: ['D4', 'G3'], sustain: 8.4, level: 0.026, send: 0.48 }
+          ],
+          [
+            { at: 0.00, notes: ['Bb3'], sustain: 6.8, level: 0.028, send: 0.24 },
+            { at: 2.08, notes: ['A4'], sustain: 6.4, level: 0.020, send: 0.60 },
+            { at: 3.21, notes: ['D4'], sustain: 7.0, level: 0.021, send: 0.54 },
+            { at: 6.72, notes: ['F4'], sustain: 4.9, level: 0.015, send: 0.46 },
+            { at: 9.81, notes: ['Bb4'], sustain: 6.8, level: 0.023, send: 0.68 },
+            { at: 12.57, notes: ['G3', 'D4'], sustain: 8.1, level: 0.025, send: 0.48 }
+          ],
+          [
+            { at: 0.00, notes: ['Bb3'], sustain: 7.0, level: 0.029, send: 0.25 },
+            { at: 1.76, notes: ['D4', 'A4'], sustain: 7.5, level: 0.026, send: 0.64 },
+            { at: 5.62, notes: ['G4'], sustain: 4.8, level: 0.015, send: 0.58 },
+            { at: 8.31, notes: ['F4'], sustain: 4.7, level: 0.014, send: 0.46 },
+            { at: 11.35, notes: ['Bb4'], sustain: 5.9, level: 0.023, send: 0.68 },
+            { at: 13.14, notes: ['G3', 'D4'], sustain: 8.0, level: 0.025, send: 0.48 }
+          ]
+        ]
+      },
+      {
+        id: 'g-window',
+        name: 'G window',
+        notes: ['G3', 'F4', 'Bb4', 'C5', 'D4'],
+        path: 'G3 -> F4+Bb4 / C5 -> D4+G3',
+        mood: 'relative-minor floor, open sky, unresolved answer',
+        duration: 19.6,
+        looseness: 0.28,
+        cycles: [
+          [
+            { at: 0.00, notes: ['G3'], sustain: 7.6, level: 0.027, send: 0.28 },
+            { at: 2.34, notes: ['F4', 'Bb4'], sustain: 8.4, level: 0.026, send: 0.68 },
+            { at: 6.98, notes: ['D4'], sustain: 4.2, level: 0.014, send: 0.44 },
+            { at: 10.47, notes: ['C5'], sustain: 6.2, level: 0.018, send: 0.76 },
+            { at: 13.82, notes: ['D4', 'G3'], sustain: 7.7, level: 0.024, send: 0.48 }
+          ],
+          [
+            { at: 0.00, notes: ['G3'], sustain: 8.1, level: 0.026, send: 0.27 },
+            { at: 3.06, notes: ['Bb4'], sustain: 7.2, level: 0.022, send: 0.68 },
+            { at: 4.51, notes: ['F4'], sustain: 6.9, level: 0.020, send: 0.54 },
+            { at: 9.74, notes: ['C5'], sustain: 5.4, level: 0.017, send: 0.74 },
+            { at: 13.26, notes: ['G3', 'D4'], sustain: 8.2, level: 0.024, send: 0.48 }
+          ]
+        ]
+      },
+      {
+        id: 'bb-lantern',
+        name: 'Bb lantern',
+        notes: ['Bb3', 'D4', 'A4', 'F4', 'Bb4', 'G3'],
+        path: 'Bb3 -> D4+A4 / F4 -> Bb4 -> D4+G3',
+        mood: 'same first light, slower turn into the G answer',
+        duration: 20.4,
+        looseness: 0.30,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 8.4, level: 0.029, send: 0.25 },
+          { at: 1.68, notes: ['D4', 'A4'], sustain: 7.2, level: 0.026, send: 0.64 },
+          { at: 5.93, notes: ['F4'], sustain: 6.7, level: 0.017, send: 0.52 },
+          { at: 10.18, notes: ['Bb4'], sustain: 7.4, level: 0.023, send: 0.68 },
+          { at: 14.49, notes: ['D4', 'G3'], sustain: 8.0, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'plagal-air',
+        name: 'plagal air',
+        notes: ['Bb3', 'Eb4', 'G4', 'F4', 'Bb4', 'D4', 'G3'],
+        path: 'Bb3 -> Eb4+G4 / Bb4 -> D4+G3',
+        mood: 'the IV color, but it refuses to become churchy',
+        duration: 18.2,
+        looseness: 0.24,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 7.2, level: 0.027, send: 0.26 },
+          { at: 2.71, notes: ['Eb4', 'G4'], sustain: 7.6, level: 0.024, send: 0.62 },
+          { at: 6.43, notes: ['F4'], sustain: 4.4, level: 0.014, send: 0.46 },
+          { at: 10.08, notes: ['Bb4'], sustain: 6.0, level: 0.022, send: 0.68 },
+          { at: 12.19, notes: ['D4', 'G3'], sustain: 8.3, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'ninth-afterimage',
+        name: 'ninth afterimage',
+        notes: ['Bb3', 'C5', 'D4', 'A4', 'G4', 'G3'],
+        path: 'Bb3 -> C5 / D4+A4 -> G3+D4',
+        mood: 'more air than cadence',
+        duration: 19.0,
+        looseness: 0.34,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 7.0, level: 0.027, send: 0.26 },
+          { at: 3.12, notes: ['C5'], sustain: 8.4, level: 0.021, send: 0.76 },
+          { at: 6.78, notes: ['D4', 'A4'], sustain: 6.8, level: 0.022, send: 0.62 },
+          { at: 10.63, notes: ['G4'], sustain: 4.9, level: 0.014, send: 0.56 },
+          { at: 13.35, notes: ['G3', 'D4'], sustain: 7.8, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'rootless-halo',
+        name: 'rootless halo',
+        notes: ['D4', 'A4', 'Bb4', 'F4', 'C5', 'G3'],
+        path: 'D4 -> A4+Bb4 / F4 -> G3+D4',
+        mood: 'no root until the floor appears late',
+        duration: 18.6,
+        looseness: 0.26,
+        events: [
+          { at: 0.00, notes: ['D4'], sustain: 7.5, level: 0.024, send: 0.52 },
+          { at: 2.41, notes: ['A4', 'Bb4'], sustain: 7.2, level: 0.023, send: 0.72 },
+          { at: 6.54, notes: ['C5'], sustain: 5.3, level: 0.014, send: 0.74 },
+          { at: 9.86, notes: ['F4'], sustain: 5.8, level: 0.016, send: 0.50 },
+          { at: 12.77, notes: ['G3', 'D4'], sustain: 8.0, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'slow-answer',
+        name: 'slow answer',
+        notes: ['Bb3', 'A4', 'D4', 'Bb4', 'G3'],
+        path: 'Bb3 -> A4 / D4 -> Bb4 -> G3+D4',
+        mood: 'the 13 is implied instead of announced',
+        duration: 21.2,
+        looseness: 0.36,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 8.8, level: 0.028, send: 0.25 },
+          { at: 3.83, notes: ['A4'], sustain: 7.6, level: 0.020, send: 0.62 },
+          { at: 8.92, notes: ['D4'], sustain: 5.8, level: 0.017, send: 0.46 },
+          { at: 12.76, notes: ['Bb4'], sustain: 6.4, level: 0.021, send: 0.70 },
+          { at: 15.69, notes: ['G3', 'D4'], sustain: 8.1, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'edge-of-fourth',
+        name: 'edge of fourth',
+        notes: ['Bb3', 'Eb5', 'C5', 'Bb4', 'D4', 'G3'],
+        path: 'Bb3 -> Eb5 / C5 -> Bb4 -> D4+G3',
+        mood: 'the suspended note is high enough to shimmer, not sag',
+        duration: 19.8,
+        looseness: 0.30,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 7.4, level: 0.026, send: 0.25 },
+          { at: 2.97, notes: ['Eb5'], sustain: 6.3, level: 0.017, send: 0.76 },
+          { at: 6.66, notes: ['C5'], sustain: 6.1, level: 0.016, send: 0.72 },
+          { at: 10.41, notes: ['Bb4'], sustain: 5.7, level: 0.021, send: 0.68 },
+          { at: 13.08, notes: ['D4', 'G3'], sustain: 8.0, level: 0.024, send: 0.48 }
+        ]
+      },
+      {
+        id: 'barely-there',
+        name: 'barely there',
+        notes: ['Bb3', 'D4', 'A4', 'Bb4', 'G3'],
+        path: 'Bb3 -> D4 / A4 -> Bb4 -> G3+D4',
+        mood: 'maximum silence, still the same argument',
+        duration: 24.0,
+        looseness: 0.42,
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 8.0, level: 0.026, send: 0.24 },
+          { at: 5.31, notes: ['D4'], sustain: 6.7, level: 0.017, send: 0.48 },
+          { at: 9.84, notes: ['A4'], sustain: 5.6, level: 0.016, send: 0.62 },
+          { at: 14.92, notes: ['Bb4'], sustain: 6.0, level: 0.019, send: 0.70 },
+          { at: 18.37, notes: ['G3', 'D4'], sustain: 7.8, level: 0.023, send: 0.48 }
+        ]
+      },
+      {
+        id: 'late-garden',
+        name: 'late garden',
+        notes: ['F4', 'Bb4', 'D4', 'A4', 'C5', 'Bb3', 'G3'],
+        path: 'F4+Bb4 -> D4+A4 / Bb3 -> G3+D4',
+        mood: 'starts as atmosphere, finds the ground afterward',
+        duration: 20.6,
+        looseness: 0.32,
+        events: [
+          { at: 0.00, notes: ['F4', 'Bb4'], sustain: 8.1, level: 0.023, send: 0.68 },
+          { at: 4.27, notes: ['D4', 'A4'], sustain: 7.0, level: 0.022, send: 0.62 },
+          { at: 8.64, notes: ['C5'], sustain: 5.3, level: 0.014, send: 0.74 },
+          { at: 12.33, notes: ['Bb3'], sustain: 7.1, level: 0.023, send: 0.28 },
+          { at: 15.21, notes: ['G3', 'D4'], sustain: 7.9, level: 0.024, send: 0.48 }
+        ]
+      }
+    ];
+
+    const DEFAULT_ENDING = ['F4', 'Bb4'];
+    const CAT_CYCLE_SECONDS = 8.0;
+    const INDIE_ENDINGS = [
+      { notes: ['G4', 'Bb4', 'D5'], name: 'seed #10 sixth lift', level: 0.018, send: 0.78 },
+      { notes: ['F4', 'G4', 'Bb4'], name: 'resting 6/5/root', level: 0.021, send: 0.74 },
+      { notes: ['Bb3', 'F4', 'G4'], name: 'low root sixth', level: 0.022, send: 0.68 },
+      { notes: ['Bb3', 'G4', 'Bb4'], name: 'root-six-root', level: 0.021, send: 0.72 },
+      { notes: ['D4', 'G4', 'Bb4'], name: 'third-six-root', level: 0.021, send: 0.74 },
+      { notes: ['D4', 'F4', 'G4', 'Bb4'], name: 'Bb6 home', level: 0.020, send: 0.72 },
+      { notes: ['Bb3', 'D4', 'F4', 'G4'], name: 'low Bb6', level: 0.021, send: 0.68 },
+      { notes: ['Bb3', 'F4', 'G4', 'C5'], name: '6/9 haze', level: 0.020, send: 0.76 },
+      { notes: ['D4', 'G4', 'C5'], name: 'no-root memory', level: 0.020, send: 0.76 },
+      { notes: ['F3', 'Bb3', 'G4'], name: 'old photo low', level: 0.020, send: 0.62 },
+      { notes: ['F3', 'Bb3', 'D4', 'G4'], name: 'low sixth bloom', level: 0.019, send: 0.64 },
+      { notes: ['F4', 'Bb4', 'C5'], name: 'add9 sigh', level: 0.021, send: 0.78 },
+      { notes: ['Bb3', 'D4', 'G4', 'C5'], name: '6/9 with third', level: 0.019, send: 0.76 },
+      { notes: ['F4', 'A4', 'Bb4'], name: 'soft 7/root glow', level: 0.018, send: 0.78 },
+      { notes: ['Bb3', 'F4', 'A4', 'C5'], name: 'maj7 veil', level: 0.018, send: 0.78 },
+      { notes: ['Eb4', 'G4', 'Bb4'], name: 'IV memory', level: 0.020, send: 0.74 }
+    ];
+
+    function uniqueNotes(events) {
+      const seen = {};
+      return events.reduce(function(notes, event) {
+        event.notes.forEach(function(note) {
+          if (!seen[note]) {
+            seen[note] = true;
+            notes.push(note);
+          }
+        });
+        return notes;
+      }, []);
+    }
+
+    function mainEvent(at, notes, sustain, level, send) {
+      return { at: at, notes: notes, sustain: sustain, level: level, send: send, locked: true };
+    }
+
+    function catEvents(start, hit, second) {
+      return [
+        mainEvent(0.00, start, 6.8, 0.027, 0.24),
+        mainEvent(1.00, hit, 7.2, 0.026, 0.66),
+        mainEvent(4.00, second, 5.8, 0.022, 0.62),
+        mainEvent(5.00, DEFAULT_ENDING, 8.2, 0.025, 0.68)
+      ];
+    }
+
+    function catCard(id, name, start, hit, second, mood, ending) {
+      const events = catEvents(start, hit, second);
+      const card = {
+        id: id,
+        name: name,
+        notes: uniqueNotes(events),
+        path: start.join('+') + ' -> ' + hit.join('+') + ' / ' + second.join('+') + ' -> ' + DEFAULT_ENDING.join('+'),
+        mood: mood,
+        duration: CAT_CYCLE_SECONDS,
+        looseness: 0.22,
+        events: events,
+        ending: ending || null
+      };
+      return card;
+    }
+
+    PROGRESSIONS.splice(0, PROGRESSIONS.length,
+      catCard('seed-sixth-lift', 'seed #10', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'the color you liked: nostalgic, still slightly airborne', INDIE_ENDINGS[0]),
+      catCard('resting-six', 'resting sixth', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'same G color, but F/B-flat makes it sit down', INDIE_ENDINGS[1]),
+      catCard('low-root-sixth', 'winner', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'selected #3: the root arrives below the nostalgic sixth', INDIE_ENDINGS[2]),
+      catCard('root-six-root', 'root-six-root', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'nostalgia held between two B-flats', INDIE_ENDINGS[3]),
+      catCard('third-six-root', 'third-six-root', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'songlike, warm, less cloudy', INDIE_ENDINGS[4]),
+      catCard('bb6-home', 'Bb6 home', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'actual restful B-flat 6, lightly voiced', INDIE_ENDINGS[5]),
+      catCard('low-bb6', 'low Bb6', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'same chord pulled lower and calmer', INDIE_ENDINGS[6]),
+      catCard('six-nine-haze', '6/9 haze', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'restful root with nostalgic 6 and 9 on top', INDIE_ENDINGS[7]),
+      catCard('no-root-memory', 'no-root memory', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'like #10 but softer and less declarative', INDIE_ENDINGS[8]),
+      catCard('old-photo-low', 'old photo low', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'downward, grounded, nostalgic without the close rub', INDIE_ENDINGS[9]),
+      catCard('low-sixth-bloom', 'low sixth bloom', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'big old-photo version with the third present', INDIE_ENDINGS[10]),
+      catCard('add9-sigh', 'add9 sigh', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'more restful than #10, with a little wistful top', INDIE_ENDINGS[11]),
+      catCard('six-nine-third', '6/9 with third', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'fuller nostalgic chord, still not too resolved', INDIE_ENDINGS[12]),
+      catCard('soft-seven-root', 'soft 7/root glow', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'the 7/root tension moved high where it glows instead of grinds', INDIE_ENDINGS[13]),
+      catCard('maj7-veil', 'maj7 veil', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'more wistful, less restful, included as boundary', INDIE_ENDINGS[14]),
+      catCard('iv-memory', 'IV memory', ['Bb3'], ['D4', 'A4'], ['Bb4'], 'nostalgic borrowed-feeling color over the same press', INDIE_ENDINGS[15])
+    );
+
+    PROGRESSIONS.forEach(function(progression, index) {
+      const ending = progression.ending || INDIE_ENDINGS[index % INDIE_ENDINGS.length];
+      function tuneEnding(events) {
+        events.forEach(function(event) {
+          if (event.locked && Math.abs(event.at - 5.00) < 0.001) {
+            event.notes = ending.notes.slice();
+            event.level = ending.level;
+            event.send = ending.send;
+          }
+        });
+      }
+      tuneEnding(progression.events);
+      if (progression.cycles) {
+        progression.cycles.forEach(tuneEnding);
+      }
+      progression.notes = uniqueNotes(progression.events);
+      progression.path = progression.path.replace(/ -> [^/]+$/, ' -> ' + ending.notes.join('+'));
+      progression.mood = progression.mood.replace(/; ending: .*$/, '') + '; ending: ' + ending.name;
+    });
+
+    const grid = root.querySelector('[data-bb-grid]');
+    const stopButton = root.querySelector('[data-bb-stop]');
+    const fieldButton = root.querySelector('[data-bb-field]');
+    const fieldStatus = root.querySelector('[data-bb-field-status]');
+    let audioCtx = null;
+    let activeId = null;
+    let loopTimer = null;
+    let progressTimer = null;
+    let organicTimer = null;
+    let catFadeTimer = null;
+    let switchTimers = [];
+    let switchHalfById = {};
+    let organicActive = false;
+    let activeNodes = [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const catFrame = document.querySelector('.cat-switch-frame');
+    const catVideo = catFrame && catFrame.querySelector('video');
+    const dimmerButton = document.querySelector('.dimmer');
+
+    const FIELD_GESTURES = [
+      {
+        name: '13/11 dust',
+        rest: [8.0, 16.0],
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 7.2, level: 0.021, send: 0.24 },
+          { at: 2.18, notes: ['D4', 'A4'], sustain: 7.6, level: 0.020, send: 0.64 },
+          { at: 8.84, notes: ['Bb4'], sustain: 5.8, level: 0.018, send: 0.70 },
+          { at: 11.32, notes: ['G3', 'D4'], sustain: 8.0, level: 0.020, send: 0.48 }
+        ]
+      },
+      {
+        name: 'G answer',
+        rest: [7.0, 15.0],
+        events: [
+          { at: 0.00, notes: ['G3'], sustain: 8.0, level: 0.020, send: 0.28 },
+          { at: 3.41, notes: ['F4', 'Bb4'], sustain: 7.4, level: 0.019, send: 0.68 },
+          { at: 9.67, notes: ['D4', 'G3'], sustain: 7.8, level: 0.020, send: 0.48 }
+        ]
+      },
+      {
+        name: 'single lights',
+        rest: [6.0, 13.0],
+        events: [
+          { at: 0.00, notes: ['A4'], sustain: 5.9, level: 0.016, send: 0.62 },
+          { at: 4.73, notes: ['C5'], sustain: 6.6, level: 0.016, send: 0.76 },
+          { at: 10.38, notes: ['D4'], sustain: 6.8, level: 0.017, send: 0.48 }
+        ]
+      },
+      {
+        name: 'plagal vapor',
+        rest: [8.0, 16.5],
+        events: [
+          { at: 0.00, notes: ['Eb4'], sustain: 7.4, level: 0.017, send: 0.60 },
+          { at: 3.82, notes: ['G4'], sustain: 6.8, level: 0.016, send: 0.62 },
+          { at: 9.21, notes: ['Bb4'], sustain: 6.3, level: 0.018, send: 0.70 },
+          { at: 12.64, notes: ['G3'], sustain: 7.1, level: 0.018, send: 0.30 }
+        ]
+      },
+      {
+        name: 'bare fifth',
+        rest: [9.0, 18.0],
+        events: [
+          { at: 0.00, notes: ['Bb3'], sustain: 8.5, level: 0.020, send: 0.24 },
+          { at: 5.46, notes: ['F4'], sustain: 6.8, level: 0.016, send: 0.50 },
+          { at: 11.58, notes: ['Bb4'], sustain: 6.6, level: 0.018, send: 0.68 }
+        ]
+      },
+      {
+        name: 'late ground',
+        rest: [10.0, 20.0],
+        events: [
+          { at: 0.00, notes: ['F4', 'Bb4'], sustain: 8.0, level: 0.019, send: 0.68 },
+          { at: 6.77, notes: ['A4'], sustain: 5.4, level: 0.014, send: 0.62 },
+          { at: 12.18, notes: ['G3', 'D4'], sustain: 8.2, level: 0.020, send: 0.48 }
+        ]
+      }
+    ];
+
+    function ensureAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return audioCtx;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getMaster(ctx) {
+      if (ctx._bbMaster) return ctx._bbMaster;
+      const master = ctx.createGain();
+      master.gain.value = 0.72;
+      master.connect(ctx.destination);
+      ctx._bbMaster = master;
+      return master;
+    }
+
+    function getReverb(ctx) {
+      if (ctx._bbReverb) return ctx._bbReverb;
+      const seconds = 8.0;
+      const preDelay = 0.045;
+      const sr = ctx.sampleRate;
+      const len = Math.floor(sr * seconds);
+      const preLen = Math.floor(sr * preDelay);
+      const buffer = ctx.createBuffer(2, len, sr);
+      for (let ch = 0; ch < 2; ch += 1) {
+        const data = buffer.getChannelData(ch);
+        const decayPower = ch === 0 ? 2.15 : 2.55;
+        for (let i = 0; i < len; i += 1) {
+          if (i < preLen) {
+            data[i] = 0;
+          } else {
+            const pos = (i - preLen) / (len - preLen);
+            data[i] = (Math.random() * 2 - 1) * Math.pow(1 - pos, decayPower);
+          }
+        }
+      }
+
+      const convolver = ctx.createConvolver();
+      const damp = ctx.createBiquadFilter();
+      convolver.buffer = buffer;
+      damp.type = 'lowpass';
+      damp.frequency.value = 1700;
+      damp.Q.value = 0.45;
+      convolver.connect(damp).connect(getMaster(ctx));
+      ctx._bbReverb = convolver;
+      return convolver;
+    }
+
+    function clearProgress() {
+      if (progressTimer) {
+        clearInterval(progressTimer);
+        progressTimer = null;
+      }
+      root.querySelectorAll('.bb-card').forEach(function(card) {
+        card.classList.remove('is-playing');
+        card.style.setProperty('--bb-progress', '0%');
+        const play = card.querySelector('[data-bb-play]');
+        const loop = card.querySelector('[data-bb-loop]');
+        const switchButton = card.querySelector('[data-bb-switch]');
+        if (play) play.setAttribute('aria-pressed', 'false');
+        if (loop) loop.setAttribute('aria-pressed', 'false');
+        if (switchButton) switchButton.setAttribute('aria-pressed', 'false');
+      });
+    }
+
+    function clearSwitchTimers() {
+      switchTimers.forEach(function(timer) {
+        clearTimeout(timer);
+      });
+      switchTimers = [];
+      if (catFadeTimer) {
+        clearTimeout(catFadeTimer);
+        catFadeTimer = null;
+      }
+    }
+
+    function flipThemeOnly() {
+      const doc = document.documentElement;
+      const goingDark = doc.getAttribute('data-theme') !== 'dark';
+      doc.setAttribute('data-theme', goingDark ? 'dark' : 'light');
+      if (dimmerButton) {
+        dimmerButton.setAttribute('aria-pressed', goingDark ? 'true' : 'false');
+      }
+    }
+
+    function playCatSwitchVisual() {
+      if (reducedMotion || !catFrame || !catVideo) return;
+      const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
+      const visualGoingDark = !goingDark;
+      if (catFadeTimer) {
+        clearTimeout(catFadeTimer);
+        catFadeTimer = null;
+      }
+      catVideo.src = visualGoingDark ? CAT_VIDEO_FWD : CAT_VIDEO_REV;
+      catVideo.currentTime = visualGoingDark ? 0 : (CAT_HIT_SECONDS_REV - CAT_HIT_SECONDS_FWD);
+      catVideo.playbackRate = CAT_VIDEO_RATE;
+      catFrame.style.setProperty('--cat-fade-ms', '180ms');
+      catFrame.classList.add('is-playing');
+      const playPromise = catVideo.play();
+      if (playPromise && playPromise.catch) playPromise.catch(function() {});
+      catFadeTimer = setTimeout(function() {
+        catFadeTimer = null;
+        catFrame.style.setProperty('--cat-fade-ms', '1050ms');
+        catFrame.classList.remove('is-playing');
+      }, 1700);
+    }
+
+    function runSwitchHit() {
+      playCatSwitchVisual();
+      switchTimers.push(setTimeout(flipThemeOnly, CAT_PRESS_TO_HIT_MS));
+    }
+
+    function scheduleSwitchHit() {
+      runSwitchHit();
+    }
+
+    function rand(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function pick(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function clearOrganicTimer() {
+      if (organicTimer) {
+        clearTimeout(organicTimer);
+        organicTimer = null;
+      }
+    }
+
+    function setOrganicUI(active, label) {
+      if (fieldButton) {
+        fieldButton.setAttribute('aria-pressed', active ? 'true' : 'false');
+        fieldButton.classList.toggle('is-active', active);
+      }
+      if (fieldStatus) {
+        fieldStatus.textContent = label || (active ? 'organic field running' : 'organic loop idle');
+      }
+    }
+
+    function stopAll() {
+      if (loopTimer) {
+        clearTimeout(loopTimer);
+        loopTimer = null;
+      }
+      clearSwitchTimers();
+      clearOrganicTimer();
+      organicActive = false;
+      setOrganicUI(false, 'organic loop idle');
+      clearProgress();
+      activeId = null;
+      activeNodes.forEach(function(node) {
+        try { node.stop(); } catch (e) {}
+      });
+      activeNodes = [];
+    }
+
+    function playPad(noteName, when, sustain, level, send) {
+      const ctx = ensureAudio();
+      const freq = NOTE_FREQ[noteName];
+      if (!ctx || !freq) return;
+      const reverb = getReverb(ctx);
+      const master = getMaster(ctx);
+      const duration = sustain || 7.5;
+      const gainLevel = level || 0.052;
+      const wet = send === undefined ? 0.58 : send;
+
+      [-3, 3].forEach(function(detune, idx) {
+        const carrier = ctx.createOscillator();
+        const modulator = ctx.createOscillator();
+        const modDepth = ctx.createGain();
+        const gain = ctx.createGain();
+        const warmth = ctx.createBiquadFilter();
+        const panner = ctx.createStereoPanner();
+        const sendGain = ctx.createGain();
+
+        carrier.type = 'sine';
+        carrier.frequency.value = freq;
+        carrier.detune.value = detune;
+        modulator.type = 'sine';
+        modulator.frequency.value = freq;
+        modulator.detune.value = detune;
+
+        modDepth.gain.setValueAtTime(0.0001, when);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.42, when + 0.18);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.13, when + 1.8);
+        modDepth.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+        modulator.connect(modDepth).connect(carrier.frequency);
+
+        gain.gain.setValueAtTime(0.0001, when);
+        gain.gain.exponentialRampToValueAtTime(gainLevel, when + 0.18);
+        gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, gainLevel * 0.18), when + 2.8);
+        gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+
+        warmth.type = 'lowpass';
+        warmth.frequency.value = 2550;
+        warmth.Q.value = 0.55;
+        panner.pan.value = idx === 0 ? -0.28 : 0.28;
+        sendGain.gain.value = wet;
+
+        carrier.connect(gain).connect(warmth).connect(panner).connect(master);
+        panner.connect(sendGain).connect(reverb);
+
+        modulator.start(when);
+        carrier.start(when);
+        modulator.stop(when + duration + 0.2);
+        carrier.stop(when + duration + 0.2);
+        activeNodes.push(modulator, carrier);
+      });
+    }
+
+    function scheduleOrganicGesture() {
+      if (!organicActive) return;
+      const ctx = ensureAudio();
+      if (!ctx) return;
+
+      const gesture = pick(FIELD_GESTURES);
+      const now = ctx.currentTime + 0.08;
+      let lastAt = 0;
+      setOrganicUI(true, 'organic field: ' + gesture.name);
+
+      gesture.events.forEach(function(event) {
+        const jitter = rand(-0.42, 0.52);
+        const at = Math.max(0, event.at + jitter);
+        lastAt = Math.max(lastAt, at + event.sustain);
+        event.notes.forEach(function(note) {
+          playPad(note, now + at, event.sustain + rand(-0.6, 1.2), event.level * rand(0.82, 1.08), event.send);
+        });
+      });
+
+      const rest = rand(gesture.rest[0], gesture.rest[1]);
+      organicTimer = setTimeout(scheduleOrganicGesture, Math.max(5, lastAt + rest) * 1000);
+    }
+
+    function toggleOrganicField() {
+      if (organicActive) {
+        stopAll();
+        return;
+      }
+      stopAll();
+      organicActive = true;
+      activeId = 'organic-field';
+      setOrganicUI(true, 'organic field: listening');
+      scheduleOrganicGesture();
+    }
+
+    function getProgressionEvents(progression, cycleIndex) {
+      if (progression.cycles && progression.cycles.length) {
+        return progression.cycles[cycleIndex % progression.cycles.length];
+      }
+      if (progression.events && progression.events.length) {
+        return progression.events;
+      }
+      const n = progression.notes;
+      const finalNotes = progression.finalNotes || [n[1], n[0]];
+      return [
+        { at: 0.0, notes: [n[0]], sustain: 5.0, level: 0.044, send: 0.22 },
+        { at: 1.15, notes: [n[2], n[3]], sustain: 7.6, level: 0.038, send: 0.62 },
+        { at: 4.75, notes: [n[3]], sustain: 4.7, level: 0.036, send: 0.22 },
+        { at: 5.90, notes: finalNotes, sustain: 7.8, level: 0.038, send: 0.62 }
+      ];
+    }
+
+    function getProgressionDuration(progression, events) {
+      if (progression.duration) return progression.duration;
+      const end = events.reduce(function(max, event) {
+        return Math.max(max, event.at + (event.sustain || 7.5));
+      }, 0);
+      return Math.max(12, end + 3.5);
+    }
+
+    function getSwitchHalfEvents(events, half) {
+      const start = half === 1 ? SWITCH_HALF_SECONDS : 0;
+      const end = start + SWITCH_HALF_SECONDS;
+      return events.filter(function(event) {
+        return event.at >= start && event.at < end;
+      }).map(function(event) {
+        const copy = Object.assign({}, event);
+        copy.notes = event.notes.slice();
+        copy.at = event.at - start;
+        return copy;
+      });
+    }
+
+    function scheduleProgression(progression, loop, cycleIndex, switchMode, switchHalf) {
+      stopAll();
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const now = ctx.currentTime + 0.07;
+      const cycle = cycleIndex || 0;
+      const sourceEvents = getProgressionEvents(progression, cycle);
+      const events = switchMode ? getSwitchHalfEvents(sourceEvents, switchHalf || 0) : sourceEvents;
+      const duration = switchMode ? SWITCH_HALF_SECONDS : getProgressionDuration(progression, events);
+      const looseness = progression.looseness === undefined ? 0.22 : progression.looseness;
+
+      events.forEach(function(event) {
+        const eventLooseness = event.looseness === undefined ? looseness : event.looseness;
+        const at = event.locked ? event.at : Math.max(0, event.at + rand(-eventLooseness, eventLooseness));
+        const sustain = event.locked ? (event.sustain || 7.5) : Math.max(1.2, (event.sustain || 7.5) + rand(-0.45, 0.9));
+        const level = event.locked ? (event.level || 0.026) : (event.level || 0.026) * rand(0.88, 1.06);
+        event.notes.forEach(function(note) {
+          playPad(note, now + at, sustain, level, event.send);
+        });
+      });
+
+      activeId = progression.id;
+      const card = root.querySelector('[data-progression-id="' + progression.id + '"]');
+      if (card) {
+        card.classList.add('is-playing');
+        const control = card.querySelector(switchMode ? '[data-bb-switch]' : (loop ? '[data-bb-loop]' : '[data-bb-play]'));
+        if (control) control.setAttribute('aria-pressed', 'true');
+      }
+
+      if (switchMode) {
+        scheduleSwitchHit();
+      }
+
+      const startedAt = Date.now();
+      progressTimer = setInterval(function() {
+        const pct = Math.min(100, ((Date.now() - startedAt) / (duration * 1000)) * 100);
+        if (card) card.style.setProperty('--bb-progress', pct.toFixed(2) + '%');
+      }, 80);
+
+      loopTimer = setTimeout(function() {
+        loopTimer = null;
+        clearProgress();
+        if (loop && activeId === progression.id) {
+          scheduleProgression(progression, true, cycle + 1);
+        } else {
+          activeId = null;
+        }
+      }, duration * 1000);
+    }
+
+    function render() {
+      grid.innerHTML = PROGRESSIONS.map(function(progression, index) {
+        const finalNotes = progression.finalNotes || [progression.notes[1], progression.notes[0]];
+        const notePath = progression.path || (progression.notes[0] + ' -> ' + progression.notes[2] + '+' + progression.notes[3] + ' / ' + progression.notes[3] + ' -> ' + finalNotes.join('+'));
+        return '' +
+          '<section class="bb-card" data-progression-id="' + progression.id + '">' +
+            '<div class="bb-card-progress" aria-hidden="true"></div>' +
+            '<div class="bb-card-top">' +
+              '<span class="bb-index">' + String(index + 1).padStart(2, '0') + '</span>' +
+              '<h2>' + progression.name + '</h2>' +
+            '</div>' +
+            '<p class="bb-notes">' + progression.notes.join('  ') + '</p>' +
+            '<p class="bb-path">' + notePath + '</p>' +
+            '<p class="bb-mood">' + progression.mood + '</p>' +
+            '<div class="bb-actions">' +
+              '<button type="button" data-bb-play="' + progression.id + '" aria-pressed="false">play</button>' +
+              '<button type="button" data-bb-switch="' + progression.id + '" aria-pressed="false">switch</button>' +
+            '</div>' +
+          '</section>';
+      }).join('');
+    }
+
+    render();
+
+    grid.addEventListener('click', function(event) {
+      const play = event.target.closest('[data-bb-play]');
+      const loop = event.target.closest('[data-bb-loop]');
+      const switchButton = event.target.closest('[data-bb-switch]');
+      const button = play || loop || switchButton;
+      if (!button) return;
+      const id = button.getAttribute(play ? 'data-bb-play' : (loop ? 'data-bb-loop' : 'data-bb-switch'));
+      const progression = PROGRESSIONS.find(function(item) { return item.id === id; });
+      if (progression) {
+        const isSwitch = Boolean(switchButton);
+        const half = isSwitch ? (switchHalfById[id] || 0) : 0;
+        scheduleProgression(progression, Boolean(loop), 0, isSwitch, half);
+        if (isSwitch) {
+          switchHalfById[id] = half === 0 ? 1 : 0;
+        }
+      }
+    });
+
+    if (stopButton) {
+      stopButton.addEventListener('click', stopAll);
+    }
+
+    if (fieldButton) {
+      fieldButton.addEventListener('click', toggleOrganicField);
+    }
+
+    window.addEventListener('pagehide', stopAll);
+  })();
+</script>
