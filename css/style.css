@@ -405,7 +405,7 @@ img { display: block; }
   text-decoration: none;
 }
 
-/* ── dimmer toggle (TE-style — see also block ~line 548 for full chiclet redesign) ── */
+/* ── dimmer toggle styles live with the nav control block below ── */
 
 .page {
   max-width: 520px;
@@ -2375,61 +2375,53 @@ body {
   text-decoration-color: var(--ink);
 }
 
-/* DIMMER — TE faceplate sibling of .loop-tally
-   Same polymer/shadow/bevel vocabulary as the LOOP keycap so the two read as
-   one instrument panel. Continuous L↔R slug (continuous-feeling slide) vs
-   LOOP's binary punch-out — affordance shape ↔ degrees of freedom. */
+/* DIMMER — site-native rule control.
+   Moon sits left, sun right; the accent tick travels between them. */
 .dimmer {
-  width: auto;
-  height: auto;
-  padding: 4px 6px 5px;
+  min-height: 1.4rem;
+  padding: 0.18rem 0;
   border: 0;
   border-radius: 0;
-  background: none;
-  color: var(--ink-light);
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 0.34rem;
+  background: transparent;
+  color: var(--ink-faint);
+  cursor: pointer;
   font-family: var(--mono);
   line-height: 1;
 }
 
 .dimmer::after { content: none; }
 
-.dimmer-icons {
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-}
-
-/* Sun/moon — geometric monochrome SVG. currentColor inherits from the span,
-   so the rules below drive both fill (sun disc, moon body) and stroke (sun
-   radial ticks). Active = full ink; inactive = ~50% mix. */
 .dimmer-sun,
 .dimmer-moon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: color-mix(in srgb, var(--ink) 50%, transparent);
-  transition: color 160ms ease;
+  width: 0.9rem;
+  height: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 48%, transparent);
+  transition: color 140ms ease;
 }
 
 .dimmer-sun svg,
 .dimmer-moon svg {
   display: block;
+  width: 0.72rem;
+  height: 0.72rem;
 }
 
 :root .dimmer-sun {
-  color: var(--ink);
+  color: var(--accent-text);
 }
 
 [data-theme="dark"] .dimmer-sun {
-  color: color-mix(in srgb, var(--ink) 50%, transparent);
+  color: color-mix(in srgb, var(--ink) 48%, transparent);
 }
 
 [data-theme="dark"] .dimmer-moon {
-  color: var(--ink);
+  color: var(--accent-text);
 }
 
 .dimmer:hover .dimmer-sun,
@@ -2437,79 +2429,46 @@ body {
   color: var(--ink);
 }
 
-/* Track — milled cavity. Cavity floor darkens toward center via radial
-   gradient; top wall throws shadow, bottom wall catches light. */
 .dimmer-track {
   position: relative;
   display: block;
-  width: 32px;
-  height: 13px;
-  border-radius: 6.5px;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 50%,
-      color-mix(in srgb, #000 30%, var(--bg)) 0%,
-      color-mix(in srgb, #000 16%, var(--bg)) 70%,
-      color-mix(in srgb, var(--ink) 14%, var(--bg)) 100%);
-  box-shadow:
-    inset 0 1.5px 2px color-mix(in srgb, #000 42%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 70%, transparent),
-    inset 1px 0 0 color-mix(in srgb, #000 18%, transparent),
-    inset -1px 0 0 color-mix(in srgb, #000 18%, transparent),
-    0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent);
-  transition: box-shadow 90ms ease-out;
+  width: 1.95rem;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent-text) 58%, var(--rule-light));
+  transition: background 140ms ease;
 }
 
-/* Slug — sibling part to .loop-tally keycap. Same crown highlight, same
-   6-layer bevel. Travels L↔R; bounce on slide makes the loop tick visible. */
 .dimmer-knob {
   position: absolute;
-  top: 1.5px;
-  left: 1.5px;
-  width: 13px;
-  height: 10px;
-  border-radius: 3px;
-  background:
-    radial-gradient(ellipse 130% 70% at 50% -10%,
-      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
-      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
-      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
-  box-shadow:
-    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
-    0 1px 0 color-mix(in srgb, #000 32%, transparent),
-    0 1.5px 2px color-mix(in srgb, #000 22%, transparent);
+  top: 50%;
+  left: 0;
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 50%;
+  background: var(--accent-text);
+  box-shadow: 0 0 0 2px var(--bg);
+  transform: translateY(-50%);
   transition:
-    left 220ms cubic-bezier(0.34, 1.56, 0.64, 1),
-    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
-    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1);
+    left 180ms ease,
+    transform 80ms ease,
+    box-shadow 140ms ease;
+}
+
+:root .dimmer-knob {
+  left: calc(100% - 0.36rem);
 }
 
 [data-theme="dark"] .dimmer-knob {
-  left: calc(100% - 14.5px);
+  left: 0;
 }
 
-/* Press — slug travels 0.5px down into its track; bevel inverts. Same
-   timing/bezier as LOOP key so both controls feel like the same product. */
+.dimmer:hover .dimmer-track,
+.dimmer:focus-visible .dimmer-track {
+  background: var(--accent-text);
+}
+
 .dimmer:active .dimmer-knob {
-  transform: translateY(0.5px);
-  box-shadow:
-    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent);
-}
-
-/* Track deepens on press to sell the slug-pushed-in feel */
-.dimmer:active .dimmer-track {
-  box-shadow:
-    inset 0 2.5px 3px color-mix(in srgb, #000 55%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 55%, transparent),
-    inset 1px 0 0 color-mix(in srgb, #000 28%, transparent),
-    inset -1px 0 0 color-mix(in srgb, #000 28%, transparent);
+  transform: translateY(-50%) scale(0.84);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2517,112 +2476,64 @@ body {
   .dimmer-track,
   .dimmer:active .dimmer-knob {
     transition: none;
-    transform: none;
   }
 }
 
-/* LOOP button — TE punch-out tally
-   Different physical shape from .dimmer on purpose: dimmer = continuous slug-in-track,
-   loop = binary punch-out with tally LED. Affordance shape matches degrees of freedom. */
+/* LOOP — site-native status control, paired with the dimmer by line/accent
+   instead of fake hardware. */
 .loop-tally {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
-  padding: 4px 8px 5px;
+  gap: 0.38rem;
+  min-height: 1.4rem;
+  padding: 0.18rem 0.1rem;
   border: 0;
-  border-radius: 2.5px;
-  /* Polymer keycap — radial highlight at top fakes the molded crown.
-     Surface tints toward ink in both themes so the key reads as a discrete
-     hardware control floating above the page. */
-  background:
-    radial-gradient(ellipse 130% 70% at 50% -10%,
-      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
-      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
-      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
-  /* Layered bevel — top hairline crown, bottom edge shadow, side chamfers,
-     baseplate drop. Reads as a real injection-molded chiclet from across the room. */
-  box-shadow:
-    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
-    0 1px 0 color-mix(in srgb, #000 28%, transparent),
-    0 1.5px 2px color-mix(in srgb, #000 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-text) 42%, var(--rule-light));
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink-faint);
   cursor: pointer;
   font-family: var(--mono);
   line-height: 1;
   transition:
-    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
-    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1);
+    color 140ms ease,
+    border-color 140ms ease;
 }
 
-/* LED in a recessed well — single element, two states.
-   Off: only inset shadow (dark dot in a pit).
-   Armed: outset bloom appears (lens powered on) plus hot center highlight. */
 .loop-tally-led {
-  width: 5px;
-  height: 5px;
+  width: 0.34rem;
+  height: 0.34rem;
   border-radius: 50%;
-  background: color-mix(in srgb, #000 70%, var(--ink));
-  box-shadow:
-    inset 0 0.5px 1px color-mix(in srgb, #000 80%, transparent),
-    0 0.5px 0 color-mix(in srgb, var(--bg) 50%, transparent);
+  background: color-mix(in srgb, var(--ink) 34%, transparent);
   transition: background 100ms ease, box-shadow 200ms ease;
 }
 
-/* Engraved label — printed-on-plastic feel via 0.5px highlight beneath each
-   glyph (south-edge highlight = debossed; north-edge would be embossed). */
 .loop-tally-label {
-  font-size: 8.5px;
+  font-size: 0.62rem;
   font-weight: 600;
   letter-spacing: 0.13em;
-  color: color-mix(in srgb, var(--ink) 72%, transparent);
-  text-shadow: 0 0.5px 0 color-mix(in srgb, var(--bg) 65%, transparent);
+  color: currentColor;
 }
 
-.loop-tally:hover .loop-tally-label {
+.loop-tally:hover,
+.loop-tally:focus-visible {
   color: var(--ink);
+  border-bottom-color: var(--accent-text);
 }
 
-/* Press — keycap travels 1px down into its well; bevel inverts (top edge
-   becomes shadow, baseplate drop collapses). Snap timing 70ms with sharp
-   bezier ends — no spring. */
 .loop-tally:active {
   transform: translateY(1px);
-  box-shadow:
-    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent);
 }
 
-/* Armed — LED lens lights warm orange (Flexoki). Hot center, tight bloom,
-   then a softer outer halo. Three concentric shadows = real lit-LED depth. */
 .loop-tally.is-armed .loop-tally-led {
-  background: #DA702C;
-  box-shadow:
-    inset 0 0.5px 0.5px color-mix(in srgb, #FFE9C8 70%, transparent),
-    0 0 0 0.5px color-mix(in srgb, #DA702C 95%, transparent),
-    0 0 2.5px #DA702C,
-    0 0 6px color-mix(in srgb, #DA702C 55%, transparent);
+  background: var(--accent-text);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-text) 20%, transparent);
 }
 
-.loop-tally.is-armed .loop-tally-label {
+.loop-tally.is-armed {
   color: var(--ink);
-}
-
-/* Dark theme — amber lens (Flexoki yellow-600), reads cleaner on black bg */
-[data-theme="dark"] .loop-tally.is-armed .loop-tally-led {
-  background: #D0A215;
-  box-shadow:
-    inset 0 0.5px 0.5px color-mix(in srgb, #FFE9C8 60%, transparent),
-    0 0 0 0.5px color-mix(in srgb, #D0A215 95%, transparent),
-    0 0 2.5px #D0A215,
-    0 0 6px color-mix(in srgb, #D0A215 55%, transparent);
+  border-bottom-color: var(--accent-text);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2632,35 +2543,20 @@ body {
   }
 }
 
-/* THEME LOCK — appears only when LOOP is armed (sibling combinator on .is-armed).
-   Same TE keycap vocabulary, smaller footprint. Locked-state lights the icon
-   accent like the LOOP LED does when armed. */
+/* Theme lock — quiet icon that appears only when LOOP is armed. */
 .theme-lock {
   display: none;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 1.4rem;
+  height: 1.4rem;
   padding: 0;
   border: 0;
-  border-radius: 2.5px;
-  background:
-    radial-gradient(ellipse 130% 70% at 50% -10%,
-      color-mix(in srgb, var(--bg) 55%, var(--ink-light)) 0%,
-      color-mix(in srgb, var(--ink) 22%, var(--bg)) 55%,
-      color-mix(in srgb, var(--ink) 38%, var(--bg)) 100%);
-  box-shadow:
-    inset 0 0.5px 0 color-mix(in srgb, var(--bg) 75%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, #000 38%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, var(--bg) 22%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, #000 22%, transparent),
-    0 1px 0 color-mix(in srgb, #000 32%, transparent),
-    0 1.5px 2px color-mix(in srgb, #000 22%, transparent);
-  color: color-mix(in srgb, var(--ink) 60%, transparent);
+  border-radius: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
   cursor: pointer;
   transition:
-    transform 70ms cubic-bezier(0.7, 0, 0.3, 1),
-    box-shadow 70ms cubic-bezier(0.7, 0, 0.3, 1),
     color 140ms ease;
 }
 
@@ -2675,21 +2571,10 @@ body {
 
 .theme-lock:active {
   transform: translateY(1px);
-  box-shadow:
-    inset 0 1px 1.5px color-mix(in srgb, #000 45%, transparent),
-    inset 0 -0.5px 0 color-mix(in srgb, var(--bg) 30%, transparent),
-    inset 0.5px 0 0 color-mix(in srgb, #000 12%, transparent),
-    inset -0.5px 0 0 color-mix(in srgb, var(--bg) 12%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent),
-    0 0 0 color-mix(in srgb, #000 0%, transparent);
 }
 
 .theme-lock.is-locked {
-  color: #DA702C;
-}
-
-[data-theme="dark"] .theme-lock.is-locked {
-  color: #D0A215;
+  color: var(--accent-text);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3568,6 +3453,7 @@ body {
 }
 
 .page-shelf {
+  --shelf-topic-rail: 280px;
   height: auto;
   min-height: calc(100vh - 46px);
   overflow: visible;
@@ -3710,7 +3596,7 @@ body {
 }
 
 .page-shelf .library {
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: var(--shelf-topic-rail) minmax(0, 1fr);
   gap: 0;
   max-width: 1500px;
   padding: 0;
@@ -3836,17 +3722,16 @@ body {
 .shelf-head-banner {
   display: block;
   position: absolute;
-  left: 50%;
+  left: var(--shelf-topic-rail);
   bottom: -0.68rem;
-  width: min(39.5rem, calc(100% - 24rem));
-  aspect-ratio: 2014 / 341;
+  width: min(52rem, calc(100% - var(--shelf-topic-rail) - 11.5rem));
+  height: min(6.7rem, calc(100% - 0.5rem));
   background-image: url("/img/rabbits/hare-running-shelf-banner-ground-tight.png");
-  background-position: center bottom;
+  background-position: left bottom;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: auto 100%;
   mix-blend-mode: multiply;
   opacity: 0.3;
-  transform: translateX(-50%);
   pointer-events: none;
 }
 
@@ -5479,6 +5364,11 @@ a.shelf-list-title:hover {
    Must come after archive-instrument's .page-shelf .library rule
    so source order wins at equal specificity. */
 @media (max-width: 1200px) {
+  .shelf-head-banner {
+    left: clamp(10.75rem, 18vw, 14.25rem);
+    width: min(52rem, calc(100% - clamp(10.75rem, 18vw, 14.25rem) - 12rem));
+  }
+
   .sidebar-toggle {
     display: block;
     top: 3.5rem;
