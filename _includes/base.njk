@@ -501,7 +501,8 @@
     }
 
     // Resolve — first hit stays D4+A4; second-hit finals can move in LOOP mode.
-    // The dark/light assignment is inverted only at call sites via musicDirection().
+    // Audio direction is inverted at call sites via musicDirection(); the cat
+    // video still follows the visual theme direction.
     function playResolveChord(firstHalf, movement) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -569,7 +570,7 @@
 
       // Visual: cat clip keeps performing even when LOOP has pinned the page
       // theme. The lock is the room lighting; the cat/audio loop is the piece.
-      catCtl.play(musicGoingDark, 'loop');
+      catCtl.play(goingDark, 'loop');
 
       // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
       if (loopPressTimer) clearTimeout(loopPressTimer);
@@ -592,11 +593,11 @@
 
       const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
       const musicGoingDark = musicDirection(goingDark);
-      const hitAt = musicGoingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
-      const seekFrom = musicGoingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
+      const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
+      const seekFrom = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
       const safetyMs = ((hitAt - seekFrom) / VIDEO_RATE) * 1000 + 500;
 
-      catCtl.play(musicGoingDark);
+      catCtl.play(goingDark);
 
       let flipped = false;
       function doFlip() {
