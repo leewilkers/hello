@@ -107,20 +107,20 @@
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-    <button class="loop-tally" aria-label="Loop dimmer" title="Loop the dimmer" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">LOOP</span></button>
+    <button class="loop-tally" aria-label="Play B-flat loop" title="Play B-flat loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">PLAY</span></button>
     <button class="theme-lock" aria-label="Lock theme during loop" title="Lock current theme — loop without flipping" aria-pressed="false" onclick="toggleThemeLock()"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path class="theme-lock-shackle" d="M 3.5 6 L 3.5 4 a 2.5 2.5 0 0 1 5 0 L 8.5 6" stroke="currentColor" stroke-width="1.1" fill="none" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5.5" rx="0.8" fill="currentColor"/></svg></button>
   </div>
 </nav>
 
-<div class="cat-switch-frame">
-  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
-    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
-      <source src="/img/cat_light.mp4" type="video/mp4">
-    </video>
-  </a>
-</div>
+	<div class="cat-switch-frame">
+	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
+	    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
+	      <source src="/img/cat_light.mp4" type="video/mp4">
+	    </video>
+	  </a>
+	</div>
 
-<main class="page {{ pageClass }}">
+	<main class="page {{ pageClass }}">
 
   {{ content | safe }}
 
@@ -172,6 +172,7 @@
     let loopNextTimer = null;
     let themeLocked = false;
     let loopDirection = null;        // while locked, tracks alternating performance direction
+    let loopMovementIndex = 0;       // second-half final movement chooser while LOOP is armed
 
     // Cat controller — manual clicks release on the video end; loop mode
     // releases from the music clock so the visual breath follows the note
@@ -250,8 +251,45 @@
       F4: 349.23,
       G4: 392.00,
       A4: 440.00,
-      BB4: 466.16
+      BB4: 466.16,
+      C5: 523.25,
+      D5: 587.33
     };
+
+    const FINAL_HOME = [
+      { note: 'BB3', sustain: 9.8, send: 0.56, level: 0.060 },
+      { note: 'F4', sustain: 9.4, send: 0.62, level: 0.056, shimmerSustain: 6.8, shimmerSend: 0.038 },
+      { note: 'G4', sustain: 9.2, send: 0.68, level: 0.050, shimmerSustain: 6.4, shimmerSend: 0.034 }
+    ];
+
+    const FINAL_HIGH_STEPPER = [
+      { note: 'G4', sustain: 9.4, send: 0.64, level: 0.052, shimmerSustain: 6.6, shimmerSend: 0.034 },
+      { note: 'BB4', sustain: 8.8, send: 0.58, level: 0.048, shimmerSustain: 6.0, shimmerSend: 0.032 },
+      { note: 'D5', sustain: 7.8, send: 0.48, level: 0.034, shimmerSustain: 5.2, shimmerSend: 0.024 }
+    ];
+
+    const FINAL_LIFTED_SIXTH = [
+      { note: 'D4', sustain: 9.8, send: 0.58, level: 0.046, shimmerSustain: 6.2, shimmerSend: 0.026 },
+      { note: 'F4', sustain: 9.6, send: 0.64, level: 0.052, shimmerSustain: 6.8, shimmerSend: 0.038 },
+      { note: 'G4', sustain: 9.2, send: 0.68, level: 0.048, shimmerSustain: 6.4, shimmerSend: 0.034 },
+      { note: 'BB4', sustain: 8.7, send: 0.54, level: 0.040, shimmerSustain: 5.6, shimmerSend: 0.030 }
+    ];
+
+    const FINAL_SHIMMER_NINTH = [
+      { note: 'BB3', sustain: 10.0, send: 0.52, level: 0.052 },
+      { note: 'F4', sustain: 9.6, send: 0.64, level: 0.050, shimmerSustain: 6.8, shimmerSend: 0.038 },
+      { note: 'G4', sustain: 9.3, send: 0.68, level: 0.046, shimmerSustain: 6.4, shimmerSend: 0.034 },
+      { note: 'C5', sustain: 8.4, send: 0.50, level: 0.032, shimmerSustain: 5.4, shimmerSend: 0.026 }
+    ];
+
+    // LOOP finals move as a little sequence: home, remembered high stepper,
+    // lifted sixth, then a suspended ninth shimmer. Manual clicks stay on FINAL_HOME.
+    const LOOP_MOVEMENTS = [
+      { name: 'home', voices: FINAL_HOME },
+      { name: 'high-stepper', voices: FINAL_HIGH_STEPPER },
+      { name: 'lifted-sixth', voices: FINAL_LIFTED_SIXTH },
+      { name: 'shimmer-ninth', voices: FINAL_SHIMMER_NINTH }
+    ];
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
     // before first reflections (the note speaks, THEN the room blooms), and
@@ -440,9 +478,31 @@
       }
     }
 
-    // Resolve — two notes at cat-paw impact: D4+A4, then low-root sixth.
+    function playVoice(voice, when) {
+      const freq = PIANO[voice.note];
+      if (!freq) return;
+      playPianoNote(freq, when, voice.sustain, voice.send, voice.level);
+      if (voice.shimmerSustain) {
+        playShimmer(freq, when, voice.shimmerSustain, voice.shimmerSend);
+      }
+    }
+
+    function playFinalMovement(movement, when) {
+      const voices = (movement && movement.voices) ? movement.voices : FINAL_HOME;
+      voices.forEach(function(voice) {
+        playVoice(voice, when);
+      });
+    }
+
+    function nextLoopMovement() {
+      const movement = LOOP_MOVEMENTS[loopMovementIndex % LOOP_MOVEMENTS.length];
+      loopMovementIndex += 1;
+      return movement;
+    }
+
+    // Resolve — first hit stays D4+A4; second-hit finals can move in LOOP mode.
     // The dark/light assignment is inverted only at call sites via musicDirection().
-    function playResolveChord(firstHalf) {
+    function playResolveChord(firstHalf, movement) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime;
@@ -452,11 +512,7 @@
         playPianoNote(PIANO.A4, t, 8.2, 0.58, 0.074);
         playShimmer(PIANO.A4, t, 7.0, 0.08);
       } else {
-        playPianoNote(PIANO.BB3, t, 9.8, 0.56, 0.060);
-        playPianoNote(PIANO.F4, t, 9.4, 0.62, 0.056);
-        playShimmer(PIANO.F4, t, 6.8, 0.038);
-        playPianoNote(PIANO.G4, t, 9.2, 0.68, 0.050);
-        playShimmer(PIANO.G4, t, 6.4, 0.034);
+        playFinalMovement(movement, t);
       }
     }
 
@@ -521,7 +577,7 @@
         loopPressTimer = null;
         if (!loopArmed) return;
         if (!themeLocked) applyThemeFlip();
-        playResolveChord(musicGoingDark);
+        playResolveChord(musicGoingDark, !musicGoingDark ? nextLoopMovement() : null);
         // Schedule next cycle
         if (loopNextTimer) clearTimeout(loopNextTimer);
         loopNextTimer = setTimeout(function() {
@@ -576,8 +632,13 @@
 
     function setLoopUI(armed) {
       if (!loopBtn) return;
+      const label = loopBtn.querySelector('.loop-tally-label');
+      const action = armed ? 'Stop B-flat loop' : 'Play B-flat loop';
       loopBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
+      loopBtn.setAttribute('aria-label', action);
+      loopBtn.setAttribute('title', action);
       loopBtn.classList.toggle('is-armed', armed);
+      if (label) label.textContent = armed ? 'STOP' : 'PLAY';
     }
 
     function setLockUI(locked) {
@@ -614,6 +675,7 @@
         themeLocked = true;
         setLockUI(true);
         loopDirection = null;
+        loopMovementIndex = 0;
         // Loop owns the dimmer while running — manual clicks would conflict
         if (button) button.disabled = true;
         startLoopCycle();
@@ -623,6 +685,7 @@
         // Clear lock state too — reset for next arming
         if (themeLocked) { themeLocked = false; setLockUI(false); }
         loopDirection = null;
+        loopMovementIndex = 0;
         catCtl.reset();
         if (button) button.disabled = false;
       }
@@ -639,6 +702,7 @@
         loopArmed = true;
         themeLocked = true;
         loopDirection = null;
+        loopMovementIndex = 0;
         setLoopUI(true);
         setLockUI(true);
         if (button) button.disabled = true;  // loop owns dimmer while armed
