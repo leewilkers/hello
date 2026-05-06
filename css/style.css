@@ -3575,16 +3575,34 @@ body {
 }
 
 .shelf-console-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
+  display: grid;
+  grid-template-columns: max-content minmax(12rem, 1fr) max-content;
+  gap: clamp(1rem, 3vw, 2.4rem);
+  align-items: end;
   max-width: 1500px;
-  margin: 2.75rem auto 0;
+  min-height: clamp(6.35rem, 7.8vw, 7.25rem);
+  margin: clamp(0.9rem, 2vw, 1.25rem) auto 0;
   border: 1px solid var(--rule);
   border-bottom: 0;
-  padding: 0.7rem 0.85rem 1rem;
+  padding: 0.72rem 0.85rem 0.78rem;
   position: relative;
   background: var(--surface-soft);
+  overflow: hidden;
+}
+
+.shelf-console-head__title,
+.shelf-console-head .console-status {
+  position: relative;
+  z-index: 1;
+}
+
+.shelf-console-head__title {
+  grid-column: 1;
+}
+
+.shelf-console-head .console-status {
+  grid-column: 3;
+  justify-self: end;
 }
 
 .shelf-console-head .shelf-subtitle {
@@ -3770,8 +3788,8 @@ body {
 
 /* Full inverted section headers — white on black bar, all 17 sections.
    Leaping rabbit left-marks each topic as a lead-in motif (directional,
-   "entering the warren for this topic"). Sitting rabbit lives on the
-   page header above (stationary, book-frontispiece mark). */
+   "entering the warren for this topic"). The page header carries the
+   wider hare-running banner as a quieter shelf-line motif. */
 .section-label {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -3813,22 +3831,29 @@ body {
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
-/* Shelf page-header mark — keep the engraving below native size so it
-   stays crisp, with its ground line landing on the console rule. */
-.shelf-head-mark {
+/* Shelf page-header banner — extracted sea-moss linework used as a quiet
+   middle-lane object inside the console head, not as a repeated pattern. */
+.shelf-head-banner {
+  display: block;
   position: absolute;
-  top: 0;
-  left: 0.85rem;
-  width: auto;
-  height: 48px;
-  transform: translateY(-100%);
-  opacity: 0.66;
+  left: 50%;
+  bottom: -0.68rem;
+  width: min(39.5rem, calc(100% - 24rem));
+  aspect-ratio: 2014 / 341;
+  background-image: url("/img/rabbits/hare-running-shelf-banner-ground-tight.png");
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
-[data-theme="dark"] .shelf-head-mark {
-  filter: invert(1);
-  opacity: 0.76;
+[data-theme="dark"] .shelf-head-banner {
+  filter: brightness(1.18) saturate(0.9);
+  mix-blend-mode: normal;
+  opacity: 0.56;
 }
 
 /* Shelf grid: cover-first wall.
@@ -5435,15 +5460,18 @@ a.shelf-list-title:hover {
 
 .shelf-console-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(10rem, auto) minmax(20rem, auto);
-  gap: 1rem;
-  align-items: center;
+  grid-template-columns: max-content minmax(12rem, 1fr) max-content;
 }
 
 @media (max-width: 767px) {
   .shelf-console-head {
     grid-template-columns: 1fr;
     gap: 0.4rem;
+    min-height: 0;
+  }
+
+  .shelf-head-banner {
+    display: none;
   }
 }
 

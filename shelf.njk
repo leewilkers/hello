@@ -184,10 +184,10 @@ pageClass: page-shelf
 
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">
-    <img class="shelf-head-mark" src="/img/rabbits/sitter.png" alt="" aria-hidden="true">
     <p class="console-kicker">Shelf</p>
     <p class="shelf-subtitle">Things on my desk.</p>
   </div>
+  <span class="shelf-head-banner" aria-hidden="true"></span>
   <p class="console-status">
     {{ collections.items | where("dest", "shelf") | length }} entries ·
     {{ shelfTopics | length }} topics
