@@ -4,10 +4,10 @@ title: "TOD #46: Economies of Virtue – The Circulation of ‘Ethics’ in AI"
 type: "book"
 image: "/img/covers/economies-of-virtue-ai.jpg"
 cover_label: true
-dest: "shelf"
-topic: "Ethics & Moral Imagination"
+dest: shelf
+topic: "Ethics"
 url: "https://networkcultures.org/blog/publication/economies-of-virtue-the-circulation-of-ethics-in-ai/"
-order: 24
+order: 4
 dek: "Institute of Network Cultures, 2022"
 blurb: "A Theory on Demand collection on how AI ethics circulates through institutions, governance, markets, and virtue claims."
 links:

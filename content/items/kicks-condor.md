@@ -5,7 +5,7 @@ url: "https://kickscondor.com/"
 type: site
 dest: shelf
 topic: "Web Culture & Internet"
-order: 30
+order: 7
 note: "hyperlink archaeologist"
 blurb: "Kicks Condor curates and preserves small-web links, odd corners, and personal publishing practices."
 dek: "kickscondor.com"

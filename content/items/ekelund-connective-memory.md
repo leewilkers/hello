@@ -13,5 +13,5 @@ note: ""
 blurb: "A compact entry on memory culture after the connective turn."
 quote: ""
 links: []
-order: 50
+order: 13
 ---

@@ -6,7 +6,7 @@ image: "/img/covers/mitchell-i-can-make-you-feel-good.jpg"
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://www.tylermitchell.co/books/i-can-make-you-feel-good-book"
-order: 50
+order: 14
 dek: "Prestel, 2020"
 blurb: "A contemporary photobook of Black joy, ease, fashion, leisure, and imagined freedom."
 quote: ""

@@ -4,9 +4,9 @@ title: "Klara and the Sun"
 type: book
 image: "/img/covers/ishiguro-klara-and-the-sun.jpg"
 dest: shelf
-topic: "Fiction"
+topic: "Writing"
 url: "https://www.penguinrandomhouse.com/books/653441/klara-and-the-sun-by-kazuo-ishiguro/"
-order: 50
+order: 11
 dek: "Knopf, 2021"
 note: ""
 blurb: "Kazuo Ishiguro's 2021 novel narrated by Klara, an Artificial Friend."

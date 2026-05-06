@@ -4,9 +4,9 @@ title: "INTERACTIONS"
 type: "book"
 image: "/img/covers/interactions.jpg"
 dest: "shelf"
-topic: "Interfaces & Interaction"
+topic: "Interfaces"
 url: "https://networkcultures.org/blog/publication/interactions/"
-order: 11
+order: 2
 dek: "Institute of Network Cultures, 2024"
 blurb: "A publication on interaction as a cultural and technical form, moving across interfaces, attention, and networked relations."
 links:

@@ -7,7 +7,7 @@ shelf_list: true
 dest: shelf
 topic: "Nature & Life"
 url: "https://www.nature.com/articles/s41559-023-01986-1"
-order: 50
+order: 20
 dek: "Nature Ecology & Evolution, 2023"
 blurb: "A corrective review of what forest-network evidence can and cannot support."
 quote: ""

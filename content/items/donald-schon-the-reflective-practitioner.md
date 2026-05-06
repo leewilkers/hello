@@ -13,5 +13,5 @@ quote: ""
 links:
   - label: "wiki (concept)"
     url: "https://en.wikipedia.org/wiki/Reflective_practice"
-order: 17
+order: 12
 ---

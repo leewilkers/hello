@@ -8,7 +8,7 @@ cover_label_text: "Design Thinking Is Conservative"
 dest: shelf
 topic: "Design"
 url: "https://hbr.org/2018/09/design-thinking-is-fundamentally-conservative-and-preserves-the-status-quo"
-order: 50
+order: 7
 dek: "Harvard Business Review, 2018"
 blurb: "Iskander argues that design thinking's standard problem-framing habits tend to preserve existing power arrangements."
 links: []

@@ -4,7 +4,7 @@ title: "interfacecraft.dev"
 type: site
 image: "/img/covers/puckett-interfacecraft.jpg"
 dest: stream
-topic: "Interfaces & Interaction"
+topic: "Interfaces"
 url: "https://interfacecraft.dev"
 order: 50
 dek: "interfacecraft.dev"

@@ -11,5 +11,5 @@ note: ""
 blurb: "Media theory pushed down into minerals, energy, waste, and earth systems."
 quote: ""
 links: []
-order: 50
+order: 8
 ---

@@ -3,11 +3,12 @@ author: "dril"
 title: "WINT.CO"
 type: "site"
 image: "/img/covers/dril-wint-co.jpg"
+shelf_list: true
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.wint.co/"
-order: 50
+order: 30
 dek: "WINT.CO"
 note: ""
 blurb: >-

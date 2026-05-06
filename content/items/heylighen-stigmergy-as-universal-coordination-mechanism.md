@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://doi.org/10.1016/j.cogsys.2015.12.002"
-order: 50
+order: 9
 dek: "Cognitive Systems Research, 2016"
 note: ""
 blurb: "Francis Heylighen's 2016 paper defining stigmergy — indirect coordination in which traces left by one action stimulate subsequent actions — in ant colonies, Wikipedia, open-source software, and cities."

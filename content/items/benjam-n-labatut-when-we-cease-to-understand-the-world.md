@@ -4,7 +4,7 @@ title: When We Cease to Understand the World
 type: book
 image: /img/covers/benjam-n-labatut-when-we-cease-to-understand-the-world.jpg
 dest: shelf
-topic: "Potpourri"
+topic: "Sensemaking"
 url: 'https://pushkinpress.com/book/when-we-cease-to-understand-the-world/'
 dek: 'Pushkin Press, 2021'
 links:
@@ -13,5 +13,5 @@ links:
 note: ''
 blurb: "Labatut blends fiction and history to explore scientific genius, abstraction, and the moral vertigo of discovery."
 quote: ""
-order: 33
+order: 13
 ---

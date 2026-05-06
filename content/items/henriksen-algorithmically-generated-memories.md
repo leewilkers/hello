@@ -13,5 +13,5 @@ note: ""
 blurb: "On automated remembrance, appropriated perception, and algorithmic forms of personal memory."
 quote: ""
 links: []
-order: 50
+order: 14
 ---

@@ -9,6 +9,6 @@ url: "https://www.routledge.com/The-Corruption-of-Co-Design-Political-and-Social
 dek: "Routledge, 2023"
 note: ""
 blurb: "Realpolitik for designers"
-order: 23
+order: 11
 links: []
 ---

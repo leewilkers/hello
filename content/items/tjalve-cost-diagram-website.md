@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"
 url: "https://diagram.website/"
-order: 50
+order: 29
 dek: "2023"
 blurb: "A hand-built internet map by Kristoffer Tjalve and Elliott Cost."
 featured: false

@@ -6,9 +6,9 @@ image: /img/covers/bhaskar-critical-realism.jpg
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Ethics & Moral Imagination"
+topic: "Ethics"
 url: 'https://doi.org/10.1080/14767430.2020.1734736'
-order: 50
+order: 8
 dek: 'Journal of Critical Realism, 2020'
 note: ''
 blurb: >-

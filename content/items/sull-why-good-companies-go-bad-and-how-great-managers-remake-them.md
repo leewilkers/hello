@@ -6,7 +6,7 @@ image: "/img/covers/sull-why-good-companies-go-bad-and-how-great-managers-remake
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://openlibrary.org/books/OL3299042M/Why_good_companies_go_bad_and_how_great_managers_remake_them"
-order: 50
+order: 4
 dek: "Harvard Business School Press, 2005"
 blurb: "Sull studies why successful organizations stall and how managers can renew strategy under changing conditions."
 featured: false

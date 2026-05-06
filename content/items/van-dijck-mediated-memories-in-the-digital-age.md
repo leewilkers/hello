@@ -11,5 +11,5 @@ note: ""
 blurb: "A foundational account of memory as it moves through cameras, screens, platforms, and everyday media."
 quote: ""
 links: []
-order: 50
+order: 3
 ---

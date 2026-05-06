@@ -5,9 +5,9 @@ type: essay
 image: "/img/covers/healy-plain-persons-guide-to-plain-text.jpg"
 cover_label: true
 dest: shelf
-topic: "Social Science & Anthropology"
+topic: "Social Science"
 url: "https://plain-text.co/"
-order: 50
+order: 8
 dek: "plain-text.co, 2018"
 note: ""
 blurb: "Kieran Healy's practical guide for social scientists arguing for plain-text workflows — text editors, R, Markdown, Pandoc, and version control."

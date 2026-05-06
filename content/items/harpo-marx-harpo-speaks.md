@@ -3,10 +3,11 @@ author: "Harpo Marx, Rowland Barber"
 title: "Harpo Speaks!"
 type: "book"
 image: "/img/covers/harpo-marx-harpo-speaks.jpg"
-dest: "shelf"
+shelf_list: true
+dest: shelf
 topic: "Humor"
 url: "https://nypl.overdrive.com/media/3233754"
-order: 50
+order: 32
 dek: "NYPL OverDrive, 2017 edition"
 note: ""
 blurb: >-

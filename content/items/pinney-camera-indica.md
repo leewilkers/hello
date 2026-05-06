@@ -3,10 +3,11 @@ author: "Christopher Pinney"
 title: "Camera Indica: The Social Life of Indian Photographs"
 type: book
 image: "/img/covers/pinney-camera-indica.jpg"
+shelf_list: true
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://reaktionbooks.co.uk/work/camera-indica"
-order: 50
+order: 22
 dek: "Reaktion Books, 1997"
 blurb: "Indian photography studied through studio practice, popular circulation, and social life."
 quote: ""

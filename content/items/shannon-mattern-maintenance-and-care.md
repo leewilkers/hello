@@ -12,7 +12,7 @@ url: "https://placesjournal.org/article/maintenance-and-care/"
 dek: "Places Journal, 2018"
 note: ""
 blurb: "not every road should be repaired"
-order: 4
+order: 15
 links:
   - label: "author"
     url: "https://wordsinspace.net/about/"

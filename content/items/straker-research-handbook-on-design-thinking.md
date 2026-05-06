@@ -5,9 +5,9 @@ type: book
 image: "/img/covers/straker-research-handbook-on-design-thinking.jpg"
 shelf_list: true
 dest: shelf
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: "https://www.e-elgar.com/shop/usd/research-handbook-on-design-thinking-9781802203127.html"
-order: 50
+order: 23
 dek: "Edward Elgar Publishing, 2023"
 blurb: "Straker and Wrigley collect research on design thinking across education, organizations, methods, and critique."
 featured: false

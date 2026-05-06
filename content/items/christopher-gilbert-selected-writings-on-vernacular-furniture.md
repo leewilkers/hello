@@ -10,6 +10,6 @@ dek: "Regional Furniture Society"
 links:
   - label: "English Vernacular Furniture (Yale, 1991)"
     url: "https://www.amazon.com/English-Vernacular-Furniture-1750-1900-Studies/dp/0300047622"
-order: 25
+order: 4
 blurb: "Regional Furniture Society anthology of Christopher Gilbert's articles and exhibition catalogues from 1966 to 1998."
 ---

@@ -7,7 +7,7 @@ shelf_list: true
 dest: shelf
 topic: "Media"
 url: "https://press.uchicago.edu/ucp/books/book/chicago/C/bo3618721.html"
-order: 50
+order: 13
 dek: "University of Chicago Press, 1997"
 blurb: "A history of advertising, youth culture, and how countercultural rebellion became a style of consumer capitalism."
 featured: false

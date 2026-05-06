@@ -4,7 +4,7 @@ title: "The Sociological Imagination"
 type: book
 image: "/img/covers/c-wright-mills-the-sociological-imagination.jpg"
 dest: shelf
-topic: "Social Science & Anthropology"
+topic: "Social Science"
 url: "https://global.oup.com/academic/product/the-sociological-imagination-9780195133738"
 dek: "Oxford, 1959"
 links:
@@ -15,5 +15,5 @@ links:
 note: ""
 blurb: "Mills defines sociological imagination as the ability to connect private troubles with public structures and historical change."
 quote: ""
-order: 18
+order: 1
 ---

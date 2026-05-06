@@ -3,10 +3,10 @@ author: "Zoe S. Strother"
 title: "Humor and Violence: Seeing Europeans in Central African Art"
 type: "book"
 image: "/img/covers/strother-humor-and-violence.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://iupress.org/9780253022677/humor-and-violence/"
-order: 50
+order: 21
 dek: "Indiana University Press, 2016"
 note: ""
 blurb: >-

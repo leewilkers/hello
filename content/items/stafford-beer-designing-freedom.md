@@ -10,5 +10,5 @@ dek: "CBC Massey Lectures, 1973"
 note: ""
 blurb: "a cybernetics room in Santiago"
 links: []
-order: 17
+order: 2
 ---

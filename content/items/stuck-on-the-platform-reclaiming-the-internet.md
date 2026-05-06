@@ -6,7 +6,7 @@ image: "/img/covers/stuck-on-the-platform-reclaiming-the-internet.jpg"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/stuck-on-the-platform/"
-order: 25
+order: 12
 dek: "Institute of Network Cultures, 2022"
 blurb: "Lovink’s critique of platform dependency and a call for reclaiming the internet beyond enclosure and managed feeds."
 links:

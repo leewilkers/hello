@@ -4,9 +4,9 @@ title: "How to Make Sense of Any Mess"
 type: book
 image: "/img/covers/covert-how-to-make-sense-of-any-mess.jpg"
 dest: shelf
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: "https://www.howtomakesenseofanymess.com/"
-order: 50
+order: 2
 dek: "CreateSpace, 2014"
 note: ""
 blurb: "Abby Covert's 2014 accessible introduction to information architecture."

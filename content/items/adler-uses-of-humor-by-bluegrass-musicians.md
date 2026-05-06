@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Humor"
 url: "https://www.thomasadler.com/bluegrass-music/uses-of-humor-by-bg-musicians"
-order: 50
+order: 42
 dek: "Mid-America Folklore, 1982"
 blurb: "A folklore article on bluegrass stage humor as timing, audience management, persona, and musical performance practice."
 featured: false

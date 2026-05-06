@@ -7,7 +7,7 @@ cover_label: true
 dest: "shelf"
 topic: "Photography & Journalism"
 url: "https://dn790008.ca.archive.org/0/items/Bazin_Andre_The_Ontology_of_Photographic_Image/Bazin_Andre_The_Ontology_of_Photographic_Image.pdf"
-order: 42
+order: 7
 dek: "Internet Archive PDF"
 blurb: "Bazin’s classic essay on photographic realism, image ontology, and the relation between cinema, time, and the world."
 links: []

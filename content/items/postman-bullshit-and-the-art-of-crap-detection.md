@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Bullshit"
 url: "https://hollyconstantinephotography.wordpress.com/wp-content/uploads/2014/01/bullshit_and_the_art_of_crap_detection.pdf"
-order: 50
+order: 18
 dek: "NCTE address, 1969"
 blurb: "Postman's speech on language education as the practice of distinguishing useful talk from bullshit."
 featured: false

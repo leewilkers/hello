@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Bullshit"
 url: "https://doi.org/10.1017/S1930297500006999"
-order: 50
+order: 14
 dek: "Judgment and Decision Making, 2015"
 note: ''
 blurb: >-

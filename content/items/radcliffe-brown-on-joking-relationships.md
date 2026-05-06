@@ -5,10 +5,10 @@ type: "journal article"
 image: "/img/covers/radcliffe-brown-on-joking-relationships.jpg"
 cover_label: true
 shelf_list: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.cambridge.org/core/journals/africa/article/abs/on-joking-relationships/54B2C4D1B466B9ECB3DD36DD4CF98766"
-order: 50
+order: 47
 dek: "Africa, 1940"
 note: ""
 blurb: >-

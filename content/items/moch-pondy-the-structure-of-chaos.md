@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://www.jstor.org/stable/2391967"
-order: 50
+order: 12
 dek: "Administrative Science Quarterly, 1977"
 note: ""
 blurb: "Moch and Pondy's chapter in March and Olsen's 1976 Ambiguity and Choice in Organizations, analyzing organized anarchy as a functional response to ambiguity."

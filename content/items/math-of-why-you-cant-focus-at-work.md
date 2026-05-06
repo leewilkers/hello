@@ -9,7 +9,7 @@ shelf_list: true
 dest: shelf
 topic: "Organizations & Work"
 url: 'https://justoffbyone.com/posts/math-of-why-you-cant-focus-at-work/'
-order: 50
+order: 9
 dek: justoffbyone.com
 note: ''
 blurb: >-

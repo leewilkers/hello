@@ -6,7 +6,7 @@ image: /img/covers/alan-jacobs-from-tech-critique-to-ways-of-living.jpg
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Technology & Critique"
+topic: "Tech"
 url: >-
   https://www.thenewatlantis.com/publications/from-tech-critique-to-ways-of-living
 dek: 'The New Atlantis, 2021'
@@ -17,5 +17,5 @@ links:
     url: 'https://en.wikipedia.org/wiki/Alan_Jacobs_(academic)'
   - label: author
     url: 'https://blog.ayjay.org/about/'
-order: 7
+order: 23
 ---

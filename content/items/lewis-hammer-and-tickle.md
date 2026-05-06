@@ -4,10 +4,10 @@ title: "Hammer & Tickle"
 type: "film"
 image: "/img/covers/lewis-hammer-and-tickle.jpg"
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://benlewisprojects.com/films/hammer-tickle"
-order: 50
+order: 11
 dek: "Documentary film, 2006"
 note: ""
 blurb: >-

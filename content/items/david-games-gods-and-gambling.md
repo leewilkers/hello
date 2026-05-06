@@ -3,11 +3,12 @@ author: F. N. David
 title: 'Games, Gods and Gambling: A History of Probability and Statistical Ideas'
 type: book
 image: /img/covers/david-games-gods-and-gambling.jpg
+shelf_list: true
 dest: shelf
-topic: 'Games, Play & Performance'
+topic: "Games"
 url: >-
   https://ucalgary.scholaris.ca/server/api/core/bitstreams/29605b29-6ec7-46ad-bda6-08dffeaaf528/content
-order: 50
+order: 17
 dek: 'Dover, 1962'
 note: ''
 blurb: >-

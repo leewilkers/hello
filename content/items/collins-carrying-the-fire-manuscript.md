@@ -4,11 +4,10 @@ title: "Carrying the Fire: An Astronaut's Journeys Manuscript"
 type: archive
 image: "/img/covers/collins-carrying-the-fire-manuscript.jpg"
 cover_label: true
-shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://sova.si.edu/record/nasm.xxxx.0399"
-order: 50
+order: 4
 dek: "Smithsonian SOVA, 1973-1974"
 blurb: "The Smithsonian finding aid for Michael Collins's corrected manuscript of Carrying the Fire."
 featured: false

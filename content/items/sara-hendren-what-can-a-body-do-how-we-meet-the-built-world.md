@@ -16,5 +16,5 @@ links:
     url: "https://vimeo.com/channels/eyeo2015/134764010"
   - label: "author"
     url: "https://sarahendren.com/"
-order: 29
+order: 13
 ---

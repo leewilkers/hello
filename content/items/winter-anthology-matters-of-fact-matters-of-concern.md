@@ -6,9 +6,9 @@ image: "/img/covers/winter-anthology-matters-of-fact-matters-of-concern.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: "http://www.bruno-latour.fr/sites/default/files/89-CRITICAL-INQUIRY-GB.pdf"
-order: 50
+order: 21
 dek: "Critical Inquiry, 2004"
 note: ""
 blurb: "Latour's essay arguing that critique has exhausted itself by debunking facts, proposing a shift from matters of fact to matters of concern."

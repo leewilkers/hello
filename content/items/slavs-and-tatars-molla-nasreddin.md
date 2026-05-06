@@ -3,10 +3,10 @@ author: "Slavs and Tatars"
 title: "Molla Nasreddin"
 type: "book"
 image: "/img/covers/slavs-and-tatars-molla-nasreddin.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.slavsandtatars.com/printed-matter/books/molla-nasreddin"
-order: 50
+order: 22
 dek: "Slavs and Tatars, 2011"
 note: ""
 blurb: >-

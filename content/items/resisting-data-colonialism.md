@@ -3,9 +3,10 @@ author: "Members and allies of the Tierra Común Network"
 title: "TOD #50: Resisting Data Colonialism – A Practical Intervention"
 type: "book"
 image: "/img/covers/resisting-data-colonialism.jpg"
+shelf_list: true
 cover_label: true
-dest: "shelf"
-topic: "Data, Evidence, & Epidemiology"
+dest: shelf
+topic: "Global Health"
 url: "https://networkcultures.org/blog/publication/tod-50-resisting-data-colonialism-a-practical-intervention/"
 order: 20
 dek: "Institute of Network Cultures, 2023"

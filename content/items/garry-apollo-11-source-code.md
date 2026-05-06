@@ -9,7 +9,7 @@ shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://github.com/chrislgarry/apollo-11"
-order: 50
+order: 16
 dek: "GitHub repository"
 blurb: "A repository of the original Apollo 11 Guidance Computer source code for the command and lunar modules."
 featured: false

@@ -7,7 +7,7 @@ cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://versus.mschfmag.com/"
-order: 3
+order: 15
 dek: "MSCHF, 2020"
 blurb: "The third MSCHF Mag volume, staging culture as a series of tactical confrontations, gags, and tools."
 links:

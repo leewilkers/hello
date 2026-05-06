@@ -6,7 +6,7 @@ image: "/img/covers/expub-exploring-expanded-publishing.jpg"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/expub-exploring-expanded-publishing/"
-order: 36
+order: 5
 dek: "Institute of Network Cultures, 2025"
 blurb: "An INC publication on expanded publishing, experimental formats, and how publishing changes across platforms and publics."
 links:

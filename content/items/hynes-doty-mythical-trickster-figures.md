@@ -3,10 +3,11 @@ author: "William J. Hynes, William G. Doty, eds."
 title: "Mythical Trickster Figures: Contours, Contexts, and Criticisms"
 type: "book"
 image: "/img/covers/hynes-doty-mythical-trickster-figures.jpg"
-dest: "shelf"
+shelf_list: true
+dest: shelf
 topic: "Humor"
 url: "https://www.uapress.ua.edu/9780817308575/mythical-trickster-figures/"
-order: 50
+order: 31
 dek: "University of Alabama Press, 1997 edition"
 note: ""
 blurb: >-

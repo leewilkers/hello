@@ -6,12 +6,12 @@ image: "/img/covers/solomon-benatar-moral-imagination-missing-component.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Ethics & Moral Imagination"
+topic: "Ethics"
 url: "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.0020400"
 dek: "PLoS Medicine, 2005"
 links: []
 note: ""
 blurb: "Benatar argues that global health ethics needs moral imagination to see obligations across distance, inequality, and power."
 quote: ""
-order: 10
+order: 7
 ---

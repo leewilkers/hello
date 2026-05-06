@@ -206,7 +206,7 @@ pageClass: page-shelf
 
   <section class="grid-scroll" aria-label="Items">
     {%- for topic in shelfTopics %}
-      {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
+      {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortForShelf %}
       {%- set listItems = bucket | where("shelf_list", true) %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-name="{{ topic }}" data-topic-count="{{ bucket.length }}" class="topic-section">
       <header class="section-label">

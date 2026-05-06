@@ -4,11 +4,10 @@ title: "Indigenous Circuits: Navajo Women and the Racialization of Early Electro
 type: "journal article"
 image: "/img/covers/nakamura-indigenous-circuits.jpg"
 cover_label: true
-shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://lisanakamura.net/wp-content/uploads/2011/01/indigenous-circuits-nakamura-aq.pdf"
-order: 50
+order: 10
 dek: "American Quarterly, 2014"
 blurb: "Nakamura's article on Navajo women, Fairchild Semiconductor, racialized electronics labor, craft rhetoric, and hidden digital manufacture."
 links:

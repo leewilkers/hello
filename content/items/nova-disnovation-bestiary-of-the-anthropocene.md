@@ -4,9 +4,9 @@ title: "A Bestiary of the Anthropocene: On Hybrid Minerals, Animals, Plants, Fun
 type: book
 image: "/img/covers/nova-disnovation-bestiary-of-the-anthropocene.jpg"
 dest: shelf
-topic: "Nature & Life"
+topic: "Potpourri"
 url: "https://www.onomatopee.net/exhibition/bestiary_of-_the_antropocene/"
-order: 50
+order: 2
 dek: "Onomatopee, 2021"
 note: ""
 blurb: "An illustrated taxonomy of hybrid beings and materials produced by human-altered geology, biology, waste, and infrastructure."

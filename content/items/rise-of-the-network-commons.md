@@ -7,7 +7,7 @@ cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/tod-58-the-rise-of-the-network-commons-a-history-of-community-infrastructure/"
-order: 37
+order: 13
 dek: "Institute of Network Cultures, 2025"
 blurb: "A history of community network infrastructure, commons-based connectivity, and alternatives to commercial network enclosure."
 links:

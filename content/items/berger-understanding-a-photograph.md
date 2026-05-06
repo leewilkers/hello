@@ -6,7 +6,7 @@ image: /img/covers/berger-understanding-a-photograph.jpg
 dest: shelf
 topic: "Photography & Journalism"
 url: 'https://store.aperture.org/products/understanding-a-photograph'
-order: 50
+order: 8
 dek: 'Aperture, 2013'
 note: ''
 blurb: >-

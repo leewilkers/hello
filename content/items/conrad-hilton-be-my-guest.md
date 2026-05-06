@@ -4,7 +4,7 @@ title: "Be My Guest"
 type: book
 image: "/img/covers/conrad-hilton-be-my-guest.jpg"
 dest: shelf
-topic: "Hospitality & Service"
+topic: "Hospitality"
 url: "https://openlibrary.org/books/OL24371949M/Be_my_guest"
 dek: "Prentice-Hall, 1957; Fireside edition, 1994"
 note: ""
@@ -13,5 +13,5 @@ quote: ""
 links:
   - label: "Internet Archive"
     url: "https://archive.org/details/bemyguesthil00hilt"
-order: 50
+order: 8
 ---

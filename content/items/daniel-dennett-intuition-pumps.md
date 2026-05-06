@@ -4,9 +4,9 @@ title: "Intuition Pumps and Other Tools for Thinking"
 type: "book"
 image: "/img/covers/daniel-dennett-intuition-pumps.jpg"
 dest: "shelf"
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: "https://www.amazon.com/Intuition-Pumps-Other-Tools-Thinking/dp/0393082067"
-order: 50
+order: 3
 dek: "W. W. Norton, 2013"
 note: ""
 blurb: "Dennett's field guide to thought experiments, mental models, and other tools for working with difficult ideas."

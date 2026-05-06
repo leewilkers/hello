@@ -6,9 +6,9 @@ title: >-
 type: book
 image: /img/covers/harrington-the-faithful-executioner.jpg
 dest: shelf
-topic: Potpourri
+topic: "Organizations & Work"
 url: 'https://us.macmillan.com/books/9780809049929/the-faithful-executioner'
-order: 50
+order: 15
 dek: 'Picador, 2013'
 note: ''
 blurb: >-

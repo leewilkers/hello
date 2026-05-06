@@ -3,10 +3,10 @@ author: "Miriam Rasch"
 title: "Deep Pockets #2: Shadowbook: Writing Through the Digital 2014-2018"
 type: "book"
 image: "/img/covers/deep-pockets-2-shadowbook-writing-through-the-digital-2014-2018.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/deep-pockets-2-shadowbook-writing-through-the-digital-2014-2018/"
-order: 34
+order: 15
 dek: "Institute of Network Cultures, 2018"
 blurb: "A collection of writing on digital culture, social media, interfaces, and the moods of networked life."
 links:

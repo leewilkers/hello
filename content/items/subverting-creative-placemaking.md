@@ -5,10 +5,10 @@ type: "essay"
 image: "/img/covers/subverting-creative-placemaking.jpg"
 cover_label: true
 cover_label_text: "Subverting Creative Placemaking"
-dest: "shelf"
+dest: shelf
 topic: "Architecture, Infrastructure, & Maintenance"
 url: "https://networkcultures.org/longform/2025/12/16/subverting-creative-placemaking-how-a-berlin-art-stunt-turned-into-a-model-for-democratic-urban-development/"
-order: 40
+order: 7
 dek: "INC Longform, 2025-12-16"
 blurb: "A case on art, urban development, and democratic placemaking in Berlin, tracing how a stunt became a model for civic process."
 links:

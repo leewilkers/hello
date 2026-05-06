@@ -6,7 +6,7 @@ image: "/img/covers/coe-birth-of-photography.jpg"
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://books.google.com/books?q=The+Birth+of+Photography+Brian+Coe+0600562964"
-order: 50
+order: 10
 dek: "Hamlyn, 1989"
 blurb: "A survey of the technical and cultural formation of photography through the nineteenth century."
 quote: ""

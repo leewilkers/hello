@@ -7,7 +7,7 @@ shelf_list: true
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://fashionhistory.fitnyc.edu/source-database/time-period/ancient-world/womens-work-the-first-20000-years-women-cloth-and-society-in-early-times-1995/"
-order: 50
+order: 15
 dek: "W. W. Norton, 1995"
 blurb: "A history of textiles, fiber arts, women's economic power, and the archaeological recovery of cloth work in early societies."
 featured: false

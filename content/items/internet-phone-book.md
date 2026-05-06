@@ -5,7 +5,7 @@ url: "https://internetphonebook.net/"
 type: site
 dest: shelf
 topic: "Web Culture & Internet"
-order: 5
+order: 21
 dek: "Athens & Rotterdam, 2025"
 note: ""
 blurb: "800 websites printed on yellow pages"

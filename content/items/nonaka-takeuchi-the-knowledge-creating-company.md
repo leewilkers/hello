@@ -6,7 +6,7 @@ image: "/img/covers/nonaka-takeuchi-the-knowledge-creating-company.jpg"
 dest: shelf
 topic: "Organizations & Work"
 url: "https://global.oup.com/academic/product/the-knowledge-creating-company-9780195092691"
-order: 50
+order: 3
 dek: "Oxford University Press, 1995"
 note: ""
 blurb: "Nonaka and Takeuchi's 1995 study of how Japanese companies achieve innovation through systematic conversion between tacit and explicit knowledge."

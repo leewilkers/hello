@@ -3,10 +3,10 @@ author: "Lenny Bruce"
 title: "How to Talk Dirty and Influence People"
 type: "book"
 image: "/img/covers/lenny-bruce-how-to-talk-dirty-and-influence-people.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.hachettebookgroup.com/titles/lenny-bruce/how-to-talk-dirty-and-influence-people/9781478917830/"
-order: 50
+order: 5
 dek: "Hachette, 2016 edition"
 note: ""
 blurb: >-

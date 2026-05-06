@@ -13,5 +13,5 @@ quote: ""
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Understanding_Media'
-order: 5
+order: 7
 ---

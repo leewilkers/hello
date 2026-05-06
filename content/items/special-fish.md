@@ -5,7 +5,7 @@ url: "https://special.fish/"
 type: site
 dest: shelf
 topic: "Web Culture & Internet"
-order: 20
+order: 8
 note: ""
 dek: "special.fish"
 blurb: "a social network made of personal websites"

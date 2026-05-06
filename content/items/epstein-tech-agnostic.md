@@ -6,9 +6,9 @@ title: >-
 type: book
 image: /img/covers/epstein-tech-agnostic.jpg
 dest: shelf
-topic: "Technology & Critique"
+topic: "Tech"
 url: 'https://mitpress.mit.edu/9780262049207/tech-agnostic/'
-order: 50
+order: 4
 dek: 'MIT Press, 2024'
 note: ''
 blurb: >-

@@ -5,10 +5,10 @@ type: "journal article"
 image: "/img/covers/mcgraw-warren-benign-violations.jpg"
 cover_label: true
 shelf_list: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://pubmed.ncbi.nlm.nih.gov/20587696/"
-order: 50
+order: 45
 dek: "Psychological Science, 2010"
 note: ""
 blurb: >-

@@ -8,7 +8,7 @@ cover_label_text: "With the Grain"
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/with-the-grain-a-craftsman-s-guide-to-understanding-wood"
-order: 50
+order: 2
 dek: "Lost Art Press, 2013"
 note: ""
 blurb: "A woodworker's guide to trees, grain, movement, moisture, joinery choices, and designing with material behavior instead of against it."

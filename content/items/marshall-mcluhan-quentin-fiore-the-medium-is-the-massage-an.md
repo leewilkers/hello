@@ -13,5 +13,5 @@ links:
 note: ""
 blurb: "McLuhan and Fiore turn media theory into a visual argument about how communication environments reshape perception."
 tooltip: "not a typo"
-order: 6
+order: 4
 ---

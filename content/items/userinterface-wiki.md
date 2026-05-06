@@ -4,7 +4,7 @@ title: "userinterface.wiki"
 type: site
 image: "/img/covers/userinterface-wiki.jpg"
 dest: stream
-topic: "Interfaces & Interaction"
+topic: "Interfaces"
 url: "https://userinterface.wiki"
 order: 50
 dek: "userinterface.wiki"

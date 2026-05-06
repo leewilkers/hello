@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Bullshit"
 url: "https://doi.org/10.1177/2631787720929704"
-order: 50
+order: 22
 dek: "Organization Theory, 2020"
 blurb: "[DRAFT — replace] Why is bullshit so common in some organizations? Existing explanations focus on the characteristics of bullshitters, the nature of the audience, and social structural factors which encourage bullshitting."
 featured: false

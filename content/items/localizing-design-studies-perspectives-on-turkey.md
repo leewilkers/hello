@@ -7,7 +7,7 @@ cover_label: true
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/localizing-design-studies-perspectives-on-turkey/"
-order: 12
+order: 11
 dek: "Institute of Network Cultures, 2024"
 blurb: "A Theory on Demand volume on design studies from Turkey, emphasizing local histories, institutions, pedagogies, and critical perspectives."
 links:

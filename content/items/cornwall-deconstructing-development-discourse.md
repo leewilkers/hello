@@ -4,9 +4,9 @@ title: "Deconstructing Development Discourse: Buzzwords and Fuzzwords"
 type: book
 image: "/img/covers/cornwall-deconstructing-development-discourse.jpg"
 dest: shelf
-topic: "Global Health, Aid & Development"
+topic: "Global Health"
 url: "https://openlibrary.org/works/OL19840537W"
-order: 50
+order: 2
 dek: "Oxfam, 2010"
 blurb: "Cornwall and Eade collect critiques of the buzzwords that make development discourse sound progressive while hiding power."
 featured: false

@@ -6,7 +6,7 @@ image: "/img/covers/benjamin-lorr-the-secret-life-of-groceries.jpg"
 dest: shelf
 topic: "Organizations & Work"
 url: "https://www.benjaminlorr.net/book/the-secret-life-of-groceries/"
-order: 50
+order: 2
 dek: "Avery, 2020"
 note: ""
 blurb: "A reported anatomy of supermarkets, supply chains, labor, logistics, shrimp, truckers, and the hidden work behind abundance."

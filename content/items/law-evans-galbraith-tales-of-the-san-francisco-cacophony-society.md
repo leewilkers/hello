@@ -3,10 +3,10 @@ author: "John Law, Kevin Evans, Carrie Galbraith"
 title: "Tales of the San Francisco Cacophony Society"
 type: "book"
 image: "/img/covers/law-evans-galbraith-tales-of-the-san-francisco-cacophony-society.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.barnesandnoble.com/w/tales-of-the-san-francisco-cacophony-society-john-law/1125848470"
-order: 50
+order: 10
 dek: "Last Gasp, 2013"
 note: ""
 blurb: >-

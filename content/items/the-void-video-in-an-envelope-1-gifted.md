@@ -8,7 +8,7 @@ cover_label_text: "THE VOID: GIFTED"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/the-void-video-in-an-envelope-1-gifted/"
-order: 23
+order: 3
 dek: "Institute of Network Cultures, 2023"
 blurb: "An INC publication/project around video, gifting, circulation, and experimental envelopes for media work."
 links:

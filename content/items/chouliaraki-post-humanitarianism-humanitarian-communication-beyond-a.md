@@ -6,9 +6,9 @@ image: "/img/covers/chouliaraki-post-humanitarianism-humanitarian-communication-
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Global Health, Aid & Development"
+topic: "Global Health"
 url: "https://doi.org/10.1177/1367877909356720"
-order: 50
+order: 16
 dek: "International Journal of Cultural Studies, 2010"
 blurb: "Chouliaraki analyzes humanitarian communication after pity, where irony, distance, and lifestyle politics reshape appeals to care."
 featured: false

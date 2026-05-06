@@ -5,10 +5,10 @@ type: "essay"
 image: "/img/covers/execute-order-66-how-star-wars-memes-became-indebted-to-fascist-dictatorship.jpg"
 cover_label: true
 cover_label_text: "Execute Order 66"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://networkcultures.org/blog/publication/execute-order-66-how-star-wars-memes-became-indebted-to-fascist-dictatorship/"
-order: 33
+order: 4
 dek: "INC Longform, 2018-11-23"
 blurb: "A meme-culture essay on Star Wars, authoritarian imagery, and how joke formats can carry political debts."
 links:

@@ -7,7 +7,7 @@ cover_label: true
 dest: shelf
 topic: "Nature & Life"
 url: "https://neal.fun/size-of-life/"
-order: 50
+order: 1
 dek: "neal.fun"
 note: ""
 blurb: "Neal Agarwal's interactive visualization comparing sizes of living things from DNA to the Pando aspen clone."

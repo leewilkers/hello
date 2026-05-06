@@ -13,5 +13,5 @@ links:
 note: ''
 blurb: "Berger shows how images, especially in art and advertising, train ways of looking shaped by class, gender, and power."
 quote: ""
-order: 24
+order: 3
 ---

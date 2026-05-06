@@ -13,5 +13,5 @@ links:
 note: ""
 blurb: "Brand studies buildings as things that adapt over time through maintenance, use, repair, and layered change."
 quote: ""
-order: 16
+order: 6
 ---

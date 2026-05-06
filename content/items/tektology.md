@@ -4,7 +4,7 @@ title: "Tektology"
 type: concept
 image: "/img/covers/tektology.jpg"
 dest: stream
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: "https://en.wikipedia.org/wiki/Tektology"
 order: 50
 dek: "Alexander Bogdanov"

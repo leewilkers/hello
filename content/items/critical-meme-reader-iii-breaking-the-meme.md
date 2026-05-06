@@ -3,10 +3,11 @@ author: "Chloë Arkenbout, İdil Galip (eds.)"
 title: "Critical Meme Reader III: Breaking the Meme"
 type: "book"
 image: "/img/covers/critical-meme-reader-iii-breaking-the-meme.jpg"
-dest: "shelf"
-topic: "Humor"
+shelf_list: true
+dest: shelf
+topic: "Sensemaking"
 url: "https://networkcultures.org/blog/publication/critical-meme-reader-iii-breaking-the-meme/"
-order: 15
+order: 14
 dek: "Institute of Network Cultures, 2024"
 blurb: "The third Critical Meme Reader volume, focused on breaking, mutating, and rethinking memes across politics and culture."
 links:

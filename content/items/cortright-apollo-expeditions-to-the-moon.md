@@ -7,7 +7,7 @@ shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://archive.org/details/apollo-expeditions-to-the-moon"
-order: 50
+order: 15
 dek: "NASA SP-350, 1975"
 blurb: "NASA's illustrated institutional history of the Apollo program, edited by Edgar M. Cortright."
 featured: false

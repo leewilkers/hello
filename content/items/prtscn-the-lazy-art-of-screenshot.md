@@ -6,7 +6,7 @@ image: "/img/covers/prtscn-the-lazy-art-of-screenshot.jpg"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/prtscn-the-lazy-art-of-screenshot/"
-order: 26
+order: 2
 dek: "Institute of Network Cultures, 2022"
 blurb: "A collection on screenshots as everyday image practice, evidence, interface residue, and low-friction publishing."
 links:

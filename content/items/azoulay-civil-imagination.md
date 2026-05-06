@@ -6,7 +6,7 @@ image: /img/covers/azoulay-civil-imagination.jpg
 dest: shelf
 topic: "Photography & Journalism"
 url: 'https://www.versobooks.com/products/2256-civil-imagination'
-order: 50
+order: 3
 dek: 'Verso, 2015'
 note: ''
 blurb: >-

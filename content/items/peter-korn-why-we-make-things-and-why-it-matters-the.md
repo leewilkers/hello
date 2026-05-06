@@ -10,6 +10,6 @@ dek: "Godine, 2013"
 note: ""
 blurb: "Korn reflects on craft as a way of learning attention, agency, material judgment, and a meaningful life."
 quote: ""
-order: 9
+order: 7
 links: []
 ---

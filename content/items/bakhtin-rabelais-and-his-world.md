@@ -3,10 +3,11 @@ author: "Mikhail Bakhtin; Helene Iswolsky, trans."
 title: "Rabelais and His World"
 type: "book"
 image: "/img/covers/bakhtin-rabelais-and-his-world.jpg"
-dest: "shelf"
+shelf_list: true
+dest: shelf
 topic: "Humor"
 url: "https://mitpress.mit.edu/9780262520249/rabelais-and-his-world/"
-order: 50
+order: 35
 dek: "MIT Press, 1971 paperback"
 note: ""
 blurb: >-

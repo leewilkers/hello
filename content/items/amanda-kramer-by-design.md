@@ -11,7 +11,7 @@ dek: 'Sundance Film Festival, 2025'
 source: Letterboxd
 note: ''
 blurb: 'A woman swaps bodies with a chair, and everyone likes her better as a chair.'
-order: 2
+order: 8
 links:
   - label: IMDB
     url: 'https://www.imdb.com/title/tt33365660/'

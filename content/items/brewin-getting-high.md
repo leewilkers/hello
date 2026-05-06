@@ -4,9 +4,9 @@ title: "Getting High: A Savage Journey to the Heart of the Dream of Flight"
 type: book
 image: "/img/covers/brewin-getting-high.jpg"
 dest: shelf
-topic: "Potpourri"
+topic: "(Outer) Space"
 url: "https://www.kesterbrewin.com/gettinghigh/"
-order: 50
+order: 14
 dek: "Vaux Publishing, 2016"
 note: ""
 blurb: "Brewin's essayistic history of flight, transcendence, intoxication, technology, and the recurring human dream of ascent."

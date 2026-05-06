@@ -4,9 +4,9 @@ title: Show Your Work!
 type: book
 image: /img/covers/kleon-show-your-work.jpg
 dest: shelf
-topic: Potpourri
+topic: "Writing"
 url: 'https://austinkleon.com/show-your-work/'
-order: 50
+order: 9
 dek: 'Workman, 2014'
 note: ''
 blurb: >-

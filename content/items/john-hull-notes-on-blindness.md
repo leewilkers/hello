@@ -5,7 +5,7 @@ type: vr
 image: /img/covers/john-hull-notes-on-blindness.jpg
 cover_label: true
 dest: shelf
-topic: "Inner Space"
+topic: "(Inner) Space"
 url: 'https://www.meta.com/experiences/notes-on-blindness/1946326588770583/'
 dek: 'Middleton, Spinney, Colinart & La Burthe, 2016'
 links:
@@ -15,7 +15,7 @@ links:
     url: 'https://www.notesonblindness.co.uk/'
   - label: 'book (Touching the Rock, 1990)'
     url: 'https://en.wikipedia.org/wiki/Touching_the_Rock'
-order: 7
+order: 6
 blurb: >-
   2016 VR experience built from John Hull's audio diaries recorded as he lost
   his sight, using binaural sound and real-time 3D animation.

@@ -10,7 +10,7 @@ dek: "CRC Press, 2011"
 note: ""
 blurb: "Dekker explains failure as a gradual drift inside complex systems rather than a simple chain of broken parts."
 quote: ""
-order: 37
+order: 2
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Sidney_Dekker"

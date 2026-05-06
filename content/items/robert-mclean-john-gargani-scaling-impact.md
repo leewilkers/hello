@@ -4,7 +4,7 @@ title: "Scaling Impact: Innovation for the Public Good"
 type: book
 image: "/img/covers/robert-mclean-john-gargani-scaling-impact.jpg"
 dest: shelf
-topic: "Global Health, Aid & Development"
+topic: "Global Health"
 url: "https://idrc-crdi.ca/sites/default/files/openebooks/scalingimpact/index.html"
 dek: "Routledge/IDRC, 2019"
 links:
@@ -12,5 +12,5 @@ links:
     url: "https://www.routledge.com/Scaling-Impact-Innovation-for-the-Public-Good/McLean-Gargani/p/book/9781138605565"
 note: "the \"science\" of scaling"
 blurb: "McLean and Gargani distinguish scaling impact from simply growing programs, emphasizing context, systems, and public value."
-order: 8
+order: 6
 ---

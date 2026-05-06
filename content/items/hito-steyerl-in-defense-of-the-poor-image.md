@@ -18,5 +18,5 @@ links:
     url: 'http://worker01.e-flux.com/pdf/article_94.pdf'
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Hito_Steyerl'
-order: 28
+order: 14
 ---

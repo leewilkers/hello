@@ -6,7 +6,7 @@ image: "/img/covers/internets-dark-forests-subcultural-memories-and-vernaculars-
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/blog/publication/internets-dark-forests-subcultural-memories-and-vernaculars-of-a-layered-imaginary/"
-order: 17
+order: 6
 dek: "Institute of Network Cultures, 2024"
 blurb: "A publication on dark-forest metaphors, online subcultures, layered internet imaginaries, and vernacular memory."
 links:

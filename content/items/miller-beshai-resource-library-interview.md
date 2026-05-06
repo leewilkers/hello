@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://www.are.na/editorial/an-interview-with-alison-beshai-of-resource-library"
-order: 50
+order: 15
 dek: "Are.na Editorial, 2025"
 blurb: "A conversation about Resource Library, design-print access, lending as trust, and a non-consumer model for shared books."
 featured: false

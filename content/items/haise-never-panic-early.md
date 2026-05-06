@@ -4,9 +4,9 @@ title: "Never Panic Early: An Apollo 13 Astronaut's Journey"
 type: book
 image: "/img/covers/haise-never-panic-early.jpg"
 dest: shelf
-topic: "Strategy & Coordination"
+topic: "(Outer) Space"
 url: "https://www.smithsonianbooks.com/store/aviation-military-history/never-panic-early-an-apollo-13-astronauts-journey/"
-order: 50
+order: 13
 dek: "Smithsonian Books, 2022"
 note: ""
 blurb: "Apollo 13 astronaut Fred Haise's memoir of aviation, crisis, procedure, risk, and staying useful under pressure."

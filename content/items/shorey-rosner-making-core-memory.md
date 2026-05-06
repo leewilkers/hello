@@ -9,7 +9,7 @@ shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://www.technologystories.org/making-core-memory/"
-order: 50
+order: 21
 dek: "Technology's Stories, 2019"
 blurb: "An essay on Apollo core memory, weaving, gendered craft labor, and the histories hidden inside computing infrastructure."
 featured: false

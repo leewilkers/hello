@@ -3,11 +3,12 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 4: People"
 type: magazine
 image: "/img/covers/mschf-mag-vol-4-people.jpg"
+shelf_list: true
 cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://people.mschfmag.com/"
-order: 4
+order: 41
 dek: "MSCHF, 2021"
 blurb: "The fourth MSCHF Mag volume, organized around interviews, impersonations, social systems, and people-as-material."
 links:

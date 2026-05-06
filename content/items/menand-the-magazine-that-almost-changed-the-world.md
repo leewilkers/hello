@@ -3,11 +3,12 @@ author: "Louis Menand"
 title: "The Magazine that Almost Changed the World"
 type: "essay"
 image: "/img/covers/menand-the-magazine-that-almost-changed-the-world.jpg"
+shelf_list: true
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.newyorker.com/books/page-turner/the-magazine-that-almost-changed-the-world"
-order: 50
+order: 33
 dek: "The New Yorker, January 7, 2010"
 note: ""
 blurb: >-

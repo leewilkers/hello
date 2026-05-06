@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://www.ribbonfarm.com/2017/02/23/the-strategy-of-no-strategy/"
-order: 50
+order: 6
 dek: "Ribbonfarm, 2017"
 note: ""
 blurb: "Adam Elkus's 2017 Ribbonfarm essay on the paradox that individuals and institutions consistently perform poorly at the strategic planning they culturally value."

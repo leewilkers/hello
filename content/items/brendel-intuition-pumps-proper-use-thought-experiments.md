@@ -3,10 +3,10 @@ author: "Elke Brendel"
 title: "Intuition Pumps and the Proper Use of Thought Experiments"
 type: "paper"
 image: "/img/covers/brendel-intuition-pumps-proper-use-thought-experiments.jpg"
-dest: "shelf"
-topic: "Sensemaking & Judgement"
+dest: shelf
+topic: "Sensemaking"
 url: "https://www.philosophie.ch/brendel-2004"
-order: 50
+order: 17
 dek: "Dialectica 58(1), 2004"
 note: ""
 blurb: "A methodological account of thought experiments that distinguishes misleading intuition pumps from legitimate philosophical and scientific uses of intuition."

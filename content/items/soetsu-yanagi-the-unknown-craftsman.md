@@ -3,6 +3,7 @@ author: "Soetsu Yanagi"
 title: "The Unknown Craftsman: A Japanese Insight into Beauty"
 type: book
 image: "/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg"
+shelf_list: true
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://www.penguinrandomhouse.com/books/563597/the-unknown-craftsman-by-soetsu-yanagi-adapted-by-bernard-leach/"
@@ -15,5 +16,5 @@ links:
 note: ""
 blurb: "Yanagi explores the beauty of anonymous craft, everyday objects, and the mingei tradition."
 quote: ""
-order: 18
+order: 13
 ---

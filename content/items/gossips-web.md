@@ -5,11 +5,12 @@ url: "https://gossipsweb.net/"
 type: site
 dest: shelf
 topic: "Web Culture & Internet"
-order: 31
+order: 24
 note: ""
 dek: "Interviews with the people behind personal websites"
 blurb: "the people behind the URLs"
 image: "/img/covers/gossips-web.jpg"
+shelf_list: true
 cover_label: true
 links:
   - label: "interviews"

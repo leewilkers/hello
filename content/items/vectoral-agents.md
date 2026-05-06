@@ -3,10 +3,10 @@ author: "Jernej Markelj, Claudio Celis Bueno (eds.)"
 title: "Vectoral Agents: Power in the Age of Planetary Computation"
 type: "book"
 image: "/img/covers/vectoral-agents.jpg"
-dest: "shelf"
-topic: "Technology & Critique"
+dest: shelf
+topic: "Tech"
 url: "https://networkcultures.org/blog/publication/vectoral-agents-power-in-the-age-of-planetary-computation/"
-order: 41
+order: 13
 dek: "Institute of Network Cultures, 2025"
 blurb: "A publication on vectoral power, computation at planetary scale, and the agents that organize contemporary technical systems."
 links:

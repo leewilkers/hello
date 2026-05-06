@@ -4,11 +4,10 @@ title: Hypocognition
 type: concept
 image: /img/covers/hypocognition.jpg
 cover_label: true
-shelf_list: true
 dest: shelf
-topic: "Inner Space"
+topic: "(Inner) Space"
 url: 'https://en.wikipedia.org/wiki/Hypocognition'
-order: 50
+order: 10
 dek: Wikipedia
 note: ''
 blurb: >-

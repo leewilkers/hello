@@ -3,11 +3,12 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 2: Cred"
 type: magazine
 image: "/img/covers/mschf-mag-vol-2-cred.jpg"
+shelf_list: true
 cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://cred.mschfmag.com/"
-order: 2
+order: 29
 dek: "MSCHF, 2020"
 blurb: "The second MSCHF Mag volume, built around reputation hacks, institutional loopholes, and social-engineering bits."
 links:

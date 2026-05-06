@@ -3,10 +3,11 @@ author: "Luc Sante"
 title: "Evidence"
 type: book
 image: "/img/covers/sante-evidence.jpg"
+shelf_list: true
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://openlibrary.org/search?q=Evidence+Luc+Sante+0374523657"
-order: 50
+order: 21
 dek: "Farrar, Straus and Giroux, 1992"
 blurb: "Police photographs and Sante’s text arranged into a grim archive of looking and proof."
 quote: ""

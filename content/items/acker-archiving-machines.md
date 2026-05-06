@@ -13,5 +13,5 @@ quote: ""
 links:
   - label: "book site"
     url: "https://www.archivingmachines.com/"
-order: 50
+order: 1
 ---

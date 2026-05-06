@@ -7,7 +7,7 @@ cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://emmwmfsptbsyhiym.mschfmag.com/"
-order: 6
+order: 16
 dek: "MSCHF, 2022"
 blurb: "The sixth MSCHF Mag volume: Eat More Meat, Watch More Fox, Stop Printing the Bible, Stick Your Hands in Your Mouth."
 links:

@@ -3,11 +3,12 @@ author: "Quino"
 title: "Mafalda"
 type: "site"
 image: "/img/covers/quino-mafalda.jpg"
+shelf_list: true
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.quino.com.ar/mafaldaenglish"
-order: 50
+order: 39
 dek: "Quino"
 note: ""
 blurb: >-

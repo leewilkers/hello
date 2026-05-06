@@ -3,10 +3,10 @@ author: "Peter Limb, Tejumola Olaniyan, eds."
 title: "Taking African Cartoons Seriously"
 type: "book"
 image: "/img/covers/limb-olaniyan-taking-african-cartoons-seriously.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://msupress.org/9781611862966/taking-african-cartoons-seriously/"
-order: 50
+order: 12
 dek: "Michigan State University Press, 2018"
 note: ""
 blurb: >-

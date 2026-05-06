@@ -6,7 +6,7 @@ image: /img/covers/barthes-camera-lucida.jpg
 dest: shelf
 topic: "Photography & Journalism"
 url: 'https://us.macmillan.com/books/9780374521349/camera-lucida'
-order: 50
+order: 5
 dek: 'Hill and Wang, 1981'
 note: ''
 blurb: >-

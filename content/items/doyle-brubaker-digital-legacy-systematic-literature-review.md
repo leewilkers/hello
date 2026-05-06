@@ -4,7 +4,6 @@ title: "Digital Legacy: A Systematic Literature Review"
 type: journal article
 image: "/img/covers/doyle-brubaker-digital-legacy.jpg"
 cover_label: true
-shelf_list: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://cmci.colorado.edu/idlab/assets/bibliography/pdf/Doyle2023.pdf"
@@ -15,5 +14,5 @@ quote: ""
 links:
   - label: "doi"
     url: "https://doi.org/10.1145/3610059"
-order: 50
+order: 12
 ---

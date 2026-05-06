@@ -6,7 +6,7 @@ image: "/img/covers/shop-tails.jpg"
 dest: "shelf"
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/shop-tails"
-order: 1
+order: 5
 dek: "Lost Art Press"
 blurb: "A Lost Art Press book about shop companions and the animals woven into craft, workspaces, routines, and making."
 links:

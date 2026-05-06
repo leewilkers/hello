@@ -4,9 +4,9 @@ title: The Ordinal Society
 type: book
 image: /img/covers/the-ordinal-society.jpg
 dest: shelf
-topic: "Data, Evidence, & Epidemiology"
+topic: "Global Health"
 url: 'https://www.hup.harvard.edu/books/9780674971141'
-order: 50
+order: 11
 dek: 'Harvard University Press, 2024'
 note: ''
 blurb: >-

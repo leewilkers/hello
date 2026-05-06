@@ -6,7 +6,7 @@ image: /img/covers/azoulay-the-civil-contract-of-photography.jpg
 dest: shelf
 topic: "Photography & Journalism"
 url: 'https://mitpress.mit.edu/9781890951894/the-civil-contract-of-photography/'
-order: 50
+order: 4
 dek: 'Zone Books, 2008'
 note: ''
 blurb: >-

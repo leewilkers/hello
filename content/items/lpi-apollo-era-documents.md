@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://www.lpi.usra.edu/lunar/documents/"
-order: 50
+order: 17
 dek: "LPI resource"
 blurb: "A technical-document archive for Apollo exploration strategies, hardware, geological tools, landing sites, lunar rovers, and mission summaries."
 featured: false

@@ -3,12 +3,13 @@ author: "Ruxandra Mărgineanu, Radu-Mihai Tănasă"
 title: "Starnet: A History of Internet Cafes in Iași (Romania)"
 type: "essay"
 image: "/img/covers/starnet-history-of-internet-cafes-iasi-romania.jpg"
+shelf_list: true
 cover_label: true
 cover_label_text: "Starnet"
-dest: "shelf"
+dest: shelf
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2024/06/21/starnet/"
-order: 16
+order: 27
 dek: "INC Longform, 2024-06-21"
 blurb: "A history of internet cafes in Iași as social infrastructure for gaming, access, memory, and post-socialist network culture."
 links:

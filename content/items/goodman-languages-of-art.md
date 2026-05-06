@@ -6,7 +6,7 @@ image: /img/covers/goodman-languages-of-art.jpg
 dest: shelf
 topic: "Media"
 url: 'https://www.hackettpublishing.com/languages-of-art'
-order: 50
+order: 5
 dek: 'Hackett, 1968'
 note: ''
 blurb: >-

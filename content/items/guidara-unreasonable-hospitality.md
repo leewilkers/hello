@@ -4,7 +4,7 @@ title: "Unreasonable Hospitality: The Remarkable Power of Giving People More Tha
 type: book
 image: "/img/covers/guidara-unreasonable-hospitality.jpg"
 dest: shelf
-topic: "Hospitality & Service"
+topic: "Hospitality"
 url: "https://www.penguinrandomhouse.com/books/674289/unreasonable-hospitality-by-will-guidara/"
 dek: "Optimism Press, 2022"
 note: ""
@@ -13,5 +13,5 @@ quote: ""
 links:
   - label: "Optimism Press"
     url: "https://simonsinek.com/optimism-press/unreasonable-hospitality"
-order: 50
+order: 7
 ---

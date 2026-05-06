@@ -8,7 +8,7 @@ cover_label_text: "Tools for Thought as Cultural Practices"
 dest: shelf
 note: ''
 blurb: 'distinctly computer-oriented, male, American, middle-class'
-topic: "Social Science & Anthropology"
+topic: "Social Science"
 url: 'https://maggieappleton.com/tools-for-thought'
 dek: 'maggieappleton.com, 2022'
 source: maggieappleton.com
@@ -16,5 +16,5 @@ links:
   - label: talk
     url: >-
       https://declarative.amsterdam/presentations/da.2022.appleton.tools-for-thought
-order: 22
+order: 2
 ---

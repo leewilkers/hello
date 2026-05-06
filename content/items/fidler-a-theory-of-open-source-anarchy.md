@@ -3,11 +3,12 @@ author: "David Fidler"
 title: "A Theory of Open-Source Anarchy"
 type: essay
 image: "/img/covers/fidler-a-theory-of-open-source-anarchy.jpg"
+shelf_list: true
 cover_label: true
 dest: shelf
-topic: "Global Health, Aid & Development"
+topic: "Global Health"
 url: "https://www.repository.law.indiana.edu/ijgls/vol15/iss1/11/"
-order: 50
+order: 18
 dek: "Indiana Journal of Global Legal Studies, Winter 2008"
 note: ""
 blurb: "David Fidler's article arguing that global anarchy has become 'open source,' giving non-state actors new capacity to shape international relations."

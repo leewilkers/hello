@@ -3,10 +3,10 @@ author: "Chloë Arkenbout, Jack Wilson, Daniel de Zeeuw (eds.)"
 title: "Critical Meme Reader: Global Mutations of the Viral Image"
 type: "book"
 image: "/img/covers/critical-meme-reader.jpg"
-dest: "shelf"
-topic: "Humor"
+dest: shelf
+topic: "Sensemaking"
 url: "https://networkcultures.org/blog/publication/critical-meme-reader-global-mutations-of-the-viral-image/"
-order: 27
+order: 11
 dek: "Institute of Network Cultures, 2021"
 blurb: "A reader on memes as global, political, and mutable image forms, with attention to virality and vernacular visual culture."
 links:

@@ -4,10 +4,10 @@ title: "Xavier: Renegade Angel: Season 1"
 type: "video"
 image: "/img/covers/xavier-renegade-angel-season-1.jpg"
 cover_label: true
-dest: "shelf"
-topic: "Humor"
+dest: shelf
+topic: "Global Health"
 url: "https://www.rottentomatoes.com/tv/xavier_renegade_angel/s01"
-order: 50
+order: 13
 dek: "Rotten Tomatoes, 2007"
 note: ""
 blurb: >-

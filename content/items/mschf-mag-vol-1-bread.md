@@ -3,11 +3,12 @@ author: "MSCHF"
 title: "MSCHF Mag Vol. 1: Bread"
 type: magazine
 image: "/img/covers/mschf-mag-vol-1-bread.jpg"
+shelf_list: true
 cover_label: true
 dest: shelf
 topic: "Humor"
 url: "https://bread.mschfmag.com/"
-order: 1
+order: 36
 dek: "MSCHF, 2020"
 blurb: "The first MSCHF Mag volume: a stack of prank tools, scams, and short-form schemes in magazine form."
 links:

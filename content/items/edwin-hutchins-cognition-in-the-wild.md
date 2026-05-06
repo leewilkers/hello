@@ -4,7 +4,7 @@ title: "Cognition in the Wild"
 type: book
 image: "/img/covers/edwin-hutchins-cognition-in-the-wild.jpg"
 dest: shelf
-topic: "Technology & Critique"
+topic: "Tech"
 url: "https://mitpress.mit.edu/9780262581462/cognition-in-the-wild/"
 dek: "MIT Press, 1995"
 note: ""
@@ -17,5 +17,5 @@ links:
     url: "https://archive.org/details/cognitioninwild0000hutc"
   - label: "review"
     url: "https://bactra.org/reviews/cognition-in-the-wild/"
-order: 9
+order: 10
 ---

@@ -6,7 +6,7 @@ image: "/img/covers/batchen-forget-me-not.jpg"
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://books.google.com/books/about/Forget_Me_Not.html?id=DMs7edm09-sC"
-order: 50
+order: 6
 dek: "Princeton Architectural Press, 2004"
 blurb: "Photography as memory object: mourning, keepsakes, albums, and the touch of images."
 quote: ""

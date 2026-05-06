@@ -3,10 +3,10 @@ author: "Steve Martin"
 title: "Born Standing Up"
 type: "book"
 image: "/img/covers/steve-martin-born-standing-up.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.simonandschuster.com/books/Born-Standing-Up/Steve-Martin/9781416553656"
-order: 50
+order: 13
 dek: "Simon & Schuster, 2008"
 note: ""
 blurb: >-

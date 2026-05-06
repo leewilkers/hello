@@ -5,9 +5,9 @@ type: essay
 image: "/img/covers/benn-the-perils-of-hyper-literacy.jpg"
 cover_label: true
 dest: shelf
-topic: "Language & Writing"
+topic: "Writing"
 url: "https://engelsbergideas.com/notebook/the-perils-of-hyper-literacy/"
-order: 50
+order: 1
 dek: "engelsbergideas.com"
 note: ""
 blurb: "Alastair Benn's essay arguing that the costs of excessive literacy become visible only to the hyper-literate themselves."

@@ -3,6 +3,7 @@ author: "Christopher Schwarz"
 title: "The Anarchist's Tool Chest"
 type: book
 image: "/img/covers/christopher-schwarz-the-anarchist-s-tool-chest.jpg"
+shelf_list: true
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://lostartpress.com/products/the-anarchists-tool-chest"
@@ -14,5 +15,5 @@ links:
     url: "https://blog.lostartpress.com/2024/04/14/a-free-download-now-and-forever-the-anarchists-tool-chest/"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Christopher_Schwarz"
-order: 8
+order: 14
 ---

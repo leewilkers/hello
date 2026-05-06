@@ -114,6 +114,17 @@ h1 {
 .status-line .changed b { color: var(--green); }
 .status-line .stream b { color: var(--orange); }
 .status-line .display b { color: var(--accent); }
+.pickup-status {
+  margin-top: 0.46rem;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  font-style: italic;
+}
+.pickup-status b {
+  color: var(--accent);
+  font-style: normal;
+}
 .quiet-actions {
   display: flex;
   flex-wrap: wrap;
@@ -489,6 +500,14 @@ h1 {
 .shelf-card:focus-within .cell-cover {
   border-color: var(--accent);
 }
+.shelf-card.is-armed .cell-cover,
+.shelf-list-row.is-armed {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.shelf-card.is-armed .cell-cover {
+  border-color: var(--accent);
+}
 .shelf-card.is-dragging .cell-cover {
   transform: rotate(1deg);
 }
@@ -780,11 +799,12 @@ h1 {
     <div class="title-row">
       <div>
         <h1>Shelf Movers Board</h1>
-        <p class="subtitle">Same Shelf, loosened: drag cards between topics, or into Stream. Nothing touches frontmatter until export.</p>
+        <p class="subtitle">Fresh pass: drag cards between topics, reorder inside sections, or drop into Stream. The May 6 pass is now preserved under the previous browser key.</p>
       </div>
       <span class="badge">{{ shelfItems | length }} Shelf items</span>
     </div>
     <div class="status-line" id="stats"></div>
+    <div class="pickup-status" id="pickupStatus">Click an item to pick it up, then click another item, topic, or Stream to place it.</div>
     <nav class="quiet-actions" aria-label="Shelf movers actions">
       <a href="#export" id="exportLink">Export moves</a>
       <a href="#copy" id="copyLink" aria-disabled="true">Copy export</a>
@@ -814,13 +834,17 @@ h1 {
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <script>
-const STORAGE_KEY = "shelfMovers.v1";
+const requestedStorageKey = new URLSearchParams(window.location.search).get("storage");
+const STORAGE_KEY = requestedStorageKey && /^shelfMovers\.[A-Za-z0-9_.:-]+$/.test(requestedStorageKey)
+  ? requestedStorageKey
+  : "shelfMovers.v3";
+const LEGACY_STORAGE_KEY = "shelfMovers.v2";
 const STREAM_TOPIC = "Stream";
 const TOPICS = {{ topics | toJson | safe }};
 const DROP_TOPICS = [...TOPICS, STREAM_TOPIC];
 const ITEMS = [
 {%- for topic in topics %}
-  {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortByAuthor %}
+  {%- set bucket = collections.items | where("dest", "shelf") | where("topic", topic) | sortForShelf %}
   {%- for item in bucket %}
   {
     path: {{ item.inputPath | toJson | safe }},
@@ -847,12 +871,20 @@ const ITEMS = [
 
 const itemByPath = new Map(ITEMS.map((item) => [item.path, item]));
 const defaultOrder = TOPICS.reduce((acc, topic) => {
-  acc[topic] = ITEMS.filter((item) => item.oldTopic === topic)
-    .sort((a, b) => a.oldIndex - b.oldIndex)
+  const topicItems = ITEMS.filter((item) => item.oldTopic === topic)
+    .sort((a, b) => a.oldIndex - b.oldIndex);
+  acc[topic] = [
+    ...topicItems.filter((item) => !item.shelfList),
+    ...topicItems.filter((item) => item.shelfList)
+  ]
     .map((item) => item.path);
   return acc;
 }, {});
 defaultOrder[STREAM_TOPIC] = [];
+const defaultIndexByPath = new Map();
+for (const [topic, paths] of Object.entries(defaultOrder)) {
+  paths.forEach((path, index) => defaultIndexByPath.set(path, index));
+}
 
 const state = {
   orderByTopic: {},
@@ -867,12 +899,15 @@ const els = {
   stats: document.getElementById("stats"),
   exportPanel: document.getElementById("exportPanel"),
   exportText: document.getElementById("exportText"),
-  copyLink: document.getElementById("copyLink")
+  copyLink: document.getElementById("copyLink"),
+  pickupStatus: document.getElementById("pickupStatus")
 };
 
 let sortables = [];
 let draggedPath = "";
 let pointerDrag = null;
+let activePath = "";
+let suppressNextClick = false;
 
 function cloneDefaultOrder() {
   return Object.fromEntries(DROP_TOPICS.map((topic) => [topic, [...(defaultOrder[topic] || [])]]));
@@ -980,7 +1015,7 @@ function itemStatus(item) {
   const loc = locationFor(item.path);
   const stream = loc.topic === STREAM_TOPIC || Boolean(state.streamByPath[item.path]);
   const topicMoved = !stream && loc.topic !== item.oldTopic;
-  const orderMoved = !stream && loc.topic === item.oldTopic && loc.index !== item.oldIndex;
+  const orderMoved = !stream && loc.topic === item.oldTopic && loc.index !== defaultIndexFor(item);
   const shelfList = isShelfList(item);
   const displayMoved = shelfList !== Boolean(item.shelfList);
   return {
@@ -993,6 +1028,11 @@ function itemStatus(item) {
     stream,
     changed: topicMoved || orderMoved || stream || displayMoved
   };
+}
+
+function defaultIndexFor(item) {
+  if (!item) return -1;
+  return defaultIndexByPath.has(item.path) ? defaultIndexByPath.get(item.path) : item.oldIndex;
 }
 
 function topicSlug(topic) {
@@ -1012,6 +1052,7 @@ function render() {
   bindDropTargets();
   initSortables();
   renderStats();
+  renderActivePickup();
 }
 
 function visibleTopics() {
@@ -1094,6 +1135,23 @@ function countChangedInTopic(topic) {
     .length;
 }
 
+function setActivePath(path) {
+  activePath = path && itemByPath.has(path) ? path : "";
+  renderActivePickup();
+}
+
+function renderActivePickup() {
+  document.querySelectorAll(".is-armed").forEach((node) => node.classList.remove("is-armed"));
+  if (!activePath) {
+    els.pickupStatus.innerHTML = "Click an item to pick it up, then click another item, topic, or Stream to place it.";
+    return;
+  }
+  const item = itemByPath.get(activePath);
+  const card = document.querySelector(`[data-path="${CSS.escape(activePath)}"]`);
+  if (card) card.classList.add("is-armed");
+  els.pickupStatus.innerHTML = `Picked up <b>${escapeHtml(item ? item.title : "item")}</b>. Click another item to place before it, or click a topic / Stream to append.`;
+}
+
 function topicEditLink(topic, label) {
   return `<a href="#edit-topic" class="topic-edit-link" data-edit-topic="${escapeAttr(topic)}" data-no-sort aria-label="Edit topic text for ${escapeAttr(label)}" title="Edit topic text">&#9998;</a>`;
 }
@@ -1108,7 +1166,7 @@ function cardMarkup(item) {
   const metaParts = [item.author, item.year, item.type].filter(Boolean);
   const hoverNote = item.note || item.quote || item.blurb || item.dek || "";
   return `
-    <article class="${classes}" data-path="${escapeAttr(item.path)}" draggable="true" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
+    <article class="${classes}" data-path="${escapeAttr(item.path)}" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
       ${status.changed ? `<span class="status-pill${status.stream ? " stream" : ""}">${status.stream ? "stream" : "moved"}</span>` : ""}
       <span class="cell-cover">
         <span class="cell-cover-panel">${coverMarkup(item)}</span>
@@ -1136,7 +1194,7 @@ function listRowMarkup(item) {
   ].filter(Boolean).join(" ");
   const metaParts = [item.author, item.year].filter(Boolean);
   return `
-    <article class="${classes}" data-path="${escapeAttr(item.path)}" draggable="true" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
+    <article class="${classes}" data-path="${escapeAttr(item.path)}" tabindex="0" aria-label="${escapeAttr(item.title || "Untitled")}">
       <span class="shelf-list-main">
         <span class="shelf-list-type" aria-hidden="true">${escapeHtml(typeMark(item))}</span>
         <span class="shelf-list-title">${escapeHtml(item.title || "Untitled")}</span>
@@ -1224,6 +1282,10 @@ function bindCards() {
       const item = itemByPath.get(path);
       const displayChanged = item && decision && typeof decision.shelfList === "boolean" && decision.shelfList !== isShelfList(item);
       clearDropState();
+      if (moved) {
+        suppressNextClick = true;
+        setTimeout(() => { suppressNextClick = false; }, 0);
+      }
       if (moved && targetTopic && path && item && (targetTopic !== currentTopic || displayChanged)) {
         moveItemToTopic(path, targetTopic, { shelfList: decision.shelfList });
       }
@@ -1238,6 +1300,26 @@ function bindCards() {
       }
     });
     card.addEventListener("dragend", clearDropState);
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a")) return;
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        return;
+      }
+      const path = card.dataset.path || "";
+      if (!path || !itemByPath.has(path)) return;
+      if (!activePath) {
+        setActivePath(path);
+        return;
+      }
+      if (activePath === path) {
+        setActivePath("");
+        return;
+      }
+      const decision = dropDecisionFromTarget(card.closest("[data-card-topic], [data-list-topic], [data-drop-topic]"));
+      moveItemBefore(activePath, path, { shelfList: decision ? decision.shelfList : undefined });
+      setActivePath("");
+    });
   });
 }
 
@@ -1317,6 +1399,17 @@ function startTopicInlineEdit(topic, trigger) {
 
 function bindDropTargets() {
   document.querySelectorAll("[data-drop-topic], [data-card-topic], [data-list-topic]").forEach((target) => {
+    target.addEventListener("click", (event) => {
+      if (!activePath) return;
+      if (event.target.closest("[data-path]")) return;
+      if (event.target.closest("[data-edit-topic]")) return;
+      const decision = dropDecisionFromTarget(target);
+      if (!decision || !decision.topic) return;
+      event.preventDefault();
+      event.stopPropagation();
+      moveItemToTopic(activePath, decision.topic, { shelfList: decision.shelfList });
+      setActivePath("");
+    });
     target.addEventListener("dragover", (event) => {
       if (!draggedPath) return;
       event.preventDefault();
@@ -1460,6 +1553,25 @@ function moveItemToTopic(path, topic, options = {}) {
   render();
 }
 
+function moveItemBefore(path, beforePath, options = {}) {
+  if (!itemByPath.has(path) || !itemByPath.has(beforePath) || path === beforePath) return;
+  const targetLoc = locationFor(beforePath);
+  const topic = targetLoc.topic;
+  if (!DROP_TOPICS.includes(topic)) return;
+  for (const entryTopic of DROP_TOPICS) {
+    state.orderByTopic[entryTopic] = (state.orderByTopic[entryTopic] || []).filter((entry) => entry !== path);
+  }
+  const targetOrder = [...(state.orderByTopic[topic] || [])];
+  const beforeIndex = targetOrder.indexOf(beforePath);
+  targetOrder.splice(beforeIndex >= 0 ? beforeIndex : targetOrder.length, 0, path);
+  state.orderByTopic[topic] = targetOrder;
+  if (topic === STREAM_TOPIC) state.streamByPath[path] = true;
+  else delete state.streamByPath[path];
+  if (typeof options.shelfList === "boolean" && topic !== STREAM_TOPIC) setShelfListOverride(path, options.shelfList);
+  saveState();
+  render();
+}
+
 function dropTargetFromPoint(x, y) {
   const target = document.elementFromPoint(x, y);
   return target ? target.closest("[data-card-topic], [data-list-topic], [data-drop-topic]") : null;
@@ -1498,6 +1610,7 @@ function clearDropState() {
 
 function resetBoard() {
   if (!window.confirm("Clear all local Shelf movers decisions? This only resets browser state.")) return;
+  activePath = "";
   state.orderByTopic = cloneDefaultOrder();
   state.streamByPath = {};
   state.shelfListByPath = {};
@@ -1534,8 +1647,8 @@ function exportDecisions() {
       oldTopic: item.oldTopic,
       newTopic: status.stream ? item.oldTopic : topicLabel(status.topic),
       newTopicKey: status.stream ? item.oldTopic : status.topic,
-      oldIndex: item.oldIndex,
-      newIndex: status.stream ? item.oldIndex : status.index,
+      oldIndex: defaultIndexFor(item),
+      newIndex: status.index,
       oldShelfList: Boolean(item.shelfList),
       newShelfList: status.shelfList,
       moveToStream: status.stream,
@@ -1558,6 +1671,7 @@ function exportPayload() {
     exportedAt: new Date().toISOString(),
     source: "shelf-movers",
     localStorageKey: STORAGE_KEY,
+    previousLocalStorageKey: LEGACY_STORAGE_KEY,
     counts: {
       totalShelfItems: ITEMS.length,
       changedItems: decisions.length,

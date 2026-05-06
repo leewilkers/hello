@@ -6,7 +6,7 @@ image: /img/covers/venkat-rao-how-to-draw-and-judge-quadrant-diagrams.jpg
 cover_label: true
 cover_label_text: "Quadrant Diagrams"
 dest: shelf
-topic: "Sensemaking & Judgement"
+topic: "Sensemaking"
 url: 'https://www.ribbonfarm.com/2009/04/20/how-to-draw-and-judge-quadrant-diagrams/'
 dek: 'Ribbonfarm, 2009'
 links:
@@ -14,5 +14,5 @@ links:
     url: 'https://www.ribbonfarm.com/2015/02/25/the-mother-of-all-2x2s/'
 note: ''
 blurb: 2x2s – loved by postrats & epidemiologists alike
-order: 9
+order: 5
 ---

@@ -5,10 +5,10 @@ type: "journal article"
 image: "/img/covers/douglas-do-dogs-laugh.jpg"
 cover_label: true
 shelf_list: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://pubmed.ncbi.nlm.nih.gov/5165384/"
-order: 50
+order: 44
 dek: "Journal of Psychosomatic Research, 1971"
 note: ""
 blurb: >-

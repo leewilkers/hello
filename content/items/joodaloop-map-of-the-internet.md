@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Web Culture & Internet"
 url: "https://map.joodaloop.com"
-order: 50
+order: 25
 dek: "map.joodaloop.com"
 note: ""
 blurb: "Hand-curated visual map of the websites and web places the creator actually inhabits."

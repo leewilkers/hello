@@ -15,5 +15,5 @@ source: "The Atlantic"
 links:
   - label: "author"
     url: "https://bogost.com/"
-order: 29
+order: 22
 ---

@@ -8,7 +8,7 @@ cover_label_text: "All Computers Are Broken"
 dest: "shelf"
 topic: "Media"
 url: "https://networkcultures.org/longform/2025/01/14/all-computers-are-broken-rethinking-the-technosphere-along-the-lines-of-repair-and-maintenance-work/"
-order: 8
+order: 6
 dek: "INC Longform, 2025-01-14"
 blurb: "A repair-centered critique of the technosphere, treating brokenness and maintenance as central rather than exceptional."
 links:

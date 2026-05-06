@@ -134,14 +134,25 @@ module.exports = function(eleventyConfig) {
     });
   });
 
-  // Alphabetical by author's surname. "First Last" → Last. "A, B" → last token of A (pre-comma).
+  function surname(author) {
+    if (!author) return "";
+    const first = String(author).split(",")[0].trim();
+    const tokens = first.split(/\s+/);
+    return (tokens[tokens.length - 1] || "").toLowerCase();
+  }
+
+  function compareByAuthorThenOrder(a, b, filterName) {
+    const ad = expectData(a, filterName);
+    const bd = expectData(b, filterName);
+    const sa = surname(ad.author);
+    const sb = surname(bd.author);
+    if (sa < sb) return -1;
+    if (sa > sb) return 1;
+    return numericSortValue(a, "order", filterName) - numericSortValue(b, "order", filterName);
+  }
+
+  // Alphabetical by author's surname. "First Last" -> Last. "A, B" -> last token of A (pre-comma).
   eleventyConfig.addFilter("sortByAuthor", function(arr) {
-    function surname(author) {
-      if (!author) return "";
-      const first = String(author).split(",")[0].trim();
-      const tokens = first.split(/\s+/);
-      return (tokens[tokens.length - 1] || "").toLowerCase();
-    }
     return [...expectCollection(arr, "sortByAuthor")].sort((a, b) => {
       const ad = expectData(a, "sortByAuthor");
       const bd = expectData(b, "sortByAuthor");
@@ -149,11 +160,22 @@ module.exports = function(eleventyConfig) {
       const pa = ad.pinned ? 0 : 1;
       const pb = bd.pinned ? 0 : 1;
       if (pa !== pb) return pa - pb;
-      const sa = surname(ad.author);
-      const sb = surname(bd.author);
-      if (sa < sb) return -1;
-      if (sa > sb) return 1;
-      return numericSortValue(a, "order", "sortByAuthor") - numericSortValue(b, "order", "sortByAuthor");
+      return compareByAuthorThenOrder(a, b, "sortByAuthor");
+    });
+  });
+
+  eleventyConfig.addFilter("sortForShelf", function(arr) {
+    return [...expectCollection(arr, "sortForShelf")].sort((a, b) => {
+      const ad = expectData(a, "sortForShelf");
+      const bd = expectData(b, "sortForShelf");
+      // Pinned still float above the hand-sorted shelf order.
+      const pa = ad.pinned ? 0 : 1;
+      const pb = bd.pinned ? 0 : 1;
+      if (pa !== pb) return pa - pb;
+      const oa = numericSortValue(a, "order", "sortForShelf");
+      const ob = numericSortValue(b, "order", "sortForShelf");
+      if (oa !== ob) return oa - ob;
+      return compareByAuthorThenOrder(a, b, "sortForShelf");
     });
   });
 

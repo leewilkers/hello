@@ -6,7 +6,7 @@ image: "/img/covers/spinuzzi-tracing-genres-through-organizations.jpg"
 dest: shelf
 topic: "Organizations & Work"
 url: "https://mitpress.mit.edu/9780262693431/tracing-genres-through-organizations/"
-order: 50
+order: 4
 dek: "MIT Press, 2003"
 note: ""
 blurb: "Clay Spinuzzi's 2003 MIT Press ethnography of how workers improvise unofficial genres — notes, annotations, workarounds — alongside designed information systems."

@@ -8,7 +8,7 @@ cover_label_text: "Beyond the Faust and the Hype"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2023/11/30/beyond-the-faust-and-the-hype-about-imaginaries-and-social-aspects-of-artificial-intelligence/"
-order: 21
+order: 10
 dek: "INC Longform, 2023-11-30"
 blurb: "A longform piece on the myths, social expectations, and cultural imaginaries forming around large language models."
 links:

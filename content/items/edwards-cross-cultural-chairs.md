@@ -6,7 +6,7 @@ image: "/img/covers/edwards-cross-cultural-chairs.jpg"
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://www.setmargins.press/books/cross-cultural-chairs/"
-order: 50
+order: 1
 dek: "Set Margins' Publications, 2023"
 note: ""
 blurb: "A research-based design project using chairs to read sitting, posture, identity, globalization, and local furniture cultures."

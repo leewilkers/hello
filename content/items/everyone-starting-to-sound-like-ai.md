@@ -7,9 +7,9 @@ cover_label: true
 cover_label_text: "LLM Influence on Speech"
 shelf_list: true
 dest: shelf
-topic: "Language & Writing"
+topic: "Writing"
 url: "https://arxiv.org/abs/2409.01754"
-order: 50
+order: 15
 dek: "arXiv, 2024"
 note: ""
 blurb: "Yakura and colleagues analyze academic talk transcripts and find increased use of words associated with ChatGPT after its release."

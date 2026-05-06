@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://doi.org/10.1332/174426420X16083745764324"
-order: 50
+order: 13
 dek: "Evidence & Policy, 2022"
 note: ""
 blurb: "Jennifer and Zachary Neal's 2021 systematic review surveying 277 sources to clarify how 'broker,' 'intermediary,' and 'boundary spanner' differ."

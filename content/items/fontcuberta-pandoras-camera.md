@@ -3,10 +3,11 @@ author: "Joan Fontcuberta"
 title: "Pandora's Camera: Photogr@phy After Photography"
 type: book
 image: "/img/covers/fontcuberta-pandoras-camera.jpg"
+shelf_list: true
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://utpdistribution.com/9781910164037/pandoras-camera/"
-order: 50
+order: 19
 dek: "MACK, 2014"
 blurb: "Essays on photography after digital manipulation, networked images, and unstable truth."
 quote: ""

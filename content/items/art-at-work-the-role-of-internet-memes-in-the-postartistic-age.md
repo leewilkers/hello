@@ -4,10 +4,10 @@ title: "Art at Work: The Role of Internet Memes in the Postartistic Age"
 type: "essay"
 image: "/img/covers/art-at-work-the-role-of-internet-memes-in-the-postartistic-age.jpg"
 cover_label: true
-dest: "shelf"
-topic: "Humor"
+dest: shelf
+topic: "Sensemaking"
 url: "https://networkcultures.org/longform/2023/06/21/art-at-work-the-role-of-internet-memes-in-the-postartistic-age/"
-order: 22
+order: 12
 dek: "INC Longform, 2023-06-21"
 blurb: "A longform argument for memes as postartistic work, everyday circulation, and cultural production after art-world boundaries."
 links:

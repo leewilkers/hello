@@ -3,10 +3,11 @@ author: "Joan Rivers, Richard Meryman"
 title: "Enter Talking"
 type: "book"
 image: "/img/covers/joan-rivers-enter-talking.jpg"
-dest: "shelf"
+shelf_list: true
+dest: shelf
 topic: "Humor"
 url: "https://openlibrary.org/books/OL2547074M/Enter_talking"
-order: 50
+order: 38
 dek: "Delacorte Press, 1986"
 note: ""
 blurb: >-

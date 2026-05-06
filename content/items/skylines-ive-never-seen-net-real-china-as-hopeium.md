@@ -8,7 +8,7 @@ cover_label_text: "Skylines I’ve Never Seen"
 dest: "shelf"
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/05/01/skylines-ive-never-seen-net-real-china-as-hopeium/"
-order: 5
+order: 9
 dek: "INC Longform, 2025-05-01"
 blurb: "A longform essay on mediated fantasies of China, online urban imaginaries, and the affective pull of distant technological futures."
 links:

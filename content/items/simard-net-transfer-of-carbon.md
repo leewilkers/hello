@@ -7,7 +7,7 @@ shelf_list: true
 dest: shelf
 topic: "Nature & Life"
 url: "https://www.nature.com/articles/41557"
-order: 50
+order: 21
 dek: "Nature, 1997"
 blurb: "The field paper behind much of the common-mycorrhizal-network imagination."
 quote: ""

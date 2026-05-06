@@ -5,10 +5,10 @@ type: "essay"
 image: "/img/covers/drown-your-laptop-on-office-sirens-working-from-home-and-aesthetics-of-refusal.jpg"
 cover_label: true
 cover_label_text: "Drown Your Laptop"
-dest: "shelf"
+dest: shelf
 topic: "Potpourri"
 url: "https://networkcultures.org/longform/2024/09/23/drown-your-laptop/"
-order: 13
+order: 4
 dek: "INC Longform, 2024-09-23"
 blurb: "An essay on work-from-home fatigue, refusal, office sirens, and the aesthetics of escaping productive capture."
 links:

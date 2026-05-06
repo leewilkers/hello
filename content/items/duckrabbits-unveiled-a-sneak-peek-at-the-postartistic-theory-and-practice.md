@@ -6,7 +6,7 @@ image: "/img/covers/duckrabbits-unveiled-a-sneak-peek-at-the-postartistic-theory
 dest: "shelf"
 topic: "Media"
 url: "https://networkcultures.org/blog/publication/duckrabbits-unveiled-a-sneak-peek-at-the-postartistic-theory-and-practice/"
-order: 2
+order: 1
 dek: "Institute of Network Cultures, 2025"
 blurb: "A visual and theoretical introduction to postartistic practice, ambivalent images, and art after art-world certainties."
 links:

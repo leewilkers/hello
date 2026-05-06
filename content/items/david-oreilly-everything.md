@@ -5,13 +5,13 @@ type: game
 image: /img/covers/david-oreilly-everything.jpg
 cover_label: true
 dest: shelf
-topic: "Experiences"
+topic: "Potpourri"
 url: 'https://store.steampowered.com/app/582270/Everything/'
 dek: '2017'
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Everything_(video_game)'
-order: 2
+order: 9
 blurb: >-
   David OReilly's 2017 simulation in which every object in the universe is
   playable, narrated by Alan Watts; first video game screened at the Vienna

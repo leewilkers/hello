@@ -11,5 +11,5 @@ note: ""
 blurb: "A concise argument for treating digital literary remains as material, fragile, and archival."
 quote: ""
 links: []
-order: 50
+order: 4
 ---

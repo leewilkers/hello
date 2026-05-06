@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Organizations & Work"
 url: "https://doi.org/10.2307/259118"
-order: 50
+order: 14
 dek: "Academy of Management Review, 2001"
 blurb: "Wrzesniewski and Dutton introduce job crafting as the ways employees actively reshape tasks, relationships, and meaning at work."
 featured: false

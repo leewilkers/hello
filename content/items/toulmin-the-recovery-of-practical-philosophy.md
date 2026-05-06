@@ -5,9 +5,9 @@ type: essay
 image: /img/covers/toulmin-the-recovery-of-practical-philosophy.jpg
 cover_label: true
 dest: shelf
-topic: "Ethics & Moral Imagination"
+topic: "Ethics"
 url: "https://www.jstor.org/stable/41211544"
-order: 50
+order: 5
 dek: 'The American Scholar, 1988'
 note: ''
 blurb: >-

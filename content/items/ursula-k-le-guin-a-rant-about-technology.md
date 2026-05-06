@@ -8,7 +8,7 @@ dest: shelf
 note: ''
 blurb: "Le Guin pushes back on narrow definitions of technology, restoring craft, tools, and everyday practical knowledge."
 quote: ""
-topic: "Technology & Critique"
+topic: "Tech"
 url: 'https://www.ursulakleguin.com/a-rant-about-technology'
 dek: '2005'
 source: ursulakleguin.com
@@ -18,5 +18,5 @@ links:
   - label: audio
     url: >-
       https://soundcloud.com/soniccyberfeminisms/ursula-le-guins-a-rant-about-technology
-order: 30
+order: 6
 ---

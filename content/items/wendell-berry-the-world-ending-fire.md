@@ -6,7 +6,7 @@ image: "/img/covers/wendell-berry-the-world-ending-fire.jpg"
 dest: shelf
 topic: "Nature & Life"
 url: "https://www.counterpointpress.com/books/the-world-ending-fire/"
-order: 50
+order: 4
 dek: "Counterpoint, 2017"
 note: ""
 blurb: "A selected collection of Berry's essays on land, limits, industrial modernity, household economies, and local responsibility."

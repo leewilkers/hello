@@ -6,7 +6,7 @@ image: "/img/covers/cartier-bresson-the-decisive-moment.jpg"
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://steidl.de/Books/The-Decisive-Moment-0003153747.html"
-order: 50
+order: 9
 dek: "Steidl, 2014"
 blurb: "The canonical photobook on timing, attention, composition, and the instant becoming form."
 quote: ""

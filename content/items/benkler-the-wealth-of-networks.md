@@ -3,10 +3,11 @@ author: "Yochai Benkler"
 title: "The Wealth of Networks: How Social Production Transforms Markets and Freedom"
 type: book
 image: "/img/covers/benkler-the-wealth-of-networks.jpg"
+shelf_list: true
 dest: shelf
-topic: "Social Science & Anthropology"
+topic: "Social Science"
 url: "https://yalebooks.yale.edu/book/9780300125771/the-wealth-of-networks/"
-order: 50
+order: 23
 dek: "Yale University Press, 2006"
 note: ""
 blurb: "Yochai Benkler's 2006 argument that networked technologies enable peer-based, non-market social production."

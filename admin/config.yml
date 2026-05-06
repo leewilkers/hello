@@ -134,17 +134,17 @@ collections:
           - { label: "Bullshit", value: "Bullshit" }
           - { label: "Data, Evidence, & Epidemiology", value: "Data, Evidence, & Epidemiology" }
           - { label: "Design", value: "Design" }
-          - { label: "Ethics & Moral Imagination", value: "Ethics & Moral Imagination" }
+          - { label: "Ethics", value: "Ethics" }
           - { label: "Experiences", value: "Experiences" }
           - { label: "Fiction", value: "Fiction" }
           - { label: "Furniture & Craft", value: "Furniture & Craft" }
-          - { label: "Games, Play & Performance", value: "Games, Play & Performance" }
-          - { label: "Global Health, Aid & Development", value: "Global Health, Aid & Development" }
-          - { label: "Hospitality & Service", value: "Hospitality & Service" }
+          - { label: "Games", value: "Games" }
+          - { label: "Global Health", value: "Global Health" }
+          - { label: "Hospitality", value: "Hospitality" }
           - { label: "Humor", value: "Humor" }
-          - { label: "Inner Space", value: "Inner Space" }
-          - { label: "Interfaces & Interaction", value: "Interfaces & Interaction" }
-          - { label: "Language & Writing", value: "Language & Writing" }
+          - { label: "(Inner) Space", value: "(Inner) Space" }
+          - { label: "Interfaces", value: "Interfaces" }
+          - { label: "Writing", value: "Writing" }
           - { label: "Media", value: "Media" }
           - { label: "Memory & Archives", value: "Memory & Archives" }
           - { label: "Nature & Life", value: "Nature & Life" }
@@ -152,10 +152,10 @@ collections:
           - { label: "(Outer) Space", value: "(Outer) Space" }
           - { label: "Photography & Journalism", value: "Photography & Journalism" }
           - { label: "Potpourri", value: "Potpourri" }
-          - { label: "Sensemaking & Judgement", value: "Sensemaking & Judgement" }
-          - { label: "Social Science & Anthropology", value: "Social Science & Anthropology" }
+          - { label: "Sensemaking", value: "Sensemaking" }
+          - { label: "Social Science", value: "Social Science" }
           - { label: "Strategy & Coordination", value: "Strategy & Coordination" }
-          - { label: "Technology & Critique", value: "Technology & Critique" }
+          - { label: "Tech", value: "Tech" }
           - { label: "Web Culture & Internet", value: "Web Culture & Internet" }
         hint: "For shelf items. Alphabetical topical index."
       - label: Image

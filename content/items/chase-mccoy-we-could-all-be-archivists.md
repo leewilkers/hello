@@ -11,6 +11,6 @@ dek: "chsmc.org, January 2025"
 note: ""
 blurb: "McCoy makes a case for everyday web archiving as a shared practice of care for fragile digital culture."
 quote: ""
-order: 6
+order: 5
 links: []
 ---

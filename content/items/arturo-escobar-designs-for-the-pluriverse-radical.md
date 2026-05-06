@@ -14,5 +14,5 @@ quote: ""
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Designs_for_the_Pluriverse"
-order: 31
+order: 17
 ---

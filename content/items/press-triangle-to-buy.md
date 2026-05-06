@@ -5,10 +5,10 @@ type: "essay"
 image: "/img/covers/press-triangle-to-buy.jpg"
 cover_label: true
 cover_label_text: "Press △ to Buy"
-dest: "shelf"
+dest: shelf
 topic: "Potpourri"
 url: "https://networkcultures.org/longform/2024/12/23/press-%e2%96%b3-to-buy-a-hyperreal-stroll-through-the-worlds-largest-weapons-expo/"
-order: 9
+order: 3
 dek: "INC Longform, 2024-12-23"
 blurb: "A stroll through a weapons expo as hyperreal spectacle, reading militarized commerce through interface, display, and simulation."
 links:

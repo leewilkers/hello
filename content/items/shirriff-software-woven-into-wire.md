@@ -9,7 +9,7 @@ shelf_list: true
 dest: shelf
 topic: "(Outer) Space"
 url: "https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html"
-order: 50
+order: 20
 dek: "Ken Shirriff's blog, 2019"
 blurb: "A technical close reading of Apollo Guidance Computer core rope memory, how it stored software, and how it was manufactured."
 featured: false

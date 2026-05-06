@@ -4,10 +4,10 @@ title: "syntropic rhizomes"
 type: "essay"
 image: "/img/covers/syntropic-rhizomes.jpg"
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Web Culture & Internet"
 url: "https://networkcultures.org/longform/2025/05/07/syntropic-rhizomes/"
-order: 3
+order: 17
 dek: "INC Longform, 2025-05-07"
 blurb: "A network-culture essay thinking with syntropy, rhizomes, online ecology, and forms of growth that resist extractive platform logic."
 links:

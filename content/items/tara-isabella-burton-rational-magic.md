@@ -14,5 +14,5 @@ source: The New Atlantis
 links:
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Tara_Isabella_Burton'
-order: 27
+order: 4
 ---

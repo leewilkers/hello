@@ -7,9 +7,9 @@ cover_label: true
 cover_label_text: "You're Doing It Wrong"
 shelf_list: true
 dest: shelf
-topic: "Technology & Critique"
+topic: "Tech"
 url: "https://sts-news.medium.com/youre-doing-it-wrong-notes-on-criticism-and-technology-hype-18b08b4307e5"
-order: 50
+order: 29
 dek: "Medium, 2018"
 note: ""
 blurb: "Lee Vinsel's essay critiquing the d.school and design thinking as evidence-free management fad."

@@ -6,9 +6,9 @@ image: "/img/covers/kim-implicit-ideological-function-of-global-health.jpg"
 cover_label: true
 shelf_list: true
 dest: shelf
-topic: "Global Health, Aid & Development"
+topic: "Global Health"
 url: "https://doi.org/10.1136/bmjgh-2021-005620"
-order: 50
+order: 24
 dek: "BMJ Global Health, 2021"
 blurb: "Kim argues that global health can reproduce power relations by treating technical intervention as politically neutral."
 featured: false

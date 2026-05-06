@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Strategy & Coordination"
 url: "https://portal.findresearcher.sdu.dk/en/publications/the-ecology-of-talent-development-in-sport-a-multiple-case-study-/"
-order: 50
+order: 8
 dek: "Syddansk Universitet, 2010"
 blurb: "Henriksen studies successful athletic talent environments as ecologies of relationships, culture, resources, and everyday practice."
 featured: false

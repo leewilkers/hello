@@ -11,6 +11,6 @@ note: ''
 blurb: >-
   photography arrived in India, Japan, and West Africa not as a copy of European
   practice but as something else entirely
-order: 32
+order: 1
 links: []
 ---

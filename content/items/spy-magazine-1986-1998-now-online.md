@@ -4,10 +4,10 @@ title: "Spy Magazine (1986-1998) Now Online"
 type: "archive"
 image: "/img/covers/spy-magazine-1986-1998-now-online.jpg"
 cover_label: true
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://www.openculture.com/2011/04/spy_magazine_1986-1998_now_online.html"
-order: 50
+order: 9
 dek: "Open Culture, April 2011"
 note: ""
 blurb: >-

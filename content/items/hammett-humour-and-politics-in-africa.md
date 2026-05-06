@@ -3,10 +3,10 @@ author: "Daniel Hammett, Laura S. Martin, Izuu Nwankwo"
 title: "Humour and Politics in Africa: Beyond Resistance"
 type: "book"
 image: "/img/covers/hammett-humour-and-politics-in-africa.jpg"
-dest: "shelf"
+dest: shelf
 topic: "Humor"
 url: "https://bristoluniversitypress.co.uk/humour-and-politics-in-africa"
-order: 50
+order: 2
 dek: "Bristol University Press, 2023"
 note: ""
 blurb: >-

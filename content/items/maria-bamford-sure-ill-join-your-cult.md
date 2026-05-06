@@ -3,10 +3,11 @@ author: "Maria Bamford"
 title: "Sure, I'll Join Your Cult"
 type: "book"
 image: "/img/covers/maria-bamford-sure-ill-join-your-cult.jpg"
-dest: "shelf"
+shelf_list: true
+dest: shelf
 topic: "Humor"
 url: "https://www.simonandschuster.com/books/Sure-Ill-Join-Your-Cult/Maria-Bamford/9781982168575"
-order: 50
+order: 28
 dek: "Simon & Schuster, 2023"
 note: ""
 blurb: >-

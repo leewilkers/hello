@@ -4,7 +4,6 @@ title: "AI & Collective Memory"
 type: journal article
 image: "/img/covers/andrew-hoskins-ai-and-collective-memory.jpg"
 cover_label: true
-shelf_list: true
 dest: shelf
 topic: "Memory & Archives"
 url: "https://www.sciencedirect.com/science/article/pii/S2352250X25001691"
@@ -15,5 +14,5 @@ quote: ""
 links:
   - label: "doi"
     url: "https://doi.org/10.1016/j.copsyc.2025.102156"
-order: 50
+order: 9
 ---

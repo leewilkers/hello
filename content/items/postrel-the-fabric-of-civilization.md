@@ -6,7 +6,7 @@ image: "/img/covers/postrel-the-fabric-of-civilization.jpg"
 dest: shelf
 topic: "Furniture & Craft"
 url: "https://www.hachettebookgroup.com/titles/virginia-postrel/the-fabric-of-civilization/9781541617612/?lens=basic-books"
-order: 50
+order: 9
 dek: "Basic Books, 2020"
 note: ""
 blurb: "Virginia Postrel's 2020 history of textiles as a driver of economic, technological, and cultural development."

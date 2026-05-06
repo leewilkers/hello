@@ -5,10 +5,10 @@ type: game
 image: /img/covers/numinous-games-that-dragon-cancer.jpg
 cover_label: true
 dest: shelf
-topic: "Experiences"
+topic: "Potpourri"
 url: 'https://store.steampowered.com/app/419460/That_Dragon_Cancer/'
 dek: 'Numinous Games, 2016'
-order: 4
+order: 8
 blurb: >-
   Ryan and Amy Green's 2016 autobiographical game tracing their son Joel's fight
   against cancer through poetic vignettes.

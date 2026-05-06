@@ -6,7 +6,7 @@ image: "/img/covers/ilf-petrov-the-twelve-chairs.jpg"
 dest: "shelf"
 topic: "Furniture & Craft"
 url: "https://nupress.northwestern.edu/9780810127722/the-twelve-chairs/"
-order: 50
+order: 6
 dek: "Northwestern University Press, 2011"
 note: ""
 blurb: >-

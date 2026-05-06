@@ -16,5 +16,5 @@ links:
     url: "https://vimeo.com/channels/barcelonaseminarseries/51996694"
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/Tim_Ingold"
-order: 13
+order: 16
 ---

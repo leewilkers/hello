@@ -12,6 +12,6 @@ dek: "Aeon, 2016"
 note: ""
 blurb: "Russell and Vinsel make the case for maintenance, repair, and ordinary infrastructure work over innovation worship."
 quote: ""
-order: 3
+order: 18
 links: []
 ---

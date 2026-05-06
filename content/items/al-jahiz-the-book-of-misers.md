@@ -3,10 +3,10 @@ author: "al-Jahiz"
 title: "The Book of Misers = al-Bukhala"
 type: "book"
 image: "/img/covers/al-jahiz-the-book-of-misers.jpg"
-dest: "shelf"
-topic: "Humor"
+dest: shelf
+topic: "Bullshit"
 url: "https://archive.org/details/bookofmisersalbu0000jahi"
-order: 50
+order: 13
 dek: "Internet Archive, 1997 edition"
 note: ""
 blurb: >-

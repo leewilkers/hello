@@ -13,5 +13,5 @@ links:
 note: ""
 blurb: "Alexander argues that living buildings and towns grow from patterns that allow people to repair and adapt their environments."
 quote: ""
-order: 1
+order: 2
 ---

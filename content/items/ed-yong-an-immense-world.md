@@ -6,7 +6,7 @@ image: /img/covers/ed-yong-an-immense-world.jpg
 dest: shelf
 topic: "Nature & Life"
 url: "https://penguinrandomhouselibrary.com/book/?isbn=9780593133255"
-order: 50
+order: 12
 dek: "Random House, 2022"
 note: ""
 blurb: "Yong opens up the sensory worlds of other animals and shows how perception depends on each creature's umwelt."

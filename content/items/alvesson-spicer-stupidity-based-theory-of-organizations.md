@@ -8,7 +8,7 @@ shelf_list: true
 dest: shelf
 topic: "Bullshit"
 url: "https://doi.org/10.1111/j.1467-6486.2012.01072.x"
-order: 50
+order: 15
 dek: "Journal of Management Studies, 2012"
 blurb: "An organizational theory paper on functional stupidity, restricted reflexivity, and image-driven symbolic management."
 featured: false

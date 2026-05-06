@@ -6,7 +6,7 @@ interactive: true
 image: /img/covers/robin-sloan-fish.jpg
 cover_label: true
 dest: shelf
-topic: Experiences
+topic: "Potpourri"
 url: 'https://www.robinsloan.com/fish/'
 dek: 'robinsloan.com, 2012 — a tap essay'
 note: you read it by tapping
@@ -16,5 +16,5 @@ links:
     url: 'https://apps.apple.com/us/app/fish-a-tap-essay/id510560804'
   - label: wiki
     url: 'https://en.wikipedia.org/wiki/Robin_Sloan'
-order: 12
+order: 11
 ---

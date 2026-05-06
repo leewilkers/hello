@@ -6,7 +6,7 @@ image: /img/covers/sontag-regarding-the-pain-of-others.jpg
 dest: shelf
 topic: "Photography & Journalism"
 url: "https://us.macmillan.com/books/9780312422196/regardingthepainofothers/"
-order: 50
+order: 17
 dek: 'Picador, 2003'
 note: ''
 blurb: >-

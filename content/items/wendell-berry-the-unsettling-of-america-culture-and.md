@@ -13,5 +13,5 @@ links:
 note: ""
 blurb: "Berry criticizes industrial agriculture and defends agrarian culture, local responsibility, and care for land."
 quote: ""
-order: 31
+order: 3
 ---
