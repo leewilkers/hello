@@ -3729,7 +3729,7 @@ body {
   background-image: url("/img/rabbits/hare-running-shelf-banner-ground-tight.png");
   background-position: left bottom;
   background-repeat: no-repeat;
-  background-size: auto 100%;
+  background-size: contain;
   mix-blend-mode: multiply;
   opacity: 0.3;
   pointer-events: none;
