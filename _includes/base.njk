@@ -107,8 +107,6 @@
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-    <button class="loop-tally" aria-label="Play dimmer loop" title="Play dimmer loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">PLAY</span></button>
-    <button class="theme-lock" aria-label="Lock theme during loop" title="Lock current theme — loop without flipping" aria-pressed="false" onclick="toggleThemeLock()"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path class="theme-lock-shackle" d="M 3.5 6 L 3.5 4 a 2.5 2.5 0 0 1 5 0 L 8.5 6" stroke="currentColor" stroke-width="1.1" fill="none" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5.5" rx="0.8" fill="currentColor"/></svg></button>
   </div>
 </nav>
 
@@ -149,6 +147,9 @@
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
     const lockBtn = document.querySelector('.theme-lock');
+    if (!loopBtn) {
+      try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
+    }
 
     // Loop mode — audio rhythm is driven by deterministic JS setTimeout chains,
     // NOT by video rendering. The video-detected hit moment has variable load/
