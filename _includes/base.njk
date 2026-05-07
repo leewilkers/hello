@@ -102,7 +102,7 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
-      <a href="/consulting/" class="semi-live{% if page.url == "/consulting/" %} active{% endif %}" title="in progress – pardon the dust">consulting</a>
+      <a href="/consulting/" {% if page.url == "/consulting/" %}class="active"{% endif %}>consulting</a>
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
@@ -121,7 +121,7 @@
   <span class="pretty-star-label pretty-star-label-epsilon">ε Lep</span>
   <span class="pretty-star-label pretty-star-label-mu">μ Lep</span>
 </div>
-<p class="pretty-constellation-note" aria-hidden="true">Alpha Leporis, the brightest star of Lepus, is 1,300 light-years from Earth. Its traditional name, Arneb (أرنب ’arnab), means “hare” in Arabic.</p>
+<a class="pretty-constellation-note" href="https://en.wikipedia.org/wiki/Lepus_(constellation)" target="_blank" rel="noopener noreferrer">Alpha Leporis, the brightest star of Lepus, is 1,300 light-years from Earth. Its traditional name, Arneb (أرنب ’arnab), means “hare” in Arabic.</a>
 
 	<div class="cat-switch-frame">
 	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
