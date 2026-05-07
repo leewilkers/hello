@@ -358,39 +358,6 @@
       });
     }
 
-    function playHighColor(freq, when, sustain, level, reverb) {
-      const ctx = ensureAudio();
-      if (!ctx) return;
-      const t = when !== undefined ? when : ctx.currentTime;
-      const sus = sustain || 7.0;
-      const color = ctx.createOscillator();
-      color.type = 'triangle';
-      color.frequency.value = freq * 1.5;
-      color.detune.value = 5;
-
-      const colorGain = ctx.createGain();
-      colorGain.gain.setValueAtTime(0.0001, t);
-      colorGain.gain.exponentialRampToValueAtTime(Math.max(0.0005, level), t + 0.580);
-      colorGain.gain.exponentialRampToValueAtTime(0.0001, t + sus * 0.82);
-
-      const colorFilter = ctx.createBiquadFilter();
-      colorFilter.type = 'bandpass';
-      colorFilter.frequency.value = Math.min(2400, freq * 3.2);
-      colorFilter.Q.value = 0.85;
-
-      const colorPan = ctx.createStereoPanner();
-      colorPan.pan.value = 0.24;
-      color.connect(colorGain).connect(colorFilter).connect(colorPan).connect(ctx.destination);
-
-      const colorSend = ctx.createGain();
-      colorSend.gain.value = 0.48;
-      colorPan.connect(colorSend).connect(reverb);
-      color.start(t);
-      color.stop(t + sus + 0.3);
-    }
-
-    // Press — single first note. firstHalf=true gives the winning first press
-    // (Bb3); firstHalf=false gives the second press (Bb4).
     // Shimmer — pure-sine bell octave-up, very slow attack + long sustain.
     // Sits as a halo above the main FM voice. Quiet enough that you don't
     // hear it as its own event, just as sparkle on top.
