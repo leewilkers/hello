@@ -12,7 +12,8 @@ Do not publish from this file. The current `consulting.njk` is a dust-only place
 - Keep raw material visibly separate from tuned fragments.
 - Prefer Lee-owned phrasing over generic positioning copy.
 - Keep the public posture quiet: specific, capable, low-sales, "in good hands."
-- Do not include rates, contract ceiling, internal FACE/TFGH scope, staffing context, or internal deliverable details.
+- Do not include contract ceiling, internal FACE/TFGH scope, staffing context, or internal deliverable details.
+- Rates are an unresolved public-copy decision: earlier notes kept rates off-page; the May 1 offer mechanic uses a candidate `$350` first-call rate.
 - Do not use AI as a differentiator.
 - Do not turn `/consulting/` live from this packet.
 - Do not turn `/stream/` live.
@@ -30,11 +31,12 @@ Do not publish from this file. The current `consulting.njk` is a dust-only place
 
 1. Lee's raw riffs and selected phrases.
 2. Current homepage language.
-3. Prior `952f2a4:consulting.njk` page.
-4. Positioning brainstorm rules.
-5. Capability and track-record evidence.
-6. Private contract files as context only.
-7. Steph Ango reference as tone target only.
+3. May 1 consulting-page transcript for offer mechanics and first-call structure.
+4. Prior `952f2a4:consulting.njk` page.
+5. Positioning brainstorm rules.
+6. Capability and track-record evidence.
+7. Private contract files as context only.
+8. Steph Ango reference as tone target only.
 
 ## Source Files
 
@@ -43,6 +45,7 @@ Do not publish from this file. The current `consulting.njk` is a dust-only place
 - [`git show 952f2a4:consulting.njk`](/Users/leewilkers/vaults/claude_hub/Projects/personal_website)
 - [CAPABILITIES_CARD.md](/Users/leewilkers/vaults/claude_hub/Projects/personal_career/strategy/CAPABILITIES_CARD.md)
 - [services_demo.html](/Users/leewilkers/vaults/claude_hub/Projects/personal_career/assets/services_demo.html)
+- [Claude session transcript, 2026-05-01](/Users/leewilkers/.claude/projects/-Users-leewilkers-vaults-claude-hub/fb9f0b41-a4de-4dad-a2ce-e356c4ce8018.jsonl)
 - [FACE_Consulting_Support_Options_2026.docx](/Users/leewilkers/FACE_Consulting_Support_Options_2026.docx)
 - [Merck_LW_Contract_Progress_Reports_FINAL_2026-04-15.xlsx](/Users/leewilkers/vaults/claude_hub/Projects/personal_career/progress_reports/Merck_LW_Contract_Progress_Reports_FINAL_2026-04-15.xlsx)
 - [Steph Ango, "In good hands"](https://stephango.com/in-good-hands)
@@ -186,6 +189,8 @@ Current nav copy:
 Source: `git show 952f2a4:consulting.njk` in [/Users/leewilkers/vaults/claude_hub/Projects/personal_website](/Users/leewilkers/vaults/claude_hub/Projects/personal_website)
 
 Treat this as the strongest starting draft, not final copy.
+
+Offer note: the old free-call language is one live option in the decision space, not a mistake to delete. The May 1 paid `$350` value-floor mechanic is a second option. Keep both available until Lee chooses the public offer shape.
 
 ```html
 <p>I take consulting work through LW Research and Advisory, LLC.</p>
@@ -345,6 +350,20 @@ Use only this list from the demo. Avoid the surrounding service-grid and AI-pitc
 </ul>
 ```
 
+## May 1 `What I'm Hired For` List
+
+Source: [Claude session transcript, 2026-05-01](/Users/leewilkers/.claude/projects/-Users-leewilkers-vaults-claude-hub/fb9f0b41-a4de-4dad-a2ce-e356c4ce8018.jsonl)
+
+This list was the better replacement for voice-projecting prose. It is fact-anchored and pulled from actual capability language.
+
+```md
+- Reading a pile of material – interviews, transcripts, reports, drafts – and helping the team get to a draft the audience can actually use
+- Working through a contested research-ethics or consent question and drafting a defensible position
+- Authorship, attribution, and contribution disputes on multi-country projects
+- Steelmanning hard institutional decisions where reasonable people disagree
+- Synthesis at scale: book-length or document-corpus reviews you don't have time to do in-house
+```
+
 ## Capability Evidence
 
 Source: [CAPABILITIES_CARD.md](/Users/leewilkers/vaults/claude_hub/Projects/personal_career/strategy/CAPABILITIES_CARD.md)
@@ -466,23 +485,119 @@ Use as a tone reference only:
 - Useful signals: cohesive point of view, attention to detail, care from first interaction.
 - If used, make `in good hands` a quiet inline link. Not a header. Not a pull-quote.
 
-## Pricing / Services Status
+## Offer Options / Pricing / Services
 
-No settled copy yet.
+No final public copy yet. Keep this section as an options map, not a verdict.
 
-Notes from riffing:
+Sources:
 
-- Lee is interested in an offer shape that may have a cheap one-off, a middle/default option, and something heavier.
-- Avoid service-grid language.
-- Avoid package/tier copy until the real offer is clearer.
-- Do not list rates in public copy.
-- The earlier pricing/tier language read as slop and should not be reused.
+- Prior consulting page: `git show 952f2a4:consulting.njk`
+- May 1 offer mechanics: [Claude session transcript, 2026-05-01](/Users/leewilkers/.claude/projects/-Users-leewilkers-vaults-claude-hub/fb9f0b41-a4de-4dad-a2ce-e356c4ce8018.jsonl)
+- Earlier riffing: cheap one-off / middle-default / heavier
+
+### Decision Space
+
+| Question | Option A | Option B | Option C | Notes |
+| --- | --- | --- | --- | --- |
+| First interaction | Free first call | Paid first call | Free text fit-screen, then paid call | Prior page used free call. May 1 moved toward text screening before paid call. |
+| Rate visibility | No rate on public page | Public `$350` first-call rate | Rate shared privately after fit-screening | Earlier rule kept rates off-page. May 1 explored public `$350`. |
+| Risk reversal | "First call is on me" | Value-floor screening before payment | Explicit refund / money-back guarantee | No evidence of a settled refund guarantee. The recovered mechanism is screening, not refund. |
+| Name of first paid offer | First call | `"sparring"` conversation | Sparring call | May 1 kept `"sparring"` in quotes after Lee edits. |
+| Offer ladder | One call, then scoped work | Entry call / short scoped work / longer engagement | Packages or tiers | Avoid service-grid/tier language unless Lee deliberately revives it. |
+
+### Mechanics To Preserve Across Options
+
+- First contact: short note by email or DM about what the person is working on.
+- Fit-screening happens before either person puts serious time or money down.
+- Lee should be able to say "I am not the right person" early.
+- If useful, the first call gives Lee a sense of the problem and the client a sense that they are [in good hands](https://stephango.com/in-good-hands).
+- Past the first call, scope and rate are agreed in writing.
+
+### Option 1: Prior Free-Call Version
+
+```html
+<p>If we'd like to talk, send me a short note: what you're working on, what feels stuck, what you need by when. I'll read it. If I'm the wrong person, I'll say so, and try to point you to someone who can help.</p>
+
+<p>If we do talk, the first call is on me. I'd rather not charge before I know I can be useful. The purpose of this call is for me to get a sense of the problem, and for you to feel like you're <a href="https://stephango.com/in-good-hands">in good hands</a>.</p>
+
+<p>After that, scope and rate are something we work out in writing.</p>
+```
+
+Why keep it:
+
+- Lowest-friction and quietest.
+- Matches the prior page's low-sales posture.
+- Avoids publishing a price before Lee decides whether public rates help or constrain.
+
+Risk:
+
+- Might waste time on calls that should have been screened out by text.
+- Does not name the value guarantee as clearly.
+
+### Option 2: May 1 Paid `$350` Value-Floor Version
+
+```markdown
+Send me a short note about what you're working on. Email or DM is fine. I'll ask follow-up questions to figure out whether I can be useful before either of us puts time or money down.
+
+If we both think there's something worth doing, the next step is a paid "sparring" conversation: $350 for a 60–90 minute call. I send a few prep questions a day or two ahead. The purpose of this call is for me to get a sense of the problem (so I can research/prepare), and for you to get a sense that you're [in good hands](https://stephango.com/in-good-hands).
+
+I only book the call if I'm confident I can deliver more than $350 in value to you. If I can't, I'll tell you, and where I can, point you to someone who fits better.
+
+If we want to keep going past the first call, scope and rate are something we agree on in writing.
+```
+
+Why keep it:
+
+- Clear entry offer.
+- Screens before payment, so it is not a refund/money-back promise.
+- Names the value threshold directly: Lee only books the call if he expects to deliver more than `$350` in value.
+- Keeps larger engagements scoped separately instead of forcing public packages.
+
+Risk:
+
+- Public rate may anchor the wrong clients or box Lee in.
+- `"sparring"` may read as borrowed jargon unless the page earns it.
+
+### Option 3: Hybrid
+
+Use the May 1 mechanics, but keep the `$350` rate off the public page until after fit-screening.
+
+Possible shape:
+
+```md
+Send me a short note about what you're working on. I'll ask a few follow-up questions before either of us puts time or money down.
+
+If we both think there's something worth doing, the next step is a paid first call. I send prep questions a day or two ahead. I only book it if I'm confident I can deliver more than the fee in value.
+
+Past that call, scope and rate are something we agree on in writing.
+```
+
+Why keep it:
+
+- Preserves the value-floor mechanic.
+- Avoids public price anchoring.
+- Avoids making the page feel like a service menu.
+
+Risk:
+
+- Less concrete than the `$350` version.
+- Adds one more private reply step before the client understands cost.
+
+### Offer Ladder Notes
+
+- Entry: free call, paid first call, or text fit-screen followed by paid call.
+- Middle/default: short scoped engagement after the call. Examples named in the May 1 session: memo, synthesis, decision document.
+- Heavier: longer scoped engagement only after the problem and scope are clearer.
+- Avoid service-grid/package/tier language unless Lee deliberately revives that structure.
 
 ## Open Questions
 
 - Which paid-problems bullets are public-safe?
 - Does `LW Research and Advisory, LLC` belong in the first line or near contact?
-- Keep, soften, or cut "first call is on me"?
+- Is the old "first call is on me" line retired in favor of the May 1 paid `$350` first-call mechanic?
+- Should the public page list the `$350` rate, or should that stay in private reply after fit-screening?
+- Does `"sparring"` stay in quotes, change to plain `sparring`, or become `first call`?
+- Does the value-floor language stay explicit on the page?
 - Bullets or prose for the paid-problems list?
 - Does proof stay implicit, or do 1–2 track-record facts appear?
 - How much global-health language before the page boxes Lee in?
@@ -501,8 +616,10 @@ Reject unless Lee explicitly revives them:
 - `The AI Advantage`
 - org-name proof line
 - service-grid layout
-- rates, ceilings, award amounts, invoice context
+- contract ceilings, award amounts, invoice context
 - internal FACE/TFGH staffing or scope details
+
+Do not reject public rates by default. Rate visibility is an open offer-design decision above.
 
 Also reject the broader banned energy from the positioning brainstorm:
 

@@ -2571,6 +2571,34 @@ body {
   transition-delay: 0s;
 }
 
+.pretty-constellation-note {
+  position: fixed;
+  top: clamp(6.4rem, 10vh, 8rem);
+  left: clamp(1.8rem, 3.8vw, 4rem);
+  z-index: 0;
+  width: min(25rem, 35vw);
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: clamp(0.64rem, 0.78vw, 0.82rem);
+  font-weight: 500;
+  line-height: 1.48;
+  letter-spacing: 0.045em;
+  color: color-mix(in srgb, #d14d41 45%, var(--ink-faint));
+  text-shadow: 0 0 0.72rem color-mix(in srgb, #d14d41 10%, transparent);
+  transition:
+    visibility 0s linear 0s;
+}
+
+.pretty-constellation-field.is-armed + .pretty-constellation-note,
+.pretty-constellation-field.is-leaving + .pretty-constellation-note {
+  opacity: 0.24;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
 .pretty-star-label-arneb { left: 15.4%; top: 29%; }
 .pretty-star-label-nihal { left: 29.2%; top: 25%; }
 .pretty-star-label-gamma { left: 42.2%; top: 34%; }
@@ -2643,6 +2671,7 @@ body {
   .loop-tally,
   .pretty-loop,
   .pretty-constellation-field,
+  .pretty-constellation-note,
   .loop-tally-mark,
   .pretty-loop-mark {
     transition: none;
@@ -2667,10 +2696,19 @@ body {
   .pretty-star-label {
     font-size: 0.86rem;
   }
+
+  .pretty-constellation-note {
+    top: 6.8rem;
+    left: clamp(5.8rem, 12vw, 7.25rem);
+    width: min(24rem, calc(100vw - 8.75rem));
+    font-size: 0.62rem;
+    line-height: 1.45;
+  }
 }
 
 @media (max-width: 620px) {
-  .pretty-constellation-field {
+  .pretty-constellation-field,
+  .pretty-constellation-note {
     display: none;
   }
 }
@@ -3629,20 +3667,12 @@ body {
   width: 100%;
 }
 
-/* Consulting page — running prose. Inherits .home-plain typography
-   and width; adds comfortable paragraph spacing for sustained reading. */
-.home-plain .consulting-prose p + p {
-  margin-top: 1.05rem;
-}
-
-.home-plain .consulting-contact {
-  margin-top: 1.6rem;
-}
-
-/* Consulting page picks up the site accent so mailto + prose links
-   read as links rather than plain text (the global a-rule strips
-   color and underline by default). */
 .page-consulting {
+  --consulting-main-measure: 36rem;
+  --consulting-label-measure: 7.5rem;
+  --consulting-gap: clamp(1.1rem, 2.8vw, 2.2rem);
+  --consulting-note-color: color-mix(in srgb, var(--section-label) 76%, var(--ink));
+  --consulting-rule: color-mix(in srgb, var(--section-label) 34%, transparent);
   --home-accent: var(--accent);
 }
 
@@ -3650,16 +3680,200 @@ body {
   --home-accent: var(--accent);
 }
 
-/* Persistent thin underline on prose links — running text needs a
-   non-hover signal that "in good hands" is a link. Mailto follows the
-   site convention (hover-only underline). */
-.home-plain .consulting-prose a:not([href^="mailto"]) {
+.consulting-field-note {
+  max-width: calc(var(--consulting-label-measure) + var(--consulting-gap) + var(--consulting-main-measure));
+  margin: 0 auto;
+  padding: 1.75rem 1.35rem 3.6rem;
+}
+
+.consulting-head {
+  display: grid;
+  grid-template-columns: var(--consulting-label-measure) minmax(0, var(--consulting-main-measure));
+  column-gap: var(--consulting-gap);
+  align-items: baseline;
+  margin: 0 0 0.7rem;
+}
+
+.consulting-kicker {
+  grid-column: 2;
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.consulting-flow {
+  display: grid;
+  gap: 0;
+}
+
+.consulting-block {
+  display: grid;
+  grid-template-columns: var(--consulting-label-measure) minmax(0, var(--consulting-main-measure));
+  column-gap: var(--consulting-gap);
+  align-items: start;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--rule-light);
+}
+
+.consulting-block::before {
+  content: attr(data-label);
+  margin-top: 0.18rem;
+  padding-right: 0.85rem;
+  border-right: 1px solid var(--consulting-rule);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--consulting-note-color);
+}
+
+.consulting-block > * {
+  grid-column: 2;
+}
+
+.consulting-block p {
+  margin: 0;
+  max-width: var(--consulting-main-measure);
+  font-family: var(--reading);
+  font-size: 1.06rem;
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--ink) 88%, var(--bg));
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-variant-ligatures: common-ligatures contextual;
+}
+
+.consulting-block--lead {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.consulting-block--lead p {
+  font-size: clamp(1.34rem, 1.08rem + 0.62vw, 1.58rem);
+  line-height: 1.38;
+  color: color-mix(in srgb, var(--ink) 94%, var(--bg));
+}
+
+.consulting-block--payoff p {
+  color: color-mix(in srgb, var(--ink) 91%, var(--bg));
+}
+
+.consulting-principles h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.consulting-principles-list {
+  display: grid;
+  gap: 0.95rem;
+  margin: 0;
+}
+
+.consulting-principle {
+  display: block;
+  max-width: 29rem;
+}
+
+.consulting-principle dt {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.35;
+  color: color-mix(in srgb, var(--ink) 84%, var(--bg));
+}
+
+.consulting-principle dd {
+  margin: 0.18rem 0 0;
+  font-family: var(--reading);
+  font-size: 0.96rem;
+  line-height: 1.48;
+  color: color-mix(in srgb, var(--ink-light) 84%, var(--bg));
+}
+
+.consulting-principles-list + p {
+  margin-top: 1.25rem;
+  color: var(--ink-light);
+}
+
+.consulting-arrangement {
+  margin-top: 0.3rem;
+  border-top-color: var(--rule);
+}
+
+.consulting-arrangement p {
+  font-size: 0.98rem;
+  line-height: 1.58;
+}
+
+.consulting-arrangement p + p {
+  margin-top: 1rem;
+}
+
+.consulting-field-note a:not([href^="mailto"]) {
   color: var(--home-accent);
   border-bottom: 1px solid var(--home-accent);
 }
 
-.home-plain .consulting-prose a:not([href^="mailto"]):hover {
+.consulting-field-note a.consulting-quiet-link:not([href^="mailto"]) {
+  color: color-mix(in srgb, var(--ink) 92%, var(--bg));
+  border-bottom: 1px dotted color-mix(in srgb, var(--ink) 34%, transparent);
+  text-decoration: none;
+}
+
+.consulting-field-note a:not([href^="mailto"]):hover {
   border-bottom-color: transparent;
+}
+
+.consulting-field-note a.consulting-quiet-link:not([href^="mailto"]):hover,
+.consulting-field-note a.consulting-quiet-link:not([href^="mailto"]):focus-visible {
+  color: color-mix(in srgb, var(--ink) 96%, var(--bg));
+  border-bottom-color: color-mix(in srgb, var(--ink) 52%, transparent);
+}
+
+.consulting-tooltip {
+  position: relative;
+  display: inline;
+}
+
+.consulting-tooltip-note {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.55rem);
+  z-index: 3;
+  width: min(18rem, 72vw);
+  padding: 0.55rem 0.68rem 0.58rem;
+  border: 1px solid color-mix(in srgb, var(--rule-light) 82%, transparent);
+  background: color-mix(in srgb, var(--bg) 94%, var(--ink) 6%);
+  box-shadow: 0 0.35rem 1.4rem color-mix(in srgb, #000 22%, transparent);
+  color: color-mix(in srgb, var(--ink) 82%, var(--bg));
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.36;
+  text-align: left;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(0.2rem);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.consulting-tooltip:hover .consulting-tooltip-note,
+.consulting-tooltip:focus-within .consulting-tooltip-note {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .page-consulting a[href^="mailto"] {
@@ -3668,6 +3882,49 @@ body {
 
 .page-consulting a[href^="mailto"]:hover {
   border-bottom-color: var(--home-accent);
+}
+
+@media (max-width: 700px) {
+  .consulting-field-note {
+    padding: 3.15rem 1.5rem 3.5rem;
+  }
+
+  .consulting-head,
+  .consulting-block {
+    display: block;
+  }
+
+  .consulting-kicker {
+    margin-bottom: 0.25rem;
+  }
+
+  .consulting-block {
+    padding: 1.18rem 0;
+  }
+
+  .consulting-block::before {
+    display: block;
+    margin: 0 0 0.5rem;
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .consulting-block--lead p {
+    font-size: 1.34rem;
+    line-height: 1.36;
+  }
+
+  .consulting-principle {
+    display: block;
+  }
+
+  .consulting-principle dd {
+    margin-top: 0.14rem;
+  }
+
+  .page-consulting + .site-colophon {
+    display: none;
+  }
 }
 
 .home-plain .home-nav {
