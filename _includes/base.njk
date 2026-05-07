@@ -285,14 +285,15 @@
     }
 
     // Piano voice — one modeled key/body transient into the shared reverb bus.
-    function playPianoNote(freq, when, sustain, levelOverride) {
+    function playPianoNote(freq, when, sustain, levelOverride, withLowFloor) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
       const sus = sustain || 9.0;
-      const level = levelOverride !== undefined ? levelOverride : 0.052;
+      const level = levelOverride !== undefined ? levelOverride : 0.068;
       const reverb = getReverb(ctx);
       playAcousticKey(freq, t, sus, level, reverb);
+      if (withLowFloor) playLowFloor(freq, t, sus, level * 0.28, reverb);
     }
 
     // Quiet acoustic-piano layer: a small modeled hammer/body event plus room.
@@ -368,6 +369,55 @@
       hammer.stop(t + 0.04);
     }
 
+    function playLowFloor(freq, when, sustain, level, reverb) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const dur = Math.min(6.5, Math.max(3.2, sustain * 0.72));
+      const base = freq / 2;
+      const floorLevel = Math.max(0.0025, level || 0.014);
+
+      const floorGain = ctx.createGain();
+      floorGain.gain.setValueAtTime(0.0001, t);
+      floorGain.gain.exponentialRampToValueAtTime(floorLevel, t + 0.055);
+      floorGain.gain.exponentialRampToValueAtTime(floorLevel * 0.34, t + 1.1);
+      floorGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+      const lowpass = ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 540;
+      lowpass.Q.value = 0.6;
+
+      const highpass = ctx.createBiquadFilter();
+      highpass.type = 'highpass';
+      highpass.frequency.value = 48;
+      highpass.Q.value = 0.5;
+
+      const panner = ctx.createStereoPanner();
+      panner.pan.value = -0.04;
+      floorGain.connect(lowpass).connect(highpass).connect(panner).connect(ctx.destination);
+
+      const send = ctx.createGain();
+      send.gain.value = 0.18;
+      panner.connect(send).connect(reverb);
+
+      [
+        { ratio: 1.000, gain: 1.00 },
+        { ratio: 0.500, gain: 0.38 }
+      ].forEach(function(layer) {
+        const osc = ctx.createOscillator();
+        osc.type = layer.ratio === 1.000 ? 'triangle' : 'sine';
+        osc.frequency.value = base * layer.ratio;
+        osc.detune.value = (Math.random() * 2) - 1;
+
+        const layerGain = ctx.createGain();
+        layerGain.gain.value = layer.gain;
+        osc.connect(layerGain).connect(floorGain);
+        osc.start(t);
+        osc.stop(t + dur + 0.08);
+      });
+    }
+
     function playPressNote(goingDark) {
       if (goingDark) {
         playPianoNote(PIANO.N4, undefined, 4.0);
@@ -385,8 +435,8 @@
         playPianoNote(PIANO.N2, t, 9.0);
         playPianoNote(PIANO.N1, t, 9.0);
       } else {
-        playPianoNote(PIANO.N3, t, 9.0);
-        playPianoNote(PIANO.N4, t, 9.0);
+        playPianoNote(PIANO.N3, t, 9.0, undefined, true);
+        playPianoNote(PIANO.N4, t, 9.0, undefined, true);
       }
     }
 
