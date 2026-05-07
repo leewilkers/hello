@@ -112,6 +112,16 @@
   </div>
 </nav>
 
+<div class="pretty-constellation-field" aria-hidden="true">
+  <canvas class="pretty-constellation-canvas" width="136" height="60" data-pretty-constellation></canvas>
+  <span class="pretty-star-label pretty-star-label-arneb">Arneb</span>
+  <span class="pretty-star-label pretty-star-label-nihal">Nihal</span>
+  <span class="pretty-star-label pretty-star-label-gamma">γ Lep</span>
+  <span class="pretty-star-label pretty-star-label-delta">δ Lep</span>
+  <span class="pretty-star-label pretty-star-label-epsilon">ε Lep</span>
+  <span class="pretty-star-label pretty-star-label-mu">μ Lep</span>
+</div>
+
 	<div class="cat-switch-frame">
 	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
 	    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
@@ -149,6 +159,8 @@
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
     const prettyBtn = document.querySelector('.pretty-loop');
+    const prettyField = document.querySelector('.pretty-constellation-field');
+    const prettyCanvas = document.querySelector('[data-pretty-constellation]');
     const lockBtn = document.querySelector('.theme-lock');
     if (!loopBtn) {
       try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
@@ -178,6 +190,7 @@
     let loopDirection = null;        // while locked, tracks alternating performance direction
     let prettyArmed = false;
     let prettyTimer = null;
+    let prettyFieldExitTimer = null;
     let prettyStep = 0;
 
     // Cat controller — manual clicks release on the video end; loop mode
@@ -248,6 +261,168 @@
       } catch (e) { return null; }
     }
 
+    function createPrettyConstellation(canvas) {
+      if (!canvas || !canvas.getContext) {
+        return { setActive: function(){}, setVisible: function(){}, redraw: function(){} };
+      }
+
+      const ctx = canvas.getContext('2d');
+      const points = [
+        [3, 10], [11, 7], [19, 8], [29, 13], [42, 10], [38, 3],
+        [47, 2], [52, 21], [32, 18], [21, 22], [15, 18]
+      ];
+      const edges = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [4, 6], [4, 7], [3, 8], [8, 7], [8, 9], [9, 10], [10, 3], [10, 0]];
+      const stars = [
+        [6, 3, 0.2], [14, 13, 1.3], [24, 5, 2.4], [34, 2, 1.1], [50, 7, 2.1],
+        [56, 16, 0.9], [8, 21, 2.8], [27, 19, 0.5], [44, 22, 1.7]
+      ];
+      let active = false;
+      let exiting = false;
+      let visible = true;
+      let raf = null;
+      let start = performance.now();
+      let modeStart = start;
+      const PIXEL_SCALE = 2;
+      const EXIT_SECONDS = 5.8;
+
+      function xPos(x) { return ((x * 0.86) + 9.1) * PIXEL_SCALE; }
+      function yPos(y) { return (y + 1.4) * PIXEL_SCALE; }
+
+      function pixel(x, y, size, alpha, color) {
+        const px = xPos(x);
+        const py = yPos(y);
+        const scaledSize = Math.max(1, Math.round(size * 1.45));
+        ctx.globalAlpha = alpha > 0 ? alpha : 0;
+        ctx.fillStyle = color || '#cecdc3';
+        ctx.fillRect(Math.round(px), Math.round(py), scaledSize, scaledSize);
+      }
+
+      function hash(seed) {
+        const value = Math.sin(seed * 127.1) * 43758.5453;
+        return value - Math.floor(value);
+      }
+
+      function lit(seed, t, threshold, hold) {
+        if (reduced) return true;
+        const step = Math.floor((t + (seed * 0.43)) / hold);
+        return hash(seed + (step * 9.73)) > threshold;
+      }
+
+      function aliveOnExit(seed, modeT) {
+        if (!exiting || reduced) return true;
+        const death = 0.8 + (hash(seed + 31.7) * 4.8);
+        if (modeT >= death) return false;
+        if ((death - modeT) < 1.6) {
+          return lit(seed + 61.2, modeT, 0.28, 1.15);
+        }
+        return true;
+      }
+
+      function drawLine(a, b, progress, alpha, time) {
+        const ax = points[a][0];
+        const ay = points[a][1];
+        const bx = points[b][0];
+        const by = points[b][1];
+        const endX = ax + ((bx - ax) * progress);
+        const endY = ay + ((by - ay) * progress);
+        const steps = Math.max(3, Math.ceil(Math.hypot(endX - ax, endY - ay) * 0.92));
+        for (let i = 0; i <= steps; i++) {
+          const step = i / steps;
+          const seed = (a * 7.1) + (b * 3.3) + i;
+          if ((active || exiting) && !lit(seed, time, 0.08, 5.8)) continue;
+          if (exiting && !aliveOnExit(seed, time)) continue;
+          pixel(ax + ((endX - ax) * step), ay + ((endY - ay) * step), 1, alpha, '#3aa99f');
+        }
+      }
+
+      function draw(now) {
+        if (!visible) return;
+        const t = (now - start) / 1000;
+        const modeT = (now - modeStart) / 1000;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (exiting && modeT > EXIT_SECONDS) {
+          exiting = false;
+          canvas.classList.remove('is-leaving');
+          ctx.globalAlpha = 1;
+          return;
+        }
+        const live = active || exiting;
+        const settling = reduced ? 1 : Math.min(1, modeT / 2.8);
+        const birthIndex = Math.floor(modeT * 3.8);
+        const baseAlpha = live ? 0.52 : 0.18;
+        stars.forEach(function(star, index) {
+          const seed = star[2] + index;
+          const born = exiting
+            ? aliveOnExit(seed, modeT)
+            : (!active || reduced || index <= birthIndex || lit(seed, t, 0.22, 9.5));
+          if (!born) return;
+          if (active && !lit(seed, t, 0.16, 6.6)) return;
+          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha, '#cecdc3');
+        });
+
+        edges.forEach(function(edge) {
+          drawLine(edge[0], edge[1], 1, live ? 0.18 : 0.12, exiting ? modeT : t);
+        });
+
+        const sweep = active
+          ? Math.min(edges.length + 1.2, modeT * 1.55)
+          : (exiting ? edges.length + 1.2 : 3.4);
+        edges.forEach(function(edge, index) {
+          const progress = Math.max(0, Math.min(1, sweep - (index * 0.82)));
+          if (progress > 0) drawLine(edge[0], edge[1], progress, live ? 0.62 : 0.22, exiting ? modeT + index : t + index);
+        });
+
+        points.forEach(function(point, index) {
+          const seed = index + 11;
+          const born = exiting
+            ? aliveOnExit(seed, modeT)
+            : (!active || reduced || index <= birthIndex || lit(seed, t, 0.18, 10.4));
+          if (!born) return;
+          const bright = live && lit(index + 19, t, 0.56, 6.2);
+          pixel(point[0] - 1, point[1] - 1, bright ? 3 : 2, live ? 0.82 : 0.36, '#fffcf0');
+          if (live && settling > 0.35 && lit(index + 23, t, 0.62, 8.2)) {
+            pixel(point[0], point[1], 1, 0.62, '#3aa99f');
+          }
+        });
+
+        ctx.globalAlpha = 1;
+        if (!reduced && (active || exiting)) raf = requestAnimationFrame(draw);
+      }
+
+      function run() {
+        if (raf) cancelAnimationFrame(raf);
+        raf = null;
+        if (!visible) return;
+        start = performance.now();
+        if (reduced) {
+          draw(start);
+        } else {
+          raf = requestAnimationFrame(draw);
+        }
+      }
+
+      run();
+      return {
+        setActive: function(next) {
+          const wasLive = active || exiting;
+          active = !!next;
+          exiting = !active && wasLive;
+          modeStart = performance.now();
+          canvas.classList.toggle('is-armed', active);
+          canvas.classList.toggle('is-leaving', exiting);
+          run();
+        },
+        setVisible: function(next) {
+          visible = !!next;
+          canvas.classList.toggle('is-hidden', !visible);
+          if (visible) run();
+        },
+        redraw: run
+      };
+    }
+
+    const prettyConstellation = createPrettyConstellation(prettyCanvas);
+
     // B-flat major 7 color across four tones: Bb4, D5, F5, A5.
     const PIANO = {
       N1: 466.16,
@@ -314,12 +489,52 @@
       return conv;
     }
 
+    function getPrettyMaster(ctx) {
+      if (ctx._prettyMaster) return ctx._prettyMaster;
+      const master = ctx.createGain();
+      master.gain.value = 1;
+      master.connect(ctx.destination);
+      ctx._prettyMaster = master;
+      return master;
+    }
+
+    function getPrettyReverb(ctx) {
+      if (ctx._prettyReverbBus) return ctx._prettyReverbBus;
+      const seconds = 9.0;
+      const preDelay = 0.035;
+      const sr = ctx.sampleRate;
+      const len = Math.floor(sr * seconds);
+      const preLen = Math.floor(sr * preDelay);
+      const buf = ctx.createBuffer(2, len, sr);
+      for (let ch = 0; ch < 2; ch++) {
+        const d = buf.getChannelData(ch);
+        const decayPower = ch === 0 ? 2.0 : 2.4;
+        for (let i = 0; i < len; i++) {
+          if (i < preLen) { d[i] = 0; continue; }
+          const tailPos = (i - preLen) / (len - preLen);
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - tailPos, decayPower);
+        }
+      }
+      const conv = ctx.createConvolver();
+      conv.buffer = buf;
+      const damp = ctx.createBiquadFilter();
+      damp.type = 'lowpass';
+      damp.frequency.value = 1800;
+      damp.Q.value = 0.5;
+      conv.connect(damp).connect(getPrettyMaster(ctx));
+      ctx._prettyReverbBus = conv;
+      ctx._prettyReverbNodes = [conv, damp];
+      return conv;
+    }
+
     function getPrettyDelay(ctx) {
       if (ctx._prettyDelay) return ctx._prettyDelay;
       const delay = ctx.createDelay(10.0);
       const filter = ctx.createBiquadFilter();
       const feedback = ctx.createGain();
       const wet = ctx.createGain();
+      const limiter = ctx.createDynamicsCompressor();
+      const wetCeiling = ctx.createGain();
 
       delay.delayTime.value = 0.52;
       filter.type = 'lowpass';
@@ -327,32 +542,70 @@
       filter.Q.value = 0.22;
       feedback.gain.value = 0.86;
       wet.gain.value = 0.52;
+      limiter.threshold.value = -16;
+      limiter.knee.value = 4;
+      limiter.ratio.value = 16;
+      limiter.attack.value = 0.004;
+      limiter.release.value = 0.34;
+      wetCeiling.gain.value = 0.82;
 
       delay.connect(filter);
       filter.connect(feedback);
       feedback.connect(delay);
-      filter.connect(wet).connect(ctx.destination);
+      filter.connect(wet).connect(limiter).connect(wetCeiling).connect(getPrettyMaster(ctx));
       ctx._prettyDelay = delay;
+      ctx._prettyDelayNodes = [delay, filter, feedback, wet, limiter, wetCeiling];
       return delay;
     }
 
+    function killPrettyAudio() {
+      const ctx = audioCtx;
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const master = ctx._prettyMaster;
+      if (master) {
+        try {
+          master.gain.cancelScheduledValues(now);
+          master.gain.setValueAtTime(0, now);
+        } catch (e) {}
+      }
+
+      const disconnectList = []
+        .concat(ctx._prettyDelayNodes || [])
+        .concat(ctx._prettyReverbNodes || []);
+      disconnectList.forEach(function(node) {
+        try { node.disconnect(); } catch (e) {}
+      });
+      ctx._prettyDelay = null;
+      ctx._prettyDelayNodes = null;
+      ctx._prettyReverbBus = null;
+      ctx._prettyReverbNodes = null;
+
+      if (master) {
+        try { master.disconnect(); } catch (e) {}
+        if (ctx._prettyMaster === master) ctx._prettyMaster = null;
+      }
+    }
+
     // Piano voice — one modeled key/body transient into the shared reverb bus.
-    function playPianoNote(freq, when, sustain, levelOverride, withLowFloor, delayBus) {
+    function playPianoNote(freq, when, sustain, levelOverride, withLowFloor, delayBus, outputBus) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
       const sus = sustain || 9.0;
       const level = levelOverride !== undefined ? levelOverride : 0.068;
-      const reverb = getReverb(ctx);
-      playAcousticKey(freq, t, sus, level, reverb, delayBus);
-      if (withLowFloor) playLowFloor(freq, t, sus, level * 0.28, reverb);
+      const output = outputBus || ctx.destination;
+      const reverb = outputBus ? getPrettyReverb(ctx) : getReverb(ctx);
+      playAcousticKey(freq, t, sus, level, reverb, delayBus, output);
+      if (withLowFloor) playLowFloor(freq, t, sus, level * 0.28, reverb, output);
     }
 
     // Quiet acoustic-piano layer: a small modeled hammer/body event plus room.
-    function playAcousticKey(freq, when, sustain, level, reverb, delayBus) {
+    function playAcousticKey(freq, when, sustain, level, reverb, delayBus, outputBus) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = when !== undefined ? when : ctx.currentTime;
+      const output = outputBus || ctx.destination;
       const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
       const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
       const upperPartialScale = freq >= 800 ? 0.55 : (freq >= 650 ? 0.72 : 1);
@@ -375,7 +628,7 @@
 
       const panner = ctx.createStereoPanner();
       panner.pan.value = pan;
-      body.connect(soundboard).connect(panner).connect(ctx.destination);
+      body.connect(soundboard).connect(panner).connect(output);
 
       const send = ctx.createGain();
       send.gain.value = 0.32;
@@ -434,10 +687,11 @@
       hammer.stop(t + 0.04);
     }
 
-    function playLowFloor(freq, when, sustain, level, reverb) {
+    function playLowFloor(freq, when, sustain, level, reverb, outputBus) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = when !== undefined ? when : ctx.currentTime;
+      const output = outputBus || ctx.destination;
       const dur = Math.min(6.5, Math.max(3.2, sustain * 0.72));
       const base = freq / 2;
       const floorLevel = Math.max(0.0025, level || 0.014);
@@ -460,7 +714,7 @@
 
       const panner = ctx.createStereoPanner();
       panner.pan.value = -0.04;
-      floorGain.connect(lowpass).connect(highpass).connect(panner).connect(ctx.destination);
+      floorGain.connect(lowpass).connect(highpass).connect(panner).connect(output);
 
       const send = ctx.createGain();
       send.gain.value = 0.18;
@@ -483,28 +737,28 @@
       });
     }
 
-    function playNoteName(note, when, sustain, level, withLowFloor, delayBus) {
+    function playNoteName(note, when, sustain, level, withLowFloor, delayBus, outputBus) {
       const freq = NOTE_FREQ[note];
       if (!freq) return;
-      playPianoNote(freq, when, sustain, level, withLowFloor, delayBus);
+      playPianoNote(freq, when, sustain, level, withLowFloor, delayBus, outputBus);
     }
 
-    function playNoteNames(notes, when, sustain, level, withLowFloor, delayBus) {
+    function playNoteNames(notes, when, sustain, level, withLowFloor, delayBus, outputBus) {
       notes.forEach(function(note) {
-        playNoteName(note, when, sustain, level, withLowFloor, delayBus);
+        playNoteName(note, when, sustain, level, withLowFloor, delayBus, outputBus);
       });
     }
 
-    function playPrettyGhost(notes, when, scale) {
+    function playPrettyGhost(notes, when, scale, outputBus) {
       const ctx = ensureAudio();
       if (!ctx || Math.random() > 0.38) return;
       const delay = getPrettyDelay(ctx);
       const echoScale = scale === undefined ? 1 : scale;
       const offset = 0.72 + (Math.random() * 0.46);
       const note = notes[Math.floor(Math.random() * notes.length)];
-      playNoteName(note, when + offset, 6.2, 0.012 * echoScale, false, delay);
+      playNoteName(note, when + offset, 6.2, 0.012 * echoScale, false, delay, outputBus);
       if (Math.random() < 0.28) {
-        playNoteName(note, when + offset + 0.52, 5.8, 0.007 * echoScale, false, delay);
+        playNoteName(note, when + offset + 0.52, 5.8, 0.007 * echoScale, false, delay, outputBus);
       }
     }
 
@@ -512,15 +766,16 @@
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime + 0.035;
+      const output = getPrettyMaster(ctx);
       const delay = getPrettyDelay(ctx);
       const level = 0.028;
-      playNoteNames(preset.pressA, t, 4.0, level, false);
-      playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay);
-      playPrettyGhost(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.95);
-      playNoteNames(preset.pressB, t + (LOOP_BEAT_MS / 1000), 5.0, level, false);
-      playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, level, true, delay);
-      playPrettyGhost(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08);
-      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, 0.018, true);
+      playNoteNames(preset.pressA, t, 4.0, level, false, null, output);
+      playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay, output);
+      playPrettyGhost(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
+      playNoteNames(preset.pressB, t + (LOOP_BEAT_MS / 1000), 5.0, level, false, null, output);
+      playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, level, true, delay, output);
+      playPrettyGhost(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
+      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, 0.018, true, null, output);
     }
 
     function playPressNote(goingDark) {
@@ -668,6 +923,22 @@
       prettyBtn.setAttribute('aria-label', action);
       prettyBtn.setAttribute('title', action);
       prettyBtn.classList.toggle('is-armed', armed);
+      if (prettyField) {
+        if (prettyFieldExitTimer) {
+          clearTimeout(prettyFieldExitTimer);
+          prettyFieldExitTimer = null;
+        }
+        const wasLive = prettyField.classList.contains('is-armed') || prettyField.classList.contains('is-leaving');
+        prettyField.classList.toggle('is-armed', armed);
+        prettyField.classList.toggle('is-leaving', !armed && wasLive);
+        if (!armed && wasLive) {
+          prettyFieldExitTimer = setTimeout(function() {
+            prettyField.classList.remove('is-leaving');
+            prettyFieldExitTimer = null;
+          }, 5900);
+        }
+      }
+      prettyConstellation.setActive(armed);
     }
 
     function setPrettyVisible(visible) {
@@ -675,6 +946,8 @@
       prettyBtn.hidden = false;
       prettyBtn.disabled = false;
       prettyBtn.classList.remove('is-hidden');
+      if (prettyField) prettyField.classList.remove('is-hidden');
+      prettyConstellation.setVisible(true);
     }
 
     function setLockUI(locked) {
@@ -710,6 +983,7 @@
       }
       prettyArmed = false;
       setPrettyUI(false);
+      killPrettyAudio();
     }
 
     function schedulePrettyWalk() {

@@ -1,0 +1,335 @@
+---
+layout: base.njk
+title: Lepus constellation lab
+pageClass: page-lepus-lab
+permalink: /lepus-lab/
+---
+
+<article class="lepus-lab" id="main" data-lepus-lab>
+  <header class="lepus-lab-head">
+    <h1>Lepus constellation lab</h1>
+    <p>8-bit ethereal rabbit sketch.</p>
+  </header>
+
+  <section class="lepus-workbench" aria-label="Lepus sketch workbench">
+    <div class="lepus-stage">
+      <div class="lepus-canvas-shell" data-lepus-stage aria-label="Animated Lepus constellation preview"></div>
+      <div class="lepus-stage-footer">
+        <span data-lepus-status>active / seed 0417</span>
+        <span>p5</span>
+      </div>
+    </div>
+
+    <form class="lepus-controls" aria-label="Lepus sketch controls">
+      <label class="lepus-field">
+        <span>pixel</span>
+        <input type="range" min="2" max="8" step="1" value="4" data-lepus-control="pixel">
+        <output data-lepus-output="pixel">4</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>stars</span>
+        <input type="range" min="18" max="120" step="1" value="62" data-lepus-control="stars">
+        <output data-lepus-output="stars">62</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>twinkle</span>
+        <input type="range" min="0" max="100" step="1" value="72" data-lepus-control="twinkle">
+        <output data-lepus-output="twinkle">72</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>lines</span>
+        <input type="range" min="10" max="100" step="1" value="58" data-lepus-control="line">
+        <output data-lepus-output="line">58</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>trail</span>
+        <input type="range" min="8" max="60" step="1" value="28" data-lepus-control="trail">
+        <output data-lepus-output="trail">28</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>drift</span>
+        <input type="range" min="0" max="100" step="1" value="34" data-lepus-control="drift">
+        <output data-lepus-output="drift">34</output>
+      </label>
+
+      <label class="lepus-field">
+        <span>glow</span>
+        <input type="range" min="0" max="100" step="1" value="68" data-lepus-control="glow">
+        <output data-lepus-output="glow">68</output>
+      </label>
+
+      <div class="lepus-actions">
+        <button type="button" class="lepus-button primary" data-lepus-active aria-pressed="true">active</button>
+        <button type="button" class="lepus-button" data-lepus-shuffle>shuffle</button>
+        <button type="button" class="lepus-button" data-lepus-copy>copy config</button>
+      </div>
+
+      <pre class="lepus-config" data-lepus-config aria-label="Current Lepus configuration"></pre>
+    </form>
+  </section>
+</article>
+
+<script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+<script>
+  (function() {
+    const root = document.querySelector('[data-lepus-lab]');
+    if (!root) return;
+
+    const stage = root.querySelector('[data-lepus-stage]');
+    const status = root.querySelector('[data-lepus-status]');
+    const configOut = root.querySelector('[data-lepus-config]');
+    const activeButton = root.querySelector('[data-lepus-active]');
+    const shuffleButton = root.querySelector('[data-lepus-shuffle]');
+    const copyButton = root.querySelector('[data-lepus-copy]');
+    const controls = Array.from(root.querySelectorAll('[data-lepus-control]'));
+    const outputs = {};
+    root.querySelectorAll('[data-lepus-output]').forEach(function(output) {
+      outputs[output.getAttribute('data-lepus-output')] = output;
+    });
+
+    const state = {
+      pixel: 4,
+      stars: 62,
+      twinkle: 72,
+      line: 58,
+      trail: 28,
+      drift: 34,
+      glow: 68,
+      active: true,
+      seed: 417
+    };
+
+    const lepusStars = [
+      { x: 0.09, y: 0.43, s: 1.28 },
+      { x: 0.24, y: 0.34, s: 1.05 },
+      { x: 0.39, y: 0.38, s: 1.10 },
+      { x: 0.57, y: 0.55, s: 1.14 },
+      { x: 0.83, y: 0.43, s: 0.98 },
+      { x: 0.76, y: 0.25, s: 0.82 },
+      { x: 0.90, y: 0.22, s: 0.86 },
+      { x: 0.94, y: 0.78, s: 1.08 },
+      { x: 0.63, y: 0.70, s: 1.02 },
+      { x: 0.43, y: 0.83, s: 0.94 },
+      { x: 0.32, y: 0.73, s: 0.92 }
+    ];
+
+    const lepusLines = [
+      [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [4, 6], [4, 7],
+      [3, 8], [8, 7], [8, 9], [9, 10], [10, 3], [10, 0]
+    ];
+
+    let sketchInstance = null;
+    let fieldStars = [];
+
+    function setStateFromControls() {
+      controls.forEach(function(input) {
+        const key = input.getAttribute('data-lepus-control');
+        state[key] = Number(input.value);
+        if (outputs[key]) outputs[key].textContent = input.value;
+      });
+      updateMeta();
+    }
+
+    function updateMeta() {
+      activeButton.setAttribute('aria-pressed', state.active ? 'true' : 'false');
+      activeButton.textContent = state.active ? 'active' : 'quiet';
+      status.textContent = (state.active ? 'active' : 'quiet') + ' / seed ' + String(state.seed).padStart(4, '0');
+      configOut.textContent = JSON.stringify({
+        pixel: state.pixel,
+        stars: state.stars,
+        twinkle: state.twinkle,
+        line: state.line,
+        trail: state.trail,
+        drift: state.drift,
+        glow: state.glow,
+        active: state.active,
+        seed: state.seed
+      }, null, 2);
+    }
+
+    function seeded(seed) {
+      let value = seed % 2147483647;
+      if (value <= 0) value += 2147483646;
+      return function() {
+        value = (value * 16807) % 2147483647;
+        return (value - 1) / 2147483646;
+      };
+    }
+
+    function rebuildStars(width, height) {
+      const random = seeded(state.seed);
+      const count = Math.max(18, state.stars);
+      fieldStars = [];
+      for (let i = 0; i < count; i++) {
+        fieldStars.push({
+          x: random() * width,
+          y: random() * height,
+          size: 0.55 + (random() * 1.8),
+          phase: random() * Math.PI * 2,
+          speed: 0.4 + (random() * 1.9),
+          depth: 0.35 + (random() * 0.65)
+        });
+      }
+    }
+
+    function snap(value, grid) {
+      return Math.round(value / grid) * grid;
+    }
+
+    function lepusPoint(point, width, height, t) {
+      const marginX = width * 0.08;
+      const marginY = height * 0.12;
+      const drift = (state.drift / 100) * (state.active ? 1 : 0.35);
+      const wobbleX = Math.sin(t * 0.58 + point.x * 12) * drift * 5;
+      const wobbleY = Math.cos(t * 0.44 + point.y * 11) * drift * 4;
+      return {
+        x: marginX + (point.x * (width - (marginX * 2))) + wobbleX,
+        y: marginY + (point.y * (height - (marginY * 2))) + wobbleY
+      };
+    }
+
+    function drawPixelLine(p, a, b, progress, pixel, alpha, glow) {
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const distance = Math.max(1, Math.sqrt((dx * dx) + (dy * dy)));
+      const steps = Math.max(2, Math.floor(distance / pixel));
+      const visibleSteps = Math.floor(steps * progress);
+      for (let i = 0; i <= visibleSteps; i++) {
+        const amount = i / steps;
+        const x = snap(a.x + (dx * amount), pixel);
+        const y = snap(a.y + (dy * amount), pixel);
+        if (glow > 0) {
+          p.noStroke();
+          p.fill(58, 169, 159, alpha * 0.14 * glow);
+          p.rect(x - pixel, y - pixel, pixel * 3, pixel * 3);
+        }
+        p.fill(206, 205, 195, alpha * (0.62 + (amount * 0.24)));
+        p.rect(x, y, pixel, pixel);
+      }
+    }
+
+    function startSketch() {
+      if (!window.p5 || !stage) {
+        stage.textContent = 'p5 did not load';
+        return;
+      }
+
+      sketchInstance = new window.p5(function(p) {
+        function size() {
+          const rect = stage.getBoundingClientRect();
+          return {
+            width: Math.max(320, Math.floor(rect.width)),
+            height: Math.max(260, Math.floor(rect.height))
+          };
+        }
+
+        p.setup = function() {
+          const dims = size();
+          const canvas = p.createCanvas(dims.width, dims.height);
+          canvas.parent(stage);
+          p.pixelDensity(1);
+          p.noSmooth();
+          rebuildStars(dims.width, dims.height);
+          p.background(16, 15, 15);
+        };
+
+        p.windowResized = function() {
+          const dims = size();
+          p.resizeCanvas(dims.width, dims.height);
+          rebuildStars(dims.width, dims.height);
+          p.background(16, 15, 15);
+        };
+
+        p.draw = function() {
+          const w = p.width;
+          const h = p.height;
+          const pixel = state.pixel;
+          const t = p.millis() / 1000;
+          const trailAlpha = Math.max(8, Math.min(60, state.trail));
+          const glow = state.glow / 100;
+          const twinkle = state.twinkle / 100;
+          const lineSpeed = 0.12 + ((state.line / 100) * 0.54);
+
+          p.noStroke();
+          p.fill(16, 15, 15, trailAlpha);
+          p.rect(0, 0, w, h);
+
+          if (fieldStars.length !== state.stars) rebuildStars(w, h);
+
+          fieldStars.forEach(function(star) {
+            const flicker = 0.34 + (0.66 * ((Math.sin(t * star.speed + star.phase) + 1) / 2));
+            const alpha = (18 + (flicker * 120 * twinkle)) * star.depth;
+            const drift = (state.drift / 100) * 1.7 * star.depth;
+            const x = snap(star.x + Math.sin(t * 0.13 + star.phase) * drift, pixel);
+            const y = snap(star.y + Math.cos(t * 0.11 + star.phase) * drift, pixel);
+            const size = Math.max(pixel, Math.round(star.size) * pixel);
+            p.fill(206, 205, 195, alpha);
+            p.rect(x, y, size, size);
+          });
+
+          const points = lepusStars.map(function(point) {
+            return lepusPoint(point, w, h, t);
+          });
+          const cycle = state.active ? ((t * lineSpeed) % (lepusLines.length + 1.8)) : 2.8;
+          lepusLines.forEach(function(edge, index) {
+            const progress = Math.max(0, Math.min(1, cycle - (index * 0.72)));
+            if (progress <= 0) return;
+            const alpha = state.active ? 150 : 58;
+            drawPixelLine(p, points[edge[0]], points[edge[1]], progress, pixel, alpha, glow);
+          });
+
+          points.forEach(function(point, index) {
+            const pulse = 0.55 + (0.45 * ((Math.sin(t * 1.4 + index) + 1) / 2));
+            const star = lepusStars[index];
+            const size = Math.max(pixel * 2, Math.round((star.s * 1.8 + pulse) * pixel));
+            const x = snap(point.x, pixel);
+            const y = snap(point.y, pixel);
+            if (glow > 0) {
+              p.fill(58, 169, 159, (state.active ? 38 : 16) * glow);
+              p.rect(x - size, y - size, size * 2.4, size * 2.4);
+            }
+            p.fill(255, 252, 240, state.active ? 215 : 118);
+            p.rect(x - (size / 2), y - (size / 2), size, size);
+            p.fill(58, 169, 159, state.active ? 82 : 36);
+            p.rect(x, y, pixel, pixel);
+          });
+        };
+      }, stage);
+    }
+
+    controls.forEach(function(input) {
+      input.addEventListener('input', function() {
+        setStateFromControls();
+        if (input.getAttribute('data-lepus-control') === 'stars' && sketchInstance) {
+          rebuildStars(sketchInstance.width, sketchInstance.height);
+        }
+      });
+    });
+
+    activeButton.addEventListener('click', function() {
+      state.active = !state.active;
+      updateMeta();
+    });
+
+    shuffleButton.addEventListener('click', function() {
+      state.seed = Math.floor(1 + Math.random() * 9998);
+      if (sketchInstance) rebuildStars(sketchInstance.width, sketchInstance.height);
+      updateMeta();
+    });
+
+    copyButton.addEventListener('click', function() {
+      const text = configOut.textContent;
+      if (navigator.clipboard && text) {
+        navigator.clipboard.writeText(text).catch(function() {});
+      }
+    });
+
+    setStateFromControls();
+    startSketch();
+  })();
+</script>
