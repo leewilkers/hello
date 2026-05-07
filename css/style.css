@@ -3944,10 +3944,6 @@ body {
   .consulting-principle dd {
     margin-top: 0.14rem;
   }
-
-  .page-consulting + .site-colophon {
-    display: none;
-  }
 }
 
 .home-plain .home-nav {
