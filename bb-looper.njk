@@ -1,0 +1,645 @@
+---
+layout: base.njk
+title: B-flat looper pad
+pageClass: page-bb-looper
+permalink: /bb-looper/
+---
+
+<article class="bb-looper" id="main" data-bb-looper>
+  <header class="bb-looper-head">
+    <h1>B-flat looper pad</h1>
+    <p>Audition small B-flat gestures. The first pad is the current shelf phrase.</p>
+  </header>
+
+  <section class="bb-looper-console" aria-label="Looper controls">
+    <div class="bb-looper-selected">
+      <span class="bb-looper-label">selected</span>
+      <strong data-selected-name>current shelf</strong>
+      <span data-selected-path>A5 -> D5+Bb4 / Bb4 -> F5+A5 + low Bb</span>
+    </div>
+
+    <div class="bb-looper-actions">
+      <button class="bb-looper-button is-hidden" type="button" data-loop-toggle aria-pressed="false" hidden disabled aria-hidden="true" tabindex="-1">loop</button>
+      <button class="bb-looper-button primary" type="button" data-one-shot>switch</button>
+      <button class="bb-looper-button chaos" type="button" data-chaos-toggle aria-label="Start progression walk" title="Start progression walk" aria-pressed="false"><span aria-hidden="true">!_!</span></button>
+      <button class="bb-looper-button quiet" type="button" data-stop>stop</button>
+    </div>
+
+    <p class="bb-looper-status" data-status>idle</p>
+  </section>
+
+  <section class="bb-looper-grid" data-pad-grid aria-label="Progression pads"></section>
+</article>
+
+<script>
+  (function() {
+    const root = document.querySelector('[data-bb-looper]');
+    if (!root) return;
+
+    const NOTE_FREQ = {
+      Bb2: 116.54,
+      Bb3: 233.08,
+      Bb4: 466.16,
+      Bb5: 932.33,
+      C5: 523.25,
+      D5: 587.33,
+      Eb5: 622.25,
+      F5: 698.46,
+      G5: 783.99,
+      A5: 880.00
+    };
+
+    const PRESETS = [
+      {
+        id: 'current-shelf',
+        name: 'current shelf',
+        path: 'A5 -> D5+Bb4 / Bb4 -> F5+A5 + low Bb',
+        color: 'major seven',
+        pressA: ['A5'],
+        resolveA: ['D5', 'Bb4'],
+        pressB: ['Bb4'],
+        resolveB: ['F5', 'A5'],
+        low: 'Bb3'
+      },
+      {
+        id: 'g-top',
+        name: 'G top',
+        path: 'G5 -> D5+Bb4 / Bb4 -> F5+G5 + low Bb',
+        color: 'sixth, softer',
+        pressA: ['G5'],
+        resolveA: ['D5', 'Bb4'],
+        pressB: ['Bb4'],
+        resolveB: ['F5', 'G5'],
+        low: 'Bb3'
+      },
+      {
+        id: 'ninth-air',
+        name: 'ninth air',
+        path: 'C5 -> D5+Bb4 / Bb4 -> F5+C5 + low Bb',
+        color: 'open ninth',
+        pressA: ['C5'],
+        resolveA: ['D5', 'Bb4'],
+        pressB: ['Bb4'],
+        resolveB: ['F5', 'C5'],
+        low: 'Bb3'
+      },
+      {
+        id: 'eb-shimmer',
+        name: 'Eb shimmer',
+        path: 'Eb5 -> D5+Bb4 / Bb4 -> F5+Eb5 + low Bb',
+        color: 'suspended fourth',
+        pressA: ['Eb5'],
+        resolveA: ['D5', 'Bb4'],
+        pressB: ['Bb4'],
+        resolveB: ['F5', 'Eb5'],
+        low: 'Bb3'
+      },
+      {
+        id: 'plain-fifth',
+        name: 'plain fifth',
+        path: 'F5 -> D5+Bb4 / Bb4 -> F5+Bb4 + low Bb',
+        color: 'clean fifth',
+        pressA: ['F5'],
+        resolveA: ['D5', 'Bb4'],
+        pressB: ['Bb4'],
+        resolveB: ['F5', 'Bb4'],
+        low: 'Bb3'
+      }
+    ];
+
+    const PRESS_TO_HIT_SECONDS = 1.0;
+    const HALF_SECONDS = 4.0;
+    const LOOP_SECONDS = 8.0;
+    const WALK_OFFSETS = [0, 1, 2, 4, 3, 1, 0];
+
+    const grid = root.querySelector('[data-pad-grid]');
+    const selectedName = root.querySelector('[data-selected-name]');
+    const selectedPath = root.querySelector('[data-selected-path]');
+    const status = root.querySelector('[data-status]');
+    const loopToggle = root.querySelector('[data-loop-toggle]');
+    const oneShot = root.querySelector('[data-one-shot]');
+    const chaosToggle = root.querySelector('[data-chaos-toggle]');
+    const stopButton = root.querySelector('[data-stop]');
+
+    let audioCtx = null;
+    let selected = PRESETS[0];
+    let activePreset = selected;
+    let loopTimer = null;
+    let chaosStep = 0;
+    let walkBaseIndex = 0;
+    let isLooping = false;
+    let isChaos = false;
+
+    function ensureAudio() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        return audioCtx;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getMaster(ctx) {
+      if (ctx._bbLooperMaster) return ctx._bbLooperMaster;
+      const master = ctx.createGain();
+      const bass = ctx.createBiquadFilter();
+      const lowMid = ctx.createBiquadFilter();
+      const compressor = ctx.createDynamicsCompressor();
+      const output = ctx.createGain();
+
+      master.gain.value = 1.16;
+      bass.type = 'lowshelf';
+      bass.frequency.value = 145;
+      bass.gain.value = 4.2;
+      lowMid.type = 'peaking';
+      lowMid.frequency.value = 420;
+      lowMid.Q.value = 0.72;
+      lowMid.gain.value = 2.8;
+      compressor.threshold.value = -22;
+      compressor.knee.value = 18;
+      compressor.ratio.value = 2.4;
+      compressor.attack.value = 0.025;
+      compressor.release.value = 0.42;
+      output.gain.value = 0.92;
+
+      master.connect(bass).connect(lowMid).connect(compressor).connect(output).connect(ctx.destination);
+      ctx._bbLooperMaster = master;
+      return master;
+    }
+
+    function resetMaster(ctx) {
+      const master = getMaster(ctx);
+      const t = ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(Math.max(0.0001, master.gain.value || 0.0001), t);
+      master.gain.linearRampToValueAtTime(1.16, t + 0.08);
+    }
+
+    function fadeMaster(ctx) {
+      if (!ctx || !ctx._bbLooperMaster) return;
+      const master = ctx._bbLooperMaster;
+      const t = ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(Math.max(0.0001, master.gain.value || 0.0001), t);
+      master.gain.linearRampToValueAtTime(0.0001, t + 0.16);
+    }
+
+    function getReverb(ctx) {
+      if (ctx._bbLooperReverb) return ctx._bbLooperReverb;
+      const seconds = 9.0;
+      const preDelay = 0.035;
+      const sr = ctx.sampleRate;
+      const len = Math.floor(sr * seconds);
+      const preLen = Math.floor(sr * preDelay);
+      const buf = ctx.createBuffer(2, len, sr);
+      for (let ch = 0; ch < 2; ch++) {
+        const d = buf.getChannelData(ch);
+        const decayPower = ch === 0 ? 2.0 : 2.4;
+        for (let i = 0; i < len; i++) {
+          if (i < preLen) { d[i] = 0; continue; }
+          const tailPos = (i - preLen) / (len - preLen);
+          d[i] = (Math.random() * 2 - 1) * Math.pow(1 - tailPos, decayPower);
+        }
+      }
+      const conv = ctx.createConvolver();
+      conv.buffer = buf;
+      const damp = ctx.createBiquadFilter();
+      damp.type = 'lowpass';
+      damp.frequency.value = 1800;
+      damp.Q.value = 0.5;
+      conv.connect(damp).connect(getMaster(ctx));
+      ctx._bbLooperReverb = conv;
+      return conv;
+    }
+
+    function noteFreq(name) {
+      return NOTE_FREQ[name];
+    }
+
+    function playPianoNote(name, when, sustain, levelOverride, withLowFloor) {
+      const freq = noteFreq(name);
+      const ctx = ensureAudio();
+      if (!ctx || !freq) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const sus = sustain || 9.0;
+      const level = levelOverride !== undefined ? levelOverride : 0.086;
+      const reverb = getReverb(ctx);
+      playAcousticKey(freq, t, sus, level, reverb);
+      if (withLowFloor) playLowFloor(freq, t, sus, level * 0.42, reverb);
+    }
+
+    function playAcousticKey(freq, when, sustain, level, reverb) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
+      const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+      const upperPartialScale = freq >= 800 ? 0.55 : (freq >= 650 ? 0.72 : 1);
+      const hammerScale = freq >= 800 ? 0.24 : (freq >= 650 ? 0.48 : 1);
+      const attackTime = freq >= 800 ? 0.032 : (freq >= 650 ? 0.022 : 0.012);
+      const partialAttack = freq >= 800 ? 0.026 : (freq >= 650 ? 0.018 : 0.010);
+      const bodyLevel = Math.max(0.003, level || 0.018) * trebleMellow * 1.12;
+      const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+
+      const body = ctx.createGain();
+      body.gain.setValueAtTime(0.0001, t);
+      body.gain.exponentialRampToValueAtTime(bodyLevel, t + attackTime);
+      body.gain.exponentialRampToValueAtTime(bodyLevel * 0.32, t + 0.68);
+      body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+      const soundboard = ctx.createBiquadFilter();
+      soundboard.type = 'lowpass';
+      soundboard.frequency.value = freq >= 800 ? 2400 : (freq >= 650 ? 3200 : 4200);
+      soundboard.Q.value = 0.35;
+
+      const panner = ctx.createStereoPanner();
+      panner.pan.value = pan;
+      body.connect(soundboard).connect(panner).connect(getMaster(ctx));
+
+      const send = ctx.createGain();
+      send.gain.value = 0.32;
+      panner.connect(send).connect(reverb);
+
+      [
+        { ratio: 1.000, gain: 1.00, stop: dur },
+        { ratio: 2.006, gain: 0.42, stop: dur * 0.76 },
+        { ratio: 3.018, gain: 0.22, stop: dur * 0.50 },
+        { ratio: 4.045, gain: 0.12, stop: dur * 0.36 }
+      ].forEach(function(partial) {
+        const osc = ctx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.value = freq * partial.ratio;
+        osc.detune.value = (Math.random() * 3) - 1.5;
+
+        const partialGain = ctx.createGain();
+        partialGain.gain.setValueAtTime(0.0001, t);
+        partialGain.gain.exponentialRampToValueAtTime(
+          partial.gain * (partial.ratio === 1.000 ? 1 : upperPartialScale),
+          t + partialAttack
+        );
+        partialGain.gain.exponentialRampToValueAtTime(0.0001, t + partial.stop);
+
+        osc.connect(partialGain).connect(body);
+        osc.start(t);
+        osc.stop(t + partial.stop + 0.08);
+      });
+
+      const hammer = ctx.createBufferSource();
+      const hammerLen = Math.floor(ctx.sampleRate * (freq >= 650 ? 0.018 : 0.026));
+      const hammerBuf = ctx.createBuffer(1, hammerLen, ctx.sampleRate);
+      const data = hammerBuf.getChannelData(0);
+      for (let i = 0; i < hammerLen; i++) {
+        const decay = Math.pow(1 - (i / hammerLen), 2.8);
+        data[i] = (Math.random() * 2 - 1) * decay;
+      }
+      hammer.buffer = hammerBuf;
+
+      const hammerGain = ctx.createGain();
+      hammerGain.gain.setValueAtTime(bodyLevel * 0.10 * hammerScale, t);
+      hammerGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.030);
+
+      const hammerFilter = ctx.createBiquadFilter();
+      hammerFilter.type = 'bandpass';
+      hammerFilter.frequency.value = freq >= 800 ? 1050 : Math.min(1900, Math.max(800, freq * 3.0));
+      hammerFilter.Q.value = freq >= 650 ? 0.8 : 1.2;
+
+      hammer.connect(hammerGain).connect(hammerFilter).connect(panner);
+      hammer.start(t);
+      hammer.stop(t + 0.04);
+    }
+
+    function playLowFloor(freq, when, sustain, level, reverb) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const dur = Math.min(6.5, Math.max(3.2, sustain * 0.72));
+      const base = freq / 2;
+      const floorLevel = Math.max(0.004, level || 0.018);
+
+      const floorGain = ctx.createGain();
+      floorGain.gain.setValueAtTime(0.0001, t);
+      floorGain.gain.exponentialRampToValueAtTime(floorLevel, t + 0.055);
+      floorGain.gain.exponentialRampToValueAtTime(floorLevel * 0.48, t + 1.35);
+      floorGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+      const lowpass = ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 540;
+      lowpass.Q.value = 0.6;
+
+      const highpass = ctx.createBiquadFilter();
+      highpass.type = 'highpass';
+      highpass.frequency.value = 48;
+      highpass.Q.value = 0.5;
+
+      const panner = ctx.createStereoPanner();
+      panner.pan.value = -0.04;
+      floorGain.connect(lowpass).connect(highpass).connect(panner).connect(getMaster(ctx));
+
+      const send = ctx.createGain();
+      send.gain.value = 0.18;
+      panner.connect(send).connect(reverb);
+
+      [
+        { ratio: 2.000, gain: 0.24 },
+        { ratio: 1.000, gain: 1.00 },
+        { ratio: 0.500, gain: 0.46 }
+      ].forEach(function(layer) {
+        const osc = ctx.createOscillator();
+        osc.type = layer.ratio === 1.000 ? 'triangle' : 'sine';
+        osc.frequency.value = base * layer.ratio;
+        osc.detune.value = (Math.random() * 2) - 1;
+
+        const layerGain = ctx.createGain();
+        layerGain.gain.value = layer.gain;
+        osc.connect(layerGain).connect(floorGain);
+        osc.start(t);
+        osc.stop(t + dur + 0.08);
+      });
+    }
+
+    function playSynthFill(rootName, when, sustain, level) {
+      const root = noteFreq(rootName);
+      const ctx = ensureAudio();
+      if (!ctx || !root) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const dur = Math.min(8.2, Math.max(4.4, sustain * 0.82));
+      const fillLevel = Math.max(0.005, level || 0.018);
+      const reverb = getReverb(ctx);
+
+      const fillGain = ctx.createGain();
+      fillGain.gain.setValueAtTime(0.0001, t);
+      fillGain.gain.linearRampToValueAtTime(fillLevel, t + 0.18);
+      fillGain.gain.exponentialRampToValueAtTime(fillLevel * 0.62, t + 1.7);
+      fillGain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+      const warmth = ctx.createBiquadFilter();
+      warmth.type = 'lowpass';
+      warmth.frequency.value = 1680;
+      warmth.Q.value = 0.46;
+
+      const chest = ctx.createBiquadFilter();
+      chest.type = 'peaking';
+      chest.frequency.value = 330;
+      chest.Q.value = 0.8;
+      chest.gain.value = 4.6;
+
+      const highpass = ctx.createBiquadFilter();
+      highpass.type = 'highpass';
+      highpass.frequency.value = 42;
+      highpass.Q.value = 0.58;
+
+      fillGain.connect(chest).connect(warmth).connect(highpass).connect(getMaster(ctx));
+
+      const send = ctx.createGain();
+      send.gain.value = 0.28;
+      highpass.connect(send).connect(reverb);
+
+      [
+        { ratio: 0.5, type: 'sine', gain: 0.58, detune: -4 },
+        { ratio: 1.0, type: 'triangle', gain: 0.90, detune: -2 },
+        { ratio: 1.5, type: 'triangle', gain: 0.48, detune: 3 },
+        { ratio: 2.0, type: 'sine', gain: 0.28, detune: 5 },
+        { ratio: 2.5, type: 'triangle', gain: 0.15, detune: -6 }
+      ].forEach(function(layer) {
+        const osc = ctx.createOscillator();
+        osc.type = layer.type;
+        osc.frequency.value = root * layer.ratio;
+        osc.detune.value = layer.detune + ((Math.random() * 2) - 1);
+
+        const layerGain = ctx.createGain();
+        layerGain.gain.value = layer.gain;
+        osc.connect(layerGain).connect(fillGain);
+        osc.start(t);
+        osc.stop(t + dur + 0.12);
+      });
+    }
+
+    function playNotes(notes, when, sustain, level, withLowFloor) {
+      notes.forEach(function(note) {
+        playPianoNote(note, when, sustain, level, withLowFloor);
+      });
+    }
+
+    function playGesture(preset, options) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const opts = options || {};
+      const level = opts.level === undefined ? 0.092 : opts.level;
+      const lowLevel = opts.lowLevel === undefined ? 0.052 : opts.lowLevel;
+      if (opts.resetMaster !== false) resetMaster(ctx);
+      const t = ctx.currentTime + 0.035;
+      const firstResolve = t + PRESS_TO_HIT_SECONDS;
+      const finalResolve = t + HALF_SECONDS + PRESS_TO_HIT_SECONDS;
+      playNotes(preset.pressA, t, 4.0, level, false);
+      playNotes(preset.resolveA, firstResolve, 9.0, level, true);
+      playPianoNote(preset.low, firstResolve, 8.4, lowLevel * 0.82, true);
+      playSynthFill(preset.low, firstResolve, 8.8, lowLevel * 0.92);
+      playNotes(preset.pressB, t + HALF_SECONDS, 5.0, level, false);
+      playNotes(preset.resolveB, finalResolve, 9.0, level, true);
+      playPianoNote(preset.low, finalResolve, 9.0, lowLevel * 1.55, true);
+      playSynthFill(preset.low, finalResolve, 9.2, lowLevel * 1.18);
+    }
+
+    function renderPads(active) {
+      const current = active || activePreset;
+      grid.innerHTML = PRESETS.map(function(preset, index) {
+        return [
+          '<button class="bb-pad' + (preset.id === current.id ? ' is-selected' : '') + '" type="button" data-preset-id="' + preset.id + '" aria-pressed="' + (preset.id === current.id ? 'true' : 'false') + '">',
+          '  <span class="bb-pad-index">' + String(index + 1).padStart(2, '0') + '</span>',
+          '  <span class="bb-pad-name">' + preset.name + '</span>',
+          '  <span class="bb-pad-color">' + preset.color + '</span>',
+          '  <span class="bb-pad-path">' + preset.path + '</span>',
+          '</button>'
+        ].join('');
+      }).join('');
+    }
+
+    function setActivePreset(preset) {
+      activePreset = preset;
+      selectedName.textContent = preset.name;
+      selectedPath.textContent = preset.path;
+      renderPads(preset);
+    }
+
+    function setSelected(preset) {
+      selected = preset;
+      walkBaseIndex = selectedIndex();
+      chaosStep = 0;
+      setActivePreset(preset);
+      if (isLooping) {
+        clearLoopTimer();
+        playLoopGesture();
+        scheduleNextLoop();
+      } else if (isChaos) {
+        status.textContent = 'chaos: walking through ' + preset.name;
+      } else {
+        status.textContent = 'selected: ' + preset.name;
+      }
+    }
+
+    function selectedIndex() {
+      return Math.max(0, PRESETS.findIndex(function(preset) {
+        return preset.id === selected.id;
+      }));
+    }
+
+    function refreshModeStatus(fallback) {
+      if (isLooping && isChaos) {
+        status.textContent = 'walking: ' + activePreset.name;
+      } else if (isLooping) {
+        status.textContent = 'looping: ' + selected.name;
+      } else if (isChaos) {
+        status.textContent = 'chaos: walking through ' + selected.name;
+      } else if (fallback) {
+        status.textContent = fallback;
+      }
+    }
+
+    function clearLoopTimer() {
+      if (loopTimer) {
+        window.clearTimeout(loopTimer);
+        loopTimer = null;
+      }
+    }
+
+    function setChaosVisible(visible) {
+      chaosToggle.hidden = false;
+      chaosToggle.disabled = false;
+      chaosToggle.classList.remove('is-hidden');
+      if (!visible) setChaosUI(false);
+    }
+
+    function setChaosUI(armed) {
+      const action = armed ? 'Stop progression walk' : 'Start progression walk';
+      chaosToggle.setAttribute('aria-pressed', armed ? 'true' : 'false');
+      chaosToggle.setAttribute('aria-label', action);
+      chaosToggle.setAttribute('title', action);
+    }
+
+    function stopLoop(updateStatus, fadeAudio) {
+      clearLoopTimer();
+      isLooping = false;
+      if (isChaos) stopChaos(false, false);
+      if (loopToggle) {
+        loopToggle.setAttribute('aria-pressed', 'false');
+        loopToggle.textContent = 'loop';
+      }
+      setChaosVisible(false);
+      setActivePreset(selected);
+      if (fadeAudio !== false && !isChaos) fadeMaster(audioCtx);
+      if (updateStatus !== false) refreshModeStatus('stopped');
+    }
+
+    function stopChaos(updateStatus, fadeAudio) {
+      isChaos = false;
+      chaosStep = 0;
+      setChaosUI(false);
+      setActivePreset(selected);
+      if (fadeAudio !== false && !isLooping) fadeMaster(audioCtx);
+      if (updateStatus !== false) refreshModeStatus('stopped');
+    }
+
+    function stopAll(updateStatus) {
+      stopLoop(false, false);
+      stopChaos(false, false);
+      fadeMaster(audioCtx);
+      if (updateStatus !== false) status.textContent = 'stopped';
+    }
+
+    function nextWalkPreset() {
+      const offset = WALK_OFFSETS[chaosStep % WALK_OFFSETS.length];
+      chaosStep += 1;
+      return PRESETS[(walkBaseIndex + offset) % PRESETS.length];
+    }
+
+    function playLoopGesture() {
+      const preset = isChaos ? nextWalkPreset() : selected;
+      setActivePreset(preset);
+      refreshModeStatus();
+      playGesture(preset);
+    }
+
+    function scheduleNextLoop() {
+      loopTimer = window.setTimeout(function() {
+        if (!isLooping) return;
+        playLoopGesture();
+        scheduleNextLoop();
+      }, LOOP_SECONDS * 1000);
+    }
+
+    function startLoop() {
+      clearLoopTimer();
+      isLooping = true;
+      if (loopToggle) {
+        loopToggle.setAttribute('aria-pressed', 'true');
+        loopToggle.textContent = 'looping';
+      }
+      setChaosVisible(true);
+      playLoopGesture();
+      scheduleNextLoop();
+    }
+
+    function startChaos() {
+      if (!isLooping) {
+        clearLoopTimer();
+        isLooping = true;
+        if (loopToggle) {
+          loopToggle.setAttribute('aria-pressed', 'true');
+          loopToggle.textContent = 'looping';
+        }
+        setChaosVisible(true);
+      }
+      stopChaos(false, false);
+      isChaos = true;
+      chaosStep = 0;
+      walkBaseIndex = selectedIndex();
+      setChaosUI(true);
+      clearLoopTimer();
+      playLoopGesture();
+      scheduleNextLoop();
+    }
+
+    grid.addEventListener('click', function(event) {
+      const button = event.target.closest('[data-preset-id]');
+      if (!button) return;
+      const preset = PRESETS.find(function(item) {
+        return item.id === button.getAttribute('data-preset-id');
+      });
+      if (preset) setSelected(preset);
+    });
+
+    if (loopToggle) {
+      loopToggle.addEventListener('click', function() {
+        if (isLooping) {
+          stopLoop();
+        } else {
+          startLoop();
+        }
+      });
+    }
+
+    oneShot.addEventListener('click', function() {
+      stopLoop(false, false);
+      status.textContent = 'switch: ' + selected.name;
+      playGesture(selected);
+    });
+
+    chaosToggle.addEventListener('click', function() {
+      if (isChaos) {
+        stopLoop();
+      } else {
+        startChaos();
+      }
+    });
+
+    stopButton.addEventListener('click', function() {
+      stopAll();
+    });
+
+    renderPads();
+    setChaosVisible(false);
+  })();
+</script>

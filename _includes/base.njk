@@ -107,6 +107,8 @@
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
+    <button class="loop-tally" aria-label="Start dimmer loop" title="Start dimmer loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-mark" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" focusable="false"><path d="M 2.8 8 C 4.35 5.7 5.75 5.7 8 8 C 10.25 10.3 11.65 10.3 13.2 8 C 11.65 5.7 10.25 5.7 8 8 C 5.75 10.3 4.35 10.3 2.8 8" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="pretty-loop" aria-label="Start pretty progression walk" title="Start pretty progression walk" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
   </div>
 </nav>
 
@@ -146,6 +148,7 @@
     const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
+    const prettyBtn = document.querySelector('.pretty-loop');
     const lockBtn = document.querySelector('.theme-lock');
     if (!loopBtn) {
       try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
@@ -173,6 +176,9 @@
     let loopNextTimer = null;
     let themeLocked = false;
     let loopDirection = null;        // while locked, tracks alternating performance direction
+    let prettyArmed = false;
+    let prettyTimer = null;
+    let prettyStep = 0;
 
     // Cat controller — manual clicks release on the video end; loop mode
     // releases from the music clock so the visual breath follows the note
@@ -242,14 +248,37 @@
       } catch (e) { return null; }
     }
 
-    // Original dimmer phrase before the B-flat pass: Dmaj7 across four tones.
-    // Back-and-forth toggles trace D4 -> A4+C#5 / C#5 -> F#4+D4.
+    // B-flat major 7 color across four tones: Bb4, D5, F5, A5.
     const PIANO = {
-      N1: 293.66,
-      N2: 369.99,
-      N3: 440.00,
-      N4: 554.37
+      N1: 466.16,
+      N2: 587.33,
+      N3: 698.46,
+      N4: 880.00
     };
+
+    const NOTE_FREQ = {
+      Bb3: 233.08,
+      Bb4: 466.16,
+      C5: 523.25,
+      D5: 587.33,
+      Eb5: 622.25,
+      F5: 698.46,
+      G5: 783.99,
+      A5: 880.00,
+      Bb5: 932.33
+    };
+
+    const PRETTY_PRESETS = [
+      { name: 'current shelf', pressA: ['A5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'A5'], low: 'Bb3' },
+      { name: 'G top', pressA: ['G5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'G5'], low: 'Bb3' },
+      { name: 'ninth air', pressA: ['C5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'C5'], low: 'Bb3' },
+      { name: 'Eb shimmer', pressA: ['Eb5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'Eb5'], low: 'Bb3' },
+      { name: 'plain fifth', pressA: ['F5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'Bb4'], low: 'Bb3' }
+    ];
+
+    const PRETTY_WALK = [0, 1, 2, 4, 3, 1, 0];
+    const PRETTY_WALK_MS = 5600;
+    const PRETTY_WALK_SPREAD_MS = 1400;
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
     // before first reflections (the note speaks, THEN the room blooms), and
@@ -285,36 +314,63 @@
       return conv;
     }
 
+    function getPrettyDelay(ctx) {
+      if (ctx._prettyDelay) return ctx._prettyDelay;
+      const delay = ctx.createDelay(10.0);
+      const filter = ctx.createBiquadFilter();
+      const feedback = ctx.createGain();
+      const wet = ctx.createGain();
+
+      delay.delayTime.value = 0.52;
+      filter.type = 'lowpass';
+      filter.frequency.value = 820;
+      filter.Q.value = 0.22;
+      feedback.gain.value = 0.86;
+      wet.gain.value = 0.52;
+
+      delay.connect(filter);
+      filter.connect(feedback);
+      feedback.connect(delay);
+      filter.connect(wet).connect(ctx.destination);
+      ctx._prettyDelay = delay;
+      return delay;
+    }
+
     // Piano voice — one modeled key/body transient into the shared reverb bus.
-    function playPianoNote(freq, when, sustain, levelOverride, withLowFloor) {
+    function playPianoNote(freq, when, sustain, levelOverride, withLowFloor, delayBus) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
       const sus = sustain || 9.0;
       const level = levelOverride !== undefined ? levelOverride : 0.068;
       const reverb = getReverb(ctx);
-      playAcousticKey(freq, t, sus, level, reverb);
+      playAcousticKey(freq, t, sus, level, reverb, delayBus);
       if (withLowFloor) playLowFloor(freq, t, sus, level * 0.28, reverb);
     }
 
     // Quiet acoustic-piano layer: a small modeled hammer/body event plus room.
-    function playAcousticKey(freq, when, sustain, level, reverb) {
+    function playAcousticKey(freq, when, sustain, level, reverb, delayBus) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = when !== undefined ? when : ctx.currentTime;
       const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
-      const bodyLevel = Math.max(0.003, level || 0.018);
+      const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+      const upperPartialScale = freq >= 800 ? 0.55 : (freq >= 650 ? 0.72 : 1);
+      const hammerScale = freq >= 800 ? 0.24 : (freq >= 650 ? 0.48 : 1);
+      const attackTime = freq >= 800 ? 0.032 : (freq >= 650 ? 0.022 : 0.012);
+      const partialAttack = freq >= 800 ? 0.026 : (freq >= 650 ? 0.018 : 0.010);
+      const bodyLevel = Math.max(0.003, level || 0.018) * trebleMellow;
       const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
 
       const body = ctx.createGain();
       body.gain.setValueAtTime(0.0001, t);
-      body.gain.exponentialRampToValueAtTime(bodyLevel, t + 0.012);
-      body.gain.exponentialRampToValueAtTime(bodyLevel * 0.22, t + 0.42);
+      body.gain.exponentialRampToValueAtTime(bodyLevel, t + attackTime);
+      body.gain.exponentialRampToValueAtTime(bodyLevel * 0.22, t + 0.52);
       body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
       const soundboard = ctx.createBiquadFilter();
       soundboard.type = 'lowpass';
-      soundboard.frequency.value = 4200;
+      soundboard.frequency.value = freq >= 800 ? 2400 : (freq >= 650 ? 3200 : 4200);
       soundboard.Q.value = 0.35;
 
       const panner = ctx.createStereoPanner();
@@ -324,6 +380,11 @@
       const send = ctx.createGain();
       send.gain.value = 0.32;
       panner.connect(send).connect(reverb);
+      if (delayBus) {
+        const delaySend = ctx.createGain();
+        delaySend.gain.value = freq >= 650 ? 0.72 : 0.38;
+        panner.connect(delaySend).connect(delayBus);
+      }
 
       [
         { ratio: 1.000, gain: 1.00, stop: dur },
@@ -338,7 +399,10 @@
 
         const partialGain = ctx.createGain();
         partialGain.gain.setValueAtTime(0.0001, t);
-        partialGain.gain.exponentialRampToValueAtTime(partial.gain, t + 0.010);
+        partialGain.gain.exponentialRampToValueAtTime(
+          partial.gain * (partial.ratio === 1.000 ? 1 : upperPartialScale),
+          t + partialAttack
+        );
         partialGain.gain.exponentialRampToValueAtTime(0.0001, t + partial.stop);
 
         osc.connect(partialGain).connect(body);
@@ -347,7 +411,7 @@
       });
 
       const hammer = ctx.createBufferSource();
-      const hammerLen = Math.floor(ctx.sampleRate * 0.026);
+      const hammerLen = Math.floor(ctx.sampleRate * (freq >= 650 ? 0.018 : 0.026));
       const hammerBuf = ctx.createBuffer(1, hammerLen, ctx.sampleRate);
       const data = hammerBuf.getChannelData(0);
       for (let i = 0; i < hammerLen; i++) {
@@ -357,13 +421,13 @@
       hammer.buffer = hammerBuf;
 
       const hammerGain = ctx.createGain();
-      hammerGain.gain.setValueAtTime(bodyLevel * 0.10, t);
+      hammerGain.gain.setValueAtTime(bodyLevel * 0.10 * hammerScale, t);
       hammerGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.030);
 
       const hammerFilter = ctx.createBiquadFilter();
       hammerFilter.type = 'bandpass';
-      hammerFilter.frequency.value = Math.min(2600, Math.max(900, freq * 4.2));
-      hammerFilter.Q.value = 1.2;
+      hammerFilter.frequency.value = freq >= 800 ? 1050 : Math.min(1900, Math.max(800, freq * 3.0));
+      hammerFilter.Q.value = freq >= 650 ? 0.8 : 1.2;
 
       hammer.connect(hammerGain).connect(hammerFilter).connect(panner);
       hammer.start(t);
@@ -419,6 +483,46 @@
       });
     }
 
+    function playNoteName(note, when, sustain, level, withLowFloor, delayBus) {
+      const freq = NOTE_FREQ[note];
+      if (!freq) return;
+      playPianoNote(freq, when, sustain, level, withLowFloor, delayBus);
+    }
+
+    function playNoteNames(notes, when, sustain, level, withLowFloor, delayBus) {
+      notes.forEach(function(note) {
+        playNoteName(note, when, sustain, level, withLowFloor, delayBus);
+      });
+    }
+
+    function playPrettyGhost(notes, when, scale) {
+      const ctx = ensureAudio();
+      if (!ctx || Math.random() > 0.38) return;
+      const delay = getPrettyDelay(ctx);
+      const echoScale = scale === undefined ? 1 : scale;
+      const offset = 0.72 + (Math.random() * 0.46);
+      const note = notes[Math.floor(Math.random() * notes.length)];
+      playNoteName(note, when + offset, 6.2, 0.012 * echoScale, false, delay);
+      if (Math.random() < 0.28) {
+        playNoteName(note, when + offset + 0.52, 5.8, 0.007 * echoScale, false, delay);
+      }
+    }
+
+    function playPrettyPreset(preset) {
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const t = ctx.currentTime + 0.035;
+      const delay = getPrettyDelay(ctx);
+      const level = 0.028;
+      playNoteNames(preset.pressA, t, 4.0, level, false);
+      playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay);
+      playPrettyGhost(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.95);
+      playNoteNames(preset.pressB, t + (LOOP_BEAT_MS / 1000), 5.0, level, false);
+      playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, level, true, delay);
+      playPrettyGhost(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08);
+      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, 0.018, true);
+    }
+
     function playPressNote(goingDark) {
       if (goingDark) {
         playPianoNote(PIANO.N4, undefined, 4.0);
@@ -433,11 +537,13 @@
       if (!ctx) return;
       const t = ctx.currentTime;
       if (goingDark) {
-        playPianoNote(PIANO.N2, t, 9.0);
-        playPianoNote(PIANO.N1, t, 9.0);
+        playPianoNote(PIANO.N2, t, 9.0, undefined, true);
+        playPianoNote(PIANO.N1, t, 9.0, undefined, true);
       } else {
         playPianoNote(PIANO.N3, t, 9.0, undefined, true);
         playPianoNote(PIANO.N4, t, 9.0, undefined, true);
+        // Final resolve gets a B-flat floor so the key reads as home.
+        playPianoNote(PIANO.N1 / 2, t, 9.0, 0.034, true);
       }
     }
 
@@ -548,13 +654,27 @@
 
     function setLoopUI(armed) {
       if (!loopBtn) return;
-      const label = loopBtn.querySelector('.loop-tally-label');
-      const action = armed ? 'Stop dimmer loop' : 'Play dimmer loop';
+      const action = armed ? 'Stop dimmer loop' : 'Start dimmer loop';
       loopBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
       loopBtn.setAttribute('aria-label', action);
       loopBtn.setAttribute('title', action);
       loopBtn.classList.toggle('is-armed', armed);
-      if (label) label.textContent = armed ? 'STOP' : 'PLAY';
+    }
+
+    function setPrettyUI(armed) {
+      if (!prettyBtn) return;
+      const action = armed ? 'Stop pretty progression walk' : 'Start pretty progression walk';
+      prettyBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
+      prettyBtn.setAttribute('aria-label', action);
+      prettyBtn.setAttribute('title', action);
+      prettyBtn.classList.toggle('is-armed', armed);
+    }
+
+    function setPrettyVisible(visible) {
+      if (!prettyBtn) return;
+      prettyBtn.hidden = false;
+      prettyBtn.disabled = false;
+      prettyBtn.classList.remove('is-hidden');
     }
 
     function setLockUI(locked) {
@@ -583,6 +703,43 @@
       fireCycle();
     }
 
+    function stopPrettyWalk() {
+      if (prettyTimer) {
+        clearTimeout(prettyTimer);
+        prettyTimer = null;
+      }
+      prettyArmed = false;
+      setPrettyUI(false);
+    }
+
+    function schedulePrettyWalk() {
+      prettyTimer = setTimeout(function() {
+        playPrettyStep();
+      }, PRETTY_WALK_MS + Math.floor(Math.random() * PRETTY_WALK_SPREAD_MS));
+    }
+
+    function playPrettyStep() {
+      if (!prettyArmed) return;
+      const presetIndex = PRETTY_WALK[prettyStep % PRETTY_WALK.length];
+      playPrettyPreset(PRETTY_PRESETS[presetIndex]);
+      prettyStep += 1;
+      schedulePrettyWalk();
+    }
+
+    function togglePrettyLoop() {
+      if (!prettyBtn || prettyBtn.hidden) return;
+      prettyArmed = !prettyArmed;
+      if (prettyArmed) {
+        prettyStep = 0;
+        setPrettyUI(true);
+        playPrettyStep();
+      } else {
+        stopPrettyWalk();
+      }
+    }
+
+    window.togglePrettyLoop = togglePrettyLoop;
+
     function toggleLoop() {
       loopArmed = !loopArmed;
       try { sessionStorage.setItem('loop_armed', loopArmed ? '1' : '0'); } catch (e) {}
@@ -590,11 +747,14 @@
       if (loopArmed) {
         themeLocked = true;
         setLockUI(true);
+        setPrettyVisible(true);
         loopDirection = null;
         // Loop owns the dimmer while running — manual clicks would conflict
         if (button) button.disabled = true;
         startLoopCycle();
       } else {
+        stopPrettyWalk();
+        setPrettyVisible(false);
         if (loopPressTimer) { clearTimeout(loopPressTimer); loopPressTimer = null; }
         if (loopNextTimer) { clearTimeout(loopNextTimer); loopNextTimer = null; }
         // Clear lock state too — reset for next arming
@@ -618,6 +778,7 @@
         loopDirection = null;
         setLoopUI(true);
         setLockUI(true);
+        setPrettyVisible(true);
         if (button) button.disabled = true;  // loop owns dimmer while armed
 
         // Audio defer — if ctx is suspended (no user gesture on new page),
