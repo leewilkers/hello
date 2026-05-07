@@ -547,7 +547,7 @@
       limiter.ratio.value = 16;
       limiter.attack.value = 0.004;
       limiter.release.value = 0.34;
-      wetCeiling.gain.value = 0.82;
+      wetCeiling.gain.value = 0.64;
 
       delay.connect(filter);
       filter.connect(feedback);
@@ -1040,6 +1040,9 @@
     }
 
     window.toggleLoop = toggleLoop;
+    window.siteMusicIsActive = function() {
+      return loopArmed || prettyArmed;
+    };
 
     // Auto-resume across header page nav — sessionStorage survives full-page
     // loads within a tab. iOS Safari may require a user gesture before the
@@ -1118,10 +1121,32 @@
   // tab
   (function(){var t=document.title;document.addEventListener('visibilitychange',function(){document.title=document.hidden?'\u2013':t})})();
 
+  function initHomePage() {
+    var toggle = document.querySelector('[data-home-work-toggle]');
+    if (!toggle || toggle.dataset.homeWorkInit === '1') return;
+    var list = document.getElementById(toggle.getAttribute('aria-controls'));
+    if (!list) return;
+    toggle.dataset.homeWorkInit = '1';
+    toggle.addEventListener('click', function() {
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      list.hidden = expanded;
+    });
+  }
+  window.initHomePage = initHomePage;
+
   // scroll-spy — rAF-throttled scroll listener. Highlight the topic that
   // occupies at least half the usable viewport; fall back to the most visible
   // section for short or between-section states.
-  (function() {
+  function initShelfPage() {
+    if (window.__shelfScrollHandler) {
+      window.removeEventListener('scroll', window.__shelfScrollHandler);
+      window.__shelfScrollHandler = null;
+    }
+    if (window.__shelfHashHandler) {
+      window.removeEventListener('hashchange', window.__shelfHashHandler);
+      window.__shelfHashHandler = null;
+    }
 	    var sections = document.querySelectorAll('.topic-section');
 	    var links = document.querySelectorAll('.topic-index a');
 	    var index = document.getElementById('topic-index');
@@ -1221,7 +1246,7 @@
     }
 
     var ticking = false;
-    window.addEventListener('scroll', function() {
+    window.__shelfScrollHandler = function() {
       if (!ticking) {
         requestAnimationFrame(function() {
           updateActive();
@@ -1229,14 +1254,13 @@
         });
         ticking = true;
       }
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', window.__shelfScrollHandler, { passive: true });
 
-	    window.addEventListener('load', function() {
-	      if (!scrollToTopicSlug(currentHashSlug(), true)) updateActive();
-	    });
-	    window.addEventListener('hashchange', function() {
+	    window.__shelfHashHandler = function() {
 	      if (!scrollToTopicSlug(currentHashSlug(), true)) requestAnimationFrame(updateActive);
-	    });
+	    };
+	    window.addEventListener('hashchange', window.__shelfHashHandler);
 
 	    if (!scrollToTopicSlug(currentHashSlug(), true)) {
 	      updateActive(); // initial paint
@@ -1254,10 +1278,156 @@
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
           if (history.pushState) history.pushState(null, '', '#' + slug);
         }
-        closeSidebar();
+	        closeSidebar();
+	      });
+	    });
+	  }
+  window.initShelfPage = initShelfPage;
+
+  function initCurrentPage() {
+    initHomePage();
+    initShelfPage();
+    syncSidebarMode();
+  }
+  window.initCurrentPage = initCurrentPage;
+
+  // Same-origin shell navigation keeps active WebAudio running. Without this,
+  // a normal document navigation destroys the AudioContext and cuts the loop.
+  (function() {
+    if (!window.fetch || !window.DOMParser || !history.pushState) return;
+
+    var shellPaths = {
+      '/': true,
+      '/consulting/': true,
+      '/shelf/': true,
+      '/stream/': true
+    };
+    var navigating = false;
+
+    function normalizePath(pathname) {
+      if (pathname === '/index.html') return '/';
+      return pathname.endsWith('/') ? pathname : pathname + '/';
+    }
+
+    function isShellPath(url) {
+      return !!shellPaths[normalizePath(url.pathname)];
+    }
+
+    function sameDocumentHash(url) {
+      return normalizePath(url.pathname) === normalizePath(location.pathname)
+        && url.search === location.search
+        && url.hash;
+    }
+
+    function shouldHandleLink(a, event) {
+      if (!a || navigating) return false;
+      if (!window.siteMusicIsActive || !window.siteMusicIsActive()) return false;
+      if (event.defaultPrevented || event.button !== 0) return false;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+      if (a.target && a.target !== '_self') return false;
+      if (a.hasAttribute('download')) return false;
+      var url;
+      try { url = new URL(a.href, location.href); } catch (e) { return false; }
+      if (url.origin !== location.origin) return false;
+      if (!isShellPath(url)) return false;
+      if (sameDocumentHash(url)) return false;
+      return true;
+    }
+
+    function updateNav(pathname) {
+      var current = normalizePath(pathname);
+      document.querySelectorAll('.nav-links a').forEach(function(a) {
+        var url;
+        try { url = new URL(a.href, location.href); } catch (e) { return; }
+        var active = normalizePath(url.pathname) === current;
+        a.classList.toggle('active', active);
+        if (active) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
       });
+    }
+
+    function updateHead(doc) {
+      document.title = doc.title || document.title;
+      [
+        ['link[rel="canonical"]', 'href'],
+        ['meta[property="og:title"]', 'content'],
+        ['meta[property="og:description"]', 'content'],
+        ['meta[property="og:url"]', 'content'],
+        ['meta[name="twitter:title"]', 'content'],
+        ['meta[name="twitter:description"]', 'content']
+      ].forEach(function(pair) {
+        var current = document.querySelector(pair[0]);
+        var next = doc.querySelector(pair[0]);
+        if (current && next) current.setAttribute(pair[1], next.getAttribute(pair[1]) || '');
+      });
+    }
+
+    function scrollAfterSwap(url) {
+      if (url.hash) {
+        var id = decodeURIComponent(url.hash.slice(1));
+        var target = id && document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'auto', block: 'start' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }
+
+    function swapPage(doc, url, push) {
+      var currentMain = document.querySelector('main.page');
+      var nextMain = doc.querySelector('main.page');
+      if (!currentMain || !nextMain) throw new Error('missing main.page');
+      updateHead(doc);
+      currentMain.className = nextMain.className;
+      currentMain.innerHTML = nextMain.innerHTML;
+      document.body.classList.remove('menu-open');
+      if (push) history.pushState({ siteShell: true }, '', url.href);
+      updateNav(url.pathname);
+      initCurrentPage();
+      scrollAfterSwap(url);
+    }
+
+    function visit(rawUrl, push) {
+      var url = rawUrl instanceof URL ? rawUrl : new URL(rawUrl, location.href);
+      navigating = true;
+      return fetch(url.href, {
+        credentials: 'same-origin',
+        headers: { 'X-Requested-With': 'site-shell' }
+      }).then(function(response) {
+        if (!response.ok) throw new Error('fetch failed');
+        return response.text();
+      }).then(function(html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        swapPage(doc, url, push);
+      }).catch(function() {
+        location.href = url.href;
+      }).finally(function() {
+        navigating = false;
+      });
+    }
+
+    document.addEventListener('click', function(event) {
+      var a = event.target.closest && event.target.closest('a[href]');
+      if (!shouldHandleLink(a, event)) return;
+      event.preventDefault();
+      visit(new URL(a.href, location.href), true);
     });
-	  })();
+
+    window.addEventListener('popstate', function() {
+      if (!window.siteMusicIsActive || !window.siteMusicIsActive()) {
+        location.reload();
+        return;
+      }
+      visit(new URL(location.href), false);
+    });
+  })();
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCurrentPage);
+  } else {
+    initCurrentPage();
+  }
 
 {% if shelfCuration %}
 	  // Shelf curation controls — local-only review state. Browser actions are

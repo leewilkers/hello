@@ -4015,7 +4015,7 @@ body {
   padding: 0;
   border: 1px solid var(--rule);
   margin: 0 auto;
-  background: var(--surface-soft);
+  background: transparent;
 }
 
 .topic-index {

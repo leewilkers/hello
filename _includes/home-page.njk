@@ -84,17 +84,3 @@
     </div>
   </div>
 </article>
-
-<script>
-  (function() {
-    var toggle = document.querySelector('[data-home-work-toggle]');
-    if (!toggle) return;
-    var list = document.getElementById(toggle.getAttribute('aria-controls'));
-    if (!list) return;
-    toggle.addEventListener('click', function() {
-      var expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-      list.hidden = expanded;
-    });
-  })();
-</script>
