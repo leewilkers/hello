@@ -263,6 +263,34 @@
       } catch (e) { return null; }
     }
 
+    function resumeAudio(ctx, onReady, onBlocked) {
+      if (!ctx) {
+        if (onBlocked) onBlocked();
+        return;
+      }
+      if (ctx.state === 'running') {
+        onReady();
+        return;
+      }
+      if (!ctx.resume) {
+        if (onBlocked) onBlocked();
+        return;
+      }
+      const resumed = ctx.resume();
+      if (resumed && resumed.then) {
+        resumed.then(function() {
+          if (ctx.state === 'running') onReady();
+          else if (onBlocked) onBlocked();
+        }).catch(function() {
+          if (onBlocked) onBlocked();
+        });
+      } else if (ctx.state === 'running') {
+        onReady();
+      } else if (onBlocked) {
+        onBlocked();
+      }
+    }
+
     function createPrettyConstellation(canvas) {
       if (!canvas || !canvas.getContext) {
         return { setActive: function(){}, setVisible: function(){}, redraw: function(){} };
@@ -1036,7 +1064,13 @@
         prettyStep = 0;
         prettyStartedAt = ctx ? ctx.currentTime : null;
         setPrettyUI(true);
-        playPrettyStep();
+        resumeAudio(ctx, function() {
+          if (!prettyArmed) return;
+          prettyStartedAt = ctx ? ctx.currentTime : prettyStartedAt;
+          playPrettyStep();
+        }, function() {
+          stopPrettyWalk();
+        });
       } else {
         stopPrettyWalk();
       }
