@@ -1,7 +1,7 @@
 ---
 author: "Liisa Malkki"
 title: "Speechless Emissaries: Refugees, Humanitarianism, and Dehistoricization"
-type: essay
+type: journal article
 image: "/img/covers/malkki-speechless-emissaries.jpg"
 cover_label: true
 shelf_list: true

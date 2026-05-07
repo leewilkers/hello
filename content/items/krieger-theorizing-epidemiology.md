@@ -1,7 +1,7 @@
 ---
 author: "Nancy Krieger"
 title: "Theorizing Epidemiology, the Stories Bodies Tell"
-type: essay
+type: journal article
 image: "/img/covers/krieger-theorizing-epidemiology.jpg"
 cover_label: true
 shelf_list: true

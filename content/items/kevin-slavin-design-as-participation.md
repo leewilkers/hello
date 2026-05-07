@@ -1,7 +1,7 @@
 ---
 author: "Kevin Slavin"
 title: "Design as Participation"
-type: essay
+type: paper
 image: "/img/covers/kevin-slavin-design-as-participation.jpg"
 cover_label: true
 shelf_list: true

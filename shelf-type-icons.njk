@@ -668,31 +668,6 @@ h1 {
   font-size: 0.58rem;
 }
 
-.preview-cover-type-mark {
-  position: absolute;
-  top: 0.36rem;
-  right: 0.36rem;
-  z-index: 4;
-  display: grid;
-  place-items: center;
-  width: clamp(2.35rem, 1.7rem + 1.25vw, 3.15rem);
-  height: clamp(2.35rem, 1.7rem + 1.25vw, 3.15rem);
-  color: #fff;
-  mix-blend-mode: difference;
-  opacity: 0.78;
-  pointer-events: none;
-}
-
-.preview-cover-type-mark .item-type-symbol {
-  --shelf-type-symbol-color: currentColor !important;
-  --shelf-type-symbol-size: clamp(1.58rem, 1.1rem + 0.88vw, 2.1rem);
-}
-
-.preview-cover:hover .preview-cover-type-mark,
-.preview-cover:focus-visible .preview-cover-type-mark {
-  opacity: 0;
-}
-
 .preview-cover-stamp {
   position: absolute;
   inset: 0;
@@ -1291,7 +1266,6 @@ function coverPreviewMarkup(item) {
     <div class="shelf-preview shelf-preview--cover">
       <a class="preview-cover" href="${escapeAttr(item.url || "#")}" target="_blank" rel="noopener" aria-label="Open ${escapeAttr(item.title || "Untitled")}">
         ${content}
-        <span class="preview-cover-type-mark" aria-hidden="true">${typeIconMarkup(nextType, nextSymbol, "cell-cover-type")}</span>
         ${item.coverLabel ? `
         <span class="preview-cover-stamp" aria-hidden="true">
           <span class="preview-cover-stamp-title">${escapeHtml(labelText)}</span>

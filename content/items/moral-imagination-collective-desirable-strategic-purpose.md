@@ -1,7 +1,7 @@
 ---
 author: "Violina P. Rindova & Luis L. Martins"
 title: "Moral Imagination, the Collective Desirable, and Strategic Purpose"
-type: essay
+type: journal article
 image: "/img/covers/moral-imagination-collective-desirable-strategic-purpose.jpg"
 cover_label: true
 shelf_list: true

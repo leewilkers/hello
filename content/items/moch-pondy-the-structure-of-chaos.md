@@ -1,7 +1,7 @@
 ---
 author: "Michael Moch, Louis Pondy"
 title: "The Structure of Chaos: Organized Anarchy as a Response to Ambiguity"
-type: essay
+type: journal article
 image: "/img/covers/moch-pondy-the-structure-of-chaos.jpg"
 cover_label: true
 shelf_list: true

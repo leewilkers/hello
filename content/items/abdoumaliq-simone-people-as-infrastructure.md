@@ -1,7 +1,7 @@
 ---
 author: "AbdouMaliq Simone"
 title: "People as Infrastructure: Intersecting Fragments in Johannesburg"
-type: essay
+type: paper
 image: "/img/covers/abdoumaliq-simone-people-as-infrastructure.jpg"
 cover_label: true
 cover_label_text: "People as Infrastructure"

@@ -1,7 +1,7 @@
 ---
 author: "Nathan Caplan"
 title: "The Two-Communities Theory and Knowledge Utilization"
-type: essay
+type: journal article
 image: "/img/covers/caplan-two-communities-theory.jpg"
 cover_label: true
 shelf_list: true

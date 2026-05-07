@@ -1,7 +1,7 @@
 ---
 author: "David Fidler"
 title: "A Theory of Open-Source Anarchy"
-type: essay
+type: journal article
 image: "/img/covers/fidler-a-theory-of-open-source-anarchy.jpg"
 shelf_list: true
 cover_label: true

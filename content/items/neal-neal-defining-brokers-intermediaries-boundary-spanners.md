@@ -1,7 +1,7 @@
 ---
 author: "Jennifer Watling Neal, Zachary P. Neal"
 title: "Defining Brokers, Intermediaries, and Boundary Spanners"
-type: essay
+type: journal article
 image: "/img/covers/neal-neal-defining-brokers-intermediaries-boundary-spanners.jpg"
 cover_label: true
 shelf_list: true

@@ -1,7 +1,7 @@
 ---
 author: "Julio Frenk, Octavio Gomez-Dantes"
 title: "False dichotomies in global health: the need for integrative thinking"
-type: essay
+type: journal article
 image: "/img/covers/frenk-gomez-dantes-false-dichotomies-in-global-health.jpg"
 cover_label: true
 shelf_list: true

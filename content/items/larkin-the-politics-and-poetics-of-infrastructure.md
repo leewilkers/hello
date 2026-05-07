@@ -1,7 +1,7 @@
 ---
 author: "Brian Larkin"
 title: "The Politics and Poetics of Infrastructure"
-type: essay
+type: paper
 image: "/img/covers/larkin-the-politics-and-poetics-of-infrastructure.jpg"
 cover_label: true
 cover_label_text: "Politics and Poetics of Infrastructure"

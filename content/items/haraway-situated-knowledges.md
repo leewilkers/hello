@@ -1,7 +1,7 @@
 ---
 author: "Donna Haraway"
 title: "Situated Knowledges"
-type: essay
+type: book
 image: "/img/covers/haraway-situated-knowledges.jpg"
 shelf_list: true
 cover_label: true

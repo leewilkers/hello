@@ -1,7 +1,7 @@
 ---
 author: "Nature Positive Initiative"
 title: "What is Nature Positive?"
-type: report
+type: journal article
 image: "/img/covers/nature-positive-what-is-nature-positive.jpg"
 shelf_list: true
 dest: shelf
