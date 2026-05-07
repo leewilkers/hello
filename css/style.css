@@ -2679,6 +2679,80 @@ body {
   max-width: none;
   min-height: calc(100vh - 46px);
   padding: 2.25rem 1.75rem 3rem;
+  view-transition-name: site-page;
+}
+
+:root {
+  view-transition-name: none;
+  --site-shell-slide: 100vw;
+}
+
+:root.site-shell-transitioning {
+  overflow-x: clip;
+}
+
+::view-transition-group(site-page) {
+  animation: none;
+  overflow: clip;
+}
+
+::view-transition-old(site-page),
+::view-transition-new(site-page) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  backface-visibility: hidden;
+  mix-blend-mode: normal;
+  will-change: transform;
+}
+
+:root[data-shell-direction="forward"]::view-transition-old(site-page) {
+  animation-name: site-shell-exit-left;
+}
+
+:root[data-shell-direction="forward"]::view-transition-new(site-page) {
+  animation-name: site-shell-enter-right;
+}
+
+:root[data-shell-direction="back"]::view-transition-old(site-page) {
+  animation-name: site-shell-exit-right;
+}
+
+:root[data-shell-direction="back"]::view-transition-new(site-page) {
+  animation-name: site-shell-enter-left;
+}
+
+@keyframes site-shell-exit-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(calc(var(--site-shell-slide) * -1), 0, 0); }
+}
+
+@keyframes site-shell-enter-right {
+  from { transform: translate3d(var(--site-shell-slide), 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes site-shell-exit-right {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--site-shell-slide), 0, 0); }
+}
+
+@keyframes site-shell-enter-left {
+  from { transform: translate3d(calc(var(--site-shell-slide) * -1), 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    view-transition-name: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(site-page),
+  ::view-transition-new(site-page) {
+    animation: none !important;
+  }
 }
 
 .archive-console {
