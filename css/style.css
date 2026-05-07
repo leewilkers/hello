@@ -3845,7 +3845,8 @@ body {
   display: inline;
 }
 
-.consulting-tooltip-note {
+.consulting-tooltip .consulting-quiet-link::after {
+  content: attr(data-note);
   position: absolute;
   left: 50%;
   bottom: calc(100% + 0.55rem);
@@ -3870,8 +3871,8 @@ body {
     transform 140ms ease;
 }
 
-.consulting-tooltip:hover .consulting-tooltip-note,
-.consulting-tooltip:focus-within .consulting-tooltip-note {
+.consulting-tooltip:hover .consulting-quiet-link::after,
+.consulting-tooltip:focus-within .consulting-quiet-link::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
