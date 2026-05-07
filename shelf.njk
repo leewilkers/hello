@@ -10,6 +10,7 @@ pageClass: page-shelf
   "audio": { label: "Audio", symbol: "wave-sine" },
   "book": { label: "Book", symbol: "book" },
   "case study": { label: "Case study", symbol: "file-text" },
+  "chapter": { label: "Chapter", symbol: "book" },
   "concept": { label: "Concept", symbol: "bulb" },
   "dataset": { label: "Dataset", symbol: "database" },
   "essay": { label: "Essay", symbol: "article" },
@@ -70,7 +71,7 @@ pageClass: page-shelf
       {%- set identityYear = item.data | shelfIdentityYear %}
       {%- set showCoverLabel = item.data.cover_label or item.data.cover_label_text %}
       {%- set typeKey = (item.data.type or "unknown") | lower %}
-      {%- set quietCoverTypes = ["book", "essay", "paper", "journal article", "report", "working paper"] %}
+      {%- set quietCoverTypes = ["book", "chapter", "essay", "paper", "journal article", "report", "working paper"] %}
       {%- set showCoverTypeMark = item.data.interactive or typeKey not in quietCoverTypes %}
       <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}">
         <span class="cell-cover">

@@ -302,6 +302,7 @@ h1 {
 }
 
 .item-type-symbol[data-type="book"],
+.item-type-symbol[data-type="chapter"],
 .item-type-symbol[data-type="archive"] {
   --shelf-type-symbol-color: #4385be;
 }
@@ -946,6 +947,7 @@ const TOPICS = {{ topics | toJson | safe }};
 const TYPE_OPTIONS = [
   { value: "book", label: "Book", symbol: "book" },
   { value: "case study", label: "Case study", symbol: "file-text" },
+  { value: "chapter", label: "Chapter", symbol: "book" },
   { value: "essay", label: "Essay", symbol: "article" },
   { value: "journal article", label: "Journal article", symbol: "microscope" },
   { value: "paper", label: "Paper", symbol: "microscope" },
@@ -1157,7 +1159,7 @@ function visibleItems() {
   return ITEMS.filter((item) => {
     const nextType = currentType(item);
     const changed = isChanged(item);
-    const scholarTypes = ["paper", "journal article", "working paper", "report"];
+    const scholarTypes = ["chapter", "paper", "journal article", "working paper", "report"];
     if (state.filter === "writing-scholar" && !["essay", ...scholarTypes].includes(nextType)) return false;
     if (state.filter === "essay" && nextType !== "essay") return false;
     if (state.filter === "scholar" && !scholarTypes.includes(nextType)) return false;

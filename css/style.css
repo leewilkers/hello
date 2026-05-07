@@ -4381,6 +4381,7 @@ body {
 }
 
 .item-type-symbol[data-type="book"],
+.item-type-symbol[data-type="chapter"],
 .item-type-symbol[data-type="archive"] {
   --shelf-type-symbol-color: var(--shelf-type-book);
 }

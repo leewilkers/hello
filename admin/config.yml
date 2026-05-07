@@ -53,6 +53,7 @@ collections:
         options:
           - { label: "Book", value: "book" }
           - { label: "Case Study", value: "case study" }
+          - { label: "Chapter", value: "chapter" }
           - { label: "Essay", value: "essay" }
           - { label: "Journal Article", value: "journal article" }
           - { label: "Paper", value: "paper" }
