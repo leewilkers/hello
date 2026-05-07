@@ -1,0 +1,535 @@
+---
+layout: base.njk
+title: Sound lab
+pageClass: page-sound-lab
+permalink: /sound-lab/
+---
+
+<article class="sound-lab" id="main" data-sound-lab>
+  <header class="sound-lab-head">
+    <div>
+      <h1>Sound lab</h1>
+      <p>Build a five-minute pass from the piano walk, soft drums, and a few quiet machine layers.</p>
+    </div>
+    <div class="sound-lab-transport" aria-label="Transport controls">
+      <button class="sound-lab-button primary" type="button" data-play>play</button>
+      <button class="sound-lab-button" type="button" data-stop>stop</button>
+      <button class="sound-lab-button" type="button" data-record>record 5 min</button>
+      <a class="sound-lab-download" data-download hidden>download take</a>
+    </div>
+  </header>
+
+  <section class="sound-lab-console" aria-label="Global controls">
+    <label class="sound-lab-field">
+      <span>tempo</span>
+      <input type="range" min="48" max="92" step="1" value="64" data-control="tempo">
+      <output data-output="tempo">64</output>
+    </label>
+    <label class="sound-lab-field">
+      <span>swing</span>
+      <input type="range" min="0" max="0.38" step="0.01" value="0.12" data-control="swing">
+      <output data-output="swing">12</output>
+    </label>
+    <label class="sound-lab-field">
+      <span>human</span>
+      <input type="range" min="0" max="0.08" step="0.005" value="0.025" data-control="human">
+      <output data-output="human">25</output>
+    </label>
+    <label class="sound-lab-field">
+      <span>delay</span>
+      <input type="range" min="0" max="1" step="0.01" value="0.52" data-control="delayWet">
+      <output data-output="delayWet">52</output>
+    </label>
+    <label class="sound-lab-field">
+      <span>room</span>
+      <input type="range" min="0" max="1" step="0.01" value="0.42" data-control="room">
+      <output data-output="room">42</output>
+    </label>
+    <label class="sound-lab-field">
+      <span>evolve</span>
+      <input type="range" min="0" max="1" step="0.01" value="0.64" data-control="evolve">
+      <output data-output="evolve">64</output>
+    </label>
+  </section>
+
+  <section class="sound-lab-grid" aria-label="Mixer">
+    <section class="sound-lab-panel sound-lab-mixer" aria-label="Tracks">
+      <h2>mixer</h2>
+      <div class="sound-lab-tracks" data-track-list></div>
+    </section>
+
+    <section class="sound-lab-panel sound-lab-machine" aria-label="Drum machine">
+      <div class="sound-lab-panel-head">
+        <h2>drum machine</h2>
+        <div class="sound-lab-actions">
+          <button class="sound-lab-button" type="button" data-randomize>random</button>
+          <button class="sound-lab-button" type="button" data-clear-drums>clear drums</button>
+        </div>
+      </div>
+      <div class="sound-lab-steps" data-step-grid></div>
+    </section>
+
+    <section class="sound-lab-panel sound-lab-preset" aria-label="Preset">
+      <h2>shape</h2>
+      <textarea data-preset spellcheck="false" aria-label="Current sound lab preset"></textarea>
+    </section>
+  </section>
+
+  <p class="sound-lab-status" data-status>idle</p>
+</article>
+
+<script>
+  (function() {
+    const root = document.querySelector('[data-sound-lab]');
+    if (!root) return;
+
+    const NOTE_FREQ = {
+      Bb2: 116.54,
+      F3: 174.61,
+      Bb3: 233.08,
+      D4: 293.66,
+      F4: 349.23,
+      A4: 440.00,
+      Bb4: 466.16,
+      C5: 523.25,
+      D5: 587.33,
+      Eb5: 622.25,
+      F5: 698.46,
+      G5: 783.99,
+      A5: 880.00
+    };
+
+    const PRETTY_WALK = [
+      { press: ['A5'], chord: ['D5', 'Bb4'], bass: 'Bb3' },
+      { press: ['G5'], chord: ['D5', 'Bb4'], bass: 'Bb3' },
+      { press: ['C5'], chord: ['D5', 'Bb4'], bass: 'F3' },
+      { press: ['F5'], chord: ['F5', 'Bb4'], bass: 'Bb2' },
+      { press: ['Eb5'], chord: ['F5', 'Eb5'], bass: 'Bb3' }
+    ];
+
+    const TRACKS = [
+      { id: 'piano', name: 'piano walk', level: 0.74, pan: 0, send: 0.58, muted: false },
+      { id: 'ghost', name: 'ghost notes', level: 0.46, pan: 0.12, send: 0.82, muted: false },
+      { id: 'pulse', name: 'low pulse', level: 0.38, pan: -0.08, send: 0.2, muted: false },
+      { id: 'kick', name: 'soft kick', level: 0.72, pan: 0, send: 0.08, muted: false },
+      { id: 'snare', name: 'brush snare', level: 0.48, pan: 0.08, send: 0.18, muted: false },
+      { id: 'hat', name: 'dust hat', level: 0.32, pan: 0.2, send: 0.12, muted: false },
+      { id: 'rim', name: 'wood rim', level: 0.34, pan: -0.14, send: 0.16, muted: false }
+    ];
+
+    const DRUMS = [
+      { id: 'kick', name: 'kick', pattern: [1,0,0,0, 0,0,1,0, 1,0,0,0, 0,0,0,0], prob: 0.9 },
+      { id: 'snare', name: 'snare', pattern: [0,0,0,0, 1,0,0,0, 0,0,0,0, 1,0,0,0], prob: 0.78 },
+      { id: 'hat', name: 'hat', pattern: [1,0,1,0, 1,0,1,0, 1,0,1,0, 1,0,1,0], prob: 0.55 },
+      { id: 'rim', name: 'rim', pattern: [0,0,0,1, 0,0,0,0, 0,1,0,0, 0,0,1,0], prob: 0.36 }
+    ];
+
+    const state = {
+      playing: false,
+      step: 0,
+      pianoStep: 0,
+      nextNoteTime: 0,
+      scheduler: null,
+      ctx: null,
+      master: null,
+      dryBus: null,
+      delayBus: null,
+      feedback: null,
+      wet: null,
+      room: null,
+      destination: null,
+      recorder: null,
+      chunks: [],
+      recordTimer: null,
+      startedAt: 0,
+      controls: {
+        tempo: 64,
+        swing: 0.12,
+        human: 0.025,
+        delayWet: 0.52,
+        room: 0.42,
+        evolve: 0.64
+      },
+      tracks: TRACKS.map(function(track) { return Object.assign({}, track); }),
+      drums: DRUMS.map(function(row) {
+        return Object.assign({}, row, { pattern: row.pattern.slice() });
+      })
+    };
+
+    const $ = function(selector) { return root.querySelector(selector); };
+    const $$ = function(selector) { return Array.from(root.querySelectorAll(selector)); };
+    const status = $('[data-status]');
+    const download = $('[data-download]');
+    const preset = $('[data-preset]');
+
+    function track(id) {
+      return state.tracks.find(function(item) { return item.id === id; });
+    }
+
+    function now() {
+      return state.ctx ? state.ctx.currentTime : 0;
+    }
+
+    function ensureAudio() {
+      if (state.ctx) return state.ctx;
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      state.ctx = ctx;
+      state.master = ctx.createGain();
+      state.master.gain.value = 0.86;
+      state.dryBus = ctx.createGain();
+      state.dryBus.gain.value = 1;
+      state.delayBus = ctx.createDelay(4);
+      state.feedback = ctx.createGain();
+      state.wet = ctx.createGain();
+      state.room = ctx.createGain();
+      const delayFilter = ctx.createBiquadFilter();
+      const roomFilter = ctx.createBiquadFilter();
+      const comp = ctx.createDynamicsCompressor();
+      state.destination = ctx.createMediaStreamDestination();
+
+      state.delayBus.delayTime.value = 0.54;
+      state.feedback.gain.value = 0.72;
+      state.wet.gain.value = state.controls.delayWet * 0.52;
+      delayFilter.type = 'lowpass';
+      delayFilter.frequency.value = 860;
+      delayFilter.Q.value = 0.2;
+      roomFilter.type = 'lowpass';
+      roomFilter.frequency.value = 1500;
+      roomFilter.Q.value = 0.35;
+      state.room.gain.value = state.controls.room * 0.18;
+      comp.threshold.value = -14;
+      comp.knee.value = 6;
+      comp.ratio.value = 10;
+      comp.attack.value = 0.006;
+      comp.release.value = 0.25;
+
+      state.delayBus.connect(delayFilter);
+      delayFilter.connect(state.feedback);
+      state.feedback.connect(state.delayBus);
+      delayFilter.connect(state.wet).connect(comp).connect(state.master);
+      state.dryBus.connect(state.master);
+      state.room.connect(roomFilter).connect(state.master);
+      state.master.connect(ctx.destination);
+      state.master.connect(state.destination);
+      return ctx;
+    }
+
+    function setStatus(text) {
+      status.textContent = text;
+    }
+
+    function evolveAmount(t) {
+      const age = state.startedAt ? Math.min(1, (t - state.startedAt) / 300) : 0;
+      return age * state.controls.evolve;
+    }
+
+    function updateWetProfile(t) {
+      if (!state.ctx) return;
+      const e = evolveAmount(t || now());
+      state.feedback.gain.setTargetAtTime(0.72 - (0.22 * e), t || now(), 0.6);
+      state.wet.gain.setTargetAtTime((state.controls.delayWet * 0.52) * (1 - (0.48 * e)), t || now(), 0.6);
+      state.dryBus.gain.setTargetAtTime(0.92 + (0.18 * e), t || now(), 0.6);
+      state.room.gain.setTargetAtTime((state.controls.room * 0.18) * (1 - (0.2 * e)), t || now(), 0.6);
+    }
+
+    function trackOutput(id, t) {
+      const ctx = ensureAudio();
+      const item = track(id);
+      const gain = ctx.createGain();
+      const pan = ctx.createStereoPanner();
+      const send = ctx.createGain();
+      const age = evolveAmount(t);
+      gain.gain.value = item.muted ? 0 : item.level;
+      pan.pan.value = item.pan;
+      send.gain.value = item.send * (1 - (0.42 * age));
+      gain.connect(pan).connect(state.dryBus);
+      pan.connect(send).connect(state.delayBus);
+      pan.connect(state.room);
+      return gain;
+    }
+
+    function playTone(freq, t, dur, level, id, options) {
+      const ctx = ensureAudio();
+      const out = trackOutput(id, t);
+      const body = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      const pan = ctx.createStereoPanner();
+      const attack = options && options.attack !== undefined ? options.attack : 0.025;
+      const cutoff = options && options.cutoff ? options.cutoff : 3400;
+      body.gain.setValueAtTime(0.0001, t);
+      body.gain.exponentialRampToValueAtTime(level, t + attack);
+      body.gain.exponentialRampToValueAtTime(level * 0.22, t + Math.min(0.9, dur * 0.34));
+      body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      filter.type = 'lowpass';
+      filter.frequency.value = cutoff;
+      filter.Q.value = 0.38;
+      pan.pan.value = options && options.pan ? options.pan : 0;
+      body.connect(filter).connect(pan).connect(out);
+
+      [
+        { ratio: 1, gain: 1, type: 'triangle' },
+        { ratio: 2.006, gain: 0.28, type: 'sine' },
+        { ratio: 3.01, gain: 0.12, type: 'sine' }
+      ].forEach(function(partial) {
+        const osc = ctx.createOscillator();
+        const pg = ctx.createGain();
+        osc.type = partial.type;
+        osc.frequency.value = freq * partial.ratio;
+        osc.detune.value = (Math.random() * 2) - 1;
+        pg.gain.value = partial.gain;
+        osc.connect(pg).connect(body);
+        osc.start(t);
+        osc.stop(t + dur + 0.04);
+      });
+    }
+
+    function playNoise(t, dur, id, level, filterType, frequency, q) {
+      const ctx = ensureAudio();
+      const out = trackOutput(id, t);
+      const len = Math.max(1, Math.floor(ctx.sampleRate * dur));
+      const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        const decay = Math.pow(1 - (i / len), 2.2);
+        data[i] = (Math.random() * 2 - 1) * decay;
+      }
+      const src = ctx.createBufferSource();
+      const gain = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
+      src.buffer = buf;
+      filter.type = filterType;
+      filter.frequency.value = frequency;
+      filter.Q.value = q || 0.8;
+      gain.gain.setValueAtTime(level, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      src.connect(filter).connect(gain).connect(out);
+      src.start(t);
+    }
+
+    function playKick(t, velocity) {
+      const ctx = ensureAudio();
+      const out = trackOutput('kick', t);
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(88, t);
+      osc.frequency.exponentialRampToValueAtTime(42, t + 0.22);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.62 * velocity, t + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+      osc.connect(gain).connect(out);
+      osc.start(t);
+      osc.stop(t + 0.46);
+    }
+
+    function playDrum(id, t, velocity) {
+      if (id === 'kick') playKick(t, velocity);
+      if (id === 'snare') playNoise(t, 0.28, 'snare', 0.26 * velocity, 'bandpass', 1350, 0.7);
+      if (id === 'hat') playNoise(t, 0.08, 'hat', 0.12 * velocity, 'highpass', 5200, 0.4);
+      if (id === 'rim') {
+        playTone(880, t, 0.11, 0.06 * velocity, 'rim', { attack: 0.004, cutoff: 1800, pan: -0.1 });
+        playNoise(t, 0.055, 'rim', 0.045 * velocity, 'bandpass', 2200, 1.1);
+      }
+    }
+
+    function playPianoPhrase(t) {
+      const preset = PRETTY_WALK[state.pianoStep % PRETTY_WALK.length];
+      const age = evolveAmount(t);
+      const pianoLevel = 0.036 + (0.006 * age);
+      preset.press.forEach(function(note) {
+        playTone(NOTE_FREQ[note], t, 3.0, pianoLevel * 0.66, 'piano', { attack: 0.035, cutoff: 2700 });
+      });
+      preset.chord.forEach(function(note) {
+        playTone(NOTE_FREQ[note], t + 0.94, 6.2, pianoLevel, 'piano', { attack: 0.026, cutoff: 3400 });
+      });
+      playTone(NOTE_FREQ[preset.bass], t + 1.0, 7.8, 0.022, 'pulse', { attack: 0.08, cutoff: 680, pan: -0.08 });
+      if (Math.random() < 0.58) {
+        const note = preset.chord[Math.floor(Math.random() * preset.chord.length)];
+        playTone(NOTE_FREQ[note], t + 1.9 + Math.random() * 0.9, 4.4, 0.011, 'ghost', { attack: 0.04, cutoff: 2100, pan: 0.16 });
+      }
+      state.pianoStep += 1;
+    }
+
+    function secondsPerStep() {
+      return 60 / state.controls.tempo / 4;
+    }
+
+    function schedule() {
+      const ctx = ensureAudio();
+      const lookahead = 0.12;
+      while (state.nextNoteTime < ctx.currentTime + lookahead) {
+        const step = state.step % 16;
+        const swingOffset = step % 2 ? secondsPerStep() * state.controls.swing : 0;
+        const human = (Math.random() * 2 - 1) * state.controls.human;
+        const t = Math.max(ctx.currentTime, state.nextNoteTime + swingOffset + human);
+        updateWetProfile(t);
+        if (step === 0 || step === 8) playPianoPhrase(t);
+        state.drums.forEach(function(row) {
+          if (row.pattern[step] && Math.random() <= row.prob) playDrum(row.id, t, 0.72 + Math.random() * 0.28);
+        });
+        state.step += 1;
+        state.nextNoteTime += secondsPerStep();
+      }
+    }
+
+    function play() {
+      const ctx = ensureAudio();
+      if (ctx.state === 'suspended') ctx.resume();
+      if (state.playing) return;
+      state.playing = true;
+      state.startedAt = ctx.currentTime;
+      state.nextNoteTime = ctx.currentTime + 0.06;
+      state.scheduler = window.setInterval(schedule, 35);
+      $('[data-play]').setAttribute('aria-pressed', 'true');
+      setStatus('playing');
+    }
+
+    function stop() {
+      if (state.scheduler) window.clearInterval(state.scheduler);
+      state.scheduler = null;
+      state.playing = false;
+      $('[data-play]').setAttribute('aria-pressed', 'false');
+      setStatus('idle');
+      if (state.recorder && state.recorder.state === 'recording') state.recorder.stop();
+      if (state.recordTimer) window.clearTimeout(state.recordTimer);
+      state.recordTimer = null;
+    }
+
+    function recordFiveMinutes() {
+      const ctx = ensureAudio();
+      play();
+      if (!state.destination || !window.MediaRecorder) {
+        setStatus('recording unavailable in this browser');
+        return;
+      }
+      state.chunks = [];
+      const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 'audio/webm';
+      state.recorder = new MediaRecorder(state.destination.stream, { mimeType: mime });
+      state.recorder.ondataavailable = function(event) {
+        if (event.data && event.data.size) state.chunks.push(event.data);
+      };
+      state.recorder.onstop = function() {
+        const blob = new Blob(state.chunks, { type: mime });
+        const url = URL.createObjectURL(blob);
+        download.href = url;
+        download.download = 'lee-sound-lab-' + new Date().toISOString().replace(/[:.]/g, '-') + '.webm';
+        download.hidden = false;
+        download.textContent = 'download take';
+        setStatus('recording ready');
+      };
+      state.recorder.start(1000);
+      setStatus('recording 5 min');
+      state.recordTimer = window.setTimeout(function() {
+        if (state.recorder && state.recorder.state === 'recording') state.recorder.stop();
+        state.recordTimer = null;
+      }, 5 * 60 * 1000);
+    }
+
+    function renderTracks() {
+      $('[data-track-list]').innerHTML = state.tracks.map(function(item) {
+        return '<div class="sound-lab-track" data-track="' + item.id + '">' +
+          '<button type="button" class="sound-lab-mute" data-mute="' + item.id + '" aria-pressed="' + item.muted + '">' + (item.muted ? 'off' : 'on') + '</button>' +
+          '<strong>' + item.name + '</strong>' +
+          '<label><span>level</span><input type="range" min="0" max="1" step="0.01" value="' + item.level + '" data-track-control="' + item.id + ':level"></label>' +
+          '<label><span>pan</span><input type="range" min="-1" max="1" step="0.01" value="' + item.pan + '" data-track-control="' + item.id + ':pan"></label>' +
+          '<label><span>send</span><input type="range" min="0" max="1" step="0.01" value="' + item.send + '" data-track-control="' + item.id + ':send"></label>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderSteps() {
+      $('[data-step-grid]').innerHTML = state.drums.map(function(row) {
+        const buttons = row.pattern.map(function(on, index) {
+          return '<button type="button" class="sound-lab-step' + (on ? ' is-on' : '') + '" data-step="' + row.id + ':' + index + '" aria-pressed="' + Boolean(on) + '"><span>' + (index + 1) + '</span></button>';
+        }).join('');
+        return '<div class="sound-lab-row"><strong>' + row.name + '</strong><div class="sound-lab-row-steps">' + buttons + '</div>' +
+          '<label><span>chance</span><input type="range" min="0" max="1" step="0.01" value="' + row.prob + '" data-prob="' + row.id + '"></label></div>';
+      }).join('');
+    }
+
+    function updateOutputs() {
+      Object.keys(state.controls).forEach(function(key) {
+        const out = $('[data-output="' + key + '"]');
+        if (!out) return;
+        const value = state.controls[key];
+        out.textContent = key === 'tempo' ? Math.round(value) : Math.round(value * 100);
+      });
+      preset.value = JSON.stringify({
+        controls: state.controls,
+        tracks: state.tracks,
+        drums: state.drums
+      }, null, 2);
+    }
+
+    function randomizeDrums() {
+      state.drums.forEach(function(row) {
+        row.pattern = row.pattern.map(function(_, index) {
+          if (row.id === 'kick') return index === 0 || (Math.random() < 0.18 ? 1 : 0);
+          if (row.id === 'snare') return index === 4 || index === 12 || (Math.random() < 0.08 ? 1 : 0);
+          if (row.id === 'hat') return Math.random() < 0.46 ? 1 : 0;
+          return Math.random() < 0.18 ? 1 : 0;
+        });
+      });
+      renderSteps();
+      updateOutputs();
+    }
+
+    function clearDrums() {
+      state.drums.forEach(function(row) {
+        row.pattern = row.pattern.map(function() { return 0; });
+      });
+      renderSteps();
+      updateOutputs();
+    }
+
+    root.addEventListener('input', function(event) {
+      const control = event.target.getAttribute('data-control');
+      if (control) {
+        state.controls[control] = Number(event.target.value);
+        updateWetProfile(now());
+        updateOutputs();
+      }
+      const trackControl = event.target.getAttribute('data-track-control');
+      if (trackControl) {
+        const parts = trackControl.split(':');
+        track(parts[0])[parts[1]] = Number(event.target.value);
+        updateOutputs();
+      }
+      const prob = event.target.getAttribute('data-prob');
+      if (prob) {
+        state.drums.find(function(row) { return row.id === prob; }).prob = Number(event.target.value);
+        updateOutputs();
+      }
+    });
+
+    root.addEventListener('click', function(event) {
+      const step = event.target.closest('[data-step]');
+      if (step) {
+        const parts = step.getAttribute('data-step').split(':');
+        const row = state.drums.find(function(item) { return item.id === parts[0]; });
+        const index = Number(parts[1]);
+        row.pattern[index] = row.pattern[index] ? 0 : 1;
+        renderSteps();
+        updateOutputs();
+        return;
+      }
+      const mute = event.target.closest('[data-mute]');
+      if (mute) {
+        const item = track(mute.getAttribute('data-mute'));
+        item.muted = !item.muted;
+        renderTracks();
+        updateOutputs();
+      }
+    });
+
+    $('[data-play]').addEventListener('click', play);
+    $('[data-stop]').addEventListener('click', stop);
+    $('[data-record]').addEventListener('click', recordFiveMinutes);
+    $('[data-randomize]').addEventListener('click', randomizeDrums);
+    $('[data-clear-drums]').addEventListener('click', clearDrums);
+
+    renderTracks();
+    renderSteps();
+    updateOutputs();
+  })();
+</script>
