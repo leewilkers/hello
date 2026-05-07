@@ -3746,17 +3746,14 @@ body {
 
 .shelf-console-head {
   display: grid;
-  grid-template-columns: max-content minmax(12rem, 1fr) max-content;
-  gap: clamp(1rem, 3vw, 2.4rem);
+  grid-template-columns: var(--shelf-topic-rail) minmax(12rem, 1fr);
+  gap: 0;
   align-items: end;
   max-width: 1500px;
   min-height: clamp(6.35rem, 7.8vw, 7.25rem);
   margin: clamp(0.9rem, 2vw, 1.25rem) auto 0;
-  border: 1px solid var(--rule);
-  border-bottom: 0;
   padding: 0.72rem 0.85rem 0.78rem;
   position: relative;
-  background: var(--surface-soft);
   overflow: hidden;
 }
 
@@ -3780,9 +3777,39 @@ body {
   padding: 0;
   font-family: var(--serif);
   font-size: 0.82rem;
-  font-style: italic;
+  font-style: normal;
   color: var(--ink-faint);
   letter-spacing: 0;
+  max-width: 100%;
+  padding-right: 0.85rem;
+}
+
+/* Shelf closing beat — small mono line at the page bottom mirroring
+   About's "ends with hairline + small text" pattern. */
+.shelf-foot {
+  max-width: 1500px;
+  margin: 3.5rem auto 1.5rem;
+  padding: 1.25rem 0.85rem 0;
+  border-top: 1px solid var(--rule-light);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+.shelf-foot p {
+  margin: 0;
+}
+
+.shelf-foot a {
+  color: var(--ink-muted);
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.shelf-foot a:hover {
+  color: var(--ink);
 }
 
 .shelf-review-controls {
@@ -5636,7 +5663,7 @@ a.shelf-list-title:hover {
 
 .shelf-console-head {
   display: grid;
-  grid-template-columns: max-content minmax(12rem, 1fr) max-content;
+  grid-template-columns: var(--shelf-topic-rail) minmax(12rem, 1fr);
 }
 
 @media (max-width: 767px) {

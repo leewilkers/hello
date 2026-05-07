@@ -185,13 +185,9 @@ pageClass: page-shelf
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">
     <p class="console-kicker">Shelf</p>
-    <p class="shelf-subtitle">Things on my desk.</p>
+    <p class="shelf-subtitle">Things on and around my desk, informing current work and thinking.</p>
   </div>
   <span class="shelf-head-banner" aria-hidden="true"></span>
-  <p class="console-status">
-    {{ collections.items | where("dest", "shelf") | length }} entries ·
-    {{ shelfTopics | length }} topics
-  </p>
 </header>
 
 <div class="library">
@@ -229,3 +225,7 @@ pageClass: page-shelf
   </section>
 
 </div>
+
+<footer class="shelf-foot" aria-label="End of shelf">
+  <p>{{ collections.items | where("dest", "shelf") | length }} entries across {{ shelfTopics | length }} topics · <a href="/shelf.xml">RSS</a> · <a href="/">Back to about</a></p>
+</footer>
