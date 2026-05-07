@@ -3777,11 +3777,20 @@ body {
   padding: 0;
   font-family: var(--serif);
   font-size: 0.82rem;
+  line-height: 1.42;
   font-style: normal;
   color: var(--ink-faint);
   letter-spacing: 0;
   max-width: 100%;
   padding-right: 0.85rem;
+}
+
+.shelf-console-head .shelf-subtitle span {
+  display: block;
+}
+
+.shelf-console-head .shelf-subtitle__tagline {
+  margin-top: 0.08rem;
 }
 
 /* Shelf closing beat — small mono line at the page bottom mirroring
