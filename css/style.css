@@ -3908,6 +3908,20 @@ body {
     border-right: 0;
   }
 
+  .consulting-tooltip .consulting-quiet-link::after {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    width: auto;
+    transform: translateY(0.2rem);
+  }
+
+  .consulting-tooltip:hover .consulting-quiet-link::after,
+  .consulting-tooltip:focus-within .consulting-quiet-link::after {
+    transform: translateY(0);
+  }
+
   .consulting-principle {
     display: block;
   }
