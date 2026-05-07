@@ -284,116 +284,95 @@
       return conv;
     }
 
-    // Pad voice — FM synthesis tuned for ambient bloom.
-    function playPianoNote(freq, when, sustain, sendOverride, levelOverride, fadeProfile) {
+    // Piano voice — one modeled key/body transient into the shared reverb bus.
+    function playPianoNote(freq, when, sustain, levelOverride) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = (when !== undefined) ? when : ctx.currentTime;
-      const sus = sustain || 9.0;     // long enough that 3+ notes overlap
-      const send = sendOverride !== undefined ? sendOverride : 0.65;
-      const level = levelOverride !== undefined ? levelOverride : 0.085;
+      const sus = sustain || 9.0;
+      const level = levelOverride !== undefined ? levelOverride : 0.052;
       const reverb = getReverb(ctx);
-      const attack = 0.110;
-
-      // Two slightly-detuned voices for chorus shimmer; each panned to its
-      // own stereo position so the chorus also spreads spatially.
-      [-4, 4].forEach(function(detune, idx) {
-        const carrier = ctx.createOscillator();
-        carrier.type = 'sine';
-        carrier.frequency.value = freq;
-        carrier.detune.value = detune;
-
-        const modulator = ctx.createOscillator();
-        modulator.type = 'sine';
-        modulator.frequency.value = freq;
-        modulator.detune.value = detune;
-
-        // Pad-like mod envelope: slow rise to a low peak, slow fall.
-        const modDepth = ctx.createGain();
-        modDepth.gain.setValueAtTime(0.0001, t);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.7, t + attack);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.2, t + 2.0);
-        modDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
-        modulator.connect(modDepth).connect(carrier.frequency);
-
-        // Slow attack, very long decay to silence.
-        const carrierGain = ctx.createGain();
-        carrierGain.gain.setValueAtTime(0.0001, t);
-        carrierGain.gain.exponentialRampToValueAtTime(level, t + attack);
-        if (fadeProfile) {
-          const holdUntil = t + (fadeProfile.hold || 0.75);
-          const fadeUntil = t + (fadeProfile.fadeTo || 2.0);
-          const tailLevel = Math.max(0.0001, level * (fadeProfile.tailRatio || 0.18));
-          carrierGain.gain.setValueAtTime(level, holdUntil);
-          carrierGain.gain.exponentialRampToValueAtTime(tailLevel, fadeUntil);
-          carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
-        } else {
-          carrierGain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
-        }
-
-        // Warmth filter — gentle lowpass with slight resonance. Rolls off the
-        // brittle highs the FM voice generates, giving the patch the warm,
-        // physically-present quality of analog circuit filters (Moog/Juno).
-        // Q ~0.7 = analog-sweet-spot resonance shelf.
-        const warmth = ctx.createBiquadFilter();
-        warmth.type = 'lowpass';
-        warmth.frequency.value = 2800;
-        warmth.Q.value = 0.7;
-
-        // Stereo pan per voice — chorus shimmer spreads spatially across L/R.
-        const panner = ctx.createStereoPanner();
-        panner.pan.value = idx === 0 ? -0.35 : 0.35;
-        carrier.connect(carrierGain).connect(warmth).connect(panner).connect(ctx.destination);
-
-        // Reverb send — heavy wet bus by default; press-notes can override
-        // (high C#5 press is dried because its tail bleeds into next chord).
-        const sendGain = ctx.createGain();
-        sendGain.gain.value = send;
-        panner.connect(sendGain).connect(reverb);
-
-        modulator.start(t);
-        carrier.start(t);
-        modulator.stop(t + sus + 0.1);
-        carrier.stop(t + sus + 0.1);
-      });
+      playAcousticKey(freq, t, sus, level, reverb);
     }
 
-    // Shimmer — pure-sine bell octave-up, very slow attack + long sustain.
-    // Sits as a halo above the main FM voice. Quiet enough that you don't
-    // hear it as its own event, just as sparkle on top.
-    function playShimmer(freq, when, sustain, sendOverride) {
+    // Quiet acoustic-piano layer: a small modeled hammer/body event plus room.
+    function playAcousticKey(freq, when, sustain, level, reverb) {
       const ctx = ensureAudio();
       if (!ctx) return;
-      const t = (when !== undefined) ? when : ctx.currentTime;
-      const sus = (sustain || 9.0) * 1.4;
-      const send = sendOverride !== undefined ? sendOverride : 0.55;
-      const reverb = getReverb(ctx);
+      const t = when !== undefined ? when : ctx.currentTime;
+      const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
+      const bodyLevel = Math.max(0.003, level || 0.018);
+      const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
 
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.value = freq * 2;  // octave up
+      const body = ctx.createGain();
+      body.gain.setValueAtTime(0.0001, t);
+      body.gain.exponentialRampToValueAtTime(bodyLevel, t + 0.012);
+      body.gain.exponentialRampToValueAtTime(bodyLevel * 0.22, t + 0.42);
+      body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
 
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.045, t + 0.250);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
-      osc.connect(gain).connect(ctx.destination);
+      const soundboard = ctx.createBiquadFilter();
+      soundboard.type = 'lowpass';
+      soundboard.frequency.value = 4200;
+      soundboard.Q.value = 0.35;
 
-      const sendGain = ctx.createGain();
-      sendGain.gain.value = send;
-      gain.connect(sendGain).connect(reverb);
+      const panner = ctx.createStereoPanner();
+      panner.pan.value = pan;
+      body.connect(soundboard).connect(panner).connect(ctx.destination);
 
-      osc.start(t);
-      osc.stop(t + sus + 0.5);
+      const send = ctx.createGain();
+      send.gain.value = 0.32;
+      panner.connect(send).connect(reverb);
+
+      [
+        { ratio: 1.000, gain: 1.00, stop: dur },
+        { ratio: 2.006, gain: 0.42, stop: dur * 0.76 },
+        { ratio: 3.018, gain: 0.22, stop: dur * 0.50 },
+        { ratio: 4.045, gain: 0.12, stop: dur * 0.36 }
+      ].forEach(function(partial) {
+        const osc = ctx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.value = freq * partial.ratio;
+        osc.detune.value = (Math.random() * 3) - 1.5;
+
+        const partialGain = ctx.createGain();
+        partialGain.gain.setValueAtTime(0.0001, t);
+        partialGain.gain.exponentialRampToValueAtTime(partial.gain, t + 0.010);
+        partialGain.gain.exponentialRampToValueAtTime(0.0001, t + partial.stop);
+
+        osc.connect(partialGain).connect(body);
+        osc.start(t);
+        osc.stop(t + partial.stop + 0.08);
+      });
+
+      const hammer = ctx.createBufferSource();
+      const hammerLen = Math.floor(ctx.sampleRate * 0.026);
+      const hammerBuf = ctx.createBuffer(1, hammerLen, ctx.sampleRate);
+      const data = hammerBuf.getChannelData(0);
+      for (let i = 0; i < hammerLen; i++) {
+        const decay = Math.pow(1 - (i / hammerLen), 2.8);
+        data[i] = (Math.random() * 2 - 1) * decay;
+      }
+      hammer.buffer = hammerBuf;
+
+      const hammerGain = ctx.createGain();
+      hammerGain.gain.setValueAtTime(bodyLevel * 0.10, t);
+      hammerGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.030);
+
+      const hammerFilter = ctx.createBiquadFilter();
+      hammerFilter.type = 'bandpass';
+      hammerFilter.frequency.value = Math.min(2600, Math.max(900, freq * 4.2));
+      hammerFilter.Q.value = 1.2;
+
+      hammer.connect(hammerGain).connect(hammerFilter).connect(panner);
+      hammer.start(t);
+      hammer.stop(t + 0.04);
     }
 
     function playPressNote(goingDark) {
       if (goingDark) {
-        playPianoNote(PIANO.N4, undefined, 4.0, 0.18);
-        playShimmer(PIANO.N4, undefined, 4.0, 0.08);
+        playPianoNote(PIANO.N4, undefined, 4.0);
       } else {
-        playPianoNote(PIANO.N1, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
-        playShimmer(PIANO.N1, undefined, 3.2, 0.06);
+        playPianoNote(PIANO.N1, undefined, 5.0);
       }
     }
 
@@ -404,14 +383,10 @@
       const t = ctx.currentTime;
       if (goingDark) {
         playPianoNote(PIANO.N2, t, 9.0);
-        playShimmer(PIANO.N2, t, 9.0);
         playPianoNote(PIANO.N1, t, 9.0);
-        playShimmer(PIANO.N1, t, 9.0);
       } else {
         playPianoNote(PIANO.N3, t, 9.0);
-        playShimmer(PIANO.N3, t, 9.0);
         playPianoNote(PIANO.N4, t, 9.0);
-        playShimmer(PIANO.N4, t, 9.0);
       }
     }
 
