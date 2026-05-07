@@ -107,7 +107,7 @@
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-    <button class="loop-tally" aria-label="Play B-flat loop" title="Play B-flat loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">PLAY</span></button>
+    <button class="loop-tally" aria-label="Play dimmer loop" title="Play dimmer loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-led" aria-hidden="true"></span><span class="loop-tally-label">PLAY</span></button>
     <button class="theme-lock" aria-label="Lock theme during loop" title="Lock current theme — loop without flipping" aria-pressed="false" onclick="toggleThemeLock()"><svg width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path class="theme-lock-shackle" d="M 3.5 6 L 3.5 4 a 2.5 2.5 0 0 1 5 0 L 8.5 6" stroke="currentColor" stroke-width="1.1" fill="none" stroke-linecap="round"/><rect x="2.5" y="5.5" width="7" height="5.5" rx="0.8" fill="currentColor"/></svg></button>
   </div>
 </nav>
@@ -172,7 +172,6 @@
     let loopNextTimer = null;
     let themeLocked = false;
     let loopDirection = null;        // while locked, tracks alternating performance direction
-    let loopMovementIndex = 0;       // second-half final movement chooser while LOOP is armed
 
     // Cat controller — manual clicks release on the video end; loop mode
     // releases from the music clock so the visual breath follows the note
@@ -242,54 +241,14 @@
       } catch (e) { return null; }
     }
 
-    // Winner shape from the B-flat audition page:
-    // Bb3 -> D4+A4 / Bb4 -> Bb3+F4+G4.
-    // The phrase is split across two switch presses/loop cycles.
+    // Original dimmer phrase before the B-flat pass: Dmaj7 across four tones.
+    // Back-and-forth toggles trace D4 -> A4+C#5 / C#5 -> F#4+D4.
     const PIANO = {
-      BB3: 233.08,
-      D4: 293.66,
-      F4: 349.23,
-      G4: 392.00,
-      A4: 440.00,
-      BB4: 466.16,
-      C5: 523.25,
-      D5: 587.33
+      N1: 293.66,
+      N2: 369.99,
+      N3: 440.00,
+      N4: 554.37
     };
-
-    const FINAL_HOME = [
-      { note: 'BB3', sustain: 9.8, send: 0.56, level: 0.060 },
-      { note: 'F4', sustain: 9.4, send: 0.62, level: 0.056, shimmerSustain: 6.8, shimmerSend: 0.038 },
-      { note: 'G4', sustain: 9.2, send: 0.68, level: 0.050, shimmerSustain: 6.4, shimmerSend: 0.034 }
-    ];
-
-    const FINAL_HIGH_STEPPER = [
-      { note: 'G4', sustain: 9.4, send: 0.64, level: 0.052, shimmerSustain: 6.6, shimmerSend: 0.034 },
-      { note: 'BB4', sustain: 8.8, send: 0.58, level: 0.048, shimmerSustain: 6.0, shimmerSend: 0.032 },
-      { note: 'D5', sustain: 7.8, send: 0.48, level: 0.034, shimmerSustain: 5.2, shimmerSend: 0.024 }
-    ];
-
-    const FINAL_LIFTED_SIXTH = [
-      { note: 'D4', sustain: 9.8, send: 0.58, level: 0.046, shimmerSustain: 6.2, shimmerSend: 0.026 },
-      { note: 'F4', sustain: 9.6, send: 0.64, level: 0.052, shimmerSustain: 6.8, shimmerSend: 0.038 },
-      { note: 'G4', sustain: 9.2, send: 0.68, level: 0.048, shimmerSustain: 6.4, shimmerSend: 0.034 },
-      { note: 'BB4', sustain: 8.7, send: 0.54, level: 0.040, shimmerSustain: 5.6, shimmerSend: 0.030 }
-    ];
-
-    const FINAL_SHIMMER_NINTH = [
-      { note: 'BB3', sustain: 10.0, send: 0.52, level: 0.052 },
-      { note: 'F4', sustain: 9.6, send: 0.64, level: 0.050, shimmerSustain: 6.8, shimmerSend: 0.038 },
-      { note: 'G4', sustain: 9.3, send: 0.68, level: 0.046, shimmerSustain: 6.4, shimmerSend: 0.034 },
-      { note: 'C5', sustain: 8.4, send: 0.50, level: 0.032, shimmerSustain: 5.4, shimmerSend: 0.026 }
-    ];
-
-    // LOOP finals move as a little sequence: home, remembered high stepper,
-    // lifted sixth, then a suspended ninth shimmer. Manual clicks stay on FINAL_HOME.
-    const LOOP_MOVEMENTS = [
-      { name: 'home', voices: FINAL_HOME },
-      { name: 'high-stepper', voices: FINAL_HIGH_STEPPER },
-      { name: 'lifted-sixth', voices: FINAL_LIFTED_SIXTH },
-      { name: 'shimmer-ninth', voices: FINAL_SHIMMER_NINTH }
-    ];
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
     // before first reflections (the note speaks, THEN the room blooms), and
@@ -326,8 +285,6 @@
     }
 
     // Pad voice — FM synthesis tuned for ambient bloom.
-    // Slower attack keeps the switch from feeling struck; low gravity is
-    // handled musically in the final chord rather than by literal octaves.
     function playPianoNote(freq, when, sustain, sendOverride, levelOverride, fadeProfile) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -336,7 +293,7 @@
       const send = sendOverride !== undefined ? sendOverride : 0.65;
       const level = levelOverride !== undefined ? levelOverride : 0.085;
       const reverb = getReverb(ctx);
-      const attack = 0.230;
+      const attack = 0.110;
 
       // Two slightly-detuned voices for chorus shimmer; each panned to its
       // own stereo position so the chorus also spreads spatially.
@@ -351,12 +308,11 @@
         modulator.frequency.value = freq;
         modulator.detune.value = detune;
 
-        // Pad-like mod envelope: slow rise to a lower peak, slow fall.
-        // The reduced peak dials back the bite without making the note blank.
+        // Pad-like mod envelope: slow rise to a low peak, slow fall.
         const modDepth = ctx.createGain();
         modDepth.gain.setValueAtTime(0.0001, t);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.42, t + attack);
-        modDepth.gain.exponentialRampToValueAtTime(freq * 0.16, t + 2.4);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.7, t + attack);
+        modDepth.gain.exponentialRampToValueAtTime(freq * 0.2, t + 2.0);
         modDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
         modulator.connect(modDepth).connect(carrier.frequency);
 
@@ -390,7 +346,7 @@
         carrier.connect(carrierGain).connect(warmth).connect(panner).connect(ctx.destination);
 
         // Reverb send — heavy wet bus by default; press-notes can override
-        // (high A4 press is dried because its tail bleeds into next chord).
+        // (high C#5 press is dried because its tail bleeds into next chord).
         const sendGain = ctx.createGain();
         sendGain.gain.value = send;
         panner.connect(sendGain).connect(reverb);
@@ -400,10 +356,6 @@
         modulator.stop(t + sus + 0.1);
         carrier.stop(t + sus + 0.1);
       });
-
-      if (freq >= PIANO.A4) {
-        playHighColor(freq, t + 0.080, sus, level * 0.16, reverb);
-      }
     }
 
     function playHighColor(freq, when, sustain, level, reverb) {
@@ -456,7 +408,7 @@
 
       const gain = ctx.createGain();
       gain.gain.setValueAtTime(0.0001, t);
-      gain.gain.exponentialRampToValueAtTime(0.030, t + 0.460);
+      gain.gain.exponentialRampToValueAtTime(0.045, t + 0.250);
       gain.gain.exponentialRampToValueAtTime(0.0001, t + sus);
       osc.connect(gain).connect(ctx.destination);
 
@@ -468,52 +420,31 @@
       osc.stop(t + sus + 0.5);
     }
 
-    function playPressNote(firstHalf) {
-      if (firstHalf) {
-        playPianoNote(PIANO.BB3, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
-        playShimmer(PIANO.BB3, undefined, 3.2, 0.06);
+    function playPressNote(goingDark) {
+      if (goingDark) {
+        playPianoNote(PIANO.N4, undefined, 4.0, 0.18);
+        playShimmer(PIANO.N4, undefined, 4.0, 0.08);
       } else {
-        playPianoNote(PIANO.BB4, undefined, 4.4, 0.16, 0.064, { hold: 0.62, fadeTo: 1.9, tailRatio: 0.14 });
-        playShimmer(PIANO.BB4, undefined, 3.0, 0.05);
+        playPianoNote(PIANO.N1, undefined, 5.0, 0.18, undefined, { hold: 0.75, fadeTo: 2.1, tailRatio: 0.16 });
+        playShimmer(PIANO.N1, undefined, 3.2, 0.06);
       }
     }
 
-    function playVoice(voice, when) {
-      const freq = PIANO[voice.note];
-      if (!freq) return;
-      playPianoNote(freq, when, voice.sustain, voice.send, voice.level);
-      if (voice.shimmerSustain) {
-        playShimmer(freq, when, voice.shimmerSustain, voice.shimmerSend);
-      }
-    }
-
-    function playFinalMovement(movement, when) {
-      const voices = (movement && movement.voices) ? movement.voices : FINAL_HOME;
-      voices.forEach(function(voice) {
-        playVoice(voice, when);
-      });
-    }
-
-    function nextLoopMovement() {
-      const movement = LOOP_MOVEMENTS[loopMovementIndex % LOOP_MOVEMENTS.length];
-      loopMovementIndex += 1;
-      return movement;
-    }
-
-    // Resolve — first hit stays D4+A4; second-hit finals can move in LOOP mode.
-    // Audio direction is inverted at call sites via musicDirection(); the cat
-    // video still follows the visual theme direction.
-    function playResolveChord(firstHalf, movement) {
+    // Resolve — two notes at cat-paw impact.
+    function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime;
-      if (firstHalf) {
-        playPianoNote(PIANO.D4, t, 9.0);
-        playShimmer(PIANO.D4, t, 9.0);
-        playPianoNote(PIANO.A4, t, 8.2, 0.58, 0.074);
-        playShimmer(PIANO.A4, t, 7.0, 0.08);
+      if (goingDark) {
+        playPianoNote(PIANO.N2, t, 9.0);
+        playShimmer(PIANO.N2, t, 9.0);
+        playPianoNote(PIANO.N1, t, 9.0);
+        playShimmer(PIANO.N1, t, 9.0);
       } else {
-        playFinalMovement(movement, t);
+        playPianoNote(PIANO.N3, t, 9.0);
+        playShimmer(PIANO.N3, t, 9.0);
+        playPianoNote(PIANO.N4, t, 9.0);
+        playShimmer(PIANO.N4, t, 9.0);
       }
     }
 
@@ -529,15 +460,9 @@
       return goingDark;
     }
 
-    function musicDirection(goingDark) {
-      // Music treats dark/light as inverted now: same visual toggle, opposite
-      // phrase direction.
-      return !goingDark;
-    }
-
     function instantFlip() {
       const goingDark = applyThemeFlip();
-      playResolveChord(musicDirection(goingDark));
+      playResolveChord(goingDark);
     }
 
     // Loop cycle — JS-timer-driven audio rhythm, video plays in parallel for
@@ -563,10 +488,8 @@
         goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
       }
 
-      const musicGoingDark = musicDirection(goingDark);
-
       // Audio: press immediately (this is beat zero of the cycle)
-      playPressNote(musicGoingDark);
+      playPressNote(goingDark);
 
       // Visual: cat clip keeps performing even when LOOP has pinned the page
       // theme. The lock is the room lighting; the cat/audio loop is the piece.
@@ -578,7 +501,7 @@
         loopPressTimer = null;
         if (!loopArmed) return;
         if (!themeLocked) applyThemeFlip();
-        playResolveChord(musicGoingDark, !musicGoingDark ? nextLoopMovement() : null);
+        playResolveChord(goingDark);
         // Schedule next cycle
         if (loopNextTimer) clearTimeout(loopNextTimer);
         loopNextTimer = setTimeout(function() {
@@ -592,7 +515,6 @@
       if (reduced || !video || video.readyState < 3) return instantFlip();
 
       const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
-      const musicGoingDark = musicDirection(goingDark);
       const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
       const seekFrom = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
       const safetyMs = ((hitAt - seekFrom) / VIDEO_RATE) * 1000 + 500;
@@ -627,14 +549,14 @@
       button.addEventListener('pointerdown', function() {
         if (button.disabled) return;
         const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
-        playPressNote(musicDirection(goingDark));
+        playPressNote(goingDark);
       });
     }
 
     function setLoopUI(armed) {
       if (!loopBtn) return;
       const label = loopBtn.querySelector('.loop-tally-label');
-      const action = armed ? 'Stop B-flat loop' : 'Play B-flat loop';
+      const action = armed ? 'Stop dimmer loop' : 'Play dimmer loop';
       loopBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
       loopBtn.setAttribute('aria-label', action);
       loopBtn.setAttribute('title', action);
@@ -676,7 +598,6 @@
         themeLocked = true;
         setLockUI(true);
         loopDirection = null;
-        loopMovementIndex = 0;
         // Loop owns the dimmer while running — manual clicks would conflict
         if (button) button.disabled = true;
         startLoopCycle();
@@ -686,7 +607,6 @@
         // Clear lock state too — reset for next arming
         if (themeLocked) { themeLocked = false; setLockUI(false); }
         loopDirection = null;
-        loopMovementIndex = 0;
         catCtl.reset();
         if (button) button.disabled = false;
       }
@@ -703,7 +623,6 @@
         loopArmed = true;
         themeLocked = true;
         loopDirection = null;
-        loopMovementIndex = 0;
         setLoopUI(true);
         setLockUI(true);
         if (button) button.disabled = true;  // loop owns dimmer while armed

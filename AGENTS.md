@@ -51,6 +51,7 @@
 - Judge imagery and ornaments at rendered size, not source size.
 - Do not add an `About` subheader above the homepage intro by default; the first block already functions as About unless the page gets denser.
 - Keep `Things I've worked on` collapsed on the homepage as a signal. If it becomes too text-heavy, move fuller detail to Consulting or a deeper page instead of making the homepage a wall.
+- For nascent projects on the homepage, keep mentions understated. Prefer a single status line such as `Building Rabbit Run.` near the intro/work transition over a new section, a Pages-list entry, or explanatory company copy. If the name should feel hinted but not real yet, style only the name as non-clickable dead/semi-live text.
 
 ## Homepage Motifs
 
@@ -59,6 +60,12 @@
 - The default trail should stay neutral unless Lee explicitly picks a green/organic palette.
 - Preserve original ornament texture. Do not hard-threshold rabbit assets into flat silhouettes.
 - Do not upscale tiny ornament crops; use native-or-smaller render sizes.
+
+## Shelf Header Motif
+
+- Default/reload previews should open dark. Do not send Lee `?theme=light` preview URLs unless intentionally checking light mode; use cache-busting `?v=...` without a theme parameter for default-dark review.
+- The Shelf hare header motif should stay anchored to the visible Topics/content vertical rule at desktop and wide tablet widths. Do not center it by viewport or header width; use the same rail value that defines the Shelf topic column.
+- Do not hide the Shelf hare motif at the hamburger/tablet breakpoint just because the topic list becomes an overlay. Hide it only at true mobile widths where it crowds the title/count, and verify Lee's split-width browser pane.
 
 ## Pardon Dust Note
 
