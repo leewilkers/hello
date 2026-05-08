@@ -107,19 +107,19 @@
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
     <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-    <button class="loop-tally" aria-label="Start dimmer loop" title="Start dimmer loop" aria-pressed="false" onclick="toggleLoop()"><span class="loop-tally-mark" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" focusable="false"><path d="M 2.8 8 C 4.35 5.7 5.75 5.7 8 8 C 10.25 10.3 11.65 10.3 13.2 8 C 11.65 5.7 10.25 5.7 8 8 C 5.75 10.3 4.35 10.3 2.8 8" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
     <button class="pretty-loop" aria-label="Start pretty progression walk" title="Start pretty progression walk" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
+    <button class="constellation-mode-toggle" aria-label="Enter constellation mode" title="Enter constellation mode" aria-pressed="false" onclick="toggleConstellationMode()"><span class="constellation-mode-mark" aria-hidden="true">~</span></button>
   </div>
 </nav>
 
 <div class="pretty-constellation-field" aria-hidden="true">
   <canvas class="pretty-constellation-canvas" width="136" height="60" data-pretty-constellation></canvas>
-  <span class="pretty-star-label pretty-star-label-bootes">Boötes</span>
-  <span class="pretty-star-label pretty-star-label-rho">Rho</span>
-  <span class="pretty-star-label pretty-star-label-arcturus">Arcturus</span>
-  <span class="pretty-star-label pretty-star-label-eta">Eta</span>
+  <span class="pretty-star-label pretty-star-label-bootes" data-pretty-label="bootes">Boötes</span>
+  <span class="pretty-star-label pretty-star-label-rho" data-pretty-label="rho">Rho</span>
+  <span class="pretty-star-label pretty-star-label-arcturus" data-pretty-label="arcturus">Arcturus</span>
+  <span class="pretty-star-label pretty-star-label-eta" data-pretty-label="eta">Eta</span>
 </div>
-<a class="pretty-constellation-note" href="https://en.wikipedia.org/wiki/Arcturus" target="_blank" rel="noopener noreferrer">Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</a>
+<a class="pretty-constellation-note" data-pretty-note href="https://en.wikipedia.org/wiki/Arcturus#Cultural_significance" target="_blank" rel="noopener noreferrer">Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</a>
 
 	<div class="cat-switch-frame">
 	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
@@ -138,9 +138,6 @@
 <footer class="site-colophon" aria-label="Colophon">
   <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
   <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
-  {% if pageClass == "page-consulting" %}
-    <span class="colophon-image-credit"><a href="https://blog.lostartpress.com/2024/04/30/roubo-on-how-to-saw-veneer/" target="_blank" rel="noopener noreferrer">Roubo sawyers at a vise</a></span>
-  {% endif %}
 </footer>
 
 <script>
@@ -161,8 +158,11 @@
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
     const prettyBtn = document.querySelector('.pretty-loop');
+    const constellationModeBtn = document.querySelector('.constellation-mode-toggle');
     const prettyField = document.querySelector('.pretty-constellation-field');
     const prettyCanvas = document.querySelector('[data-pretty-constellation]');
+    const constellationLabelNodes = document.querySelectorAll('[data-pretty-label]');
+    const constellationNote = document.querySelector('[data-pretty-note]');
     const lockBtn = document.querySelector('.theme-lock');
     if (!loopBtn) {
       try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
@@ -191,6 +191,8 @@
     let themeLocked = false;
     let loopDirection = null;        // while locked, tracks alternating performance direction
     let prettyArmed = false;
+    let constellationModeActive = false;
+    let constellationVisualActive = false;
     let prettyTimer = null;
     let prettyFieldExitTimer = null;
     let prettyStep = 0;
@@ -292,33 +294,104 @@
       }
     }
 
-    function createPrettyConstellation(canvas) {
+    const CONSTELLATION_CANVAS_WIDTH = 136;
+    const CONSTELLATION_CANVAS_HEIGHT = 60;
+    const CONSTELLATION_PIXEL_SCALE = 2;
+
+    function constellationXPercent(x) {
+      return ((((x * 0.86) + 9.1) * CONSTELLATION_PIXEL_SCALE) / CONSTELLATION_CANVAS_WIDTH) * 100;
+    }
+
+    function constellationYPercent(y) {
+      return (((y + 1.4) * CONSTELLATION_PIXEL_SCALE) / CONSTELLATION_CANVAS_HEIGHT) * 100;
+    }
+
+    const CONSTELLATIONS = {
+      bootes: {
+        id: 'bootes',
+        labels: {
+          bootes: { text: 'Boötes', x: 16, y: 48 },
+          rho: { text: 'Rho', pointIndex: 3, dx: 4.2, dy: -5 },
+          arcturus: { text: 'Arcturus', pointIndex: 4, dx: -13.4, dy: -4.6 },
+          eta: { text: 'Eta', pointIndex: 5, dx: 4.4, dy: -5.8 }
+        },
+        note: {
+          href: 'https://en.wikipedia.org/wiki/Arcturus#Cultural_significance',
+          text: 'Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.'
+        },
+        points: [
+          [5, 16], [10, 3], [26, 5], [30, 17], [39, 22],
+          [47, 23], [50, 27], [34, 27], [22, 20], [12, 15]
+        ],
+        highlightIndex: 4,
+        edges: [[1, 2], [1, 9], [9, 0], [9, 8], [8, 4], [2, 3], [3, 4], [3, 8], [4, 5], [5, 6], [4, 7]],
+        stars: [
+          [6, 3, 0.2], [14, 13, 1.3], [24, 5, 2.4], [34, 2, 1.1], [50, 7, 2.1],
+          [56, 16, 0.9], [8, 21, 2.8], [27, 19, 0.5], [44, 22, 1.7]
+        ],
+        lineColor: '#3aa99f',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      }
+    };
+    const activeConstellation = CONSTELLATIONS.bootes;
+
+    function renderConstellationMeta(constellation) {
+      if (!constellation) return;
+      Array.prototype.forEach.call(constellationLabelNodes, function(labelNode) {
+        const key = labelNode.getAttribute('data-pretty-label');
+        const label = constellation.labels && constellation.labels[key];
+        const text = typeof label === 'string' ? label : label && label.text;
+        labelNode.hidden = !text;
+        if (!text) return;
+        labelNode.textContent = text;
+        if (typeof label === 'object') {
+          let x = label.x;
+          let y = label.y;
+          if (typeof label.pointIndex === 'number' && constellation.points[label.pointIndex]) {
+            const point = constellation.points[label.pointIndex];
+            x = constellationXPercent(point[0]) + (label.dx || 0);
+            y = constellationYPercent(point[1]) + (label.dy || 0);
+          }
+          if (typeof x === 'number') labelNode.style.left = Math.max(0, Math.min(96, x)) + '%';
+          if (typeof y === 'number') labelNode.style.top = Math.max(0, Math.min(96, y)) + '%';
+        }
+      });
+      if (constellationNote && constellation.note) {
+        constellationNote.href = constellation.note.href;
+        constellationNote.textContent = constellation.note.text;
+      }
+    }
+
+    renderConstellationMeta(activeConstellation);
+
+    function createPrettyConstellation(canvas, constellation) {
       if (!canvas || !canvas.getContext) {
         return { setActive: function(){}, setVisible: function(){}, redraw: function(){} };
       }
 
       const ctx = canvas.getContext('2d');
-      const points = [
-        [5, 16], [10, 3], [26, 5], [30, 17], [39, 24],
-        [47, 23], [50, 27], [34, 27], [22, 20], [12, 15]
-      ];
-      const arcturusIndex = 4;
-      const edges = [[1, 2], [1, 9], [9, 0], [9, 8], [8, 4], [2, 3], [3, 4], [3, 8], [4, 5], [5, 6], [4, 7]];
-      const stars = [
-        [6, 3, 0.2], [14, 13, 1.3], [24, 5, 2.4], [34, 2, 1.1], [50, 7, 2.1],
-        [56, 16, 0.9], [8, 21, 2.8], [27, 19, 0.5], [44, 22, 1.7]
-      ];
+      const points = constellation.points;
+      const highlightIndex = constellation.highlightIndex;
+      const edges = constellation.edges;
+      const stars = constellation.stars;
+      const lineColor = constellation.lineColor;
+      const starColor = constellation.starColor;
+      const pointColor = constellation.pointColor;
+      const highlightColor = constellation.highlightColor;
+      const highlightSparkColor = constellation.highlightSparkColor;
       let active = false;
       let exiting = false;
       let visible = true;
       let raf = null;
       let start = performance.now();
       let modeStart = start;
-      const PIXEL_SCALE = 2;
       const EXIT_SECONDS = 5.8;
 
-      function xPos(x) { return ((x * 0.86) + 9.1) * PIXEL_SCALE; }
-      function yPos(y) { return (y + 1.4) * PIXEL_SCALE; }
+      function xPos(x) { return ((x * 0.86) + 9.1) * CONSTELLATION_PIXEL_SCALE; }
+      function yPos(y) { return (y + 1.4) * CONSTELLATION_PIXEL_SCALE; }
 
       function pixel(x, y, size, alpha, color) {
         const px = xPos(x);
@@ -363,7 +436,7 @@
           const seed = (a * 7.1) + (b * 3.3) + i;
           if ((active || exiting) && !lit(seed, time, 0.08, 5.8)) continue;
           if (exiting && !aliveOnExit(seed, time)) continue;
-          pixel(ax + ((endX - ax) * step), ay + ((endY - ay) * step), 1, alpha, '#3aa99f');
+          pixel(ax + ((endX - ax) * step), ay + ((endY - ay) * step), 1, alpha, lineColor);
         }
       }
 
@@ -389,7 +462,7 @@
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.22, 9.5));
           if (!born) return;
           if (active && !lit(seed, t, 0.12, 5.4)) return;
-          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha, '#cecdc3');
+          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha, starColor);
         });
 
         edges.forEach(function(edge) {
@@ -411,10 +484,10 @@
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.18, 10.4));
           if (!born) return;
           const bright = live && lit(index + 19, t, 0.48, 5.6);
-          const pointColor = index === arcturusIndex ? '#f6a19a' : '#fffcf0';
-          pixel(point[0] - 1, point[1] - 1, bright || index === arcturusIndex ? 3 : 2, live ? 0.88 : 0.36, pointColor);
+          const color = index === highlightIndex ? highlightColor : pointColor;
+          pixel(point[0] - 1, point[1] - 1, bright || index === highlightIndex ? 3 : 2, live ? 0.88 : 0.36, color);
           if (live && settling > 0.24 && lit(index + 23, t, 0.54, 6.8)) {
-            pixel(point[0], point[1], 1, 0.68, index === arcturusIndex ? '#d14d41' : '#3aa99f');
+            pixel(point[0], point[1], 1, 0.68, index === highlightIndex ? highlightSparkColor : lineColor);
           }
         });
 
@@ -454,7 +527,7 @@
       };
     }
 
-    const prettyConstellation = createPrettyConstellation(prettyCanvas);
+    const prettyConstellation = createPrettyConstellation(prettyCanvas, activeConstellation);
 
     // B-flat major 7 color across four tones: Bb4, D5, F5, A5.
     const PIANO = {
@@ -984,23 +1057,60 @@
       prettyBtn.setAttribute('aria-label', action);
       prettyBtn.setAttribute('title', action);
       prettyBtn.classList.toggle('is-armed', armed);
+      syncConstellationVisual();
+    }
+
+    function setConstellationModeUI(active) {
+      if (!constellationModeBtn) return;
+      const action = active ? 'Exit constellation mode' : 'Enter constellation mode';
+      constellationModeBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      constellationModeBtn.setAttribute('aria-label', action);
+      constellationModeBtn.setAttribute('title', action);
+      constellationModeBtn.classList.toggle('is-armed', active);
+    }
+
+    function syncConstellationVisual() {
+      const nextVisualActive = prettyArmed || constellationModeActive;
       if (prettyField) {
         if (prettyFieldExitTimer) {
           clearTimeout(prettyFieldExitTimer);
           prettyFieldExitTimer = null;
         }
-        const wasLive = prettyField.classList.contains('is-armed') || prettyField.classList.contains('is-leaving');
-        prettyField.classList.toggle('is-armed', armed);
-        prettyField.classList.toggle('is-leaving', !armed && wasLive);
-        if (!armed && wasLive) {
+        const wasLive = constellationVisualActive || prettyField.classList.contains('is-leaving');
+        prettyField.classList.toggle('is-armed', nextVisualActive);
+        prettyField.classList.toggle('is-secret', constellationModeActive);
+        prettyField.classList.toggle('is-leaving', !nextVisualActive && wasLive);
+        if (!nextVisualActive && wasLive) {
           prettyFieldExitTimer = setTimeout(function() {
             prettyField.classList.remove('is-leaving');
             prettyFieldExitTimer = null;
           }, 5900);
         }
       }
-      prettyConstellation.setActive(armed);
+      if (nextVisualActive !== constellationVisualActive) {
+        constellationVisualActive = nextVisualActive;
+        prettyConstellation.setActive(nextVisualActive);
+      }
     }
+
+    function setConstellationModeActive(active) {
+      constellationModeActive = !!active;
+      document.documentElement.classList.toggle('is-constellation-mode', constellationModeActive);
+      setConstellationModeUI(constellationModeActive);
+      syncConstellationVisual();
+    }
+
+    function toggleConstellationMode() {
+      setConstellationModeActive(!constellationModeActive);
+    }
+
+    window.toggleConstellationMode = toggleConstellationMode;
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && constellationModeActive) {
+        setConstellationModeActive(false);
+      }
+    });
 
     function setPrettyVisible(visible) {
       if (!prettyBtn) return;
