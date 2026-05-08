@@ -2593,7 +2593,7 @@ body {
   left: clamp(1.75rem, 4.4vw, 4rem);
   z-index: 2;
   display: block;
-  width: min(22rem, calc(50vw - 5rem));
+  width: min(32rem, calc(58vw - 5rem));
   margin: 0;
   opacity: 0;
   visibility: hidden;
@@ -2631,12 +2631,10 @@ body {
   transition-delay: 0s;
 }
 
-.pretty-star-label-arneb { left: 15.4%; top: 29%; }
-.pretty-star-label-nihal { left: 29.2%; top: 25%; }
-.pretty-star-label-gamma { left: 42.2%; top: 34%; }
-.pretty-star-label-delta { left: 77.5%; top: 31%; }
-.pretty-star-label-epsilon { left: 58.2%; top: 7.8%; }
-.pretty-star-label-mu { left: 72%; top: 5.4%; }
+.pretty-star-label-bootes { left: 18%; top: 44%; }
+.pretty-star-label-rho { left: 47%; top: 47%; }
+.pretty-star-label-arcturus { left: 52%; top: 66%; }
+.pretty-star-label-eta { left: 62%; top: 61%; }
 
 .page,
 .site-colophon {
@@ -2731,8 +2729,8 @@ body {
 
   .pretty-constellation-note {
     top: 6.4rem;
-    left: clamp(5.9rem, 13vw, 7.25rem);
-    width: min(22rem, calc(100vw - 9rem));
+    left: clamp(4.8rem, 11vw, 7.25rem);
+    width: min(27rem, calc(100vw - 7.6rem));
     font-size: 0.62rem;
     line-height: 1.45;
   }
