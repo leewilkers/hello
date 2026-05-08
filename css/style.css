@@ -3775,14 +3775,37 @@ body {
   --consulting-gap: clamp(1.1rem, 2.8vw, 2.2rem);
   --consulting-note-color: color-mix(in srgb, var(--section-label) 76%, var(--ink));
   --consulting-rule: color-mix(in srgb, var(--section-label) 34%, transparent);
+  --consulting-motif-ink: color-mix(in srgb, var(--trail-ink) 72%, var(--ink-muted));
+  --consulting-motif-opacity: 0.15;
   --home-accent: var(--accent);
+  overflow-x: clip;
+  isolation: isolate;
 }
 
 [data-theme="dark"] .page-consulting {
   --home-accent: var(--accent);
+  --consulting-motif-opacity: 0.1;
+}
+
+.page-consulting::before {
+  content: "";
+  position: fixed;
+  right: clamp(-8.5rem, -8vw, -3.25rem);
+  bottom: clamp(-6.5rem, -8vh, -2.4rem);
+  z-index: 0;
+  width: min(42rem, 48vw);
+  aspect-ratio: 1342 / 1030;
+  background: var(--consulting-motif-ink);
+  opacity: var(--consulting-motif-opacity);
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center bottom / contain no-repeat;
+  mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center bottom / contain no-repeat;
 }
 
 .consulting-field-note {
+  position: relative;
+  z-index: 1;
   max-width: calc(var(--consulting-label-measure) + var(--consulting-gap) + var(--consulting-main-measure));
   margin: 0 auto;
   padding: 1.75rem 1.35rem 3.6rem;
@@ -3986,6 +4009,21 @@ body {
 }
 
 @media (max-width: 700px) {
+  .page-consulting {
+    --consulting-motif-opacity: 0.11;
+  }
+
+  [data-theme="dark"] .page-consulting {
+    --consulting-motif-opacity: 0.085;
+  }
+
+  .page-consulting::before {
+    right: -13.5rem;
+    bottom: -3.6rem;
+    width: 34rem;
+    max-width: 138vw;
+  }
+
   .consulting-field-note {
     padding: 1.55rem 1.28rem 3rem;
   }
