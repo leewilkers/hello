@@ -350,6 +350,13 @@ img { display: block; }
   gap: 1.25rem;
 }
 
+.nav-control-cluster {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.28rem;
+}
+
 .nav-links {
   display: flex;
   gap: 1.25rem;
@@ -2527,9 +2534,48 @@ body {
   cursor: pointer;
 }
 
+.nav-control-cluster .loop-tally,
+.nav-control-cluster .pretty-loop,
+.nav-control-cluster .constellation-mode-toggle {
+  margin-left: 0;
+}
+
 .pretty-loop[hidden],
-.pretty-loop.is-hidden {
+.pretty-loop.is-hidden,
+.pretty-delay-control[hidden],
+.pretty-delay-control.is-hidden {
   display: none !important;
+}
+
+.pretty-delay-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+  margin-left: 0.12rem;
+  color: color-mix(in srgb, var(--ink) 44%, transparent);
+  opacity: 0.78;
+}
+
+.pretty-delay-end {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pretty-delay-slider {
+  width: clamp(4.9rem, 7vw, 6.8rem);
+  height: 1rem;
+  margin: 0;
+  accent-color: var(--accent-text);
+  cursor: ew-resize;
+}
+
+.pretty-delay-slider:focus-visible {
+  outline: 1px dotted color-mix(in srgb, var(--accent-text) 48%, transparent);
+  outline-offset: 0.2rem;
 }
 
 .pretty-constellation-field {
@@ -2556,6 +2602,35 @@ body {
   visibility: visible;
   transform: translate3d(-50%, 0, 0) scale(1);
   transition-delay: 0s;
+}
+
+.pretty-constellation-field.is-twinkling .pretty-constellation-canvas {
+  animation: constellation-cycle-twinkle 940ms ease both;
+}
+
+.pretty-constellation-field.is-twinkling .pretty-star-label {
+  opacity: 0.06;
+}
+
+@keyframes constellation-cycle-twinkle {
+  0% {
+    opacity: 1;
+    filter:
+      blur(0.08px)
+      drop-shadow(0 0 0.72rem color-mix(in srgb, var(--accent-text) 18%, transparent));
+  }
+  44% {
+    opacity: 0.18;
+    filter:
+      blur(0.18px)
+      drop-shadow(0 0 1.1rem color-mix(in srgb, var(--accent-text) 28%, transparent));
+  }
+  100% {
+    opacity: 1;
+    filter:
+      blur(0.08px)
+      drop-shadow(0 0 0.72rem color-mix(in srgb, var(--accent-text) 18%, transparent));
+  }
 }
 
 .pretty-constellation-field .pretty-constellation-canvas {
@@ -2615,6 +2690,10 @@ body {
   transition:
     opacity 900ms ease,
     visibility 0s linear 0s;
+}
+
+.pretty-constellation-note[hidden] {
+  display: none !important;
 }
 
 .pretty-constellation-note:visited,
@@ -2722,6 +2801,7 @@ body {
   .loop-tally,
   .pretty-loop,
   .constellation-mode-toggle,
+  .pretty-delay-control,
   .pretty-constellation-field,
   .pretty-constellation-note,
   .loop-tally-mark,
@@ -2776,17 +2856,12 @@ body {
 }
 
 :root.is-constellation-mode .site-nav {
-  pointer-events: none;
-  border-bottom-color: transparent;
-  background: transparent;
-  backdrop-filter: none;
+  position: relative;
+  z-index: 70;
+  border-bottom-color: color-mix(in srgb, #cecdc3 13%, transparent);
+  background: color-mix(in srgb, #100f0f 72%, transparent);
 }
 
-:root.is-constellation-mode .nav-name,
-:root.is-constellation-mode .nav-links,
-:root.is-constellation-mode .dimmer,
-:root.is-constellation-mode .loop-tally,
-:root.is-constellation-mode .pretty-loop,
 :root.is-constellation-mode .page,
 :root.is-constellation-mode .site-colophon,
 :root.is-constellation-mode .cat-switch-frame {
@@ -2795,11 +2870,26 @@ body {
   pointer-events: none;
 }
 
+:root.is-constellation-mode .nav-name,
+:root.is-constellation-mode .nav-links a,
+:root.is-constellation-mode .dimmer,
+:root.is-constellation-mode .pretty-loop,
+:root.is-constellation-mode .constellation-mode-toggle,
+:root.is-constellation-mode .pretty-delay-control {
+  color: color-mix(in srgb, #cecdc3 82%, transparent);
+}
+
+:root.is-constellation-mode .nav-name:hover,
+:root.is-constellation-mode .nav-links a:hover,
+:root.is-constellation-mode .nav-links a.active,
+:root.is-constellation-mode .pretty-loop:hover,
+:root.is-constellation-mode .pretty-loop:focus-visible,
+:root.is-constellation-mode .constellation-mode-toggle:hover,
+:root.is-constellation-mode .constellation-mode-toggle:focus-visible {
+  color: #fffcf0;
+}
+
 :root.is-constellation-mode .constellation-mode-toggle {
-  position: fixed;
-  top: clamp(0.82rem, 2.2vw, 1.2rem);
-  right: clamp(1rem, 2.4vw, 2.3rem);
-  z-index: 70;
   width: 1.55rem;
   height: 1.5rem;
   visibility: visible;
@@ -2807,22 +2897,18 @@ body {
   color: color-mix(in srgb, #cecdc3 78%, transparent);
 }
 
-:root.is-constellation-mode .constellation-mode-toggle:hover,
-:root.is-constellation-mode .constellation-mode-toggle:focus-visible {
-  color: #fffcf0;
-}
-
+:root.is-constellation-mode .pretty-loop .pretty-loop-mark,
 :root.is-constellation-mode .constellation-mode-toggle .constellation-mode-mark {
   border-bottom-color: color-mix(in srgb, #3aa99f 52%, transparent);
 }
 
 :root.is-constellation-mode .pretty-constellation-field {
-  top: 50%;
+  top: calc(50% + 1.1rem);
   z-index: 1;
-  width: clamp(44rem, 86vw, 98rem);
-  opacity: 1;
   display: block;
-  transform: translate3d(-50%, -48%, 0) scale(1.04);
+  width: clamp(39rem, 78vw, 88rem);
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1);
 }
 
 :root.is-constellation-mode .pretty-constellation-field .pretty-constellation-canvas {
@@ -2849,38 +2935,30 @@ body {
   z-index: 3;
   display: block;
   width: min(39rem, calc(100vw - 2.8rem));
-  color: color-mix(in srgb, #f6a19a 44%, #cecdc3);
-  text-shadow: 0 0 0.9rem color-mix(in srgb, #d14d41 16%, transparent);
+  color: color-mix(in srgb, #f6a19a 58%, #cecdc3);
+  text-shadow: 0 0 0.9rem color-mix(in srgb, #d14d41 22%, transparent);
 }
 
 :root.is-constellation-mode .pretty-constellation-note:visited,
 :root.is-constellation-mode .pretty-constellation-note:hover,
 :root.is-constellation-mode .pretty-constellation-note:focus {
-  color: color-mix(in srgb, #f6a19a 44%, #cecdc3);
+  color: color-mix(in srgb, #f6a19a 58%, #cecdc3);
 }
 
 :root.is-constellation-mode .pretty-constellation-field.is-armed + .pretty-constellation-note,
 :root.is-constellation-mode .pretty-constellation-field.is-leaving + .pretty-constellation-note {
-  opacity: 0.58;
+  opacity: 0.76;
 }
 
 @media (max-width: 620px) {
-  :root.is-constellation-mode .site-nav {
-    display: block;
-    min-height: 0;
-    padding: 0;
-  }
-
   :root.is-constellation-mode .constellation-mode-toggle {
     display: inline-flex;
-    top: 0.8rem;
-    right: 0.82rem;
     margin-left: 0;
   }
 
   :root.is-constellation-mode .pretty-constellation-field {
-    top: 43%;
-    width: 138vw;
+    top: 50%;
+    width: calc(100vw - 2rem);
     transform: translate3d(-50%, -50%, 0) scale(1);
   }
 
@@ -6221,6 +6299,12 @@ a.shelf-list-title:hover {
     gap: 0.55rem;
   }
 
+  .nav-control-cluster {
+    justify-self: end;
+    gap: 0.22rem;
+    min-width: 0;
+  }
+
   .nav-links {
     flex-wrap: nowrap;
     justify-content: flex-start;
@@ -6260,6 +6344,24 @@ a.shelf-list-title:hover {
   .pretty-loop {
     display: inline-flex;
     margin-left: 0;
+  }
+
+  .constellation-mode-toggle {
+    display: inline-flex;
+    margin-left: 0;
+  }
+
+  .pretty-delay-control {
+    gap: 0.2rem;
+    margin-left: 0.08rem;
+  }
+
+  .pretty-delay-end {
+    font-size: 0.48rem;
+  }
+
+  .pretty-delay-slider {
+    width: 4.2rem;
   }
 
   .nav-links > *::after {

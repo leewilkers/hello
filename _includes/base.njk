@@ -106,18 +106,25 @@
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
       <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
     </div>
-    <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-    <button class="pretty-loop" aria-label="Start pretty progression walk" title="Start pretty progression walk" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
-    <button class="constellation-mode-toggle" aria-label="Enter constellation mode" title="Enter constellation mode" aria-pressed="false" onclick="toggleConstellationMode()"><span class="constellation-mode-mark" aria-hidden="true">~</span></button>
+    <div class="nav-control-cluster" aria-label="Site controls">
+      <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
+      <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
+      <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">~</span></button>
+      <label class="pretty-delay-control" hidden>
+        <span class="pretty-delay-end" aria-hidden="true">dry</span>
+        <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Wet dry delay mix" data-pretty-delay-mix>
+        <span class="pretty-delay-end" aria-hidden="true">wet</span>
+      </label>
+    </div>
   </div>
 </nav>
 
 <div class="pretty-constellation-field" aria-hidden="true">
   <canvas class="pretty-constellation-canvas" width="136" height="60" data-pretty-constellation></canvas>
-  <span class="pretty-star-label pretty-star-label-bootes" data-pretty-label="bootes">Boötes</span>
-  <span class="pretty-star-label pretty-star-label-rho" data-pretty-label="rho">Rho</span>
-  <span class="pretty-star-label pretty-star-label-arcturus" data-pretty-label="arcturus">Arcturus</span>
-  <span class="pretty-star-label pretty-star-label-eta" data-pretty-label="eta">Eta</span>
+  <span class="pretty-star-label pretty-star-label-name" data-pretty-label="name">Boötes</span>
+  <span class="pretty-star-label pretty-star-label-one" data-pretty-label="one">Rho</span>
+  <span class="pretty-star-label pretty-star-label-two" data-pretty-label="two">Arcturus</span>
+  <span class="pretty-star-label pretty-star-label-three" data-pretty-label="three">Eta</span>
 </div>
 <a class="pretty-constellation-note" data-pretty-note href="https://en.wikipedia.org/wiki/Arcturus#Cultural_significance" target="_blank" rel="noopener noreferrer">Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</a>
 
@@ -157,8 +164,10 @@
     const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
-    const prettyBtn = document.querySelector('.pretty-loop');
-    const constellationModeBtn = document.querySelector('.constellation-mode-toggle');
+    const rabbitModeBtn = document.querySelector('.pretty-loop');
+    const waveModeBtn = document.querySelector('.constellation-mode-toggle');
+    const prettyDelayMixControl = document.querySelector('.pretty-delay-control');
+    const prettyDelayMixInput = document.querySelector('[data-pretty-delay-mix]');
     const prettyField = document.querySelector('.pretty-constellation-field');
     const prettyCanvas = document.querySelector('[data-pretty-constellation]');
     const constellationLabelNodes = document.querySelectorAll('[data-pretty-label]');
@@ -310,10 +319,10 @@
       bootes: {
         id: 'bootes',
         labels: {
-          bootes: { text: 'Boötes', x: 16, y: 48 },
-          rho: { text: 'Rho', pointIndex: 3, dx: 4.2, dy: -5 },
-          arcturus: { text: 'Arcturus', pointIndex: 4, dx: -13.4, dy: -4.6 },
-          eta: { text: 'Eta', pointIndex: 5, dx: 4.4, dy: -5.8 }
+          name: { text: 'Boötes', x: 16, y: 48 },
+          one: { text: 'Rho', pointIndex: 3, dx: 4.2, dy: -5 },
+          two: { text: 'Arcturus', pointIndex: 4, dx: -13.4, dy: -4.6 },
+          three: { text: 'Eta', pointIndex: 5, dx: 4.4, dy: -5.8 }
         },
         note: {
           href: 'https://en.wikipedia.org/wiki/Arcturus#Cultural_significance',
@@ -334,9 +343,39 @@
         pointColor: '#fffcf0',
         highlightColor: '#f6a19a',
         highlightSparkColor: '#d14d41'
+      },
+      lepus: {
+        id: 'lepus',
+        labels: {
+          name: { text: 'Lepus', x: 13.2, y: 49 },
+          one: { text: 'Arneb', pointIndex: 3, dx: -12.6, dy: -5.6 },
+          two: { text: 'Nihal', pointIndex: 4, dx: 3.8, dy: -5.6 },
+          three: { text: 'Mu', pointIndex: 1, dx: -6.4, dy: -6.2 }
+        },
+        note: null,
+        points: [
+          [8, 13.3], [15, 11.2], [23, 12.1], [32, 16.2], [45, 13.3],
+          [43, 9], [49, 8.3], [51, 21.7], [35, 19.8], [24.5, 22.9], [19, 20.5]
+        ],
+        highlightIndex: 3,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [4, 6], [4, 7], [3, 8], [8, 7], [8, 9], [9, 10], [10, 3], [10, 0]],
+        stars: [
+          [5, 6, 0.3], [13, 18, 1.9], [25, 6, 2.2], [38, 9, 1.2], [55, 13, 0.7],
+          [47, 27, 2.8], [9, 25, 1.5], [31, 24, 2.4], [52, 5, 1.1]
+        ],
+        lineColor: '#3aa99f',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
       }
     };
-    const activeConstellation = CONSTELLATIONS.bootes;
+    const CONSTELLATION_CYCLE = ['bootes', 'lepus'];
+    const CONSTELLATION_CYCLE_MS = 20000;
+    let activeConstellation = CONSTELLATIONS.bootes;
+    let constellationCycleIndex = 0;
+    let constellationCycleTimer = null;
+    let constellationSwitchTimer = null;
 
     function renderConstellationMeta(constellation) {
       if (!constellation) return;
@@ -359,9 +398,14 @@
           if (typeof y === 'number') labelNode.style.top = Math.max(0, Math.min(96, y)) + '%';
         }
       });
-      if (constellationNote && constellation.note) {
-        constellationNote.href = constellation.note.href;
-        constellationNote.textContent = constellation.note.text;
+      if (prettyField) prettyField.dataset.constellation = constellation.id;
+      if (constellationNote) {
+        const hasNote = !!constellation.note;
+        constellationNote.hidden = !hasNote;
+        if (hasNote) {
+          constellationNote.href = constellation.note.href;
+          constellationNote.textContent = constellation.note.text;
+        }
       }
     }
 
@@ -369,19 +413,19 @@
 
     function createPrettyConstellation(canvas, constellation) {
       if (!canvas || !canvas.getContext) {
-        return { setActive: function(){}, setVisible: function(){}, redraw: function(){} };
+        return { setActive: function(){}, setVisible: function(){}, setConstellation: function(){}, redraw: function(){} };
       }
 
       const ctx = canvas.getContext('2d');
-      const points = constellation.points;
-      const highlightIndex = constellation.highlightIndex;
-      const edges = constellation.edges;
-      const stars = constellation.stars;
-      const lineColor = constellation.lineColor;
-      const starColor = constellation.starColor;
-      const pointColor = constellation.pointColor;
-      const highlightColor = constellation.highlightColor;
-      const highlightSparkColor = constellation.highlightSparkColor;
+      let points = constellation.points;
+      let highlightIndex = constellation.highlightIndex;
+      let edges = constellation.edges;
+      let stars = constellation.stars;
+      let lineColor = constellation.lineColor;
+      let starColor = constellation.starColor;
+      let pointColor = constellation.pointColor;
+      let highlightColor = constellation.highlightColor;
+      let highlightSparkColor = constellation.highlightSparkColor;
       let active = false;
       let exiting = false;
       let visible = true;
@@ -523,11 +567,73 @@
           canvas.classList.toggle('is-hidden', !visible);
           if (visible) run();
         },
+        setConstellation: function(nextConstellation) {
+          if (!nextConstellation) return;
+          points = nextConstellation.points;
+          highlightIndex = nextConstellation.highlightIndex;
+          edges = nextConstellation.edges;
+          stars = nextConstellation.stars;
+          lineColor = nextConstellation.lineColor;
+          starColor = nextConstellation.starColor;
+          pointColor = nextConstellation.pointColor;
+          highlightColor = nextConstellation.highlightColor;
+          highlightSparkColor = nextConstellation.highlightSparkColor;
+          modeStart = performance.now();
+          run();
+        },
         redraw: run
       };
     }
 
     const prettyConstellation = createPrettyConstellation(prettyCanvas, activeConstellation);
+
+    function setActiveConstellation(id, twinkle) {
+      const nextConstellation = CONSTELLATIONS[id];
+      if (!nextConstellation || nextConstellation.id === activeConstellation.id) return;
+      function commitSwitch() {
+        activeConstellation = nextConstellation;
+        renderConstellationMeta(activeConstellation);
+        prettyConstellation.setConstellation(activeConstellation);
+      }
+      if (constellationSwitchTimer) {
+        clearTimeout(constellationSwitchTimer);
+        constellationSwitchTimer = null;
+      }
+      if (twinkle && prettyField && !reduced) {
+        prettyField.classList.add('is-twinkling');
+        constellationSwitchTimer = setTimeout(function() {
+          constellationSwitchTimer = null;
+          commitSwitch();
+          setTimeout(function() {
+            if (prettyField) prettyField.classList.remove('is-twinkling');
+          }, 520);
+        }, 420);
+      } else {
+        commitSwitch();
+      }
+    }
+
+    function advanceConstellationCycle() {
+      constellationCycleIndex = (constellationCycleIndex + 1) % CONSTELLATION_CYCLE.length;
+      setActiveConstellation(CONSTELLATION_CYCLE[constellationCycleIndex], true);
+    }
+
+    function startConstellationCycle() {
+      if (constellationCycleTimer || CONSTELLATION_CYCLE.length < 2) return;
+      constellationCycleTimer = setInterval(advanceConstellationCycle, CONSTELLATION_CYCLE_MS);
+    }
+
+    function stopConstellationCycle() {
+      if (constellationCycleTimer) {
+        clearInterval(constellationCycleTimer);
+        constellationCycleTimer = null;
+      }
+      if (constellationSwitchTimer) {
+        clearTimeout(constellationSwitchTimer);
+        constellationSwitchTimer = null;
+      }
+      if (prettyField) prettyField.classList.remove('is-twinkling');
+    }
 
     // B-flat major 7 color across four tones: Bb4, D5, F5, A5.
     const PIANO = {
@@ -564,6 +670,33 @@
     const PRETTY_MASTER_GAIN = 1.18;
     const PRETTY_NOTE_LEVEL = 0.046;
     const PRETTY_LOW_LEVEL = 0.032;
+    const PRETTY_DELAY_MIX_DEFAULT = 0.72;
+    let prettyDelayMix = PRETTY_DELAY_MIX_DEFAULT;
+
+    function clamp01(value) {
+      return Math.max(0, Math.min(1, value));
+    }
+
+    function syncPrettyDelayMixInput() {
+      if (!prettyDelayMixInput) return;
+      prettyDelayMixInput.value = Math.round(prettyDelayMix * 100);
+      prettyDelayMixInput.style.setProperty('--delay-mix', prettyDelayMix);
+    }
+
+    function getPrettyDelayProfileValues(age) {
+      const mix = prettyDelayMix;
+      return {
+        feedback: Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * age)),
+        wet: Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * age)),
+        wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * age))
+      };
+    }
+
+    function setPrettyDelayMix(value, when) {
+      prettyDelayMix = clamp01(Number.isFinite(value) ? value : PRETTY_DELAY_MIX_DEFAULT);
+      syncPrettyDelayMixInput();
+      if (audioCtx && audioCtx._prettyDelayControls) setPrettyDelayProfile(audioCtx, when);
+    }
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
     // before first reflections (the note speaks, THEN the room blooms), and
@@ -650,14 +783,15 @@
       filter.type = 'lowpass';
       filter.frequency.value = 820;
       filter.Q.value = 0.22;
-      feedback.gain.value = 0.82;
-      wet.gain.value = 0.48;
+      const initialDelayProfile = getPrettyDelayProfileValues(0);
+      feedback.gain.value = initialDelayProfile.feedback;
+      wet.gain.value = initialDelayProfile.wet;
       limiter.threshold.value = -16;
       limiter.knee.value = 4;
       limiter.ratio.value = 16;
       limiter.attack.value = 0.004;
       limiter.release.value = 0.34;
-      wetCeiling.gain.value = 0.52;
+      wetCeiling.gain.value = initialDelayProfile.wetCeiling;
 
       delay.connect(filter);
       filter.connect(feedback);
@@ -680,12 +814,13 @@
       const age = getPrettyDelayAge(ctx, when);
       const controls = ctx._prettyDelayControls;
       const t = when !== undefined ? when : ctx.currentTime;
+      const profile = getPrettyDelayProfileValues(age);
       controls.feedback.gain.cancelScheduledValues(t);
       controls.wet.gain.cancelScheduledValues(t);
       controls.wetCeiling.gain.cancelScheduledValues(t);
-      controls.feedback.gain.linearRampToValueAtTime(0.82 - (0.17 * age), t + 0.25);
-      controls.wet.gain.linearRampToValueAtTime(0.52 - (0.16 * age), t + 0.25);
-      controls.wetCeiling.gain.linearRampToValueAtTime(0.58 - (0.14 * age), t + 0.25);
+      controls.feedback.gain.linearRampToValueAtTime(profile.feedback, t + 0.25);
+      controls.wet.gain.linearRampToValueAtTime(profile.wet, t + 0.25);
+      controls.wetCeiling.gain.linearRampToValueAtTime(profile.wetCeiling, t + 0.25);
     }
 
     function killPrettyAudio() {
@@ -768,7 +903,8 @@
         const delaySend = ctx.createGain();
         const delayAge = getPrettyDelayAge(ctx, t);
         const delaySendScale = 1 - (0.24 * delayAge);
-        delaySend.gain.value = (freq >= 650 ? 0.72 : 0.38) * delaySendScale;
+        const delayMixScale = 0.62 + (0.72 * prettyDelayMix);
+        delaySend.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
         panner.connect(delaySend).connect(delayBus);
       }
 
@@ -886,7 +1022,7 @@
       const ctx = ensureAudio();
       if (!ctx || Math.random() > 0.38) return;
       const delay = getPrettyDelay(ctx);
-      const echoScale = scale === undefined ? 1 : scale;
+      const echoScale = (scale === undefined ? 1 : scale) * (0.72 + (0.55 * prettyDelayMix));
       const offset = 0.72 + (Math.random() * 0.46);
       const note = notes[Math.floor(Math.random() * notes.length)];
       playNoteName(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
@@ -1051,26 +1187,33 @@
     }
 
     function setPrettyUI(armed) {
-      if (!prettyBtn) return;
-      const action = armed ? 'Stop pretty progression walk' : 'Start pretty progression walk';
-      prettyBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
-      prettyBtn.setAttribute('aria-label', action);
-      prettyBtn.setAttribute('title', action);
-      prettyBtn.classList.toggle('is-armed', armed);
+      if (!waveModeBtn) return;
+      const action = armed ? 'Stop wave mode' : 'Start wave mode';
+      waveModeBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
+      waveModeBtn.setAttribute('aria-label', action);
+      waveModeBtn.setAttribute('title', action);
+      waveModeBtn.classList.toggle('is-armed', armed);
+      document.documentElement.classList.toggle('is-wave-mode', armed);
+      if (prettyDelayMixControl) {
+        prettyDelayMixControl.hidden = !armed;
+        prettyDelayMixControl.classList.toggle('is-active', armed);
+      }
       syncConstellationVisual();
     }
 
     function setConstellationModeUI(active) {
-      if (!constellationModeBtn) return;
-      const action = active ? 'Exit constellation mode' : 'Enter constellation mode';
-      constellationModeBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
-      constellationModeBtn.setAttribute('aria-label', action);
-      constellationModeBtn.setAttribute('title', action);
-      constellationModeBtn.classList.toggle('is-armed', active);
+      if (!rabbitModeBtn) return;
+      const action = active ? 'Exit rabbit mode' : 'Enter rabbit mode';
+      rabbitModeBtn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      rabbitModeBtn.setAttribute('aria-label', action);
+      rabbitModeBtn.setAttribute('title', action);
+      rabbitModeBtn.classList.toggle('is-armed', active);
     }
 
     function syncConstellationVisual() {
       const nextVisualActive = prettyArmed || constellationModeActive;
+      if (nextVisualActive) startConstellationCycle();
+      else stopConstellationCycle();
       if (prettyField) {
         if (prettyFieldExitTimer) {
           clearTimeout(prettyFieldExitTimer);
@@ -1113,10 +1256,10 @@
     });
 
     function setPrettyVisible(visible) {
-      if (!prettyBtn) return;
-      prettyBtn.hidden = false;
-      prettyBtn.disabled = false;
-      prettyBtn.classList.remove('is-hidden');
+      if (!waveModeBtn) return;
+      waveModeBtn.hidden = false;
+      waveModeBtn.disabled = false;
+      waveModeBtn.classList.remove('is-hidden');
       if (prettyField) prettyField.classList.remove('is-hidden');
       prettyConstellation.setVisible(true);
     }
@@ -1173,7 +1316,7 @@
     }
 
     function togglePrettyLoop() {
-      if (!prettyBtn || prettyBtn.hidden) return;
+      if (!waveModeBtn || waveModeBtn.hidden) return;
       prettyArmed = !prettyArmed;
       if (prettyArmed) {
         const ctx = ensureAudio();
@@ -1193,6 +1336,13 @@
     }
 
     window.togglePrettyLoop = togglePrettyLoop;
+
+    syncPrettyDelayMixInput();
+    if (prettyDelayMixInput) {
+      prettyDelayMixInput.addEventListener('input', function() {
+        setPrettyDelayMix(Number(prettyDelayMixInput.value) / 100);
+      });
+    }
 
     function toggleLoop() {
       loopArmed = !loopArmed;
