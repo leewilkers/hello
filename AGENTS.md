@@ -2,9 +2,10 @@
 
 ## Project
 
-- Site repo: `/Users/leewilkers/vaults/claude_hub/Projects/personal_website`
+- Active site worktree: `/Users/leewilkers/vaults/claude_hub/worktrees/personal_website_active`
+- Original checkout: `/Users/leewilkers/vaults/claude_hub/Projects/personal_website` is archive/reference only until explicitly reconciled.
 - Live site: `https://leewilkers.com`
-- Local dev URL usually: `http://localhost:8125/`
+- Stable local preview URL: `http://127.0.0.1:8125/?v=local-watch`
 - Stack: Eleventy static site, hand-written Nunjucks/CSS/JS, GitHub Actions deploy.
 
 ## Read First
@@ -12,14 +13,26 @@
 1. `/Users/leewilkers/vaults/claude_hub/AGENTS.md`
 2. `/Users/leewilkers/vaults/claude_hub/CODEX_CONTEXT.md`
 3. `/Users/leewilkers/vaults/claude_hub/00_SYSTEM/AGENT_MEMORY/ACTIVE_AGENT_LOCK.md`
-4. Latest relevant handoff in `/Users/leewilkers/vaults/claude_hub/00_SYSTEM/AGENT_MEMORY/`
+4. `/Users/leewilkers/vaults/claude_hub/00_SYSTEM/AGENT_MEMORY/PERSONAL_WEBSITE_LANES.md`
+5. Latest relevant handoff in `/Users/leewilkers/vaults/claude_hub/00_SYSTEM/AGENT_MEMORY/`
 
 ## Working Rules
 
-- Claim `ACTIVE_AGENT_LOCK.md` before mutating files.
+- For personal website work, use `PERSONAL_WEBSITE_LANES.md` for ordinary parallel coordination. Use `ACTIVE_AGENT_LOCK.md` for broad destructive operations, commits, pushes, deploys, branch changes, or truly overlapping edits.
+- Before editing personal-site files, run `python3 /Users/leewilkers/vaults/claude_hub/00_SYSTEM/scripts/personal_website_lane.py status`, then `check` or `claim` the exact lane/files/selectors. Prefer the helper output over guessing from prose.
+- Default to the active worktree for personal-site edits. Do not edit, stage, pull, or rebase from the original dirty checkout unless the task is explicitly a reconciliation pass.
+- For overlapping UI/design/audio work touching `_includes/base.njk`, `css/style.css`, or shared nav/mode/audio controls, claim exact selectors/functions/sections in `PERSONAL_WEBSITE_LANES.md`. Do not treat the entire file as blocked when ownership is disjoint.
+- Keep the local preview URL stable at `http://127.0.0.1:8125/?v=local-watch`; rebuild or restart the server behind that URL as needed.
+- Desktop is the primary visual QA target unless Lee says otherwise; mobile is a regression check.
 - Do not push unless Lee explicitly asks.
 - Preserve existing visible copy unless Lee explicitly asks for copy changes.
 - Prefer Lee's exact phrases over generated consulting/positioning prose.
+- Current copy and UI anchors to preserve unless Lee explicitly changes them:
+  - Homepage lede: `Hi, I’m Lee. I’m an independent consultant. I’m interested in tools and how we use them.`
+  - Homepage recent-work label: `Most recent gigs`
+  - Consulting page version: `Open for Business`
+  - Consulting page keeps a right sidenote rail and no background art motif.
+  - Header control sequence: default `~`; wave reveals rabbit to its right; rabbit reveals the `signal/noise` slider.
 - For personal-site copy, treat Lee's use of `hospitality` as the broader ethic of care, welcome, attention, and making people feel held; do not reduce it to food service or restaurants unless Lee explicitly says so.
 - Do not turn Stream on in primary nav unless Lee explicitly asks. If Lee says Consulting or Stream should be "semi-live," that means real clickable nav/homepage links that still look visually dead/in-progress, pointing to the full dust-placeholder treatment. Do not use dead spans or a plain text stub; use the complete placeholder component with the large kaomoji and its light/dark effect.
 - Do not bulk-retopic shelf/stream items or normalize taxonomy without a review report first.
@@ -34,6 +47,21 @@
 - Keep the public Shelf separate from internal curation tooling. The live/public `/shelf/` page must not expose review controls, compact-list controls, Stream/Removed review buckets, drag-topic controls, curation export buttons, or browser-storage curation scripts. Any curation UI must be explicitly gated, for example by `shelfCuration: true` or a separate local/admin template, never included by default in `shelf.njk`.
 - Local Shelf/admin tools should still look like Lee's site, not a generic dashboard: use the site's ink/paper/Flexoki palette, serif/mono hierarchy, quiet rules, and restrained controls, with the interactive/admin layer clearly visible. Do not treat a user-provided cover/source image as a design reference unless Lee explicitly says it is one.
 - Before pushing Shelf changes live, scan generated `_site/shelf/index.html` and the cache-busted live page for internal markers such as `shelf-review`, `shelf-card-controls`, `shelf-list-row`, `data-shelf-action`, `data-shelf-dest`, `data-shelf-arm-topic`, `data-curation-dest`, `copy curation`, `new topic`, `Stream</h2>`, `Removed</h2>`, and `Shelf curation controls`.
+
+## Parallel Revision Workflow
+
+- Before starting a new personal-site thread, read this file, `ACTIVE_AGENT_LOCK.md`, and `PERSONAL_WEBSITE_LANES.md`, then state the intended lane and exact files/selectors/functions.
+- Multiple writers may edit a shared file only when their owned selectors/functions/sections are disjoint. Treat `_includes/base.njk`, `css/style.css`, and shared nav/audio/constellation controls as high-conflict, but not automatically whole-file locked.
+- If a task must touch a high-conflict file, take narrow ownership in `PERSONAL_WEBSITE_LANES.md`, for example `css/style.css: homepage lede rules only`, and do not edit unrelated sections in that file.
+- Safe parallel lanes:
+  - Homepage copy/layout: `_includes/home-page.njk` plus homepage-only CSS selectors.
+  - Consulting copy/layout: `consulting.njk` plus consulting-only CSS selectors.
+  - Header/audio/constellation controls: `_includes/base.njk` plus control/audio/constellation CSS only.
+  - Shelf/content: `content/items/**`, `img/covers/**`, shelf templates, and shelf-only CSS.
+- Do not start broad visual cleanup, global CSS cleanup, or base-template cleanup while another active lane owns overlapping shared files.
+- Only one lane should own the stable preview URL at a time. Other lanes should use a separate worktree/preview or say they are not visible in the stable preview yet.
+- Do not stage, commit, push, pull, rebase, or switch branches unless Lee explicitly asks in that thread.
+- When a thread finishes, update `PERSONAL_WEBSITE_LANES.md` with changed files, preview URL, and verification. Clear or mark the lane `done`.
 
 ## Design Direction
 
@@ -75,8 +103,9 @@
 - Do not reintroduce leaf/fleuron/dot/decorative marks before it unless Lee explicitly asks.
 - Placement is currently fixed lower right; preserve the eye open/close effect.
 
-## Audio / Cat Loop
+## Audio / Rabbit/Wave Controls
 
+- Cat mode/control has been removed. Do not reintroduce cat UI, cat state, cat-direction logic, or cat-labeled audio controls unless Lee explicitly asks for that.
 - Brown-noise/drone loop layer should remain removed.
 - Chromatic half-step note should remain removed unless Lee asks to revisit it.
 - Manual clicks should stay responsive; loop mode may have separate timing.

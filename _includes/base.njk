@@ -104,16 +104,16 @@
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/consulting/" {% if page.url == "/consulting/" %}class="active"{% endif %}>consulting</a>
       <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
-      <a href="/stream/" class="semi-live{% if page.url == "/stream/" %} active{% endif %}" title="in progress – pardon the dust">stream</a>
+      <a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-      <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
       <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">~</span></button>
+      <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
       <label class="pretty-delay-control" hidden>
-        <span class="pretty-delay-end" aria-hidden="true">dry</span>
-        <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Wet dry delay mix" data-pretty-delay-mix>
-        <span class="pretty-delay-end" aria-hidden="true">wet</span>
+        <span class="pretty-delay-end" aria-hidden="true">signal</span>
+        <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Signal noise delay mix" data-pretty-delay-mix>
+        <span class="pretty-delay-end" aria-hidden="true">noise</span>
       </label>
     </div>
   </div>
@@ -142,10 +142,53 @@
 
 </main>
 
+<div class="site-page-ornaments{% if pageClass %} {{ pageClass }}-ornaments{% endif %}">
+  <div class="site-dust-motif" aria-hidden="true">
+    <div class="dust-placeholder">
+      <div class="dust-placeholder-stage">
+        <p class="dust-placeholder-copy">pardon dust. workin on it</p>
+        <p class="dust-placeholder-kao">
+          <span class="kao kao--day">( ノ・_・)ノ</span>
+          <span class="kao kao--night">( ノ--_ --)ノ</span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="site-art-note">
+    <button class="site-art-note-toggle" type="button" aria-expanded="false" aria-controls="site-sawyer-original" data-art-note-toggle aria-label="Show original artwork">
+      <span class="site-art-note-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, vol. III, plate 278</span>
+      <span class="site-art-note-meta">Manner of sawing wood veneer lengthwise, Paris, 1769-1775</span>
+    </button>
+  </div>
+  <div class="site-sawyer-original" id="site-sawyer-original" aria-hidden="true"></div>
+  <div class="site-sawyer-motif" aria-hidden="true"></div>
+</div>
+
 <footer class="site-colophon" aria-label="Colophon">
   <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
   <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
 </footer>
+
+<script>
+  (function() {
+    const ornaments = document.querySelector('.site-page-ornaments');
+    const artNoteButton = document.querySelector('[data-art-note-toggle]');
+    if (!ornaments || !artNoteButton) return;
+
+    artNoteButton.addEventListener('click', function() {
+      const active = !ornaments.classList.contains('is-art-revealed');
+      ornaments.classList.toggle('is-art-revealed', active);
+      artNoteButton.setAttribute('aria-expanded', active ? 'true' : 'false');
+    });
+
+    artNoteButton.addEventListener('keydown', function(event) {
+      if (event.key !== 'Escape') return;
+      ornaments.classList.remove('is-art-revealed');
+      artNoteButton.setAttribute('aria-expanded', 'false');
+      artNoteButton.blur();
+    });
+  })();
+</script>
 
 <script>
   // theme toggle – plays the cat-hitting-light clip and flips theme at impact
@@ -352,7 +395,10 @@
           two: { text: 'Nihal', pointIndex: 4, dx: 3.8, dy: -5.6 },
           three: { text: 'Mu', pointIndex: 1, dx: -6.4, dy: -6.2 }
         },
-        note: null,
+        note: {
+          href: 'https://en.wikipedia.org/wiki/R_Leporis',
+          text: 'R Leporis, Hind’s Crimson Star, is a carbon star in Lepus near Eridanus; observers know it for its distinctly red color.'
+        },
         points: [
           [8, 13.3], [15, 11.2], [23, 12.1], [32, 16.2], [45, 13.3],
           [43, 9], [49, 8.3], [51, 21.7], [35, 19.8], [24.5, 22.9], [19, 20.5]
@@ -377,6 +423,30 @@
     let constellationCycleTimer = null;
     let constellationSwitchTimer = null;
 
+    function syncConstellationFieldSize() {
+      if (!prettyField) return;
+      if (!prettyArmed || constellationModeActive) {
+        prettyField.style.width = '';
+        return;
+      }
+
+      const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+      if (viewportWidth <= 620 || viewportHeight <= 0) {
+        prettyField.style.width = '';
+        return;
+      }
+
+      const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      const naturalWidth = viewportWidth <= 900
+        ? viewportWidth * 1.48
+        : Math.min(Math.max(rootFont * 72, viewportWidth * 1.4), rootFont * 180);
+      const fieldTop = parseFloat(getComputedStyle(prettyField).top) || 0;
+      const bottomGap = rootFont * 1.5;
+      const maxWidthByHeight = Math.max(viewportWidth, (viewportHeight - fieldTop - bottomGap) * (68 / 30));
+      prettyField.style.width = Math.min(naturalWidth, maxWidthByHeight) + 'px';
+    }
+
     function renderConstellationMeta(constellation) {
       if (!constellation) return;
       Array.prototype.forEach.call(constellationLabelNodes, function(labelNode) {
@@ -386,6 +456,13 @@
         labelNode.hidden = !text;
         if (!text) return;
         labelNode.textContent = text;
+        if (key === 'name' && constellation.lineColor) {
+          labelNode.style.color = constellation.lineColor;
+          labelNode.style.textShadow = '0 0 0.72rem color-mix(in srgb, ' + constellation.lineColor + ' 18%, transparent)';
+        } else {
+          labelNode.style.color = '';
+          labelNode.style.textShadow = '';
+        }
         if (typeof label === 'object') {
           let x = label.x;
           let y = label.y;
@@ -402,6 +479,12 @@
       if (constellationNote) {
         const hasNote = !!constellation.note;
         constellationNote.hidden = !hasNote;
+        const upperRight = constellation.id === 'lepus';
+        constellationNote.style.left = upperRight ? 'auto' : '';
+        constellationNote.style.right = upperRight ? 'clamp(1.75rem, 4.4vw, 4rem)' : '';
+        constellationNote.style.top = upperRight ? 'clamp(3.85rem, 6.2vh, 4.9rem)' : '';
+        constellationNote.style.bottom = upperRight ? 'auto' : '';
+        constellationNote.style.textAlign = upperRight ? 'right' : '';
         if (hasNote) {
           constellationNote.href = constellation.note.href;
           constellationNote.textContent = constellation.note.text;
@@ -692,10 +775,17 @@
       };
     }
 
+    function getPrettySignalGainValue() {
+      if (prettyDelayMix >= 1) return 0;
+      if (prettyDelayMix <= 0) return 1;
+      return Math.cos(prettyDelayMix * Math.PI * 0.5);
+    }
+
     function setPrettyDelayMix(value, when) {
       prettyDelayMix = clamp01(Number.isFinite(value) ? value : PRETTY_DELAY_MIX_DEFAULT);
       syncPrettyDelayMixInput();
       if (audioCtx && audioCtx._prettyDelayControls) setPrettyDelayProfile(audioCtx, when);
+      if (audioCtx && audioCtx._prettySignal) setPrettySignalProfile(audioCtx, when);
     }
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
@@ -739,6 +829,15 @@
       master.connect(ctx.destination);
       ctx._prettyMaster = master;
       return master;
+    }
+
+    function getPrettySignal(ctx) {
+      if (ctx._prettySignal) return ctx._prettySignal;
+      const signal = ctx.createGain();
+      signal.gain.value = getPrettySignalGainValue();
+      signal.connect(getPrettyMaster(ctx));
+      ctx._prettySignal = signal;
+      return signal;
     }
 
     function getPrettyReverb(ctx) {
@@ -823,19 +922,34 @@
       controls.wetCeiling.gain.linearRampToValueAtTime(profile.wetCeiling, t + 0.25);
     }
 
+    function setPrettySignalProfile(ctx, when) {
+      if (!ctx || !ctx._prettySignal) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      ctx._prettySignal.gain.cancelScheduledValues(t);
+      ctx._prettySignal.gain.linearRampToValueAtTime(getPrettySignalGainValue(), t + 0.08);
+    }
+
     function killPrettyAudio() {
       const ctx = audioCtx;
       if (!ctx) return;
       const now = ctx.currentTime;
       const master = ctx._prettyMaster;
+      const signal = ctx._prettySignal;
       if (master) {
         try {
           master.gain.cancelScheduledValues(now);
           master.gain.setValueAtTime(0, now);
         } catch (e) {}
       }
+      if (signal) {
+        try {
+          signal.gain.cancelScheduledValues(now);
+          signal.gain.setValueAtTime(0, now);
+        } catch (e) {}
+      }
 
       const disconnectList = []
+        .concat(signal ? [signal] : [])
         .concat(ctx._prettyDelayNodes || [])
         .concat(ctx._prettyReverbNodes || []);
       disconnectList.forEach(function(node) {
@@ -846,6 +960,7 @@
       ctx._prettyDelayControls = null;
       ctx._prettyReverbBus = null;
       ctx._prettyReverbNodes = null;
+      ctx._prettySignal = null;
 
       if (master) {
         try { master.disconnect(); } catch (e) {}
@@ -1035,10 +1150,11 @@
       const ctx = ensureAudio();
       if (!ctx) return;
       const t = ctx.currentTime + 0.035;
-      const output = getPrettyMaster(ctx);
+      const output = getPrettySignal(ctx);
       const delay = getPrettyDelay(ctx);
       const level = PRETTY_NOTE_LEVEL;
       setPrettyDelayProfile(ctx, t);
+      setPrettySignalProfile(ctx, t);
       playNoteNames(preset.pressA, t, 4.0, level, false, null, output);
       playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay, output);
       playPrettyGhost(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
@@ -1194,10 +1310,6 @@
       waveModeBtn.setAttribute('title', action);
       waveModeBtn.classList.toggle('is-armed', armed);
       document.documentElement.classList.toggle('is-wave-mode', armed);
-      if (prettyDelayMixControl) {
-        prettyDelayMixControl.hidden = !armed;
-        prettyDelayMixControl.classList.toggle('is-active', armed);
-      }
       setRabbitSecretVisible(armed || constellationModeActive);
       syncConstellationVisual();
     }
@@ -1216,6 +1328,10 @@
       rabbitModeBtn.setAttribute('aria-label', action);
       rabbitModeBtn.setAttribute('title', action);
       rabbitModeBtn.classList.toggle('is-armed', active);
+      if (prettyDelayMixControl) {
+        prettyDelayMixControl.hidden = !active;
+        prettyDelayMixControl.classList.toggle('is-active', active);
+      }
     }
 
     function syncConstellationVisual() {
@@ -1237,6 +1353,7 @@
             prettyFieldExitTimer = null;
           }, 5900);
         }
+        syncConstellationFieldSize();
       }
       if (nextVisualActive !== constellationVisualActive) {
         constellationVisualActive = nextVisualActive;
@@ -1264,6 +1381,8 @@
         setConstellationModeActive(false);
       }
     });
+
+    window.addEventListener('resize', syncConstellationFieldSize);
 
     function setPrettyVisible(visible) {
       if (!waveModeBtn) return;
@@ -1307,6 +1426,7 @@
       }
       prettyArmed = false;
       prettyStartedAt = null;
+      setConstellationModeActive(false);
       setPrettyUI(false);
       killPrettyAudio();
     }
