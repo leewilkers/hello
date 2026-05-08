@@ -3035,9 +3035,9 @@ body {
   margin: 0;
   max-width: var(--home-main-measure);
   font-family: var(--reading);
-  font-size: 1.48rem;
-  line-height: 1.36;
-  color: color-mix(in srgb, var(--ink) 94%, var(--bg));
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 88%, var(--bg));
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variant-ligatures: common-ligatures contextual;
 }
@@ -3168,6 +3168,10 @@ body {
 
 .home-field-row--history {
   margin-top: 2.2rem;
+}
+
+.home-field-main .home-history-section {
+  margin-top: 0.65rem;
 }
 
 .home-lower-grid {
@@ -3436,8 +3440,8 @@ body {
 }
 
 :root[data-font="bricolage-eb"] .page-home .home-field-note .home-lede {
-  font-size: 1.42rem;
-  line-height: 1.38;
+  font-size: 1.02rem;
+  line-height: 1.5;
 }
 
 :root[data-font="bricolage-eb"] .home-marginalia {
@@ -3457,12 +3461,12 @@ body {
 
   .home-lower-grid {
     display: block;
-    margin-top: 1.6rem;
+    margin-top: 1.05rem;
   }
 
   .page-home .home-field-note .home-lede {
-    font-size: 1.28rem;
-    line-height: 1.38;
+    font-size: 1.02rem;
+    line-height: 1.5;
   }
 
   .home-marginalia {
@@ -3518,8 +3522,8 @@ body {
   }
 
   .page-home .home-field-note .home-lede {
-    font-size: 1.24rem;
-    line-height: 1.4;
+    font-size: 1.02rem;
+    line-height: 1.5;
   }
 
   .page-home .home-field-note .home-subtitle,
@@ -3694,16 +3698,22 @@ body {
 }
 
 .home-work-teaser-line {
-  display: inline;
+  display: block;
 }
 
 .home-work-teaser-label {
+  display: block;
   font-family: inherit;
   font-size: inherit;
   font-weight: 600;
   line-height: inherit;
   letter-spacing: 0;
   color: inherit;
+}
+
+.home-work-teaser-list {
+  display: block;
+  margin-top: 0.15rem;
 }
 
 .home-work-teaser-action {
