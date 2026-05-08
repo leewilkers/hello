@@ -81,6 +81,7 @@
 - Chromatic half-step note should remain removed unless Lee asks to revisit it.
 - Manual clicks should stay responsive; loop mode may have separate timing.
 - Current intent: relaxing but not glacial, quantized enough to avoid sloppy timing.
+- Current Rabbit Run control mapping: the rabbit icon controls the full-page constellation view, or "rabbit mode"; the `~` wave control is the faded behind-the-text constellation/audio mode. Wet/dry delay controls belong with wave mode, not rabbit mode.
 
 ## Hover Notes
 
