@@ -138,6 +138,9 @@
 <footer class="site-colophon" aria-label="Colophon">
   <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
   <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
+  {% if pageClass == "page-consulting" %}
+    <span class="colophon-image-credit"><a href="https://blog.lostartpress.com/2024/04/30/roubo-on-how-to-saw-veneer/" target="_blank" rel="noopener noreferrer">Roubo sawyers at a vise</a></span>
+  {% endif %}
 </footer>
 
 <script>

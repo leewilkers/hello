@@ -3780,11 +3780,14 @@ body {
 .page-consulting {
   --consulting-main-measure: 36rem;
   --consulting-label-measure: 7.5rem;
-  --consulting-gap: clamp(1.1rem, 2.8vw, 2.2rem);
+  --consulting-side-measure: clamp(9rem, 17vw, 14rem);
+  --consulting-label-gap: clamp(0.7rem, 1.6vw, 1.2rem);
+  --consulting-note-gap: clamp(2rem, 4.2vw, 3.8rem);
   --consulting-note-color: color-mix(in srgb, var(--section-label) 76%, var(--ink));
+  --consulting-sidenote-color: color-mix(in srgb, var(--ink) 48%, #b7aa94);
   --consulting-rule: color-mix(in srgb, var(--section-label) 34%, transparent);
-  --consulting-motif-ink: color-mix(in srgb, var(--trail-ink) 72%, var(--ink-muted));
-  --consulting-motif-opacity: 0.15;
+  --consulting-motif-ink: color-mix(in srgb, var(--trail-ink) 62%, var(--accent-rest));
+  --consulting-motif-opacity: 0.24;
   --home-accent: var(--accent);
   overflow-x: clip;
   isolation: isolate;
@@ -3792,48 +3795,45 @@ body {
 
 [data-theme="dark"] .page-consulting {
   --home-accent: var(--accent);
-  --consulting-motif-opacity: 0.1;
+  --consulting-sidenote-color: color-mix(in srgb, var(--ink) 54%, #b7aa94);
+  --consulting-motif-opacity: 0.18;
 }
 
 .page-consulting::before {
   content: "";
   position: fixed;
-  right: clamp(-8.5rem, -8vw, -3.25rem);
-  bottom: clamp(-6.5rem, -8vh, -2.4rem);
+  right: clamp(1.1rem, 2.4vw, 2.6rem);
+  bottom: clamp(1rem, 3vh, 2.4rem);
   z-index: 0;
-  width: min(42rem, 48vw);
+  width: calc(100vw - clamp(2.2rem, 5vw, 5.2rem));
   aspect-ratio: 1342 / 1030;
   background: var(--consulting-motif-ink);
   opacity: var(--consulting-motif-opacity);
   pointer-events: none;
   user-select: none;
-  -webkit-mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center bottom / contain no-repeat;
-  mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center bottom / contain no-repeat;
+  -webkit-mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") right bottom / contain no-repeat;
+  mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") right bottom / contain no-repeat;
 }
 
 .consulting-field-note {
   position: relative;
   z-index: 1;
-  max-width: calc(var(--consulting-label-measure) + var(--consulting-gap) + var(--consulting-main-measure));
+  max-width: calc(var(--consulting-label-measure) + var(--consulting-label-gap) + var(--consulting-main-measure) + var(--consulting-note-gap) + var(--consulting-side-measure));
   margin: 0 auto;
   padding: 1.75rem 1.35rem 3.6rem;
 }
 
 .consulting-head {
-  display: grid;
-  grid-template-columns: var(--consulting-label-measure) minmax(0, var(--consulting-main-measure));
-  column-gap: var(--consulting-gap);
-  align-items: baseline;
-  margin: 0 0 0.7rem;
+  margin: 0 0 1.15rem;
 }
 
 .consulting-kicker {
-  grid-column: 2;
   margin: 0;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: 1.12rem;
   font-weight: 600;
   line-height: 1.25;
+  text-align: center;
   color: var(--ink);
 }
 
@@ -3844,8 +3844,8 @@ body {
 
 .consulting-block {
   display: grid;
-  grid-template-columns: var(--consulting-label-measure) minmax(0, var(--consulting-main-measure));
-  column-gap: var(--consulting-gap);
+  grid-template-columns: var(--consulting-label-measure) minmax(0, var(--consulting-main-measure)) minmax(0, var(--consulting-side-measure));
+  column-gap: var(--consulting-label-gap);
   align-items: start;
   padding: 1.25rem 0;
   border-top: 1px solid var(--rule-light);
@@ -3857,7 +3857,7 @@ body {
   padding-right: 0.85rem;
   border-right: 1px solid var(--consulting-rule);
   font-family: var(--sans);
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.35;
@@ -3889,51 +3889,9 @@ body {
   color: color-mix(in srgb, var(--ink) 94%, var(--bg));
 }
 
-.consulting-block--payoff p {
-  color: color-mix(in srgb, var(--ink) 91%, var(--bg));
-}
-
-.consulting-principles h2 {
-  margin: 0 0 0.85rem;
-  font-family: var(--sans);
-  font-size: 0.82rem;
+.consulting-price {
+  color: color-mix(in srgb, var(--ink) 96%, var(--home-accent));
   font-weight: 600;
-  line-height: 1.25;
-  color: var(--ink);
-}
-
-.consulting-principles-list {
-  display: grid;
-  gap: 0.95rem;
-  margin: 0;
-}
-
-.consulting-principle {
-  display: block;
-  max-width: 29rem;
-}
-
-.consulting-principle dt {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.35;
-  color: color-mix(in srgb, var(--ink) 84%, var(--bg));
-}
-
-.consulting-principle dd {
-  margin: 0.18rem 0 0;
-  font-family: var(--reading);
-  font-size: 0.96rem;
-  line-height: 1.48;
-  color: color-mix(in srgb, var(--ink-light) 84%, var(--bg));
-}
-
-.consulting-principles-list + p {
-  margin-top: 1.25rem;
-  color: var(--ink-light);
 }
 
 .consulting-arrangement {
@@ -3948,6 +3906,51 @@ body {
 
 .consulting-arrangement p + p {
   margin-top: 1rem;
+}
+
+.consulting-sidenote {
+  grid-column: 3;
+  max-width: var(--consulting-side-measure);
+  margin-left: calc(var(--consulting-note-gap) - var(--consulting-label-gap));
+  padding-top: 0.22rem;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  font-weight: 400;
+  line-height: 1.42;
+  color: var(--consulting-sidenote-color);
+  opacity: 0.9;
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+.consulting-sidenote-ref {
+  margin-left: 0.08em;
+  font-family: var(--sans);
+  font-size: 0.52em;
+  line-height: 0;
+}
+
+.consulting-field-note .consulting-sidenote-ref a:not([href^="mailto"]) {
+  color: color-mix(in srgb, var(--ink-muted) 58%, var(--bg));
+  border-bottom: 0;
+  text-decoration: none;
+}
+
+.consulting-field-note .consulting-sidenote-ref a:not([href^="mailto"]):hover,
+.consulting-field-note .consulting-sidenote-ref a:not([href^="mailto"]):focus-visible {
+  color: color-mix(in srgb, var(--ink-muted) 72%, var(--bg));
+  border-bottom: 0;
+}
+
+.consulting-field-note .consulting-sidenote a:not([href^="mailto"]) {
+  color: inherit;
+  border-bottom: 1px dotted color-mix(in srgb, currentColor 34%, transparent);
+  text-decoration: none;
+}
+
+.consulting-field-note .consulting-sidenote a:not([href^="mailto"]):hover,
+.consulting-field-note .consulting-sidenote a:not([href^="mailto"]):focus-visible {
+  color: color-mix(in srgb, var(--consulting-sidenote-color) 86%, var(--ink));
+  border-bottom-color: currentColor;
 }
 
 .consulting-field-note a:not([href^="mailto"]) {
@@ -3971,43 +3974,6 @@ body {
   border-bottom-color: color-mix(in srgb, var(--ink) 52%, transparent);
 }
 
-.consulting-tooltip {
-  position: relative;
-  display: inline;
-}
-
-.consulting-tooltip .consulting-quiet-link::after {
-  content: attr(data-note);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 0.55rem);
-  z-index: 3;
-  width: min(18rem, 72vw);
-  padding: 0.55rem 0.68rem 0.58rem;
-  border: 1px solid color-mix(in srgb, var(--rule-light) 82%, transparent);
-  background: color-mix(in srgb, var(--bg) 94%, var(--ink) 6%);
-  box-shadow: 0 0.35rem 1.4rem color-mix(in srgb, #000 22%, transparent);
-  color: color-mix(in srgb, var(--ink) 82%, var(--bg));
-  font-family: var(--sans);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.36;
-  text-align: left;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%) translateY(0.2rem);
-  transition:
-    opacity 140ms ease,
-    transform 140ms ease;
-}
-
-.consulting-tooltip:hover .consulting-quiet-link::after,
-.consulting-tooltip:focus-within .consulting-quiet-link::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
 .page-consulting a[href^="mailto"] {
   color: var(--home-accent);
 }
@@ -4018,18 +3984,17 @@ body {
 
 @media (max-width: 700px) {
   .page-consulting {
-    --consulting-motif-opacity: 0.11;
+    --consulting-motif-opacity: 0.18;
   }
 
   [data-theme="dark"] .page-consulting {
-    --consulting-motif-opacity: 0.085;
+    --consulting-motif-opacity: 0.14;
   }
 
   .page-consulting::before {
-    right: -13.5rem;
-    bottom: -3.6rem;
-    width: 34rem;
-    max-width: 138vw;
+    right: clamp(0.9rem, 4vw, 1.4rem);
+    bottom: clamp(0.9rem, 3vh, 1.6rem);
+    width: calc(100vw - 1.8rem);
   }
 
   .consulting-field-note {
@@ -4059,33 +4024,19 @@ body {
     line-height: 1.52;
   }
 
+  .consulting-sidenote {
+    max-width: 22rem;
+    margin-top: 0.52rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--consulting-rule);
+    font-size: 0.72rem;
+  }
+
   .consulting-block::before {
     display: block;
     margin: 0 0 0.5rem;
     padding-right: 0;
     border-right: 0;
-  }
-
-  .consulting-tooltip .consulting-quiet-link::after {
-    position: fixed;
-    left: 1rem;
-    right: 1rem;
-    bottom: 1rem;
-    width: auto;
-    transform: translateY(0.2rem);
-  }
-
-  .consulting-tooltip:hover .consulting-quiet-link::after,
-  .consulting-tooltip:focus-within .consulting-quiet-link::after {
-    transform: translateY(0);
-  }
-
-  .consulting-principle {
-    display: block;
-  }
-
-  .consulting-principle dd {
-    margin-top: 0.14rem;
   }
 }
 
@@ -4320,6 +4271,15 @@ body {
 
 .site-colophon span {
   white-space: nowrap;
+}
+
+.page-consulting + .site-colophon .colophon-image-credit {
+  position: fixed;
+  right: clamp(1rem, 2.4vw, 2rem);
+  bottom: clamp(0.8rem, 2vh, 1.2rem);
+  max-width: min(28rem, 42vw);
+  text-align: right;
+  white-space: normal;
 }
 
 .site-colophon .colophon-fleuron {
@@ -6272,6 +6232,18 @@ a.shelf-list-title:hover {
     max-width: none;
     margin: 0 1.35rem 1rem;
     padding-bottom: 0.75rem;
+  }
+
+  .page-consulting + .site-colophon {
+    display: grid;
+    max-width: none;
+  }
+
+  .page-consulting + .site-colophon .colophon-image-credit {
+    position: static;
+    justify-self: end;
+    max-width: min(20rem, 100%);
+    text-align: right;
   }
 
   .page-shelf + .site-colophon {
