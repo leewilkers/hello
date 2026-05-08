@@ -3195,8 +3195,8 @@ body {
   margin-top: 0.12rem;
 }
 
-/* Desktop column flush — pull intro rail up to identity height,
-   stretch lower rail and pin painting to bottom of column. */
+/* Desktop column flush — pull intro rail up to identity height and let the
+   lower rail stretch; individual plate variants decide their own anchor. */
 @media (min-width: 621px) {
   .home-marginalia--intro {
     margin-top: 0;
@@ -3207,6 +3207,10 @@ body {
     align-self: stretch;
     height: 100%;
     justify-content: space-between;
+  }
+  .home-marginalia--history.home-marginalia--durer {
+    justify-content: flex-start;
+    gap: clamp(2.25rem, 5vh, 3.75rem);
   }
   .home-rabbit-plate {
     margin: 0;
@@ -3296,28 +3300,70 @@ body {
   text-transform: uppercase;
 }
 
+.home-rabbit-plate__link {
+  display: block;
+  width: var(--rabbit-plate-rest-width);
+  color: inherit;
+  border-bottom: 0;
+  outline: 0;
+}
+
+.home-rabbit-plate__link:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--home-note-color) 72%, transparent);
+  outline-offset: 0.18rem;
+}
+
 .home-rabbit-plate:hover,
-.home-rabbit-plate:focus-visible {
+.home-rabbit-plate:focus-visible,
+.home-rabbit-plate:focus-within {
   z-index: 12;
 }
 
 .home-rabbit-plate:hover .home-rabbit-plate__frame,
-.home-rabbit-plate:focus-visible .home-rabbit-plate__frame {
+.home-rabbit-plate:focus-visible .home-rabbit-plate__frame,
+.home-rabbit-plate:focus-within .home-rabbit-plate__frame {
   width: var(--rabbit-plate-open-width);
   border-color: color-mix(in srgb, var(--section-label) 46%, transparent);
   transform: translate3d(calc(-1 * var(--rabbit-plate-shift)), 0, 0);
 }
 
 .home-rabbit-plate:hover .home-rabbit-plate__painting,
-.home-rabbit-plate:focus-visible .home-rabbit-plate__painting {
+.home-rabbit-plate:focus-visible .home-rabbit-plate__painting,
+.home-rabbit-plate:focus-within .home-rabbit-plate__painting {
   opacity: 0.9;
   transform: translate3d(0, 0, 0);
   filter: saturate(1.02) contrast(1.02) brightness(1.02);
 }
 
 .home-rabbit-plate:hover figcaption,
-.home-rabbit-plate:focus-visible figcaption {
+.home-rabbit-plate:focus-visible figcaption,
+.home-rabbit-plate:focus-within figcaption {
   opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.home-rabbit-plate--durer {
+  --rabbit-plate-rest-width: min(100%, 15rem);
+  --rabbit-plate-open-width: min(100%, 15rem);
+  --rabbit-plate-shift: 0px;
+  margin-left: auto;
+}
+
+.home-rabbit-plate--durer .home-rabbit-plate__frame {
+  margin-left: auto;
+}
+
+.home-rabbit-plate--durer .home-rabbit-plate__link {
+  margin-left: auto;
+}
+
+.home-rabbit-plate--durer .home-rabbit-plate__painting,
+.home-rabbit-plate--durer:hover .home-rabbit-plate__painting,
+.home-rabbit-plate--durer:focus-visible .home-rabbit-plate__painting,
+.home-rabbit-plate--durer:focus-within .home-rabbit-plate__painting {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
   transform: translate3d(0, 0, 0);
 }
 
