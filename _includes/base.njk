@@ -377,21 +377,21 @@
           return;
         }
         const live = active || exiting;
-        const settling = reduced ? 1 : Math.min(1, modeT / 2.8);
-        const birthIndex = Math.floor(modeT * 3.8);
-        const baseAlpha = live ? 0.52 : 0.18;
+        const settling = reduced ? 1 : Math.min(1, modeT / 2.4);
+        const birthIndex = Math.floor(modeT * 4.9);
+        const baseAlpha = live ? 0.62 : 0.18;
         stars.forEach(function(star, index) {
           const seed = star[2] + index;
           const born = exiting
             ? aliveOnExit(seed, modeT)
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.22, 9.5));
           if (!born) return;
-          if (active && !lit(seed, t, 0.16, 6.6)) return;
+          if (active && !lit(seed, t, 0.12, 5.4)) return;
           pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha, '#cecdc3');
         });
 
         edges.forEach(function(edge) {
-          drawLine(edge[0], edge[1], 1, live ? 0.18 : 0.12, exiting ? modeT : t);
+          drawLine(edge[0], edge[1], 1, live ? 0.24 : 0.12, exiting ? modeT : t);
         });
 
         const sweep = active
@@ -399,7 +399,7 @@
           : (exiting ? edges.length + 1.2 : 3.4);
         edges.forEach(function(edge, index) {
           const progress = Math.max(0, Math.min(1, sweep - (index * 0.82)));
-          if (progress > 0) drawLine(edge[0], edge[1], progress, live ? 0.62 : 0.22, exiting ? modeT + index : t + index);
+          if (progress > 0) drawLine(edge[0], edge[1], progress, live ? 0.7 : 0.22, exiting ? modeT + index : t + index);
         });
 
         points.forEach(function(point, index) {
@@ -408,10 +408,10 @@
             ? aliveOnExit(seed, modeT)
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.18, 10.4));
           if (!born) return;
-          const bright = live && lit(index + 19, t, 0.56, 6.2);
-          pixel(point[0] - 1, point[1] - 1, bright ? 3 : 2, live ? 0.82 : 0.36, '#fffcf0');
-          if (live && settling > 0.35 && lit(index + 23, t, 0.62, 8.2)) {
-            pixel(point[0], point[1], 1, 0.62, '#3aa99f');
+          const bright = live && lit(index + 19, t, 0.48, 5.6);
+          pixel(point[0] - 1, point[1] - 1, bright ? 3 : 2, live ? 0.88 : 0.36, '#fffcf0');
+          if (live && settling > 0.24 && lit(index + 23, t, 0.54, 6.8)) {
+            pixel(point[0], point[1], 1, 0.68, '#3aa99f');
           }
         });
 
@@ -485,6 +485,9 @@
     const PRETTY_WALK_MS = 5600;
     const PRETTY_WALK_SPREAD_MS = 1400;
     const PRETTY_DELAY_SETTLE_SECONDS = 240;
+    const PRETTY_MASTER_GAIN = 1.18;
+    const PRETTY_NOTE_LEVEL = 0.046;
+    const PRETTY_LOW_LEVEL = 0.032;
 
     // Reverb — pre-delayed, dampened tail. Real rooms have a silent gap
     // before first reflections (the note speaks, THEN the room blooms), and
@@ -523,7 +526,7 @@
     function getPrettyMaster(ctx) {
       if (ctx._prettyMaster) return ctx._prettyMaster;
       const master = ctx.createGain();
-      master.gain.value = 1;
+      master.gain.value = PRETTY_MASTER_GAIN;
       master.connect(ctx.destination);
       ctx._prettyMaster = master;
       return master;
@@ -604,9 +607,9 @@
       controls.feedback.gain.cancelScheduledValues(t);
       controls.wet.gain.cancelScheduledValues(t);
       controls.wetCeiling.gain.cancelScheduledValues(t);
-      controls.feedback.gain.linearRampToValueAtTime(0.82 - (0.23 * age), t + 0.25);
-      controls.wet.gain.linearRampToValueAtTime(0.48 - (0.23 * age), t + 0.25);
-      controls.wetCeiling.gain.linearRampToValueAtTime(0.52 - (0.18 * age), t + 0.25);
+      controls.feedback.gain.linearRampToValueAtTime(0.82 - (0.17 * age), t + 0.25);
+      controls.wet.gain.linearRampToValueAtTime(0.52 - (0.16 * age), t + 0.25);
+      controls.wetCeiling.gain.linearRampToValueAtTime(0.58 - (0.14 * age), t + 0.25);
     }
 
     function killPrettyAudio() {
@@ -688,7 +691,7 @@
       if (delayBus) {
         const delaySend = ctx.createGain();
         const delayAge = getPrettyDelayAge(ctx, t);
-        const delaySendScale = 1 - (0.46 * delayAge);
+        const delaySendScale = 1 - (0.24 * delayAge);
         delaySend.gain.value = (freq >= 650 ? 0.72 : 0.38) * delaySendScale;
         panner.connect(delaySend).connect(delayBus);
       }
@@ -810,9 +813,9 @@
       const echoScale = scale === undefined ? 1 : scale;
       const offset = 0.72 + (Math.random() * 0.46);
       const note = notes[Math.floor(Math.random() * notes.length)];
-      playNoteName(note, when + offset, 6.2, 0.012 * echoScale, false, delay, outputBus);
+      playNoteName(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
       if (Math.random() < 0.28) {
-        playNoteName(note, when + offset + 0.52, 5.8, 0.007 * echoScale, false, delay, outputBus);
+        playNoteName(note, when + offset + 0.52, 5.8, 0.011 * echoScale, false, delay, outputBus);
       }
     }
 
@@ -822,7 +825,7 @@
       const t = ctx.currentTime + 0.035;
       const output = getPrettyMaster(ctx);
       const delay = getPrettyDelay(ctx);
-      const level = 0.028;
+      const level = PRETTY_NOTE_LEVEL;
       setPrettyDelayProfile(ctx, t);
       playNoteNames(preset.pressA, t, 4.0, level, false, null, output);
       playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay, output);
@@ -830,7 +833,7 @@
       playNoteNames(preset.pressB, t + (LOOP_BEAT_MS / 1000), 5.0, level, false, null, output);
       playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, level, true, delay, output);
       playPrettyGhost(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
-      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, 0.018, true, null, output);
+      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, PRETTY_LOW_LEVEL, true, null, output);
     }
 
     function playPressNote(goingDark) {
