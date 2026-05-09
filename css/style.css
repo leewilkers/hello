@@ -2854,6 +2854,18 @@ body {
   color: color-mix(in srgb, #d14d41 72%, var(--ink-faint));
 }
 
+.pretty-constellation-note-paragraph {
+  display: block;
+}
+
+.pretty-constellation-note-paragraph + .pretty-constellation-note-paragraph {
+  margin-top: 0.7em;
+}
+
+.pretty-constellation-note-paragraph em {
+  font-style: italic;
+}
+
 .pretty-star-label-bootes { left: 18%; top: 44%; }
 .pretty-star-label-rho { left: 47%; top: 47%; }
 .pretty-star-label-arcturus { left: 52%; top: 66%; }
