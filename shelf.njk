@@ -191,7 +191,6 @@ pageClass: page-shelf
       <span class="shelf-subtitle__tagline">Ideas, new and old, for modern times.</span>
     </p>
   </div>
-  <span class="shelf-head-banner" aria-hidden="true"></span>
 </header>
 
 <div class="library">
@@ -210,7 +209,6 @@ pageClass: page-shelf
       {%- set listItems = bucket | where("shelf_list", true) %}
     <section id="{{ topic | slug }}" data-topic="{{ topic | slug }}" data-topic-name="{{ topic }}" data-topic-count="{{ bucket.length }}" class="topic-section">
       <header class="section-label">
-        <img class="section-label-mark" src="/img/rabbits/runner-lg.png" alt="" aria-hidden="true">
         <h2 class="section-label-name">{{ topic }}</h2>
         <span class="section-label-count" data-section-count>{{ bucket.length }}</span>
       </header>

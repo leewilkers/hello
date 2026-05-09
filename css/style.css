@@ -4960,21 +4960,44 @@ body {
 
 .site-sawyer-motif {
   position: fixed;
-  left: 50%;
-  bottom: 0;
+  left: var(--sawyer-motif-left, auto);
+  right: var(--sawyer-motif-right, 0);
+  bottom: var(--sawyer-motif-bottom, 0);
   z-index: 0;
-  width: min(90rem, 76vw, calc((100dvh - 3.25rem) * 1.303));
+  width: var(--sawyer-motif-width, min(34rem, 38vw));
   aspect-ratio: 1342 / 1030;
   background: color-mix(in srgb, var(--trail-ink) 72%, var(--ink-muted));
   opacity: var(--sawyer-motif-opacity);
   pointer-events: none;
   user-select: none;
-  transform: translateX(-50%);
   transition:
     opacity 920ms cubic-bezier(0.16, 1, 0.3, 1),
     visibility 0s linear 920ms;
   -webkit-mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center center / contain no-repeat;
   mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center center / contain no-repeat;
+}
+
+/* Home page: anchor the motif's left edge to the right rail's left edge,
+   keep its width at the default compact size (same as other pages) so it
+   doesn't stretch to viewport-edge and grow tall enough to graze rail copy.
+   .home-plain is 820px max-width, centered, with 1.35rem horizontal padding;
+   the grid inside has a 27.5rem main column then a 1.75rem gap, after which
+   the right rail begins. So rail's left edge sits at:
+     (50% - 410px) + 1.35rem + 27.5rem + 1.75rem  ≈ 50% + 79.6px
+   Falls back to default lower-right positioning below 820px viewport. */
+@media (min-width: 820px) {
+  .page-home-ornaments {
+    --sawyer-motif-left: calc(50% - (820px / 2) + 1.35rem + 27.5rem + 1.75rem);
+    --sawyer-motif-right: auto;
+    --sawyer-motif-width: min(34rem, 38vw);
+  }
+}
+
+/* Hide motif entirely on small mobile — it can't size sensibly down there. */
+@media (max-width: 600px) {
+  .site-sawyer-motif {
+    display: none;
+  }
 }
 
 .site-sawyer-original {
