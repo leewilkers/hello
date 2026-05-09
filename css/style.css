@@ -2780,11 +2780,11 @@ body {
 
 .pretty-constellation-note {
   position: fixed;
-  top: 50%;
+  top: auto;
   right: auto;
-  bottom: auto;
+  bottom: clamp(1.35rem, 3vh, 2rem);
   left: clamp(1.75rem, 4.4vw, 4rem);
-  transform: translateY(-50%);
+  transform: none;
   z-index: 2;
   display: block;
   width: min(28rem, calc(100vw - 3.5rem));
@@ -2794,10 +2794,10 @@ body {
   pointer-events: none;
   text-align: left;
   font-family: var(--mono);
-  font-size: clamp(0.64rem, 0.78vw, 0.82rem);
+  font-size: clamp(0.82rem, 0.95vw, 1rem);
   font-weight: 500;
-  line-height: 1.48;
-  letter-spacing: 0.045em;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
   color: color-mix(in srgb, #d14d41 72%, var(--ink-faint));
   text-decoration: none;
   text-shadow: 0 0 0.72rem color-mix(in srgb, #d14d41 18%, transparent);
@@ -2870,11 +2870,11 @@ body {
   margin-top: 0.85em;
 }
 
-.pretty-constellation-note-paragraph:nth-of-type(2) { animation-delay: 5s; }
-.pretty-constellation-note-paragraph:nth-of-type(3) { animation-delay: 10s; }
-.pretty-constellation-note-paragraph:nth-of-type(4) { animation-delay: 15s; }
-.pretty-constellation-note-paragraph:nth-of-type(5) { animation-delay: 20s; }
-.pretty-constellation-note-paragraph:nth-of-type(6) { animation-delay: 25s; }
+.pretty-constellation-note-paragraph:nth-of-type(2) { animation-delay: 8s; }
+.pretty-constellation-note-paragraph:nth-of-type(3) { animation-delay: 16s; }
+.pretty-constellation-note-paragraph:nth-of-type(4) { animation-delay: 24s; }
+.pretty-constellation-note-paragraph:nth-of-type(5) { animation-delay: 32s; }
+.pretty-constellation-note-paragraph:nth-of-type(6) { animation-delay: 40s; }
 
 .pretty-constellation-note-paragraph em {
   font-style: italic;
@@ -5290,6 +5290,28 @@ body {
 
 [data-theme="dark"] .site-dust-motif {
   opacity: 0.78;
+}
+
+.site-dust-motif .star-mode-hint {
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+  font-family: var(--mono);
+  font-size: clamp(0.52rem, 0.49rem + 0.1vw, 0.6rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #d14d41 82%, var(--ink-faint));
+  text-shadow: 0 0 0.38rem color-mix(in srgb, #d14d41 28%, transparent);
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.site-dust-motif .star-mode-hint-rabbit {
+  color: #fffcf0;
+  text-shadow: none;
+}
+
+:root.is-wave-mode:not(.is-constellation-mode) .site-dust-motif .star-mode-hint {
+  opacity: 1;
 }
 
 [data-theme="dark"] .site-dust-motif .dust-placeholder {
