@@ -121,12 +121,17 @@
 
 <div class="pretty-constellation-field" aria-hidden="true">
   <canvas class="pretty-constellation-canvas" width="136" height="60" data-pretty-constellation></canvas>
-  <span class="pretty-star-label pretty-star-label-name" data-pretty-label="name">Boötes</span>
   <span class="pretty-star-label pretty-star-label-one" data-pretty-label="one">Rho</span>
   <span class="pretty-star-label pretty-star-label-two" data-pretty-label="two">Arcturus</span>
   <span class="pretty-star-label pretty-star-label-three" data-pretty-label="three">Eta</span>
 </div>
-<a class="pretty-constellation-note" data-pretty-note href="https://en.wikipedia.org/wiki/Arcturus#Cultural_significance" target="_blank" rel="noopener noreferrer">Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</a>
+<a class="pretty-constellation-note" data-pretty-note href="https://en.wikipedia.org/wiki/Arcturus#Cultural_significance" target="_blank" rel="noopener noreferrer">
+  <span class="pretty-constellation-note-head">
+    <span class="pretty-constellation-note-title" data-pretty-note-title>Boötes</span>
+    <span class="pretty-constellation-note-id" data-pretty-note-id>The Herdsman</span>
+  </span>
+  <span class="pretty-constellation-note-body" data-pretty-note-body>Arcturus, the brightest star in the Boötes constellation, functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</span>
+</a>
 
 	<div class="cat-switch-frame">
 	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
@@ -156,10 +161,14 @@
   </div>
   <div class="site-art-note">
     <button class="site-art-note-toggle" type="button" aria-expanded="false" aria-controls="site-sawyer-original" data-art-note-toggle aria-label="Show original artwork">
-      <span class="site-art-note-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, vol. III, plate 278</span>
-      <span class="site-art-note-meta">Manner of sawing wood veneer lengthwise, Paris, 1769-1775</span>
+      <span class="site-art-note-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, plate 278</span>
     </button>
   </div>
+  <aside class="site-art-reveal-caption" aria-hidden="true">
+    <p class="site-art-reveal-kicker">Original plate</p>
+    <p class="site-art-reveal-title">Andre-Jacob Roubo, <cite>L'Art du menuisier</cite>, vol. III, plate 278</p>
+    <p class="site-art-reveal-meta">Manner of sawing wood veneer lengthwise. Paris, 1769-1775.</p>
+  </aside>
   <div class="site-sawyer-original" id="site-sawyer-original" aria-hidden="true"></div>
   <div class="site-sawyer-motif" aria-hidden="true"></div>
 </div>
@@ -167,24 +176,32 @@
 <footer class="site-colophon" aria-label="Colophon">
   <span>Built with <a href="https://www.11ty.dev/" target="_blank" rel="noopener noreferrer">Eleventy</a></span>
   <span>CMS: <a href="https://github.com/sveltia/sveltia-cms" target="_blank" rel="noopener noreferrer">Sveltia</a></span>
+  <span class="site-status" data-site-status aria-hidden="true"></span>
 </footer>
 
 <script>
   (function() {
     const ornaments = document.querySelector('.site-page-ornaments');
     const artNoteButton = document.querySelector('[data-art-note-toggle]');
+    const artOriginal = document.querySelector('#site-sawyer-original');
+    const artCaption = document.querySelector('.site-art-reveal-caption');
     if (!ornaments || !artNoteButton) return;
+
+    function setArtReveal(active) {
+      ornaments.classList.toggle('is-art-revealed', active);
+      artNoteButton.setAttribute('aria-expanded', active ? 'true' : 'false');
+      if (artOriginal) artOriginal.setAttribute('aria-hidden', active ? 'false' : 'true');
+      if (artCaption) artCaption.setAttribute('aria-hidden', active ? 'false' : 'true');
+    }
 
     artNoteButton.addEventListener('click', function() {
       const active = !ornaments.classList.contains('is-art-revealed');
-      ornaments.classList.toggle('is-art-revealed', active);
-      artNoteButton.setAttribute('aria-expanded', active ? 'true' : 'false');
+      setArtReveal(active);
     });
 
     artNoteButton.addEventListener('keydown', function(event) {
       if (event.key !== 'Escape') return;
-      ornaments.classList.remove('is-art-revealed');
-      artNoteButton.setAttribute('aria-expanded', 'false');
+      setArtReveal(false);
       artNoteButton.blur();
     });
   })();
@@ -215,6 +232,9 @@
     const prettyCanvas = document.querySelector('[data-pretty-constellation]');
     const constellationLabelNodes = document.querySelectorAll('[data-pretty-label]');
     const constellationNote = document.querySelector('[data-pretty-note]');
+    const constellationNoteTitle = document.querySelector('[data-pretty-note-title]');
+    const constellationNoteId = document.querySelector('[data-pretty-note-id]');
+    const constellationNoteBody = document.querySelector('[data-pretty-note-body]');
     const lockBtn = document.querySelector('.theme-lock');
     if (!loopBtn) {
       try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
@@ -362,14 +382,15 @@
       bootes: {
         id: 'bootes',
         labels: {
-          name: { text: 'Boötes', x: 16, y: 48 },
           one: { text: 'Rho', pointIndex: 3, dx: 4.2, dy: -5 },
-          two: { text: 'Arcturus', pointIndex: 4, dx: -13.4, dy: -4.6 },
+          two: { text: 'Arcturus', pointIndex: 4, dx: -13.4, dy: -4.6, primary: true },
           three: { text: 'Eta', pointIndex: 5, dx: 4.4, dy: -5.8 }
         },
         note: {
+          title: 'Boötes',
+          id: 'The Herdsman / Arcturus',
           href: 'https://en.wikipedia.org/wiki/Arcturus#Cultural_significance',
-          text: 'Arcturus— the brightest star in the Boötes constellation—functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.'
+          text: 'Boötes is the Herdsman. The red focus is Arcturus, the brightest star in Boötes; in Hawaiian navigation it is Hōkūleʻa, the star that marks the latitude of Hawaiʻi.'
         },
         points: [
           [5, 16], [10, 3], [26, 5], [30, 17], [39, 22],
@@ -390,24 +411,253 @@
       lepus: {
         id: 'lepus',
         labels: {
-          name: { text: 'Lepus', x: 13.2, y: 49 },
-          one: { text: 'Arneb', pointIndex: 3, dx: -12.6, dy: -5.6 },
+          one: { text: 'R Leporis', pointIndex: 11, dx: -14.2, dy: -5.6, primary: true },
           two: { text: 'Nihal', pointIndex: 4, dx: 3.8, dy: -5.6 },
-          three: { text: 'Mu', pointIndex: 1, dx: -6.4, dy: -6.2 }
+          three: { text: 'Arneb', pointIndex: 3, dx: -12.6, dy: -5.6 }
         },
         note: {
+          title: 'Lepus',
+          id: 'The Hare / Hind’s Crimson Star',
           href: 'https://en.wikipedia.org/wiki/R_Leporis',
-          text: 'R Leporis, Hind’s Crimson Star, is a carbon star in Lepus near Eridanus; observers know it for its distinctly red color.'
+          text: 'Lepus is the Hare. The red focus is R Leporis, Hind’s Crimson Star — a star whose brightness and color both shift over time as it brightens and fades.'
         },
         points: [
           [8, 13.3], [15, 11.2], [23, 12.1], [32, 16.2], [45, 13.3],
-          [43, 9], [49, 8.3], [51, 21.7], [35, 19.8], [24.5, 22.9], [19, 20.5]
+          [43, 9], [49, 8.3], [51, 21.7], [35, 19.8], [24.5, 22.9], [19, 20.5],
+          [38, 25.6]
         ],
-        highlightIndex: 3,
-        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [4, 6], [4, 7], [3, 8], [8, 7], [8, 9], [9, 10], [10, 3], [10, 0]],
+        highlightIndex: 11,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [4, 6], [4, 7], [3, 8], [8, 7], [8, 9], [9, 10], [10, 3], [10, 0], [8, 11]],
         stars: [
           [5, 6, 0.3], [13, 18, 1.9], [25, 6, 2.2], [38, 9, 1.2], [55, 13, 0.7],
-          [47, 27, 2.8], [9, 25, 1.5], [31, 24, 2.4], [52, 5, 1.1]
+          [47, 27, 2.8], [9, 25, 1.5], [31, 24, 2.4], [52, 5, 1.1], [40, 26, 3.4]
+        ],
+        lineColor: '#3aa99f',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      polaris: {
+        id: 'polaris',
+        labels: {
+          one: { text: 'Polaris', pointIndex: 0, dx: -11.2, dy: -6.4, primary: true },
+          two: { text: 'Kochab', pointIndex: 2, dx: 3.8, dy: -5.8 },
+          three: { text: 'Pherkad', pointIndex: 1, dx: -10.2, dy: -5.6 }
+        },
+        note: {
+          title: 'Ursa Minor',
+          id: 'The Little Bear / Polaris',
+          href: 'https://en.wikipedia.org/wiki/Polaris#Role_as_pole_star',
+          text: 'Ursa Minor is the Little Bear. The red focus is Polaris, the North Star, which sits close to true north all night long and has long been used for orientation.'
+        },
+        points: [
+          [30, 14], [22, 9], [38, 9], [41, 17], [30, 23],
+          [19, 17], [8, 25], [14, 22]
+        ],
+        highlightIndex: 0,
+        edges: [[1, 2], [2, 3], [3, 4], [4, 5], [5, 1], [6, 7], [7, 0], [0, 4]],
+        stars: [
+          [6, 7, 0.4], [12, 15, 1.2], [19, 5, 2.1], [35, 4, 0.9], [50, 10, 2.7],
+          [54, 24, 1.7], [28, 27, 2.4], [44, 18, 3.1], [4, 25, 1.5]
+        ],
+        lineColor: '#4385be',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      crux: {
+        id: 'crux',
+        labels: {
+          one: { text: 'Acrux', pointIndex: 1, dx: -9.6, dy: 4.2, primary: true },
+          two: { text: 'Gacrux', pointIndex: 0, dx: -10.2, dy: -5.8 },
+          three: { text: 'Mimosa', pointIndex: 2, dx: -10.6, dy: -5.6 }
+        },
+        note: {
+          title: 'Crux',
+          id: 'Southern Cross',
+          href: 'https://en.wikipedia.org/wiki/Crux#Navigation',
+          text: 'Crux is the Southern Cross; its long axis points the way to the south celestial pole. The red focus is Acrux, the bright anchor at the foot of the cross.'
+        },
+        points: [
+          [29, 5], [32, 22.6], [18, 14.6], [43, 13.6], [34, 27]
+        ],
+        highlightIndex: 1,
+        edges: [[0, 1], [2, 3], [1, 4]],
+        stars: [
+          [8, 7, 0.4], [13, 22, 1.8], [25, 26, 2.3], [39, 6, 1.1], [52, 9, 2.7],
+          [49, 24, 0.8], [4, 18, 2.2], [56, 19, 1.6], [21, 5, 3.1]
+        ],
+        lineColor: '#879a39',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      sirius: {
+        id: 'sirius',
+        labels: {
+          one: { text: 'Sirius', pointIndex: 1, dx: -10.2, dy: -6.2, primary: true },
+          two: { text: 'Mirzam', pointIndex: 0, dx: -10.4, dy: -5.4 },
+          three: { text: 'Adhara', pointIndex: 3, dx: 3.8, dy: -5.4 }
+        },
+        note: {
+          title: 'Canis Major',
+          id: 'The Greater Dog / Sirius',
+          href: 'https://en.wikipedia.org/wiki/Sirius#Observational_history',
+          text: 'Canis Major is the Greater Dog. The red focus is Sirius, the brightest star in the night sky and only 8.6 light-years away; in ancient Egypt its first dawn rising came just before the Nile flood.'
+        },
+        points: [
+          [14, 17], [25, 15], [35, 21], [44, 13], [52, 19], [31, 7]
+        ],
+        highlightIndex: 1,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [1, 5]],
+        stars: [
+          [6, 4, 0.3], [10, 25, 1.3], [20, 7, 2.6], [41, 5, 1.8], [56, 15, 0.9],
+          [48, 27, 2.2], [31, 25, 3.2], [4, 19, 1.7], [53, 6, 2.9]
+        ],
+        lineColor: '#d0a215',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      pleiades: {
+        id: 'pleiades',
+        labels: {
+          one: { text: 'Alcyone', pointIndex: 0, dx: -10.8, dy: -6.2, primary: true },
+          two: { text: 'Atlas', pointIndex: 2, dx: 4.2, dy: -5.4 },
+          three: { text: 'Merope', pointIndex: 4, dx: -9.2, dy: 4.2 }
+        },
+        note: {
+          title: 'Pleiades',
+          id: 'M45 / open cluster in Taurus',
+          href: 'https://en.wikipedia.org/wiki/Pleiades#Astronomical_role_of_M45_in_antiquity',
+          text: 'The Pleiades are a nearby star cluster in Taurus, visible without a telescope. The red focus is Alcyone, the bright anchor of the cluster; the group’s rising and setting helped structure calendars and sailing seasons across many cultures.'
+        },
+        points: [
+          [28, 11], [22, 9], [33, 8], [38, 13], [25, 17],
+          [32, 18], [18, 14], [41, 18], [15, 8]
+        ],
+        highlightIndex: 0,
+        edges: [[1, 0], [0, 2], [0, 4], [2, 3], [4, 5], [3, 7], [1, 8], [6, 4]],
+        stars: [
+          [9, 4, 0.5], [13, 21, 1.4], [21, 5, 2.8], [36, 5, 1.3], [45, 11, 2.1],
+          [52, 21, 0.8], [28, 25, 3.3], [6, 17, 2.2], [56, 7, 1.9]
+        ],
+        lineColor: '#4385be',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      mizarAlcor: {
+        id: 'mizarAlcor',
+        labels: {
+          one: { text: 'Mizar', pointIndex: 2, dx: -10.2, dy: -6, primary: true },
+          two: { text: 'Alcor', pointIndex: 3, dx: 3.8, dy: -6 },
+          three: { text: 'Alioth', pointIndex: 1, dx: -10.2, dy: -5.4 }
+        },
+        note: {
+          title: 'Ursa Major',
+          id: 'The Great Bear / Mizar and Alcor',
+          href: 'https://en.wikipedia.org/wiki/Mizar_and_Alcor#Test_of_eyesight',
+          text: 'Ursa Major is the Great Bear, whose handle forms the Big Dipper. The red focus is Mizar, with Alcor as its nearby companion; many traditions used the pair as a naked-eye test — could you separate the two stars?'
+        },
+        points: [
+          [7, 17], [18, 14], [30, 12], [33, 9], [45, 15], [55, 19]
+        ],
+        highlightIndex: 2,
+        edges: [[0, 1], [1, 2], [2, 4], [4, 5], [2, 3]],
+        stars: [
+          [8, 5, 0.4], [14, 24, 1.9], [24, 6, 2.4], [37, 24, 0.8], [51, 6, 1.6],
+          [57, 15, 2.6], [4, 27, 2.9], [43, 10, 1.2], [30, 26, 3.1]
+        ],
+        lineColor: '#878580',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      vega: {
+        id: 'vega',
+        labels: {
+          one: { text: 'Vega', pointIndex: 0, dx: -8.4, dy: -6.2, primary: true },
+          two: { text: 'Sheliak', pointIndex: 3, dx: 3.8, dy: -5.2 },
+          three: { text: 'Sulafat', pointIndex: 4, dx: -10.6, dy: 4.4 }
+        },
+        note: {
+          title: 'Lyra',
+          id: 'The Lyre / Vega',
+          href: 'https://en.wikipedia.org/wiki/Vega#Photometric_calibration',
+          text: 'Lyra is the Lyre. The red focus is Vega — the first star photographed after the Sun, later used as a baseline for measuring stellar brightness.'
+        },
+        points: [
+          [18, 5], [31, 12], [43, 13], [38, 24], [24, 23], [31, 18]
+        ],
+        highlightIndex: 0,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 1], [4, 5], [5, 3]],
+        stars: [
+          [7, 9, 0.5], [12, 22, 1.2], [25, 4, 2.1], [49, 7, 1.8], [55, 24, 2.7],
+          [41, 27, 0.9], [5, 26, 1.7], [35, 6, 2.8], [22, 17, 3.2]
+        ],
+        lineColor: '#205ea6',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      reticulum: {
+        id: 'reticulum',
+        labels: {
+          one: { text: 'Alpha Ret', pointIndex: 0, dx: -12.2, dy: -5.8, primary: true },
+          two: { text: 'Beta Ret', pointIndex: 1, dx: 3.8, dy: -5.8 },
+          three: { text: 'Zeta', pointIndex: 8, dx: 3.8, dy: -5.2 }
+        },
+        note: {
+          title: 'Reticulum',
+          id: 'The Measuring Grid / Alpha Reticuli',
+          href: 'https://en.wikipedia.org/wiki/Reticulum#History',
+          text: 'Reticulum is named for a telescope reticle — a measuring grid or crosshair, not a mythological figure. The red focus is Alpha Reticuli, the brightest star in this faint southern pattern.'
+        },
+        points: [
+          [18, 8], [44, 8], [44, 25], [18, 25], [31, 8],
+          [31, 25], [18, 16.5], [44, 16.5], [31, 16.5]
+        ],
+        highlightIndex: 0,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [6, 7], [0, 8], [1, 8], [2, 8], [3, 8]],
+        stars: [
+          [6, 5, 0.4], [12, 24, 1.4], [24, 5, 2.2], [38, 5, 0.9], [52, 13, 2.9],
+          [48, 27, 1.8], [8, 16, 2.5], [56, 23, 1.3], [29, 27, 3.1]
+        ],
+        lineColor: '#6f6e69',
+        starColor: '#cecdc3',
+        pointColor: '#fffcf0',
+        highlightColor: '#f6a19a',
+        highlightSparkColor: '#d14d41'
+      },
+      epsilonEridani: {
+        id: 'epsilonEridani',
+        labels: {
+          one: { text: 'Epsilon Eridani', pointIndex: 1, dx: -16.4, dy: -6.2, primary: true },
+          two: { text: 'Acamar', pointIndex: 5, dx: 3.8, dy: -5.2 },
+          three: { text: 'Zaurak', pointIndex: 4, dx: 3.8, dy: -5.4 }
+        },
+        note: {
+          title: 'Eridanus',
+          id: 'The River / Epsilon Eridani',
+          href: 'https://en.wikipedia.org/wiki/Epsilon_Eridani#SETI_and_proposed_exploration',
+          text: 'Eridanus is the River. The red focus is Epsilon Eridani, a nearby Sun-like star with a confirmed planet; in 1960, Project Ozma listened there for radio signals.'
+        },
+        points: [
+          [8, 22], [18, 18], [28, 21], [36, 15], [48, 13], [56, 8]
+        ],
+        highlightIndex: 1,
+        edges: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]],
+        stars: [
+          [5, 6, 0.5], [13, 10, 1.5], [23, 26, 2.4], [32, 8, 0.7], [42, 24, 1.9],
+          [54, 18, 2.8], [49, 5, 1.2], [7, 27, 2.3], [37, 17, 3.1]
         ],
         lineColor: '#3aa99f',
         starColor: '#cecdc3',
@@ -416,17 +666,26 @@
         highlightSparkColor: '#d14d41'
       }
     };
-    const CONSTELLATION_CYCLE = ['bootes', 'lepus'];
+    const CONSTELLATION_CYCLE = ['lepus', 'polaris', 'bootes', 'crux', 'sirius', 'pleiades', 'mizarAlcor', 'vega', 'reticulum', 'epsilonEridani'];
     const CONSTELLATION_CYCLE_MS = 20000;
-    let activeConstellation = CONSTELLATIONS.bootes;
+    let activeConstellation = CONSTELLATIONS.lepus;
     let constellationCycleIndex = 0;
     let constellationCycleTimer = null;
     let constellationSwitchTimer = null;
+    let constellationModeTwinkleTimer = null;
 
     function syncConstellationFieldSize() {
       if (!prettyField) return;
-      if (!prettyArmed || constellationModeActive) {
+      if (constellationModeActive) {
         prettyField.style.width = '';
+        prettyField.style.top = '';
+        prettyField.style.transform = '';
+        return;
+      }
+      if (!prettyArmed) {
+        prettyField.style.width = '';
+        prettyField.style.top = '';
+        prettyField.style.transform = '';
         return;
       }
 
@@ -434,6 +693,8 @@
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
       if (viewportWidth <= 620 || viewportHeight <= 0) {
         prettyField.style.width = '';
+        prettyField.style.top = '';
+        prettyField.style.transform = '';
         return;
       }
 
@@ -441,10 +702,14 @@
       const naturalWidth = viewportWidth <= 900
         ? viewportWidth * 1.48
         : Math.min(Math.max(rootFont * 72, viewportWidth * 1.4), rootFont * 180);
-      const fieldTop = parseFloat(getComputedStyle(prettyField).top) || 0;
+      const fieldTop = viewportWidth <= 900
+        ? rootFont * 1.45
+        : Math.min(Math.max(rootFont * 1.15, viewportHeight * 0.024), rootFont * 1.9);
       const bottomGap = rootFont * 1.5;
       const maxWidthByHeight = Math.max(viewportWidth, (viewportHeight - fieldTop - bottomGap) * (68 / 30));
       prettyField.style.width = Math.min(naturalWidth, maxWidthByHeight) + 'px';
+      prettyField.style.top = fieldTop + 'px';
+      prettyField.style.transform = 'translate3d(-50%, 0, 0) scale(1)';
     }
 
     function renderConstellationMeta(constellation) {
@@ -454,16 +719,13 @@
         const label = constellation.labels && constellation.labels[key];
         const text = typeof label === 'string' ? label : label && label.text;
         labelNode.hidden = !text;
+        labelNode.classList.remove('is-primary-star');
         if (!text) return;
         labelNode.textContent = text;
-        if (key === 'name' && constellation.lineColor) {
-          labelNode.style.color = constellation.lineColor;
-          labelNode.style.textShadow = '0 0 0.72rem color-mix(in srgb, ' + constellation.lineColor + ' 18%, transparent)';
-        } else {
-          labelNode.style.color = '';
-          labelNode.style.textShadow = '';
-        }
+        labelNode.style.color = '';
+        labelNode.style.textShadow = '';
         if (typeof label === 'object') {
+          labelNode.classList.toggle('is-primary-star', label.primary === true);
           let x = label.x;
           let y = label.y;
           if (typeof label.pointIndex === 'number' && constellation.points[label.pointIndex]) {
@@ -479,15 +741,19 @@
       if (constellationNote) {
         const hasNote = !!constellation.note;
         constellationNote.hidden = !hasNote;
-        const upperRight = constellation.id === 'lepus';
-        constellationNote.style.left = upperRight ? 'auto' : '';
-        constellationNote.style.right = upperRight ? 'clamp(1.75rem, 4.4vw, 4rem)' : '';
-        constellationNote.style.top = upperRight ? 'clamp(3.85rem, 6.2vh, 4.9rem)' : '';
-        constellationNote.style.bottom = upperRight ? 'auto' : '';
-        constellationNote.style.textAlign = upperRight ? 'right' : '';
+        constellationNote.style.left = '';
+        constellationNote.style.right = '';
+        constellationNote.style.top = '';
+        constellationNote.style.bottom = '';
+        constellationNote.style.textAlign = '';
         if (hasNote) {
           constellationNote.href = constellation.note.href;
-          constellationNote.textContent = constellation.note.text;
+          if (constellationNoteTitle) constellationNoteTitle.textContent = constellation.note.title || '';
+          if (constellationNoteId) {
+            constellationNoteId.hidden = !constellation.note.id;
+            constellationNoteId.textContent = constellation.note.id || '';
+          }
+          if (constellationNoteBody) constellationNoteBody.textContent = constellation.note.text || '';
         }
       }
     }
@@ -718,6 +984,21 @@
       if (prettyField) prettyField.classList.remove('is-twinkling');
     }
 
+    function pulseConstellationModeTwinkle() {
+      if (!prettyField || reduced) return;
+      if (constellationModeTwinkleTimer) {
+        clearTimeout(constellationModeTwinkleTimer);
+        constellationModeTwinkleTimer = null;
+      }
+      prettyField.classList.remove('is-mode-twinkling');
+      void prettyField.offsetHeight;
+      prettyField.classList.add('is-mode-twinkling');
+      constellationModeTwinkleTimer = setTimeout(function() {
+        if (prettyField) prettyField.classList.remove('is-mode-twinkling');
+        constellationModeTwinkleTimer = null;
+      }, 980);
+    }
+
     // B-flat major 7 color across four tones: Bb4, D5, F5, A5.
     const PIANO = {
       N1: 466.16,
@@ -768,10 +1049,11 @@
 
     function getPrettyDelayProfileValues(age) {
       const mix = prettyDelayMix;
+      const fadeAge = age * (1 - mix);
       return {
-        feedback: Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * age)),
-        wet: Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * age)),
-        wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * age))
+        feedback: Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * fadeAge)),
+        wet: Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * fadeAge)),
+        wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * fadeAge))
       };
     }
 
@@ -1017,7 +1299,7 @@
       if (delayBus) {
         const delaySend = ctx.createGain();
         const delayAge = getPrettyDelayAge(ctx, t);
-        const delaySendScale = 1 - (0.24 * delayAge);
+        const delaySendScale = 1 - (0.24 * delayAge * (1 - prettyDelayMix));
         const delayMixScale = 0.62 + (0.72 * prettyDelayMix);
         delaySend.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
         panner.connect(delaySend).connect(delayBus);
@@ -1304,6 +1586,7 @@
 
     function setPrettyUI(armed) {
       if (!waveModeBtn) return;
+      if (armed) resetArtRevealForConstellationMode();
       const action = armed ? 'Stop wave mode' : 'Start wave mode';
       waveModeBtn.setAttribute('aria-pressed', armed ? 'true' : 'false');
       waveModeBtn.setAttribute('aria-label', action);
@@ -1334,6 +1617,17 @@
       }
     }
 
+    function resetArtRevealForConstellationMode() {
+      const ornaments = document.querySelector('.site-page-ornaments');
+      const artNoteButton = document.querySelector('[data-art-note-toggle]');
+      const artOriginal = document.querySelector('#site-sawyer-original');
+      const artCaption = document.querySelector('.site-art-reveal-caption');
+      if (ornaments) ornaments.classList.remove('is-art-revealed');
+      if (artNoteButton) artNoteButton.setAttribute('aria-expanded', 'false');
+      if (artOriginal) artOriginal.setAttribute('aria-hidden', 'true');
+      if (artCaption) artCaption.setAttribute('aria-hidden', 'true');
+    }
+
     function syncConstellationVisual() {
       const nextVisualActive = prettyArmed || constellationModeActive;
       if (nextVisualActive) startConstellationCycle();
@@ -1356,16 +1650,21 @@
         syncConstellationFieldSize();
       }
       if (nextVisualActive !== constellationVisualActive) {
+        pulseConstellationModeTwinkle();
         constellationVisualActive = nextVisualActive;
         prettyConstellation.setActive(nextVisualActive);
       }
     }
 
     function setConstellationModeActive(active) {
-      constellationModeActive = !!active && (prettyArmed || constellationModeActive);
+      const nextActive = !!active && (prettyArmed || constellationModeActive);
+      const changed = nextActive !== constellationModeActive;
+      if (nextActive) resetArtRevealForConstellationMode();
+      constellationModeActive = nextActive;
       document.documentElement.classList.toggle('is-constellation-mode', constellationModeActive);
       setRabbitSecretVisible(prettyArmed || constellationModeActive);
       setConstellationModeUI(constellationModeActive);
+      if (changed) pulseConstellationModeTwinkle();
       syncConstellationVisual();
     }
 
@@ -1430,6 +1729,43 @@
       setPrettyUI(false);
       killPrettyAudio();
     }
+
+    function resetWaveRabbitModesForNavigation() {
+      if (prettyTimer) {
+        clearTimeout(prettyTimer);
+        prettyTimer = null;
+      }
+      if (prettyFieldExitTimer) {
+        clearTimeout(prettyFieldExitTimer);
+        prettyFieldExitTimer = null;
+      }
+      if (constellationModeTwinkleTimer) {
+        clearTimeout(constellationModeTwinkleTimer);
+        constellationModeTwinkleTimer = null;
+      }
+      prettyArmed = false;
+      constellationModeActive = false;
+      constellationVisualActive = false;
+      prettyStartedAt = null;
+      document.documentElement.classList.remove('is-wave-mode', 'is-constellation-mode');
+      if (waveModeBtn) {
+        waveModeBtn.setAttribute('aria-pressed', 'false');
+        waveModeBtn.setAttribute('aria-label', 'Start wave mode');
+        waveModeBtn.setAttribute('title', 'Start wave mode');
+        waveModeBtn.classList.remove('is-armed');
+      }
+      setRabbitSecretVisible(false);
+      setConstellationModeUI(false);
+      stopConstellationCycle();
+      if (prettyField) {
+        prettyField.classList.remove('is-armed', 'is-secret', 'is-leaving', 'is-twinkling', 'is-mode-twinkling');
+      }
+      syncConstellationFieldSize();
+      prettyConstellation.setActive(false);
+      killPrettyAudio();
+    }
+
+    window.resetWaveRabbitModesForNavigation = resetWaveRabbitModesForNavigation;
 
     function schedulePrettyWalk() {
       prettyTimer = setTimeout(function() {
@@ -1838,6 +2174,13 @@
       });
     }
 
+    function updateOrnaments(doc) {
+      var currentOrnaments = document.querySelector('.site-page-ornaments');
+      var nextOrnaments = doc.querySelector('.site-page-ornaments');
+      if (!currentOrnaments || !nextOrnaments) return;
+      currentOrnaments.className = nextOrnaments.className;
+    }
+
     function scrollAfterSwap(url) {
       if (url.hash) {
         var id = decodeURIComponent(url.hash.slice(1));
@@ -1855,6 +2198,7 @@
       var nextMain = doc.querySelector('main.page');
       if (!currentMain || !nextMain) throw new Error('missing main.page');
       updateHead(doc);
+      updateOrnaments(doc);
       currentMain.className = nextMain.className;
       currentMain.innerHTML = nextMain.innerHTML;
       document.body.classList.remove('menu-open');
@@ -1885,7 +2229,7 @@
       return transition.finished.catch(function() {}).finally(clearShellTransition);
     }
 
-    function visit(rawUrl, push) {
+    function visit(rawUrl, push, resetWaveRabbitModes) {
       var url = rawUrl instanceof URL ? rawUrl : new URL(rawUrl, location.href);
       var direction = shellDirectionFor(url);
       navigating = true;
@@ -1897,6 +2241,9 @@
         return response.text();
       }).then(function(html) {
         var doc = new DOMParser().parseFromString(html, 'text/html');
+        if (resetWaveRabbitModes && typeof window.resetWaveRabbitModesForNavigation === 'function') {
+          window.resetWaveRabbitModesForNavigation();
+        }
         return swapPage(doc, url, push, direction);
       }).catch(function() {
         clearShellTransition();
@@ -1910,7 +2257,7 @@
       var a = event.target.closest && event.target.closest('a[href]');
       if (!shouldHandleLink(a, event)) return;
       event.preventDefault();
-      visit(new URL(a.href, location.href), true);
+      visit(new URL(a.href, location.href), true, !!(a.closest && a.closest('.nav-links')));
     });
 
     window.addEventListener('popstate', function() {
@@ -2273,11 +2620,6 @@
 
 	      var header = document.createElement('header');
 	      header.className = 'section-label';
-	      var img = document.createElement('img');
-	      img.className = 'section-label-mark';
-	      img.src = '/img/rabbits/runner-lg.png';
-	      img.alt = '';
-	      img.setAttribute('aria-hidden', 'true');
 	      var title = document.createElement('h2');
 	      title.className = 'section-label-name';
 	      title.textContent = topic.name;
@@ -2285,7 +2627,6 @@
 	      count.className = 'section-label-count';
 	      count.dataset.sectionCount = '';
 	      count.textContent = '0';
-	      header.appendChild(img);
 	      header.appendChild(title);
 	      header.appendChild(count);
 
@@ -2618,6 +2959,29 @@
   }
   document.addEventListener('DOMContentLoaded', syncSidebarMode);
   window.addEventListener('resize', syncSidebarMode);
+</script>
+
+<script>
+  (function() {
+    var el = document.querySelector('[data-site-status]');
+    if (!el) return;
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var now = new Date();
+    var dateStr = now.getDate() + ' ' + months[now.getMonth()];
+    var paint = function(weatherStr) {
+      el.textContent = dateStr + (weatherStr ? ' · ' + weatherStr : '') + ' · Atlanta';
+    };
+    paint('');
+    if (typeof fetch !== 'function') return;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=33.749&longitude=-84.388&current=temperature_2m&temperature_unit=fahrenheit';
+    fetch(url)
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data || !data.current || typeof data.current.temperature_2m !== 'number') return;
+        paint(Math.round(data.current.temperature_2m) + '°F');
+      })
+      .catch(function() {});
+  })();
 </script>
 </body>
 </html>

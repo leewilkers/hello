@@ -326,6 +326,36 @@ body.menu-open {
 
 img { display: block; }
 
+/* ── site status (date · weather · Atlanta) — populated by JS at end of base.njk.
+   Lives inline inside .site-colophon as a third span, reading as another quiet
+   metadata line rather than a centered hero kicker. ── */
+
+.site-status {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--ink) 36%, var(--bg));
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.site-status:not(:empty) {
+  opacity: 1;
+}
+
+.site-status:empty {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .site-status {
+    display: none;
+  }
+}
+
 /* ── site nav ── */
 
 .site-nav {
@@ -2610,17 +2640,16 @@ body {
 
 .pretty-constellation-field {
   position: fixed;
-  top: clamp(1.15rem, 2.4vh, 1.9rem);
+  top: 50%;
   left: 50%;
   z-index: 0;
-  width: clamp(54rem, 96vw, 116rem);
-  max-width: calc(100vw - 4rem);
+  width: clamp(64rem, 112vw, 140rem);
   aspect-ratio: 68 / 30;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translate3d(-50%, -0.18rem, 0) scale(0.992);
-  transform-origin: top center;
+  transform: translate3d(-50%, -50%, 0) scale(0.992);
+  transform-origin: center center;
   filter:
     brightness(0.78)
     drop-shadow(0 0 0 color-mix(in srgb, var(--accent-text) 0%, transparent));
@@ -2634,7 +2663,7 @@ body {
 .pretty-constellation-field.is-leaving {
   opacity: 1;
   visibility: visible;
-  transform: translate3d(-50%, 0, 0) scale(1);
+  transform: translate3d(-50%, -50%, 0) scale(1);
   filter:
     brightness(1)
     drop-shadow(0 0 0.62rem color-mix(in srgb, var(--accent-text) 9%, transparent));
@@ -2927,8 +2956,7 @@ body {
 
 @media (max-width: 900px) {
   .pretty-constellation-field {
-    top: 1.45rem;
-    width: min(96vw, calc(100vw - 4rem));
+    width: 112vw;
   }
 
   .pretty-constellation-field.is-armed,
@@ -3020,7 +3048,7 @@ body {
   top: 50%;
   z-index: 1;
   display: block;
-  width: clamp(54rem, 96vw, 116rem);
+  width: clamp(64rem, 112vw, 140rem);
   opacity: 1;
   transform: translate3d(-50%, -50%, 0) scale(1);
 }
@@ -3571,11 +3599,7 @@ body {
     margin-top: 0;
   }
   .home-marginalia--history {
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    height: 100%;
-    justify-content: space-between;
+    align-self: start;
   }
 }
 
@@ -3587,7 +3611,6 @@ body {
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
   outline: 0;
-  cursor: help;
 }
 
 .home-rabbit-runworks::after {
@@ -3645,6 +3668,11 @@ body {
 :root[data-font="bricolage-eb"] .home-identity-line,
 :root[data-font="bricolage-eb"] .home-note-label {
   font-family: var(--serif);
+}
+
+:root[data-font="bricolage-eb"] .home-field-note .home-work-teaser-label,
+:root[data-font="bricolage-eb"] .home-field-note .home-nav-heading {
+  font-family: var(--sans);
 }
 
 :root[data-font="bricolage-eb"] .page-home .home-field-note .home-lede {
@@ -4101,23 +4129,32 @@ body {
   color: color-mix(in srgb, var(--ink) 88%, var(--bg));
 }
 
-.home-work-teaser-label {
+/* Section headings on the home body — meant to actually function as
+   headings, not soft annotations. Bigger sans, full-ink color, real
+   weight. Different family from body serif so the eye lands on them
+   when scrolling. */
+.page-home .home-section .home-work-teaser-label,
+.home-work-teaser-label,
+.home-nav-heading {
   display: block;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 600;
-  line-height: inherit;
-  letter-spacing: 0;
-  color: inherit;
+  margin: 0 0 0.55rem;
+  font-family: var(--sans);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.22;
+  color: var(--ink);
+  text-transform: none;
+}
+
+
+.home-work-teaser-action {
+  margin: 0.65rem 0 0;
+  white-space: nowrap;
 }
 
 .home-work-teaser-list {
-  display: block;
-  margin-top: 0.12rem;
-}
-
-.home-work-teaser-action {
-  white-space: nowrap;
+  margin: 0.25rem 0 0;
 }
 
 .home-work-toggle {
@@ -4224,6 +4261,22 @@ body {
   letter-spacing: 0.04em;
   line-height: 1.4;
   color: color-mix(in srgb, var(--ink) 55%, var(--bg));
+}
+
+.consulting-invitation {
+  margin: 0.42rem 0 0;
+  margin-left: calc(var(--consulting-label-measure) + var(--consulting-gap));
+  max-width: var(--consulting-main-measure);
+  font-family: var(--reading);
+  font-size: 1.32rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.32;
+  color: color-mix(in srgb, var(--ink) 90%, var(--bg));
+}
+
+.consulting-invitation em {
+  font-style: italic;
 }
 
 .consulting-flow {
@@ -4605,8 +4658,8 @@ body {
 
 .home-plain .home-nav {
   max-width: var(--home-main-measure);
-  margin-top: 1.15rem;
-  padding-top: 0.8rem;
+  margin-top: 1rem;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--rule-light);
 }
 
@@ -4665,10 +4718,74 @@ body {
 
 .home-plain .home-contact {
   max-width: var(--home-main-measure);
-  margin-top: 1.4rem;
-  padding-top: 0.8rem;
+  margin-top: 1.2rem;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--rule-light);
 }
+
+.home-end-ornament {
+  margin: 1.6rem 0 0;
+  text-align: center;
+  font-family: var(--reading);
+  font-size: 1.3rem;
+  color: color-mix(in srgb, var(--ink) 45%, var(--bg));
+  user-select: none;
+}
+
+/* Greeting paragraph — sits as its own beat above the main lede with
+   deliberate breath, not a stuck-on line break. */
+.home-lede-greeting {
+  margin-bottom: 0.85rem;
+}
+
+/* Page terminus — pages (home, consulting) end with a stretch of empty
+   scroll, then a centered mark. Reads as a quiet meditative ending after
+   the content. */
+.page-terminus {
+  margin-top: 6rem;
+  padding-top: 110vh;
+  padding-bottom: 6rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.page-terminus-mark {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  color: color-mix(in srgb, var(--ink) 50%, var(--bg));
+  user-select: none;
+}
+
+/* Right rail "Currently" sub-block — small label above the Rabbit Run line,
+   matching the "Most recent gigs" treatment above it. */
+.home-rabbit {
+  margin-top: 0.95rem;
+}
+
+.home-rabbit .home-note-label {
+  margin-bottom: 0.34rem;
+}
+
+.home-rabbit-line {
+  margin: 0;
+}
+
+/* Home main grid: lede + history + work + nav + contact share one column;
+   marginalia rail (location + gigs + currently) sits in the right column,
+   anchored to the top so it doesn't stretch the row to its own height
+   and create a phantom gap between the lede and the work-teaser hairline. */
+.home-field-row--main {
+  align-items: start;
+}
+
+.home-field-row--main > .home-marginalia--intro {
+  align-self: start;
+}
+
 
 :root[data-font="bricolage-eb"] .page-home .home-plain .home-nav p,
 :root[data-font="bricolage-eb"] .page-home .home-plain .home-contact p {
