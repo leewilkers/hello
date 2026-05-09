@@ -110,14 +110,19 @@
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
       <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">✦</span></button>
       <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
-      <label class="pretty-delay-control" hidden>
-        <span class="pretty-delay-end" aria-hidden="true">signal</span>
-        <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Signal noise delay mix" data-pretty-delay-mix>
-        <span class="pretty-delay-end" aria-hidden="true">noise</span>
-      </label>
     </div>
   </div>
 </nav>
+
+<div class="pretty-delay-cluster" data-pretty-cluster aria-label="Constellation controls" aria-hidden="true">
+  <button class="constellation-step constellation-step-prev" type="button" aria-label="Previous constellation" title="Previous constellation" data-constellation-step="-1">&lsaquo;</button>
+  <label class="pretty-delay-control">
+    <span class="pretty-delay-end" aria-hidden="true">signal</span>
+    <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Signal noise delay mix" data-pretty-delay-mix>
+    <span class="pretty-delay-end" aria-hidden="true">noise</span>
+  </label>
+  <button class="constellation-step constellation-step-next" type="button" aria-label="Next constellation" title="Next constellation" data-constellation-step="1">&rsaquo;</button>
+</div>
 
 <div class="pretty-constellation-field" aria-hidden="true">
   <canvas class="pretty-constellation-canvas" width="136" height="60" data-pretty-constellation></canvas>
@@ -229,6 +234,8 @@
     const waveModeBtn = document.querySelector('.constellation-mode-toggle');
     const prettyDelayMixControl = document.querySelector('.pretty-delay-control');
     const prettyDelayMixInput = document.querySelector('[data-pretty-delay-mix]');
+    const prettyDelayCluster = document.querySelector('[data-pretty-cluster]');
+    const constellationStepBtns = document.querySelectorAll('[data-constellation-step]');
     const prettyField = document.querySelector('.pretty-constellation-field');
     const prettyCanvas = document.querySelector('[data-pretty-constellation]');
     const constellationLabelNodes = document.querySelectorAll('[data-pretty-label]');
@@ -459,7 +466,7 @@
           id: 'The Little Bear / Polaris',
           href: 'https://en.wikipedia.org/wiki/Polaris#Role_as_pole_star',
           paragraphs: [
-            'Ursa Minor, <span class="note-name">the Little Bear</span>, is a smaller dipper than Ursa Major. <span class="note-star">Polaris</span> sits at the tip of its tail, within 0.7° of the celestial pole.',
+            'Ursa Minor, <span class="note-name">the Little Bear</span>, circles the north celestial pole. <span class="note-star">Polaris</span> sits at the tip of its tail, within 0.7° of the pole itself.',
             'Because it stays so close to the pole, <span class="note-star">Polaris</span> does not noticeably move across the night sky, and has been used for orientation at least since Phoenician sailors.',
             'It has not always been the pole star, and will not always be: Earth’s axis precesses through a 26,000-year wobble that drifts the pole among the stars. The pyramid-builders steered by <span class="note-star">Thuban</span>, in <span class="note-name">Draco</span>; by approximately 13,727 CE the pole will fall near <span class="note-star">Vega</span>.'
           ]
@@ -1019,6 +1026,19 @@
       setActiveConstellation(CONSTELLATION_CYCLE[constellationCycleIndex], true);
     }
 
+    function stepConstellationCycle(delta) {
+      if (!CONSTELLATION_CYCLE.length) return;
+      const len = CONSTELLATION_CYCLE.length;
+      constellationCycleIndex = ((constellationCycleIndex + delta) % len + len) % len;
+      setActiveConstellation(CONSTELLATION_CYCLE[constellationCycleIndex], true);
+      // Restart the cycle timer so the manually-stepped record gets its full window
+      if (constellationCycleTimer) {
+        clearInterval(constellationCycleTimer);
+        constellationCycleTimer = null;
+      }
+      if (prettyArmed || constellationModeActive) startConstellationCycle();
+    }
+
     function startConstellationCycle() {
       if (constellationCycleTimer || CONSTELLATION_CYCLE.length < 2) return;
       constellationCycleTimer = setInterval(advanceConstellationCycle, CONSTELLATION_CYCLE_MS);
@@ -1094,9 +1114,31 @@
     }
 
     function syncPrettyDelayMixInput() {
-      if (!prettyDelayMixInput) return;
-      prettyDelayMixInput.value = Math.round(prettyDelayMix * 100);
-      prettyDelayMixInput.style.setProperty('--delay-mix', prettyDelayMix);
+      if (prettyDelayMixInput) {
+        prettyDelayMixInput.value = Math.round(prettyDelayMix * 100);
+        prettyDelayMixInput.style.setProperty('--delay-mix', prettyDelayMix);
+      }
+      // Promote to root so .note-star halo + paragraph blur can consume it
+      if (document.documentElement) {
+        document.documentElement.style.setProperty('--delay-mix', prettyDelayMix);
+      }
+    }
+
+    // Loose audio→visual flare: each music step bumps --note-flare on root,
+    // CSS interpolates filter:brightness back down. Not amplitude tracking;
+    // a soft pulse synchronized with note onsets.
+    let pendingFlareReset = 0;
+    function pulseStarFlare() {
+      const root = document.documentElement;
+      if (!root) return;
+      root.style.setProperty('--note-flare', '1');
+      if (pendingFlareReset) cancelAnimationFrame(pendingFlareReset);
+      pendingFlareReset = requestAnimationFrame(function() {
+        pendingFlareReset = requestAnimationFrame(function() {
+          root.style.setProperty('--note-flare', '0');
+          pendingFlareReset = 0;
+        });
+      });
     }
 
     function getPrettyDelayProfileValues(age) {
@@ -1664,8 +1706,11 @@
       rabbitModeBtn.setAttribute('title', action);
       rabbitModeBtn.classList.toggle('is-armed', active);
       if (prettyDelayMixControl) {
-        prettyDelayMixControl.hidden = !active;
         prettyDelayMixControl.classList.toggle('is-active', active);
+      }
+      if (prettyDelayCluster) {
+        prettyDelayCluster.classList.toggle('is-active', active);
+        prettyDelayCluster.setAttribute('aria-hidden', active ? 'false' : 'true');
       }
     }
 
@@ -1842,6 +1887,7 @@
       if (!prettyArmed) return;
       const presetIndex = PRETTY_WALK[prettyStep % PRETTY_WALK.length];
       playPrettyPreset(PRETTY_PRESETS[presetIndex]);
+      pulseStarFlare();
       prettyStep += 1;
       schedulePrettyWalk();
     }
@@ -1872,6 +1918,15 @@
     if (prettyDelayMixInput) {
       prettyDelayMixInput.addEventListener('input', function() {
         setPrettyDelayMix(Number(prettyDelayMixInput.value) / 100);
+      });
+    }
+
+    if (constellationStepBtns && constellationStepBtns.length) {
+      constellationStepBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const delta = Number(btn.getAttribute('data-constellation-step')) || 0;
+          if (delta) stepConstellationCycle(delta);
+        });
       });
     }
 

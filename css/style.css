@@ -2595,12 +2595,15 @@ body {
 }
 
 .pretty-delay-end {
+  /* Match the constellation note body typography (family/weight/case),
+     scaled down so the labels read as discrete slider flanks rather than
+     competing with the note prose for visual weight. */
   font-family: var(--mono);
-  font-size: 0.55rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
 .pretty-delay-end:first-child {
@@ -2637,6 +2640,109 @@ body {
 
   50% {
     filter: drop-shadow(0 0 0.38rem color-mix(in srgb, var(--pretty-delay-accent, var(--accent-text)) 34%, transparent));
+  }
+}
+
+/* === Constellation control cluster (lower-right viewport, rabbit-mode reveal) ===
+   The slider + prev/next chevrons live as a fixed-position cluster anchored
+   to the lower-right corner of the viewport. The cluster's reveal mirrors the
+   prior nav-embedded slider behavior: visible only when rabbit mode is active.
+   Sawyer engraving fades to a whisper when the cluster is exposed so the two
+   ornaments don't fight for the same corner. */
+.pretty-delay-cluster {
+  position: fixed;
+  right: clamp(1.75rem, 4.4vw, 4rem);
+  bottom: clamp(1.35rem, 3vh, 2rem);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  opacity: 0;
+  transform: translateY(0.4rem);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 520ms ease,
+    transform 520ms cubic-bezier(0.16, 0.7, 0.3, 1),
+    visibility 0s linear 520ms;
+}
+
+.pretty-delay-cluster.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 520ms ease,
+    transform 520ms cubic-bezier(0.16, 0.7, 0.3, 1),
+    visibility 0s linear 0s;
+}
+
+/* When inside the cluster, .pretty-delay-control loses its old nav-cluster
+   margin-left and inherits cluster gap instead. */
+.pretty-delay-cluster .pretty-delay-control {
+  margin-left: 0;
+}
+
+/* Subtle prev/next chevrons. Mono-uppercase grammar consistent with other
+   site labels; muted by default, lift to accent on hover. */
+.constellation-step {
+  appearance: none;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 24%, transparent);
+  border-radius: 50%;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  color: color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 60%, var(--ink-light));
+  cursor: pointer;
+  transition:
+    color 220ms ease,
+    border-color 220ms ease,
+    background 220ms ease,
+    transform 220ms cubic-bezier(0.16, 0.7, 0.3, 1);
+}
+
+.constellation-step:hover,
+.constellation-step:focus-visible {
+  color: var(--pretty-delay-accent, #AF3029);
+  border-color: color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 56%, transparent);
+  background: color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 6%, transparent);
+  transform: translateY(-1px);
+}
+
+.constellation-step:focus-visible {
+  outline: 1px dotted color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 56%, transparent);
+  outline-offset: 0.2rem;
+}
+
+.constellation-step:active {
+  transform: translateY(0);
+}
+
+[data-theme="dark"] .constellation-step {
+  border-color: color-mix(in srgb, var(--pretty-delay-accent, #D14D41) 30%, transparent);
+  color: color-mix(in srgb, var(--pretty-delay-accent, #D14D41) 70%, var(--ink-light));
+}
+
+/* Fade the sawyer engraving when the cluster takes over the lower-right
+   corner. Mirror the existing art-revealed fade pattern. */
+:root.is-constellation-mode .site-sawyer-motif {
+  opacity: 0.04;
+  transition: opacity 720ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide cluster on small mobile — too cramped to render at viewport corner. */
+@media (max-width: 600px) {
+  .pretty-delay-cluster {
+    display: none !important;
   }
 }
 
@@ -2780,15 +2886,23 @@ body {
 
 .pretty-constellation-note {
   position: fixed;
-  top: auto;
+  top: clamp(4.2rem, 8vh, 6rem);
   right: auto;
-  bottom: clamp(1.35rem, 3vh, 2rem);
+  bottom: auto;
   left: clamp(1.75rem, 4.4vw, 4rem);
   transform: none;
   z-index: 2;
   display: block;
   width: min(28rem, calc(100vw - 3.5rem));
   margin: 0;
+  /* Tasteful underlay so text reads when it overlaps a star/line. No visible
+     card edge — just a soft local atmosphere from backdrop blur + a hint of
+     theme-bg tint that follows light/dark mode. */
+  padding: 0.65rem 0.95rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--bg) 32%, transparent);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -2862,8 +2976,9 @@ body {
   opacity: 0;
   animation: pretty-constellation-paragraph-twinkle 1.6s ease-out forwards;
   text-shadow:
-    0 0 0.5rem color-mix(in srgb, #d14d41 26%, transparent),
-    0 0 1.2rem color-mix(in srgb, #d14d41 12%, transparent);
+    0 0 calc(0.4rem + var(--delay-mix, 0.72) * 0.4rem) color-mix(in srgb, #d14d41 26%, transparent),
+    0 0 calc(0.9rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #d14d41 12%, transparent);
+  transition: text-shadow 720ms ease;
 }
 
 .pretty-constellation-note-paragraph + .pretty-constellation-note-paragraph {
@@ -2884,9 +2999,15 @@ body {
   color: #fffcf0;
   text-shadow:
     0 0 0.18rem color-mix(in srgb, #fffcf0 92%, transparent),
-    0 0 0.7rem color-mix(in srgb, #fffcf0 58%, transparent),
-    0 0 1.6rem color-mix(in srgb, #fffcf0 26%, transparent);
-  animation: pretty-constellation-star-pulse 4.4s ease-in-out infinite;
+    0 0 calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #fffcf0 58%, transparent),
+    0 0 calc(1.2rem + var(--delay-mix, 0.72) * 0.9rem) color-mix(in srgb, #fffcf0 26%, transparent);
+  /* Pulse breathes faster at noise (mix=1), slower at signal (mix=0). */
+  animation: pretty-constellation-star-pulse calc(2.6s + (1 - var(--delay-mix, 0.72)) * 4s) ease-in-out infinite;
+  /* Per-note flare: brightness pops to ~1.55 on each music step, decays back. */
+  filter: brightness(calc(1 + var(--note-flare, 0) * 0.55));
+  transition:
+    text-shadow 720ms ease,
+    filter 520ms cubic-bezier(0.16, 0.7, 0.3, 1);
 }
 
 .pretty-constellation-note-paragraph .note-name {
@@ -3148,9 +3269,11 @@ body {
 }
 
 :root.is-constellation-mode .pretty-constellation-note {
-  top: auto;
+  /* Upper-left anchor (mirrors the base rule). Lower-left is reserved
+     for future ornaments; lower-right hosts the slider/prev-next cluster. */
+  top: clamp(4.2rem, 8vh, 6rem);
   right: auto;
-  bottom: clamp(1.35rem, 3vh, 2rem);
+  bottom: auto;
   left: clamp(1.75rem, 4.4vw, 4rem);
   z-index: 3;
   display: block;
