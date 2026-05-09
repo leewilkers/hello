@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 @font-face {
@@ -466,16 +468,16 @@ img { display: block; }
 }
 
 :root[data-font="bricolage-eb"] .page-home {
-  --home-accent: var(--brico-link, #2D5184);
+  --home-accent: var(--brico-link, #8B5A3C);
 }
 
 :root[data-theme="dark"][data-font="bricolage-eb"] .page-home {
-  --home-accent: var(--brico-link, #8AA8D8);
+  --home-accent: var(--brico-link, #C99873);
 }
 
 @media (prefers-color-scheme: dark) {
   :root[data-font="bricolage-eb"]:not([data-theme="light"]) .page-home {
-    --home-accent: var(--brico-link, #8AA8D8);
+    --home-accent: var(--brico-link, #C99873);
   }
 }
 
@@ -2868,10 +2870,11 @@ body {
   margin-top: 0.85em;
 }
 
-.pretty-constellation-note-paragraph:nth-of-type(2) { animation-delay: 4s; }
-.pretty-constellation-note-paragraph:nth-of-type(3) { animation-delay: 8s; }
-.pretty-constellation-note-paragraph:nth-of-type(4) { animation-delay: 12s; }
-.pretty-constellation-note-paragraph:nth-of-type(5) { animation-delay: 16s; }
+.pretty-constellation-note-paragraph:nth-of-type(2) { animation-delay: 5s; }
+.pretty-constellation-note-paragraph:nth-of-type(3) { animation-delay: 10s; }
+.pretty-constellation-note-paragraph:nth-of-type(4) { animation-delay: 15s; }
+.pretty-constellation-note-paragraph:nth-of-type(5) { animation-delay: 20s; }
+.pretty-constellation-note-paragraph:nth-of-type(6) { animation-delay: 25s; }
 
 .pretty-constellation-note-paragraph em {
   font-style: italic;
@@ -3462,12 +3465,13 @@ body {
 
 .home-field-note .home-title {
   font-family: var(--sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0;
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   font-variation-settings: normal;
   color: var(--ink);
+  margin-bottom: 0.4rem;
 }
 
 .home-identity-line {
@@ -3500,8 +3504,12 @@ body {
   font-variant-ligatures: common-ligatures contextual;
 }
 
+.page-home .home-field-note .home-lede + .home-lede {
+  margin-top: 1.05rem;
+}
+
 .page-home .home-field-note .home-lede + .home-history-section {
-  margin-top: 0.58rem;
+  margin-top: 1.2rem;
 }
 
 .page-home .home-field-note .home-subtitle,
@@ -3546,7 +3554,7 @@ body {
   position: relative;
   display: inline-block;
   color: color-mix(in srgb, var(--home-note-color) 88%, var(--ink));
-  border-bottom: 1px dotted color-mix(in srgb, var(--home-note-color) 62%, transparent);
+  border-bottom: 1px dotted color-mix(in srgb, var(--home-note-color) 32%, transparent);
   outline: 0;
   cursor: help;
 }
@@ -3594,15 +3602,38 @@ body {
   color: color-mix(in srgb, var(--section-label) 90%, var(--ink));
 }
 
+.home-marginalia .home-note-label,
+.home-nav-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 58%, var(--bg));
+}
+
+.home-nav-label {
+  margin: 0 0 0.55rem;
+}
+
+.home-studied {
+  margin-top: 1.15rem;
+}
+
+.home-studied .home-note-label {
+  margin-bottom: 0.55rem;
+}
+
 .home-recent {
-  margin-top: 0.82rem;
+  margin-top: 1.15rem;
 }
 
 .home-recent .home-note-label {
-  margin-bottom: 0.42rem;
+  margin-bottom: 0.55rem;
 }
 
-.home-plain .home-marginalia .home-recent-list {
+.home-plain .home-marginalia .home-recent-list,
+.home-plain .home-marginalia .home-studied-list {
   display: grid;
   gap: 0.72rem;
   list-style: none;
@@ -3610,11 +3641,32 @@ body {
   padding: 0;
 }
 
-.home-plain .home-marginalia .home-recent-list li {
-  padding: 0;
+.home-plain .home-marginalia .home-recent-list li,
+.home-plain .home-marginalia .home-studied-list li {
+  padding: 0 0 0 0.7rem;
+  text-indent: -0.7rem;
   font-family: inherit;
   font-size: inherit;
   line-height: 1.5;
+}
+
+.home-plain .home-marginalia .home-studied-list li {
+  color: color-mix(in srgb, var(--ink) 82%, var(--bg));
+}
+
+.home-plain .home-marginalia .home-recent-role,
+.home-plain .home-marginalia .home-recent-topic,
+.home-plain .home-marginalia .home-recent-org {
+  display: block;
+  padding-left: 0.7rem;
+  text-indent: -0.7rem;
+}
+
+.home-plain .home-marginalia .home-recent-topic {
+  font-size: 0.86em;
+  font-style: normal;
+  color: color-mix(in srgb, var(--ink) 58%, var(--bg));
+  margin-top: 0.05rem;
 }
 
 .home-recent-role,
@@ -3655,6 +3707,10 @@ body {
   font-size: 1.02rem;
   line-height: 1.5;
   color: color-mix(in srgb, var(--ink) 88%, var(--bg));
+}
+
+.page-home .home-field-note .home-history + .home-history {
+  margin-top: 1.05rem;
 }
 
 .home-marginalia--history {
@@ -4185,8 +4241,8 @@ body {
 
 .home-plain .home-work {
   max-width: var(--home-main-measure);
-  margin-top: 0.7rem;
-  padding-top: 0.68rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--rule-light);
 }
 
@@ -4259,6 +4315,20 @@ body {
 
 .home-work-list[hidden] {
   display: none;
+}
+
+.home-plain .home-section.home-work .home-work-teaser-bullets {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: color-mix(in srgb, var(--ink) 84%, var(--bg));
+}
+
+.home-work-teaser-more {
+  margin: 0.5rem 0 0;
+}
+
+.home-work-teaser-more .home-work-toggle {
+  margin-left: 0;
 }
 
 .home-plain .home-section.home-work li {
@@ -4661,6 +4731,140 @@ body {
   border-bottom-color: var(--home-accent);
 }
 
+/* === Consulting page side TOC === */
+
+.consulting-toc {
+  position: fixed;
+  /* Anchor near the left edge of the centered article. The article max-width
+     is (label-measure 10.5rem) + (gap clamp ~2rem) + (main-measure 36rem)
+     = ~48.5rem total. Article left edge sits at calc(50% - 24.25rem). The
+     TOC sits ~10rem to the left of that, falling back to viewport-edge
+     padding on narrower windows. */
+  left: max(1.5rem, calc(50% - 24.25rem - 10.5rem));
+  top: 7.5rem;
+  z-index: 5;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 36%, var(--bg));
+  pointer-events: none;
+}
+
+.consulting-toc-label {
+  margin: 0 0 1.05rem;
+  padding-left: 1.45rem;
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--ink) 30%, var(--bg));
+}
+
+.consulting-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.consulting-toc-list li {
+  margin: 0;
+}
+
+.consulting-field-note a.consulting-toc-link:not([href^="mailto"]),
+.consulting-toc-link {
+  display: block;
+  position: relative;
+  padding: 0.78rem 0 0.78rem 1.45rem;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0;
+  pointer-events: auto;
+  transition:
+    color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.62;
+}
+
+.consulting-field-note a.consulting-toc-link[aria-current="true"]:not([href^="mailto"]) {
+  color: var(--ink);
+  border-bottom: 0;
+}
+
+.consulting-toc-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  transition:
+    background 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.consulting-toc-link:hover {
+  color: color-mix(in srgb, var(--ink) 78%, var(--bg));
+  opacity: 0.92;
+}
+
+.consulting-toc-link:hover::before {
+  border-color: color-mix(in srgb, var(--ink) 78%, var(--bg));
+}
+
+.consulting-toc-link[aria-current="true"] {
+  color: var(--ink);
+  opacity: 1;
+}
+
+.consulting-toc-link[aria-current="true"]::before {
+  background: currentColor;
+  border-color: currentColor;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.consulting-toc-link:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ink) 50%, var(--bg));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (max-width: 1180px) {
+  .consulting-toc {
+    display: none;
+  }
+}
+
+/* Section dim/highlight on scroll — only on wide viewports where the TOC
+   is also active. The section currently >=50% in viewport gets .is-active
+   set by JS; others fade subtly (not aggressive — easy on the eyes). */
+@media (min-width: 1181px) {
+  .consulting-flow .consulting-block,
+  .consulting-flow .consulting-more-knots {
+    opacity: 0.7;
+    transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .consulting-flow .consulting-block.is-active,
+  .consulting-flow .consulting-more-knots.is-active {
+    opacity: 1;
+  }
+}
+
+/* Respect reduced-motion: skip the opacity transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .consulting-flow .consulting-block,
+  .consulting-flow .consulting-more-knots,
+  .consulting-toc-link,
+  .consulting-toc-link::before {
+    transition: none;
+  }
+}
+
 /* === Knot images in consulting left column === */
 
 .consulting-block > img.consulting-block-image,
@@ -4790,8 +4994,8 @@ body {
 
 .home-plain .home-nav {
   max-width: var(--home-main-measure);
-  margin-top: 1rem;
-  padding-top: 0.7rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--rule-light);
 }
 
@@ -4850,8 +5054,8 @@ body {
 
 .home-plain .home-contact {
   max-width: var(--home-main-measure);
-  margin-top: 1.2rem;
-  padding-top: 0.7rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--rule-light);
 }
 
@@ -4892,14 +5096,97 @@ body {
   user-select: none;
 }
 
+/* ----- Manuscript bench motif (home page only) -----
+   A medieval craftsman illumination sits to the left of the terminus
+   mark on the home page, scroll-revealed (the terminus already lives
+   110vh below the article, so it's only in view at the very bottom).
+   Counterbalances the fixed lower-right .site-sawyer-motif: where the
+   sawyer is an ambient ink silhouette, the bench is a discrete moment
+   of color at the page's end. See img/manuscript/SOURCE.md for source
+   note + render rationale.
+
+   Scope: only terminuses that opt in via .page-terminus--with-bench
+   become a flex pair. Default terminuses on other pages keep their
+   centered text-align: center behavior unchanged. */
+.page-terminus--with-bench {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  text-align: initial;
+}
+
+.page-terminus-bench {
+  display: block;
+  width: clamp(140px, 18vw, 220px);
+  aspect-ratio: 613 / 260;
+  background-image: url("/img/manuscript/bench.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.72;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .page-terminus-bench {
+  /* Manuscript pigments are warm; on dark theme, slight luminosity boost
+     keeps the figure legible against the dark page without flattening
+     the warmth of the vellum and cinnabar. */
+  filter: brightness(1.08) saturate(0.96);
+  opacity: 0.62;
+}
+
+@media (max-width: 600px) {
+  .page-terminus--with-bench {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+  .page-terminus-bench {
+    width: clamp(160px, 56vw, 240px);
+  }
+}
+
+/* Wave / constellation modes hide the ambient ornaments — extend the
+   same hide to the bench so it stays consistent with the sawyer. */
+:root.is-wave-mode .page-terminus-bench,
+:root.is-constellation-mode .page-terminus-bench {
+  opacity: 0;
+}
+
 /* Right rail "Currently" sub-block — small label above the Rabbit Run line,
    matching the "Most recent gigs" treatment above it. */
 .home-rabbit {
-  margin-top: 0.95rem;
+  margin-top: 1.15rem;
 }
 
 .home-rabbit .home-note-label {
-  margin-bottom: 0.34rem;
+  margin-bottom: 0.55rem;
+}
+
+.home-marginalia-contact {
+  margin-top: 1.6rem;
+}
+
+.home-marginalia-contact p {
+  margin: 0;
+  font-family: var(--reading);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+.home-marginalia-contact a[href^="mailto"] {
+  color: var(--home-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--home-accent) 82%, transparent);
+}
+
+.home-marginalia-contact a[href^="mailto"]:hover {
+  border-bottom-color: transparent;
+}
+
+.home-marginalia-contact .home-end-ornament {
+  margin-top: 0.75rem;
+  text-align: left;
+  color: color-mix(in srgb, var(--ink) 38%, var(--bg));
 }
 
 .home-rabbit-line {
@@ -5034,18 +5321,15 @@ body {
   mask: url("/img/ornaments/two-man-saw-motif-detail-clean.png") center center / contain no-repeat;
 }
 
-/* Home page: anchor the motif's left edge to the right rail's left edge,
-   keep its width at the default compact size (same as other pages) so it
-   doesn't stretch to viewport-edge and grow tall enough to graze rail copy.
-   .home-plain is 820px max-width, centered, with 1.35rem horizontal padding;
-   the grid inside has a 27.5rem main column then a 1.75rem gap, after which
-   the right rail begins. So rail's left edge sits at:
-     (50% - 410px) + 1.35rem + 27.5rem + 1.75rem  ≈ 50% + 79.6px
-   Falls back to default lower-right positioning below 820px viewport. */
+/* Home page: anchor the motif's RIGHT edge to viewport-edge (was: left edge
+   anchored to the right rail of the 820px container, which collided with
+   the marginalia content as that column grew). With right-anchoring, motif
+   sits at lower-right of viewport regardless of container width, leaving
+   room for marginalia to extend down without collision. */
 @media (min-width: 820px) {
   .page-home-ornaments {
-    --sawyer-motif-left: calc(50% - (820px / 2) + 1.35rem + 27.5rem + 1.75rem);
-    --sawyer-motif-right: auto;
+    --sawyer-motif-left: auto;
+    --sawyer-motif-right: 0;
     --sawyer-motif-width: min(34rem, 38vw);
   }
 }
@@ -8210,3 +8494,28 @@ a.shelf-list-title:hover {
     grid-column: 1 / -1;
   }
 }
+
+/* === TEMP: sans-serif body preview — revert if not adopting === */
+:root,
+:root[data-font="bricolage-eb"],
+:root[data-font="ssc"],
+:root[data-font="literata"] {
+  --reading: 'Inter', -apple-system, 'Helvetica Neue', sans-serif !important;
+}
+
+.page-home .home-field-note .home-lede {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+.page-home .home-field-note .home-history {
+  font-size: 0.94rem !important;
+  line-height: 1.55 !important;
+}
+
+.consulting-block p,
+.consulting-more-knots p {
+  font-size: 0.96rem !important;
+  line-height: 1.58 !important;
+}
+/* === /TEMP === */

@@ -16,7 +16,7 @@
   <meta name="twitter:image" content="{{ site.url }}/img/og-image.png">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-  <link rel="alternate" type="application/rss+xml" title="Shelf – Lee Wilkers" href="/shelf.xml">
+  <link rel="alternate" type="application/rss+xml" title="Shelves – Lee Wilkers" href="/shelf.xml">
   <link rel="alternate" type="application/rss+xml" title="Stream – Lee Wilkers" href="/stream.xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,12 +103,12 @@
     <div class="nav-links">
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/consulting/" {% if page.url == "/consulting/" %}class="active"{% endif %}>consulting</a>
-      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelf</a>
+      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelves</a>
       <a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-      <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">~</span></button>
+      <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">✦</span></button>
       <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
       <label class="pretty-delay-control" hidden>
         <span class="pretty-delay-end" aria-hidden="true">signal</span>
@@ -391,8 +391,9 @@
           id: 'The Herdsman / Arcturus',
           href: 'https://en.wikipedia.org/wiki/Arcturus#Cultural_significance',
           paragraphs: [
-            'Boötes (bo-OH-teez), the Herdsman, draws a kite-shape overhead in northern spring and summer — the name from a Greek verb for driving oxen, since he’s chasing the bears. Arcturus at the bright corner is the fourth-brightest star in the night sky and the brightest of the northern hemisphere: an orange giant 36.7 light-years away. Unusually for a bright star it belongs to the galaxy’s older halo population — the stars on the disordered outer orbits — and is plowing perpendicular through the disk at high speed. In four thousand years its motion across the sky will be visible to the naked eye.',
-            'In Hawaiian wayfinding the same star is Hōkūleʻa, the zenith star directly overhead at the latitude of Hawaiʻi. The Polynesian Voyaging Society’s reconstruction canoe of that name sailed from Hawaiʻi to Tahiti and back in 1976, navigated by the master Mau Piailug using stars, swells, and wildlife alone.'
+            'Boötes (bo-OH-teez), <span class="note-name">the Herdsman</span>, is a kite-shaped constellation visible overhead in the northern spring and summer. The name comes from a Greek verb meaning “to drive oxen.”',
+            '<span class="note-star">Arcturus</span>, at the bright corner of the kite, is the brightest star in the northern hemisphere — an orange giant about 36.7 light-years away.',
+            'In Hawaiian wayfinding the same star is <span class="note-name">Hōkūleʻa</span>, the zenith star directly overhead at the latitude of Hawaiʻi. The Polynesian Voyaging Society’s reconstruction canoe of that name sailed from Hawaiʻi to Tahiti in 1976, navigated by Mau Piailug using stars, swells, and wildlife alone.'
           ]
         },
         points: [
@@ -423,8 +424,9 @@
           id: 'The Hare / Hind’s Crimson Star',
           href: 'https://en.wikipedia.org/wiki/R_Leporis',
           paragraphs: [
-            'Lepus, the Hare, crouches at Orion’s feet — a small constellation listed in the <em>Almagest</em>, the second-century star catalogue compiled by the Greek astronomer Ptolemy. The star marked here is R Leporis, a carbon star: its atmosphere holds more carbon than oxygen, the carbon absorbs blue wavelengths, and the result is one of the deepest visible reds in the sky. Its brightness pulses on a ~430-day cycle, swinging from binocular-easy at peak to small-telescope at minimum.',
-            'John Russell Hind first watched it from Mr Bishop’s Observatory in Regent’s Park in October 1845, and described it as “like a drop of blood on a black field.” It has been called Hind’s Crimson Star ever since.'
+            'Lepus, <span class="note-name">the Hare</span>, is a small southern constellation that crouches at Orion’s feet.',
+            '<span class="note-star">R Leporis</span> is among the deepest visible reds in the sky, with a brightness that rises and falls on a roughly 430-day cycle.',
+            '<span class="note-name">John Russell Hind</span> first observed it in October 1845 and described it as “like a drop of blood on a black field.” The star has been known as <span class="note-name">Hind’s Crimson Star</span> ever since.'
           ]
         },
         points: [
@@ -456,8 +458,9 @@
           id: 'The Little Bear / Polaris',
           href: 'https://en.wikipedia.org/wiki/Polaris#Role_as_pole_star',
           paragraphs: [
-            'Ursa Minor is a smaller dipper than the Great Bear; the early Greek philosopher Thales of Miletus is credited with introducing it to Greek astronomy around 600 BCE, as a tighter steering reference than Ursa Major. Polaris sits at the tip of the bear’s tail and within 0.7° of the celestial pole — a triple star, a Cepheid variable (one of those pulsating stars whose brightness rises and falls on a regular clock, used as a cosmic distance ruler), and about 433 light-years away. Its 4-day pulse has been mysteriously decreasing for a century.',
-            'It hasn’t always been the pole star and won’t always be. Earth’s axis precesses through a slow 26,000-year wobble that drifts the pole among the stars. The pyramid-builders steered by Thuban, in the constellation Draco; by ~13,727 CE the pole will fall near Vega. The Inuit name for Polaris, <em>Niqirtsuituq</em>, means “the star that doesn’t move.”'
+            'Ursa Minor, <span class="note-name">the Little Bear</span>, is a smaller dipper than Ursa Major. <span class="note-star">Polaris</span> sits at the tip of its tail, within 0.7° of the celestial pole.',
+            'Because it stays so close to the pole, Polaris does not noticeably move across the night sky, and has been used for orientation at least since Phoenician sailors.',
+            'It has not always been the pole star, and will not always be: Earth’s axis precesses through a 26,000-year wobble that drifts the pole among the stars. The pyramid-builders steered by <span class="note-star">Thuban</span>, in Draco; by approximately 13,727 CE the pole will fall near <span class="note-star">Vega</span>.'
           ]
         },
         points: [
@@ -488,8 +491,9 @@
           id: 'Southern Cross / Acrux',
           href: 'https://en.wikipedia.org/wiki/Crux#Navigation',
           paragraphs: [
-            'Crux is the smallest of the eighty-eight modern constellations — a cross-shape so far south that it’s invisible from most of the northern hemisphere. Once a piece of the much larger Centaurus, it was named as a separate constellation by European observers during southern voyages in the 16th and 17th centuries. Acrux at the bright foot is a system of massive blue giants about 321 light-years away. Extending the long axis of the cross about four and a half times its length lands you at the south celestial pole; unlike the north, no bright star marks it.',
-            'Crux is the heraldic anchor of the southern world — the flags of Australia, New Zealand, Brazil, Papua New Guinea, Samoa. Brazil’s specifically depicts the night sky over Rio de Janeiro on 15 November 1889, the day of the proclamation of the republic. In Aboriginal Australian astronomy, Crux corners the Emu in the Sky: a dark constellation traced not by stars but by the dust lanes of the Milky Way, with the Coalsack nebula beside Crux as the emu’s head.'
+            'Crux, <span class="note-name">the Southern Cross</span>, is the smallest of the eighty-eight modern constellations — a cross-shape so far south that it is invisible from most of the northern hemisphere.',
+            '<span class="note-star">Acrux</span>, at the bright foot of the cross, is a system of massive blue giants about 321 light-years away. Extending the cross’s long axis points to the south celestial pole, which has no bright star to mark it.',
+            'In Aboriginal Australian astronomy, Crux forms one corner of <span class="note-name">the Emu in the Sky</span>: a dark constellation traced not by stars but by the dust lanes of the Milky Way, with the Coalsack nebula beside Crux as the emu’s head.'
           ]
         },
         points: [
@@ -519,8 +523,9 @@
           id: 'The Greater Dog / Sirius',
           href: 'https://en.wikipedia.org/wiki/Sirius#Observational_history',
           paragraphs: [
-            'Canis Major, the Greater Dog, follows Orion across the sky. Sirius at its eye is the brightest star in the night sky — almost twice as bright as runner-up Canopus — and at 8.6 light-years one of the closest. It’s a binary: Sirius B, nicknamed “the Pup,” is a white dwarf — the dense, Earth-sized remnant of a Sun-like star that has burned through its fuel — and the first ever observed. Bessel predicted the companion in 1844 from Sirius’s wobble; Alvan Clark caught it in 1862 while testing a new telescope lens.',
-            'The Egyptians called it Sothis and built a calendar around its first dawn rising, which heralded the annual flooding of the Nile. The Greek and Roman “dog days” of late summer are also Sirius’s: when it rose with the Sun in late July, days were thought to be hottest because Sirius was adding its heat to the Sun’s. Several classical writers — Ptolemy, Cicero, Seneca — describe Sirius as red, though it’s clearly bluish-white today.'
+            'Canis Major, <span class="note-name">the Greater Dog</span>, follows Orion across the sky. <span class="note-star">Sirius</span>, at its eye, is the brightest star in the night sky — almost twice as bright as runner-up Canopus, and at 8.6 light-years away one of the closest.',
+            'The Egyptians knew it as <span class="note-name">Sothis</span> and built a calendar around its first dawn rising, which heralded the annual flooding of the Nile.',
+            'The Greek and Roman “dog days” of late summer come from the same rising: when Sirius rose with the Sun in late July, the days were thought to be hottest because Sirius was adding its heat to the Sun’s.'
           ]
         },
         points: [
@@ -550,8 +555,9 @@
           id: 'M45 / open cluster in Taurus',
           href: 'https://en.wikipedia.org/wiki/Pleiades#Astronomical_role_of_M45_in_antiquity',
           paragraphs: [
-            'The Pleiades aren’t a constellation but an open cluster on the shoulder of Taurus, about 444 light-years away — known as M45 from the 18th-century catalogue Charles Messier kept of fuzzy non-comet objects in the sky. Six or seven stars to the naked eye, dozens in a small telescope, perhaps a thousand gravitationally bound members in total. They formed together from the same cloud of gas and dust about 100 million years ago. Alcyone is the brightest. The blue nebulosity around the cluster turns out to be unrelated dust the Pleiades happen to be drifting through, not the cloud they were born from.',
-            'Most cultures count seven Pleiades, though only six are easy to see — and the same “lost sister” story turns up in Greek, Aboriginal Australian, and Native American traditions. One hypothesis dates the story to roughly 100,000 years ago, when one of the cluster’s stars was bright enough to be a clear seventh, before drifting closer to a companion and effectively merging visually. <em>Subaru</em> in Japanese means “the gathered ones”; the six stars on the carmaker’s logo are the visible six.'
+            'The Pleiades are not a constellation but an open cluster on the shoulder of <span class="note-name">Taurus</span>, about 444 light-years away. Six or seven stars are visible to the naked eye; <span class="note-star">Alcyone</span> is the brightest.',
+            'Their first dawn rising and their evening setting marked planting and sailing seasons across many cultures.',
+            'Most cultures count seven Pleiades, though only six are easy to see, and the same “lost sister” story turns up in Greek, Aboriginal Australian, and Native American traditions. One hypothesis dates the story to roughly 100,000 years ago, when one of the cluster’s stars was bright enough to be a clear seventh.'
           ]
         },
         points: [
@@ -582,8 +588,9 @@
           id: 'The Great Bear / Mizar and Alcor',
           href: 'https://en.wikipedia.org/wiki/Mizar_and_Alcor#Test_of_eyesight',
           paragraphs: [
-            'Ursa Major is among the oldest recognised constellations in human record. Its seven brightest stars form the Big Dipper or Plough; Dubhe and Merak, at the dipper’s far edge, point straight to Polaris. Mizar sits at the bend of the handle, with Alcor a finger-width beside it. Mizar is itself a four-star system, two binaries orbiting each other; Alcor is a binary too. The whole arrangement is gravitationally bound — six stars sharing a single apparent point. Mizar A was the first telescopic double ever resolved (Riccioli, 1650), and the first known spectroscopic binary as well — identified at Harvard in 1889, when its spectrum was found to be secretly doubled by a companion too close to see.',
-            'Persian and Arabic tradition treated the ability to split Mizar from Alcor with the naked eye as an eyesight test, used in selecting warriors and recruits. The names themselves come from the Arabic: <em>Mizar</em> is “the apron”; <em>Alcor</em> is “the test.”'
+            'Ursa Major, <span class="note-name">the Great Bear</span>, is among the oldest recognised constellations. Its seven brightest stars form the Big Dipper, or Plough.',
+            '<span class="note-star">Mizar</span> sits at the bend of the Dipper’s handle, with <span class="note-star">Alcor</span> a finger-width beside it. Persian and Arabic tradition treated the ability to split them with the naked eye as an eyesight test, used in selecting warriors and recruits.',
+            'The Arabic names reflect the test itself: <em>Mizar</em> means “the apron,” and <em>Alcor</em> means “the faint one,” or “the test.”'
           ]
         },
         points: [
@@ -613,8 +620,9 @@
           id: 'The Lyre / Vega',
           href: 'https://en.wikipedia.org/wiki/Vega#Photometric_calibration',
           paragraphs: [
-            'Lyra is the harp of Orpheus — a small bright parallelogram, easy to find on summer evenings. Vega at the bright corner is the fifth-brightest star in the night sky, and was historically used as the standard reference for stellar brightness. Twenty-five light-years away, blue-white. It rotates so fast (~236 km/s at its equator, near the speed at which it would fly apart) that it’s visibly oblate, about 19% wider at the equator than from pole to pole. In 1983 the IRAS satellite detected unexpected infrared excess from it: the first known dust debris disk around an ordinary star.',
-            'Vega was the first star (other than the Sun) to be photographed (Bond and Whipple, daguerreotype, Harvard, 1850), and the first whose spectrum was photographed (Henry Draper, 1872). It was the pole star around 12,000 BCE and will be again around 13,727 CE, as Earth’s axis precesses through its 26,000-year wobble. The name comes from Arabic <em>an-nasr al-wāqiʿ</em>, “the swooping eagle.”'
+            'Lyra, <span class="note-name">the Lyre</span>, is the harp of Orpheus — a small bright parallelogram visible on summer evenings.',
+            '<span class="note-star">Vega</span>, at the bright corner of the parallelogram, is the fifth-brightest star in the night sky and just twenty-five light-years away.',
+            'In 1850 Vega became the first star besides the Sun ever photographed, captured on a daguerreotype by William Bond and John Adams Whipple at Harvard. Astronomers later used it as the standard reference for stellar brightness.'
           ]
         },
         points: [
@@ -644,8 +652,9 @@
           id: 'The Measuring Grid / Alpha Reticuli',
           href: 'https://en.wikipedia.org/wiki/Reticulum#History',
           paragraphs: [
-            'Reticulum is one of fourteen constellations the French astronomer Nicolas-Louis de Lacaille introduced in the 1750s during his expedition to the Cape of Good Hope, where he catalogued nearly ten thousand southern stars in a single year. He named most of them after instruments of craft and science: Telescopium, Microscopium, Octans, Antlia (the air pump). A <em>réticule</em> is the fine crosshair grid in a telescope eyepiece, used for measuring star positions. Alpha Reticuli, the brightest in the constellation, is a yellow giant about 161 light-years away.',
-            'The constellation’s better-known feature is Zeta Reticuli, a wide pair of Sun-like stars elsewhere in the figure. In 1961 Betty Hill claimed she’d seen a star map aboard a UFO; under hypnosis she drew it, and an Ohio schoolteacher named Marjorie Fish spent six years matching the sketch to the Zeta Reticuli system. Astronomers call it pattern-matching. <em>Alien</em>’s LV-426 lives in that system.'
+            'Reticulum is one of fourteen constellations Nicolas-Louis de <span class="note-name">Lacaille</span> introduced from the Cape of Good Hope in the 1750s, naming most of them after instruments of craft and science: Telescopium, Microscopium, Octans, Antlia (the air pump).',
+            'A <em>réticule</em> is the fine crosshair grid in a telescope eyepiece, used for measuring star positions. Where most constellations are mythological figures, this one is named for a tool.',
+            'The constellation’s better-known feature is <span class="note-star">Zeta Reticuli</span>, a wide pair of Sun-like stars elsewhere in the figure that became fixed in UFO lore after the 1961 Betty and Barney Hill abduction account. <em>Alien</em>’s LV-426 lives in that system.'
           ]
         },
         points: [
@@ -676,8 +685,9 @@
           id: 'The River / Epsilon Eridani',
           href: 'https://en.wikipedia.org/wiki/Epsilon_Eridani#SETI_and_proposed_exploration',
           paragraphs: [
-            'Eridanus is the sixth-largest constellation by area: a long, sinuous river beginning near Orion’s foot and winding south to end at Achernar. In Greek myth, the river into which Phaeton fell after losing control of the Sun chariot. Epsilon Eridani is a K-type orange dwarf, slightly smaller and cooler than the Sun and significantly younger — only a few hundred million years old. Just 10.5 light-years away, one of the closest stars visible to the naked eye. It hosts a confirmed Jupiter-mass planet, and is surrounded by two distinct dust rings that mirror our own asteroid belt and the icy Kuiper belt beyond Neptune.',
-            'On 8 April 1960, Frank Drake pointed the 26-metre Tatel radio telescope at Green Bank, West Virginia, at Tau Ceti and Epsilon Eridani and listened — the first deliberate search for narrow-band radio signals from another star. He called it Project Ozma, after the queen in L. Frank Baum’s <em>Land of Oz</em>. He listened for two hundred hours over four months and detected nothing — except, briefly, a passing U-2 reconnaissance plane.'
+            'Eridanus, <span class="note-name">the River</span>, is the sixth-largest constellation by area — a long sinuous river that winds south from Orion’s foot to end at Achernar. In Greek myth, it is the river into which Phaeton fell after losing the reins of the Sun chariot.',
+            '<span class="note-star">Epsilon Eridani</span> is a young Sun-like star, only 10.5 light-years away and among the closest visible to the naked eye. It hosts a confirmed Jupiter-mass planet and two dust rings that echo our own asteroid belt and Kuiper belt.',
+            'On 8 April 1960, <span class="note-name">Frank Drake</span> aimed the 26-metre Tatel radio telescope at <span class="note-star">Tau Ceti</span> and Epsilon Eridani and listened — the first deliberate search for radio signals from another star, called Project Ozma.'
           ]
         },
         points: [
@@ -697,7 +707,7 @@
       }
     };
     const CONSTELLATION_CYCLE = ['lepus', 'polaris', 'bootes', 'crux', 'sirius', 'pleiades', 'mizarAlcor', 'vega', 'reticulum', 'epsilonEridani'];
-    const CONSTELLATION_CYCLE_MS = 20000;
+    const CONSTELLATION_CYCLE_MS = 30000;
     let activeConstellation = CONSTELLATIONS.lepus;
     let constellationCycleIndex = 0;
     let constellationCycleTimer = null;
@@ -1671,8 +1681,15 @@
 
     function syncConstellationVisual() {
       const nextVisualActive = prettyArmed || constellationModeActive;
-      if (nextVisualActive) startConstellationCycle();
-      else stopConstellationCycle();
+      if (nextVisualActive) {
+        if (!constellationVisualActive) {
+          // Entering wave/rabbit mode: always restart the cycle from Lepus
+          stopConstellationCycle();
+          constellationCycleIndex = 0;
+          setActiveConstellation(CONSTELLATION_CYCLE[0], false);
+        }
+        startConstellationCycle();
+      } else stopConstellationCycle();
       if (prettyField) {
         if (prettyFieldExitTimer) {
           clearTimeout(prettyFieldExitTimer);
@@ -2121,9 +2138,125 @@
 	  }
   window.initShelfPage = initShelfPage;
 
+  // Consulting page side TOC scroll-spy.
+  // Same pattern as initShelfPage: rAF-throttled scroll listener; the
+  // section that occupies >=50% of the usable viewport is "active";
+  // fall back to the most-visible section between thresholds.
+  function initConsultingPage() {
+    if (window.__consultingScrollHandler) {
+      window.removeEventListener('scroll', window.__consultingScrollHandler);
+      window.__consultingScrollHandler = null;
+    }
+    if (window.__consultingHashHandler) {
+      window.removeEventListener('hashchange', window.__consultingHashHandler);
+      window.__consultingHashHandler = null;
+    }
+
+    var sectionIds = ['perspective', 'what-to-expect', 'getting-started', 'more-on-knots-section'];
+    var sections = [];
+    sectionIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) sections.push({ id: id, el: el });
+    });
+    var links = document.querySelectorAll('.consulting-toc-link');
+    if (!sections.length || !links.length) return;
+
+    function navOffset() {
+      var nav = document.querySelector('.site-nav');
+      return nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+    }
+
+    function updateActive() {
+      var viewTop = navOffset();
+      var viewBottom = window.innerHeight;
+      var viewMid = viewTop + (viewBottom - viewTop) / 2;
+      var active = null;
+
+      // Primary: pick the section whose box straddles viewport center.
+      // Works for short sections (Getting Started) that can't satisfy a
+      // viewport-share threshold because they're smaller than the viewport.
+      sections.forEach(function(s) {
+        var r = s.el.getBoundingClientRect();
+        if (r.top <= viewMid && r.bottom >= viewMid) {
+          active = s.id;
+        }
+      });
+
+      // Fallback: between sections (no box covers center). Pick the
+      // most-visible section by pixel area within the usable viewport.
+      if (!active) {
+        var bestVisible = 0;
+        sections.forEach(function(s) {
+          var r = s.el.getBoundingClientRect();
+          var visible = Math.max(0, Math.min(r.bottom, viewBottom) - Math.max(r.top, viewTop));
+          if (visible > bestVisible) {
+            bestVisible = visible;
+            active = s.id;
+          }
+        });
+      }
+
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-toc-target') === active;
+        if (isActive) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+
+      sections.forEach(function(s) {
+        s.el.classList.toggle('is-active', s.id === active);
+      });
+    }
+
+    var ticking = false;
+    window.__consultingScrollHandler = function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          updateActive();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', window.__consultingScrollHandler, { passive: true });
+
+    // Click-nav: smooth scroll, push hash to URL.
+    links.forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        var id = a.getAttribute('data-toc-target');
+        var section = document.getElementById(id);
+        if (section) {
+          e.preventDefault();
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history.pushState) history.pushState(null, '', '#' + id);
+          requestAnimationFrame(updateActive);
+        }
+      });
+    });
+
+    window.__consultingHashHandler = function() {
+      var hash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+      var section = hash && document.getElementById(hash);
+      if (section) {
+        section.scrollIntoView({ behavior: 'auto', block: 'start' });
+        requestAnimationFrame(updateActive);
+      }
+    };
+    window.addEventListener('hashchange', window.__consultingHashHandler);
+
+    // Initial paint — handle hash on load, then update.
+    var initialHash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+    if (initialHash && document.getElementById(initialHash)) {
+      document.getElementById(initialHash).scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+    updateActive();
+    requestAnimationFrame(updateActive);
+  }
+  window.initConsultingPage = initConsultingPage;
+
   function initCurrentPage() {
     initHomePage();
     initShelfPage();
+    initConsultingPage();
     syncSidebarMode();
   }
   window.initCurrentPage = initCurrentPage;

@@ -13,8 +13,19 @@
       </section>
 
       <section class="home-section home-work" aria-label="Selected work examples">
-        <p class="home-work-teaser">
-          <span class="home-work-teaser-line"><span class="home-work-teaser-label">Some things I&rsquo;ve worked on:</span> <span class="home-work-teaser-list">disease-control campaigns, learning systems, public engagement around gene drives and other contested technologies, ecology for <span class="home-work-teaser-action">spaceflight <button class="home-work-toggle" type="button" aria-expanded="false" aria-controls="home-work-list" data-home-work-toggle><span class="home-work-toggle-more">more&nbsp;&rarr;</span><span class="home-work-toggle-less">less</span></button></span></span></span>
+        <p class="home-note-label home-work-teaser-label">Some things I&rsquo;ve worked on:</p>
+        <ul class="home-work-teaser-bullets">
+          <li>disease-control campaigns</li>
+          <li>knowledge management</li>
+          <li>organizational learning systems</li>
+          <li>public engagement around gene drives and other contested technologies</li>
+          <li>ecology for spaceflight</li>
+        </ul>
+        <p class="home-work-teaser-more">
+          <button class="home-work-toggle" type="button" aria-expanded="false" aria-controls="home-work-list" data-home-work-toggle>
+            <span class="home-work-toggle-more">+&nbsp;more</span>
+            <span class="home-work-toggle-less">less</span>
+          </button>
         </p>
         <ul class="home-work-list" id="home-work-list" hidden>
           <li>organizational learning in disease-control campaigns</li>
@@ -29,18 +40,25 @@
       </section>
 
       <section class="home-section home-nav" aria-label="Pages">
+        <p class="home-note-label home-nav-label">Other pages on this website</p>
         <p class="home-nav-item home-nav-item--consulting"><span class="home-nav-primary"><a href="/consulting/">Consulting</a>: things I can do for you, for money.</span></p>
-        <p><a href="/shelf/">Shelf</a>: things on and around my desk, for now.</p>
+        <p><a href="/shelf/">Shelves</a>: things on and around my desk, for now.</p>
         <p><a class="home-dust-link" href="/stream/" title="in progress &ndash; pardon dust">Stream</a>: things I clicked on, for later.</p>
       </section>
 
-      <section class="home-section home-contact" aria-label="Contact">
-        <p><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
-        <p class="home-end-ornament" aria-hidden="true">&#10087;</p>
-      </section>
     </div>
     <aside class="home-marginalia home-marginalia--intro" aria-label="Field notes">
-      <p>Raised in the <span class="home-place-note" tabindex="0" data-note="the data center capital of the world">DC area</span>. <span class="home-location-phrase">Working from <span class="home-place-note" tabindex="0" data-note="the global health capital of the world">Atlanta</span>.</span></p>
+      <div class="home-place">
+        <p class="home-note-label">Place</p>
+        <p>Raised in the <span class="home-place-note" tabindex="0" data-note="the data center capital of the world">DC area</span>, <span class="home-location-phrase">working from <span class="home-place-note" tabindex="0" data-note="the global health capital of the world">Atlanta</span>.</span></p>
+      </div>
+      <div class="home-studied">
+        <p class="home-note-label">Studied</p>
+        <ul class="home-studied-list">
+          <li>Ecology, Virginia Commonwealth University</li>
+          <li>Public Health, Rollins (Emory)</li>
+        </ul>
+      </div>
       <div class="home-recent">
         <p class="home-note-label">Most recent gigs</p>
         <ul class="home-recent-list">
@@ -49,20 +67,30 @@
             <span class="home-recent-org">The Task Force for Global Health</span>
           </li>
           <li>
+            <span class="home-recent-role">Evans Research Group</span>
+            <span class="home-recent-topic">Intimate Partner Violence</span>
+            <span class="home-recent-org">Rollins</span>
+          </li>
+          <li>
             <span class="home-recent-role">Human Engagement Learning Platform</span>
-            <span class="home-recent-org">Rollins School of Public Health,<br>Emory University</span>
+            <span class="home-recent-org">Rollins</span>
           </li>
         </ul>
       </div>
       <div class="home-rabbit">
         <p class="home-note-label">Currently</p>
-        <p class="home-rabbit-line">Consulting; writing; building <a class="home-rabbit-runworks" href="https://rabbitrun.works" target="_blank" rel="noopener noreferrer">Rabbit Run</a>.</p>
+        <p class="home-rabbit-line">Consulting, writing, building <a class="home-rabbit-runworks" href="https://rabbitrun.works" target="_blank" rel="noopener noreferrer">Rabbit Run</a>.</p>
+      </div>
+      <div class="home-marginalia-contact">
+        <p><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
+        <p class="home-end-ornament" aria-hidden="true">&#10087;</p>
       </div>
     </aside>
   </div>
 
 </article>
 
-<footer class="page-terminus" aria-hidden="true">
+<footer class="page-terminus page-terminus--with-bench" aria-hidden="true">
+  <span class="page-terminus-bench" aria-hidden="true"></span>
   <p class="page-terminus-mark">~&nbsp;&nbsp;&nbsp;!_!&nbsp;&nbsp;&nbsp;~</p>
 </footer>
