@@ -4622,8 +4622,19 @@ body {
   filter: grayscale(100%) contrast(0.96);
 }
 
-.consulting-block-image--bias-left {
-  object-position: left center;
+.consulting-block > img.consulting-block-image--crop-lower,
+.consulting-more-knots > img.consulting-block-image--crop-lower {
+  object-position: center 78%;
+}
+
+.consulting-block > img.consulting-block-image--crop-upper,
+.consulting-more-knots > img.consulting-block-image--crop-upper {
+  object-position: center 18%;
+}
+
+.consulting-block > img.consulting-block-image--crop-right,
+.consulting-more-knots > img.consulting-block-image--crop-right {
+  object-position: 68% center;
 }
 
 .consulting-block-eyebrow {
