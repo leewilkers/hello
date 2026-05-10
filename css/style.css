@@ -2905,20 +2905,10 @@ body {
    whenever the constellation visual is active (wave or rabbit); hidden
    during the rabbit-mode intro so it doesn't compete with the prose. */
 .constellation-art {
-  position: fixed;
-  top: clamp(4.2rem, 8vh, 6rem);
-  left: clamp(1.75rem, 4.4vw, 4rem);
-  width: clamp(160px, 18vw, 220px);
-  height: clamp(7.6rem, 13vw, 11rem);
-  z-index: 3;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  filter: contrast(1.04) brightness(0.96);
-  mix-blend-mode: screen;
-  transition:
-    opacity 720ms ease,
-    visibility 0s linear 720ms;
+  /* Plate thumbnails retired — rabbit-mode reveal is now the diagram +
+     editorial note alone. JS image-swap logic remains so resurrection is
+     a one-line CSS revert if wanted. */
+  display: none;
 }
 
 .constellation-art-img {
@@ -3700,20 +3690,40 @@ body {
 
 :root.is-constellation-mode .pretty-constellation-field.is-armed .pretty-star-label,
 :root.is-constellation-mode .pretty-constellation-field.is-leaving .pretty-star-label {
-  opacity: 0.46;
+  opacity: 0.88;
+}
+
+:root.is-constellation-mode .pretty-constellation-field {
+  /* Editorial layout: constellation diagram lives in the right column,
+     beside the editorial note. Aspect ratio preserved; width takes the
+     remaining viewport after the note column. */
+  top: 50%;
+  left: auto;
+  right: clamp(1.75rem, 3vw, 3rem);
+  width: clamp(28rem, 56vw, 78rem);
+  transform: translate3d(0, -50%, 0) scale(1);
+  transform-origin: right center;
+}
+
+:root.is-constellation-mode .pretty-constellation-field.is-armed,
+:root.is-constellation-mode .pretty-constellation-field.is-leaving {
+  transform: translate3d(0, -50%, 0) scale(1);
 }
 
 :root.is-constellation-mode .pretty-constellation-note {
-  /* Editorial-column position: sits below the plate thumbnail in the
-     upper-left. Lower-left is intentionally empty; lower-right hosts the
-     slider/prev-next cluster. */
-  top: calc(clamp(4.2rem, 8vh, 6rem) + clamp(7.6rem, 13vw, 11rem) + 0.85rem);
+  /* Editorial layout: note becomes the left column, constellation diagram
+     sits to the right in its own column. No overlap by construction. */
+  top: clamp(5.5rem, 10vh, 7.5rem);
+  bottom: clamp(2rem, 5vh, 4rem);
   right: auto;
-  bottom: auto;
-  left: clamp(1.75rem, 4.4vw, 4rem);
+  left: clamp(1.75rem, 4.4vw, 3rem);
   z-index: 3;
   display: block;
-  width: min(39rem, calc(100vw - 3.5rem));
+  width: clamp(20rem, 36vw, 34rem);
+  height: auto;
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto;
+  overflow-x: hidden;
   color: color-mix(in srgb, #d14d41 82%, #cecdc3);
   text-align: left;
   text-shadow: 0 0 0.9rem color-mix(in srgb, #d14d41 30%, transparent);
@@ -3745,7 +3755,11 @@ body {
   }
 
   :root.is-constellation-mode .pretty-constellation-field {
+    /* Mobile: revert to centered, full-width — editorial two-column
+       collapses to single column at narrow viewports. */
     top: 50%;
+    left: 50%;
+    right: auto;
     width: calc(100vw - 2rem);
     transform: translate3d(-50%, -50%, 0) scale(1);
   }
@@ -3760,6 +3774,7 @@ body {
     bottom: 1rem;
     left: 1rem;
     width: calc(100vw - 2rem);
+    max-height: 38vh;
     font-size: 0.6rem;
     line-height: 1.42;
   }
