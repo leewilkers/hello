@@ -3421,6 +3421,18 @@ body {
     0 0 calc(0.95rem + var(--delay-mix, 0.72) * 0.55rem) color-mix(in srgb, #d4a017 22%, transparent);
 }
 
+/* Dusty lilac for persons — both real (astronomers, navigators, named
+   observers) and mythic (figures from constellation lore). Distinct from
+   .note-name (constellations only) and from .note-star (celestial bodies).
+   Halo treatment parallel to .note-name. */
+.pretty-constellation-note-paragraph .note-person,
+.constellation-intro-paragraph .note-person {
+  color: color-mix(in srgb, #b794c7 86%, var(--ink-faint));
+  text-shadow:
+    0 0 0.5rem color-mix(in srgb, #b794c7 40%, transparent),
+    0 0 1.2rem color-mix(in srgb, #b794c7 20%, transparent);
+}
+
 @keyframes pretty-constellation-paragraph-twinkle {
   0% {
     opacity: 0;
