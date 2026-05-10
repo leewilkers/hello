@@ -156,6 +156,35 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
   letter-spacing: 0.12em;
   color: var(--nl-fg-dim);
 }
+.notes-lab-paragraph-label-group {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.notes-lab-reading-badge {
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--nl-fg-dim);
+  font-feature-settings: "tnum";
+}
+.notes-lab-reading-badge.is-floor   { color: #d4a017; }
+.notes-lab-reading-badge.is-ceiling { color: #d14d41; }
+.notes-lab-meta-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+.notes-lab-total-badge {
+  font-size: 0.74rem;
+  color: var(--nl-fg-dim);
+  font-feature-settings: "tnum";
+  border-top: 1px solid var(--nl-border);
+  padding-top: 0.5rem;
+  letter-spacing: 0.04em;
+}
+.notes-lab-meta-wrap .notes-lab-meta { margin-bottom: 0; }
 .notes-lab-tag-chips { display: flex; gap: 0.3rem; flex-wrap: wrap; }
 .notes-lab-tag-chip {
   background: transparent;
@@ -397,6 +426,21 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
   function saveRecords() { localStorage.setItem(STORAGE_RECORDS, JSON.stringify(records)); }
   function saveStyles() { localStorage.setItem(STORAGE_STYLES, JSON.stringify(styles)); }
 
+  // ===== Reading-time math (mirrors base.njk readingMs + cycle constants) =====
+  const READ_WPM_CYCLE = 250;
+  const READ_BUFFER = 1.3;
+  const READ_FLOOR_MS = 4000;
+  const READ_CEILING_MS = 22000;
+  const CYCLE_TAIL_MS = 1500;
+  function paragraphReadingMs(html) {
+    const text = String(html || '').replace(/<[^>]+>/g, ' ');
+    const words = text.trim().split(/\s+/).filter(Boolean).length;
+    if (!words) return { words: 0, ms: READ_FLOOR_MS };
+    const ms = (words / READ_WPM_CYCLE) * 60000 * READ_BUFFER;
+    return { words, ms: Math.min(READ_CEILING_MS, Math.max(READ_FLOOR_MS, Math.round(ms))) };
+  }
+  function fmtMs(ms) { return (ms / 1000).toFixed(1) + 's'; }
+
   // ===== DOM helpers (no innerHTML) =====
   function el(tag, attrs, children) {
     const node = document.createElement(tag);
@@ -465,11 +509,19 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
       return;
     }
     const rec = records[activeId];
-    editor.appendChild(buildMeta(rec));
-    rec.paragraphs.forEach((para, idx) => editor.appendChild(buildParagraphEditor(rec, idx)));
+    const totalBadge = el('div', { class: 'notes-lab-total-badge' });
+    function updateTotal() {
+      const sum = rec.paragraphs.reduce((acc, p) => acc + paragraphReadingMs(p).ms, 0);
+      const total = sum + CYCLE_TAIL_MS;
+      totalBadge.textContent = 'cycle dwell: ' + fmtMs(total) + ' (' + rec.paragraphs.length + ' paragraphs + 1.5s tail)';
+    }
+    updateTotal();
+    editor.appendChild(buildMeta(rec, totalBadge));
+    rec.paragraphs.forEach((para, idx) => editor.appendChild(buildParagraphEditor(rec, idx, updateTotal)));
   }
 
-  function buildMeta(rec) {
+  function buildMeta(rec, totalBadge) {
+    const wrap = el('div', { class: 'notes-lab-meta-wrap' });
     const meta = el('div', { class: 'notes-lab-meta' });
     [['title', 'title'], ['id', 'id'], ['href', 'href']].forEach(([key, label]) => {
       const id = 'nl-' + key;
@@ -480,14 +532,27 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
       });
       meta.appendChild(input);
     });
-    return meta;
+    wrap.appendChild(meta);
+    wrap.appendChild(totalBadge);
+    return wrap;
   }
 
-  function buildParagraphEditor(rec, idx) {
+  function buildParagraphEditor(rec, idx, updateTotal) {
     const wrap = el('div', { class: 'notes-lab-paragraph' });
 
     const head = el('div', { class: 'notes-lab-paragraph-head' });
-    head.appendChild(el('span', { class: 'notes-lab-paragraph-label', text: 'paragraph ' + (idx + 1) }));
+    const labelGroup = el('span', { class: 'notes-lab-paragraph-label-group' });
+    labelGroup.appendChild(el('span', { class: 'notes-lab-paragraph-label', text: 'paragraph ' + (idx + 1) }));
+    const badge = el('span', { class: 'notes-lab-reading-badge' });
+    labelGroup.appendChild(badge);
+    head.appendChild(labelGroup);
+    function updateBadge(html) {
+      const { words, ms } = paragraphReadingMs(html);
+      badge.textContent = words + ' words · ' + fmtMs(ms) + ' (250 wpm × 1.3)';
+      badge.classList.toggle('is-floor', ms === READ_FLOOR_MS);
+      badge.classList.toggle('is-ceiling', ms === READ_CEILING_MS);
+      if (updateTotal) updateTotal();
+    }
 
     const chips = el('div', { class: 'notes-lab-tag-chips' });
     [
@@ -513,9 +578,11 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
     ta.value = rec.paragraphs[idx];
     const preview = el('div', { class: 'notes-lab-preview' });
     renderHtmlInto(preview, ta.value);
+    updateBadge(ta.value);
     ta.addEventListener('input', () => {
       rec.paragraphs[idx] = ta.value;
       renderHtmlInto(preview, ta.value);
+      updateBadge(ta.value);
       saveRecords();
     });
     split.appendChild(ta);
@@ -664,5 +731,100 @@ body { background: var(--nl-bg); color: var(--nl-fg); }
 
   render();
   renderStyles();
+
+  // ===== Auto-fetch live style.css and parse .note-* values =====
+  // Replaces INITIAL_STYLES in-place so reset-to-defaults uses live values
+  // instead of the hardcoded snapshot. If localStorage has no user-edited
+  // styles yet, also updates the working `styles` and re-renders.
+  // Silent on failure — the snapshot is the fallback.
+  function evalCalcRem(expr) {
+    // Handles "0.4rem" or "calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem)".
+    const plain = expr.match(/^\s*([\d.]+)rem\s*$/);
+    if (plain) return parseFloat(plain[1]);
+    const calc = expr.match(/calc\(\s*([\d.]+)rem\s*\+\s*var\(--delay-mix,\s*([\d.]+)\)\s*\*\s*([\d.]+)rem\s*\)/);
+    if (calc) {
+      const base = parseFloat(calc[1]);
+      const mix = parseFloat(calc[2]);
+      const factor = parseFloat(calc[3]);
+      return base + mix * factor;
+    }
+    return null;
+  }
+  function parseClassRule(css, cls) {
+    // Match the exact selector pair we ship.
+    const re = new RegExp(
+      '\\.pretty-constellation-note-paragraph \\.' + cls + ',\\s*' +
+      '\\.constellation-intro-paragraph \\.' + cls + '\\s*\\{([\\s\\S]*?)\\}',
+      'm'
+    );
+    const block = css.match(re);
+    if (!block) return null;
+    const body = block[1];
+    // Color: grab first hex anywhere in `color: ...;` (handles plain hex and color-mix forms).
+    const colorLine = body.match(/color:\s*([^;]+);/);
+    if (!colorLine) return null;
+    const hexMatch = colorLine[1].match(/#([0-9a-fA-F]{6})/);
+    if (!hexMatch) return null;
+    const color = '#' + hexMatch[1].toLowerCase();
+    // text-shadow: capture the whole value, split into top-level commas, parse each layer.
+    const shadowLine = body.match(/text-shadow:\s*([\s\S]+?);/);
+    if (!shadowLine) return null;
+    const layers = [];
+    // Split by comma at paren-depth 0.
+    const value = shadowLine[1];
+    let depth = 0, start = 0;
+    for (let i = 0; i < value.length; i++) {
+      const c = value[i];
+      if (c === '(') depth++;
+      else if (c === ')') depth--;
+      else if (c === ',' && depth === 0) {
+        layers.push(value.slice(start, i).trim());
+        start = i + 1;
+      }
+    }
+    layers.push(value.slice(start).trim());
+    const parsedLayers = [];
+    for (const layer of layers) {
+      // Pattern: "0 0 <blur> color-mix(in srgb, #xxx N%, transparent)"
+      const m = layer.match(/0\s+0\s+(.+?)\s+color-mix\([^)]*?#[0-9a-fA-F]+\s+(\d+)%/);
+      if (!m) continue;
+      const blur = evalCalcRem(m[1]);
+      const opacity = parseInt(m[2], 10);
+      if (blur == null) continue;
+      parsedLayers.push({ blur: parseFloat(blur.toFixed(3)), opacity });
+    }
+    if (!parsedLayers.length) return null;
+    return { color, layers: parsedLayers };
+  }
+  async function autoFetchLiveCss() {
+    try {
+      const res = await fetch('/css/style.css', { cache: 'no-store' });
+      if (!res.ok) throw new Error('fetch failed: ' + res.status);
+      const css = await res.text();
+      const fetched = {};
+      for (const cls of ['note-star', 'note-name', 'note-tool', 'note-person']) {
+        const parsed = parseClassRule(css, cls);
+        if (parsed) fetched[cls] = parsed;
+      }
+      if (!Object.keys(fetched).length) throw new Error('no rules parsed');
+      // Replace INITIAL_STYLES values (preserve labels).
+      for (const cls in fetched) {
+        if (INITIAL_STYLES[cls]) {
+          INITIAL_STYLES[cls].color = fetched[cls].color;
+          INITIAL_STYLES[cls].layers = fetched[cls].layers;
+        }
+      }
+      // If user hasn't edited styles in this session (no localStorage), refresh working styles too.
+      if (!localStorage.getItem(STORAGE_STYLES)) {
+        styles = JSON.parse(JSON.stringify(INITIAL_STYLES));
+        renderStyles();
+      }
+      status('synced styles from live css/style.css');
+    } catch (err) {
+      console.warn('notes-lab: auto-fetch failed, using snapshot defaults', err);
+      // No status message — silent fallback.
+    }
+  }
+  autoFetchLiveCss();
 })();
 </script>
