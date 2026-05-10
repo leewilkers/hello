@@ -5573,7 +5573,14 @@ body {
 .consulting-block-eyebrow {
   margin: 0 0 0.9rem;
   font-family: var(--mono);
-  font-size: 0.72rem;
+  /* 0.96rem matches the rendering reality: `.consulting-block p` rule
+     (specificity 0,0,1,1) wins over the class (0,0,1,0) for P eyebrows,
+     so P eyebrows have always rendered at 0.96rem despite this rule
+     declaring 0.72rem. Setting the class to 0.96rem makes H2s with this
+     class render at the same size, so Working with knots / What to
+     Expect / Getting Started match How I think about knots / Common
+     knots and useful tools without specificity tricks. */
+  font-size: 0.96rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.3;
