@@ -925,6 +925,44 @@
         const mix = (typeof prettyDelayMix === 'number') ? prettyDelayMix : 0.72;
         const starMul = Math.max(0, Math.min(1, 1.5 * (1 - mix)));
         const lineMul = Math.max(0, Math.min(1, 1.5 * mix));
+        // === Cursor interplay ===
+        // Differential parallax: stars (far/background) shift LESS than lines
+        // (mid-depth) shift LESS than named points (foreground). Mirrors how
+        // closer objects appear to move more per observer head-shift. Magnitude
+        // capped at ~1.5 logical px so the effect is felt, not jarring.
+        // Proximity boost: stars + points within ~16 logical px of the mapped
+        // cursor get an alpha multiplier up to 1.7×, giving the cursor a soft
+        // "you're looking here" wake without visible halo geometry.
+        const rect = canvas.getBoundingClientRect();
+        const cursorInfo = (typeof window.__getConstellationCursor === 'function')
+          ? window.__getConstellationCursor()
+          : { present: false };
+        let cursorCanvasX = canvas.width / 2;
+        let cursorCanvasY = canvas.height / 2;
+        let cursorOffsetX = 0;
+        let cursorOffsetY = 0;
+        const cursorPresent = !!(cursorInfo.present && rect.width > 0 && rect.height > 0 && !reduced);
+        if (cursorPresent) {
+          cursorCanvasX = (cursorInfo.x - rect.left) / rect.width * canvas.width;
+          cursorCanvasY = (cursorInfo.y - rect.top) / rect.height * canvas.height;
+          cursorOffsetX = (cursorInfo.x - (rect.left + rect.width / 2)) / (rect.width / 2);
+          cursorOffsetY = (cursorInfo.y - (rect.top + rect.height / 2)) / (rect.height / 2);
+          cursorOffsetX = Math.max(-1.5, Math.min(1.5, cursorOffsetX));
+          cursorOffsetY = Math.max(-1.5, Math.min(1.5, cursorOffsetY));
+        }
+        const STAR_PARALLAX = 0.4;
+        const LINE_PARALLAX = 0.95;
+        const POINT_PARALLAX = 1.35;
+        const PROX_RADIUS = 16;
+        function proximityBoost(x, y) {
+          if (!cursorPresent) return 1;
+          const dx = x - cursorCanvasX;
+          const dy = y - cursorCanvasY;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d > PROX_RADIUS) return 1;
+          return 1 + (1 - d / PROX_RADIUS) * 0.7;
+        }
+
         stars.forEach(function(star, index) {
           const seed = star[2] + index;
           const born = exiting
@@ -932,9 +970,19 @@
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.22, 9.5));
           if (!born) return;
           if (active && !lit(seed, t, 0.12, 5.4)) return;
-          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha * starMul, starColor);
+          const sx = star[0] + cursorOffsetX * STAR_PARALLAX;
+          const sy = star[1] + cursorOffsetY * STAR_PARALLAX;
+          pixel(sx, sy, index % 3 === 0 ? 2 : 1, baseAlpha * starMul * proximityBoost(sx, sy), starColor);
         });
 
+        // Lines get parallax shift via temporary point displacement. Restore
+        // points after both edge passes so geometry is clean for the next frame.
+        const originalPoints = points;
+        if (cursorPresent && (cursorOffsetX !== 0 || cursorOffsetY !== 0)) {
+          points = points.map(function(p) {
+            return [p[0] + cursorOffsetX * LINE_PARALLAX, p[1] + cursorOffsetY * LINE_PARALLAX];
+          });
+        }
         edges.forEach(function(edge) {
           drawLine(edge[0], edge[1], 1, (live ? 0.24 : 0.12) * lineMul, exiting ? modeT : t);
         });
@@ -946,6 +994,7 @@
           const progress = Math.max(0, Math.min(1, sweep - (index * 0.82)));
           if (progress > 0) drawLine(edge[0], edge[1], progress, (live ? 0.7 : 0.22) * lineMul, exiting ? modeT + index : t + index);
         });
+        points = originalPoints;
 
         points.forEach(function(point, index) {
           const seed = index + 11;
@@ -960,9 +1009,11 @@
           const pointMul = (index === highlightIndex)
             ? Math.max(0.35, starMul)
             : starMul;
-          pixel(point[0] - 1, point[1] - 1, bright || index === highlightIndex ? 3 : 2, (live ? 0.88 : 0.36) * pointMul, color);
+          const px = point[0] + cursorOffsetX * POINT_PARALLAX;
+          const py = point[1] + cursorOffsetY * POINT_PARALLAX;
+          pixel(px - 1, py - 1, bright || index === highlightIndex ? 3 : 2, (live ? 0.88 : 0.36) * pointMul * proximityBoost(px, py), color);
           if (live && settling > 0.24 && lit(index + 23, t, 0.54, 6.8)) {
-            pixel(point[0], point[1], 1, 0.68 * pointMul, index === highlightIndex ? highlightSparkColor : lineColor);
+            pixel(px, py, 1, 0.68 * pointMul * proximityBoost(px, py), index === highlightIndex ? highlightSparkColor : lineColor);
           }
         });
 
@@ -1422,6 +1473,29 @@
     }
 
     initStarTooltips();
+
+    // === Cursor tracker for constellation field interplay ===
+    // Tracks cursor position so the constellation draw loop can apply
+    // (1) differential parallax — stars shift less than lines shift less
+    // than highlight points, giving a small depth illusion; (2) proximity
+    // brightening — points within ~14 logical pixels of the mapped cursor
+    // get an alpha bump. Mousemove writes module-level vars; the draw loop
+    // reads them next frame. No CSS observers, no re-render trigger needed
+    // (the rAF loop runs continuously while wave/rabbit is active).
+    let cursorViewportX = -9999;
+    let cursorViewportY = -9999;
+    let cursorPresent = false;
+    document.addEventListener('mousemove', function(event) {
+      cursorViewportX = event.clientX;
+      cursorViewportY = event.clientY;
+      cursorPresent = true;
+    }, { passive: true });
+    document.addEventListener('mouseleave', function() {
+      cursorPresent = false;
+    });
+    window.__getConstellationCursor = function() {
+      return { x: cursorViewportX, y: cursorViewportY, present: cursorPresent };
+    };
 
     // Loose audio→visual flare: each music step bumps --note-flare on root,
     // CSS interpolates filter:brightness back down. Not amplitude tracking;
