@@ -4995,6 +4995,22 @@ body {
   margin-top: 3.2rem;
   padding-top: 0;
   border-top: 0;
+  /* Give nav clearance when scroll-spy snaps to this section. */
+  scroll-margin-top: 6rem;
+}
+
+/* Common-knots is intentionally short (under-construction placeholder).
+   Reserve viewport space so the scroll-spy resolves cleanly to it
+   instead of having more-on-knots above keep winning the area check. */
+#common-knots-section.consulting-more-knots {
+  min-height: 60vh;
+  margin-top: 6.4rem;
+  padding-bottom: 4rem;
+}
+
+.consulting-block,
+.consulting-more-knots {
+  scroll-margin-top: 6rem;
 }
 
 .consulting-more-knots > * {
