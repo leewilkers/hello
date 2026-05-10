@@ -5217,12 +5217,13 @@ body {
 
 .consulting-toc {
   position: fixed;
-  /* Anchor near the left edge of the centered article. The article max-width
-     is (label-measure 10.5rem) + (gap clamp ~2rem) + (main-measure 36rem)
-     = ~48.5rem total. Article left edge sits at calc(50% - 24.25rem). The
-     TOC sits ~10rem to the left of that, falling back to viewport-edge
-     padding on narrower windows. */
-  left: max(1.5rem, calc(50% - 24.25rem - 10.5rem));
+  /* Anchor outside the left edge of the centered article. The article
+     max-width is (label-measure 10.5rem) + (gap clamp ~2rem) + (main-measure
+     36rem) = ~48.5rem total. Article left edge sits at calc(50% - 24.25rem).
+     The TOC's max-width is 13rem (see below), so we offset by 13.5rem to
+     keep its right edge half a rem clear of the knot image column. Falls
+     back to viewport-edge padding on narrower windows. */
+  left: max(1.5rem, calc(50% - 24.25rem - 13.5rem));
   top: 7.5rem;
   z-index: 5;
   /* Cap width so long labels (e.g. 'Common knots and useful tools') wrap
@@ -5324,7 +5325,7 @@ body {
   border-radius: 2px;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1255px) {
   .consulting-toc {
     display: none;
   }
@@ -5333,7 +5334,7 @@ body {
 /* Section dim/highlight on scroll — only on wide viewports where the TOC
    is also active. The section currently >=50% in viewport gets .is-active
    set by JS; others fade subtly (not aggressive — easy on the eyes). */
-@media (min-width: 1181px) {
+@media (min-width: 1256px) {
   .consulting-flow .consulting-block,
   .consulting-flow .consulting-more-knots {
     opacity: 0.32;
