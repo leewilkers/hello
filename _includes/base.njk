@@ -1192,6 +1192,7 @@
     // any keypress, click, or by waiting for auto-end.
     let rabbitIntroState = 'inactive'; // 'inactive' | 'playing' | 'done'
     let rabbitIntroTimer = null;
+    let rabbitIntroCycleTimer = null;
     const REVEAL_ANIMATION_MS = 1600; // matches constellation-intro-roll keyframes
     const rabbitIntroOverlay = document.querySelector('[data-constellation-intro]');
 
@@ -1222,22 +1223,47 @@
       rabbitIntroOverlay.setAttribute('aria-hidden', 'false');
       if (rabbitIntroTimer) clearTimeout(rabbitIntroTimer);
       rabbitIntroTimer = setTimeout(endRabbitIntro, totalMs);
+
+      // Cycle through every constellation during the intro: full sweep
+      // over the intro duration with a twinkle blink between each. Lepus
+      // is already active from setConstellationModeActive, so step 1 is
+      // the second record in the cycle.
+      if (rabbitIntroCycleTimer) clearInterval(rabbitIntroCycleTimer);
+      if (CONSTELLATION_CYCLE.length > 1) {
+        const introCycleMs = Math.max(2000, Math.floor(totalMs / CONSTELLATION_CYCLE.length));
+        let introCycleIdx = 0;
+        rabbitIntroCycleTimer = setInterval(function() {
+          if (rabbitIntroState !== 'playing') {
+            clearInterval(rabbitIntroCycleTimer);
+            rabbitIntroCycleTimer = null;
+            return;
+          }
+          introCycleIdx = (introCycleIdx + 1) % CONSTELLATION_CYCLE.length;
+          setActiveConstellation(CONSTELLATION_CYCLE[introCycleIdx], true);
+        }, introCycleMs);
+      }
     }
 
     function endRabbitIntro() {
       if (rabbitIntroState !== 'playing') return;
       rabbitIntroState = 'done';
       if (rabbitIntroTimer) { clearTimeout(rabbitIntroTimer); rabbitIntroTimer = null; }
+      if (rabbitIntroCycleTimer) { clearInterval(rabbitIntroCycleTimer); rabbitIntroCycleTimer = null; }
       document.documentElement.classList.remove('is-rabbit-intro');
       if (rabbitIntroOverlay) rabbitIntroOverlay.setAttribute('aria-hidden', 'true');
-      // Resume the normal cycle (Lepus is already active from the rabbit-mode reset).
-      if (constellationModeActive) startConstellationCycle();
+      // Reset to Lepus (intro cycle may have left us elsewhere), then resume the normal cycle.
+      if (constellationModeActive) {
+        constellationCycleIndex = 0;
+        setActiveConstellation(CONSTELLATION_CYCLE[0], true);
+        startConstellationCycle();
+      }
     }
 
     function resetRabbitIntroForReentry() {
       // Allow the intro to play again next time rabbit mode is entered.
       rabbitIntroState = 'inactive';
       if (rabbitIntroTimer) { clearTimeout(rabbitIntroTimer); rabbitIntroTimer = null; }
+      if (rabbitIntroCycleTimer) { clearInterval(rabbitIntroCycleTimer); rabbitIntroCycleTimer = null; }
       document.documentElement.classList.remove('is-rabbit-intro');
       if (rabbitIntroOverlay) rabbitIntroOverlay.setAttribute('aria-hidden', 'true');
     }
