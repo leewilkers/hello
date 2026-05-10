@@ -5201,12 +5201,21 @@ body {
   left: max(1.5rem, calc(50% - 24.25rem - 10.5rem));
   top: 7.5rem;
   z-index: 5;
+  /* Cap width so long labels (e.g. 'Common knots and useful tools') wrap
+     to a second line instead of running into the knot image to the right. */
+  max-width: 13rem;
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--ink) 36%, var(--bg));
   pointer-events: none;
+}
+
+.consulting-toc-link {
+  /* Tighter line-height for the wrapped second line so the wrap reads as
+     one item, not two stacked items. */
+  line-height: 1.3;
 }
 
 .consulting-toc-label {
@@ -5368,6 +5377,14 @@ body {
      overall level AND the highlights so the figure reads as part of
      the same tonal family. */
   filter: brightness(0.55) contrast(0.92);
+}
+
+/* Star/wave mode: hide the wood/knot photos so the page reads as text
+   only (matches the star-mode rule on .pretty-star-label). Layout slot
+   preserved via opacity so the grid doesn't collapse. */
+:root.is-wave-mode:not(.is-constellation-mode) .consulting-block-image {
+  opacity: 0;
+  transition: opacity 320ms ease;
 }
 
 .consulting-block-eyebrow {
