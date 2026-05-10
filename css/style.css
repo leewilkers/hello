@@ -5350,6 +5350,14 @@ body {
   object-position: 68% center;
 }
 
+/* knot-02.png shipped from Photoshop noticeably brighter than the other
+   three (avg luma ~137 vs ~92 for the rest). One-off CSS dimming so the
+   four photos read as one tonal family. If knot-02 is re-exported with
+   matched levels, this rule can be deleted. */
+.consulting-block-image[src*="knot-02"] {
+  filter: brightness(0.82);
+}
+
 .consulting-block-eyebrow {
   margin: 0 0 0.9rem;
   font-family: var(--mono);
