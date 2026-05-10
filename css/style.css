@@ -1,6 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/InterVariable-Italic.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'EB Garamond';
@@ -23,7 +36,7 @@ html { scroll-behavior: smooth; }
 :root {
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
-  --reading: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  --reading: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
   --home-title-size: 1.65rem;
   --home-title-weight: 700;
   --home-title-line: 1.15;
@@ -3958,8 +3971,8 @@ body {
   margin: 0;
   max-width: var(--home-main-measure);
   font-family: var(--reading);
-  font-size: 1.16rem;
-  line-height: 1.46;
+  font-size: 1rem;
+  line-height: 1.5;
   color: color-mix(in srgb, var(--ink) 94%, var(--bg));
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variant-ligatures: common-ligatures contextual;
@@ -4165,8 +4178,8 @@ body {
   margin: 0;
   max-width: var(--home-main-measure);
   font-family: var(--reading);
-  font-size: 1.02rem;
-  line-height: 1.5;
+  font-size: 0.94rem;
+  line-height: 1.55;
   color: color-mix(in srgb, var(--ink) 88%, var(--bg));
 }
 
@@ -4944,8 +4957,8 @@ body {
   margin: 0;
   max-width: var(--consulting-main-measure);
   font-family: var(--reading);
-  font-size: 1.06rem;
-  line-height: 1.62;
+  font-size: 0.96rem;
+  line-height: 1.58;
   color: color-mix(in srgb, var(--ink) 88%, var(--bg));
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variant-ligatures: common-ligatures contextual;
@@ -5060,8 +5073,8 @@ body {
   margin: 0;
   max-width: var(--consulting-main-measure);
   font-family: var(--reading);
-  font-size: 1.02rem;
-  line-height: 1.64;
+  font-size: 0.96rem;
+  line-height: 1.58;
   color: color-mix(in srgb, var(--ink) 88%, var(--bg));
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variant-ligatures: common-ligatures contextual;
@@ -9077,27 +9090,3 @@ a.shelf-list-title:hover {
   }
 }
 
-/* === TEMP: sans-serif body preview — revert if not adopting === */
-:root,
-:root[data-font="bricolage-eb"],
-:root[data-font="ssc"],
-:root[data-font="literata"] {
-  --reading: 'Inter', -apple-system, 'Helvetica Neue', sans-serif !important;
-}
-
-.page-home .home-field-note .home-lede {
-  font-size: 1rem !important;
-  line-height: 1.5 !important;
-}
-
-.page-home .home-field-note .home-history {
-  font-size: 0.94rem !important;
-  line-height: 1.55 !important;
-}
-
-.consulting-block p,
-.consulting-more-knots p {
-  font-size: 0.96rem !important;
-  line-height: 1.58 !important;
-}
-/* === /TEMP === */
