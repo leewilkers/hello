@@ -3386,7 +3386,7 @@ body {
 .constellation-intro-paragraph .note-star {
   color: #fffcf0;
   text-shadow:
-    0 0 0.18rem color-mix(in srgb, #fffcf0 92%, transparent),
+    0 0 0.4rem color-mix(in srgb, #fffcf0 55%, transparent),
     0 0 calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #fffcf0 58%, transparent),
     0 0 calc(1.2rem + var(--delay-mix, 0.72) * 0.9rem) color-mix(in srgb, #fffcf0 26%, transparent);
   /* Pulse breathes faster at noise (mix=1), slower at signal (mix=0). */
@@ -3436,13 +3436,13 @@ body {
 @keyframes pretty-constellation-star-pulse {
   0%, 100% {
     text-shadow:
-      0 0 0.18rem color-mix(in srgb, #fffcf0 92%, transparent),
+      0 0 0.4rem color-mix(in srgb, #fffcf0 55%, transparent),
       0 0 0.7rem color-mix(in srgb, #fffcf0 58%, transparent),
       0 0 1.6rem color-mix(in srgb, #fffcf0 26%, transparent);
   }
   50% {
     text-shadow:
-      0 0 0.22rem color-mix(in srgb, #fffcf0 100%, transparent),
+      0 0 0.5rem color-mix(in srgb, #fffcf0 65%, transparent),
       0 0 1rem color-mix(in srgb, #fffcf0 72%, transparent),
       0 0 2.1rem color-mix(in srgb, #fffcf0 34%, transparent);
   }
