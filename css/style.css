@@ -5385,23 +5385,10 @@ body {
   filter: brightness(0.55) contrast(0.92);
 }
 
-/* Lee's offer ($350 for a 60-90 minute call): inline pill that stays in
-   the paragraph flow but reads with rate-card weight. Brand-red accent
-   echoes the constellation note color so it sits in the site palette. */
+/* Inline price reference: kept on one line so "$350 for a 60-90 minute
+   call." doesn't break mid-phrase; otherwise it reads as plain prose. */
 .consulting-price {
-  display: inline-block;
-  margin: 0 0.08em;
-  padding: 0.12rem 0.46rem;
-  border: 1px solid color-mix(in srgb, #d14d41 36%, transparent);
-  border-radius: 4px;
-  font-weight: 600;
-  color: #d14d41;
   white-space: nowrap;
-  letter-spacing: 0.01em;
-}
-
-[data-theme="dark"] .consulting-price {
-  border-color: color-mix(in srgb, #d14d41 50%, transparent);
 }
 
 /* Star/wave mode: hide the wood/knot photos so the page reads as text
