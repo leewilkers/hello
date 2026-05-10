@@ -3100,7 +3100,7 @@ body {
      the field fits entirely in the viewport during intro (the field's
      natural width is wider than most viewports — without scale, named
      stars on the far edge clip out of view). */
-  transform: translate3d(-50%, -50%, 0) translate(14vw, 12vh) scale(0.7);
+  transform: translate3d(-50%, -50%, 0) translate(8vw, 6vh) scale(0.88);
   transition:
     opacity 1400ms ease,
     transform 1400ms cubic-bezier(0.16, 1, 0.3, 1);
