@@ -919,6 +919,12 @@
         const settling = reduced ? 1 : Math.min(1, modeT / 2.4);
         const birthIndex = Math.floor(modeT * 4.9);
         const baseAlpha = live ? 0.62 : 0.18;
+        // Slider semantic: max signal (mix=0) = stars only; max noise (mix=1) =
+        // lines only. Use a 1.5x kink so the middle of the slider keeps both
+        // visible (default mix=0.72 still shows stars, just dimmer).
+        const mix = (typeof prettyDelayMix === 'number') ? prettyDelayMix : 0.72;
+        const starMul = Math.max(0, Math.min(1, 1.5 * (1 - mix)));
+        const lineMul = Math.max(0, Math.min(1, 1.5 * mix));
         stars.forEach(function(star, index) {
           const seed = star[2] + index;
           const born = exiting
@@ -926,11 +932,11 @@
             : (!active || reduced || index <= birthIndex || lit(seed, t, 0.22, 9.5));
           if (!born) return;
           if (active && !lit(seed, t, 0.12, 5.4)) return;
-          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha, starColor);
+          pixel(star[0], star[1], index % 3 === 0 ? 2 : 1, baseAlpha * starMul, starColor);
         });
 
         edges.forEach(function(edge) {
-          drawLine(edge[0], edge[1], 1, live ? 0.24 : 0.12, exiting ? modeT : t);
+          drawLine(edge[0], edge[1], 1, (live ? 0.24 : 0.12) * lineMul, exiting ? modeT : t);
         });
 
         const sweep = active
@@ -938,7 +944,7 @@
           : (exiting ? edges.length + 1.2 : 3.4);
         edges.forEach(function(edge, index) {
           const progress = Math.max(0, Math.min(1, sweep - (index * 0.82)));
-          if (progress > 0) drawLine(edge[0], edge[1], progress, live ? 0.7 : 0.22, exiting ? modeT + index : t + index);
+          if (progress > 0) drawLine(edge[0], edge[1], progress, (live ? 0.7 : 0.22) * lineMul, exiting ? modeT + index : t + index);
         });
 
         points.forEach(function(point, index) {
@@ -949,9 +955,14 @@
           if (!born) return;
           const bright = live && lit(index + 19, t, 0.48, 5.6);
           const color = index === highlightIndex ? highlightColor : pointColor;
-          pixel(point[0] - 1, point[1] - 1, bright || index === highlightIndex ? 3 : 2, live ? 0.88 : 0.36, color);
+          // Highlight star (the named primary) keeps a small floor so it never
+          // fully disappears at noise — it's the visual anchor.
+          const pointMul = (index === highlightIndex)
+            ? Math.max(0.35, starMul)
+            : starMul;
+          pixel(point[0] - 1, point[1] - 1, bright || index === highlightIndex ? 3 : 2, (live ? 0.88 : 0.36) * pointMul, color);
           if (live && settling > 0.24 && lit(index + 23, t, 0.54, 6.8)) {
-            pixel(point[0], point[1], 1, 0.68, index === highlightIndex ? highlightSparkColor : lineColor);
+            pixel(point[0], point[1], 1, 0.68 * pointMul, index === highlightIndex ? highlightSparkColor : lineColor);
           }
         });
 
