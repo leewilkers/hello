@@ -2519,7 +2519,11 @@
 
     function navOffset() {
       var nav = document.querySelector('.site-nav');
-      return nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      var off = nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      // Publish to CSS so scroll-margin-top tracks actual nav height
+      // instead of a hard-coded value that may under-clear on tall navs.
+      document.documentElement.style.setProperty('--nav-offset', off + 'px');
+      return off;
     }
 
     function keepActiveLinkVisible(a) {
@@ -2633,7 +2637,11 @@
 
     function navOffset() {
       var nav = document.querySelector('.site-nav');
-      return nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      var off = nav ? Math.ceil(nav.getBoundingClientRect().height + 24) : 80;
+      // Publish to CSS so scroll-margin-top tracks actual nav height
+      // instead of a hard-coded value that may under-clear on tall navs.
+      document.documentElement.style.setProperty('--nav-offset', off + 'px');
+      return off;
     }
 
     function updateActive() {
@@ -2694,7 +2702,22 @@
     };
     window.addEventListener('scroll', window.__consultingScrollHandler, { passive: true });
 
-    // Click-nav: smooth scroll, push hash to URL.
+    // Click-nav: smooth scroll, push hash to URL. Force-set active
+    // immediately so the TOC reflects user intent during the smooth-
+    // scroll animation (before the scroll handler catches up). Also
+    // re-call updateActive after the scroll likely finishes so the
+    // tracker resyncs with actual viewport position.
+    function forceActive(id) {
+      links.forEach(function(a) {
+        var isActive = a.getAttribute('data-toc-target') === id;
+        if (isActive) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+      sections.forEach(function(s) {
+        s.el.classList.toggle('is-active', s.id === id);
+      });
+      document.documentElement.classList.toggle('is-coming-soon-active', id === 'common-knots-section');
+    }
     links.forEach(function(a) {
       a.addEventListener('click', function(e) {
         var id = a.getAttribute('data-toc-target');
@@ -2703,7 +2726,9 @@
           e.preventDefault();
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
           if (history.pushState) history.pushState(null, '', '#' + id);
-          requestAnimationFrame(updateActive);
+          forceActive(id);
+          // Smooth-scroll typically completes <800ms; resync after.
+          setTimeout(updateActive, 820);
         }
       });
     });

@@ -5010,7 +5010,9 @@ body {
 
 .consulting-block,
 .consulting-more-knots {
-  scroll-margin-top: 6rem;
+  /* Sync with JS navOffset() (publishes --nav-offset). Falls back to
+     6rem when JS hasn't published yet (initial paint, no-JS). */
+  scroll-margin-top: calc(var(--nav-offset, 6rem) + 0.6rem);
 }
 
 .consulting-more-knots > * {
