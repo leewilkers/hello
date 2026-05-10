@@ -811,7 +811,7 @@ p {
   --nav-border: #DAD8CE;  /* flexoki-150 */
   --trail-ink: #9F9D96;   /* flexoki-base-400 */
   --trail-opacity: 0.46;
-  --mono: "IBM Plex Sans", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 [data-theme="dark"] {
