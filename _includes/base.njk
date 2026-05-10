@@ -1313,6 +1313,15 @@
     }
 
     initConstellationArt();
+
+    // Layout demo toggle: ?layout=layered → engraving sits LARGE behind the
+    // diagram, both centered together; ?layout=editorial (default) → engraving
+    // is a small thumbnail upper-left above the prose. Lets us A/B both
+    // compositions live without rebuilding.
+    if (typeof URLSearchParams === 'function') {
+      const layout = new URLSearchParams(window.location.search).get('layout');
+      if (layout === 'layered') document.documentElement.classList.add('is-layered-layout');
+    }
     // Paint the initial active constellation (handled async via image onload).
     if (typeof activeConstellation !== 'undefined' && activeConstellation && activeConstellation.id) {
       setConstellationArt(activeConstellation.id);
