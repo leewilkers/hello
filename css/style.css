@@ -5575,16 +5575,21 @@ body {
   /* P eyebrows have always rendered in var(--reading) (Inter) at 0.96rem
      because `.consulting-block p` (specificity 0,0,1,1) wins over the
      class (0,0,1,0). Set the class explicitly to match that effective
-     rendering so H2 eyebrows in .consulting-more-knots match. The
-     class's previous use of var(--mono) was also a trap because --mono
-     is mis-defined to "IBM Plex Sans" at line 814, so even when the
-     class did win, it resolved to a different sans, not a mono. */
+     rendering so H2 eyebrows in .consulting-more-knots match. */
   font-family: var(--reading);
   font-size: 0.96rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1.3;
   text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 60%, var(--bg));
+}
+
+/* Bump specificity for the P-eyebrow color so `.consulting-block p`
+   (0,0,1,1) doesn't override the class's intended ink-60% color with
+   body text's ink-88%. H2 eyebrows in .consulting-more-knots already
+   pick up ink-60% from the class directly (no overriding rule). */
+.consulting-block p.consulting-block-eyebrow {
   color: color-mix(in srgb, var(--ink) 60%, var(--bg));
 }
 
