@@ -2834,7 +2834,7 @@ body {
 }
 
 /* === Constellation art surface (upper-left thumbnail above the prose) ===
-   Editorial-column layout: engraving thumbnail anchors the upper-left;
+   Editorial-column layout: plate thumbnail anchors the upper-left;
    title + prose flow below it as one museum-card object. Plate rendered
    at full source resolution into a small rectangular thumbnail with
    object-fit:contain so non-square plates letterbox cleanly. Visible
@@ -2874,11 +2874,10 @@ body {
   opacity: 1;
 }
 
-:root.is-wave-mode .constellation-art,
 :root.is-constellation-mode .constellation-art {
-  /* Slightly more visible than the previous lower-left version because
-     the editorial-column thumbnail reads as part of the museum card,
-     not an atmospheric backdrop. */
+  /* Plate appears only when rabbit mode is active (not in wave-only
+     mode). The figure is the rabbit-mode reveal — wave keeps the diagram
+     and prose, rabbit adds the historical plate. */
   opacity: 0.62;
   visibility: visible;
   transition:
@@ -2903,35 +2902,6 @@ body {
   .constellation-art {
     display: none;
   }
-}
-
-/* === Demo: layered layout (?layout=layered) ===
-   Engraving sits LARGE centered behind the diagram so both depict the same
-   constellation in one visual object. Prose returns to its original upper-
-   left position (no longer needing to clear the thumbnail above it).
-   Without per-plate precision alignment the engraving is just centered, not
-   registered to the named-star positions — that's a separate decision after
-   you see the rough composition. */
-:root.is-layered-layout .constellation-art {
-  top: 50%;
-  left: 50%;
-  bottom: auto;
-  width: clamp(28rem, 52vw, 56rem);
-  height: clamp(20rem, 36vw, 40rem);
-  transform: translate3d(-50%, -50%, 0);
-  z-index: 1; /* under the diagram (which is z-index 1+ in constellation mode) */
-}
-
-:root.is-layered-layout.is-wave-mode .constellation-art,
-:root.is-layered-layout.is-constellation-mode .constellation-art {
-  opacity: 0.42;
-}
-
-/* In layered mode, prose returns to its base upper-left top (no thumbnail
-   to clear above it). */
-:root.is-layered-layout .pretty-constellation-note,
-:root.is-layered-layout.is-constellation-mode .pretty-constellation-note {
-  top: clamp(4.2rem, 8vh, 6rem);
 }
 
 /* === Rabbit-mode intro overlay ===
@@ -3228,8 +3198,8 @@ body {
 
 .pretty-constellation-note {
   position: fixed;
-  /* Sits BELOW the engraving thumbnail in the upper-left editorial column.
-     Top = engravingTop + engravingHeight + small gap. */
+  /* Sits BELOW the plate thumbnail in the upper-left editorial column.
+     Top = plateTop + plateHeight + small gap. */
   top: calc(clamp(4.2rem, 8vh, 6rem) + clamp(7.6rem, 13vw, 11rem) + 0.85rem);
   right: auto;
   bottom: auto;
@@ -3627,7 +3597,7 @@ body {
 }
 
 :root.is-constellation-mode .pretty-constellation-note {
-  /* Editorial-column position: sits below the engraving thumbnail in the
+  /* Editorial-column position: sits below the plate thumbnail in the
      upper-left. Lower-left is intentionally empty; lower-right hosts the
      slider/prev-next cluster. */
   top: calc(clamp(4.2rem, 8vh, 6rem) + clamp(7.6rem, 13vw, 11rem) + 0.85rem);
