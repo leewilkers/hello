@@ -2746,6 +2746,93 @@ body {
   }
 }
 
+/* === Constellation star tooltip ===
+   Hover any cream `.note-star` span (named celestial body in the cycle or
+   intro prose) and a small museum-label tooltip appears with distance,
+   apparent magnitude, and MK spectral class. Mono-uppercase LABEL grammar
+   matching the rest of the site; cream halo on the title to echo the
+   star highlight; theme-bg-tinted underlay with backdrop-filter blur for
+   readability over the constellation field. Positioned in JS via
+   getBoundingClientRect — prefers below the hovered word, flips above
+   when there's no room. */
+.constellation-star-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: none;
+  flex-direction: column;
+  gap: 0.32rem;
+  width: max-content;
+  max-width: min(20rem, calc(100vw - 1.5rem));
+  padding: 0.72rem 0.95rem 0.78rem;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 28px color-mix(in srgb, #000 32%, transparent);
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, #d14d41 78%, var(--ink-light));
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.constellation-star-tooltip.is-visible {
+  display: flex;
+  opacity: 1;
+}
+
+.constellation-star-tooltip-title {
+  display: block;
+  margin-bottom: 0.18rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fffcf0;
+  text-shadow:
+    0 0 0.18rem color-mix(in srgb, #fffcf0 92%, transparent),
+    0 0 0.7rem color-mix(in srgb, #fffcf0 50%, transparent);
+}
+
+.constellation-star-tooltip-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, max-content) 1fr;
+  gap: 0.62rem;
+  align-items: baseline;
+}
+
+.constellation-star-tooltip-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink-light) 64%, transparent);
+}
+
+.constellation-star-tooltip-value {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, #d14d41 90%, var(--ink-light));
+}
+
+/* Make the hoverable spans feel hoverable. Cursor + a tiny brightness
+   bump on hover; otherwise the star halo continues to do the work. */
+.pretty-constellation-note-paragraph .note-star,
+.constellation-intro-paragraph .note-star {
+  cursor: help;
+}
+
+@media (max-width: 600px) {
+  .constellation-star-tooltip {
+    max-width: calc(100vw - 1rem);
+  }
+}
+
 /* === Constellation art surface (lower-left, semi-transparent) ===
    Historical constellation plate for the active record, rendered into a
    72×72 canvas displayed at clamp(180px, 22vw, 280px) with image-rendering:

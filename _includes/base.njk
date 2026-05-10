@@ -1311,6 +1311,118 @@
       setConstellationArt(activeConstellation.id);
     }
 
+    // === Star tooltip data ===
+    // Distance, apparent visual magnitude, spectral class for the 16 named
+    // celestial bodies highlighted across the cycle + intro. Distances in
+    // light-years (Sun in light-minutes for scale-grounding). Magnitudes are
+    // apparent (what an unaided eye sees from Earth) — lower is brighter,
+    // negative is brighter than Vega. Spectral class is the standard MK
+    // (Morgan–Keenan) designation: O B A F G K M (hot to cool) + luminosity
+    // class I-V (supergiant to main-sequence).
+    const STAR_DATA = {
+      'Sun':              { distance: '8.3 light-minutes', magnitude: '−26.74', class: 'G2V (yellow main-sequence)' },
+      'Polaris':          { distance: '433 light-years',   magnitude: '1.98',   class: 'F7Ib (yellow supergiant, Cepheid variable)' },
+      'Sirius':           { distance: '8.6 light-years',   magnitude: '−1.46',  class: 'A1V (white main-sequence; brightest star in the night sky)' },
+      'R Leporis':        { distance: '~1,300 light-years', magnitude: '5.5–11.7 variable', class: 'C7 (carbon star; deepest red visible to the eye)' },
+      'Acrux':            { distance: '320 light-years',   magnitude: '0.77',   class: 'B0.5IV+B1V (blue subgiant binary)' },
+      'Vega':             { distance: '25 light-years',    magnitude: '0.03',   class: 'A0V (white main-sequence; magnitude reference)' },
+      'Mizar':            { distance: '83 light-years',    magnitude: '2.04',   class: 'A1V (multiple star system)' },
+      'Alcor':            { distance: '81 light-years',    magnitude: '4.0',    class: 'A5V (binary; eye-test companion to Mizar)' },
+      'Alcyone':          { distance: '440 light-years',   magnitude: '2.85',   class: 'B7III (blue giant; brightest of the Pleiades)' },
+      'Epsilon Eridani':  { distance: '10.5 light-years',  magnitude: '3.73',   class: 'K2V (orange dwarf; young Sun-like star)' },
+      'Tau Ceti':         { distance: '11.9 light-years',  magnitude: '3.50',   class: 'G8V (Sun-like dwarf)' },
+      'Thuban':           { distance: '303 light-years',   magnitude: '3.65',   class: 'A0III (white giant; pole star ~2700 BCE)' },
+      'Achernar':         { distance: '139 light-years',   magnitude: '0.46',   class: 'B6Vpe (rapidly rotating blue main-sequence)' },
+      'Canopus':          { distance: '310 light-years',   magnitude: '−0.74',  class: 'A9II (yellow-white supergiant; second-brightest night star)' },
+      'Zeta Reticuli':    { distance: '39.4 light-years',  magnitude: '5.24 / 5.52', class: 'G3V + G2V (wide pair of Sun-like stars)' },
+      'Alpha Reticuli':   { distance: '161 light-years',   magnitude: '3.33',   class: 'G8II–III (yellow giant)' }
+    };
+
+    let starTooltip = null;
+    let starTooltipHideTimer = null;
+
+    function buildStarTooltipRow(label, value) {
+      const row = document.createElement('span');
+      row.className = 'constellation-star-tooltip-row';
+      const labelEl = document.createElement('span');
+      labelEl.className = 'constellation-star-tooltip-label';
+      labelEl.textContent = label;
+      const valueEl = document.createElement('span');
+      valueEl.className = 'constellation-star-tooltip-value';
+      valueEl.textContent = value;
+      row.appendChild(labelEl);
+      row.appendChild(valueEl);
+      return row;
+    }
+
+    function ensureStarTooltip() {
+      if (starTooltip) return starTooltip;
+      starTooltip = document.createElement('div');
+      starTooltip.className = 'constellation-star-tooltip';
+      starTooltip.setAttribute('role', 'tooltip');
+      starTooltip.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(starTooltip);
+      return starTooltip;
+    }
+
+    function showStarTooltip(targetEl, name) {
+      const data = STAR_DATA[name];
+      if (!data) return;
+      const tip = ensureStarTooltip();
+      if (starTooltipHideTimer) { clearTimeout(starTooltipHideTimer); starTooltipHideTimer = null; }
+      // Rebuild contents via DOM API so values can never be parsed as HTML.
+      while (tip.firstChild) tip.removeChild(tip.firstChild);
+      const title = document.createElement('span');
+      title.className = 'constellation-star-tooltip-title';
+      title.textContent = name;
+      tip.appendChild(title);
+      tip.appendChild(buildStarTooltipRow('distance', data.distance));
+      tip.appendChild(buildStarTooltipRow('apparent magnitude', data.magnitude));
+      tip.appendChild(buildStarTooltipRow('spectral class', data.class));
+      // Position relative to the hovered span; prefer below, flip above if no room.
+      const rect = targetEl.getBoundingClientRect();
+      tip.style.visibility = 'hidden';
+      tip.classList.add('is-visible');
+      const tipRect = tip.getBoundingClientRect();
+      const margin = 8;
+      let top = rect.bottom + margin;
+      if (top + tipRect.height + margin > window.innerHeight) top = rect.top - tipRect.height - margin;
+      let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
+      left = Math.max(margin, Math.min(window.innerWidth - tipRect.width - margin, left));
+      tip.style.top = top + 'px';
+      tip.style.left = left + 'px';
+      tip.style.visibility = '';
+      tip.setAttribute('aria-hidden', 'false');
+    }
+
+    function hideStarTooltip() {
+      if (!starTooltip) return;
+      if (starTooltipHideTimer) clearTimeout(starTooltipHideTimer);
+      starTooltipHideTimer = setTimeout(function() {
+        if (!starTooltip) return;
+        starTooltip.classList.remove('is-visible');
+        starTooltip.setAttribute('aria-hidden', 'true');
+      }, 120);
+    }
+
+    function initStarTooltips() {
+      // Delegate from document so dynamically-rendered note bodies also work.
+      document.addEventListener('mouseover', function(event) {
+        const target = event.target;
+        if (!target || !target.classList || !target.classList.contains('note-star')) return;
+        const name = (target.textContent || '').trim();
+        if (!STAR_DATA[name]) return;
+        showStarTooltip(target, name);
+      });
+      document.addEventListener('mouseout', function(event) {
+        const target = event.target;
+        if (!target || !target.classList || !target.classList.contains('note-star')) return;
+        hideStarTooltip();
+      });
+    }
+
+    initStarTooltips();
+
     // Loose audio→visual flare: each music step bumps --note-flare on root,
     // CSS interpolates filter:brightness back down. Not amplitude tracking;
     // a soft pulse synchronized with note onsets.
