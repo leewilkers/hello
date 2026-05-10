@@ -4872,7 +4872,10 @@ body {
 
 .consulting-flow {
   display: grid;
-  gap: 0;
+  /* Section spacing: 2.6rem gap between blocks on top of each block's
+     own 2rem top/bottom padding gives ~6.6rem of breathing room between
+     consecutive sections, so the dimming at 0.32 has somewhere to read. */
+  gap: 2.6rem;
 }
 
 .consulting-block {
@@ -5297,7 +5300,7 @@ body {
 @media (min-width: 1181px) {
   .consulting-flow .consulting-block,
   .consulting-flow .consulting-more-knots {
-    opacity: 0.7;
+    opacity: 0.32;
     transition: opacity 480ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
