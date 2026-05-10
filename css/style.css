@@ -5160,17 +5160,10 @@ body {
   user-select: none;
 }
 
-.consulting-more-knots h2 {
-  margin: 0 0 0.9rem;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  line-height: 1.3;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--ink) 60%, var(--bg));
-}
+/* H2 inside .consulting-more-knots uses .consulting-block-eyebrow class
+   directly (see consulting.njk) so styling matches Working with knots,
+   What to Expect, Getting Started without a parallel rule needing to
+   stay in sync. */
 
 .consulting-asterism {
   margin: 2.1rem 0;
