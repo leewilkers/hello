@@ -2746,6 +2746,55 @@ body {
   }
 }
 
+/* === Constellation art surface (lower-left, semi-transparent) ===
+   Historical constellation plate for the active record, rendered into a
+   72×72 canvas displayed at clamp(180px, 22vw, 280px) with image-rendering:
+   pixelated so the chunky pixels stay crisp at scale. Visible whenever the
+   constellation visual is active (wave or rabbit mode); hidden during the
+   rabbit-mode intro so it doesn't compete with the prose. The pixel-by-pixel
+   transition between plates is driven entirely from JS (see initConstellationArt). */
+.constellation-art {
+  position: fixed;
+  bottom: clamp(1.35rem, 3vh, 2rem);
+  left: clamp(1.75rem, 4.4vw, 4rem);
+  width: clamp(180px, 22vw, 280px);
+  height: clamp(180px, 22vw, 280px);
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges; /* Firefox */
+  filter: contrast(1.04) brightness(0.94);
+  mix-blend-mode: screen;
+  transition:
+    opacity 720ms ease,
+    visibility 0s linear 720ms;
+}
+
+:root.is-wave-mode .constellation-art,
+:root.is-constellation-mode .constellation-art {
+  opacity: 0.42;
+  visibility: visible;
+  transition:
+    opacity 720ms ease,
+    visibility 0s linear 0s;
+}
+
+:root.is-rabbit-intro .constellation-art {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition:
+    opacity 720ms ease,
+    visibility 0s linear 720ms;
+}
+
+@media (max-width: 600px) {
+  .constellation-art {
+    display: none;
+  }
+}
+
 /* === Rabbit-mode intro overlay ===
    Slow-rolling framing prose that plays once per rabbit-mode entry. Anchored
    to the upper-left where the constellation note will eventually live, so the

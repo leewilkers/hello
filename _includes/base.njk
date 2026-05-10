@@ -114,6 +114,8 @@
   </div>
 </nav>
 
+<canvas class="constellation-art" data-constellation-art width="72" height="72" aria-hidden="true"></canvas>
+
 <section class="constellation-intro" data-constellation-intro aria-label="Introduction to constellations" aria-hidden="true" tabindex="-1">
   <p class="constellation-intro-paragraph">For thousands of years, humans have looked to the stars and other <span class="note-star">celestial bodies</span> as <span class="note-tool">tools</span> for navigation and inspiration. They orient you to your place in the universe.</p>
   <p class="constellation-intro-paragraph">This practice continues today.</p>
@@ -1012,6 +1014,7 @@
         activeConstellation = nextConstellation;
         renderConstellationMeta(activeConstellation);
         prettyConstellation.setConstellation(activeConstellation);
+        if (typeof setConstellationArt === 'function') setConstellationArt(activeConstellation.id);
       }
       if (constellationSwitchTimer) {
         clearTimeout(constellationSwitchTimer);
@@ -1173,6 +1176,128 @@
       if (document.documentElement) {
         document.documentElement.style.setProperty('--delay-mix', prettyDelayMix);
       }
+    }
+
+    // === Constellation art surface (lower-left) ===
+    // Pixel-by-pixel transitions between historical constellation plates.
+    // Each plate is downsampled to ART_RES x ART_RES; on switch, individual
+    // pixels swap from the old plate to the new at randomized offsets, with
+    // ~55% briefly going black between (the "static dissolve" feel Lee asked
+    // for). Canvas displayed at clamp(180px, 22vw, 280px) with image-rendering:
+    // pixelated so the chunky pixels stay crisp at scale.
+    const artCanvas = document.querySelector('[data-constellation-art]');
+    const ART_RES = 72;
+    const ART_TRANSITION_MS = 1800;
+    const ART_BLACK_HOLD_MS = 240;
+    const ART_BLACK_HOLD_FRACTION = 0.55;
+    const ART_IMAGE_BASE = '/assets/constellations/';
+    const ART_IMAGE_EXT = {
+      lepus: 'webp', polaris: 'webp', bootes: 'jpg', crux: 'jpg',
+      sirius: 'jpg', pleiades: 'webp', mizarAlcor: 'jpg', vega: 'jpg',
+      reticulum: 'webp', epsilonEridani: 'jpg'
+    };
+
+    let artCtx = null;
+    const artImageData = {};
+    let artCurrentId = null;
+    let artFromData = null;
+    let artToData = null;
+    let artPixelTimings = null;
+    let artHoldFlags = null;
+    let artTransitionStart = 0;
+    let artRaf = null;
+
+    function initConstellationArt() {
+      if (!artCanvas) return;
+      artCanvas.width = ART_RES;
+      artCanvas.height = ART_RES;
+      artCtx = artCanvas.getContext('2d');
+      Object.keys(ART_IMAGE_EXT).forEach(loadConstellationArtImage);
+    }
+
+    function loadConstellationArtImage(id) {
+      const img = new Image();
+      img.src = ART_IMAGE_BASE + id + '.' + ART_IMAGE_EXT[id];
+      img.onload = function() {
+        const tmp = document.createElement('canvas');
+        tmp.width = ART_RES;
+        tmp.height = ART_RES;
+        const tctx = tmp.getContext('2d');
+        tctx.drawImage(img, 0, 0, ART_RES, ART_RES);
+        artImageData[id] = tctx.getImageData(0, 0, ART_RES, ART_RES);
+        // Late-loaded image for the currently-active constellation: paint it.
+        if (artCtx && artCurrentId === id) {
+          artCtx.putImageData(artImageData[id], 0, 0);
+        }
+      };
+    }
+
+    function setConstellationArt(id) {
+      if (!artCtx) return;
+      if (id === artCurrentId && artImageData[id]) return;
+      const target = artImageData[id];
+      const previousId = artCurrentId;
+      artCurrentId = id;
+      if (!target) {
+        // Image not loaded yet; loadConstellationArtImage onload will paint it.
+        return;
+      }
+      if (!previousId || !artImageData[previousId]) {
+        // First-paint or no source: direct.
+        artCtx.putImageData(target, 0, 0);
+        return;
+      }
+      // Transition: each pixel switches at a random time within the window;
+      // ~55% have a brief black hold between old and new (static dissolve).
+      artFromData = artImageData[previousId];
+      artToData = target;
+      const total = ART_RES * ART_RES;
+      artPixelTimings = new Float32Array(total);
+      artHoldFlags = new Uint8Array(total);
+      for (let i = 0; i < total; i++) {
+        artPixelTimings[i] = Math.random() * (ART_TRANSITION_MS - ART_BLACK_HOLD_MS);
+        artHoldFlags[i] = Math.random() < ART_BLACK_HOLD_FRACTION ? 1 : 0;
+      }
+      artTransitionStart = performance.now();
+      if (!artRaf) artRaf = requestAnimationFrame(tickConstellationArt);
+    }
+
+    function tickConstellationArt() {
+      artRaf = null;
+      if (!artFromData || !artToData) return;
+      const elapsed = performance.now() - artTransitionStart;
+      if (elapsed >= ART_TRANSITION_MS) {
+        artCtx.putImageData(artToData, 0, 0);
+        artFromData = null;
+        artToData = null;
+        artPixelTimings = null;
+        artHoldFlags = null;
+        return;
+      }
+      const total = ART_RES * ART_RES;
+      const buf = artCtx.createImageData(ART_RES, ART_RES);
+      const fromArr = artFromData.data;
+      const toArr = artToData.data;
+      const out = buf.data;
+      for (let p = 0; p < total; p++) {
+        const t = artPixelTimings[p];
+        const i = p * 4;
+        if (elapsed < t) {
+          out[i] = fromArr[i]; out[i+1] = fromArr[i+1]; out[i+2] = fromArr[i+2]; out[i+3] = fromArr[i+3];
+        } else if (artHoldFlags[p] && elapsed < t + ART_BLACK_HOLD_MS) {
+          out[i] = 0; out[i+1] = 0; out[i+2] = 0; out[i+3] = fromArr[i+3];
+        } else {
+          out[i] = toArr[i]; out[i+1] = toArr[i+1]; out[i+2] = toArr[i+2]; out[i+3] = toArr[i+3];
+        }
+      }
+      artCtx.putImageData(buf, 0, 0);
+      artRaf = requestAnimationFrame(tickConstellationArt);
+    }
+
+    initConstellationArt();
+    // Paint the initial active constellation (handled async via image onload).
+    if (typeof activeConstellation !== 'undefined' && activeConstellation && activeConstellation.id) {
+      setConstellationArt(activeConstellation.id);
     }
 
     // Loose audio→visual flare: each music step bumps --note-flare on root,
