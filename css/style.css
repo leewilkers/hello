@@ -3754,9 +3754,13 @@ body {
     margin-left: 0;
   }
 
-  :root.is-constellation-mode .pretty-constellation-field {
+  :root.is-constellation-mode .pretty-constellation-field,
+  :root.is-constellation-mode .pretty-constellation-field.is-armed,
+  :root.is-constellation-mode .pretty-constellation-field.is-leaving {
     /* Mobile: revert to centered, full-width — editorial two-column
-       collapses to single column at narrow viewports. */
+       collapses to single column at narrow viewports. The .is-armed/
+       .is-leaving overrides ensure the desktop rabbit-mode transform
+       (right-anchored) doesn't bleed into mobile. */
     top: 50%;
     left: 50%;
     right: auto;
