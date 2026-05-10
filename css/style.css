@@ -5572,14 +5572,14 @@ body {
 
 .consulting-block-eyebrow {
   margin: 0 0 0.9rem;
-  font-family: var(--mono);
-  /* 0.96rem matches the rendering reality: `.consulting-block p` rule
-     (specificity 0,0,1,1) wins over the class (0,0,1,0) for P eyebrows,
-     so P eyebrows have always rendered at 0.96rem despite this rule
-     declaring 0.72rem. Setting the class to 0.96rem makes H2s with this
-     class render at the same size, so Working with knots / What to
-     Expect / Getting Started match How I think about knots / Common
-     knots and useful tools without specificity tricks. */
+  /* P eyebrows have always rendered in var(--reading) (Inter) at 0.96rem
+     because `.consulting-block p` (specificity 0,0,1,1) wins over the
+     class (0,0,1,0). Set the class explicitly to match that effective
+     rendering so H2 eyebrows in .consulting-more-knots match. The
+     class's previous use of var(--mono) was also a trap because --mono
+     is mis-defined to "IBM Plex Sans" at line 814, so even when the
+     class did win, it resolved to a different sans, not a mono. */
+  font-family: var(--reading);
   font-size: 0.96rem;
   font-weight: 600;
   letter-spacing: 0.08em;
