@@ -5828,6 +5828,46 @@ body {
   opacity: 1;
 }
 
+/* Common-knots-section is empty / under construction. When the TOC
+   marks it active (user has scrolled to it), wake up the existing dust
+   placeholder + kaomoji so visitors get the "more coming" cue without
+   needing extra copy. */
+:root.is-coming-soon-active .site-dust-motif .dust-placeholder {
+  opacity: 1;
+  color: color-mix(in srgb, var(--section-label) 92%, var(--ink));
+  transition: opacity 480ms ease, color 480ms ease;
+}
+
+:root.is-coming-soon-active .site-dust-motif .dust-placeholder-copy {
+  animation: dust-copy-pulse 2.4s ease-in-out infinite;
+}
+
+:root.is-coming-soon-active .site-dust-motif .dust-placeholder-kao {
+  opacity: 1;
+  color: color-mix(in srgb, var(--section-label) 92%, var(--ink));
+  display: inline-block;
+  transform-origin: 60% 80%;
+  animation: dust-kao-toss 1.6s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+}
+
+@keyframes dust-copy-pulse {
+  0%, 100% { opacity: 0.78; }
+  50%      { opacity: 1; }
+}
+
+@keyframes dust-kao-toss {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  35%      { transform: rotate(0deg)  translateY(-0.18em); }
+  70%      { transform: rotate(10deg) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root.is-coming-soon-active .site-dust-motif .dust-placeholder-copy,
+  :root.is-coming-soon-active .site-dust-motif .dust-placeholder-kao {
+    animation: none;
+  }
+}
+
 [data-theme="dark"] .site-dust-motif .dust-placeholder {
   color: var(--ink-light);
   opacity: 1;

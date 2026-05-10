@@ -2622,7 +2622,7 @@
       window.__consultingHashHandler = null;
     }
 
-    var sectionIds = ['perspective', 'what-to-expect', 'getting-started', 'more-on-knots-section'];
+    var sectionIds = ['perspective', 'what-to-expect', 'getting-started', 'more-on-knots-section', 'common-knots-section'];
     var sections = [];
     sectionIds.forEach(function(id) {
       var el = document.getElementById(id);
@@ -2675,6 +2675,10 @@
       sections.forEach(function(s) {
         s.el.classList.toggle('is-active', s.id === active);
       });
+
+      // Doc-level hook so cross-tree styling (e.g., the page-ornaments
+      // dust placeholder) can react to which TOC section is in view.
+      document.documentElement.classList.toggle('is-coming-soon-active', active === 'common-knots-section');
     }
 
     var ticking = false;
