@@ -2961,18 +2961,14 @@ body {
   margin-top: 0.85em;
 }
 
-/* Roll-in stagger: 6 paragraphs at 5s spacing. The intro auto-ends at ~36s
-   (set in JS) so the last paragraph (USNA) gets ~6s of read time before the
-   cycle begins. */
+/* Roll-in stagger: per-paragraph delay is computed in JS from word count
+   (~200 wpm + 30% buffer; see startRabbitIntro in base.njk) and set as
+   --intro-reveal-delay on each paragraph. The intro auto-ends after the
+   last paragraph + prompt dwell elapse. */
 :root.is-rabbit-intro .constellation-intro-paragraph {
   animation: constellation-intro-roll 1.6s ease-out forwards;
+  animation-delay: var(--intro-reveal-delay, 0s);
 }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(1) { animation-delay: 0s; }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(2) { animation-delay: 5s; }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(3) { animation-delay: 10s; }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(4) { animation-delay: 15s; }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(5) { animation-delay: 21s; }
-:root.is-rabbit-intro .constellation-intro-paragraph:nth-of-type(6) { animation-delay: 27s; }
 
 @keyframes constellation-intro-roll {
   0% {
@@ -3005,7 +3001,7 @@ body {
 
 :root.is-rabbit-intro .constellation-intro-prompt {
   animation: constellation-intro-roll 1.6s ease-out forwards;
-  animation-delay: 33s;
+  animation-delay: var(--intro-prompt-delay, 33s);
 }
 
 /* While the intro is playing: hide the constellation note, cluster controls,
@@ -3194,6 +3190,13 @@ body {
   opacity: 0.3;
   visibility: visible;
   transition-delay: 0s;
+}
+
+/* Star/wave mode (small ✦ field): no label text — labels belong to rabbit
+   mode only. Override the .is-armed reveal above. */
+:root.is-wave-mode:not(.is-constellation-mode) .pretty-star-label {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .pretty-constellation-note {
@@ -5358,9 +5361,13 @@ body {
    four photos read as one tonal family. If knot-02 is re-exported with
    matched levels, this rule can be deleted. */
 .consulting-block-image[src*="knot-02"] {
-  /* 0.70 lands knot-02's rendered luma at ~96, matching the other three's
-     ~92 average (0.82 was the first try and read bright; 0.70 is math-matched). */
-  filter: brightness(0.70);
+  /* knot-02's source has a very hot highlight tail — p90 luma 154 vs
+     109-126 for the other three plates — so even average-luma matching
+     leaves the bright pine-grain swirls perceptually brighter than the
+     others. brightness(0.55) plus contrast(0.92) compresses both the
+     overall level AND the highlights so the figure reads as part of
+     the same tonal family. */
+  filter: brightness(0.55) contrast(0.92);
 }
 
 .consulting-block-eyebrow {
@@ -5764,14 +5771,14 @@ body {
   font-size: clamp(0.52rem, 0.49rem + 0.1vw, 0.6rem);
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: color-mix(in srgb, #d14d41 82%, var(--ink-faint));
-  text-shadow: 0 0 0.38rem color-mix(in srgb, #d14d41 28%, transparent);
+  color: color-mix(in srgb, #d14d41 22%, var(--ink-faint));
+  text-shadow: none;
   opacity: 0;
   transition: opacity 700ms ease;
 }
 
 .site-dust-motif .star-mode-hint-rabbit {
-  color: #fffcf0;
+  color: color-mix(in srgb, #fffcf0 65%, var(--ink-faint));
   text-shadow: none;
 }
 
