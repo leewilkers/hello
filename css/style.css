@@ -2833,35 +2833,50 @@ body {
   }
 }
 
-/* === Constellation art surface (lower-left, semi-transparent) ===
-   Historical constellation plate for the active record, rendered into a
-   72×72 canvas displayed at clamp(180px, 22vw, 280px) with image-rendering:
-   pixelated so the chunky pixels stay crisp at scale. Visible whenever the
-   constellation visual is active (wave or rabbit mode); hidden during the
-   rabbit-mode intro so it doesn't compete with the prose. The pixel-by-pixel
-   transition between plates is driven entirely from JS (see initConstellationArt). */
+/* === Constellation art surface (lower-left, faded full-res plates) ===
+   Historical constellation plate for the active record, rendered at full
+   resolution (browser scales to container; preserves engraving detail).
+   Two stacked <img> elements alternating which is .is-active so opacity
+   transitions crossfade old → new plate. Visible whenever the constellation
+   visual is active (wave or rabbit); hidden during the rabbit-mode intro so
+   it doesn't compete with the prose. */
 .constellation-art {
   position: fixed;
   bottom: clamp(1.35rem, 3vh, 2rem);
   left: clamp(1.75rem, 4.4vw, 4rem);
-  width: clamp(180px, 22vw, 280px);
-  height: clamp(180px, 22vw, 280px);
+  width: clamp(220px, 26vw, 340px);
+  height: clamp(220px, 26vw, 340px);
   z-index: 3;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges; /* Firefox */
-  filter: contrast(1.04) brightness(0.94);
+  filter: contrast(1.04) brightness(0.96);
   mix-blend-mode: screen;
   transition:
     opacity 720ms ease,
     visibility 0s linear 720ms;
 }
 
+.constellation-art-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1400ms cubic-bezier(0.5, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.constellation-art-img.is-active {
+  opacity: 1;
+}
+
 :root.is-wave-mode .constellation-art,
 :root.is-constellation-mode .constellation-art {
-  opacity: 0.42;
+  opacity: 0.36;
   visibility: visible;
   transition:
     opacity 720ms ease,
@@ -2874,6 +2889,11 @@ body {
   transition:
     opacity 720ms ease,
     visibility 0s linear 720ms;
+}
+
+[data-theme="dark"] .constellation-art {
+  filter: contrast(1.06) brightness(1.06);
+  mix-blend-mode: screen;
 }
 
 @media (max-width: 600px) {
