@@ -5355,7 +5355,9 @@ body {
    four photos read as one tonal family. If knot-02 is re-exported with
    matched levels, this rule can be deleted. */
 .consulting-block-image[src*="knot-02"] {
-  filter: brightness(0.82);
+  /* 0.70 lands knot-02's rendered luma at ~96, matching the other three's
+     ~92 average (0.82 was the first try and read bright; 0.70 is math-matched). */
+  filter: brightness(0.70);
 }
 
 .consulting-block-eyebrow {
