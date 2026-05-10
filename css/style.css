@@ -3016,10 +3016,11 @@ body {
     visibility 0s linear 720ms;
 }
 
+/* Cluster (prev/next/exit) stays interactive during intro so users can
+   step or skip without waiting for the full read. Faded slightly so it
+   doesn't compete with the prose. */
 :root.is-rabbit-intro .pretty-delay-cluster {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+  opacity: 0.55;
 }
 
 :root.is-rabbit-intro .star-mode-hint {
@@ -3312,24 +3313,42 @@ body {
   font-style: italic;
 }
 
+/* Note categories — base state is faint chromatic tint only, no halo /
+   pulse / flare. Halo + animation arm on :hover/:focus so the category
+   reveals one span at a time instead of broadcasting all matching spans
+   at once. */
 .pretty-constellation-note-paragraph .note-star,
 .constellation-intro-paragraph .note-star {
+  color: color-mix(in srgb, #fffcf0 56%, var(--ink-faint));
+  transition:
+    color 360ms ease,
+    text-shadow 720ms ease,
+    filter 520ms cubic-bezier(0.16, 0.7, 0.3, 1);
+}
+
+.pretty-constellation-note-paragraph .note-star:hover,
+.pretty-constellation-note-paragraph .note-star:focus-visible,
+.constellation-intro-paragraph .note-star:hover,
+.constellation-intro-paragraph .note-star:focus-visible {
   color: #fffcf0;
   text-shadow:
     0 0 0.18rem color-mix(in srgb, #fffcf0 92%, transparent),
     0 0 calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #fffcf0 58%, transparent),
     0 0 calc(1.2rem + var(--delay-mix, 0.72) * 0.9rem) color-mix(in srgb, #fffcf0 26%, transparent);
-  /* Pulse breathes faster at noise (mix=1), slower at signal (mix=0). */
   animation: pretty-constellation-star-pulse calc(2.6s + (1 - var(--delay-mix, 0.72)) * 4s) ease-in-out infinite;
-  /* Per-note flare: brightness pops to ~1.55 on each music step, decays back. */
   filter: brightness(calc(1 + var(--note-flare, 0) * 0.55));
-  transition:
-    text-shadow 720ms ease,
-    filter 520ms cubic-bezier(0.16, 0.7, 0.3, 1);
 }
 
 .pretty-constellation-note-paragraph .note-name,
 .constellation-intro-paragraph .note-name {
+  color: color-mix(in srgb, #3aa99f 50%, var(--ink-faint));
+  transition: color 360ms ease, text-shadow 720ms ease;
+}
+
+.pretty-constellation-note-paragraph .note-name:hover,
+.pretty-constellation-note-paragraph .note-name:focus-visible,
+.constellation-intro-paragraph .note-name:hover,
+.constellation-intro-paragraph .note-name:focus-visible {
   color: color-mix(in srgb, #3aa99f 86%, var(--ink-faint));
   text-shadow:
     0 0 0.5rem color-mix(in srgb, #3aa99f 40%, transparent),
@@ -3337,11 +3356,17 @@ body {
 }
 
 /* Brass/amber for instrument and implement vocabulary (sextant, telescope,
-   star tracker, the word "tools" itself). Halo treatment parallel to
-   .note-star and .note-name; shares the same delay-mix-driven blur
-   widening, so the chromatic family scales as one with the noise level. */
+   star tracker, the word "tools" itself). */
 .pretty-constellation-note-paragraph .note-tool,
 .constellation-intro-paragraph .note-tool {
+  color: color-mix(in srgb, #d4a017 56%, var(--ink-faint));
+  transition: color 360ms ease, text-shadow 720ms ease;
+}
+
+.pretty-constellation-note-paragraph .note-tool:hover,
+.pretty-constellation-note-paragraph .note-tool:focus-visible,
+.constellation-intro-paragraph .note-tool:hover,
+.constellation-intro-paragraph .note-tool:focus-visible {
   color: #d4a017;
   text-shadow:
     0 0 calc(0.4rem + var(--delay-mix, 0.72) * 0.4rem) color-mix(in srgb, #d4a017 46%, transparent),
