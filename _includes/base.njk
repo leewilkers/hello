@@ -2652,29 +2652,20 @@
       var viewMid = viewTop + (viewBottom - viewTop) / 2;
       var active = null;
 
-      // Primary: pick the section whose box straddles viewport center.
-      // Works for short sections (Getting Started) that can't satisfy a
-      // viewport-share threshold because they're smaller than the viewport.
-      sections.forEach(function(s) {
-        var r = s.el.getBoundingClientRect();
-        if (r.top <= viewMid && r.bottom >= viewMid) {
-          active = s.id;
+      // The active section is the latest one whose top has crossed below
+      // viewMid — i.e., the section the user has scrolled into. Iterate
+      // last-to-first to pick the most-recently-crossed (deepest) section.
+      // This handles short sections cleanly (no straddle-viewport-center
+      // requirement) and also handles the page-top edge case (no section
+      // has crossed viewMid yet → fall back to the first section).
+      for (var i = sections.length - 1; i >= 0; i--) {
+        var r = sections[i].el.getBoundingClientRect();
+        if (r.top <= viewMid) {
+          active = sections[i].id;
+          break;
         }
-      });
-
-      // Fallback: between sections (no box covers center). Pick the
-      // most-visible section by pixel area within the usable viewport.
-      if (!active) {
-        var bestVisible = 0;
-        sections.forEach(function(s) {
-          var r = s.el.getBoundingClientRect();
-          var visible = Math.max(0, Math.min(r.bottom, viewBottom) - Math.max(r.top, viewTop));
-          if (visible > bestVisible) {
-            bestVisible = visible;
-            active = s.id;
-          }
-        });
       }
+      if (!active) active = sections[0].id;
 
 
       links.forEach(function(a) {

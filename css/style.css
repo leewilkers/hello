@@ -5053,7 +5053,8 @@ body {
   margin-top: 1.1rem;
 }
 
-.consulting-block p.consulting-subhead {
+.consulting-block p.consulting-subhead,
+.consulting-more-knots p.consulting-subhead {
   margin: 2.1rem 0 0.7rem;
   font-family: var(--reading);
   font-size: 1.22rem;
@@ -5063,12 +5064,44 @@ body {
   color: color-mix(in srgb, var(--ink) 92%, var(--bg));
 }
 
-.consulting-block p.consulting-subhead:first-child {
+.consulting-block p.consulting-subhead:first-child,
+.consulting-more-knots p.consulting-subhead:first-child {
   margin-top: 0;
 }
 
-.consulting-block p.consulting-subhead + p {
+.consulting-block p.consulting-subhead + p,
+.consulting-more-knots p.consulting-subhead + p {
   margin-top: 0;
+}
+
+/* Numbered VUCA list: indented inside the column, tight inter-item
+   spacing, decimal marker on its own gutter. Items match the body
+   reading register so the strong (term) reads as a label. */
+.consulting-vuca-list {
+  margin: 0 0 1.6rem;
+  padding-left: 2.4rem;
+  list-style: decimal;
+}
+
+.consulting-vuca-list li {
+  margin: 0 0 0.42rem;
+  padding-left: 0.3rem;
+  font-family: var(--reading);
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 88%, var(--bg));
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-variant-ligatures: common-ligatures contextual;
+}
+
+.consulting-vuca-list li:last-child {
+  margin-bottom: 0;
+}
+
+.consulting-vuca-list ::marker {
+  color: color-mix(in srgb, var(--ink) 50%, var(--bg));
+  font-family: var(--mono);
+  font-size: 0.78rem;
 }
 
 .consulting-block--lead {
@@ -5128,15 +5161,15 @@ body {
 }
 
 .consulting-more-knots h2 {
-  margin: 0 0 1.4rem;
-  font-family: var(--reading);
-  font-size: 1.32rem;
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0;
+  margin: 0 0 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   line-height: 1.3;
-  text-transform: none;
-  color: color-mix(in srgb, var(--ink) 90%, var(--bg));
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 60%, var(--bg));
 }
 
 .consulting-asterism {
