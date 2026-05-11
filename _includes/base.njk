@@ -136,13 +136,19 @@
 <aside class="rabbit-watermark" data-rabbit-watermark aria-hidden="true">it's different every time</aside>
 
 <div class="pretty-delay-cluster" data-pretty-cluster aria-label="Constellation controls" aria-hidden="true">
-  <button class="constellation-step constellation-step-prev" type="button" aria-label="Previous constellation" title="Previous constellation" data-constellation-step="-1">&lsaquo;</button>
+  <div class="constellation-step-wrap">
+    <span class="constellation-step-label" aria-hidden="true">prev</span>
+    <button class="constellation-step constellation-step-prev" type="button" aria-label="Previous constellation" title="Previous constellation" data-constellation-step="-1">&lsaquo;</button>
+  </div>
   <label class="pretty-delay-control">
     <span class="pretty-delay-end" aria-hidden="true">signal</span>
     <input class="pretty-delay-slider" type="range" min="0" max="100" step="1" value="72" aria-label="Signal noise delay mix" data-pretty-delay-mix>
     <span class="pretty-delay-end" aria-hidden="true">noise</span>
   </label>
-  <button class="constellation-step constellation-step-next" type="button" aria-label="Next constellation" title="Next constellation" data-constellation-step="1">&rsaquo;</button>
+  <div class="constellation-step-wrap">
+    <span class="constellation-step-label" aria-hidden="true">next</span>
+    <button class="constellation-step constellation-step-next" type="button" aria-label="Next constellation" title="Next constellation" data-constellation-step="1">&rsaquo;</button>
+  </div>
 </div>
 
 <div class="pretty-constellation-field" aria-hidden="true">

@@ -2715,14 +2715,14 @@ body {
    ornaments don't fight for the same corner. */
 .pretty-delay-cluster {
   position: fixed;
-  right: clamp(1.75rem, 4.4vw, 4rem);
+  left: 50%;
   bottom: clamp(1.35rem, 3vh, 2rem);
   z-index: 5;
   display: inline-flex;
-  align-items: center;
-  gap: 0.42rem;
+  align-items: flex-end;
+  gap: 0.7rem;
   opacity: 0;
-  transform: translateY(0.4rem);
+  transform: translate(-50%, 0.4rem);
   visibility: hidden;
   pointer-events: none;
   transition:
@@ -2733,13 +2733,35 @@ body {
 
 .pretty-delay-cluster.is-active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
   visibility: visible;
   pointer-events: auto;
   transition:
     opacity 520ms ease,
     transform 520ms cubic-bezier(0.16, 0.7, 0.3, 1),
     visibility 0s linear 0s;
+}
+
+.constellation-step-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.constellation-step-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--pretty-delay-accent, #AF3029) 56%, var(--ink-light));
+  pointer-events: none;
+  user-select: none;
+}
+
+[data-theme="dark"] .constellation-step-label {
+  color: color-mix(in srgb, var(--pretty-delay-accent, #D14D41) 64%, var(--ink-light));
 }
 
 /* When inside the cluster, .pretty-delay-control loses its old nav-cluster
@@ -3267,6 +3289,44 @@ body {
   opacity: 0.3;
   visibility: visible;
   transition-delay: 0s;
+}
+
+/* Steady-state ambient twinkle. Non-primary labels breathe slow + subtle;
+   primary label breathes faster + stronger so the named anchor still leads
+   the eye. Skips during transient cycle/mode twinkles to avoid clashing
+   keyframe stacks. Per-label delays desync the three labels. */
+.pretty-constellation-field.is-armed:not(.is-twinkling):not(.is-mode-twinkling) .pretty-star-label {
+  animation: pretty-star-label-breath 5.6s ease-in-out infinite;
+}
+.pretty-constellation-field.is-armed:not(.is-twinkling):not(.is-mode-twinkling) .pretty-star-label.is-primary-star {
+  animation: pretty-star-label-breath-primary 4.2s ease-in-out infinite;
+}
+.pretty-constellation-field .pretty-star-label-one { animation-delay: 0s; }
+.pretty-constellation-field .pretty-star-label-two { animation-delay: 1.8s; }
+.pretty-constellation-field .pretty-star-label-three { animation-delay: 3.4s; }
+
+@keyframes pretty-star-label-breath {
+  0%, 100% {
+    opacity: 0.26;
+    text-shadow: 0 0 0.62rem color-mix(in srgb, #fffcf0 8%, transparent);
+  }
+  50% {
+    opacity: 0.42;
+    text-shadow: 0 0 0.92rem color-mix(in srgb, #fffcf0 18%, transparent);
+  }
+}
+
+@keyframes pretty-star-label-breath-primary {
+  0%, 100% {
+    opacity: 0.46;
+    text-shadow: 0 0 0.78rem color-mix(in srgb, #d14d41 22%, transparent);
+  }
+  50% {
+    opacity: 0.78;
+    text-shadow:
+      0 0 0.62rem color-mix(in srgb, #d14d41 34%, transparent),
+      0 0 1.4rem color-mix(in srgb, #d14d41 18%, transparent);
+  }
 }
 
 /* Star/wave mode (small ✦ field): no label text — labels belong to rabbit
