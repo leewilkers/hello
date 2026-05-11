@@ -1197,51 +1197,13 @@
     const rabbitIntroOverlay = document.querySelector('[data-constellation-intro]');
 
     function startRabbitIntro() {
-      if (rabbitIntroState === 'playing') return;
-      if (reduced) return; // Honor prefers-reduced-motion: skip the intro entirely.
-      if (!rabbitIntroOverlay) return;
-      rabbitIntroState = 'playing';
-      stopConstellationCycle();
-
-      // Compute per-paragraph reveal delays from word count (~200 wpm + 30%
-      // buffer). Each paragraph gets its full reading window before the next
-      // appears; the prompt fades in after the last paragraph reads + tail.
-      const paragraphs = rabbitIntroOverlay.querySelectorAll('.constellation-intro-paragraph');
-      const promptEl = rabbitIntroOverlay.querySelector('.constellation-intro-prompt');
-      let cursorMs = 0;
-      paragraphs.forEach(function(p) {
-        p.style.setProperty('--intro-reveal-delay', cursorMs + 'ms');
-        cursorMs += readingMs(p.textContent, READ_WPM_INTRO);
-      });
-      // Prompt fades in after the last paragraph's reveal animation completes.
-      const promptDelay = cursorMs + REVEAL_ANIMATION_MS;
-      if (promptEl) promptEl.style.setProperty('--intro-prompt-delay', promptDelay + 'ms');
-      // Total intro = reading time + reveal anim tail + prompt dwell.
-      const totalMs = promptDelay + PROMPT_DWELL_MS;
-
-      document.documentElement.classList.add('is-rabbit-intro');
-      rabbitIntroOverlay.setAttribute('aria-hidden', 'false');
-      if (rabbitIntroTimer) clearTimeout(rabbitIntroTimer);
-      rabbitIntroTimer = setTimeout(endRabbitIntro, totalMs);
-
-      // Cycle through every constellation during the intro: full sweep
-      // over the intro duration with a twinkle blink between each. Lepus
-      // is already active from setConstellationModeActive, so step 1 is
-      // the second record in the cycle.
-      if (rabbitIntroCycleTimer) clearInterval(rabbitIntroCycleTimer);
-      if (CONSTELLATION_CYCLE.length > 1) {
-        const introCycleMs = Math.max(2000, Math.floor(totalMs / CONSTELLATION_CYCLE.length));
-        let introCycleIdx = 0;
-        rabbitIntroCycleTimer = setInterval(function() {
-          if (rabbitIntroState !== 'playing') {
-            clearInterval(rabbitIntroCycleTimer);
-            rabbitIntroCycleTimer = null;
-            return;
-          }
-          introCycleIdx = (introCycleIdx + 1) % CONSTELLATION_CYCLE.length;
-          setActiveConstellation(CONSTELLATION_CYCLE[introCycleIdx], true);
-        }, introCycleMs);
-      }
+      // Intro removed 2026-05-11 — straight into constellations on rabbit-mode
+      // entry. Mark as 'done' so the rest of the state machine treats it as
+      // if the intro had already played and completed. The remote-added
+      // constellation cycle-through-during-intro feature is also bypassed
+      // (no intro means no intro-cycle window to fill).
+      // Overlay HTML/CSS preserved for potential first-visit flow later.
+      rabbitIntroState = 'done';
     }
 
     function endRabbitIntro() {
@@ -1315,15 +1277,19 @@
       Bb5: 932.33
     };
 
+    // Aeolian dusk progression — Gm minor with relief lifts. 7 distinct phrases,
+    // walked straight 0→6 (no revisits like the old 5-preset rotation).
     const PRETTY_PRESETS = [
-      { name: 'current shelf', pressA: ['A5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'A5'], low: 'Bb3' },
-      { name: 'G top', pressA: ['G5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'G5'], low: 'Bb3' },
-      { name: 'ninth air', pressA: ['C5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'C5'], low: 'Bb3' },
-      { name: 'Eb shimmer', pressA: ['Eb5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'Eb5'], low: 'Bb3' },
-      { name: 'plain fifth', pressA: ['F5'], resolveA: ['D5', 'Bb4'], pressB: ['Bb4'], resolveB: ['F5', 'Bb4'], low: 'Bb3' }
+      { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3' },
+      { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3' },
+      { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3' },
+      { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3' },
+      { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3' },
+      { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3' },
+      { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3' }
     ];
 
-    const PRETTY_WALK = [0, 1, 2, 4, 3, 1, 0];
+    const PRETTY_WALK = [0, 1, 2, 3, 4, 5, 6];
     const PRETTY_WALK_MS = 5600;
     const PRETTY_WALK_SPREAD_MS = 1400;
     const PRETTY_DELAY_SETTLE_SECONDS = 240;
@@ -1576,12 +1542,15 @@
     }
 
     function getPrettyDelayProfileValues(age) {
+      // Tuned 2026-05-11 for "more feature, less wet" — each delay tap reads
+      // as a discrete echo (~4dB quieter than prior, dies after ~3 reps)
+      // rather than a continuous wash. Original constants in git history.
       const mix = prettyDelayMix;
       const fadeAge = age * (1 - mix);
       return {
-        feedback: Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * fadeAge)),
-        wet: Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * fadeAge)),
-        wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * fadeAge))
+        feedback: Math.max(0.40, 0.48 + (0.12 * mix) - (0.10 * fadeAge)),
+        wet: Math.max(0.10, 0.14 + (0.38 * mix) - ((0.06 + (0.10 * mix)) * fadeAge)),
+        wetCeiling: Math.max(0.18, 0.24 + (0.45 * mix) - ((0.06 + (0.09 * mix)) * fadeAge))
       };
     }
 
