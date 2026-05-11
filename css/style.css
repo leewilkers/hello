@@ -3262,6 +3262,28 @@ body {
     drop-shadow(0 0 0.72rem color-mix(in srgb, var(--accent-text) 18%, transparent));
 }
 
+/* Slow ambient breath on the canvas — line edges glow gently. Period is
+   long (8.4s) and amplitude small so the field stays atmospheric, never
+   foreground. Skips during transient cycle/mode twinkles. */
+.pretty-constellation-field.is-armed:not(.is-twinkling):not(.is-mode-twinkling) .pretty-constellation-canvas {
+  animation: pretty-canvas-breath 8.4s ease-in-out infinite;
+}
+
+@keyframes pretty-canvas-breath {
+  0%, 100% {
+    opacity: 0.21;
+    filter:
+      blur(0.08px)
+      drop-shadow(0 0 0.62rem color-mix(in srgb, var(--accent-text) 14%, transparent));
+  }
+  50% {
+    opacity: 0.27;
+    filter:
+      blur(0.06px)
+      drop-shadow(0 0 1.05rem color-mix(in srgb, var(--accent-text) 26%, transparent));
+  }
+}
+
 .pretty-star-label {
   position: absolute;
   opacity: 0;
