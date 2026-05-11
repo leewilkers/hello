@@ -115,7 +115,6 @@
       <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
     </div>
   </div>
-  <div class="rabbit-tagline" data-rabbit-tagline aria-hidden="true">it's different every time…</div>
 </nav>
 
 <div class="constellation-art" data-constellation-art aria-hidden="true">
@@ -2377,27 +2376,8 @@
       waveModeBtn.classList.toggle('is-armed', armed);
       document.documentElement.classList.toggle('is-wave-mode', armed);
       setRabbitSecretVisible(armed || constellationModeActive);
-      // "it's different every time…" tagline fades in for ~6s when rabbit
-      // mode activates, fades out when it stops or after the dwell.
-      const tagline = document.querySelector('[data-rabbit-tagline]');
-      if (tagline) {
-        if (armed) {
-          tagline.classList.add('is-shown');
-          tagline.setAttribute('aria-hidden', 'false');
-          if (taglineTimer) clearTimeout(taglineTimer);
-          taglineTimer = setTimeout(function() {
-            tagline.classList.remove('is-shown');
-            tagline.setAttribute('aria-hidden', 'true');
-          }, 6000);
-        } else {
-          if (taglineTimer) { clearTimeout(taglineTimer); taglineTimer = null; }
-          tagline.classList.remove('is-shown');
-          tagline.setAttribute('aria-hidden', 'true');
-        }
-      }
       syncConstellationVisual();
     }
-    let taglineTimer = null;
 
     function setRabbitSecretVisible(visible) {
       if (!rabbitModeBtn) return;
