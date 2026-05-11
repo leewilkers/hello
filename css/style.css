@@ -3795,12 +3795,19 @@ body {
 
 :root.is-constellation-mode .pretty-constellation-field {
   /* Editorial layout: constellation diagram lives in the right column,
-     beside the editorial note. Aspect ratio preserved; width takes the
-     remaining viewport after the note column. */
+     beside the editorial note. Width now fills the viewport gap between
+     the note column's right edge and the right margin, with a 2rem
+     breathing strip so the two columns don't touch. Note column max
+     right edge ≈ 4.4vw + 36vw = 40.4vw (+ ~1.75rem); field right edge
+     ≈ 1.75rem. Subtract both plus the 2rem gap → ~58vw cap, but we
+     allow up to 64vw on viewports where the note column is below its
+     cap. Floor raised to 42rem so the diagram never reads small. */
   top: 50%;
   left: auto;
   right: clamp(1.75rem, 3vw, 3rem);
-  width: clamp(28rem, 56vw, 78rem);
+  width: min(64vw, calc(100vw - 40.4vw - 2rem - 1.75rem - 1.75rem));
+  min-width: min(42rem, calc(100vw - 40.4vw - 2rem - 1.75rem - 1.75rem));
+  max-width: 92rem;
   transform: translate3d(0, -50%, 0) scale(1);
   transform-origin: right center;
 }
@@ -5380,10 +5387,15 @@ body {
   border-bottom: 1px dotted color-mix(in srgb, var(--consulting-note-color) 54%, transparent);
 }
 
-.consulting-field-note a.consulting-subtle-link:not([href^="mailto"]) {
+.consulting-field-note a.consulting-subtle-link:not([href^="mailto"]),
+.consulting-field-note span.consulting-subtle-link {
   color: inherit;
   border-bottom: 1px dotted color-mix(in srgb, var(--ink) 20%, transparent);
   text-decoration: none;
+}
+
+.consulting-field-note span.consulting-subtle-link {
+  cursor: help;
 }
 
 .consulting-field-note a.consulting-quiet-link:not([href^="mailto"]) {
@@ -5397,7 +5409,9 @@ body {
 }
 
 .consulting-field-note a.consulting-subtle-link:not([href^="mailto"]):hover,
-.consulting-field-note a.consulting-subtle-link:not([href^="mailto"]):focus-visible {
+.consulting-field-note a.consulting-subtle-link:not([href^="mailto"]):focus-visible,
+.consulting-field-note span.consulting-subtle-link:hover,
+.consulting-field-note span.consulting-subtle-link:focus-visible {
   color: color-mix(in srgb, var(--ink) 96%, var(--bg));
   border-bottom-color: color-mix(in srgb, var(--ink) 38%, transparent);
 }
@@ -5628,51 +5642,41 @@ body {
   }
 }
 
-/* === Knot images in consulting left column === */
+/* === Fixed grain plate (left border) ===
+   One vertical wood plate pinned at the article's left edge for all
+   sections, replacing the per-section knot images that used to scroll
+   with the copy. Anchors share math with .consulting-toc so plate and
+   TOC retune together if article width ever changes. */
 
-.consulting-block > img.consulting-block-image,
-.consulting-more-knots > img.consulting-block-image {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: stretch;
-  justify-self: stretch;
+.consulting-grain-column {
+  position: fixed;
+  /* Article max-width = label(10.5rem) + gap + main(36rem) ≈ 48.5rem;
+     its left edge sits at calc(50% - 24.25rem). Plate occupies the same
+     column the per-section images used to, so the body-copy column
+     doesn't shift. */
+  left: max(0rem, calc(50% - 24.25rem));
+  /* --nav-offset is published by the scroll handler in base.njk
+     (see updateActive()). 5rem fallback covers first paint. */
+  top: var(--nav-offset, 5rem);
+  width: var(--consulting-label-measure);
+  height: calc(100vh - var(--nav-offset, 5rem));
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  margin: 0;
+}
+
+.consulting-grain-column img {
   width: 100%;
-  height: 0;
-  min-height: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center center;
-  margin: 0;
   display: block;
-  filter: grayscale(100%) contrast(0.96);
+  filter: grayscale(100%) contrast(0.98);
 }
 
-.consulting-block > img.consulting-block-image--crop-lower,
-.consulting-more-knots > img.consulting-block-image--crop-lower {
-  object-position: center 78%;
-}
-
-.consulting-block > img.consulting-block-image--crop-upper,
-.consulting-more-knots > img.consulting-block-image--crop-upper {
-  object-position: center 18%;
-}
-
-.consulting-block > img.consulting-block-image--crop-right,
-.consulting-more-knots > img.consulting-block-image--crop-right {
-  object-position: 68% center;
-}
-
-/* knot-02.png shipped from Photoshop noticeably brighter than the other
-   three (avg luma ~137 vs ~92 for the rest). One-off CSS dimming so the
-   four photos read as one tonal family. If knot-02 is re-exported with
-   matched levels, this rule can be deleted. */
-.consulting-block-image[src*="knot-02"] {
-  /* knot-02's source has a very hot highlight tail — p90 luma 154 vs
-     109-126 for the other three plates — so even average-luma matching
-     leaves the bright pine-grain swirls perceptually brighter than the
-     others. brightness(0.55) plus contrast(0.92) compresses both the
-     overall level AND the highlights so the figure reads as part of
-     the same tonal family. */
-  filter: brightness(0.55) contrast(0.92);
+@media (max-width: 1255px) {
+  .consulting-grain-column { display: none; }
 }
 
 /* Inline price reference: kept on one line so "$350 for a 60-90 minute
@@ -5681,13 +5685,9 @@ body {
   white-space: nowrap;
 }
 
-/* Star/wave mode: hide the wood/knot photos so the page reads as text
-   only (matches the star-mode rule on .pretty-star-label). Layout slot
-   preserved via opacity so the grid doesn't collapse. */
-:root.is-wave-mode:not(.is-constellation-mode) .consulting-block-image {
-  opacity: 0;
-  transition: opacity 320ms ease;
-}
+/* Plate persists across star/wave/constellation modes (per Lee's ask
+   2026-05-11) — the board is the load-bearing visual, not decoration to
+   strip when text-only modes engage. */
 
 .consulting-block-eyebrow {
   margin: 0 0 0.9rem;
@@ -5751,11 +5751,6 @@ body {
   }
 
   .consulting-block::before {
-    display: none;
-  }
-
-  .consulting-block > img.consulting-block-image,
-  .consulting-more-knots > img.consulting-block-image {
     display: none;
   }
 
