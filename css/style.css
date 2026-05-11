@@ -3458,16 +3458,12 @@ body {
 }
 
 /* Typewriter character reveal — each char wrapped in .tw-char by JS at
-   render time with its own --char-delay. CSS just animates visibility
-   from hidden → visible at that delay. Cheap, scalable, preserves the
-   inline .note-star highlight color on individual revealed chars. */
+   render time. JS drives the visibility flip via a rAF loop in base.njk
+   (startTypewriterReveal). The previous CSS-animation-delay approach
+   was unreliable: hundreds of 1ms animations per paragraph occasionally
+   dropped under browser throttling, leaving permanent gaps. */
 .tw-char {
   visibility: hidden;
-  animation: tw-char-reveal 1ms steps(1) forwards;
-  animation-delay: var(--char-delay, 0ms);
-}
-@keyframes tw-char-reveal {
-  to { visibility: visible; }
 }
 
 /* Blinking cursor at the very end of the LAST paragraph, after all chars
@@ -3795,19 +3791,20 @@ body {
 
 :root.is-constellation-mode .pretty-constellation-field {
   /* Editorial layout: constellation diagram lives in the right column,
-     beside the editorial note. Width now fills the viewport gap between
-     the note column's right edge and the right margin, with a 2rem
-     breathing strip so the two columns don't touch. Note column max
-     right edge ≈ 4.4vw + 36vw = 40.4vw (+ ~1.75rem); field right edge
-     ≈ 1.75rem. Subtract both plus the 2rem gap → ~58vw cap, but we
-     allow up to 64vw on viewports where the note column is below its
-     cap. Floor raised to 42rem so the diagram never reads small. */
+     beside the editorial note. Width fills the gap between the note
+     column's right edge and the right viewport margin with a 2rem gap
+     between the two — so growing here never spills into the notes.
+     The min() of two formulas keeps the field at the bigger of (a) the
+     space available beside the actual note column, capped by viewport,
+     and (b) a generous percentage-of-viewport so very-wide screens
+     read big. The note column itself is `left: 4.4vw + width 36vw`. */
   top: 50%;
   left: auto;
-  right: clamp(1.75rem, 3vw, 3rem);
-  width: min(64vw, calc(100vw - 40.4vw - 2rem - 1.75rem - 1.75rem));
-  min-width: min(42rem, calc(100vw - 40.4vw - 2rem - 1.75rem - 1.75rem));
-  max-width: 92rem;
+  right: clamp(1.5rem, 2.5vw, 2.5rem);
+  width: min(
+    clamp(36rem, 64vw, 96rem),
+    calc(100vw - 4.4vw - 36vw - 4rem)
+  );
   transform: translate3d(0, -50%, 0) scale(1);
   transform-origin: right center;
 }

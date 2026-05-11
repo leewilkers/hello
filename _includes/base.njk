@@ -403,9 +403,17 @@
     const CONSTELLATION_CANVAS_WIDTH = 136;
     const CONSTELLATION_CANVAS_HEIGHT = 60;
     const CONSTELLATION_PIXEL_SCALE = 2;
+    // Uniform line color across every constellation — the per-record
+    // lineColor fields are kept in the data for reference but overridden
+    // here so motion (pulse traversal) carries the visual identity instead
+    // of color. Blue (#4385be) reads as drafting-ink on the dark field.
+    const LINE_COLOR = '#4385be';
 
     function constellationXPercent(x) {
-      return ((((x * 0.86) + 9.1) * CONSTELLATION_PIXEL_SCALE) / CONSTELLATION_CANVAS_WIDTH) * 100;
+      // Mirrors xPos() inside createPrettyConstellation; kept in sync so
+      // star-label DOM nodes (positioned by %) land where canvas pixels
+      // are drawn. Update both together.
+      return ((((x * 1.08) + 4) * CONSTELLATION_PIXEL_SCALE) / CONSTELLATION_CANVAS_WIDTH) * 100;
     }
 
     function constellationYPercent(y) {
@@ -828,12 +836,21 @@
     }
 
     // Walk node tree, replace each character of text-nodes with a .tw-char
-    // span carrying an inline --char-delay (in ms). CSS animates each span
-    // from visibility:hidden to visible at its delay. Preserves all parent
-    // inline spans (.note-star etc.) so chromatic highlighting still works
-    // per-character. Returns the cumulative delay (for chaining paragraphs).
+    // span. The CSS animation-delay approach (formerly used here) proved
+    // unreliable: with hundreds of chars per paragraph, Chrome occasionally
+    // drops individual 1ms-duration animations under background-throttling
+    // or scheduling pressure, leaving permanent gaps in the typed text.
+    //
+    // Reveal is now driven by a single rAF loop (twRevealLoop below) that
+    // walks the queue and flips visibility based on wall time — robust to
+    // throttling because rAF stays in sync with the display refresh.
+    // The .tw-char span only needs visibility:hidden as its rest state.
+    // Returns cumulative delay (for cycle-dwell math).
+    let twRevealRaf = null;
+    let twRevealQueue = null; // {start, items: [{node, delay}], lastIdx}
     function wrapTypewriter(rootNode, startMs, perCharMs) {
       let cursor = startMs;
+      const items = (twRevealQueue && twRevealQueue.items) || [];
       function walk(node) {
         if (node.nodeType === 3) {
           const text = node.nodeValue;
@@ -842,14 +859,13 @@
           for (let i = 0; i < text.length; i++) {
             const span = document.createElement('span');
             span.className = 'tw-char';
-            span.style.setProperty('--char-delay', cursor + 'ms');
             span.textContent = text[i];
             frag.appendChild(span);
+            items.push({ node: span, delay: cursor });
             cursor += perCharMs;
           }
           node.parentNode.replaceChild(frag, node);
         } else if (node.nodeType === 1) {
-          // Snapshot children before mutating to avoid live-list weirdness.
           const kids = [];
           for (let c = node.firstChild; c; c = c.nextSibling) kids.push(c);
           kids.forEach(walk);
@@ -857,6 +873,42 @@
       }
       walk(rootNode);
       return cursor;
+    }
+    function startTypewriterReveal() {
+      if (twRevealRaf) cancelAnimationFrame(twRevealRaf);
+      if (!twRevealQueue || !twRevealQueue.items.length) return;
+      // Reduced-motion users skip the per-char reveal entirely.
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        twRevealQueue.items.forEach(function(it) { it.node.style.visibility = 'visible'; });
+        twRevealRaf = null;
+        return;
+      }
+      twRevealQueue.start = performance.now();
+      twRevealQueue.lastIdx = 0;
+      // Items are appended in delay-ascending order; lastIdx walks forward
+      // every frame, so the loop is O(chars_due_this_frame), not O(n) per
+      // frame. A single rAF schedule drives the whole note.
+      function tick(now) {
+        const q = twRevealQueue;
+        if (!q) { twRevealRaf = null; return; }
+        const elapsed = now - q.start;
+        const items = q.items;
+        while (q.lastIdx < items.length && items[q.lastIdx].delay <= elapsed) {
+          items[q.lastIdx].node.style.visibility = 'visible';
+          q.lastIdx++;
+        }
+        if (q.lastIdx < items.length) {
+          twRevealRaf = requestAnimationFrame(tick);
+        } else {
+          twRevealRaf = null;
+        }
+      }
+      twRevealRaf = requestAnimationFrame(tick);
+    }
+    function resetTypewriterReveal() {
+      if (twRevealRaf) cancelAnimationFrame(twRevealRaf);
+      twRevealRaf = null;
+      twRevealQueue = { start: 0, items: [], lastIdx: 0 };
     }
 
     function renderConstellationMeta(constellation) {
@@ -905,12 +957,15 @@
             const noteParagraphs = Array.isArray(constellation.note.paragraphs) && constellation.note.paragraphs.length
               ? constellation.note.paragraphs
               : (constellation.note.text ? [constellation.note.text] : []);
-            // Typewriter reveal: parse paragraph HTML via DOMParser (safe — content
-            // is template-controlled), then walk and wrap every char in a .tw-char
-            // span with precomputed --char-delay. CSS handles the visibility-flip
-            // animation. TW_CHAR_MS + TW_PARA_GAP_MS pacing matches the constants
-            // that constellationDwellMs uses to extend the cycle window so the
-            // typewriter always finishes before the constellation switches.
+            // Typewriter reveal: parse paragraph HTML via DOMParser (safe —
+            // content is template-controlled), then walk and wrap every char
+            // in a .tw-char span and queue it for the rAF reveal loop. The
+            // loop (startTypewriterReveal) flips visibility per char by wall
+            // clock — much more reliable than relying on hundreds of CSS
+            // animation-delay timers, which can drop individual fires under
+            // background throttling. TW_CHAR_MS + TW_PARA_GAP_MS pacing
+            // matches the constellationDwellMs window.
+            resetTypewriterReveal();
             let cursorMs = 0;
             noteParagraphs.forEach(function(paragraphText, pIdx) {
               const paragraphNode = document.createElement('span');
@@ -922,6 +977,7 @@
               cursorMs = wrapTypewriter(paragraphNode, cursorMs, TW_CHAR_MS);
               constellationNoteBody.appendChild(paragraphNode);
             });
+            startTypewriterReveal();
           }
         }
       }
@@ -939,7 +995,7 @@
       let highlightIndex = constellation.highlightIndex;
       let edges = constellation.edges;
       let stars = constellation.stars;
-      let lineColor = constellation.lineColor;
+      let lineColor = LINE_COLOR;
       let starColor = constellation.starColor;
       let pointColor = constellation.pointColor;
       let highlightColor = constellation.highlightColor;
@@ -952,7 +1008,11 @@
       let modeStart = start;
       const EXIT_SECONDS = 5.8;
 
-      function xPos(x) { return ((x * 0.86) + 9.1) * CONSTELLATION_PIXEL_SCALE; }
+      // Tighter x-mapping: previous 0.86×x + 9.1 left ~21% padding on each
+      // canvas side, so shapes read small even when the field is large.
+      // 1.08×x + 4 stretches typical x-range (8–55) closer to the canvas
+      // edges (1.08×8+4 ≈ 12.6, 1.08×55+4 ≈ 63.4, ×2 = 25–127 of 136 ≈ 75%).
+      function xPos(x) { return ((x * 1.08) + 4) * CONSTELLATION_PIXEL_SCALE; }
       function yPos(y) { return (y + 1.4) * CONSTELLATION_PIXEL_SCALE; }
 
       function pixel(x, y, size, alpha, color) {
@@ -1086,11 +1146,17 @@
         });
 
         // Ease-out cascade: each line takes longer than the last, and later
-        // lines overlap less. Early ignition is snappier than the old linear
-        // sweep; later edges visibly linger before settling solid.
-        const TRACE_BASE_DUR = 0.5;
-        const TRACE_DUR_GROWTH = 0.3;
-        const TRACE_OVERLAP = 0.4;
+        // lines overlap less. Snappier per-edge timing than the original
+        // one-shot trace, because we now LOOP the whole cascade on a fixed
+        // period (CASCADE_LOOP_S) so the constellation re-traces continuously
+        // for as long as the field is live — the lines never sit visually
+        // static. Per-edge `index * 0.34` phase offset within the loop gives
+        // the wave the original "drawing in from one end" feel.
+        const TRACE_BASE_DUR = 0.32;
+        const TRACE_DUR_GROWTH = 0.05;
+        const TRACE_OVERLAP = 0.55;
+        const TRACE_FADE_DUR = 0.45;   // tail fade after each edge hits full
+        const CASCADE_LOOP_S = 4.6;    // pulse repeat — feels like a heartbeat
         const traceStart = new Array(edges.length);
         const traceDur = new Array(edges.length);
         {
@@ -1109,7 +1175,26 @@
           } else if (exiting) {
             progress = 1;
           } else {
-            progress = Math.max(0, Math.min(1, (modeT - traceStart[index]) / traceDur[index]));
+            // Looping cascade. Each edge has its own start offset within the
+            // loop. While the edge is "drawing" we ramp 0→1, then hold at 1
+            // for the rest of the loop, then fall back to 0 in a short fade
+            // window before the next loop starts. The fade prevents a hard
+            // snap when the loop wraps. The faint solid baseline (drawn just
+            // above this block) keeps the line visible during the dip so the
+            // constellation never disappears.
+            const loopT = ((modeT % CASCADE_LOOP_S) + CASCADE_LOOP_S) % CASCADE_LOOP_S;
+            const edgeStart = traceStart[index];
+            const edgeDur = traceDur[index];
+            const fadeStart = CASCADE_LOOP_S - TRACE_FADE_DUR;
+            if (loopT < edgeStart) {
+              progress = 0;
+            } else if (loopT < edgeStart + edgeDur) {
+              progress = (loopT - edgeStart) / edgeDur;
+            } else if (loopT < fadeStart) {
+              progress = 1;
+            } else {
+              progress = Math.max(0, 1 - (loopT - fadeStart) / TRACE_FADE_DUR);
+            }
           }
           if (progress > 0) drawLine(edge[0], edge[1], progress, (live ? 0.7 : 0.22) * lineMul, exiting ? modeT + index : t + index);
         });
@@ -1174,7 +1259,7 @@
           highlightIndex = nextConstellation.highlightIndex;
           edges = nextConstellation.edges;
           stars = nextConstellation.stars;
-          lineColor = nextConstellation.lineColor;
+          lineColor = LINE_COLOR;
           starColor = nextConstellation.starColor;
           pointColor = nextConstellation.pointColor;
           highlightColor = nextConstellation.highlightColor;
@@ -2493,10 +2578,20 @@
       const nextVisualActive = prettyArmed || constellationModeActive;
       if (nextVisualActive) {
         if (!constellationVisualActive) {
-          // Entering wave/rabbit mode: always restart the cycle from Lepus
+          // Entering wave/rabbit mode: always restart the cycle from Lepus.
+          // setActiveConstellation early-returns when the id is unchanged
+          // (we already start on Lepus at page load), so the note's
+          // .tw-char animations would still be the stale ones whose
+          // animation-delay clock began at page load — flashing a "ghost
+          // from future" of partially-typed text. Force a fresh meta
+          // render so every char's delay restarts from t=0 at arm time.
           stopConstellationCycle();
           constellationCycleIndex = 0;
-          setActiveConstellation(CONSTELLATION_CYCLE[0], false);
+          if (activeConstellation.id !== CONSTELLATION_CYCLE[0]) {
+            setActiveConstellation(CONSTELLATION_CYCLE[0], false);
+          } else {
+            renderConstellationMeta(activeConstellation);
+          }
         }
         startConstellationCycle();
       } else stopConstellationCycle();
