@@ -3366,28 +3366,33 @@ body {
 
 .pretty-constellation-note-paragraph {
   display: block;
-  /* Typewriter reveal — clip-path animates L→R in discrete steps to mimic
-     character-by-character typing. The mono font + steps() gives the
-     terminal-typing feel; no DOM walking required. */
-  clip-path: inset(0 100% 0 0);
-  animation: pretty-paragraph-type 3.2s steps(90, end) forwards;
   text-shadow:
     0 0 calc(0.4rem + var(--delay-mix, 0.72) * 0.4rem) color-mix(in srgb, #d14d41 26%, transparent),
     0 0 calc(0.9rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #d14d41 12%, transparent);
   transition: text-shadow 720ms ease;
 }
 
-/* Blinking cursor at the end of the LAST paragraph — "waiting for the next
-   line" terminal feel. Only on last-of-type so we don't get cursor
-   confetti across all paragraphs at once. */
+/* Typewriter character reveal — each char wrapped in .tw-char by JS at
+   render time with its own --char-delay. CSS just animates visibility
+   from hidden → visible at that delay. Cheap, scalable, preserves the
+   inline .note-star highlight color on individual revealed chars. */
+.tw-char {
+  visibility: hidden;
+  animation: tw-char-reveal 1ms steps(1) forwards;
+  animation-delay: var(--char-delay, 0ms);
+}
+@keyframes tw-char-reveal {
+  to { visibility: visible; }
+}
+
+/* Blinking cursor at the very end of the LAST paragraph, after all chars
+   have revealed. Mimics terminal "waiting for input" state at end of log. */
 .pretty-constellation-note-paragraph:last-of-type::after {
   content: '▌';
   display: inline-block;
   margin-left: 0.08em;
   color: currentColor;
-  opacity: 0;
   animation: pretty-paragraph-cursor 1.05s steps(2, end) infinite;
-  animation-delay: 3.2s; /* matches reveal duration so cursor appears at end */
 }
 @keyframes pretty-paragraph-cursor {
   0%, 49% { opacity: 1; }

@@ -806,6 +806,38 @@
       prettyField.style.transform = 'translate3d(-50%, 0, 0) scale(1)';
     }
 
+    // Walk node tree, replace each character of text-nodes with a .tw-char
+    // span carrying an inline --char-delay (in ms). CSS animates each span
+    // from visibility:hidden to visible at its delay. Preserves all parent
+    // inline spans (.note-star etc.) so chromatic highlighting still works
+    // per-character. Returns the cumulative delay (for chaining paragraphs).
+    function wrapTypewriter(rootNode, startMs, perCharMs) {
+      let cursor = startMs;
+      function walk(node) {
+        if (node.nodeType === 3) {
+          const text = node.nodeValue;
+          if (!text) return;
+          const frag = document.createDocumentFragment();
+          for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            span.className = 'tw-char';
+            span.style.setProperty('--char-delay', cursor + 'ms');
+            span.textContent = text[i];
+            frag.appendChild(span);
+            cursor += perCharMs;
+          }
+          node.parentNode.replaceChild(frag, node);
+        } else if (node.nodeType === 1) {
+          // Snapshot children before mutating to avoid live-list weirdness.
+          const kids = [];
+          for (let c = node.firstChild; c; c = c.nextSibling) kids.push(c);
+          kids.forEach(walk);
+        }
+      }
+      walk(rootNode);
+      return cursor;
+    }
+
     function renderConstellationMeta(constellation) {
       if (!constellation) return;
       Array.prototype.forEach.call(constellationLabelNodes, function(labelNode) {
@@ -852,10 +884,22 @@
             const noteParagraphs = Array.isArray(constellation.note.paragraphs) && constellation.note.paragraphs.length
               ? constellation.note.paragraphs
               : (constellation.note.text ? [constellation.note.text] : []);
-            noteParagraphs.forEach(function(paragraphText) {
+            // Typewriter reveal: parse paragraph HTML via DOMParser (safe — content
+            // is template-controlled), then walk and wrap every char in a .tw-char
+            // span with precomputed --char-delay. CSS handles the visibility-flip
+            // animation. Per-paragraph stagger = sum of chars × CHAR_MS plus a
+            // PARA_GAP_MS "blinking cursor between lines" pause.
+            const CHAR_MS = 28;
+            const PARA_GAP_MS = 1400;
+            let cursorMs = 0;
+            noteParagraphs.forEach(function(paragraphText, pIdx) {
               const paragraphNode = document.createElement('span');
               paragraphNode.className = 'pretty-constellation-note-paragraph';
-              paragraphNode.innerHTML = paragraphText;
+              const doc = new DOMParser().parseFromString('<div>' + paragraphText + '</div>', 'text/html');
+              const sourceRoot = doc.body.firstChild;
+              while (sourceRoot.firstChild) paragraphNode.appendChild(sourceRoot.firstChild);
+              if (pIdx > 0) cursorMs += PARA_GAP_MS;
+              cursorMs = wrapTypewriter(paragraphNode, cursorMs, CHAR_MS);
               constellationNoteBody.appendChild(paragraphNode);
             });
           }
@@ -2631,6 +2675,7 @@
         prettyStep = 0;
         prettyStartedAt = ctx ? ctx.currentTime : null;
         setPrettyUI(true);
+        runWatermarkTyper();
         resumeAudio(ctx, function() {
           if (!prettyArmed) return;
           prettyStartedAt = ctx ? ctx.currentTime : prettyStartedAt;
@@ -2646,25 +2691,23 @@
 
     window.togglePrettyLoop = togglePrettyLoop;
 
-    // --- Watermark terminal-typing animation ----------------------------
-    // Types "it's different every time" character by character, holds, then
-    // backspaces character by character, holds, repeats. Only animates while
-    // wave/rabbit mode is on (it's hidden otherwise so the timer would be
-    // animating something invisible — we let it run regardless; cheap).
-    (function watermarkTyper() {
+    // Watermark: normal left-to-right typing on press, ONE cycle then stop.
+    // Types in → holds → backspaces out → done (no loop). Triggered each
+    // time wave/rabbit mode toggles ON. Cursor blinks throughout.
+    let watermarkTimer = null;
+    function runWatermarkTyper() {
       const el = document.querySelector('[data-rabbit-watermark]');
       if (!el) return;
+      if (watermarkTimer) { clearTimeout(watermarkTimer); watermarkTimer = null; }
       const phrase = "it's different every time";
       let charIdx = 0;
-      let direction = 1; // 1 = typing forward, -1 = deleting backward
+      let direction = 1;  // 1 = typing forward, -1 = deleting, 0 = done
       function render() {
-        const text = phrase.slice(0, charIdx);
-        // textContent (not innerHTML) — security hook + safer.
         while (el.firstChild) el.removeChild(el.firstChild);
-        el.appendChild(document.createTextNode(text));
+        el.appendChild(document.createTextNode(phrase.slice(0, charIdx)));
         const cursor = document.createElement('span');
         cursor.className = 'rabbit-watermark-cursor';
-        cursor.textContent = '▌'; // ▌
+        cursor.textContent = '▌';
         el.appendChild(cursor);
       }
       function tick() {
@@ -2674,25 +2717,36 @@
           if (charIdx > phrase.length) {
             charIdx = phrase.length;
             direction = -1;
-            delay = 2200; // hold while complete
+            delay = 2400;  // hold while complete
           } else {
-            delay = 65 + Math.random() * 60; // typing speed, slight variation
+            delay = 65 + Math.random() * 60;
           }
-        } else {
+        } else if (direction === -1) {
           charIdx -= 1;
           if (charIdx < 0) {
             charIdx = 0;
-            direction = 1;
-            delay = 700; // hold while empty before retyping
-          } else {
-            delay = 35 + Math.random() * 25; // deletion is faster
+            direction = 0;
+            render();
+            return;  // done — no more ticks
           }
+          delay = 35 + Math.random() * 25;
         }
         render();
-        setTimeout(tick, delay);
+        watermarkTimer = setTimeout(tick, delay);
       }
       render();
-      setTimeout(tick, 800);
+      watermarkTimer = setTimeout(tick, 600);
+    }
+    // Initial blank state (cursor only) so when CSS fades in the watermark
+    // container, there's no flash of full text before typing starts.
+    (function initWatermark() {
+      const el = document.querySelector('[data-rabbit-watermark]');
+      if (!el) return;
+      while (el.firstChild) el.removeChild(el.firstChild);
+      const cursor = document.createElement('span');
+      cursor.className = 'rabbit-watermark-cursor';
+      cursor.textContent = '▌';
+      el.appendChild(cursor);
     })();
 
     // Restore armed state from session — if the user had wave/star-mode music
