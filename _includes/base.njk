@@ -2854,16 +2854,19 @@
       }
       function pickNoise() { return NOISE[Math.floor(Math.random() * NOISE.length)]; }
       function materialize(done) {
+        // All positions scramble from frame 0. Each char has its own random
+        // settle frame (within a window), so resolution is non-sequential —
+        // the message emerges out of a noise field, not left-to-right.
+        const settleFrames = phrase.split('').map(function(c) {
+          if (c === ' ') return 0;
+          return 6 + Math.floor(Math.random() * 16);  // settle anywhere from frame 6 to 22
+        });
+        const totalFrames = Math.max.apply(null, settleFrames) + 3;
         let frame = 0;
-        const totalFrames = STAGGER * phrase.length + SCRAMBLE_FRAMES + 4;
         function tick() {
           for (let i = 0; i < spans.length; i++) {
             if (phrase[i] === ' ') continue;
-            const startFrame = i * STAGGER;
-            const settleFrame = startFrame + SCRAMBLE_FRAMES;
-            if (frame < startFrame) {
-              spans[i].textContent = '';
-            } else if (frame < settleFrame) {
+            if (frame < settleFrames[i]) {
               spans[i].textContent = pickNoise();
             } else {
               spans[i].textContent = phrase[i];
@@ -2876,17 +2879,21 @@
         tick();
       }
       function dissolve(done) {
+        // Reverse — each char starts unsettled at its own random frame and
+        // ends as noise, then clears. Random order, no directional dissolve.
+        const unsettleFrames = phrase.split('').map(function(c) {
+          if (c === ' ') return 0;
+          return Math.floor(Math.random() * 14);
+        });
+        const clearFrames = unsettleFrames.map(function(s) { return s + 6 + Math.floor(Math.random() * 6); });
+        const totalFrames = Math.max.apply(null, clearFrames) + 3;
         let frame = 0;
-        const totalFrames = STAGGER * phrase.length + SCRAMBLE_FRAMES + 4;
         function tick() {
           for (let i = 0; i < spans.length; i++) {
             if (phrase[i] === ' ') continue;
-            const reverseI = phrase.length - 1 - i;
-            const startFrame = reverseI * STAGGER;
-            const settleFrame = startFrame + SCRAMBLE_FRAMES;
-            if (frame < startFrame) {
-              // still showing target
-            } else if (frame < settleFrame) {
+            if (frame < unsettleFrames[i]) {
+              // still showing target letter
+            } else if (frame < clearFrames[i]) {
               spans[i].textContent = pickNoise();
             } else {
               spans[i].textContent = '';
