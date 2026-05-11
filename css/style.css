@@ -3584,8 +3584,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-bottom: 1px solid color-mix(in srgb, var(--accent-text) 38%, var(--rule-light));
   transition:
     border-color 140ms ease,
@@ -3607,9 +3607,10 @@ body {
 
 .constellation-mode-mark {
   font-family: var(--mono);
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0;
+  line-height: 1;
 }
 
 .loop-tally:hover,

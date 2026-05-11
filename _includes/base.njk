@@ -111,7 +111,7 @@
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-      <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">✦</span></button>
+      <button class="constellation-mode-toggle" aria-label="Start wave mode" title="Start wave mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="constellation-mode-mark" aria-hidden="true">★</span></button>
       <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
     </div>
   </div>
@@ -1434,15 +1434,18 @@
       { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' }    // Gm9
     ];
 
-    // Heavenly father v2 — thicker minor/modal with no Eb+G fragments.
+    // Heavenly father — Bon Iver pedal-verse interpretation. Bb pedal rocks
+    // against Gm (P0–P3), arches up through IV (Eb) and V (F) for the
+    // howlin-wind verse, lands on Imaj7 cadence. Rooted 3–5 note voicings
+    // so the arp flourish has chord tones to dance through.
     const HEAVENLY_PRESETS = [
-      { name: 'light switch',   pressA: ['A5'],  resolveA: ['D5','F5'],       pressB: ['Bb4'], resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
-      { name: 'vi (Gm7 full)',  pressA: ['G5'],  resolveA: ['F5','Bb4','D5'], pressB: ['D5'],  resolveB: ['G5','Bb4'],     low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
-      { name: 'ii (Cm)',        pressA: ['C5'],  resolveA: ['Eb5','Bb4'],     pressB: ['Bb4'], resolveB: ['F5','C5'],      low: 'C3',  walkBass: ['G3','Eb3'],  colorTone: 'D5' },
-      { name: 'IV (Eb)',        pressA: ['Eb5'], resolveA: ['G5','Bb4'],      pressB: ['D5'],  resolveB: ['F5','Bb4'],     low: 'Eb3', walkBass: ['Bb3','G3'],  colorTone: 'C5' },
-      { name: 'V (F open)',     pressA: ['F5'],  resolveA: ['A5','C5'],       pressB: ['C5'],  resolveB: ['F5','C5'],      low: 'F3',  walkBass: ['C3','A3'],   colorTone: 'G5' },
-      { name: 'I (no maj7)',    pressA: ['D5'],  resolveA: ['F5','Bb4'],      pressB: ['Bb4'], resolveB: ['D5','G5'],      low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
-      { name: 'cadence — Dm',   pressA: ['Bb4'], resolveA: ['A5','D5','F5'],  pressB: ['F5'],  resolveB: ['Bb4','F5'],     low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' }
+      { name: 'Bb pedal — nyng',      pressA: ['Bb4'], resolveA: ['Bb4','D5','F5'],     pressB: ['F5'],  resolveB: ['Bb4','D5','F5'],           low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'vi (Gm) — rock away',  pressA: ['D5'],  resolveA: ['Bb4','D5','F5'],     pressB: ['Bb4'], resolveB: ['Bb4','D5','F5'],           low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
+      { name: 'Bb pedal — return',    pressA: ['F5'],  resolveA: ['Bb4','D5','F5'],     pressB: ['D5'],  resolveB: ['Bb4','D5','F5'],           low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'vi (Gm) — verse turn', pressA: ['D5'],  resolveA: ['Bb4','D5','F5','A4'],pressB: ['Bb4'], resolveB: ['Bb4','D5','F5'],           low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
+      { name: 'IV (Eb) — opening',    pressA: ['G5'],  resolveA: ['G4','Bb4','D5','F5'],pressB: ['Eb5'], resolveB: ['Eb5','G5','Bb4'],          low: 'Eb3', walkBass: ['Bb3','G3'],  colorTone: 'F5' },
+      { name: 'V (F) — howlin wind',  pressA: ['A5'],  resolveA: ['F5','A4','C5'],      pressB: ['C5'],  resolveB: ['F5','A5','C5'],            low: 'F3',  walkBass: ['C3','A3'],   colorTone: 'G5' },
+      { name: 'I cadence',            pressA: ['F5'],  resolveA: ['Bb4','D5','F5'],     pressB: ['Bb4'], resolveB: ['Bb4','D5','F5','A5','C5'], low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' }
     ];
 
     // Four chords (vi · IV · I · V) — major-key Bb axis vamp.
@@ -1491,33 +1494,15 @@
       dense:  { ghost1: 0.50, ghost2: 0.60, shimmer: 0.60 }
     };
 
-    // Weighted roll table — each entry is one possible session character.
-    // Weights are loot-box-style: common at 10–14%, uncommon 5–9%, rare 2–4%,
-    // majestic 1%. Designed so chill/medium are common, dense+color is rare,
-    // and one specific maxed-out combo ("Heavenly Convergence") is majestic.
+    // Roll table — heavenly only. Density tiers + color toggle still vary
+    // per session, but the progression is always heavenly father.
     const RABBIT_ROLL_TABLE = [
-      // — Common: medium density, the everyday texture
-      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: false, weight: 14, label: 'aeolian dusk · medium' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: false, weight: 13, label: 'vespers · medium' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: false, weight: 13, label: 'porch · medium' },
-      // — Common-ish: chill, sparser texture
-      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: false, weight: 10, label: 'aeolian dusk · chill' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'chill',  color: false, weight: 10, label: 'vespers · chill' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'chill',  color: false, weight: 10, label: 'porch · chill' },
-      // — Uncommon: dense or color
-      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'dense',  color: false, weight: 6,  label: 'aeolian dusk · dense' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: false, weight: 6,  label: 'vespers · dense' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'dense',  color: false, weight: 6,  label: 'porch · dense' },
-      // — Rare: medium + color tones
-      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: true,  weight: 3,  label: 'aeolian dusk · medium · color' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: true,  weight: 3,  label: 'vespers · medium · color' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: true,  weight: 3,  label: 'porch · medium · color' },
-      // — Rare: chill + color
-      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: true,  weight: 2,  label: 'aeolian dusk · chill · color' },
-      // — Majestic: one combo, everything maxed. Named for Lepus — the rabbit
-      // constellation already highlighted at site entry, and the namesake of
-      // "follow the rabbit" in the footer.
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: true,  weight: 1,  label: 'lepus', majestic: true }
+      { progKey: 'heavenly', presets: HEAVENLY_PRESETS, density: 'medium', color: false, weight: 13, label: 'vespers · medium' },
+      { progKey: 'heavenly', presets: HEAVENLY_PRESETS, density: 'chill',  color: false, weight: 10, label: 'vespers · chill' },
+      { progKey: 'heavenly', presets: HEAVENLY_PRESETS, density: 'dense',  color: false, weight: 6,  label: 'vespers · dense' },
+      { progKey: 'heavenly', presets: HEAVENLY_PRESETS, density: 'medium', color: true,  weight: 3,  label: 'vespers · medium · color' },
+      // Majestic: one combo, everything maxed.
+      { progKey: 'heavenly', presets: HEAVENLY_PRESETS, density: 'dense',  color: true,  weight: 1,  label: 'lepus', majestic: true }
     ];
 
     function rabbitRollTier(weight) {
@@ -1566,7 +1551,7 @@
     const PRETTY_MASTER_GAIN = 1.55;
     const PRETTY_NOTE_LEVEL = 0.046;
     const PRETTY_LOW_LEVEL = 0.032;
-    const PRETTY_DELAY_MIX_DEFAULT = 0.72;
+    const PRETTY_DELAY_MIX_DEFAULT = 0.86;  // bumped from 0.72 — more wet
     let prettyDelayMix = PRETTY_DELAY_MIX_DEFAULT;
 
     function clamp01(value) {
@@ -2302,13 +2287,18 @@
     }
 
     // Layered lead voice — fires every voice in activeRabbitVoices, scaling
-    // each level by 1/√N for equal-loudness summing.
-    const activeRabbitVoices = new Set(['rhodes', 'ondes']);  // default Lee approved on /heavenly/
+    // each level by 1/√N for equal-loudness summing. 'piano' routes to the
+    // additive playAcousticKey; synth voices route to playSynthVoice.
+    const activeRabbitVoices = new Set(['piano']);  // default: additive piano alone
     function playLeadVoice(freq, when, sustain, level, reverb, delayBus, outputBus) {
       const n = activeRabbitVoices.size || 1;
       const perVoiceLvl = level / Math.sqrt(n);
       activeRabbitVoices.forEach(function(name) {
-        playSynthVoice(name, freq, when, sustain, perVoiceLvl, reverb, delayBus, outputBus);
+        if (name === 'piano') {
+          playAcousticKey(freq, when, sustain, perVoiceLvl, reverb, delayBus, outputBus);
+        } else {
+          playSynthVoice(name, freq, when, sustain, perVoiceLvl, reverb, delayBus, outputBus);
+        }
       });
     }
     function playLeadNote(note, when, sustain, level, withLowFloor, delayBus, outputBus) {
@@ -2322,7 +2312,30 @@
     }
     function playLeadNotes(notes, when, sustain, level, withLowFloor, delayBus, outputBus) {
       if (!notes) return;
-      notes.forEach(function(n) { playLeadNote(n, when, sustain, level, withLowFloor, delayBus, outputBus); });
+      if (notes.length <= 1) {
+        notes.forEach(function(n) { playLeadNote(n, when, sustain, level, withLowFloor, delayBus, outputBus); });
+        return;
+      }
+      // ARP ONLY — no block, no strum. Random chord-tone picks at 150–250ms
+      // intervals so each note is its own perceptual event. Different every
+      // time: step rate, density, breath, gaps all re-roll. First note feeds
+      // the delay bus (wet attack), rest dry to keep wash bounded.
+      const stepSec     = 0.16 + Math.random() * 0.10;
+      const startOffset = 0.04 + Math.random() * 0.18;
+      const breathRate  = 0.5 + Math.random() * 0.9;
+      const breathDepth = 0.4 + Math.random() * 0.4;
+      const totalArpSec = Math.min(sustain * 0.78, 3.6);
+      const stepCount = Math.min(22, Math.max(notes.length * 2, Math.floor(totalArpSec / stepSec)));
+      for (let i = 0; i < stepCount; i++) {
+        if (Math.random() < 0.10) continue;
+        const note = notes[Math.floor(Math.random() * notes.length)];
+        const breath = (1 - breathDepth) + (breathDepth * (0.5 + 0.5 * Math.sin(i * breathRate)));
+        const fade = Math.max(0.18, 1 - (i / stepCount) * 0.82);
+        const jitter = (Math.random() - 0.5) * 0.025;
+        const noteSustain = Math.max(1.0, (sustain * 0.45) - (i * 0.02));
+        const noteDelay = i === 0 ? delayBus : null;
+        playLeadNote(note, when + startOffset + (i * stepSec) + jitter, noteSustain, level * fade * breath, withLowFloor && i === 0, noteDelay, outputBus);
+      }
     }
 
     // Second ghost pass — later offset (1.6–2.4s), lower density.
@@ -2348,19 +2361,25 @@
       playLeadNote(note, when + offset, 4.2, 0.011, false, delay, output);
     }
 
-    // Walking-bass — quiet chord-tone bass between strikes.
+    // Walking-bass — quiet chord-tone bass between strikes. Three offsets
+    // with ~35% skip chance each, varying dynamic per note. Stays loose,
+    // re-rolls per phrase, doesn't lock into a grid.
     function playWalkBass(preset, when, output) {
       const ctx = ensureAudio();
       const walks = preset.walkBass;
       if (!ctx || !walks || walks.length === 0) return;
-      if (walks[0]) {
-        const off1 = 2.5 + (Math.random() * 0.5);
-        playLeadNote(walks[0], when + off1, 3.5, PRETTY_LOW_LEVEL * 0.55, false, null, output);
-      }
-      if (walks[1]) {
-        const off2 = 4.4 + (Math.random() * 0.3);
-        playLeadNote(walks[1], when + off2, 3.0, PRETTY_LOW_LEVEL * 0.5, false, null, output);
-      }
+      const baseOffsets = [
+        2.5 + Math.random() * 0.5,
+        4.4 + Math.random() * 0.3,
+        5.6 + Math.random() * 0.4
+      ];
+      baseOffsets.forEach(function(off, i) {
+        if (Math.random() > 0.65) return;
+        const note = walks[i % walks.length];
+        if (!note) return;
+        const dynamic = 0.45 + Math.random() * 0.20;
+        playLeadNote(note, when + off, 2.8, PRETTY_LOW_LEVEL * dynamic, false, null, output);
+      });
     }
 
     function playPrettyPreset(preset) {
