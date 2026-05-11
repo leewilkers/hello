@@ -5655,11 +5655,13 @@ body {
      column the per-section images used to, so the body-copy column
      doesn't shift. */
   left: max(0rem, calc(50% - 24.25rem));
-  /* --nav-offset is published by the scroll handler in base.njk
-     (see updateActive()). 5rem fallback covers first paint. */
-  top: var(--nav-offset, 5rem);
+  /* Mirror the TOC's `top: 7.5rem` so plate and TOC share the same
+     starting baseline — TOC label and article kicker both sit at
+     ~7.5rem under the fixed nav, and Lee asked the plate top to align
+     with the kicker line (2026-05-11). */
+  top: 7.5rem;
   width: var(--consulting-label-measure);
-  height: calc(100vh - var(--nav-offset, 5rem));
+  height: calc(100vh - 7.5rem);
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
