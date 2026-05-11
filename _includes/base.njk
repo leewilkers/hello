@@ -115,6 +115,7 @@
       <button class="pretty-loop" aria-label="Enter rabbit mode" title="Enter rabbit mode" aria-pressed="false" onclick="toggleConstellationMode()" hidden><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
     </div>
   </div>
+  <div class="rabbit-tagline" data-rabbit-tagline aria-hidden="true">it's different every time…</div>
 </nav>
 
 <div class="constellation-art" data-constellation-art aria-hidden="true">
@@ -1338,24 +1339,26 @@
     const RABBIT_ROLL_TABLE = [
       // — Common: medium density, the everyday texture
       { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: false, weight: 14, label: 'aeolian dusk · medium' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: false, weight: 13, label: 'heavenly father · medium' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: false, weight: 13, label: 'four chords · medium' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: false, weight: 13, label: 'vespers · medium' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: false, weight: 13, label: 'porch · medium' },
       // — Common-ish: chill, sparser texture
       { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: false, weight: 10, label: 'aeolian dusk · chill' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'chill',  color: false, weight: 10, label: 'heavenly father · chill' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'chill',  color: false, weight: 10, label: 'four chords · chill' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'chill',  color: false, weight: 10, label: 'vespers · chill' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'chill',  color: false, weight: 10, label: 'porch · chill' },
       // — Uncommon: dense or color
       { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'dense',  color: false, weight: 6,  label: 'aeolian dusk · dense' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: false, weight: 6,  label: 'heavenly father · dense' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'dense',  color: false, weight: 6,  label: 'four chords · dense' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: false, weight: 6,  label: 'vespers · dense' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'dense',  color: false, weight: 6,  label: 'porch · dense' },
       // — Rare: medium + color tones
       { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: true,  weight: 3,  label: 'aeolian dusk · medium · color' },
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: true,  weight: 3,  label: 'heavenly father · medium · color' },
-      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: true,  weight: 3,  label: 'four chords · medium · color' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: true,  weight: 3,  label: 'vespers · medium · color' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: true,  weight: 3,  label: 'porch · medium · color' },
       // — Rare: chill + color
       { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: true,  weight: 2,  label: 'aeolian dusk · chill · color' },
-      // — Majestic: one combo, everything maxed.
-      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: true,  weight: 1,  label: 'heavenly convergence', majestic: true }
+      // — Majestic: one combo, everything maxed. Named for Lepus — the rabbit
+      // constellation already highlighted at site entry, and the namesake of
+      // "follow the rabbit" in the footer.
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: true,  weight: 1,  label: 'lepus', majestic: true }
     ];
 
     function rabbitRollTier(weight) {
@@ -2359,8 +2362,27 @@
       waveModeBtn.classList.toggle('is-armed', armed);
       document.documentElement.classList.toggle('is-wave-mode', armed);
       setRabbitSecretVisible(armed || constellationModeActive);
+      // "it's different every time…" tagline fades in for ~6s when rabbit
+      // mode activates, fades out when it stops or after the dwell.
+      const tagline = document.querySelector('[data-rabbit-tagline]');
+      if (tagline) {
+        if (armed) {
+          tagline.classList.add('is-shown');
+          tagline.setAttribute('aria-hidden', 'false');
+          if (taglineTimer) clearTimeout(taglineTimer);
+          taglineTimer = setTimeout(function() {
+            tagline.classList.remove('is-shown');
+            tagline.setAttribute('aria-hidden', 'true');
+          }, 6000);
+        } else {
+          if (taglineTimer) { clearTimeout(taglineTimer); taglineTimer = null; }
+          tagline.classList.remove('is-shown');
+          tagline.setAttribute('aria-hidden', 'true');
+        }
+      }
       syncConstellationVisual();
     }
+    let taglineTimer = null;
 
     function setRabbitSecretVisible(visible) {
       if (!rabbitModeBtn) return;
