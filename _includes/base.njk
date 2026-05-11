@@ -2827,60 +2827,89 @@
 
     // Watermark: normal left-to-right typing on press, ONE cycle then stop.
     // Types in → holds → backspaces out → done (no loop). Triggered each
-    // time wave/rabbit mode toggles ON. Cursor blinks throughout.
+    // Materializes from ASCII noise — each character cycles through random
+    // glyphs before settling into its target letter. Characters settle in
+    // sequence (stagger), hold, then dissolve back into noise and clear.
+    // No cursor — the text appears out of the ether and goes back.
     let watermarkTimer = null;
     function runWatermarkTyper() {
       const el = document.querySelector('[data-rabbit-watermark]');
       if (!el) return;
       if (watermarkTimer) { clearTimeout(watermarkTimer); watermarkTimer = null; }
       const phrase = "it's different every time";
-      let charIdx = 0;
-      let direction = 1;  // 1 = typing forward, -1 = deleting, 0 = done
-      function render() {
-        while (el.firstChild) el.removeChild(el.firstChild);
-        el.appendChild(document.createTextNode(phrase.slice(0, charIdx)));
-        const cursor = document.createElement('span');
-        cursor.className = 'rabbit-watermark-cursor';
-        cursor.textContent = '▌';
-        el.appendChild(cursor);
+      const NOISE = "!@#$%&*+=/\\|<>?~^`:;.,'\"-_";
+      const FRAME_MS = 50;
+      const SCRAMBLE_FRAMES = 12;  // each char scrambles ~600ms before settling
+      const STAGGER = 2;            // frames between successive chars starting to scramble
+      const HOLD_MS = 3200;         // hold fully-formed phrase
+      // Build one span per character (spaces too, kept blank).
+      while (el.firstChild) el.removeChild(el.firstChild);
+      const spans = [];
+      for (let i = 0; i < phrase.length; i++) {
+        const span = document.createElement('span');
+        span.className = 'rabbit-watermark-char';
+        span.textContent = phrase[i] === ' ' ? ' ' : '';
+        spans.push(span);
+        el.appendChild(span);
       }
-      function tick() {
-        let delay;
-        if (direction === 1) {
-          charIdx += 1;
-          if (charIdx > phrase.length) {
-            charIdx = phrase.length;
-            direction = -1;
-            delay = 2400;  // hold while complete
-          } else {
-            delay = 65 + Math.random() * 60;
+      function pickNoise() { return NOISE[Math.floor(Math.random() * NOISE.length)]; }
+      function materialize(done) {
+        let frame = 0;
+        const totalFrames = STAGGER * phrase.length + SCRAMBLE_FRAMES + 4;
+        function tick() {
+          for (let i = 0; i < spans.length; i++) {
+            if (phrase[i] === ' ') continue;
+            const startFrame = i * STAGGER;
+            const settleFrame = startFrame + SCRAMBLE_FRAMES;
+            if (frame < startFrame) {
+              spans[i].textContent = '';
+            } else if (frame < settleFrame) {
+              spans[i].textContent = pickNoise();
+            } else {
+              spans[i].textContent = phrase[i];
+            }
           }
-        } else if (direction === -1) {
-          charIdx -= 1;
-          if (charIdx < 0) {
-            charIdx = 0;
-            direction = 0;
-            render();
-            return;  // done — no more ticks
-          }
-          delay = 35 + Math.random() * 25;
+          frame++;
+          if (frame >= totalFrames) { done(); return; }
+          watermarkTimer = setTimeout(tick, FRAME_MS);
         }
-        render();
-        watermarkTimer = setTimeout(tick, delay);
+        tick();
       }
-      render();
-      watermarkTimer = setTimeout(tick, 600);
+      function dissolve(done) {
+        let frame = 0;
+        const totalFrames = STAGGER * phrase.length + SCRAMBLE_FRAMES + 4;
+        function tick() {
+          for (let i = 0; i < spans.length; i++) {
+            if (phrase[i] === ' ') continue;
+            const reverseI = phrase.length - 1 - i;
+            const startFrame = reverseI * STAGGER;
+            const settleFrame = startFrame + SCRAMBLE_FRAMES;
+            if (frame < startFrame) {
+              // still showing target
+            } else if (frame < settleFrame) {
+              spans[i].textContent = pickNoise();
+            } else {
+              spans[i].textContent = '';
+            }
+          }
+          frame++;
+          if (frame >= totalFrames) { done(); return; }
+          watermarkTimer = setTimeout(tick, FRAME_MS);
+        }
+        tick();
+      }
+      materialize(function() {
+        watermarkTimer = setTimeout(function() {
+          dissolve(function() { /* fully cleared — no more ticks, no cursor */ });
+        }, HOLD_MS);
+      });
     }
-    // Initial blank state (cursor only) so when CSS fades in the watermark
-    // container, there's no flash of full text before typing starts.
+    // Initial blank state — empty char-cells, no cursor. CSS fade-in lands
+    // on blank space, then materialize draws the message out of nowhere.
     (function initWatermark() {
       const el = document.querySelector('[data-rabbit-watermark]');
       if (!el) return;
       while (el.firstChild) el.removeChild(el.firstChild);
-      const cursor = document.createElement('span');
-      cursor.className = 'rabbit-watermark-cursor';
-      cursor.textContent = '▌';
-      el.appendChild(cursor);
     })();
 
     // Restore armed state from session — if the user had wave/star-mode music
