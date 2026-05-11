@@ -2613,7 +2613,6 @@
         prettyStep = 0;
         prettyStartedAt = ctx ? ctx.currentTime : null;
         setPrettyUI(true);
-        showRabbitRollBadge();
         resumeAudio(ctx, function() {
           if (!prettyArmed) return;
           prettyStartedAt = ctx ? ctx.currentTime : prettyStartedAt;
@@ -2626,33 +2625,6 @@
       }
     }
 
-    // Gambified session-roll badge — shows what combo this visit rolled,
-    // the percent likelihood, and tier (common/uncommon/rare/majestic).
-    // Appears briefly when rabbit-mode is toggled on; fades after ~7s.
-    let rabbitBadgeTimer = null;
-    function showRabbitRollBadge() {
-      if (rabbitBadgeTimer) clearTimeout(rabbitBadgeTimer);
-      let badge = document.getElementById('rabbit-roll-badge');
-      if (!badge) {
-        badge = document.createElement('div');
-        badge.id = 'rabbit-roll-badge';
-        document.body.appendChild(badge);
-      }
-      while (badge.firstChild) badge.removeChild(badge.firstChild);
-      // 10-digit catalog code only — no tier, no label, no percent. Stable
-      // per combination; same combo → same digits across visits.
-      const code = document.createElement('span');
-      code.className = 'rabbit-roll-code';
-      // Add the majestic class so the gold treatment still applies for the
-      // 1% lepus roll (no other tier surfaces — code-only is the design).
-      if (rabbitRollPick.majestic) code.classList.add('rabbit-roll-majestic');
-      code.textContent = rabbitRollCode;
-      badge.appendChild(code);
-      badge.classList.add('is-shown');
-      rabbitBadgeTimer = setTimeout(function() {
-        badge.classList.remove('is-shown');
-      }, 7000);
-    }
 
     window.togglePrettyLoop = togglePrettyLoop;
 
