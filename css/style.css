@@ -9262,7 +9262,9 @@ a.shelf-list-title:hover {
 
 /* ===== Rabbit-mode header tagline ===== */
 /* "it's different every time…" fades in below the rabbit toggle when
-   rabbit mode activates. Anchored to the nav so it tracks the button. */
+   rabbit mode activates. Styled like .note-star — cream color, multi-
+   layer halo that widens with the delay-mix. No pulse animation though;
+   pulsing fits stars (visual fixed points) but distracts on a tagline. */
 .rabbit-tagline {
   position: absolute;
   top: 100%;
@@ -9272,7 +9274,11 @@ a.shelf-list-title:hover {
   font-style: italic;
   font-size: 0.78rem;
   letter-spacing: 0.01em;
-  color: rgba(148, 139, 124, 0.85);
+  color: #fffcf0;
+  text-shadow:
+    0 0 0.4rem color-mix(in srgb, #fffcf0 55%, transparent),
+    0 0 calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #fffcf0 58%, transparent),
+    0 0 calc(1.2rem + var(--delay-mix, 0.72) * 0.9rem) color-mix(in srgb, #fffcf0 26%, transparent);
   pointer-events: none;
   opacity: 0;
   transform: translateY(-4px);
