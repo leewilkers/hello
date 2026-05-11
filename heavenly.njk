@@ -100,19 +100,10 @@ eleventyExcludeFromCollections: true
 
 <p class="section-label">song</p>
 <div class="song-picker" id="songs">
-  <p class="group-label">original</p>
-  <button class="song-btn" data-song="walk">original walk<span class="meta">gospel maj7</span></button>
-
   <p class="group-label">minor / modal</p>
-  <button class="song-btn on" data-song="heavenly">heavenly father<span class="meta">bon iver · pedal + verse</span></button>
+  <button class="song-btn on" data-song="heavenly">heavenly father<span class="meta">v2 · thicker</span></button>
   <button class="song-btn" data-song="aeolian">aeolian dusk<span class="meta">gm minor</span><span class="rise">rise</span></button>
   <button class="song-btn" data-song="aeolianThick">aeolian thick<span class="meta">3-note resolves</span><span class="rise">rise</span></button>
-  <button class="song-btn" data-song="holocene">holocene drift<span class="meta">sus + pedal</span></button>
-
-  <p class="group-label">modal recolors</p>
-  <button class="song-btn" data-song="lydian">lydian morning<span class="meta">#4 shimmer</span></button>
-  <button class="song-btn" data-song="dorian">dorian rain<span class="meta">cm with major 6</span></button>
-  <button class="song-btn" data-song="mixo">mixo afternoon<span class="meta">F with ♭7</span></button>
 
   <p class="group-label">descending / climbing</p>
   <button class="song-btn" data-song="fleet">fleet foxes<span class="meta">descending bass</span></button>
@@ -122,22 +113,15 @@ eleventyExcludeFromCollections: true
   <p class="group-label">four-chord</p>
   <button class="song-btn" data-song="fourChord">four chords<span class="meta">vi · IV · I · V</span></button>
   <button class="song-btn" data-song="fourChordMinor">four chords minor<span class="meta">i · ♭VI · v · iv</span></button>
-
-  <p class="group-label">ballad</p>
-  <button class="song-btn" data-song="allEyes">all eyes<span class="meta">bb minor · bo burnham vibe</span></button>
 </div>
 
 <p class="section-label">voice · layer freely (multi-select)</p>
 <div class="song-picker" id="voices" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
-  <button class="song-btn on" data-voice="piano">piano<span class="meta">additive · live</span></button>
-  <button class="song-btn" data-voice="rhodes">rhodes<span class="meta">2× sine, detuned</span></button>
+  <button class="song-btn" data-voice="piano">piano<span class="meta">additive · live</span></button>
+  <button class="song-btn on" data-voice="rhodes">rhodes<span class="meta">2× sine, detuned</span></button>
   <button class="song-btn" data-voice="bell">bell<span class="meta">sine + octave mix</span></button>
-  <button class="song-btn" data-voice="ondes">ondes<span class="meta">pure sine, deep vibrato</span></button>
+  <button class="song-btn on" data-voice="ondes">ondes<span class="meta">pure sine, deep vibrato</span></button>
   <button class="song-btn" data-voice="fm">fm e-piano<span class="meta">DX7 1:1 · slow tine</span></button>
-  <button class="song-btn" data-voice="felt">felt<span class="meta">warm, dampened</span></button>
-  <button class="song-btn" data-voice="glass">glass<span class="meta">sine + high octave</span></button>
-  <button class="song-btn" data-voice="organ">organ<span class="meta">soft triangle pad</span></button>
-  <button class="song-btn" data-voice="supersaw">supersaw<span class="meta">3× saw, wide</span></button>
 </div>
 
 <div class="transport">
@@ -159,10 +143,7 @@ eleventyExcludeFromCollections: true
     F3: 174.61, F4: 349.23, F5: 698.46, F6: 1396.91,
     G3: 196.00, G4: 392.00, G5: 783.99, G6: 1567.98,
     A3: 220.00, A4: 440.00, A5: 880.00, A6: 1760.00,
-    E3: 164.81, E4: 329.63,   // walking-bass passing tones (E3 for A→D moves)
-    Db3: 138.59, Db4: 277.18, Db5: 554.37,   // Bb-minor / "All Eyes on Me" flats
-    Gb3: 185.00, Gb4: 369.99, Gb5: 739.99,
-    Ab3: 207.65, Ab4: 415.30, Ab5: 830.61
+    E3: 164.81, E4: 329.63    // walking-bass passing tones (E3 for A→D moves)
   };
 
   const PRETTY_NOTE_LEVEL = 0.046;
@@ -425,19 +406,7 @@ eleventyExcludeFromCollections: true
     supersaw: { wave: 'sawtooth', unison: 3, spread: 8, octaveMix: 0,
                 vibRate: 0, vibDepth: 0, vibFadeIn: 0.1,
                 attack: 0.06, decay: 0.62, shoulder: 0.32,
-                cutoff: 1800, q: 0.4, levelMul: 0.7 },
-    felt:     { wave: 'sine',     unison: 2, spread: 3, octaveMix: 0.08, subMix: 0.18,
-                vibRate: 2.6, vibDepth: 1.4, vibFadeIn: 0.45,
-                attack: 0.075, decay: 0.78, shoulder: 0.38,
-                cutoff: 1400, q: 0.5, levelMul: 1.05 },
-    glass:    { wave: 'sine',     unison: 1, spread: 0, octaveMix: 0.55, subMix: 0,
-                vibRate: 4.6, vibDepth: 1.8, vibFadeIn: 0.18,
-                attack: 0.012, decay: 0.92, shoulder: 0.14,
-                cutoff: 5200, q: 0.7, levelMul: 0.82 },
-    organ:    { wave: 'triangle', unison: 2, spread: 4, octaveMix: 0.28, subMix: 0.22,
-                vibRate: 3.8, vibDepth: 2.2, vibFadeIn: 0.55,
-                attack: 0.14, decay: 0.88, shoulder: 0.62,
-                cutoff: 2200, q: 0.45, levelMul: 0.92 }
+                cutoff: 1800, q: 0.4, levelMul: 0.7 }
   };
 
   function playSynthVoice(presetKey, freq, when, sustain, level, reverb, delayBus, outputBus) {
@@ -594,20 +563,16 @@ eleventyExcludeFromCollections: true
   }
 
   const LEAD_VOICES = {
-    piano:    playAcousticKey,
-    rhodes:   (f, w, s, l, r, d, o) => playSynthVoice('rhodes',   f, w, s, l, r, d, o),
-    bell:     (f, w, s, l, r, d, o) => playSynthVoice('bell',     f, w, s, l, r, d, o),
-    ondes:    (f, w, s, l, r, d, o) => playSynthVoice('ondes',    f, w, s, l, r, d, o),
-    fm:       playFMePiano,
-    felt:     (f, w, s, l, r, d, o) => playSynthVoice('felt',     f, w, s, l, r, d, o),
-    glass:    (f, w, s, l, r, d, o) => playSynthVoice('glass',    f, w, s, l, r, d, o),
-    organ:    (f, w, s, l, r, d, o) => playSynthVoice('organ',    f, w, s, l, r, d, o),
-    supersaw: (f, w, s, l, r, d, o) => playSynthVoice('supersaw', f, w, s, l, r, d, o)
+    piano:  playAcousticKey,
+    rhodes: (f, w, s, l, r, d, o) => playSynthVoice('rhodes', f, w, s, l, r, d, o),
+    bell:   (f, w, s, l, r, d, o) => playSynthVoice('bell',   f, w, s, l, r, d, o),
+    ondes:  (f, w, s, l, r, d, o) => playSynthVoice('ondes',  f, w, s, l, r, d, o),
+    fm:     playFMePiano
   };
 
   // Voice layering: multi-select Set. playPianoNote iterates active voices,
   // scaling each level by 1/√N for equal-loudness summing.
-  let activeVoices = new Set(['piano']);  // default: piano additive alone
+  let activeVoices = new Set(['rhodes', 'ondes']);  // default layer Lee likes
 
   function playPianoNote(freq, when, sustain, level, withLowFloor, delayBus, outputBus) {
     const c = ensureAudio();
@@ -631,32 +596,7 @@ eleventyExcludeFromCollections: true
   }
   function playNoteNames(notes, when, sustain, level, withLowFloor, delayBus, outputBus) {
     if (!notes) return;
-    if (notes.length <= 1) {
-      notes.forEach(n => playNoteName(n, when, sustain, level, withLowFloor, delayBus, outputBus));
-      return;
-    }
-    // BLOCK CHORD — soft pad with gentle 22ms stagger. Not hammered, just
-    // present. ~45% of original level so the arp flourish sits on top.
-    const blockLevel = level * 0.45;
-    notes.forEach((n, i) => {
-      const offset = i * 0.022 + (Math.random() * 0.01);
-      playNoteName(n, when + offset, sustain, blockLevel, withLowFloor && i === 0, delayBus, outputBus);
-    });
-    // ARP FLOURISH — only fires ~55% of the time. When it does: brief
-    // sparkle (4–8 steps), not a continuous run. Random parameters per
-    // burst so each flourish has its own shape.
-    if (Math.random() > 0.55) return;
-    const arpLevel = level * (0.32 + Math.random() * 0.20);
-    const stepSec  = 0.09 + Math.random() * 0.10;
-    const startOffset = 0.12 + Math.random() * 0.35;
-    const stepCount = 4 + Math.floor(Math.random() * 5);  // 4–8 steps
-    for (let i = 0; i < stepCount; i++) {
-      if (Math.random() < 0.12) continue;
-      const note = notes[Math.floor(Math.random() * notes.length)];
-      const fade = Math.max(0.25, 1 - (i / stepCount) * 0.7);
-      const jitter = (Math.random() - 0.5) * 0.02;
-      playNoteName(note, when + startOffset + (i * stepSec) + jitter, 1.4 + Math.random() * 0.6, arpLevel * fade, false, null, outputBus);
-    }
+    notes.forEach(n => playNoteName(n, when, sustain, level, withLowFloor, delayBus, outputBus));
   }
 
   // ============================================================
@@ -669,20 +609,20 @@ eleventyExcludeFromCollections: true
   // ============================================================
   function playPrettyGhost(notes, when, scale, outputBus) {
     const c = ensureAudio();
-    if (!c || Math.random() > 0.30) return;
+    if (!c || Math.random() > 0.38) return;
     const delay = getPrettyDelay(c);
     const echoScale = (scale === undefined ? 1 : scale) * (0.72 + (0.55 * PRETTY_DELAY_MIX));
     const offset = 0.72 + (Math.random() * 0.46);
     const note = notes[Math.floor(Math.random() * notes.length)];
     playNoteName(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
-    if (Math.random() < 0.18) {
+    if (Math.random() < 0.28) {
       playNoteName(note, when + offset + 0.52, 5.8, 0.011 * echoScale, false, delay, outputBus);
     }
   }
 
   function playPrettyGhostLate(notes, when, scale, outputBus) {
     const c = ensureAudio();
-    if (!c || Math.random() > 0.68) return;
+    if (!c || Math.random() > 0.45) return;
     const delay = getPrettyDelay(c);
     const echoScale = (scale === undefined ? 1 : scale) * (0.55 + (0.45 * PRETTY_DELAY_MIX));
     const offset = 1.6 + (Math.random() * 0.8);
@@ -692,7 +632,7 @@ eleventyExcludeFromCollections: true
 
   function playPrettyShimmer(preset, when, output) {
     const c = ensureAudio();
-    if (!c || Math.random() > 0.66) return;
+    if (!c || Math.random() > 0.45) return;
     const delay = getPrettyDelay(c);
     // Pick a note from either resolveA or resolveB — keep it harmonically anchored.
     const pool = (Math.random() < 0.5 ? preset.resolveA : preset.resolveB) || [];
@@ -710,23 +650,17 @@ eleventyExcludeFromCollections: true
     const c = ensureAudio();
     const walks = preset.walkBass;
     if (!c || !walks || walks.length === 0) return;
-    // More bass walking — sprinkle 5–7 chord-tone bass events through the
-    // phrase. Cycles through walkBass entries (alternating tones). Each
-    // event has a chance to fire (~75%) so the pattern stays loose and
-    // doesn't lock into a metronomic grid. Aligns roughly with the arp's
-    // movement above without being strictly synchronized.
-    const baseOffsets = [
-      2.5 + Math.random() * 0.5,
-      4.4 + Math.random() * 0.3,
-      5.6 + Math.random() * 0.4
-    ];
-    baseOffsets.forEach((off, i) => {
-      if (Math.random() > 0.65) return;  // ~35% skip — sparser, less busy
-      const note = walks[i % walks.length];
-      if (!note) return;
-      const dynamic = 0.45 + Math.random() * 0.20;
-      playNoteName(note, when + off, 2.8, PRETTY_LOW_LEVEL * dynamic, false, null, output);
-    });
+    const reverb = getPrettyReverb(c);
+    // First walk: between resolveA decay and pressB (2.5–3.0s into phrase).
+    if (walks[0]) {
+      const off1 = 2.5 + (Math.random() * 0.5);
+      playNoteName(walks[0], when + off1, 3.5, PRETTY_LOW_LEVEL * 0.55, false, null, output);
+    }
+    // Second walk: between pressB and resolveB (4.4–4.7s) — only if 2 supplied.
+    if (walks[1]) {
+      const off2 = 4.4 + (Math.random() * 0.3);
+      playNoteName(walks[1], when + off2, 3.0, PRETTY_LOW_LEVEL * 0.5, false, null, output);
+    }
   }
 
   function playPrettyPreset(preset) {
@@ -755,27 +689,16 @@ eleventyExcludeFromCollections: true
   // walkBass = [first-half, second-half]. Both chord tones of the implied
   // harmony. Fires at 2.5–3.0s and 4.4–4.7s into the phrase, sub-floor level.
   const PROGRESSIONS = {
-    walk: {
-      name: 'original walk (catchy + beautiful · I-V-vi-IV with 9ths)',
-      phrases: [
-        { name: 'Iadd9 (Bb)',         pressA: ['A5'],  resolveA: ['Bb4','D5','F5','C5'], pressB: ['F5'],  resolveB: ['Bb4','D5','F5','A5'],  low: 'Bb3', walkBass: ['F3','D3']  },
-        { name: 'V9 (F)',             pressA: ['F5'],  resolveA: ['A4','C5','F5','G5'],   pressB: ['C5'],  resolveB: ['F5','A5','C5','G5'],         low: 'F3',  walkBass: ['C3','A3']  },
-        { name: 'vi9 (Gm)',           pressA: ['D5'],  resolveA: ['Bb4','D5','F5','A4'],  pressB: ['Bb4'], resolveB: ['Bb4','D5','F5'],             low: 'G3',  walkBass: ['D3','Bb3'] },
-        { name: 'IVmaj9 (Eb) — low',  pressA: ['Bb4'], resolveA: ['G4','Bb4','D5','F5'],  pressB: ['G4'],  resolveB: ['Eb5','G5','Bb4','F5'],       low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'V9 (F) — second build',pressA: ['F5'],resolveA: ['A4','C5','F5','G5'],   pressB: ['C5'],  resolveB: ['F5','A5','C5','G5'],         low: 'F3',  walkBass: ['C3','A3']  },
-        { name: 'I cadence (full bloom)',pressA: ['A5'], resolveA: ['Bb4','D5','F5','C5'], pressB: ['F5'],  resolveB: ['Bb4','D5','F5','A5','C5'], low: 'Bb3', walkBass: ['F3','D3']  }
-      ]
-    },
     heavenly: {
-      name: 'heavenly father (Bon Iver · open voicings)',
+      name: 'heavenly father (v2)',
       phrases: [
-        { name: 'Bb pedal — nyng',     pressA: ['Bb4'], resolveA: ['F5'],         pressB: ['F5'],  resolveB: ['D5'],         low: 'Bb3', walkBass: ['F3','D3']  },
-        { name: 'vi (Gm) — rock away', pressA: ['D5'],  resolveA: ['Bb4'],        pressB: ['Bb4'], resolveB: ['F5'],         low: 'G3',  walkBass: ['D3','Bb3'] },
-        { name: 'Bb pedal — return',   pressA: ['F5'],  resolveA: ['D5'],         pressB: ['D5'],  resolveB: ['Bb4'],        low: 'Bb3', walkBass: ['F3','D3']  },
-        { name: 'vi (Gm) — verse turn',pressA: ['D5'],  resolveA: ['Bb4','F5'],   pressB: ['Bb4'], resolveB: ['F5','D5'],    low: 'G3',  walkBass: ['D3','Bb3'] },
-        { name: 'IV (Eb) — opening',   pressA: ['G5'],  resolveA: ['Bb4'],        pressB: ['Eb5'], resolveB: ['G5','Bb4'],   low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'V (F) — howlin wind', pressA: ['A5'],  resolveA: ['C5'],         pressB: ['C5'],  resolveB: ['F5','A5'],    low: 'F3',  walkBass: ['C3','A3']  },
-        { name: 'I cadence',           pressA: ['F5'],  resolveA: ['Bb4','D5'],   pressB: ['Bb4'], resolveB: ['Bb4','D5','F5','A5'], low: 'Bb3', walkBass: ['F3','D3']  }
+        { name: 'light switch',   pressA: ['A5'],  resolveA: ['D5','F5'],       pressB: ['Bb4'], resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'vi (Gm7 full)',  pressA: ['G5'],  resolveA: ['F5','Bb4','D5'], pressB: ['D5'],  resolveB: ['G5','Bb4'],     low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'ii (Cm)',        pressA: ['C5'],  resolveA: ['Eb5','Bb4'],     pressB: ['Bb4'], resolveB: ['F5','C5'],      low: 'C3',  walkBass: ['G3','Eb3'] },
+        { name: 'IV (Eb)',        pressA: ['Eb5'], resolveA: ['G5','Bb4'],      pressB: ['D5'],  resolveB: ['F5','Bb4'],     low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'V (F open)',     pressA: ['F5'],  resolveA: ['A5','C5'],       pressB: ['C5'],  resolveB: ['F5','C5'],      low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'I (no maj7)',    pressA: ['D5'],  resolveA: ['F5','Bb4'],      pressB: ['Bb4'], resolveB: ['D5','G5'],      low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'cadence — Dm',   pressA: ['Bb4'], resolveA: ['A5','D5','F5'],  pressB: ['F5'],  resolveB: ['Bb4','F5'],     low: 'Bb3', walkBass: ['F3','D3'] }
       ]
     },
     aeolian: {
@@ -860,66 +783,6 @@ eleventyExcludeFromCollections: true
         { name: 'i (Gm)',       pressA: ['G5'],  resolveA: ['Bb4','D5'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
         { name: '♭VII (F)',     pressA: ['F5'],  resolveA: ['A5','C5'],   pressB: ['C5'],  resolveB: ['F5','A5'],   low: 'F3',  walkBass: ['C3','A3'] },
         { name: 'i cadence',    pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['G5'],  resolveB: ['Bb4','D5','G5'], low: 'G3', walkBass: ['D3','Bb3'] }
-      ]
-    },
-    holocene: {
-      name: 'holocene drift (sus + pedal)',
-      phrases: [
-        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'sus2 over Bb',  pressA: ['F5'],  resolveA: ['Eb5','C5'], pressB: ['Bb4'], resolveB: ['F5','C5'],  low: 'Bb3', walkBass: ['F3','C3'] },
-        { name: 'IV (Eb pedal)', pressA: ['Eb5'], resolveA: ['C5','Bb4'], pressB: ['F5'],  resolveB: ['Eb5','Bb4'], low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'V sus (F)',     pressA: ['G5'],  resolveA: ['Eb5','C5'], pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'F3',  walkBass: ['C3','A3'] },
-        { name: 'IV open',       pressA: ['Eb5'], resolveA: ['Bb4','G5'], pressB: ['Eb5'], resolveB: ['F5','G5'],   low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'sus home',      pressA: ['C5'],  resolveA: ['Bb4','F5'], pressB: ['Bb4'], resolveB: ['Eb5','G5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'Bbmaj7 cadence',pressA: ['Bb4'], resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3', walkBass: ['F3','D3'] }
-      ]
-    },
-    lydian: {
-      name: 'lydian morning (#4 shimmer)',
-      phrases: [
-        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'Eb home',       pressA: ['G5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['G5','Bb4'], low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: '#4 (A nat)',    pressA: ['A5'],  resolveA: ['Eb5','C5'],  pressB: ['G5'],  resolveB: ['A5','C5'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'lift to F',     pressA: ['F5'],  resolveA: ['A5','D5'],   pressB: ['D5'],  resolveB: ['F5','A5'],  low: 'F3',  walkBass: ['C3','A3'] },
-        { name: 'Eb settle',     pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['Bb4'], resolveB: ['Eb5','G5'], low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: '#4 again',      pressA: ['A5'],  resolveA: ['Eb5','C5'],  pressB: ['G5'],  resolveB: ['A5','C5'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'Ebmaj7 cadence',pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['Eb5'], resolveB: ['G5','D5'],  low: 'Eb3', walkBass: ['Bb3','G3'] }
-      ]
-    },
-    dorian: {
-      name: 'dorian rain (cm with major 6)',
-      phrases: [
-        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'Cm home',       pressA: ['Eb5'], resolveA: ['G5','Bb4'], pressB: ['C5'],  resolveB: ['Eb5','G5'], low: 'C3',  walkBass: ['G3','Eb3'] },
-        { name: 'dorian #6',     pressA: ['A5'],  resolveA: ['G5','C5'],  pressB: ['G5'],  resolveB: ['A5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
-        { name: 'sus',           pressA: ['F5'],  resolveA: ['Eb5','C5'], pressB: ['Eb5'], resolveB: ['F5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
-        { name: 'Bb lift',       pressA: ['Bb4'], resolveA: ['Eb5','G5'], pressB: ['Bb4'], resolveB: ['F5','D5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'back to Cm',    pressA: ['G5'],  resolveA: ['Eb5','C5'], pressB: ['Bb4'], resolveB: ['G5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
-        { name: 'Cm/A cadence',  pressA: ['Eb5'], resolveA: ['G5','Bb4'], pressB: ['C5'],  resolveB: ['Eb5','A5'], low: 'C3',  walkBass: ['G3','Eb3'] }
-      ]
-    },
-    allEyes: {
-      name: 'all eyes (Bb minor · sparse ballad)',
-      phrases: [
-        { name: 'i (Bbm)',          pressA: ['Bb4'], resolveA: ['Db5','F5'],  pressB: ['F5'],  resolveB: ['Bb4','Db5'], low: 'Bb3', walkBass: ['F3','Db3'] },
-        { name: 'VI (Gb)',          pressA: ['Db5'], resolveA: ['Gb4','Bb4'], pressB: ['Bb4'], resolveB: ['Db5','Gb4'], low: 'Gb3', walkBass: ['Db3','Bb3'] },
-        { name: 'III (Db)',         pressA: ['F5'],  resolveA: ['Db5','Ab4'], pressB: ['Ab4'], resolveB: ['F5','Db5'],  low: 'Db3', walkBass: ['Ab3','F3'] },
-        { name: 'v (Fm — aching)',  pressA: ['Ab4'], resolveA: ['F4','C5'],   pressB: ['C5'],  resolveB: ['Ab4','F5'],  low: 'F3',  walkBass: ['C3','Ab3'] },
-        { name: 'VII (Ab)',         pressA: ['Eb5'], resolveA: ['Ab4','C5'],  pressB: ['C5'],  resolveB: ['Eb5','Ab4'], low: 'Ab3', walkBass: ['Eb3','C3'] },
-        { name: 'iv (Ebm)',         pressA: ['Gb4'], resolveA: ['Eb5','Bb4'], pressB: ['Bb4'], resolveB: ['Gb4','Eb5'], low: 'Eb3', walkBass: ['Bb3','Gb3'] },
-        { name: 'i cadence (Bbm)',  pressA: ['F5'],  resolveA: ['Db5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','Db5'],  low: 'Bb3', walkBass: ['F3','Db3'] }
-      ]
-    },
-    mixo: {
-      name: 'mixo afternoon (F with ♭7)',
-      phrases: [
-        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'F home',        pressA: ['F5'],  resolveA: ['A5','C5'],  pressB: ['C5'],  resolveB: ['F5','A5'],  low: 'F3',  walkBass: ['C3','A3'] },
-        { name: 'F7 (♭7 Eb)',    pressA: ['Eb5'], resolveA: ['F5','A5'],  pressB: ['C5'],  resolveB: ['Eb5','A5'], low: 'F3',  walkBass: ['C3','A3'] },
-        { name: 'Bb relief',     pressA: ['Bb4'], resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['D5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-        { name: 'Eb passing',    pressA: ['C5'],  resolveA: ['Eb5','G5'], pressB: ['Eb5'], resolveB: ['F5','A5'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
-        { name: 'F return',      pressA: ['F5'],  resolveA: ['A5','C5'],  pressB: ['A5'],  resolveB: ['F5','C5'],  low: 'F3',  walkBass: ['C3','A3'] },
-        { name: 'mixo cadence',  pressA: ['Eb5'], resolveA: ['F5','A5'],  pressB: ['C5'],  resolveB: ['F5','A5'],  low: 'F3',  walkBass: ['C3','A3'] }
       ]
     }
   };
@@ -1095,27 +958,6 @@ eleventyExcludeFromCollections: true
     playBtn.textContent = '▶ play';
     setActivePhrase(-1);
     setStatus('stopped · ', PROGRESSIONS[activeSongKey].name);
-    // Kill audio that's already scheduled: fade master to 0, clamp delay feedback.
-    // Restore master gain after the fade so next press of play sounds normal.
-    if (ctx && ctx._prettyMaster) {
-      const t = ctx.currentTime;
-      const fadeMs = 0.18;  // 180ms fade-out — fast enough to feel like "stop", slow enough not to click
-      const master = ctx._prettyMaster.gain;
-      master.cancelScheduledValues(t);
-      master.setValueAtTime(master.value, t);
-      master.linearRampToValueAtTime(0.0001, t + fadeMs);
-      // Restore master for next play
-      master.setValueAtTime(PRETTY_MASTER_GAIN, t + fadeMs + 0.04);
-    }
-    if (ctx && ctx._prettyDelayControls) {
-      const t = ctx.currentTime;
-      const fb = ctx._prettyDelayControls.feedback.gain;
-      fb.cancelScheduledValues(t);
-      fb.setValueAtTime(fb.value, t);
-      fb.linearRampToValueAtTime(0.0001, t + 0.18);
-      // Reset feedback to a sane value for next play (delay profile will reapply)
-      fb.setValueAtTime(0.72, t + 0.22);
-    }
   }
 
   songButtons.forEach(b => b.addEventListener('click', () => pickSong(b.dataset.song)));
