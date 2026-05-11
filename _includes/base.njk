@@ -1271,17 +1271,115 @@
       F5: 698.46, G5: 783.99, A5: 880.00, Bb5: 932.33
     };
 
-    // Aeolian dusk progression — Gm minor with relief lifts. 7 distinct phrases,
-    // walked straight 0→6 (no revisits like the old 5-preset rotation).
-    const PRETTY_PRESETS = [
-      { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3', walkBass: ['F3','D3'] },
-      { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
-      { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
-      { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3', walkBass: ['F3','D3'] },
-      { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
-      { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
-      { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] }
+    // Three progressions — per-session pick from this set. Each is a 7-phrase
+    // walk 0→6. colorTone is a 9th or 6th of the implied chord, appended to
+    // resolveB only when rabbitColorOn is true (per-session decision).
+    const AEOLIAN_PRESETS = [
+      { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },   // Bb add9
+      { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },   // Gm9
+      { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3', walkBass: ['Bb3','G3'],  colorTone: 'C5' },   // Eb6
+      { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },   // Bb add9
+      { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },   // Gm9
+      { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'],  colorTone: 'D5' },   // Cm9
+      { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' }    // Gm9
     ];
+
+    // Heavenly father v2 — thicker minor/modal with no Eb+G fragments.
+    const HEAVENLY_PRESETS = [
+      { name: 'light switch',   pressA: ['A5'],  resolveA: ['D5','F5'],       pressB: ['Bb4'], resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'vi (Gm7 full)',  pressA: ['G5'],  resolveA: ['F5','Bb4','D5'], pressB: ['D5'],  resolveB: ['G5','Bb4'],     low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
+      { name: 'ii (Cm)',        pressA: ['C5'],  resolveA: ['Eb5','Bb4'],     pressB: ['Bb4'], resolveB: ['F5','C5'],      low: 'C3',  walkBass: ['G3','Eb3'],  colorTone: 'D5' },
+      { name: 'IV (Eb)',        pressA: ['Eb5'], resolveA: ['G5','Bb4'],      pressB: ['D5'],  resolveB: ['F5','Bb4'],     low: 'Eb3', walkBass: ['Bb3','G3'],  colorTone: 'C5' },
+      { name: 'V (F open)',     pressA: ['F5'],  resolveA: ['A5','C5'],       pressB: ['C5'],  resolveB: ['F5','C5'],      low: 'F3',  walkBass: ['C3','A3'],   colorTone: 'G5' },
+      { name: 'I (no maj7)',    pressA: ['D5'],  resolveA: ['F5','Bb4'],      pressB: ['Bb4'], resolveB: ['D5','G5'],      low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'cadence — Dm',   pressA: ['Bb4'], resolveA: ['A5','D5','F5'],  pressB: ['F5'],  resolveB: ['Bb4','F5'],     low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' }
+    ];
+
+    // Four chords (vi · IV · I · V) — major-key Bb axis vamp.
+    const FOURCHORD_PRESETS = [
+      { name: 'I (Bb)',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'vi (Gm)', pressA: ['G5'],  resolveA: ['D5','Bb4'], pressB: ['G5'],  resolveB: ['D5','Bb4'], low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
+      { name: 'IV (Eb)', pressA: ['Bb4'], resolveA: ['G5','Bb4'], pressB: ['Eb5'], resolveB: ['G5','Bb4'], low: 'Eb3', walkBass: ['Bb3','G3'],  colorTone: 'C5' },
+      { name: 'I (Bb)',  pressA: ['F5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['D5','F5'],  low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' },
+      { name: 'V (F)',   pressA: ['C5'],  resolveA: ['F5','A5'],  pressB: ['F5'],  resolveB: ['C5','A5'],  low: 'F3',  walkBass: ['C3','A3'],   colorTone: 'G5' },
+      { name: 'vi (Gm)', pressA: ['G5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['D5','G5'],  low: 'G3',  walkBass: ['D3','Bb3'],  colorTone: 'A5' },
+      { name: 'I (Bb)',  pressA: ['Bb4'], resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'],   colorTone: 'C5' }
+    ];
+
+    // ============================================================
+    // Per-session randomization — seeded once at page load. Each visit
+    // picks: which progression, density preset, and whether color tones
+    // are on. Math.random() still drives per-loop jitter; this only
+    // sets the session's "character."
+    // ============================================================
+    function mulberry32(seed) {
+      return function() {
+        let t = (seed += 0x6D2B79F5);
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    const rabbitSeed = (Date.now() & 0xFFFFFFFF) ^
+      ((screen.width || 1) * ((navigator.hardwareConcurrency || 4) + 17));
+    const rabbitRng = mulberry32(rabbitSeed);
+
+    // Density profiles for the polyrhythm-event probability gates.
+    const RABBIT_DENSITIES = {
+      chill:  { ghost1: 0.25, ghost2: 0.30, shimmer: 0.20 },
+      medium: { ghost1: 0.38, ghost2: 0.45, shimmer: 0.45 },
+      dense:  { ghost1: 0.50, ghost2: 0.60, shimmer: 0.60 }
+    };
+
+    // Weighted roll table — each entry is one possible session character.
+    // Weights are loot-box-style: common at 10–14%, uncommon 5–9%, rare 2–4%,
+    // majestic 1%. Designed so chill/medium are common, dense+color is rare,
+    // and one specific maxed-out combo ("Heavenly Convergence") is majestic.
+    const RABBIT_ROLL_TABLE = [
+      // — Common: medium density, the everyday texture
+      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: false, weight: 14, label: 'aeolian dusk · medium' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: false, weight: 13, label: 'heavenly father · medium' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: false, weight: 13, label: 'four chords · medium' },
+      // — Common-ish: chill, sparser texture
+      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: false, weight: 10, label: 'aeolian dusk · chill' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'chill',  color: false, weight: 10, label: 'heavenly father · chill' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'chill',  color: false, weight: 10, label: 'four chords · chill' },
+      // — Uncommon: dense or color
+      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'dense',  color: false, weight: 6,  label: 'aeolian dusk · dense' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: false, weight: 6,  label: 'heavenly father · dense' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'dense',  color: false, weight: 6,  label: 'four chords · dense' },
+      // — Rare: medium + color tones
+      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'medium', color: true,  weight: 3,  label: 'aeolian dusk · medium · color' },
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'medium', color: true,  weight: 3,  label: 'heavenly father · medium · color' },
+      { progKey: 'fourChord', presets: FOURCHORD_PRESETS, density: 'medium', color: true,  weight: 3,  label: 'four chords · medium · color' },
+      // — Rare: chill + color
+      { progKey: 'aeolian',   presets: AEOLIAN_PRESETS,   density: 'chill',  color: true,  weight: 2,  label: 'aeolian dusk · chill · color' },
+      // — Majestic: one combo, everything maxed.
+      { progKey: 'heavenly',  presets: HEAVENLY_PRESETS,  density: 'dense',  color: true,  weight: 1,  label: 'heavenly convergence', majestic: true }
+    ];
+
+    function rabbitRollTier(weight) {
+      if (weight <= 1) return 'majestic';
+      if (weight <= 4) return 'rare';
+      if (weight <= 9) return 'uncommon';
+      return 'common';
+    }
+
+    // Weighted-random pick using rabbitRng (seeded once per page load).
+    const RABBIT_ROLL_TOTAL = RABBIT_ROLL_TABLE.reduce((s, r) => s + r.weight, 0);
+    const rabbitRollPick = (function() {
+      let target = rabbitRng() * RABBIT_ROLL_TOTAL;
+      for (let i = 0; i < RABBIT_ROLL_TABLE.length; i++) {
+        target -= RABBIT_ROLL_TABLE[i].weight;
+        if (target <= 0) return RABBIT_ROLL_TABLE[i];
+      }
+      return RABBIT_ROLL_TABLE[0];
+    })();
+    const rabbitDensity = RABBIT_DENSITIES[rabbitRollPick.density];
+    const rabbitColorOn = rabbitRollPick.color;
+    const rabbitRollPercent = (rabbitRollPick.weight / RABBIT_ROLL_TOTAL) * 100;
+    const rabbitRollTierName = rabbitRollPick.majestic ? 'majestic' : rabbitRollTier(rabbitRollPick.weight);
+    const PRETTY_PRESETS = rabbitRollPick.presets;
 
     const PRETTY_WALK = [0, 1, 2, 3, 4, 5, 6];
     const PRETTY_WALK_MS = 5600;
@@ -1908,7 +2006,7 @@
 
     function playPrettyGhost(notes, when, scale, outputBus) {
       const ctx = ensureAudio();
-      if (!ctx || Math.random() > 0.38) return;
+      if (!ctx || Math.random() > rabbitDensity.ghost1) return;
       const delay = getPrettyDelay(ctx);
       const echoScale = (scale === undefined ? 1 : scale) * (0.72 + (0.55 * prettyDelayMix));
       const offset = 0.72 + (Math.random() * 0.46);
@@ -2052,7 +2150,7 @@
     // Second ghost pass — later offset (1.6–2.4s), lower density.
     function playPrettyGhostLate(notes, when, scale, outputBus) {
       const ctx = ensureAudio();
-      if (!ctx || Math.random() > 0.45) return;
+      if (!ctx || Math.random() > rabbitDensity.ghost2) return;
       const delay = getPrettyDelay(ctx);
       const echoScale = (scale === undefined ? 1 : scale) * (0.55 + (0.45 * prettyDelayMix));
       const offset = 1.6 + (Math.random() * 0.8);
@@ -2063,7 +2161,7 @@
     // Mid-phrase shimmer — single quiet note between resolveA and pressB.
     function playPrettyShimmer(preset, when, output) {
       const ctx = ensureAudio();
-      if (!ctx || Math.random() > 0.45) return;
+      if (!ctx || Math.random() > rabbitDensity.shimmer) return;
       const delay = getPrettyDelay(ctx);
       const pool = (Math.random() < 0.5 ? preset.resolveA : preset.resolveB) || [];
       if (pool.length === 0) return;
@@ -2096,6 +2194,10 @@
       const level = PRETTY_NOTE_LEVEL;
       setPrettyDelayProfile(ctx, t);
       setPrettySignalProfile(ctx, t);
+      // If session rolled color-on, append phrase.colorTone to resolveB.
+      const resolveB = (rabbitColorOn && preset.colorTone)
+        ? preset.resolveB.concat([preset.colorTone])
+        : preset.resolveB;
       playLeadNotes(preset.pressA,   t,                                                        4.0, level, false, null,  output);
       playLeadNotes(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000),                             9.0, level, true,  delay, output);
       playPrettyGhost(preset.resolveA,     t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
@@ -2103,9 +2205,9 @@
       playPrettyShimmer(preset,            t,                                  output);
       playWalkBass(preset,                 t,                                  output);
       playLeadNotes(preset.pressB,   t + (LOOP_BEAT_MS / 1000),                                5.0, level, false, null,  output);
-      playLeadNotes(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),            9.0, level, true,  delay, output);
-      playPrettyGhost(preset.resolveB,     t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
-      playPrettyGhostLate(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 0.95, output);
+      playLeadNotes(resolveB,        t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),            9.0, level, true,  delay, output);
+      playPrettyGhost(resolveB,            t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
+      playPrettyGhostLate(resolveB,        t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 0.95, output);
       playLeadNote(preset.low,       t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),            9.0, PRETTY_LOW_LEVEL, true, null, output);
     }
 
@@ -2494,6 +2596,7 @@
         prettyStep = 0;
         prettyStartedAt = ctx ? ctx.currentTime : null;
         setPrettyUI(true);
+        showRabbitRollBadge();
         resumeAudio(ctx, function() {
           if (!prettyArmed) return;
           prettyStartedAt = ctx ? ctx.currentTime : prettyStartedAt;
@@ -2504,6 +2607,37 @@
       } else {
         stopPrettyWalk();
       }
+    }
+
+    // Gambified session-roll badge — shows what combo this visit rolled,
+    // the percent likelihood, and tier (common/uncommon/rare/majestic).
+    // Appears briefly when rabbit-mode is toggled on; fades after ~7s.
+    let rabbitBadgeTimer = null;
+    function showRabbitRollBadge() {
+      if (rabbitBadgeTimer) clearTimeout(rabbitBadgeTimer);
+      let badge = document.getElementById('rabbit-roll-badge');
+      if (!badge) {
+        badge = document.createElement('div');
+        badge.id = 'rabbit-roll-badge';
+        document.body.appendChild(badge);
+      }
+      while (badge.firstChild) badge.removeChild(badge.firstChild);
+      const tier = document.createElement('span');
+      tier.className = 'rabbit-roll-tier rabbit-roll-' + rabbitRollTierName;
+      tier.textContent = rabbitRollTierName;
+      const label = document.createElement('span');
+      label.className = 'rabbit-roll-label';
+      label.textContent = rabbitRollPick.label;
+      const pct = document.createElement('span');
+      pct.className = 'rabbit-roll-pct';
+      pct.textContent = rabbitRollPercent.toFixed(1) + '%';
+      badge.appendChild(tier);
+      badge.appendChild(label);
+      badge.appendChild(pct);
+      badge.classList.add('is-shown');
+      rabbitBadgeTimer = setTimeout(function() {
+        badge.classList.remove('is-shown');
+      }, 7000);
     }
 
     window.togglePrettyLoop = togglePrettyLoop;
