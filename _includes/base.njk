@@ -1263,27 +1263,24 @@
     };
 
     const NOTE_FREQ = {
-      Bb3: 233.08,
-      Bb4: 466.16,
-      C5: 523.25,
-      D5: 587.33,
-      Eb5: 622.25,
-      F5: 698.46,
-      G5: 783.99,
-      A5: 880.00,
-      Bb5: 932.33
+      // Bass register — for preset.low and walking-bass tones (chord roots/5ths).
+      C3: 130.81, D3: 146.83, Eb3: 155.56, E3: 164.81,
+      F3: 174.61, G3: 196.00, A3: 220.00, Bb3: 233.08,
+      // Mid + treble register — press/resolve voicings.
+      Bb4: 466.16, C5: 523.25, D5: 587.33, Eb5: 622.25,
+      F5: 698.46, G5: 783.99, A5: 880.00, Bb5: 932.33
     };
 
     // Aeolian dusk progression — Gm minor with relief lifts. 7 distinct phrases,
     // walked straight 0→6 (no revisits like the old 5-preset rotation).
     const PRETTY_PRESETS = [
-      { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3' },
-      { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3' },
-      { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3' },
-      { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3' },
-      { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3' },
-      { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3' },
-      { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3' }
+      { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3', walkBass: ['F3','D3'] },
+      { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+      { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
+      { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+      { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+      { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
+      { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] }
     ];
 
     const PRETTY_WALK = [0, 1, 2, 3, 4, 5, 6];
@@ -1539,15 +1536,15 @@
     }
 
     function getPrettyDelayProfileValues(age) {
-      // Tuned 2026-05-11 for "more feature, less wet" — each delay tap reads
-      // as a discrete echo (~4dB quieter than prior, dies after ~3 reps)
-      // rather than a continuous wash. Original constants in git history.
+      // Restored to original-live values 2026-05-11 — delay is the texture.
+      // Warmth now comes from the in-loop lowpass dropped to 600Hz (see
+      // getPrettyDelay below) rather than from cutting wet level.
       const mix = prettyDelayMix;
       const fadeAge = age * (1 - mix);
       return {
-        feedback: Math.max(0.40, 0.48 + (0.12 * mix) - (0.10 * fadeAge)),
-        wet: Math.max(0.10, 0.14 + (0.38 * mix) - ((0.06 + (0.10 * mix)) * fadeAge)),
-        wetCeiling: Math.max(0.18, 0.24 + (0.45 * mix) - ((0.06 + (0.09 * mix)) * fadeAge))
+        feedback: Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * fadeAge)),
+        wet: Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * fadeAge)),
+        wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * fadeAge))
       };
     }
 
@@ -1656,7 +1653,7 @@
 
       delay.delayTime.value = 0.52;
       filter.type = 'lowpass';
-      filter.frequency.value = 820;
+      filter.frequency.value = 600;  // warmer delay tail (was 820)
       filter.Q.value = 0.22;
       const initialDelayProfile = getPrettyDelayProfileValues(0);
       feedback.gain.value = initialDelayProfile.feedback;
@@ -1916,9 +1913,177 @@
       const echoScale = (scale === undefined ? 1 : scale) * (0.72 + (0.55 * prettyDelayMix));
       const offset = 0.72 + (Math.random() * 0.46);
       const note = notes[Math.floor(Math.random() * notes.length)];
-      playNoteName(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
+      playLeadNote(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
       if (Math.random() < 0.28) {
-        playNoteName(note, when + offset + 0.52, 5.8, 0.011 * echoScale, false, delay, outputBus);
+        playLeadNote(note, when + offset + 0.52, 5.8, 0.011 * echoScale, false, delay, outputBus);
+      }
+    }
+
+    // ============================================================
+    // Rabbit-mode synthy voices + layered routing.
+    // playPianoNote (used by dimmer) stays on playAcousticKey untouched.
+    // Only playPrettyPreset routes through these layered voices below.
+    // ============================================================
+    const SYNTH_PRESETS_RABBIT = {
+      rhodes: { wave: 'sine',     unison: 2, spread: 6, octaveMix: 0.18,
+                vibRate: 4.0, vibDepth: 3, vibFadeIn: 0.25,
+                attack: 0.025, decay: 0.55, shoulder: 0.28,
+                cutoff: 2600, q: 0.7, levelMul: 1.1 },
+      bell:   { wave: 'sine',     unison: 1, spread: 0, octaveMix: 0.3,
+                vibRate: 3.4, vibDepth: 2, vibFadeIn: 0.3,
+                attack: 0.02, decay: 0.8, shoulder: 0.18,
+                cutoff: 3200, q: 0.6, levelMul: 0.95 },
+      ondes:  { wave: 'sine',     unison: 1, spread: 0, octaveMix: 0,
+                vibRate: 5.4, vibDepth: 8, vibFadeIn: 0.22,
+                attack: 0.08, decay: 0.7, shoulder: 0.42,
+                cutoff: 4000, q: 0.5, levelMul: 1.15 }
+    };
+
+    function playSynthVoice(presetKey, freq, when, sustain, level, reverb, delayBus, outputBus) {
+      const ctx = ensureAudio();
+      const p = SYNTH_PRESETS_RABBIT[presetKey];
+      if (!ctx || !p) return;
+      const t = when !== undefined ? when : ctx.currentTime;
+      const output = outputBus || ctx.destination;
+      const sus = sustain || 9.0;
+      const lvl = (level !== undefined ? level : 0.046) * p.levelMul;
+      const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+      const bodyLevel = Math.max(0.003, lvl) * trebleMellow;
+      const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+
+      const body = ctx.createGain();
+      body.gain.setValueAtTime(0.0001, t);
+      body.gain.exponentialRampToValueAtTime(bodyLevel, t + p.attack);
+      body.gain.exponentialRampToValueAtTime(Math.max(0.0002, bodyLevel * p.shoulder), t + p.attack + p.decay);
+      body.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = p.cutoff;
+      filter.Q.value = p.q;
+
+      const panner = ctx.createStereoPanner();
+      panner.pan.value = pan;
+      body.connect(filter).connect(panner).connect(output);
+
+      const rSend = ctx.createGain();
+      rSend.gain.value = 0.32;
+      panner.connect(rSend).connect(reverb);
+
+      if (delayBus) {
+        const ds = ctx.createGain();
+        const age = getPrettyDelayAge(ctx, t);
+        const delaySendScale = 1 - (0.24 * age * (1 - prettyDelayMix));
+        const delayMixScale = 0.62 + (0.72 * prettyDelayMix);
+        ds.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
+        panner.connect(ds).connect(delayBus);
+      }
+
+      let vibratoDepth = null;
+      if (p.vibDepth > 0 && p.vibRate > 0) {
+        const vib = ctx.createOscillator();
+        vib.type = 'sine';
+        vib.frequency.value = p.vibRate;
+        vibratoDepth = ctx.createGain();
+        vibratoDepth.gain.setValueAtTime(0.0001, t);
+        vibratoDepth.gain.exponentialRampToValueAtTime(p.vibDepth, t + p.attack + p.vibFadeIn);
+        vibratoDepth.gain.setValueAtTime(p.vibDepth, t + Math.max(p.attack + p.vibFadeIn, sus - 0.4));
+        vibratoDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+        vib.connect(vibratoDepth);
+        vib.start(t);
+        vib.stop(t + sus + 0.1);
+      }
+
+      const detunes = p.unison === 1 ? [0]
+                    : p.unison === 2 ? [-p.spread, p.spread]
+                    :                  [-p.spread, 0, p.spread];
+      const perVoiceGain = 1 / Math.sqrt(p.unison);
+
+      detunes.forEach(function(d) {
+        const osc = ctx.createOscillator();
+        osc.type = p.wave;
+        osc.frequency.value = freq;
+        osc.detune.value = d;
+        if (vibratoDepth) vibratoDepth.connect(osc.detune);
+        const g = ctx.createGain();
+        g.gain.value = perVoiceGain;
+        osc.connect(g).connect(body);
+        osc.start(t);
+        osc.stop(t + sus + 0.1);
+      });
+
+      if (p.octaveMix > 0) {
+        const osc = ctx.createOscillator();
+        osc.type = p.wave;
+        osc.frequency.value = freq * 2;
+        if (vibratoDepth) vibratoDepth.connect(osc.detune);
+        const g = ctx.createGain();
+        g.gain.value = p.octaveMix;
+        osc.connect(g).connect(body);
+        osc.start(t);
+        osc.stop(t + sus + 0.1);
+      }
+    }
+
+    // Layered lead voice — fires every voice in activeRabbitVoices, scaling
+    // each level by 1/√N for equal-loudness summing.
+    const activeRabbitVoices = new Set(['rhodes', 'ondes']);  // default Lee approved on /heavenly/
+    function playLeadVoice(freq, when, sustain, level, reverb, delayBus, outputBus) {
+      const n = activeRabbitVoices.size || 1;
+      const perVoiceLvl = level / Math.sqrt(n);
+      activeRabbitVoices.forEach(function(name) {
+        playSynthVoice(name, freq, when, sustain, perVoiceLvl, reverb, delayBus, outputBus);
+      });
+    }
+    function playLeadNote(note, when, sustain, level, withLowFloor, delayBus, outputBus) {
+      const freq = NOTE_FREQ[note];
+      if (!freq) return;
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const reverb = getPrettyReverb(ctx);
+      playLeadVoice(freq, when, sustain, level, reverb, delayBus, outputBus);
+      if (withLowFloor) playLowFloor(freq, when, sustain, level * 0.28, reverb, outputBus);
+    }
+    function playLeadNotes(notes, when, sustain, level, withLowFloor, delayBus, outputBus) {
+      if (!notes) return;
+      notes.forEach(function(n) { playLeadNote(n, when, sustain, level, withLowFloor, delayBus, outputBus); });
+    }
+
+    // Second ghost pass — later offset (1.6–2.4s), lower density.
+    function playPrettyGhostLate(notes, when, scale, outputBus) {
+      const ctx = ensureAudio();
+      if (!ctx || Math.random() > 0.45) return;
+      const delay = getPrettyDelay(ctx);
+      const echoScale = (scale === undefined ? 1 : scale) * (0.55 + (0.45 * prettyDelayMix));
+      const offset = 1.6 + (Math.random() * 0.8);
+      const note = notes[Math.floor(Math.random() * notes.length)];
+      playLeadNote(note, when + offset, 5.4, 0.013 * echoScale, false, delay, outputBus);
+    }
+
+    // Mid-phrase shimmer — single quiet note between resolveA and pressB.
+    function playPrettyShimmer(preset, when, output) {
+      const ctx = ensureAudio();
+      if (!ctx || Math.random() > 0.45) return;
+      const delay = getPrettyDelay(ctx);
+      const pool = (Math.random() < 0.5 ? preset.resolveA : preset.resolveB) || [];
+      if (pool.length === 0) return;
+      const note = pool[Math.floor(Math.random() * pool.length)];
+      const offset = 2.5 + (Math.random() * 0.7);
+      playLeadNote(note, when + offset, 4.2, 0.011, false, delay, output);
+    }
+
+    // Walking-bass — quiet chord-tone bass between strikes.
+    function playWalkBass(preset, when, output) {
+      const ctx = ensureAudio();
+      const walks = preset.walkBass;
+      if (!ctx || !walks || walks.length === 0) return;
+      if (walks[0]) {
+        const off1 = 2.5 + (Math.random() * 0.5);
+        playLeadNote(walks[0], when + off1, 3.5, PRETTY_LOW_LEVEL * 0.55, false, null, output);
+      }
+      if (walks[1]) {
+        const off2 = 4.4 + (Math.random() * 0.3);
+        playLeadNote(walks[1], when + off2, 3.0, PRETTY_LOW_LEVEL * 0.5, false, null, output);
       }
     }
 
@@ -1931,13 +2096,17 @@
       const level = PRETTY_NOTE_LEVEL;
       setPrettyDelayProfile(ctx, t);
       setPrettySignalProfile(ctx, t);
-      playNoteNames(preset.pressA, t, 4.0, level, false, null, output);
-      playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 9.0, level, true, delay, output);
-      playPrettyGhost(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
-      playNoteNames(preset.pressB, t + (LOOP_BEAT_MS / 1000), 5.0, level, false, null, output);
-      playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, level, true, delay, output);
-      playPrettyGhost(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
-      playNoteName(preset.low, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 9.0, PRETTY_LOW_LEVEL, true, null, output);
+      playLeadNotes(preset.pressA,   t,                                                        4.0, level, false, null,  output);
+      playLeadNotes(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000),                             9.0, level, true,  delay, output);
+      playPrettyGhost(preset.resolveA,     t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
+      playPrettyGhostLate(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.90, output);
+      playPrettyShimmer(preset,            t,                                  output);
+      playWalkBass(preset,                 t,                                  output);
+      playLeadNotes(preset.pressB,   t + (LOOP_BEAT_MS / 1000),                                5.0, level, false, null,  output);
+      playLeadNotes(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),            9.0, level, true,  delay, output);
+      playPrettyGhost(preset.resolveB,     t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
+      playPrettyGhostLate(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 0.95, output);
+      playLeadNote(preset.low,       t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),            9.0, PRETTY_LOW_LEVEL, true, null, output);
     }
 
     function playPressNote(goingDark) {
