@@ -133,6 +133,8 @@
   <p class="constellation-intro-prompt" data-constellation-intro-skip>press any key, or wait</p>
 </section>
 
+<aside class="rabbit-watermark" data-rabbit-watermark aria-hidden="true">it's different every time</aside>
+
 <div class="pretty-delay-cluster" data-pretty-cluster aria-label="Constellation controls" aria-hidden="true">
   <button class="constellation-step constellation-step-prev" type="button" aria-label="Previous constellation" title="Previous constellation" data-constellation-step="-1">&lsaquo;</button>
   <label class="pretty-delay-control">
@@ -1319,8 +1321,18 @@
         return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
       };
     }
-    const rabbitSeed = (Date.now() & 0xFFFFFFFF) ^
-      ((screen.width || 1) * ((navigator.hardwareConcurrency || 4) + 17));
+    // Seed is sticky for the lifetime of a browser session (sessionStorage)
+    // so the same combo plays across navigations. Fresh tab = fresh seed.
+    let rabbitSeed;
+    try {
+      const stored = sessionStorage.getItem('rabbit.seed');
+      if (stored) rabbitSeed = parseInt(stored, 10);
+    } catch (e) {}
+    if (!Number.isFinite(rabbitSeed)) {
+      rabbitSeed = (Date.now() & 0xFFFFFFFF) ^
+        ((screen.width || 1) * ((navigator.hardwareConcurrency || 4) + 17));
+      try { sessionStorage.setItem('rabbit.seed', String(rabbitSeed)); } catch (e) {}
+    }
     const rabbitRng = mulberry32(rabbitSeed);
 
     // Density profiles for the polyrhythm-event probability gates.
@@ -2608,6 +2620,12 @@
     function togglePrettyLoop() {
       if (!waveModeBtn || waveModeBtn.hidden) return;
       prettyArmed = !prettyArmed;
+      // Persist the on/off state per browser-session so navigating between
+      // pages preserves the music. Seed is already sessionStorage-backed.
+      try {
+        if (prettyArmed) sessionStorage.setItem('rabbit.armed', '1');
+        else sessionStorage.removeItem('rabbit.armed');
+      } catch (e) {}
       if (prettyArmed) {
         const ctx = ensureAudio();
         prettyStep = 0;
@@ -2627,6 +2645,19 @@
 
 
     window.togglePrettyLoop = togglePrettyLoop;
+
+    // Restore armed state from session — if the user had wave/star-mode music
+    // playing on the previous page, auto-resume on this one. Web Audio still
+    // requires a user gesture to actually start sound on Safari, so the
+    // visuals come up but audio may need a click to wake up.
+    try {
+      if (sessionStorage.getItem('rabbit.armed') === '1' && waveModeBtn && !waveModeBtn.hidden) {
+        // Defer one tick so the rest of init (resumeAudio, etc.) has bound.
+        setTimeout(function() {
+          if (!prettyArmed) togglePrettyLoop();
+        }, 0);
+      }
+    } catch (e) {}
 
     syncPrettyDelayMixInput();
     if (prettyDelayMixInput) {
