@@ -1383,6 +1383,22 @@
     const rabbitRollTierName = rabbitRollPick.majestic ? 'majestic' : rabbitRollTier(rabbitRollPick.weight);
     const PRETTY_PRESETS = rabbitRollPick.presets;
 
+    // Catalog-style 10-digit signature — deterministic hash of the combo so
+    // the same combination always yields the same number (return visitors
+    // can recognize "got that one again"). djb2-style hash → 10 digits →
+    // formatted XXXX·XXX·XXX like a stellar catalog identifier.
+    function rabbitComboSignature(combo) {
+      const key = combo.progKey + ':' + combo.density + ':' + (combo.color ? 'c' : 'd') + (combo.majestic ? ':*' : '');
+      let h = 5381;
+      for (let i = 0; i < key.length; i++) {
+        h = (((h << 5) + h) + key.charCodeAt(i)) >>> 0;
+      }
+      const n = h % 1e10;
+      const s = String(n).padStart(10, '0');
+      return s.slice(0, 4) + '·' + s.slice(4, 7) + '·' + s.slice(7, 10);
+    }
+    const rabbitRollCode = rabbitComboSignature(rabbitRollPick);
+
     const PRETTY_WALK = [0, 1, 2, 3, 4, 5, 6];
     const PRETTY_WALK_MS = 5600;
     const PRETTY_WALK_SPREAD_MS = 1400;
@@ -2643,18 +2659,15 @@
         document.body.appendChild(badge);
       }
       while (badge.firstChild) badge.removeChild(badge.firstChild);
-      const tier = document.createElement('span');
-      tier.className = 'rabbit-roll-tier rabbit-roll-' + rabbitRollTierName;
-      tier.textContent = rabbitRollTierName;
-      const label = document.createElement('span');
-      label.className = 'rabbit-roll-label';
-      label.textContent = rabbitRollPick.label;
-      const pct = document.createElement('span');
-      pct.className = 'rabbit-roll-pct';
-      pct.textContent = rabbitRollPercent.toFixed(1) + '%';
-      badge.appendChild(tier);
-      badge.appendChild(label);
-      badge.appendChild(pct);
+      // 10-digit catalog code only — no tier, no label, no percent. Stable
+      // per combination; same combo → same digits across visits.
+      const code = document.createElement('span');
+      code.className = 'rabbit-roll-code';
+      // Add the majestic class so the gold treatment still applies for the
+      // 1% lepus roll (no other tier surfaces — code-only is the design).
+      if (rabbitRollPick.majestic) code.classList.add('rabbit-roll-majestic');
+      code.textContent = rabbitRollCode;
+      badge.appendChild(code);
       badge.classList.add('is-shown');
       rabbitBadgeTimer = setTimeout(function() {
         badge.classList.remove('is-shown');
