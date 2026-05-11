@@ -10,6 +10,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("assets/consulting");
   eleventyConfig.addPassthroughCopy("assets/constellations");
+  eleventyConfig.addPassthroughCopy("assets/js");
+  eleventyConfig.addPassthroughCopy("assets/nasa");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("google8f11425ab7fc438d.html");

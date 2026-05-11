@@ -1,0 +1,1594 @@
+---
+layout: base.njk
+title: Constellation cutout lab
+pageClass: page-cutout-lab
+permalink: /constellation-cutout-lab/
+eleventyExcludeFromCollections: true
+---
+
+<script>document.documentElement.classList.add('page-cutout-lab'); document.body && document.body.classList.add('page-cutout-lab');</script>
+
+<div class="ccl-stage" data-stage>
+  <pre class="ccl-bg"    data-bg    aria-hidden="true"></pre>
+  <pre class="ccl-edges" data-edges aria-hidden="true"></pre>
+  <pre class="ccl-stars" data-stars aria-hidden="true"></pre>
+  <pre class="ccl-highlight" data-highlight aria-hidden="true"></pre>
+  <div class="ccl-watermark" data-watermark aria-live="polite"></div>
+  <section class="ccl-essay" data-essay aria-live="polite" hidden>
+    <div class="ccl-essay-card" data-essay-card>
+      <div class="ccl-essay-kicker" data-essay-kicker></div>
+      <p class="ccl-essay-body" data-essay-body></p>
+      <div class="ccl-essay-progress" data-essay-progress></div>
+    </div>
+    <div class="ccl-essay-hint" data-essay-hint></div>
+  </section>
+
+  <nav class="ccl-cycle" aria-label="Constellation cycle">
+    <button type="button" data-prev aria-label="Previous page">&lt;</button>
+    <span class="ccl-cycle-label" data-cycle-label></span>
+    <button type="button" data-next aria-label="Next page">&gt;</button>
+    <button type="button" data-autoplay class="ccl-cycle-autoplay">autoplay</button>
+  </nav>
+
+  <details class="ccl-knobs" data-knobs>
+    <summary>tune</summary>
+    <div class="ccl-knobs-grid">
+
+      <h3>pattern</h3>
+      <label>wave sources <select data-knob="sources">
+        <option value="labeled" selected>labeled stars only</option>
+        <option value="highlight">highlight star only</option>
+        <option value="main">all main points</option>
+        <option value="all">all stars + scatter</option>
+        <option value="edges">constellation edges</option>
+        <option value="centroid">centroid (1 point)</option>
+      </select></label>
+      <label>pattern <select data-knob="pattern">
+        <option value="motif">motif (per-constellation ascii)</option>
+        <option value="field" selected>field (waves from stars) ★</option>
+        <option value="orbit">orbit (rotating shells)</option>
+        <option value="lensing">lensing (negative space)</option>
+        <option value="ripple">ripple (drop pulses)</option>
+        <option value="schwarz">schwarzschild (gravitational lensing)</option>
+        <option value="geodesic">geodesic (null path curvature)</option>
+        <option value="doppler">doppler (radial frequency shift)</option>
+        <option value="metric">metric (curvature density)</option>
+        <option value="lightcone">lightcone (past/future)</option>
+        <option value="agc">AGC code (Apollo 11)</option>
+        <option value="agc-jitter">AGC + line jitter</option>
+        <option value="waves">waves (sinusoidal)</option>
+        <option value="topo">topo (contour bands)</option>
+        <option value="rain">rain (matrix columns)</option>
+        <option value="noise">noise (value splatter)</option>
+        <option value="void">void (none)</option>
+      </select></label>
+      <label>speed <input type="range" min="0" max="100" step="1" value="22" data-knob="speed"><output data-out="speed">22</output></label>
+      <label>amp / density <input type="range" min="0" max="100" step="1" value="55" data-knob="density"><output data-out="density">55</output></label>
+      <label>scale / λ <input type="range" min="20" max="200" step="1" value="100" data-knob="scale"><output data-out="scale">100</output></label>
+      <label>ring falloff <input type="range" min="20" max="200" step="1" value="50" data-knob="falloff"><output data-out="falloff">50</output></label>
+      <label>highlight gravity <input type="range" min="0" max="400" step="1" value="180" data-knob="hgrav"><output data-out="hgrav">180</output></label>
+      <label>wash α <input type="range" min="10" max="100" step="1" value="65" data-knob="wash"><output data-out="wash">65</output></label>
+
+      <h3>sizing (independent layers)</h3>
+      <label>bg cell px <input type="range" min="7" max="22" step="1" value="11" data-knob="cellBg"><output data-out="cellBg">11</output></label>
+      <label>star cell px <input type="range" min="12" max="44" step="1" value="22" data-knob="cellStar"><output data-out="cellStar">22</output></label>
+      <label>note cell px <input type="range" min="10" max="22" step="1" value="14" data-knob="cellNote"><output data-out="cellNote">14</output></label>
+      <label>constellation scale <input type="range" min="30" max="200" step="1" value="100" data-knob="conScale"><output data-out="conScale">100</output></label>
+      <label>constellation x% <input type="range" min="10" max="90" step="1" value="55" data-knob="conX"><output data-out="conX">55</output></label>
+      <label>constellation y% <input type="range" min="10" max="90" step="1" value="40" data-knob="conY"><output data-out="conY">40</output></label>
+
+      <h3>color</h3>
+      <label>palette <select data-knob="palette">
+        <option value="cool" selected>cool slate</option>
+        <option value="xalt">xaltgeist (cyan/violet)</option>
+        <option value="terraforms">terraforms (peach/sage)</option>
+        <option value="lagoon">lagoon (teal/blue)</option>
+        <option value="dusk">dusk (mauve/amber)</option>
+        <option value="ember">ember (warm rust)</option>
+        <option value="mono">mono (slate)</option>
+      </select></label>
+      <label>hue cycle s <input type="range" min="0" max="180" step="2" value="50" data-knob="hue"><output data-out="hue">50</output></label>
+      <label>bg color <select data-knob="bgcolor">
+        <option value="palette" selected>(palette default)</option>
+        <option value="cream">cream</option>
+        <option value="teal">teal</option>
+        <option value="amber">amber</option>
+        <option value="violet">violet</option>
+      </select></label>
+      <label>star color <select data-knob="starcolor">
+        <option value="cream" selected>cream</option>
+        <option value="amber">amber</option>
+        <option value="cyan">cyan</option>
+        <option value="white">white</option>
+        <option value="red">red (salmon)</option>
+        <option value="signal">red (signal)</option>
+        <option value="ember">red (ember)</option>
+        <option value="deep">red (deep)</option>
+      </select></label>
+      <label>star glow <input type="range" min="0" max="100" step="1" value="0" data-knob="starGlow"><output data-out="starGlow">0</output></label>
+
+      <h3>stars + edges</h3>
+      <label>star glyph <select data-knob="star">
+        <option value="dot" selected>· dot</option>
+        <option value="ast">* asterisk</option>
+        <option value="filled">● filled</option>
+        <option value="cross">+ cross</option>
+        <option value="diamond">◆ diamond</option>
+      </select></label>
+      <label>highlight <select data-knob="highlight">
+        <option value="star" selected>★ filled star</option>
+        <option value="circ">◉ circle</option>
+        <option value="at">@ at-sign</option>
+        <option value="o">O letter o</option>
+      </select></label>
+      <label>twinkle <input type="range" min="0" max="100" step="1" value="55" data-knob="twinkle"><output data-out="twinkle">55</output></label>
+      <label>star pulse <input type="range" min="0" max="100" step="1" value="55" data-knob="pulse"><output data-out="pulse">55</output></label>
+      <label>scatter stars <input type="range" min="0" max="100" step="1" value="55" data-knob="scatter"><output data-out="scatter">55</output></label>
+      <label>labels <select data-knob="labels">
+        <option value="all">all star names</option>
+        <option value="primary">primary only</option>
+        <option value="none" selected>hidden</option>
+      </select></label>
+      <label>edges <select data-knob="edge">
+        <option value="dot" selected>· dots</option>
+        <option value="hyphen">- hyphens</option>
+        <option value="dash">─ box-draw</option>
+        <option value="trace">running trace ✦</option>
+        <option value="none">(none)</option>
+      </select></label>
+      <label>edge α <input type="range" min="0" max="100" step="1" value="55" data-knob="edgeA"><output data-out="edgeA">55</output></label>
+      <label>star α <input type="range" min="20" max="100" step="1" value="92" data-knob="starA"><output data-out="starA">92</output></label>
+      <label>star weight <select data-knob="starWeight">
+        <option value="bold" selected>bold</option>
+        <option value="black">black</option>
+        <option value="medium">medium</option>
+        <option value="light">light</option>
+      </select></label>
+
+      <h3>notes</h3>
+      <label>position <select data-knob="notepos">
+        <option value="bl" selected>bottom-left</option>
+        <option value="br">bottom-right</option>
+        <option value="tl">top-left</option>
+        <option value="tr">top-right</option>
+        <option value="cc">centered</option>
+        <option value="bc">bottom-center</option>
+      </select></label>
+      <label>width cells <input type="range" min="32" max="100" step="1" value="58" data-knob="notew"><output data-out="notew">58</output></label>
+      <label>note red <select data-knob="red">
+        <option value="salmon" selected>salmon (#f6a19a)</option>
+        <option value="signal">signal (#d14d41)</option>
+        <option value="ember">ember (#ff5a3c)</option>
+        <option value="deep">deep (#b03028)</option>
+      </select></label>
+      <label>note α <input type="range" min="40" max="100" step="1" value="100" data-knob="noteA"><output data-out="noteA">100</output></label>
+      <label>note glow <input type="range" min="0" max="100" step="1" value="0" data-knob="noteGlow"><output data-out="noteGlow">0</output></label>
+      <label>note font <select data-knob="noteFont">
+        <option value="typewriter" selected>typewriter (Courier Prime)</option>
+        <option value="plex">IBM Plex Mono</option>
+        <option value="jet">JetBrains Mono</option>
+        <option value="iosevka">Iosevka (humanist mono)</option>
+        <option value="sysmono">system mono</option>
+        <option value="cursive">cursive mono</option>
+      </select></label>
+      <label>letter spacing <input type="range" min="-10" max="20" step="1" value="0" data-knob="noteLS"><output data-out="noteLS">0</output></label>
+      <label>line height <input type="range" min="90" max="180" step="2" value="110" data-knob="noteLH"><output data-out="noteLH">110</output></label>
+      <label>glitch jitter <input type="range" min="0" max="100" step="1" value="38" data-knob="jitter"><output data-out="jitter">38</output></label>
+      <label>reveal speed <input type="range" min="20" max="200" step="1" value="80" data-knob="reveal"><output data-out="reveal">80</output></label>
+      <label>persistent flicker <input type="range" min="0" max="100" step="1" value="22" data-knob="flicker"><output data-out="flicker">22</output></label>
+      <label>dwell s <input type="range" min="6" max="60" step="1" value="22" data-knob="dwell"><output data-out="dwell">22</output></label>
+      <label>panel bg <select data-knob="panelbg">
+        <option value="none" selected>none</option>
+        <option value="dim">dim cell veil</option>
+        <option value="block">solid block</option>
+      </select></label>
+    </div>
+    <p class="ccl-hud"><span data-hud></span></p>
+  </details>
+</div>
+
+<style>
+  html.page-cutout-lab,
+  body.page-cutout-lab {
+    margin: 0; padding: 0; background: #06080b; color: #cecdc3;
+    height: 100%; overflow: hidden;
+  }
+  body.page-cutout-lab .site-nav,
+  body.page-cutout-lab .site-colophon,
+  body.page-cutout-lab .site-page-ornaments,
+  body.page-cutout-lab .site-art-note,
+  body.page-cutout-lab .site-art-reveal-caption,
+  body.page-cutout-lab .site-sawyer-original,
+  body.page-cutout-lab .site-sawyer-motif,
+  body.page-cutout-lab .site-dust-motif { display: none !important; }
+  body.page-cutout-lab #main { margin: 0 !important; padding: 0 !important; max-width: none !important; width: 100% !important; }
+
+  body.page-cutout-lab .ccl-stage {
+    position: fixed; inset: 0; overflow: hidden; background: #06080b;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace;
+  }
+
+  .ccl-bg, .ccl-edges, .ccl-stars, .ccl-highlight {
+    position: absolute; inset: 0; margin: 0; padding: 0;
+    line-height: 1; letter-spacing: 0; white-space: pre;
+    pointer-events: none; user-select: none; will-change: filter, opacity;
+  }
+  .ccl-highlight {
+    color: #f6a19a; opacity: 1.0; font-weight: 900;
+    text-shadow:
+      0 0 2px #06080b, 0 0 4px #06080b, 0 0 10px #06080b,
+      1px 0 #06080b, -1px 0 #06080b, 0 1px #06080b, 0 -1px #06080b;
+  }
+  /* constellation watermark — a single small-caps label that names the
+   * current constellation. Unobtrusive, anchored bottom-center above the
+   * cycle nav. The art is the field + stars + labels; this is the only
+   * prose anywhere in the lab. */
+  .ccl-watermark {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(80px, 11vh, 140px);
+    transform: translateX(-50%);
+    z-index: 4;
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    color: rgba(255, 252, 240, 0.82);
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1400ms ease-out;
+    pointer-events: none;
+    text-shadow: 0 0 6px #06080b, 0 0 14px #06080b, 0 0 28px #06080b;
+  }
+  .ccl-watermark.is-visible { opacity: 1; }
+  .ccl-watermark .id {
+    display: block;
+    margin-top: 0.3em;
+    font-size: 0.78em;
+    letter-spacing: 0.18em;
+    color: rgba(255, 252, 240, 0.42);
+    font-variant: normal;
+    text-transform: none;
+  }
+  .ccl-watermark .id .star {
+    /* main star name — recoloured via JS to the active note-red */
+    color: var(--ccl-watermark-star, #f6a19a);
+  }
+
+  /* Tap-essay layer — kept in DOM but hidden. The constellation cycle
+   * IS the art now; no paragraphs, no progress dots. */
+  .ccl-essay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* anchor essay to the bottom third so the constellation owns the top
+     * two thirds and the prose doesn't block its stars */
+    justify-content: flex-end;
+    padding: clamp(20px, 4vh, 56px) clamp(20px, 4vh, 56px) clamp(80px, 12vh, 160px);
+    pointer-events: auto;
+    cursor: pointer;
+    z-index: 3;
+  }
+  .ccl-essay-card {
+    max-width: min(60ch, 88vw);
+    width: 100%;
+    text-align: center;
+    color: #f6a19a;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 280ms ease-out, transform 280ms ease-out;
+    will-change: opacity, transform;
+  }
+  .ccl-essay-card.is-visible { opacity: 1; transform: translateY(0); }
+  .ccl-essay-card.is-visible { opacity: 1; }
+  .ccl-essay-kicker {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.62rem, 1.2vw, 0.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(246, 161, 154, 0.65);
+    margin-bottom: clamp(1.4rem, 4vh, 3rem);
+    font-variant: small-caps;
+  }
+  .ccl-essay-kicker .id {
+    color: rgba(246, 161, 154, 0.4);
+    margin-left: 0.6em;
+    font-variant: normal;
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+  .ccl-essay-body {
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, "Iowan Old Style", serif;
+    font-size: clamp(1.15rem, 2.6vw, 1.85rem);
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+    margin: 0 auto;
+    /* dark backdrop halo so prose lifts off the field underneath */
+    text-shadow:
+      0 0 6px #06080b, 0 0 14px #06080b, 0 0 28px #06080b,
+      0 0 48px rgba(6, 8, 11, 0.85);
+  }
+  .ccl-essay-body em { font-style: italic; }
+  .ccl-essay-progress {
+    display: flex;
+    gap: 0.5em;
+    justify-content: center;
+    margin-top: clamp(1.4rem, 4vh, 3rem);
+  }
+  .ccl-essay-progress .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(246, 161, 154, 0.22);
+    transition: background 360ms ease-out;
+  }
+  .ccl-essay-progress .dot.is-current { background: rgba(246, 161, 154, 0.9); }
+  .ccl-essay-progress .dot.is-past    { background: rgba(246, 161, 154, 0.5); }
+  .ccl-essay-hint {
+    position: absolute;
+    bottom: clamp(50px, 7vh, 90px);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(135, 131, 122, 0.55);
+    opacity: 0;
+    transition: opacity 600ms ease-out;
+    pointer-events: none;
+  }
+  .ccl-essay-hint.is-shown { opacity: 1; }
+  @media (max-width: 720px) {
+    .ccl-essay-body { font-size: clamp(1.05rem, 4.5vw, 1.45rem); }
+    .ccl-essay-kicker { font-size: 0.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ccl-essay-card { transition: none; }
+    .ccl-essay-progress .dot { transition: none; }
+  }
+  .ccl-bg         { color: #4a6478; opacity: 0.65; }
+  .ccl-edges      { color: #3aa99f; opacity: 0.55; text-shadow: 0 0 4px rgba(58,169,159,.4); font-weight: 600; }
+  .ccl-stars {
+    color: #fffcf0; opacity: 1.0; font-weight: 900;
+    /* dark backdrop punch only — knocks the busy bg back behind each star
+     * so the constellation pops without a sci-fi glow halo */
+    text-shadow:
+      0 0 2px #06080b, 0 0 4px #06080b, 0 0 8px #06080b,
+      1px 0 #06080b, -1px 0 #06080b, 0 1px #06080b, 0 -1px #06080b;
+  }
+  .ccl-stars.weight-black  { font-weight: 900; }
+  .ccl-stars.weight-bold   { font-weight: 800; }
+  .ccl-stars.weight-medium { font-weight: 600; }
+  .ccl-stars.weight-light  { font-weight: 400; }
+  .ccl-note-layer { color: #f6a19a; z-index: 2; }
+
+  .ccl-cycle {
+    position: absolute; left: 50%; bottom: 0.6rem; transform: translateX(-50%);
+    display: flex; gap: 0.6rem; align-items: center;
+    font-size: 0.7rem; color: #87837a;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: rgba(6,8,11,.55); padding: 0.25rem 0.7rem;
+    border: 1px solid #1d1f23; border-radius: 2px;
+    backdrop-filter: blur(2px); z-index: 5;
+  }
+  .ccl-cycle button { background: #14161a; color: #cecdc3; border: 1px solid #2a2c30; padding: 0.15rem 0.5rem; font: inherit; cursor: pointer; border-radius: 2px; }
+  .ccl-cycle button:hover { background: #1d1f23; color: #fffcf0; }
+  .ccl-cycle-label { min-width: 20ch; text-align: center; color: #cecdc3; font-variant: small-caps; letter-spacing: 0.04em; }
+  .ccl-cycle-pause { margin-left: 0.4rem; }
+  .ccl-cycle-pause.is-paused { color: #f6a19a; border-color: #6a3a36; }
+  .ccl-cycle-autoplay { margin-left: 0.4rem; }
+  .ccl-cycle-autoplay.is-on { color: #f6a19a; border-color: #6a3a36; }
+
+  .ccl-knobs { position: absolute; top: 0.6rem; right: 0.6rem; width: 380px; max-height: 94vh; overflow-y: auto; font-size: 0.7rem; color: #87837a; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; z-index: 5; }
+  .ccl-knobs summary { cursor: pointer; padding: 0.25rem 0.55rem; background: rgba(6,8,11,.7); border: 1px solid #1d1f23; border-radius: 2px; user-select: none; text-align: right; }
+  .ccl-knobs summary:hover { color: #cecdc3; }
+  .ccl-knobs-grid { display: grid; grid-template-columns: 1fr; gap: 0.3rem 1rem; margin-top: 0.35rem; padding: 0.6rem 0.8rem; background: rgba(6,8,11,.92); border: 1px solid #1d1f23; }
+  .ccl-knobs-grid h3 { margin: 0.4rem 0 0.1rem; padding-top: 0.3rem; border-top: 1px dashed #1d1f23; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: #5d5b56; font-weight: 500; }
+  .ccl-knobs-grid h3:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+  .ccl-knobs-grid label { display: grid; grid-template-columns: 1fr 110px 4ch; gap: 0.35rem; align-items: center; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: #87837a; }
+  .ccl-knobs-grid input[type=range] { accent-color: #d14d41; width: 100%; }
+  .ccl-knobs-grid select { background: #050608; color: #cecdc3; border: 1px solid #2a2c30; padding: 0.1rem; font: inherit; grid-column: 2 / 4; }
+  .ccl-knobs-grid output { color: #cecdc3; font-variant-numeric: tabular-nums; text-align: right; }
+  .ccl-hud { margin: 0.5rem 0 0; padding: 0.2rem 0.55rem; background: #0d0e10; border: 1px solid #1d1f23; color: #cecdc3; font-size: 0.6rem; text-align: right; }
+</style>
+
+<script src="/assets/js/constellations.js"></script>
+<script src="/assets/nasa/agc-corpus.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const bgEl       = document.querySelector('[data-bg]');
+  const edgesEl    = document.querySelector('[data-edges]');
+  const starsEl    = document.querySelector('[data-stars]');
+  const essayEl    = document.querySelector('[data-essay]');
+  const essayCardEl   = document.querySelector('[data-essay-card]');
+  const essayKickerEl = document.querySelector('[data-essay-kicker]');
+  const essayBodyEl   = document.querySelector('[data-essay-body]');
+  const essayProgEl   = document.querySelector('[data-essay-progress]');
+  const essayHintEl   = document.querySelector('[data-essay-hint]');
+  const watermarkEl   = document.querySelector('[data-watermark]');
+  const cycleLabel = document.querySelector('[data-cycle-label]');
+  const btnPrev    = document.querySelector('[data-prev]');
+  const btnNext    = document.querySelector('[data-next]');
+  const btnAutoplay = document.querySelector('[data-autoplay]');
+  const hudEl      = document.querySelector('[data-hud]');
+
+  const CONSTELLATIONS = window.CONSTELLATIONS;
+  const CYCLE = window.CONSTELLATION_CYCLE;
+  const CORPUS = (window.NASA_CORPUS || []).map(e => e.text).join('\n\n').replace(/\t/g, '  ');
+
+  const STORE_KEY = 'ccl_v5_knobs';
+  const defaults = {
+    pattern: 'field', speed: 10, density: 55, scale: 100, falloff: 50, hgrav: 180, wash: 65,
+    cellBg: 11, cellStar: 22, cellNote: 14, conScale: 100, conX: 50, conY: 30,
+    palette: 'cool', hue: 50, bgcolor: 'palette', starcolor: 'cream', starGlow: 0,
+    music: 'on', musicGain: 28,
+    star: 'dot', highlight: 'star', twinkle: 55, pulse: 55, scatter: 55,
+    edge: 'dot', edgeA: 55, starA: 92,
+    notepos: 'bl', notew: 58, red: 'salmon', noteA: 100, noteGlow: 0,
+    noteFont: 'typewriter', noteLS: 0, noteLH: 110,
+    jitter: 38, reveal: 80, flicker: 12, dwell: 24, panelbg: 'block',
+    labels: 'none', starWeight: 'bold', sources: 'labeled', autoplay: true
+  };
+  let knobs = Object.assign({}, defaults, JSON.parse(localStorage.getItem(STORE_KEY) || '{}'));
+
+  const REDS = { salmon: '#f6a19a', signal: '#d14d41', ember: '#ff5a3c', deep: '#b03028' };
+  const NOTE_FONTS = {
+    typewriter: '"Courier Prime", "Courier New", Courier, monospace',
+    plex:       '"IBM Plex Mono", ui-monospace, monospace',
+    jet:        '"JetBrains Mono", ui-monospace, monospace',
+    iosevka:    'Iosevka, "JetBrains Mono", ui-monospace, monospace',
+    sysmono:    'ui-monospace, SFMono-Regular, Menlo, monospace',
+    cursive:    '"Source Code Pro", "Fira Code", "Consolas", monospace'
+  };
+  const BG_COLORS = { cream: '#cecdc3', teal: '#3aa99f', amber: '#d0a215', violet: '#a87fc4' };
+  const STAR_COLORS = {
+    cream:  '#fffcf0',
+    amber:  '#ffd58a',
+    cyan:   '#a8e2e6',
+    white:  '#ffffff',
+    red:    '#f6a19a',
+    signal: '#d14d41',
+    ember:  '#ff5a3c',
+    deep:   '#b03028'
+  };
+  const PALETTES = {
+    cool:       { base: '#4a6478', amp: 16,  off: 0 },
+    xalt:       { base: '#6c8db4', amp: 45,  off: 28 },
+    terraforms: { base: '#7e8a6e', amp: 35,  off: 8 },
+    lagoon:     { base: '#3a5364', amp: 22,  off: -10 },
+    dusk:       { base: '#7c5b73', amp: 30,  off: 18 },
+    ember:      { base: '#9c6448', amp: 18,  off: -8 },
+    mono:       { base: '#6a6a68', amp: 0,   off: 0 }
+  };
+  const STAR_GLYPHS = { dot: '·', ast: '*', filled: '●', cross: '+', diamond: '◆' };
+  const HIGHLIGHT_GLYPHS = { star: '★', circ: '◉', at: '@', o: 'O' };
+  const EDGE_GLYPHS = { dot: '·', hyphen: '-', dash: '─', trace: '·', none: '' };
+  const STAR_TWINKLE = { dot: ['·', '•', '∘', '*'], ast: ['*', '✦', '✧', '+'], filled: ['●', '⬤', '◉', '○'], cross: ['+', '✚', '✱', '×'], diamond: ['◆', '◇', '◈', '✦'] };
+  const HIGHLIGHT_TWINKLE = { star: ['★', '✦', '✧', '✺'], circ: ['◉', '◎', '⊙', '☉'], at: ['@', '◉', '◎', '⊙'], o: ['O', '◯', '◉', '◎'] };
+  const RAMP_FIELD = [' ', ' ', '.', '.', '·', '·', '\'', '`', '˜', '~', '-', '=', '≈', '∼', '+', '*', '°', 'o', 'O'];
+  const RAMP_LENSING = ['@', '#', '%', '$', '*', '+', '=', '-', '~', '·', '.', ' ', ' ', ' '];
+  const RAMP_RIPPLE = [' ', ' ', '.', '·', '·', '~', '~', '*', '*', '●', '·', '~'];
+  const RAMP_WAVES = ['  ', ' ', '.', '·', '\'', '`', '˜', '~', '-', '=', '≈', '+', '*', '°', 'o'];
+  const RAMP_TOPO = [' ', '.', '·', '─', '═', '━', '▔', '▀'];
+  const RAMP_RAIN = [' ', '.', ':', '|', '┃', '║', '│'];
+  const RAMP_NOISE = [' ', ' ', '.', '·', "'", ',', ';', ':', '-', '~', '*', '+', 'x'];
+
+  /* ─── per-constellation motifs — ASCII sprite animations ─── */
+  const MOTIFS = {
+    lepus: {
+      label: 'a field of hares',
+      w: 8, h: 3,
+      frames: [
+        ['  (\\(\\  ',
+         ' (-_-) ',
+         'o(")(")'],
+        ['  (\\(\\  ',
+         ' (^_^) ',
+         'o(")(") '],
+        [' ((\\(\\ ',
+         ' (-_-) ',
+         ' o)(") ']
+      ],
+      fps: 3.6
+    },
+    crux: {
+      label: 'a constellation of crosses',
+      w: 5, h: 5,
+      frames: [
+        ['  +  ',
+         '  +  ',
+         '+++++',
+         '  +  ',
+         '  +  '],
+        ['  *  ',
+         '  *  ',
+         '*****',
+         '  *  ',
+         '  *  '],
+        ['  +  ',
+         '  +  ',
+         '+++++',
+         '  +  ',
+         '  +  ']
+      ],
+      fps: 1.5
+    },
+    polaris: {
+      label: 'arrows north',
+      w: 5, h: 4,
+      frames: [
+        ['  ^  ',
+         ' /|\\ ',
+         '  |  ',
+         '  |  '],
+        ['  ^  ',
+         ' /|\\ ',
+         '  N  ',
+         '  |  '],
+        ['  ^  ',
+         ' /|\\ ',
+         '  |  ',
+         '  N  ']
+      ],
+      fps: 1.2
+    },
+    vega: {
+      label: 'lyres',
+      w: 5, h: 4,
+      frames: [
+        [' /^\\ ',
+         '/|||\\',
+         '||||| ',
+         ' \\_/ '],
+        [' /^\\ ',
+         '/|.|\\',
+         '|. .| ',
+         ' \\_/ '],
+        [' /^\\ ',
+         '/.|.\\',
+         '|||||',
+         ' \\_/ ']
+      ],
+      fps: 2.2
+    },
+    sirius: {
+      label: 'the dog',
+      w: 6, h: 3,
+      frames: [
+        [' /^\\__ ',
+         '(    o)',
+         ' (___) '],
+        [' /^\\__ ',
+         '(    -)',
+         ' (___) '],
+        [' /^\\__ ',
+         '(    o)',
+         '  (__) ']
+      ],
+      fps: 2.5
+    },
+    pleiades: {
+      label: 'seven sisters',
+      w: 9, h: 3,
+      frames: [
+        ['  *  *   ',
+         ' *  *  * ',
+         '   *  *  '],
+        ['   *  *  ',
+         ' *  *  * ',
+         '  *  *   '],
+        ['  *  *   ',
+         ' .  *  . ',
+         '   *  *  ']
+      ],
+      fps: 1.6
+    },
+    bootes: {
+      label: 'herdsmen with oxen',
+      w: 7, h: 4,
+      frames: [
+        ['  o    ',
+         ' /|\\__ ',
+         ' / \\  )',
+         '      ~'],
+        ['  o    ',
+         ' /|\\__ ',
+         ' / \\  )',
+         '     ~ '],
+        ['  o    ',
+         ' /|\\__ ',
+         ' /_\\ )',
+         '    ~  ']
+      ],
+      fps: 2.0
+    },
+    mizarAlcor: {
+      label: 'the great bear',
+      w: 6, h: 4,
+      frames: [
+        [' /^v^\\ ',
+         '(  o  )',
+         ' \\___/ ',
+         ' / | \\'],
+        [' /^v^\\ ',
+         '(  o  )',
+         ' \\___/ ',
+         ' \\ | /'],
+        [' /^v^\\ ',
+         '(  -  )',
+         ' \\___/ ',
+         ' / | \\']
+      ],
+      fps: 2.4
+    },
+    reticulum: {
+      label: 'the grid',
+      w: 7, h: 3,
+      frames: [
+        ['+--+--+',
+         '|  |  |',
+         '+--+--+'],
+        ['+--+--+',
+         '| .|. |',
+         '+--+--+'],
+        ['+--+--+',
+         '|. | .|',
+         '+--+--+']
+      ],
+      fps: 2.0
+    },
+    epsilonEridani: {
+      label: 'the river',
+      w: 11, h: 2,
+      frames: [
+        ['~~~_~~~_~~~',
+         '__~~~_~~~__'],
+        ['_~~~_~~~_~~',
+         '~__~~~_~~~_'],
+        ['~~_~~~_~~~_',
+         '__~~~_~~~__']
+      ],
+      fps: 3.2
+    }
+  };
+
+  /* ─── knob plumbing ─── */
+  function applyKnobsToUI () {
+    Object.keys(knobs).forEach(k => {
+      const ctrl = document.querySelector(`[data-knob="${k}"]`);
+      const out  = document.querySelector(`[data-out="${k}"]`);
+      if (ctrl) ctrl.value = knobs[k];
+      if (out) out.textContent = knobs[k];
+    });
+    const red = REDS[knobs.red] || REDS.salmon;
+    if (essayCardEl) essayCardEl.style.color = red;
+
+    const pal = PALETTES[knobs.palette] || PALETTES.cool;
+    bgEl.style.color = (knobs.bgcolor === 'palette') ? pal.base : (BG_COLORS[knobs.bgcolor] || pal.base);
+    bgEl.style.opacity = (knobs.wash / 100).toFixed(2);
+
+    const starColor = STAR_COLORS[knobs.starcolor] || STAR_COLORS.cream;
+    starsEl.style.color = starColor;
+    starsEl.style.opacity = (knobs.starA / 100).toFixed(2);
+    const STAR_DARK = '0 0 2px #06080b, 0 0 4px #06080b, 0 0 8px #06080b, 1px 0 #06080b, -1px 0 #06080b, 0 1px #06080b, 0 -1px #06080b';
+    starsEl.style.textShadow = knobs.starGlow > 0
+      ? `${STAR_DARK}, 0 0 ${4 + knobs.starGlow * 0.1}px ${starColor}, 0 0 ${10 + knobs.starGlow * 0.2}px ${starColor}55`
+      : STAR_DARK;
+    starsEl.classList.remove('weight-bold','weight-black','weight-medium','weight-light');
+    starsEl.classList.add('weight-' + (knobs.starWeight || 'bold'));
+
+    edgesEl.style.opacity = (knobs.edgeA / 100).toFixed(2);
+
+    /* font sizes per layer (note layer is now the essay overlay — fluid via CSS) */
+    bgEl.style.fontSize    = knobs.cellBg + 'px';
+    edgesEl.style.fontSize = knobs.cellStar + 'px';
+    starsEl.style.fontSize = knobs.cellStar + 'px';
+  }
+  document.querySelectorAll('[data-knob]').forEach(el => {
+    el.addEventListener('input', () => {
+      const k = el.dataset.knob;
+      knobs[k] = (el.type === 'range') ? parseFloat(el.value) : el.value;
+      const out = document.querySelector(`[data-out="${k}"]`);
+      if (out) out.textContent = knobs[k];
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(knobs)); } catch (_) {}
+      applyKnobsToUI();
+      onLayoutOrPatternChange();
+    });
+  });
+
+  /* ─── runtime font metrics — measure the actual character width for the
+   * active font + size, so the note text and its black panel can't drift.
+   * Cached by (font, size, letterSpacing) key. */
+  const charWidthCache = new Map();
+  function measureCharWidth (fontFamily, sizePx, letterSpacingEm) {
+    const key = `${fontFamily}|${sizePx}|${letterSpacingEm}`;
+    if (charWidthCache.has(key)) return charWidthCache.get(key);
+    const probe = document.createElement('pre');
+    probe.style.cssText = `position:absolute;visibility:hidden;left:-9999px;top:0;margin:0;padding:0;line-height:1;letter-spacing:${letterSpacingEm}em;font-family:${fontFamily};font-size:${sizePx}px;white-space:pre;`;
+    probe.textContent = 'M'.repeat(100);
+    document.body.appendChild(probe);
+    const w = probe.getBoundingClientRect().width / 100;
+    probe.remove();
+    charWidthCache.set(key, w);
+    return w;
+  }
+
+  /* ─── geometry — each layer has its own grid sized to its font ─── */
+  const CHAR_W_RATIO = 0.6;   /* fallback for bg/edges/stars where small drift doesn't matter */
+  function gridForCell (cellPx) {
+    const cw = cellPx * CHAR_W_RATIO;
+    return {
+      cellPx, cw, ch: cellPx,
+      cols: Math.max(20, Math.ceil(window.innerWidth / cw)),
+      rows: Math.max(10, Math.ceil(window.innerHeight / cellPx))
+    };
+  }
+  let gBg, gStar, gNote;
+  function reflow () {
+    gBg   = gridForCell(knobs.cellBg);
+    gStar = gridForCell(knobs.cellStar);
+    gNote = gridForCell(knobs.cellNote);
+  }
+  function onLayoutOrPatternChange () {
+    reflow();
+    if (currentCon) {
+      computeStarFieldCache(currentCon);
+      layoutNote(currentCon);
+    }
+  }
+
+  /* ─── constellation projection ─── */
+  /* Logical (px, py) in 60×30 → screen pixels, using user-controlled scale +
+   * anchor knobs. This is the single source of truth: bg waves, edges, stars,
+   * all consume star screen-px positions. */
+  const SRC_W = 60, SRC_H = 30;
+  function projectScreenPx (lx, ly) {
+    const W = window.innerWidth, H = window.innerHeight;
+    /* base scale: fit SRC into 70% of viewport */
+    const padFactor = 0.70;
+    const baseScale = Math.min(W * padFactor / SRC_W, H * padFactor / SRC_H);
+    const sc = baseScale * (knobs.conScale / 100);
+    const cx = W * (knobs.conX / 100);
+    const cy = H * (knobs.conY / 100);
+    return [cx + (lx - SRC_W / 2) * sc, cy + (ly - SRC_H / 2) * sc];
+  }
+  function gridFromScreenPx (g, sx, sy) {
+    return [Math.round(sx / g.cw), Math.round(sy / g.ch)];
+  }
+  function screenPxFromGridCenter (g, col, row) {
+    return [(col + 0.5) * g.cw, (row + 0.5) * g.ch];
+  }
+
+  /* Cached projected star info for the active constellation. */
+  let starField = null; /* { points: [...], edges: [...], labels: [{text,sx,sy,primary}] } */
+  function computeStarFieldCache (con) {
+    const points = [];
+    if (Array.isArray(con.points)) {
+      con.points.forEach((p, i) => {
+        const [sx, sy] = projectScreenPx(p[0], p[1]);
+        const isHighlight = (i === con.highlightIndex);
+        points.push({
+          sx, sy,
+          amp: isHighlight ? 1.8 : 1.0,
+          phase: Math.random() * Math.PI * 2,
+          freq: 0.35 + Math.random() * 0.25,
+          twinkleRate: 0.4 + Math.random() * 1.5,
+          twinklePhase: Math.random() * Math.PI * 2,
+          isHighlight,
+          isScatter: false
+        });
+      });
+    }
+    if (Array.isArray(con.stars)) {
+      con.stars.forEach((s) => {
+        const [sx, sy] = projectScreenPx(s[0], s[1]);
+        /* magnitude is encoded in s[2] (smaller = brighter in mag-system, but
+         * ascii-lab data uses it as raw radius — bigger = more prominent).
+         * Scale to amp so visibly-bigger scatter stars also visibly ripple. */
+        const rad = (s[2] !== undefined) ? s[2] : 1.5;
+        points.push({
+          sx, sy,
+          amp: 0.55 + Math.min(1, rad / 3) * 0.4,    /* 0.55 - 0.95 */
+          phase: Math.random() * Math.PI * 2,
+          freq: 0.25 + Math.random() * 0.3,
+          twinkleRate: 0.3 + Math.random() * 0.8,
+          twinklePhase: Math.random() * Math.PI * 2,
+          isHighlight: false,
+          isScatter: true
+        });
+      });
+    }
+    const edges = [];
+    if (Array.isArray(con.edges) && Array.isArray(con.points)) {
+      con.edges.forEach(([a, b]) => {
+        const pa = con.points[a], pb = con.points[b];
+        if (!pa || !pb) return;
+        const [sx0, sy0] = projectScreenPx(pa[0], pa[1]);
+        const [sx1, sy1] = projectScreenPx(pb[0], pb[1]);
+        edges.push({ sx0, sy0, sx1, sy1 });
+      });
+    }
+    /* labels: dx/dy are in source-grid units. We project the star, then offset
+     * the label by a *tighter* fraction of dx/dy so it sits adjacent to its
+     * star rather than across the chart. Negative dx → right-anchor the text
+     * so the end of the word kisses the star. */
+    const labels = [];
+    if (con.labels && typeof con.labels === 'object') {
+      Object.values(con.labels).forEach((lbl) => {
+        const pi = lbl.pointIndex;
+        if (pi == null || !con.points || !con.points[pi]) return;
+        const tightness = 0.45;  /* pull labels in toward their stars */
+        const [sx, sy] = projectScreenPx(
+          con.points[pi][0] + (lbl.dx || 0) * tightness,
+          con.points[pi][1] + (lbl.dy || 0) * tightness
+        );
+        labels.push({
+          text: lbl.text, sx, sy,
+          primary: !!lbl.primary,
+          anchor: (lbl.dx || 0) < 0 ? 'end' : 'start'
+        });
+      });
+    }
+    /* WAVE SOURCES — filter the points used as wave emitters in `field`/`orbit`/etc.
+     * The full points array is still used for star+halo rendering; this filtered
+     * subset is what the bg field samples from. */
+    let wavePoints;
+    const sources = knobs.sources || 'labeled';
+    if (sources === 'all') {
+      wavePoints = points;
+    } else if (sources === 'main') {
+      wavePoints = points.filter(p => !p.isScatter);
+    } else if (sources === 'highlight') {
+      wavePoints = points.filter(p => p.isHighlight);
+    } else if (sources === 'labeled') {
+      /* labeled stars only: use the pointIndex set from con.labels */
+      const labeledIdx = new Set();
+      if (con.labels) Object.values(con.labels).forEach(l => { if (l.pointIndex != null) labeledIdx.add(l.pointIndex); });
+      /* primary labeled star gets full hgrav boost; others ride at amp=1.0 */
+      wavePoints = points.filter((_, i) => labeledIdx.has(i)).map((p, i) => {
+        return Object.assign({}, p, { amp: p.isHighlight ? 1.6 : 1.0 });
+      });
+      if (wavePoints.length === 0) wavePoints = points.filter(p => p.isHighlight);
+    } else if (sources === 'centroid') {
+      /* one source at the centroid of labeled stars (or main points if no labels) */
+      const labeledIdx = new Set();
+      if (con.labels) Object.values(con.labels).forEach(l => { if (l.pointIndex != null) labeledIdx.add(l.pointIndex); });
+      const seeds = points.filter((_, i) => labeledIdx.has(i));
+      const src = seeds.length ? seeds : points.filter(p => !p.isScatter);
+      if (src.length) {
+        const cx = src.reduce((s, p) => s + p.sx, 0) / src.length;
+        const cy = src.reduce((s, p) => s + p.sy, 0) / src.length;
+        wavePoints = [{
+          sx: cx, sy: cy, amp: 1.5,
+          phase: 0, freq: 0.35, twinkleRate: 0.5, twinklePhase: 0,
+          isHighlight: true, isScatter: false
+        }];
+      } else wavePoints = [];
+    } else if (sources === 'edges') {
+      /* edges mode: leave wavePoints empty — bg field samples distance-to-segment
+       * across `edges` instead of distance-to-point. Pattern code handles this. */
+      wavePoints = [];
+    } else {
+      wavePoints = points;
+    }
+    starField = { points, wavePoints, edges, labels, conId: con.id };
+  }
+
+  /* ─── pattern renderers ─── */
+  let agcOffset = 0;       /* integer-snapped position into corpus */
+  let agcTarget = 0;        /* fractional accumulator */
+  let agcLastText = '';
+  let rainCols = null;
+  let lastFrame = performance.now();
+  function ensureRainCols (g) {
+    if (!rainCols || rainCols.length !== g.cols) {
+      rainCols = new Array(g.cols);
+      for (let c = 0; c < g.cols; c++) rainCols[c] = Math.random() * g.rows * 1.5;
+    }
+  }
+  function rampPickFromValue (v, ramp) {
+    const rL = ramp.length;
+    let n = (v + 1) / 2;
+    return ramp[Math.min(rL - 1, Math.max(0, Math.floor(n * rL)))];
+  }
+
+  function renderBg (now) {
+    const pattern = knobs.pattern;
+    const speed = knobs.speed / 100;
+    const density = knobs.density / 100;
+    const scale = knobs.scale / 100;
+    const dt = (now - lastFrame) / 1000;
+    lastFrame = now;
+    const g = gBg;
+
+    if (pattern === 'void') { bgEl.textContent = ''; bgEl.style.filter = 'none'; return; }
+
+    /* motif: tile the active constellation's themed sprite across the bg grid */
+    if (pattern === 'motif') {
+      const motif = (currentCon && MOTIFS[currentCon.id]) || null;
+      if (!motif) { bgEl.textContent = ''; bgEl.style.filter = 'none'; return; }
+      const frameIdx = Math.floor((now / 1000) * motif.fps) % motif.frames.length;
+      const frame = motif.frames[frameIdx];
+      const motifW = motif.w + 2;       /* horizontal padding between motifs */
+      const motifH = motif.h + 2;       /* vertical padding */
+      /* slow drift so the lattice breathes */
+      const driftX = Math.floor((now * speed * 0.0008) % motifW);
+      const driftY = Math.floor((now * speed * 0.0003) % motifH);
+      let s2 = '';
+      for (let y = 0; y < g.rows; y++) {
+        let line = '';
+        const yy = ((y + driftY) % motifH + motifH) % motifH;
+        const inSpriteY = yy < motif.h;
+        for (let x = 0; x < g.cols; x++) {
+          const xx = ((x + driftX) % motifW + motifW) % motifW;
+          if (inSpriteY && xx < motif.w) {
+            line += (frame[yy][xx] || ' ');
+          } else {
+            line += ' ';
+          }
+        }
+        s2 += line + '\n';
+      }
+      bgEl.textContent = s2;
+      const pal = PALETTES[knobs.palette] || PALETTES.cool;
+      if (pal.amp && knobs.hue > 0) {
+        const shift = Math.sin(now / (knobs.hue * 1000)) * pal.amp + pal.off;
+        bgEl.style.filter = `hue-rotate(${shift.toFixed(2)}deg)`;
+      } else {
+        bgEl.style.filter = 'none';
+      }
+      return;
+    }
+
+    let s = '';
+    if (pattern === 'field' || pattern === 'orbit' || pattern === 'lensing' || pattern === 'ripple' ||
+        pattern === 'schwarz' || pattern === 'geodesic' || pattern === 'doppler' || pattern === 'metric' || pattern === 'lightcone') {
+      if (!starField) { bgEl.textContent = ''; return; }
+      /* CHILL ART: phase advances ~0.1 Hz at speed=10, so the field breathes
+       * over many seconds rather than churning */
+      const t = now * speed * 0.0001;
+      /* edges mode samples constellation edges as wave sources instead of points */
+      const sourcesMode = knobs.sources || 'labeled';
+      const useEdges = (sourcesMode === 'edges');
+      const pts = useEdges ? [] : (starField.wavePoints || starField.points);
+      const nPts = pts.length;
+      const segments = useEdges ? starField.edges : [];
+      const nSegs = segments.length;
+      /* wavelength in screen px (knob scale × cell size) */
+      const lambdaPx = scale * g.cellPx * 1.4;
+      const hgrav = knobs.hgrav / 100;
+      const falloffExp = knobs.falloff / 100;
+
+      let ramp;
+      if      (pattern === 'field')     ramp = RAMP_FIELD;
+      else if (pattern === 'orbit')     ramp = RAMP_FIELD;
+      else if (pattern === 'lensing')   ramp = RAMP_LENSING;
+      else if (pattern === 'ripple')    ramp = RAMP_RIPPLE;
+      else if (pattern === 'schwarz')   ramp = RAMP_LENSING;
+      else if (pattern === 'geodesic')  ramp = RAMP_FIELD;
+      else if (pattern === 'doppler')   ramp = RAMP_FIELD;
+      else if (pattern === 'metric')    ramp = RAMP_LENSING;
+      else if (pattern === 'lightcone') ramp = RAMP_RIPPLE;
+      const rL = ramp.length;
+
+      for (let y = 0; y < g.rows; y++) {
+        for (let x = 0; x < g.cols; x++) {
+          /* screen-px center of this cell */
+          const px = (x + 0.5) * g.cw;
+          const py = (y + 0.5) * g.ch;
+          let v = 0;
+          /* edges-as-sources: distance to nearest segment determines the wave */
+          if (useEdges && nSegs > 0) {
+            let minD = Infinity;
+            for (let si = 0; si < nSegs; si++) {
+              const e = segments[si];
+              const dx = e.sx1 - e.sx0, dy = e.sy1 - e.sy0;
+              const len2 = dx * dx + dy * dy;
+              const tT = Math.max(0, Math.min(1, ((px - e.sx0) * dx + (py - e.sy0) * dy) / (len2 || 1)));
+              const projX = e.sx0 + tT * dx;
+              const projY = e.sy0 + tT * dy;
+              const d = Math.hypot(px - projX, py - projY);
+              if (d < minD) minD = d;
+            }
+            const d = minD + g.cellPx;
+            const dNorm = d / lambdaPx;
+            const dropoff = Math.pow(d / g.cellPx, falloffExp);
+            v = 1.4 * Math.sin(dNorm * Math.PI * 2 - t * 2 * Math.PI * 0.4) / dropoff;
+          }
+          for (let i = 0; i < nPts; i++) {
+            const p = pts[i];
+            const dx = px - p.sx;
+            const dy = py - p.sy;
+            const d = Math.sqrt(dx * dx + dy * dy) + g.cellPx;  /* +cellPx softens singularity */
+            const amp = p.isHighlight ? p.amp * hgrav : p.amp;
+            const dNorm = d / lambdaPx;
+            const dropoff = Math.pow(d / g.cellPx, falloffExp);
+            if (pattern === 'field') {
+              v += amp * Math.sin(dNorm * Math.PI * 2 - t * 2 * Math.PI * p.freq + p.phase) / dropoff;
+            } else if (pattern === 'orbit') {
+              const ang = Math.atan2(dy, dx);
+              v += amp * Math.sin(dNorm * Math.PI * 2 + ang * 3 - t * 2 * Math.PI * p.freq) / dropoff;
+            } else if (pattern === 'lensing') {
+              v += amp / Math.max(0.5, dropoff * 0.5);
+            } else if (pattern === 'ripple') {
+              const phaseT = (t * p.freq + p.phase / (Math.PI * 2)) % 1;
+              const ringR = phaseT * lambdaPx * 3;
+              const ringW = lambdaPx * 0.5;
+              const gauss = Math.exp(-Math.pow((d - ringR) / ringW, 2));
+              v += amp * gauss * 1.5;
+            }
+          }
+          /* physics patterns: replace v entirely with metric-specific math */
+          if (pattern === 'schwarz') {
+            /* Schwarzschild lensing: deflection ~ 4GM / (c² b). Render as
+             * density falling off like 1/r with a tangential streak factor. */
+            let acc = 0;
+            for (let i = 0; i < nPts; i++) {
+              const p = pts[i];
+              const dx = px - p.sx, dy = py - p.sy;
+              const r = Math.sqrt(dx * dx + dy * dy) + g.cellPx;
+              const ang = Math.atan2(dy, dx);
+              const ampi = (p.isHighlight ? p.amp * hgrav : p.amp);
+              /* lensing: tangential streaks (sin(2*angle) ridges around mass) */
+              acc += ampi * (1 + 0.6 * Math.sin(ang * 2 + t * p.freq * Math.PI)) / Math.pow(r / g.cellPx, 1.1);
+            }
+            v = acc;
+          } else if (pattern === 'geodesic') {
+            /* null geodesics: pick glyph based on (angle from nearest star + r),
+             * giving curved-path families bending toward each mass. */
+            let minR = Infinity, sumPhase = 0, totalAmp = 0;
+            for (let i = 0; i < nPts; i++) {
+              const p = pts[i];
+              const dx = px - p.sx, dy = py - p.sy;
+              const r = Math.sqrt(dx * dx + dy * dy) + g.cellPx;
+              const ang = Math.atan2(dy, dx);
+              const ampi = (p.isHighlight ? p.amp * hgrav : p.amp);
+              const bend = ampi * 8 / Math.max(1, r / g.cellPx);  /* bigger near mass */
+              sumPhase += (ang + bend) * ampi;
+              totalAmp += ampi;
+              if (r < minR) minR = r;
+            }
+            const phase = totalAmp > 0 ? sumPhase / totalAmp : 0;
+            v = Math.sin(phase * 4 + t * 2 * Math.PI * 0.3);
+          } else if (pattern === 'doppler') {
+            /* radial bands of red/blueshift around each star */
+            let acc = 0;
+            for (let i = 0; i < nPts; i++) {
+              const p = pts[i];
+              const dx = px - p.sx, dy = py - p.sy;
+              const r = Math.sqrt(dx * dx + dy * dy) + g.cellPx;
+              const dNorm = r / lambdaPx;
+              const ampi = (p.isHighlight ? p.amp * hgrav : p.amp);
+              /* bands cycle with t — represents rotation/recession */
+              acc += ampi * Math.sin(dNorm * Math.PI * 4 - t * 2 * Math.PI * p.freq + p.phase) / Math.pow(r / g.cellPx, 0.6);
+            }
+            v = acc;
+          } else if (pattern === 'metric') {
+            /* curvature density: ASCII gets denser where spacetime curves more
+             * (∑ 1/r² near each mass). No temporal evolution — static metric. */
+            let acc = 0;
+            for (let i = 0; i < nPts; i++) {
+              const p = pts[i];
+              const dx = px - p.sx, dy = py - p.sy;
+              const r = Math.sqrt(dx * dx + dy * dy) + g.cellPx;
+              const ampi = (p.isHighlight ? p.amp * hgrav : p.amp);
+              acc += ampi / Math.pow(r / g.cellPx, 1.4);
+            }
+            /* slight breathing — slow oscillation so it's not frozen */
+            v = acc * (1 + 0.08 * Math.sin(t * 2 * Math.PI * 0.1));
+          } else if (pattern === 'lightcone') {
+            /* past/future light cones at 45° from each star, expanding with t */
+            let acc = 0;
+            for (let i = 0; i < nPts; i++) {
+              const p = pts[i];
+              const dx = px - p.sx, dy = py - p.sy;
+              const r = Math.sqrt(dx * dx + dy * dy) + g.cellPx;
+              const ampi = (p.isHighlight ? p.amp * hgrav : p.amp);
+              const phaseT = (t * p.freq + p.phase / (Math.PI * 2)) % 1;
+              /* expanding 45° cone — bright where |dx| ≈ |dy| at the right radius */
+              const cone = Math.exp(-Math.pow((Math.abs(Math.abs(dx) - Math.abs(dy))) / (g.cellPx * 2), 2));
+              const ring = Math.exp(-Math.pow((r - phaseT * lambdaPx * 3) / (lambdaPx * 0.6), 2));
+              acc += ampi * cone * ring * 2;
+            }
+            v = acc;
+          }
+
+          v *= 0.5 + density * 1.4;
+          let glyph;
+          if (pattern === 'lensing' || pattern === 'schwarz' || pattern === 'metric') {
+            const n = Math.min(1, Math.max(0, v * 0.3));
+            glyph = ramp[Math.min(rL - 1, Math.floor(n * rL))];
+          } else if (pattern === 'ripple' || pattern === 'lightcone') {
+            const n = Math.min(1, Math.max(0, v * 0.7));
+            glyph = ramp[Math.min(rL - 1, Math.floor(n * rL))];
+          } else {
+            glyph = rampPickFromValue(Math.tanh(v * 0.7), ramp);
+          }
+          s += glyph;
+        }
+        s += '\n';
+      }
+      bgEl.textContent = s;
+    }
+
+    else if (pattern === 'agc' || pattern === 'agc-jitter') {
+      if (!CORPUS.length) { bgEl.textContent = '(corpus missing)'; return; }
+      /* Stable readable scroll: integer-snap, slow cadence. speed=10 → roughly
+       * one row of advance per second; speed=50 → ~5 rows/sec. */
+      const cps = speed * g.cols * 0.10;
+      agcTarget = (agcTarget + cps * dt);
+      const newOffset = Math.floor(agcTarget) % CORPUS.length;
+      const stale = (pattern === 'agc-jitter' || newOffset !== agcOffset || agcLastText.length === 0);
+      if (stale) {
+        agcOffset = newOffset;
+        const jitterAmp = (pattern === 'agc-jitter') ? Math.floor(scale * 4) : 0;
+        for (let r = 0; r < g.rows; r++) {
+          let pos;
+          if (jitterAmp > 0) {
+            const lineJit = Math.floor(Math.sin(r * 0.7 + now * 0.0003) * jitterAmp);
+            pos = ((agcOffset + r * g.cols + lineJit) % CORPUS.length + CORPUS.length) % CORPUS.length;
+          } else {
+            pos = (agcOffset + r * g.cols) % CORPUS.length;
+          }
+          let line = '';
+          while (line.length < g.cols) {
+            const ch = CORPUS.charCodeAt(pos);
+            pos = (pos + 1) % CORPUS.length;
+            if (ch === 10 || ch === 13) line += ' ';
+            else line += String.fromCharCode(ch);
+          }
+          s += line + '\n';
+        }
+        agcLastText = s;
+        bgEl.textContent = s;
+      }
+      /* else: leave bgEl.textContent unchanged — stable text between advances */
+    }
+
+    else if (pattern === 'waves') {
+      const t = now * speed * 0.0005;
+      const fx = 0.08 / scale, fy = 0.11 / scale;
+      const ramp = RAMP_WAVES; const rL = ramp.length;
+      for (let y = 0; y < g.rows; y++) {
+        for (let x = 0; x < g.cols; x++) {
+          const v = Math.sin(x * fx + t * 0.4)
+                  + Math.sin(y * fy - t * 0.27)
+                  + 0.6 * Math.sin((x + y) * (fx * 0.7) + t * 0.55);
+          let n = (v + 2.6) / 5.2;
+          n = Math.pow(n, 1.3 - density * 0.8);
+          s += ramp[Math.min(rL - 1, Math.max(0, Math.floor(n * rL)))];
+        }
+        s += '\n';
+      }
+      bgEl.textContent = s;
+    }
+
+    else if (pattern === 'topo') {
+      const t = now * speed * 0.0003;
+      const fx = 0.06 / scale, fy = 0.09 / scale;
+      const ramp = RAMP_TOPO; const rL = ramp.length;
+      for (let y = 0; y < g.rows; y++) {
+        for (let x = 0; x < g.cols; x++) {
+          const v = Math.sin(x * fx + t * 0.3) + Math.sin(y * fy + t * 0.18)
+                  + 0.5 * Math.sin((x * 0.5 - y * 0.5) * fx + t * 0.42);
+          const n = (v + 2.5) / 5;
+          const bands = 6 + Math.floor(density * 8);
+          const q = Math.floor(n * bands) / bands;
+          s += ramp[Math.min(rL - 1, Math.max(0, Math.floor(q * rL)))];
+        }
+        s += '\n';
+      }
+      bgEl.textContent = s;
+    }
+
+    else if (pattern === 'rain') {
+      ensureRainCols(g);
+      const fall = speed * 30 * dt;
+      const ramp = RAMP_RAIN; const rL = ramp.length;
+      const grid = new Array(g.rows);
+      for (let y = 0; y < g.rows; y++) grid[y] = new Array(g.cols).fill(' ');
+      for (let c = 0; c < g.cols; c++) {
+        rainCols[c] = (rainCols[c] + fall * (0.6 + Math.random() * 0.8)) % (g.rows + 8);
+        const head = Math.floor(rainCols[c]);
+        const trail = 3 + Math.floor(density * 14);
+        for (let tr = 0; tr < trail; tr++) {
+          const y = head - tr;
+          if (y < 0 || y >= g.rows) continue;
+          const intensity = 1 - (tr / trail);
+          grid[y][c] = ramp[Math.min(rL - 1, Math.floor(intensity * (rL - 1)))];
+        }
+      }
+      for (let y = 0; y < g.rows; y++) s += grid[y].join('') + '\n';
+      bgEl.textContent = s;
+    }
+
+    else if (pattern === 'noise') {
+      const t = now * speed * 0.0008;
+      const ramp = RAMP_NOISE; const rL = ramp.length;
+      const sc = scale * 0.04;
+      for (let y = 0; y < g.rows; y++) {
+        for (let x = 0; x < g.cols; x++) {
+          const v = Math.sin(x * 12.9898 * sc + y * 78.233 * sc + t) * 43758.5453;
+          const n = (v - Math.floor(v));
+          const w = Math.pow(n, 1.4 - density * 0.9);
+          s += ramp[Math.min(rL - 1, Math.floor(w * rL))];
+        }
+        s += '\n';
+      }
+      bgEl.textContent = s;
+    }
+
+    const pal = PALETTES[knobs.palette] || PALETTES.cool;
+    if (pal.amp && knobs.hue > 0) {
+      const shift = Math.sin(now / (knobs.hue * 1000)) * pal.amp + pal.off;
+      bgEl.style.filter = `hue-rotate(${shift.toFixed(2)}deg)`;
+    } else {
+      bgEl.style.filter = 'none';
+    }
+  }
+
+  /* ─── animated stars + edges (rendered at gStar resolution) ─── */
+  function buildEmptyG (g, fill) {
+    const out = new Array(g.rows);
+    for (let y = 0; y < g.rows; y++) out[y] = new Array(g.cols).fill(fill === undefined ? ' ' : fill);
+    return out;
+  }
+  function gridToString (grid) {
+    let s = '';
+    for (let y = 0; y < grid.length; y++) s += grid[y].join('') + '\n';
+    return s;
+  }
+  function plotG (grid, x, y, ch, g) {
+    if (y < 0 || y >= g.rows || x < 0 || x >= g.cols) return;
+    grid[y][x] = ch;
+  }
+  function drawLineG (grid, x0, y0, x1, y1, ch, g) {
+    let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    let dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    let err = dx + dy;
+    let x = x0, y = y0;
+    while (true) {
+      plotG(grid, x, y, ch, g);
+      if (x === x1 && y === y1) break;
+      const e2 = 2 * err;
+      if (e2 >= dy) { err += dy; x += sx; }
+      if (e2 <= dx) { err += dx; y += sy; }
+    }
+  }
+
+  const highlightEl = document.querySelector('[data-highlight]');
+  function renderConstellationAnim (now) {
+    if (!starField) { edgesEl.textContent = ''; starsEl.textContent = ''; if (highlightEl) highlightEl.textContent = ''; return; }
+    const g = gStar;
+    const eGrid = buildEmptyG(g);
+    const sGrid = buildEmptyG(g);
+    const hGrid = buildEmptyG(g);
+    const sGlyph = STAR_GLYPHS[knobs.star] || '·';
+    const hGlyph = HIGHLIGHT_GLYPHS[knobs.highlight] || '★';
+    const sTwinkleSet = STAR_TWINKLE[knobs.star] || [sGlyph];
+    const hTwinkleSet = HIGHLIGHT_TWINKLE[knobs.highlight] || [hGlyph];
+    const eGlyph = EDGE_GLYPHS[knobs.edge];
+    const twinkleAmt = knobs.twinkle / 100;
+    const pulseAmt = knobs.pulse / 100;
+    const scatterAmt = knobs.scatter / 100;
+
+    /* edges */
+    if (eGlyph || knobs.edge === 'trace') {
+      starField.edges.forEach((e, ei) => {
+        const [ex0, ey0] = gridFromScreenPx(g, e.sx0, e.sy0);
+        const [ex1, ey1] = gridFromScreenPx(g, e.sx1, e.sy1);
+        if (knobs.edge === 'trace') {
+          drawLineG(eGrid, ex0, ey0, ex1, ey1, '·', g);
+          const period = 4 + ei * 0.3;
+          const phase = ((now / 1000) / period + ei * 0.17) % 1;
+          const px = Math.round(ex0 + (ex1 - ex0) * phase);
+          const py = Math.round(ey0 + (ey1 - ey0) * phase);
+          plotG(eGrid, px, py, '✦', g);
+        } else if (eGlyph) {
+          drawLineG(eGrid, ex0, ey0, ex1, ey1, eGlyph, g);
+        }
+      });
+    }
+
+    /* stars */
+    starField.points.forEach((p) => {
+      if (p.isScatter && Math.random() > scatterAmt) return;
+      const [x, y] = gridFromScreenPx(g, p.sx, p.sy);
+      const tw = Math.sin(now * 0.001 * p.twinkleRate + p.twinklePhase);
+      const norm = (tw + 1) / 2;
+      const baseGlyph = p.isScatter ? '·' : (p.isHighlight ? hGlyph : sGlyph);
+      const twinkleSet = p.isScatter ? ['·', '∘', '·', '\''] : (p.isHighlight ? hTwinkleSet : sTwinkleSet);
+      let glyph = baseGlyph;
+      if (twinkleAmt > 0 && Math.random() < twinkleAmt * 0.6) {
+        glyph = twinkleSet[Math.floor(norm * twinkleSet.length) % twinkleSet.length];
+      } else if (norm > 0.85) {
+        glyph = twinkleSet[Math.floor(norm * twinkleSet.length) % twinkleSet.length];
+      }
+      /* highlight star goes into its own layer so it gets its own color */
+      if (p.isHighlight) {
+        plotG(hGrid, x, y, glyph, g);
+      } else {
+        plotG(sGrid, x, y, glyph, g);
+      }
+
+      if (pulseAmt > 0 && norm > 0.7 && !p.isScatter) {
+        const haloStrength = (norm - 0.7) / 0.3;
+        if (Math.random() < haloStrength * pulseAmt * 0.5) {
+          const ring = p.isHighlight ? 2 : 1;
+          for (let dx = -ring; dx <= ring; dx++) {
+            for (let dy = -ring; dy <= ring; dy++) {
+              if (Math.abs(dx) + Math.abs(dy) !== ring) continue;
+              plotG(eGrid, x + dx, y + dy, '·', g);
+            }
+          }
+        }
+      }
+    });
+
+    /* star labels — render into stars grid, anchored so end-of-word kisses
+     * the star when label is to the left, and a thin leader is drawn back
+     * to the star for that "scientifically labeled" star-atlas feel. */
+    if (starField.labels && starField.labels.length && knobs.labels !== 'none') {
+      starField.labels.forEach((lbl) => {
+        if (knobs.labels === 'primary' && !lbl.primary) return;
+        const [lx, ly] = gridFromScreenPx(g, lbl.sx, lbl.sy);
+        const startCol = (lbl.anchor === 'end') ? (lx - lbl.text.length + 1) : lx;
+        for (let ci = 0; ci < lbl.text.length; ci++) {
+          plotG(sGrid, startCol + ci, ly, lbl.text[ci], g);
+        }
+      });
+    }
+
+    edgesEl.textContent = gridToString(eGrid);
+    starsEl.textContent = gridToString(sGrid);
+    if (highlightEl) {
+      highlightEl.textContent = gridToString(hGrid);
+      highlightEl.style.fontSize = knobs.cellStar + 'px';
+    }
+  }
+
+  /* ─── notes (text into note grid) ─── */
+  const parser = new DOMParser();
+  function htmlToPlain (html) {
+    const doc = parser.parseFromString('<!doctype html><body>' + html + '</body>', 'text/html');
+    return doc.body.textContent;
+  }
+  function wordWrap (text, width) {
+    const words = text.split(/\s+/);
+    const lines = [];
+    let line = '';
+    for (const w of words) {
+      if (!line.length) line = w;
+      else if (line.length + 1 + w.length <= width) line += ' ' + w;
+      else { lines.push(line); line = w; }
+    }
+    if (line.length) lines.push(line);
+    return lines;
+  }
+
+  /* ─── tap-essay pagination (Robin Sloan "Fish" feel) ─────────────────── */
+  let currentCon = null;
+  let pages = [];            /* [{kicker, body}] */
+  let pageIdx = 0;
+  let pageTimer = null;
+  let autoplayActive = (knobs.autoplay !== false);
+
+  function buildPages (con) {
+    const out = [];
+    /* page 1: title screen */
+    out.push({ kicker: '', body: con.note.title, idText: con.note.id, isTitle: true });
+    /* pages 2..N: one paragraph each */
+    con.note.paragraphs.forEach((html, i) => {
+      out.push({ kicker: con.note.title, idText: con.note.id, body: htmlToPlain(html) });
+    });
+    return out;
+  }
+
+  function renderPage () {
+    if (!pages.length) return;
+    const p = pages[pageIdx];
+    /* kicker */
+    while (essayKickerEl.firstChild) essayKickerEl.removeChild(essayKickerEl.firstChild);
+    if (p.isTitle) {
+      essayKickerEl.appendChild(document.createTextNode(p.idText));
+    } else {
+      essayKickerEl.appendChild(document.createTextNode(p.kicker + ' '));
+      const idSpan = document.createElement('span');
+      idSpan.className = 'id';
+      idSpan.textContent = p.idText;
+      essayKickerEl.appendChild(idSpan);
+    }
+    /* body */
+    essayBodyEl.textContent = p.body;
+    if (p.isTitle) {
+      essayBodyEl.style.fontFamily = '"Source Serif 4", "Source Serif Pro", Georgia, serif';
+      essayBodyEl.style.fontSize = 'clamp(2rem, 5vw, 3.8rem)';
+      essayBodyEl.style.letterSpacing = '0.03em';
+      essayBodyEl.style.fontVariant = 'small-caps';
+    } else {
+      essayBodyEl.style.fontFamily = '';
+      essayBodyEl.style.fontSize = '';
+      essayBodyEl.style.letterSpacing = '';
+      essayBodyEl.style.fontVariant = '';
+    }
+    /* progress dots */
+    while (essayProgEl.firstChild) essayProgEl.removeChild(essayProgEl.firstChild);
+    pages.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      if (i < pageIdx) dot.classList.add('is-past');
+      if (i === pageIdx) dot.classList.add('is-current');
+      essayProgEl.appendChild(dot);
+    });
+    /* trigger fade-in: remove visible class, force reflow, re-add */
+    essayCardEl.classList.remove('is-visible');
+    void essayCardEl.offsetWidth;
+    requestAnimationFrame(() => essayCardEl.classList.add('is-visible'));
+  }
+
+  function advancePage (direction) {
+    direction = direction || 1;
+    if (!pages.length) return;
+    /* on last page + forward + autoplay: advance to next constellation */
+    if (direction > 0 && pageIdx >= pages.length - 1) {
+      if (autoplayActive) {
+        idx = (idx + 1) % CYCLE.length;
+        showCurrent();
+        return;
+      }
+      /* manual + last page: stay (or wrap to first) */
+      pageIdx = 0;
+    } else if (direction < 0 && pageIdx === 0) {
+      pageIdx = 0;
+    } else {
+      pageIdx += direction;
+      pageIdx = Math.max(0, Math.min(pages.length - 1, pageIdx));
+    }
+    renderPage();
+    schedulePage();
+  }
+
+  function schedulePage () {
+    if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
+    if (!autoplayActive) return;
+    const dwellMs = (knobs.dwell || 6) * 1000;
+    pageTimer = setTimeout(() => advancePage(1), dwellMs);
+  }
+
+  /* tap / key / autoplay interaction */
+  essayEl.addEventListener('click', (ev) => {
+    /* don't advance on knob-panel clicks */
+    if (ev.target.closest('.ccl-knobs') || ev.target.closest('.ccl-cycle')) return;
+    advancePage(+1);
+  });
+  document.addEventListener('keydown', (ev) => {
+    if (ev.target.matches('input, select, textarea')) return;
+    if (ev.code === 'Space' || ev.code === 'ArrowRight') {
+      ev.preventDefault();
+      idx = (idx + 1) % CYCLE.length; showCurrent();
+    } else if (ev.code === 'ArrowLeft') {
+      ev.preventDefault();
+      idx = (idx - 1 + CYCLE.length) % CYCLE.length; showCurrent();
+    } else if (ev.key === 'a' || ev.key === 'A') {
+      autoplayActive = !autoplayActive;
+      btnAutoplay.classList.toggle('is-on', autoplayActive);
+      btnAutoplay.textContent = autoplayActive ? 'autoplay on' : 'autoplay';
+      if (autoplayActive) showCurrent();
+      else if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
+    }
+  });
+
+  /* unused stubs that the old code path called — keep as no-ops so callers don't break */
+  function renderNotes () {}
+
+  /* ─── cycle ─── */
+  let idx = 0;
+  let paused = false;
+  let cycleTimer = null;
+  function showCurrent () {
+    const id = CYCLE[idx];
+    const con = CONSTELLATIONS[id];
+    currentCon = con;
+    cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
+    computeStarFieldCache(con);
+
+    /* watermark fade-out → swap text → fade-in */
+    watermarkEl.classList.remove('is-visible');
+    setTimeout(() => {
+      while (watermarkEl.firstChild) watermarkEl.removeChild(watermarkEl.firstChild);
+      watermarkEl.appendChild(document.createTextNode(con.note.title));
+      const idSpan = document.createElement('span');
+      idSpan.className = 'id';
+      /* split "common name / main star" — color star name red */
+      const slash = con.note.id.indexOf('/');
+      if (slash > 0) {
+        idSpan.appendChild(document.createTextNode(con.note.id.slice(0, slash + 1) + ' '));
+        const starSpan = document.createElement('span');
+        starSpan.className = 'star';
+        starSpan.textContent = con.note.id.slice(slash + 1).trim();
+        idSpan.appendChild(starSpan);
+      } else {
+        idSpan.textContent = con.note.id;
+      }
+      watermarkEl.appendChild(idSpan);
+      /* sync watermark star color to the highlight layer color */
+      const red = REDS[knobs.red] || REDS.salmon;
+      watermarkEl.style.setProperty('--ccl-watermark-star', red);
+      if (highlightEl) highlightEl.style.color = red;
+      requestAnimationFrame(() => watermarkEl.classList.add('is-visible'));
+    }, 320);
+
+    /* schedule the autoplay handoff to next constellation */
+    if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
+    if (autoplayActive) {
+      const dwellMs = (knobs.dwell || 18) * 1000;
+      pageTimer = setTimeout(() => {
+        idx = (idx + 1) % CYCLE.length;
+        showCurrent();
+      }, dwellMs);
+    }
+  }
+  function scheduleNext () { /* legacy — autoplay drives pages now */ }
+  /* prev/next now advance PAGES within the current essay; reaching the end
+   * with autoplay on jumps to the next constellation. Shift+click jumps
+   * directly to prev/next constellation. */
+  btnPrev.addEventListener('click', () => {
+    idx = (idx - 1 + CYCLE.length) % CYCLE.length;
+    showCurrent();
+  });
+  btnNext.addEventListener('click', () => {
+    idx = (idx + 1) % CYCLE.length;
+    showCurrent();
+  });
+  btnAutoplay.addEventListener('click', () => {
+    autoplayActive = !autoplayActive;
+    btnAutoplay.classList.toggle('is-on', autoplayActive);
+    btnAutoplay.textContent = autoplayActive ? 'autoplay on' : 'autoplay';
+    if (autoplayActive) {
+      schedulePage();
+      essayHintEl.classList.remove('is-shown');
+    } else {
+      if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
+    }
+  });
+
+  /* ─── liveness ─── */
+  let liveSnapshot = '';
+  let liveChanged = 0;
+  let liveLastSampleAt = performance.now();
+  function sampleLiveness (now) {
+    if (now - liveLastSampleAt < 500) return;
+    const snap = bgEl.textContent.slice(0, 2000);
+    if (liveSnapshot.length === snap.length) {
+      let changed = 0;
+      for (let i = 0; i < snap.length; i++) if (snap[i] !== liveSnapshot[i]) changed++;
+      liveChanged = Math.round((changed / snap.length) * 1000) / 10;
+    }
+    liveSnapshot = snap;
+    liveLastSampleAt = now;
+    if (hudEl) hudEl.textContent = `${knobs.pattern} · ${liveChanged}% / 500ms · bg ${gBg.cols}×${gBg.rows} · stars ${gStar.cols}×${gStar.rows} · ${starField ? starField.points.length : 0} pts`;
+  }
+
+  /* ─── loop ─── */
+  function tick (now) {
+    renderBg(now);
+    renderConstellationAnim(now);
+    renderNotes(now);
+    sampleLiveness(now);
+    requestAnimationFrame(tick);
+  }
+
+  applyKnobsToUI();
+  reflow();
+  window.addEventListener('resize', () => { onLayoutOrPatternChange(); });
+  /* reflect initial autoplay state on the button */
+  if (btnAutoplay) {
+    btnAutoplay.classList.toggle('is-on', autoplayActive);
+    btnAutoplay.textContent = autoplayActive ? 'autoplay on' : 'autoplay';
+  }
+  showCurrent();
+  requestAnimationFrame(tick);
+})();
+</script>

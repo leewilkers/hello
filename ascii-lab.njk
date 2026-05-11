@@ -1,0 +1,591 @@
+---
+layout: base.njk
+title: ASCII constellation lab
+pageClass: page-ascii-lab
+permalink: /ascii-lab/
+eleventyExcludeFromCollections: true
+---
+
+<article class="ascii-lab" id="main" data-ascii-lab>
+  <header class="al-head">
+    <h1>ASCII constellation lab</h1>
+    <p>Full-frame luminance-raster ASCII. The constellation geometry drives an offscreen luminance scene (star halos, edge glows, drifting nebula); each character cell samples that scene and picks a glyph from a brightness ramp. Should look like it's dancing.</p>
+    <nav class="al-cyclenav" aria-label="Constellation cycle">
+      <button type="button" data-cyc="prev" aria-label="Previous">&lt;</button>
+      <span data-cyc-label class="al-cyc-label"></span>
+      <button type="button" data-cyc="next" aria-label="Next">&gt;</button>
+      <button type="button" data-cyc="pause" class="al-cyc-pause">pause</button>
+    </nav>
+  </header>
+
+  <div class="al-frame-stack" aria-hidden="true">
+    <pre class="al-frame al-layer-nebula" data-frame-n></pre>
+    <pre class="al-frame al-layer-lines" data-frame-l></pre>
+    <pre class="al-frame al-layer-stars" data-frame-s></pre>
+  </div>
+
+  <section class="al-note" data-note aria-live="polite"></section>
+
+  <details class="al-controls">
+    <summary>tuning</summary>
+    <div class="al-controls-grid">
+      <label>cols <input type="range" min="60" max="180" step="2" value="120" data-tune="cols"><output data-out="cols">120</output></label>
+      <label>rows <input type="range" min="24" max="80" step="1" value="40" data-tune="rows"><output data-out="rows">40</output></label>
+      <label>ramp <select data-tune="ramp">
+        <option value=" .:-=+*#%@">10 short</option>
+        <option value=" .,:;i!lI+*?xX#%@" selected>17 ascii</option>
+        <option value=" .'`^&quot;,:;Il!i&gt;&lt;~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&amp;8%B@$">70 long</option>
+      </select></label>
+      <label>twinkle <input type="range" min="0" max="100" step="1" value="55" data-tune="twinkle"><output data-out="twinkle">55</output></label>
+      <label>nebula <input type="range" min="0" max="60" step="1" value="22" data-tune="nebula"><output data-out="nebula">22</output></label>
+      <label>line pulse <input type="range" min="0" max="100" step="1" value="65" data-tune="pulse"><output data-out="pulse">65</output></label>
+      <label>sway <input type="range" min="0" max="50" step="1" value="18" data-tune="sway"><output data-out="sway">18</output></label>
+      <label>dither <input type="range" min="0" max="40" step="1" value="14" data-tune="dither"><output data-out="dither">14</output></label>
+      <label>fps cap <input type="range" min="12" max="60" step="1" value="30" data-tune="fps"><output data-out="fps">30</output></label>
+    </div>
+  </details>
+</article>
+
+<style>
+body.page-ascii-lab { background: #07080a; color: #d8d4c8; }
+.ascii-lab { max-width: 1280px; margin: 0 auto; padding: 1.4rem 1rem 4rem; font-family: ui-monospace, SFMono-Regular, "SF Mono", "JetBrains Mono", "IBM Plex Mono", Menlo, Consolas, monospace; }
+.al-head h1 { margin: 0 0 .3rem; font-size: 1rem; letter-spacing: .12em; text-transform: uppercase; color: #97928a; font-weight: 500; }
+.al-head p { margin: 0 0 1rem; font-size: .82rem; line-height: 1.5; color: #87837a; max-width: 60ch; }
+.al-cyclenav { display: flex; gap: .6rem; align-items: center; font-size: .8rem; color: #87837a; margin: 0 0 1rem; }
+.al-cyclenav button { background: #14161a; color: #cecdc3; border: 1px solid #2a2c30; padding: .25rem .7rem; font: inherit; cursor: pointer; border-radius: 2px; }
+.al-cyclenav button:hover { background: #1d1f23; color: #fffcf0; }
+.al-cyc-label { min-width: 16ch; font-variant: small-caps; letter-spacing: .04em; color: #cecdc3; }
+.al-cyc-pause { margin-left: auto; }
+.al-frame-stack {
+  position: relative;
+  background: #050608;
+  border: 1px solid #1d1f23;
+  border-radius: 2px;
+  overflow: hidden;
+  /* line color carried in per-constellation; defaults to teal */
+  --al-c-lines: #4385be;
+}
+.al-frame {
+  display: block;
+  margin: 0;
+  padding: .8rem;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.0;
+  letter-spacing: 0;
+  white-space: pre;
+  background: transparent;
+}
+.al-frame-stack .al-frame { position: absolute; inset: 0; }
+.al-frame-stack .al-layer-nebula { position: relative; color: #2a4a5e; }   /* dim blue-teal — sets stack height */
+.al-frame-stack .al-layer-lines  { color: var(--al-c-lines); text-shadow: 0 0 6px var(--al-c-lines); }
+.al-frame-stack .al-layer-stars  { color: #fffcf0; text-shadow: 0 0 8px rgba(255,250,235,.55), 0 0 18px rgba(255,250,235,.25); }
+.al-note {
+  margin: 1rem 0 0;
+  padding: 1rem 1.2rem;
+  background: #0d0e10;
+  border: 1px solid #1d1f23;
+  border-radius: 2px;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  font-size: .92rem;
+  line-height: 1.65;
+  color: #cecdc3;
+  min-height: 9em;
+}
+.al-note h2 { margin: 0 0 .5rem; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: #87837a; font-weight: 500; }
+.al-note h2 .id { color: #6f6e69; margin-left: .8em; }
+.al-note p { margin: 0 0 .8em; }
+.al-note p:last-child { margin: 0; }
+.al-note .tw-char { visibility: hidden; }
+.al-note .tw-char.is-shown { visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .al-note .tw-char { visibility: visible; } }
+.al-note .note-star { color: #fffcf0; text-shadow: 0 0 6px rgba(255,252,240,.35), 0 0 14px rgba(255,252,240,.18); }
+.al-note .note-name { color: #87aeb0; text-shadow: 0 0 8px rgba(135,174,176,.3); }
+.al-note .note-person { color: #d4a373; text-shadow: 0 0 8px rgba(212,163,115,.28); }
+.al-note .note-tool { color: #d9b66a; text-shadow: 0 0 8px rgba(217,182,106,.25); }
+
+.al-controls { margin-top: 1.4rem; font-size: .78rem; color: #87837a; }
+.al-controls summary { cursor: pointer; padding: .4rem .6rem; background: #0d0e10; border: 1px solid #1d1f23; border-radius: 2px; user-select: none; }
+.al-controls summary:hover { color: #cecdc3; }
+.al-controls-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .6rem 1rem; margin-top: .8rem; padding: .8rem 1rem; background: #0d0e10; border: 1px solid #1d1f23; }
+.al-controls-grid label { display: flex; flex-direction: column; gap: .25rem; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: #87837a; }
+.al-controls-grid input[type=range] { accent-color: #4385be; }
+.al-controls-grid output { color: #cecdc3; font-variant-numeric: tabular-nums; }
+.al-controls-grid select { background: #050608; color: #cecdc3; border: 1px solid #2a2c30; padding: .2rem; font: inherit; }
+</style>
+
+<script src="/assets/js/constellations.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ─── data (shared module — see /assets/js/constellations.js) ── */
+  const CONSTELLATIONS = window.CONSTELLATIONS;
+  const CYCLE = window.CONSTELLATION_CYCLE;
+
+  // per-constellation line colors (verbatim from base.njk c.lineColor fields)
+  const LINE_COLORS = {
+    bootes:'#3aa99f', lepus:'#3aa99f', polaris:'#4385be', crux:'#879a39',
+    sirius:'#d0a215', pleiades:'#4385be', mizarAlcor:'#878580', vega:'#205ea6',
+    reticulum:'#6f6e69', epsilonEridani:'#3aa99f'
+  };
+
+  /* ─── typewriter / dwell timing (mirrors base.njk constants) ─── */
+  const TW_CHAR_MS = 55;
+  const TW_PARA_GAP_MS = 1500;
+  const READ_WPM = 230, READ_BUFFER = 1.3, READ_FLOOR = 4000, READ_CEILING = 22000;
+  const CYCLE_TAIL = 1500;
+
+  function readingMs(text) {
+    const words = String(text || '').trim().split(/\s+/).filter(Boolean).length;
+    if (!words) return READ_FLOOR;
+    const ms = (words / READ_WPM) * 60000 * READ_BUFFER;
+    return Math.min(READ_CEILING, Math.max(READ_FLOOR, Math.round(ms)));
+  }
+  function typewriterMs(paragraphs) {
+    const totalChars = paragraphs.reduce((a, p) => a + p.replace(/<[^>]+>/g, '').length, 0);
+    return totalChars * TW_CHAR_MS + (paragraphs.length - 1) * TW_PARA_GAP_MS;
+  }
+  function dwellMs(c) {
+    const p = c.note.paragraphs;
+    const read = p.reduce((a, t) => a + readingMs(t), 0);
+    return Math.max(read, typewriterMs(p)) + CYCLE_TAIL;
+  }
+
+  /* ─── three offscreen layer canvases (luminance per element-class) ─── */
+  const SCENE_W = 320, SCENE_H = 180;
+  function makeCanvas() {
+    const c = document.createElement('canvas');
+    c.width = SCENE_W; c.height = SCENE_H;
+    return c;
+  }
+  const sceneN = makeCanvas(), sceneL = makeCanvas(), sceneS = makeCanvas();
+  const ctxN = sceneN.getContext('2d', { willReadFrequently: true });
+  const ctxL = sceneL.getContext('2d', { willReadFrequently: true });
+  const ctxS = sceneS.getContext('2d', { willReadFrequently: true });
+
+  // precomputed noise texture for nebula drift — generate once at startup
+  const NOISE_DIM = 128;
+  const noise = document.createElement('canvas');
+  noise.width = NOISE_DIM; noise.height = NOISE_DIM;
+  (function paintNoise() {
+    const nctx = noise.getContext('2d');
+    const id = nctx.createImageData(NOISE_DIM, NOISE_DIM);
+    const CG = 16; // coarse grid 16x16, bilinearly smoothed up to 128
+    const coarse = new Float32Array(CG * CG);
+    for (let i = 0; i < coarse.length; i++) coarse[i] = Math.random();
+    for (let y = 0; y < NOISE_DIM; y++) {
+      for (let x = 0; x < NOISE_DIM; x++) {
+        const gx = x / (NOISE_DIM / CG), gy = y / (NOISE_DIM / CG);
+        const x0 = Math.floor(gx) % CG, y0 = Math.floor(gy) % CG;
+        const x1 = (x0 + 1) % CG, y1 = (y0 + 1) % CG;
+        const fx = gx - Math.floor(gx), fy = gy - Math.floor(gy);
+        const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+        const v00 = coarse[y0 * CG + x0], v10 = coarse[y0 * CG + x1];
+        const v01 = coarse[y1 * CG + x0], v11 = coarse[y1 * CG + x1];
+        const a = v00 * (1 - sx) + v10 * sx;
+        const b = v01 * (1 - sx) + v11 * sx;
+        const v = a * (1 - sy) + b * sy;
+        const k = (y * NOISE_DIM + x) * 4;
+        // store raw 0..1 in alpha channel for normalization; will rewrite below
+        id.data[k] = v * 255; id.data[k+1] = v * 255; id.data[k+2] = v * 255; id.data[k+3] = 255;
+      }
+    }
+    // normalize: stretch so mean lands near 128 and full range used (avoids
+    // bottom-heavy fields from one-shot Math.random distributions)
+    let lo = 255, hi = 0;
+    for (let i = 0; i < id.data.length; i += 4) {
+      if (id.data[i] < lo) lo = id.data[i];
+      if (id.data[i] > hi) hi = id.data[i];
+    }
+    const span = Math.max(1, hi - lo);
+    for (let i = 0; i < id.data.length; i += 4) {
+      const v = Math.floor(((id.data[i] - lo) / span) * 255);
+      id.data[i] = v; id.data[i+1] = v; id.data[i+2] = v;
+    }
+    nctx.putImageData(id, 0, 0);
+  })();
+
+  /* ─── coordinate mapping (sky → scene px) ─── */
+  const SKY_X_MIN = 3, SKY_X_MAX = 57, SKY_Y_MIN = 0, SKY_Y_MAX = 30;
+  function mapX(x) { return 24 + ((x - SKY_X_MIN) / (SKY_X_MAX - SKY_X_MIN)) * (SCENE_W - 48); }
+  function mapY(y) { return 18 + ((y - SKY_Y_MIN) / (SKY_Y_MAX - SKY_Y_MIN)) * (SCENE_H - 36); }
+
+  /* ─── tuning state (mutated by sliders) ─── */
+  const tune = { cols:120, rows:40, ramp:" .,:;i!lI+*?xX#%@", twinkle:0.55, nebula:0.10, pulse:0.65, sway:0.18, dither:0.14, fps:30 };
+
+  function applySway(ctx, t) {
+    const sway = Math.sin(t * 0.18) * (tune.sway * 0.025);
+    ctx.save();
+    ctx.translate(SCENE_W / 2, SCENE_H / 2);
+    ctx.rotate(sway);
+    ctx.translate(-SCENE_W / 2, -SCENE_H / 2);
+  }
+
+  function paintNebula(t) {
+    ctxN.globalCompositeOperation = 'source-over';
+    ctxN.globalAlpha = 1;
+    ctxN.fillStyle = '#000';
+    ctxN.fillRect(0, 0, SCENE_W, SCENE_H);
+    applySway(ctxN, t);
+    const flowAng = t * 0.05;
+    const dx = Math.cos(flowAng) * t * 6;
+    const dy = Math.sin(flowAng) * t * 4;
+    ctxN.globalCompositeOperation = 'lighter';
+    ctxN.globalAlpha = tune.nebula;
+    const nW = NOISE_DIM, nH = NOISE_DIM;
+    const offX = -((dx % nW) + nW) % nW;
+    const offY = -((dy % nH) + nH) % nH;
+    for (let yy = offY - nH; yy < SCENE_H; yy += nH) {
+      for (let xx = offX - nW; xx < SCENE_W; xx += nW) {
+        ctxN.drawImage(noise, xx, yy);
+      }
+    }
+    ctxN.restore();
+  }
+
+  function paintLines(t, c, fadeIn, fadeOut, linesBuilt) {
+    ctxL.globalCompositeOperation = 'source-over';
+    ctxL.globalAlpha = 1;
+    ctxL.fillStyle = '#000';
+    ctxL.fillRect(0, 0, SCENE_W, SCENE_H);
+    applySway(ctxL, t);
+    ctxL.globalCompositeOperation = 'lighter';
+    ctxL.lineCap = 'round';
+    const edges = c.edges, points = c.points;
+    for (let e = 0; e < edges.length; e++) {
+      const buildIn = Math.max(0, Math.min(1, linesBuilt * edges.length - e));
+      if (buildIn <= 0) continue;
+      const ij = edges[e];
+      const ax = mapX(points[ij[0]][0]), ay = mapY(points[ij[0]][1]);
+      const bx = mapX(points[ij[1]][0]), by = mapY(points[ij[1]][1]);
+      const baseAlpha = 0.7 * buildIn * fadeIn * fadeOut;
+      // luminance-only on this layer (color comes from CSS); draw white
+      ctxL.strokeStyle = 'rgba(255,255,255,' + baseAlpha + ')';
+      ctxL.lineWidth = 1.4;
+      ctxL.beginPath(); ctxL.moveTo(ax, ay); ctxL.lineTo(bx, by); ctxL.stroke();
+      ctxL.strokeStyle = 'rgba(255,255,255,' + (baseAlpha * 0.4) + ')';
+      ctxL.lineWidth = 3.6;
+      ctxL.beginPath(); ctxL.moveTo(ax, ay); ctxL.lineTo(bx, by); ctxL.stroke();
+      // traveling pulse
+      const N = 14;
+      const phase = t * 0.9 + e * 0.5;
+      for (let k = 0; k < N; k++) {
+        const u = k / (N - 1);
+        const pulsePos = (phase % 1 + 1) % 1;
+        const dist = Math.abs(u - pulsePos);
+        const wrap = Math.min(dist, 1 - dist);
+        const sharp = Math.exp(-wrap * wrap * 80);
+        if (sharp < 0.05) continue;
+        const px = ax + (bx - ax) * u;
+        const py = ay + (by - ay) * u;
+        const aa = sharp * tune.pulse * buildIn * fadeIn * fadeOut;
+        ctxL.fillStyle = 'rgba(255,255,255,' + aa + ')';
+        ctxL.beginPath(); ctxL.arc(px, py, 1.6, 0, Math.PI * 2); ctxL.fill();
+      }
+    }
+    ctxL.restore();
+  }
+
+  function paintStars(t, c, fadeIn, fadeOut, linesBuilt) {
+    ctxS.globalCompositeOperation = 'source-over';
+    ctxS.globalAlpha = 1;
+    ctxS.fillStyle = '#000';
+    ctxS.fillRect(0, 0, SCENE_W, SCENE_H);
+    applySway(ctxS, t);
+    ctxS.globalCompositeOperation = 'lighter';
+
+    // field stars
+    for (let s = 0; s < c.stars.length; s++) {
+      const arr = c.stars[s];
+      const sx = arr[0], sy = arr[1], sm = arr[2];
+      const x = mapX(sx), y = mapY(sy);
+      const twinkle = 0.5 + 0.5 * Math.sin(t * (1.1 + sm * 0.3) + s * 1.7);
+      const a = (0.18 + 0.35 * twinkle * tune.twinkle) * fadeIn * fadeOut;
+      const r = 2.4 + sm * 0.8;
+      const g = ctxS.createRadialGradient(x, y, 0, x, y, r * 3);
+      g.addColorStop(0, 'rgba(255,255,255,' + a + ')');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctxS.fillStyle = g;
+      ctxS.beginPath(); ctxS.arc(x, y, r * 3, 0, Math.PI * 2); ctxS.fill();
+    }
+
+    // constellation point stars
+    const points = c.points;
+    for (let p = 0; p < points.length; p++) {
+      const x = mapX(points[p][0]), y = mapY(points[p][1]);
+      const isHi = p === c.highlightIndex;
+      const pair = Math.floor(p / 2);
+      const breath = 0.55 + 0.45 * Math.sin(t * 0.9 + pair * 1.3);
+      const flick = 0.7 + 0.3 * Math.sin(t * 4 + p * 2.1);
+      const base = (isHi ? 1.0 : 0.7) * breath * flick;
+      const a = base * fadeIn * fadeOut * (0.6 + tune.twinkle * 0.6);
+      const R = isHi ? 7 : 4.5;
+      const g = ctxS.createRadialGradient(x, y, 0, x, y, R);
+      g.addColorStop(0, 'rgba(255,255,255,' + a + ')');
+      g.addColorStop(0.3, 'rgba(255,255,255,' + (a * 0.6) + ')');
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctxS.fillStyle = g;
+      ctxS.beginPath(); ctxS.arc(x, y, R, 0, Math.PI * 2); ctxS.fill();
+      ctxS.fillStyle = 'rgba(255,255,255,' + Math.min(1, a * 1.6) + ')';
+      ctxS.beginPath(); ctxS.arc(x, y, isHi ? 1.3 : 0.9, 0, Math.PI * 2); ctxS.fill();
+    }
+
+    // labels (live on the star layer — they belong to the brightest hue)
+    if (linesBuilt > 0.65 && fadeIn > 0.6) {
+      ctxS.globalCompositeOperation = 'source-over';
+      ctxS.font = '8px ui-monospace, Menlo, monospace';
+      ctxS.textBaseline = 'middle';
+      const labels = c.labels;
+      for (const key in labels) {
+        const lab = labels[key];
+        const p = points[lab.pointIndex];
+        if (!p) continue;
+        const x = mapX(p[0]) + lab.dx;
+        const y = mapY(p[1]) + lab.dy;
+        const labelAlpha = Math.min(1, (linesBuilt - 0.65) / 0.25) * fadeIn * fadeOut * (lab.primary ? 0.95 : 0.65);
+        ctxS.fillStyle = 'rgba(255,255,255,' + labelAlpha + ')';
+        ctxS.fillText(lab.text.toUpperCase(), x, y);
+      }
+    }
+
+    ctxS.restore();
+  }
+
+  /* ─── max-wins ASCII quantize across 3 layers ─── */
+  // For each cell, sample brightness on N/L/S layers, pick the winner.
+  // Layers below the threshold render space; the dominant layer claims the cell.
+  // Result: three disjoint glyph rasters that stack in 3 colors via CSS.
+  let lastN = null, lastL = null, lastS = null;
+  // brightness floors so faint nebula doesn't out-vote literally nothing
+  const FLOOR = 8;
+  function quantize(t) {
+    const cols = tune.cols, rows = tune.rows;
+    const ramp = tune.ramp;
+    const cw = SCENE_W / cols, ch = SCENE_H / rows;
+    const dN = ctxN.getImageData(0, 0, SCENE_W, SCENE_H).data;
+    const dL = ctxL.getImageData(0, 0, SCENE_W, SCENE_H).data;
+    const dS = ctxS.getImageData(0, 0, SCENE_W, SCENE_H).data;
+    const rampMax = ramp.length - 1;
+    const SPACE = ' ';
+    const outN = new Array(rows), outL = new Array(rows), outS = new Array(rows);
+
+    function pickGlyph(lum, t, cI, r) {
+      const dither = Math.sin(t * 5.7 + (cI * 12.9898 + r * 78.233)) * tune.dither * 30;
+      const adj = Math.max(0, Math.min(255, lum + dither));
+      return ramp.charAt(Math.round((adj / 255) * rampMax));
+    }
+    function sampleLum(data, cx, cy) {
+      // 2-sample average to smooth aliasing
+      const off1 = (cy * SCENE_W + cx) * 4;
+      const cx2 = Math.min(SCENE_W - 1, cx + 1);
+      const cy2 = Math.min(SCENE_H - 1, cy + 1);
+      const off2 = (cy2 * SCENE_W + cx2) * 4;
+      return (data[off1] + data[off1+1] + data[off1+2] + data[off2] + data[off2+1] + data[off2+2]) / 6;
+    }
+
+    for (let r = 0; r < rows; r++) {
+      const rN = new Array(cols), rL = new Array(cols), rS = new Array(cols);
+      const cy = Math.floor(r * ch + ch / 2);
+      for (let cI = 0; cI < cols; cI++) {
+        const cx = Math.floor(cI * cw + cw / 2);
+        const lN = sampleLum(dN, cx, cy);
+        const lL = sampleLum(dL, cx, cy);
+        const lS = sampleLum(dS, cx, cy);
+        // max-wins, with bias toward stars > lines > nebula on near-ties
+        const sB = lS, lB = lL, nB = lN;
+        if (sB >= FLOOR && sB >= lB * 0.9 && sB >= nB * 0.9) {
+          rS[cI] = pickGlyph(sB, t, cI, r);
+          rL[cI] = SPACE; rN[cI] = SPACE;
+        } else if (lB >= FLOOR && lB >= nB * 0.9) {
+          rL[cI] = pickGlyph(lB, t, cI, r);
+          rS[cI] = SPACE; rN[cI] = SPACE;
+        } else if (nB >= FLOOR) {
+          rN[cI] = pickGlyph(nB, t, cI, r);
+          rL[cI] = SPACE; rS[cI] = SPACE;
+        } else {
+          rN[cI] = SPACE; rL[cI] = SPACE; rS[cI] = SPACE;
+        }
+      }
+      outN[r] = rN.join(''); outL[r] = rL.join(''); outS[r] = rS.join('');
+    }
+    const fN = outN.join('\n'), fL = outL.join('\n'), fS = outS.join('\n');
+    if (fN !== lastN) { frameN.textContent = fN; lastN = fN; }
+    if (fL !== lastL) { frameL.textContent = fL; lastL = fL; }
+    if (fS !== lastS) { frameS.textContent = fS; lastS = fS; }
+  }
+
+  /* ─── DOM refs ─── */
+  const frameN = document.querySelector('[data-frame-n]');
+  const frameL = document.querySelector('[data-frame-l]');
+  const frameS = document.querySelector('[data-frame-s]');
+  const frameStack = document.querySelector('.al-frame-stack');
+  const noteEl = document.querySelector('[data-note]');
+  const labelEl = document.querySelector('[data-cyc-label]');
+  const pauseBtn = document.querySelector('[data-cyc="pause"]');
+
+  /* ─── typewriter for the note panel ─── */
+  let twChars = [];
+  let twStart = 0;
+  let twTotal = 0;
+
+  function parseHtmlToFrag(html) {
+    // DOMParser is the safe pattern per local-sandbox-HTML rule.
+    const doc = new DOMParser().parseFromString('<div>' + html + '</div>', 'text/html');
+    const wrapper = doc.body.firstChild;
+    const frag = document.createDocumentFragment();
+    while (wrapper.firstChild) frag.appendChild(document.adoptNode(wrapper.firstChild));
+    return frag;
+  }
+
+  function wrapTextNodes(frag) {
+    const chars = [];
+    function walk(node) {
+      const childs = Array.from(node.childNodes);
+      for (const child of childs) {
+        if (child.nodeType === 3) {
+          const text = child.nodeValue;
+          const wrap = document.createDocumentFragment();
+          for (let i = 0; i < text.length; i++) {
+            const s = document.createElement('span');
+            s.className = 'tw-char';
+            s.textContent = text[i];
+            wrap.appendChild(s);
+            chars.push(s);
+          }
+          child.parentNode.replaceChild(wrap, child);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      }
+    }
+    walk(frag);
+    return chars;
+  }
+
+  function loadConstellation(idx) {
+    const c = CONSTELLATIONS[CYCLE[idx]];
+    labelEl.textContent = c.note.title + ' · ' + c.note.id;
+    // each constellation carries its own line color in the data — wire to CSS var
+    const lc = LINE_COLORS[CYCLE[idx]] || '#4385be';
+    frameStack.style.setProperty('--al-c-lines', lc);
+    noteEl.replaceChildren();
+    const header = document.createElement('h2');
+    header.textContent = c.note.title;
+    const sub = document.createElement('span');
+    sub.className = 'id';
+    sub.textContent = c.note.id;
+    header.appendChild(sub);
+    noteEl.appendChild(header);
+    twChars = [];
+    let atMs = 0;
+    c.note.paragraphs.forEach((p, pi) => {
+      const para = document.createElement('p');
+      const frag = parseHtmlToFrag(p);
+      const chars = wrapTextNodes(frag);
+      para.appendChild(frag);
+      noteEl.appendChild(para);
+      for (const ch of chars) {
+        twChars.push({ el: ch, atMs });
+        atMs += TW_CHAR_MS;
+      }
+      if (pi < c.note.paragraphs.length - 1) atMs += TW_PARA_GAP_MS;
+    });
+    twTotal = atMs;
+    twStart = performance.now();
+  }
+
+  /* ─── main rAF loop ─── */
+  let currentIdx = 0;
+  let stopAt = 0;
+  let stopStart = 0;
+  let paused = false;
+  let lastFrameMs = 0;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function start(idx) {
+    currentIdx = ((idx % CYCLE.length) + CYCLE.length) % CYCLE.length;
+    loadConstellation(currentIdx);
+    const c = CONSTELLATIONS[CYCLE[currentIdx]];
+    stopStart = performance.now();
+    stopAt = stopStart + dwellMs(c);
+  }
+
+  function tick(now) {
+    requestAnimationFrame(tick);
+    const minFrameDt = 1000 / tune.fps;
+    if (now - lastFrameMs < minFrameDt) return;
+    lastFrameMs = now;
+
+    if (reduced) {
+      for (const cR of twChars) cR.el.classList.add('is-shown');
+    } else {
+      const elapsed = now - twStart;
+      for (const cR of twChars) {
+        if (elapsed >= cR.atMs && !cR.el.classList.contains('is-shown')) {
+          cR.el.classList.add('is-shown');
+        }
+      }
+    }
+
+    if (!paused) {
+      const c = CONSTELLATIONS[CYCLE[currentIdx]];
+      const t = (now - stopStart) / 1000;
+      const total = (stopAt - stopStart) / 1000;
+      const fadeIn = Math.min(1, t / 1.0);
+      const fadeOut = Math.min(1, Math.max(0, (total - t) / 1.0));
+      const twProg = twTotal > 0 ? Math.min(1, (now - twStart) / twTotal) : 1;
+      const linesBuilt = Math.min(1, twProg * 1.2);
+      paintNebula(t);
+      paintLines(t, c, fadeIn, fadeOut, linesBuilt);
+      paintStars(t, c, fadeIn, fadeOut, linesBuilt);
+      quantize(t);
+      if (now >= stopAt) start(currentIdx + 1);
+    }
+  }
+
+  /* ─── controls ─── */
+  document.querySelectorAll('[data-tune]').forEach(el => {
+    const key = el.dataset.tune;
+    const out = document.querySelector('[data-out="' + key + '"]');
+    const apply = () => {
+      let v = el.value;
+      if (el.type === 'range') {
+        v = Number(v);
+        if (key === 'twinkle' || key === 'nebula' || key === 'pulse' || key === 'sway' || key === 'dither') {
+          tune[key] = v / 100;
+        } else {
+          tune[key] = v;
+        }
+        if (out) out.value = el.value;
+      } else {
+        tune[key] = v;
+      }
+      lastN = lastL = lastS = null;
+    };
+    el.addEventListener('input', apply);
+  });
+
+  document.querySelector('[data-cyc="prev"]').addEventListener('click', () => start(currentIdx - 1));
+  document.querySelector('[data-cyc="next"]').addEventListener('click', () => start(currentIdx + 1));
+  pauseBtn.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.textContent = paused ? 'play' : 'pause';
+    if (!paused) {
+      const remaining = stopAt - stopStart;
+      stopStart = performance.now();
+      stopAt = stopStart + remaining;
+      twStart = performance.now() - twTotal;
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.key === 'ArrowLeft') start(currentIdx - 1);
+    else if (e.key === 'ArrowRight') start(currentIdx + 1);
+    else if (e.key === ' ') { e.preventDefault(); pauseBtn.click(); }
+  });
+
+  start(0);
+  requestAnimationFrame(tick);
+})();
+</script>
