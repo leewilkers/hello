@@ -3158,7 +3158,10 @@ body {
   top: 50%;
   left: 50%;
   z-index: 0;
-  width: clamp(64rem, 112vw, 140rem);
+  /* Bound to viewport with breathing margin (~2.5rem each side); previously
+     bled ~85-200px off-screen at 112vw. 140rem cap retained for very wide
+     monitors where 100vw-5rem would exceed it. */
+  width: clamp(20rem, calc(100vw - 5rem), 140rem);
   aspect-ratio: 68 / 30;
   opacity: 0;
   visibility: hidden;
@@ -3670,7 +3673,8 @@ body {
 
 @media (max-width: 900px) {
   .pretty-constellation-field {
-    width: 112vw;
+    /* Match desktop bounded-with-margin pattern at smaller margin (~1rem each side). */
+    width: calc(100vw - 2rem);
   }
 
   .pretty-constellation-field.is-armed,
