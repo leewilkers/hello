@@ -2646,6 +2646,55 @@
 
     window.togglePrettyLoop = togglePrettyLoop;
 
+    // --- Watermark terminal-typing animation ----------------------------
+    // Types "it's different every time" character by character, holds, then
+    // backspaces character by character, holds, repeats. Only animates while
+    // wave/rabbit mode is on (it's hidden otherwise so the timer would be
+    // animating something invisible — we let it run regardless; cheap).
+    (function watermarkTyper() {
+      const el = document.querySelector('[data-rabbit-watermark]');
+      if (!el) return;
+      const phrase = "it's different every time";
+      let charIdx = 0;
+      let direction = 1; // 1 = typing forward, -1 = deleting backward
+      function render() {
+        const text = phrase.slice(0, charIdx);
+        // textContent (not innerHTML) — security hook + safer.
+        while (el.firstChild) el.removeChild(el.firstChild);
+        el.appendChild(document.createTextNode(text));
+        const cursor = document.createElement('span');
+        cursor.className = 'rabbit-watermark-cursor';
+        cursor.textContent = '▌'; // ▌
+        el.appendChild(cursor);
+      }
+      function tick() {
+        let delay;
+        if (direction === 1) {
+          charIdx += 1;
+          if (charIdx > phrase.length) {
+            charIdx = phrase.length;
+            direction = -1;
+            delay = 2200; // hold while complete
+          } else {
+            delay = 65 + Math.random() * 60; // typing speed, slight variation
+          }
+        } else {
+          charIdx -= 1;
+          if (charIdx < 0) {
+            charIdx = 0;
+            direction = 1;
+            delay = 700; // hold while empty before retyping
+          } else {
+            delay = 35 + Math.random() * 25; // deletion is faster
+          }
+        }
+        render();
+        setTimeout(tick, delay);
+      }
+      render();
+      setTimeout(tick, 800);
+    })();
+
     // Restore armed state from session — if the user had wave/star-mode music
     // playing on the previous page, auto-resume on this one. Web Audio still
     // requires a user gesture to actually start sound on Safari, so the
