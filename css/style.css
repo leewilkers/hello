@@ -3154,11 +3154,11 @@ body {
 
 .pretty-constellation-field.is-armed,
 .pretty-constellation-field.is-leaving {
-  opacity: 1;
+  opacity: 0.55;  /* fainter constellations — was 1 */
   visibility: visible;
   transform: translate3d(-50%, -50%, 0) scale(1);
   filter:
-    brightness(1)
+    brightness(0.92)
     drop-shadow(0 0 0.62rem color-mix(in srgb, var(--accent-text) 9%, transparent));
   transition-delay: 0s;
 }
@@ -9276,9 +9276,8 @@ a.shelf-list-title:hover {
   letter-spacing: 0.01em;
   color: #fffcf0;
   text-shadow:
-    0 0 0.4rem color-mix(in srgb, #fffcf0 55%, transparent),
-    0 0 calc(0.5rem + var(--delay-mix, 0.72) * 0.6rem) color-mix(in srgb, #fffcf0 58%, transparent),
-    0 0 calc(1.2rem + var(--delay-mix, 0.72) * 0.9rem) color-mix(in srgb, #fffcf0 26%, transparent);
+    0 0 0.4rem color-mix(in srgb, #fffcf0 28%, transparent),
+    0 0 calc(0.7rem + var(--delay-mix, 0.72) * 0.4rem) color-mix(in srgb, #fffcf0 14%, transparent);
   pointer-events: none;
   opacity: 0;
   transform: translateY(-4px);
@@ -9286,7 +9285,7 @@ a.shelf-list-title:hover {
   white-space: nowrap;
 }
 .rabbit-tagline.is-shown {
-  opacity: 1;
+  opacity: 0.48;  /* faint whisper — readable but recedes */
   transform: translateY(0);
 }
 @media (max-width: 640px) {
