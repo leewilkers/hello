@@ -1,0 +1,989 @@
+---
+permalink: /heavenly/
+layout: false
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progressions · Test</title>
+<style>
+  :root {
+    --bg: #131210;
+    --panel: #1c1a16;
+    --ink: #e8e2d2;
+    --rule: #3a3530;
+    --label: #948b7c;
+    --accent: #8aa9c8;
+    --warn: #d68a6a;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: var(--serif); }
+  body { padding: 2.5rem 2rem 5rem; max-width: 720px; margin: 0 auto; }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin: 0 0 0.3rem; }
+  p.sub { font-family: var(--mono); font-size: 0.68rem; color: var(--label); margin: 0 0 2rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .section-label { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--label); margin: 0 0 0.5rem; }
+
+  .song-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-bottom: 0.6rem; }
+  @media (min-width: 640px) { .song-picker { grid-template-columns: 1fr 1fr 1fr; } }
+  .song-picker .group-label { grid-column: 1 / -1; font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--label); margin: 0.6rem 0 0.1rem 0.1rem; }
+  .song-picker .group-label:first-child { margin-top: 0; }
+  .song-btn {
+    padding: 0.7rem 0.8rem; min-height: 48px;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 4px;
+    font-family: var(--serif); font-size: 0.9rem;
+    text-align: left; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .song-btn:active { background: #25221d; }
+  .song-btn.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .song-btn .meta { display: block; font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--label); margin-top: 0.15rem; }
+  .song-btn.on .meta { color: rgba(19,18,16,0.6); }
+  .song-btn .rise { display: inline-block; margin-left: 0.4rem; font-size: 0.55rem; color: var(--warn); letter-spacing: 0.1em; text-transform: uppercase; vertical-align: middle; }
+  .song-btn.on .rise { color: rgba(214,138,106,0.9); }
+
+  .transport { display: flex; gap: 0.5rem; margin: 1.4rem 0 1rem; }
+  .transport button {
+    flex: 1; padding: 1rem; min-height: 56px;
+    background: var(--panel); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: 5px;
+    font-family: var(--mono); font-size: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .transport button.play.on { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  .transport button:active { background: #25221d; }
+  .status { font-family: var(--mono); font-size: 0.72rem; color: var(--label); min-height: 1.2em; margin-bottom: 1.4rem; }
+  .status strong { color: var(--ink); font-weight: 500; }
+
+  .progression { font-family: var(--mono); font-size: 0.66rem; color: var(--label); line-height: 1.85; }
+  .progression .phrase { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; padding: 0.15rem 0; }
+  .progression .phrase.active { color: var(--ink); }
+  .progression .phrase.active .label { color: var(--accent); }
+  .progression .step { color: var(--label); }
+  .progression .label { font-style: italic; font-family: var(--serif); }
+  /* Individual note flash — fires when each audio event triggers */
+  .progression .n {
+    display: inline-block;
+    padding: 0 0.15em;
+    border-radius: 2px;
+    transition: background-color 0.08s ease-out, color 0.08s ease-out, transform 0.08s ease-out;
+  }
+  .progression .n.is-firing {
+    background: var(--accent);
+    color: var(--bg);
+    transform: scale(1.08);
+    transition: background-color 0.02s ease-in, color 0.02s ease-in, transform 0.02s ease-in;
+  }
+  .progression .walk {
+    display: inline-block;
+    color: var(--label);
+    opacity: 0.75;
+    margin-left: 0.8rem;
+  }
+  .progression .walk .n.is-firing {
+    background: var(--warn);  /* warmer color for walking bass — distinguish from main events */
+    color: var(--bg);
+  }
+</style>
+</head>
+<body>
+
+<h1>Progressions Test</h1>
+<p class="sub">live audio engine · 8 progressions · walking bass · boosted polyrhythm</p>
+
+<p class="section-label">song</p>
+<div class="song-picker" id="songs">
+  <p class="group-label">minor / modal</p>
+  <button class="song-btn on" data-song="heavenly">heavenly father<span class="meta">v2 · thicker</span></button>
+  <button class="song-btn" data-song="aeolian">aeolian dusk<span class="meta">gm minor</span><span class="rise">rise</span></button>
+  <button class="song-btn" data-song="aeolianThick">aeolian thick<span class="meta">3-note resolves</span><span class="rise">rise</span></button>
+
+  <p class="group-label">descending / climbing</p>
+  <button class="song-btn" data-song="fleet">fleet foxes<span class="meta">descending bass</span></button>
+  <button class="song-btn" data-song="fleetRise">fleet rise<span class="meta">bass ↓ · top ↑</span><span class="rise">rise</span></button>
+  <button class="song-btn" data-song="ascending">ascending stairs<span class="meta">climbing tension</span><span class="rise">rise</span></button>
+
+  <p class="group-label">four-chord</p>
+  <button class="song-btn" data-song="fourChord">four chords<span class="meta">vi · IV · I · V</span></button>
+  <button class="song-btn" data-song="fourChordMinor">four chords minor<span class="meta">i · ♭VI · v · iv</span></button>
+</div>
+
+<p class="section-label">voice · layer freely (multi-select)</p>
+<div class="song-picker" id="voices" style="grid-template-columns: 1fr 1fr; margin-bottom: 1rem;">
+  <button class="song-btn" data-voice="piano">piano<span class="meta">additive · live</span></button>
+  <button class="song-btn on" data-voice="rhodes">rhodes<span class="meta">2× sine, detuned</span></button>
+  <button class="song-btn" data-voice="bell">bell<span class="meta">sine + octave mix</span></button>
+  <button class="song-btn on" data-voice="ondes">ondes<span class="meta">pure sine, deep vibrato</span></button>
+  <button class="song-btn" data-voice="fm">fm e-piano<span class="meta">DX7 1:1 · slow tine</span></button>
+</div>
+
+<div class="transport">
+  <button class="play" data-play type="button">▶ play</button>
+  <button data-stop type="button">■ stop</button>
+</div>
+
+<div class="status" data-status>idle · heavenly father cued</div>
+
+<div class="progression" data-progression></div>
+
+<script>
+(function() {
+  const NOTE_FREQ = {
+    Bb1: 58.27, Bb2: 116.54, Bb3: 233.08, Bb4: 466.16, Bb5: 932.33, Bb6: 1864.66,
+    C3: 130.81, C4: 261.63, C5: 523.25, C6: 1046.50,
+    D3: 146.83, D4: 293.66, D5: 587.33, D6: 1174.66,
+    Eb3: 155.56, Eb4: 311.13, Eb5: 622.25, Eb6: 1244.51,
+    F3: 174.61, F4: 349.23, F5: 698.46, F6: 1396.91,
+    G3: 196.00, G4: 392.00, G5: 783.99, G6: 1567.98,
+    A3: 220.00, A4: 440.00, A5: 880.00, A6: 1760.00,
+    E3: 164.81, E4: 329.63    // walking-bass passing tones (E3 for A→D moves)
+  };
+
+  const PRETTY_NOTE_LEVEL = 0.046;
+  const PRETTY_LOW_LEVEL  = 0.032;
+  const PRETTY_MASTER_GAIN = 1.55;
+  const PRETTY_DELAY_SETTLE_SECONDS = 240;
+  const PRETTY_DELAY_MIX = 0.72;
+  const LOOP_BEAT_MS = 4000;
+  const PRESS_TO_HIT_MS = 1000;
+  const PRETTY_WALK_MS = 5600;
+  const PRETTY_WALK_SPREAD_MS = 1400;
+
+  let ctx = null;
+  let prettyStartedAt = null;
+
+  function ensureAudio() {
+    if (ctx) return ctx;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    return ctx;
+  }
+
+  function getPrettyMaster(c) {
+    if (c._prettyMaster) return c._prettyMaster;
+    const m = c.createGain(); m.gain.value = PRETTY_MASTER_GAIN;
+    m.connect(c.destination); c._prettyMaster = m; return m;
+  }
+  function getPrettySignal(c) {
+    if (c._prettySignal) return c._prettySignal;
+    const s = c.createGain(); s.gain.value = Math.cos(PRETTY_DELAY_MIX * Math.PI * 0.5);
+    s.connect(getPrettyMaster(c)); c._prettySignal = s; return s;
+  }
+  function getPrettyReverb(c) {
+    if (c._prettyReverbBus) return c._prettyReverbBus;
+    const sr = c.sampleRate, len = Math.floor(sr * 9.0), preLen = Math.floor(sr * 0.035);
+    const buf = c.createBuffer(2, len, sr);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      const decayPower = ch === 0 ? 2.0 : 2.4;
+      for (let i = 0; i < len; i++) {
+        if (i < preLen) { d[i] = 0; continue; }
+        const tp = (i - preLen) / (len - preLen);
+        d[i] = (Math.random() * 2 - 1) * Math.pow(1 - tp, decayPower);
+      }
+    }
+    const conv = c.createConvolver(); conv.buffer = buf;
+    const damp = c.createBiquadFilter(); damp.type = 'lowpass'; damp.frequency.value = 1800; damp.Q.value = 0.5;
+    conv.connect(damp).connect(getPrettyMaster(c));
+    c._prettyReverbBus = conv; return conv;
+  }
+  function getPrettyDelayProfileValues(age) {
+    // Restored to the live-original values you liked earlier (feedback 0.82,
+    // wet 0.626 at age=0). The warmth comes from the delay-loop lowpass
+    // dropping from 820Hz → 600Hz below, not from cutting wet level.
+    const mix = PRETTY_DELAY_MIX, fadeAge = age * (1 - mix);
+    return {
+      feedback:   Math.max(0.58, 0.72 + (0.14 * mix) - (0.13 * fadeAge)),
+      wet:        Math.max(0.12, 0.18 + (0.62 * mix) - ((0.08 + (0.12 * mix)) * fadeAge)),
+      wetCeiling: Math.max(0.18, 0.26 + (0.58 * mix) - ((0.06 + (0.11 * mix)) * fadeAge))
+    };
+  }
+  function getPrettyDelay(c) {
+    if (c._prettyDelay) return c._prettyDelay;
+    const delay = c.createDelay(10.0), filter = c.createBiquadFilter(), feedback = c.createGain(), wet = c.createGain(), limiter = c.createDynamicsCompressor(), ceiling = c.createGain();
+    delay.delayTime.value = 0.52;
+    filter.type = 'lowpass'; filter.frequency.value = 600; filter.Q.value = 0.22;  // warmer delay tail
+    const p = getPrettyDelayProfileValues(0);
+    feedback.gain.value = p.feedback; wet.gain.value = p.wet;
+    limiter.threshold.value = -16; limiter.knee.value = 4; limiter.ratio.value = 16; limiter.attack.value = 0.004; limiter.release.value = 0.34;
+    ceiling.gain.value = p.wetCeiling;
+    delay.connect(filter); filter.connect(feedback); feedback.connect(delay);
+    filter.connect(wet).connect(limiter).connect(ceiling).connect(getPrettyMaster(c));
+    c._prettyDelay = delay; c._prettyDelayControls = { feedback, wet, wetCeiling: ceiling };
+    return delay;
+  }
+  function getPrettyDelayAge(c, when) {
+    if (!c || !prettyStartedAt) return 0;
+    const t = when !== undefined ? when : c.currentTime;
+    return Math.min(1, Math.max(0, (t - prettyStartedAt) / PRETTY_DELAY_SETTLE_SECONDS));
+  }
+  function setPrettyDelayProfile(c, when) {
+    if (!c || !c._prettyDelayControls) return;
+    const age = getPrettyDelayAge(c, when);
+    const ctrl = c._prettyDelayControls, t = when !== undefined ? when : c.currentTime;
+    const p = getPrettyDelayProfileValues(age);
+    ctrl.feedback.gain.cancelScheduledValues(t);
+    ctrl.wet.gain.cancelScheduledValues(t);
+    ctrl.wetCeiling.gain.cancelScheduledValues(t);
+    ctrl.feedback.gain.linearRampToValueAtTime(p.feedback, t + 0.25);
+    ctrl.wet.gain.linearRampToValueAtTime(p.wet, t + 0.25);
+    ctrl.wetCeiling.gain.linearRampToValueAtTime(p.wetCeiling, t + 0.25);
+  }
+
+  function playAcousticKey(freq, when, sustain, level, reverb, delayBus, outputBus) {
+    const c = ensureAudio();
+    const t = when !== undefined ? when : c.currentTime;
+    const output = outputBus || c.destination;
+    const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
+    const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+    const upperPartialScale = freq >= 800 ? 0.55 : (freq >= 650 ? 0.72 : 1);
+    const hammerScale = freq >= 800 ? 0.24 : (freq >= 650 ? 0.48 : 1);
+    const attackTime = freq >= 800 ? 0.032 : (freq >= 650 ? 0.022 : 0.012);
+    const partialAttack = freq >= 800 ? 0.026 : (freq >= 650 ? 0.018 : 0.010);
+    const bodyLevel = Math.max(0.003, level || 0.018) * trebleMellow;
+    const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+
+    const body = c.createGain();
+    body.gain.setValueAtTime(0.0001, t);
+    body.gain.exponentialRampToValueAtTime(bodyLevel, t + attackTime);
+    body.gain.exponentialRampToValueAtTime(bodyLevel * 0.22, t + 0.52);
+    body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    const soundboard = c.createBiquadFilter();
+    soundboard.type = 'lowpass';
+    soundboard.frequency.value = freq >= 800 ? 2400 : (freq >= 650 ? 3200 : 4200);
+    soundboard.Q.value = 0.35;
+
+    const panner = c.createStereoPanner(); panner.pan.value = pan;
+    body.connect(soundboard).connect(panner).connect(output);
+
+    const send = c.createGain(); send.gain.value = 0.32;
+    panner.connect(send).connect(reverb);
+
+    if (delayBus) {
+      const ds = c.createGain();
+      const age = getPrettyDelayAge(c, t);
+      const delaySendScale = 1 - (0.24 * age * (1 - PRETTY_DELAY_MIX));
+      const delayMixScale = 0.62 + (0.72 * PRETTY_DELAY_MIX);
+      ds.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
+      panner.connect(ds).connect(delayBus);
+    }
+
+    [
+      { ratio: 1.000, gain: 1.00, stop: dur },
+      { ratio: 2.006, gain: 0.42, stop: dur * 0.76 },
+      { ratio: 3.018, gain: 0.22, stop: dur * 0.50 },
+      { ratio: 4.045, gain: 0.12, stop: dur * 0.36 }
+    ].forEach(function(partial) {
+      const osc = c.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = freq * partial.ratio;
+      osc.detune.value = (Math.random() * 3) - 1.5;
+      const pg = c.createGain();
+      pg.gain.setValueAtTime(0.0001, t);
+      pg.gain.exponentialRampToValueAtTime(partial.gain * (partial.ratio === 1.000 ? 1 : upperPartialScale), t + partialAttack);
+      pg.gain.exponentialRampToValueAtTime(0.0001, t + partial.stop);
+      osc.connect(pg).connect(body);
+      osc.start(t);
+      osc.stop(t + partial.stop + 0.08);
+    });
+
+    const hammer = c.createBufferSource();
+    const hLen = Math.floor(c.sampleRate * (freq >= 650 ? 0.018 : 0.026));
+    const hBuf = c.createBuffer(1, hLen, c.sampleRate);
+    const hData = hBuf.getChannelData(0);
+    for (let i = 0; i < hLen; i++) hData[i] = (Math.random() * 2 - 1) * Math.pow(1 - (i / hLen), 2.8);
+    hammer.buffer = hBuf;
+    const hg = c.createGain();
+    hg.gain.setValueAtTime(bodyLevel * 0.10 * hammerScale, t);
+    hg.gain.exponentialRampToValueAtTime(0.0001, t + 0.030);
+    const hf = c.createBiquadFilter();
+    hf.type = 'bandpass';
+    hf.frequency.value = freq >= 800 ? 1050 : Math.min(1900, Math.max(800, freq * 3.0));
+    hf.Q.value = freq >= 650 ? 0.8 : 1.2;
+    hammer.connect(hg).connect(hf).connect(panner);
+    hammer.start(t); hammer.stop(t + 0.04);
+  }
+
+  function playLowFloor(freq, when, sustain, level, reverb, outputBus) {
+    const c = ensureAudio();
+    const t = when !== undefined ? when : c.currentTime;
+    const output = outputBus || c.destination;
+    const dur = Math.min(6.5, Math.max(3.2, sustain * 0.72));
+    const base = freq / 2;
+    const floorLevel = Math.max(0.0025, level || 0.014);
+
+    const fg = c.createGain();
+    fg.gain.setValueAtTime(0.0001, t);
+    fg.gain.exponentialRampToValueAtTime(floorLevel, t + 0.055);
+    fg.gain.exponentialRampToValueAtTime(floorLevel * 0.34, t + 1.1);
+    fg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 540; lp.Q.value = 0.6;
+    const hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 48; hp.Q.value = 0.5;
+    const panner = c.createStereoPanner(); panner.pan.value = -0.04;
+    fg.connect(lp).connect(hp).connect(panner).connect(output);
+    const send = c.createGain(); send.gain.value = 0.18;
+    panner.connect(send).connect(reverb);
+
+    [{ ratio: 1.000, gain: 1.00 }, { ratio: 0.500, gain: 0.38 }].forEach(function(layer) {
+      const osc = c.createOscillator();
+      osc.type = layer.ratio === 1.000 ? 'triangle' : 'sine';
+      osc.frequency.value = base * layer.ratio;
+      osc.detune.value = (Math.random() * 2) - 1;
+      const lg = c.createGain(); lg.gain.value = layer.gain;
+      osc.connect(lg).connect(fg);
+      osc.start(t); osc.stop(t + dur + 0.08);
+    });
+  }
+
+  // ============================================================
+  // ALT VOICES — drop-in replacements for playAcousticKey. Same signature,
+  // same panner→reverb→delay routing topology, different synthesis core.
+  // The walking bass + lowFloor stay on their dedicated path; only the lead
+  // voice swaps.
+  // ============================================================
+
+  // Helper: build the body envelope + panner + reverb/delay sends that every
+  // voice shares. Returns { panner, bodyGain, dur }.
+  function buildVoiceBus(c, freq, t, sustain, level, reverb, delayBus, output, bodyDecayMul) {
+    const dur = Math.min(4.8, Math.max(2.4, sustain * 0.56));
+    const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+    const bodyLevel = Math.max(0.003, level || 0.018) * trebleMellow;
+    const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+    const attackTime = freq >= 800 ? 0.032 : (freq >= 650 ? 0.022 : 0.012);
+
+    const body = c.createGain();
+    body.gain.setValueAtTime(0.0001, t);
+    body.gain.exponentialRampToValueAtTime(bodyLevel, t + attackTime);
+    body.gain.exponentialRampToValueAtTime(bodyLevel * 0.22, t + (0.52 * (bodyDecayMul || 1)));
+    body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    const panner = c.createStereoPanner();
+    panner.pan.value = pan;
+    body.connect(panner).connect(output);
+
+    const rSend = c.createGain();
+    rSend.gain.value = 0.32;
+    panner.connect(rSend).connect(reverb);
+
+    if (delayBus) {
+      const ds = c.createGain();
+      const age = getPrettyDelayAge(c, t);
+      const delaySendScale = 1 - (0.24 * age * (1 - PRETTY_DELAY_MIX));
+      const delayMixScale = 0.62 + (0.72 * PRETTY_DELAY_MIX);
+      ds.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
+      panner.connect(ds).connect(delayBus);
+    }
+
+    return { body, dur, bodyLevel };
+  }
+
+  // Parametric synth-lab voices — verbatim presets from walk.njk:1033–1063.
+  // wave / unison / spread / octaveMix / vibrato / filter — same DSP topology
+  // as synth-lab's playNote, but routed through live's reverb+delay buses
+  // and scaled to live's PRETTY_NOTE_LEVEL so all voices balance against
+  // the same delay feedback.
+  const SYNTH_PRESETS = {
+    rhodes:   { wave: 'sine',     unison: 2, spread: 6, octaveMix: 0.18,
+                vibRate: 4.0, vibDepth: 3, vibFadeIn: 0.25,
+                attack: 0.025, decay: 0.55, shoulder: 0.28,
+                cutoff: 2600, q: 0.7, levelMul: 1.1 },
+    bell:     { wave: 'sine',     unison: 1, spread: 0, octaveMix: 0.3,
+                vibRate: 3.4, vibDepth: 2, vibFadeIn: 0.3,
+                attack: 0.02, decay: 0.8, shoulder: 0.18,
+                cutoff: 3200, q: 0.6, levelMul: 0.95 },
+    ondes:    { wave: 'sine',     unison: 1, spread: 0, octaveMix: 0,
+                vibRate: 5.4, vibDepth: 8, vibFadeIn: 0.22,
+                attack: 0.08, decay: 0.7, shoulder: 0.42,
+                cutoff: 4000, q: 0.5, levelMul: 1.15 },
+    supersaw: { wave: 'sawtooth', unison: 3, spread: 8, octaveMix: 0,
+                vibRate: 0, vibDepth: 0, vibFadeIn: 0.1,
+                attack: 0.06, decay: 0.62, shoulder: 0.32,
+                cutoff: 1800, q: 0.4, levelMul: 0.7 }
+  };
+
+  function playSynthVoice(presetKey, freq, when, sustain, level, reverb, delayBus, outputBus) {
+    const c = ensureAudio();
+    const p = SYNTH_PRESETS[presetKey];
+    if (!p) return;
+    const t = when !== undefined ? when : c.currentTime;
+    const output = outputBus || c.destination;
+    const sus = sustain || 9.0;
+    const lvl = (level !== undefined ? level : 0.046) * p.levelMul;
+    const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+    const bodyLevel = Math.max(0.003, lvl) * trebleMellow;
+    const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+
+    // Body envelope — synth-lab ADSR: attack to level, decay to shoulder, fade.
+    const body = c.createGain();
+    body.gain.setValueAtTime(0.0001, t);
+    body.gain.exponentialRampToValueAtTime(bodyLevel, t + p.attack);
+    body.gain.exponentialRampToValueAtTime(Math.max(0.0002, bodyLevel * p.shoulder), t + p.attack + p.decay);
+    body.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+
+    const filter = c.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = p.cutoff;
+    filter.Q.value = p.q;
+
+    const panner = c.createStereoPanner();
+    panner.pan.value = pan;
+    body.connect(filter).connect(panner).connect(output);
+
+    const rSend = c.createGain();
+    rSend.gain.value = 0.32;
+    panner.connect(rSend).connect(reverb);
+
+    if (delayBus) {
+      const ds = c.createGain();
+      const age = getPrettyDelayAge(c, t);
+      const delaySendScale = 1 - (0.24 * age * (1 - PRETTY_DELAY_MIX));
+      const delayMixScale = 0.62 + (0.72 * PRETTY_DELAY_MIX);
+      ds.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
+      panner.connect(ds).connect(delayBus);
+    }
+
+    // Vibrato LFO — shared across all unison voices.
+    let vibratoDepth = null;
+    if (p.vibDepth > 0 && p.vibRate > 0) {
+      const vib = c.createOscillator();
+      vib.type = 'sine';
+      vib.frequency.value = p.vibRate;
+      vibratoDepth = c.createGain();
+      vibratoDepth.gain.setValueAtTime(0.0001, t);
+      vibratoDepth.gain.exponentialRampToValueAtTime(p.vibDepth, t + p.attack + p.vibFadeIn);
+      vibratoDepth.gain.setValueAtTime(p.vibDepth, t + Math.max(p.attack + p.vibFadeIn, sus - 0.4));
+      vibratoDepth.gain.exponentialRampToValueAtTime(0.0001, t + sus);
+      vib.connect(vibratoDepth);
+      vib.start(t);
+      vib.stop(t + sus + 0.1);
+    }
+
+    // Unison voices — symmetric detune.
+    const detunes = p.unison === 1 ? [0]
+                  : p.unison === 2 ? [-p.spread, p.spread]
+                  :                  [-p.spread, 0, p.spread];
+    const perVoiceGain = 1 / Math.sqrt(p.unison);
+
+    detunes.forEach(d => {
+      const osc = c.createOscillator();
+      osc.type = p.wave;
+      osc.frequency.value = freq;
+      osc.detune.value = d;
+      if (vibratoDepth) vibratoDepth.connect(osc.detune);
+      const g = c.createGain();
+      g.gain.value = perVoiceGain;
+      osc.connect(g).connect(body);
+      osc.start(t);
+      osc.stop(t + sus + 0.1);
+    });
+
+    // Octave-up partial.
+    if (p.octaveMix > 0) {
+      const osc = c.createOscillator();
+      osc.type = p.wave;
+      osc.frequency.value = freq * 2;
+      if (vibratoDepth) vibratoDepth.connect(osc.detune);
+      const g = c.createGain();
+      g.gain.value = p.octaveMix;
+      osc.connect(g).connect(body);
+      osc.start(t);
+      osc.stop(t + sus + 0.1);
+    }
+  }
+
+  // FM e-piano — DX7-style Rhodes patch. Carrier sine + modulator at 1:1
+  // ratio with a slow mod-index decay (1.4s tail vs my earlier 0.55s). The
+  // slow decay is what makes it sing instead of click — bright tine attack
+  // that *holds* before settling to sine. Pattern saved from the dimmer
+  // audio Apr 29 work.
+  function playFMePiano(freq, when, sustain, level, reverb, delayBus, outputBus) {
+    const c = ensureAudio();
+    const t = when !== undefined ? when : c.currentTime;
+    const sus = sustain || 9.0;
+    const output = outputBus || c.destination;
+    const lvl = (level !== undefined ? level : 0.046) * 1.15;
+    const trebleMellow = freq >= 800 ? 0.74 : (freq >= 650 ? 0.88 : 1);
+    const bodyLevel = Math.max(0.003, lvl) * trebleMellow;
+    const pan = freq > 500 ? 0.18 : (freq < 320 ? -0.16 : 0.02);
+    const dur = Math.min(4.8, Math.max(2.4, sus * 0.56));
+
+    const body = c.createGain();
+    body.gain.setValueAtTime(0.0001, t);
+    body.gain.exponentialRampToValueAtTime(bodyLevel, t + 0.018);
+    body.gain.exponentialRampToValueAtTime(bodyLevel * 0.42, t + 0.78);
+    body.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    const panner = c.createStereoPanner();
+    panner.pan.value = pan;
+    body.connect(panner).connect(output);
+
+    const rSend = c.createGain();
+    rSend.gain.value = 0.32;
+    panner.connect(rSend).connect(reverb);
+
+    if (delayBus) {
+      const ds = c.createGain();
+      const age = getPrettyDelayAge(c, t);
+      const delaySendScale = 1 - (0.24 * age * (1 - PRETTY_DELAY_MIX));
+      const delayMixScale = 0.62 + (0.72 * PRETTY_DELAY_MIX);
+      ds.gain.value = (freq >= 650 ? 0.78 : 0.44) * delaySendScale * delayMixScale;
+      panner.connect(ds).connect(delayBus);
+    }
+
+    const carrier = c.createOscillator();
+    carrier.type = 'sine';
+    carrier.frequency.value = freq;
+
+    const modulator = c.createOscillator();
+    modulator.type = 'sine';
+    modulator.frequency.value = freq;  // 1:1 ratio = Rhodes/DX7 family
+
+    // Mod-index decay: bright tine attack (index ~2.2× freq), slow settle to
+    // near-sine over 1.4s. The slow tail is the key — short decay clicks.
+    const modGain = c.createGain();
+    modGain.gain.setValueAtTime(freq * 2.4, t);
+    modGain.gain.exponentialRampToValueAtTime(freq * 0.6, t + 0.35);
+    modGain.gain.exponentialRampToValueAtTime(freq * 0.08, t + 1.4);
+
+    modulator.connect(modGain).connect(carrier.frequency);
+    carrier.connect(body);
+
+    modulator.start(t);
+    modulator.stop(t + dur + 0.08);
+    carrier.start(t);
+    carrier.stop(t + dur + 0.08);
+  }
+
+  const LEAD_VOICES = {
+    piano:  playAcousticKey,
+    rhodes: (f, w, s, l, r, d, o) => playSynthVoice('rhodes', f, w, s, l, r, d, o),
+    bell:   (f, w, s, l, r, d, o) => playSynthVoice('bell',   f, w, s, l, r, d, o),
+    ondes:  (f, w, s, l, r, d, o) => playSynthVoice('ondes',  f, w, s, l, r, d, o),
+    fm:     playFMePiano
+  };
+
+  // Voice layering: multi-select Set. playPianoNote iterates active voices,
+  // scaling each level by 1/√N for equal-loudness summing.
+  let activeVoices = new Set(['rhodes', 'ondes']);  // default layer Lee likes
+
+  function playPianoNote(freq, when, sustain, level, withLowFloor, delayBus, outputBus) {
+    const c = ensureAudio();
+    const t = when !== undefined ? when : c.currentTime;
+    const sus = sustain || 9.0;
+    const lvl = level !== undefined ? level : 0.068;
+    const output = outputBus || c.destination;
+    const reverb = getPrettyReverb(c);
+    // Layer all active voices, scaling each by 1/√N for equal-loudness sum.
+    const n = activeVoices.size || 1;
+    const perVoiceLvl = lvl / Math.sqrt(n);
+    activeVoices.forEach(name => {
+      const voice = LEAD_VOICES[name];
+      if (voice) voice(freq, t, sus, perVoiceLvl, reverb, delayBus, output);
+    });
+    if (withLowFloor) playLowFloor(freq, t, sus, lvl * 0.28, reverb, output);
+  }
+  function playNoteName(note, when, sustain, level, withLowFloor, delayBus, outputBus) {
+    const f = NOTE_FREQ[note]; if (!f) return;
+    playPianoNote(f, when, sustain, level, withLowFloor, delayBus, outputBus);
+  }
+  function playNoteNames(notes, when, sustain, level, withLowFloor, delayBus, outputBus) {
+    if (!notes) return;
+    notes.forEach(n => playNoteName(n, when, sustain, level, withLowFloor, delayBus, outputBus));
+  }
+
+  // ============================================================
+  // Polyrhythm boost — three off-grid sprinklings per phrase:
+  //   • ghost1: live's existing 0.72–1.18s offset (38% probability)
+  //   • ghost2: new 1.6–2.4s offset (45% probability, quieter)
+  //   • shimmer: NEW mid-phrase event at 2.5–3.2s (45% probability)
+  // None align with the press/resolve clock (0/1/4/5s), so they cross-cut
+  // the regular pulse and feel like a competing meter.
+  // ============================================================
+  function playPrettyGhost(notes, when, scale, outputBus) {
+    const c = ensureAudio();
+    if (!c || Math.random() > 0.38) return;
+    const delay = getPrettyDelay(c);
+    const echoScale = (scale === undefined ? 1 : scale) * (0.72 + (0.55 * PRETTY_DELAY_MIX));
+    const offset = 0.72 + (Math.random() * 0.46);
+    const note = notes[Math.floor(Math.random() * notes.length)];
+    playNoteName(note, when + offset, 6.2, 0.018 * echoScale, false, delay, outputBus);
+    if (Math.random() < 0.28) {
+      playNoteName(note, when + offset + 0.52, 5.8, 0.011 * echoScale, false, delay, outputBus);
+    }
+  }
+
+  function playPrettyGhostLate(notes, when, scale, outputBus) {
+    const c = ensureAudio();
+    if (!c || Math.random() > 0.45) return;
+    const delay = getPrettyDelay(c);
+    const echoScale = (scale === undefined ? 1 : scale) * (0.55 + (0.45 * PRETTY_DELAY_MIX));
+    const offset = 1.6 + (Math.random() * 0.8);
+    const note = notes[Math.floor(Math.random() * notes.length)];
+    playNoteName(note, when + offset, 5.4, 0.013 * echoScale, false, delay, outputBus);
+  }
+
+  function playPrettyShimmer(preset, when, output) {
+    const c = ensureAudio();
+    if (!c || Math.random() > 0.45) return;
+    const delay = getPrettyDelay(c);
+    // Pick a note from either resolveA or resolveB — keep it harmonically anchored.
+    const pool = (Math.random() < 0.5 ? preset.resolveA : preset.resolveB) || [];
+    if (pool.length === 0) return;
+    const note = pool[Math.floor(Math.random() * pool.length)];
+    const offset = 2.5 + (Math.random() * 0.7);  // mid-phrase, between resolveA + pressB
+    playNoteName(note, when + offset, 4.2, 0.011, false, delay, output);
+  }
+
+  // Walking bass — quiet chord-tone bass notes fired in the dead pockets
+  // between the main strikes (2.5–3.0s, 4.4–4.7s). Notes come from each
+  // phrase's `walkBass` array, chord tones of the implied harmony.
+  // Level is ~60% of the main bass, so it outlines under the melody.
+  function playWalkBass(preset, when, output) {
+    const c = ensureAudio();
+    const walks = preset.walkBass;
+    if (!c || !walks || walks.length === 0) return;
+    const reverb = getPrettyReverb(c);
+    // First walk: between resolveA decay and pressB (2.5–3.0s into phrase).
+    if (walks[0]) {
+      const off1 = 2.5 + (Math.random() * 0.5);
+      playNoteName(walks[0], when + off1, 3.5, PRETTY_LOW_LEVEL * 0.55, false, null, output);
+    }
+    // Second walk: between pressB and resolveB (4.4–4.7s) — only if 2 supplied.
+    if (walks[1]) {
+      const off2 = 4.4 + (Math.random() * 0.3);
+      playNoteName(walks[1], when + off2, 3.0, PRETTY_LOW_LEVEL * 0.5, false, null, output);
+    }
+  }
+
+  function playPrettyPreset(preset) {
+    const c = ensureAudio();
+    const t = c.currentTime + 0.035;
+    const output = getPrettySignal(c);
+    const delay = getPrettyDelay(c);
+    const level = PRETTY_NOTE_LEVEL;
+    setPrettyDelayProfile(c, t);
+    playNoteNames(preset.pressA,   t,                                              4.0, level, false, null,  output);
+    playNoteNames(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000),                   9.0, level, true,  delay, output);
+    playPrettyGhost(preset.resolveA,     t + (PRESS_TO_HIT_MS / 1000), 0.95, output);
+    playPrettyGhostLate(preset.resolveA, t + (PRESS_TO_HIT_MS / 1000), 0.90, output);
+    playPrettyShimmer(preset,            t,                                  output);
+    playWalkBass(preset,                 t,                                  output);
+    playNoteNames(preset.pressB,   t + (LOOP_BEAT_MS / 1000),                      5.0, level, false, null,  output);
+    playNoteNames(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),  9.0, level, true,  delay, output);
+    playPrettyGhost(preset.resolveB,     t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 1.08, output);
+    playPrettyGhostLate(preset.resolveB, t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000), 0.95, output);
+    playNoteName(preset.low,       t + ((LOOP_BEAT_MS + PRESS_TO_HIT_MS) / 1000),  9.0, PRETTY_LOW_LEVEL, true, null, output);
+  }
+
+  // ============================================================
+  // PROGRESSIONS — each is a 7-preset walk that fires straight 0→6.
+  // ============================================================
+  // walkBass = [first-half, second-half]. Both chord tones of the implied
+  // harmony. Fires at 2.5–3.0s and 4.4–4.7s into the phrase, sub-floor level.
+  const PROGRESSIONS = {
+    heavenly: {
+      name: 'heavenly father (v2)',
+      phrases: [
+        { name: 'light switch',   pressA: ['A5'],  resolveA: ['D5','F5'],       pressB: ['Bb4'], resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'vi (Gm7 full)',  pressA: ['G5'],  resolveA: ['F5','Bb4','D5'], pressB: ['D5'],  resolveB: ['G5','Bb4'],     low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'ii (Cm)',        pressA: ['C5'],  resolveA: ['Eb5','Bb4'],     pressB: ['Bb4'], resolveB: ['F5','C5'],      low: 'C3',  walkBass: ['G3','Eb3'] },
+        { name: 'IV (Eb)',        pressA: ['Eb5'], resolveA: ['G5','Bb4'],      pressB: ['D5'],  resolveB: ['F5','Bb4'],     low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'V (F open)',     pressA: ['F5'],  resolveA: ['A5','C5'],       pressB: ['C5'],  resolveB: ['F5','C5'],      low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'I (no maj7)',    pressA: ['D5'],  resolveA: ['F5','Bb4'],      pressB: ['Bb4'], resolveB: ['D5','G5'],      low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'cadence — Dm',   pressA: ['Bb4'], resolveA: ['A5','D5','F5'],  pressB: ['F5'],  resolveB: ['Bb4','F5'],     low: 'Bb3', walkBass: ['F3','D3'] }
+      ]
+    },
+    aeolian: {
+      name: 'aeolian dusk (Gm minor · RISE)',
+      phrases: [
+        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','A5'],   low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'Gm home',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['G5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'Eb (♭VI)',      pressA: ['F5'],  resolveA: ['Eb5','Bb4'], pressB: ['Eb5'], resolveB: ['F5','Bb4'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['F5'],  resolveB: ['Bb4','D5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'back to Gm',    pressA: ['D5'],  resolveA: ['F5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['F5'],  resolveB: ['Eb5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
+        { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] }
+      ]
+    },
+    aeolianThick: {
+      name: 'aeolian thick (3-note resolves, heavier minor)',
+      phrases: [
+        { name: 'light switch',  pressA: ['A5'],  resolveA: ['D5','F5','Bb4'],    pressB: ['Bb4'], resolveB: ['F5','A5','D5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'Gm9',           pressA: ['G5'],  resolveA: ['D5','F5','Bb4'],    pressB: ['Bb4'], resolveB: ['G5','D5','Bb4'], low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'Eb add9',       pressA: ['F5'],  resolveA: ['Eb5','G5','Bb4'],   pressB: ['Eb5'], resolveB: ['F5','Bb4','D5'], low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'Bb relief III', pressA: ['Bb4'], resolveA: ['D5','F5','A5'],     pressB: ['F5'],  resolveB: ['Bb4','D5','F5'], low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'Gm7 return',    pressA: ['D5'],  resolveA: ['F5','Bb4','D5'],    pressB: ['Bb4'], resolveB: ['D5','G5','Bb4'], low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'Cm passing',    pressA: ['Eb5'], resolveA: ['G5','Bb4','C5'],    pressB: ['F5'],  resolveB: ['Eb5','C5','G5'], low: 'C3',  walkBass: ['G3','Eb3'] },
+        { name: 'Gm cadence',    pressA: ['G5'],  resolveA: ['D5','F5','Bb4'],    pressB: ['Bb4'], resolveB: ['F5','D5','G5'],  low: 'G3',  walkBass: ['D3','Bb3'] }
+      ]
+    },
+    fleet: {
+      name: 'fleet foxes (descending bass)',
+      phrases: [
+        { name: 'Bb', pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','A3'] },
+        { name: 'A',  pressA: ['A5'],  resolveA: ['F5','D5'],  pressB: ['F5'],  resolveB: ['A5','D5'],  low: 'A3',  walkBass: ['E3','D3'] },
+        { name: 'G',  pressA: ['G5'],  resolveA: ['Eb5','D5'], pressB: ['Eb5'], resolveB: ['G5','D5'],  low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'F',  pressA: ['F5'],  resolveA: ['Eb5','C5'], pressB: ['C5'],  resolveB: ['F5','A5'],  low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'Eb', pressA: ['Eb5'], resolveA: ['Bb4','G5'], pressB: ['Bb4'], resolveB: ['Eb5','G5'], low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'D',  pressA: ['D5'],  resolveA: ['F5','Bb4'], pressB: ['Bb4'], resolveB: ['D5','F5'],  low: 'D3',  walkBass: ['A3','F3'] },
+        { name: 'Bb', pressA: ['Bb4'], resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] }
+      ]
+    },
+    fleetRise: {
+      name: 'fleet rise (bass falls, top climbs · counterpoint)',
+      phrases: [
+        { name: 'Bb · A4',  pressA: ['A4'],  resolveA: ['D5','F4'],  pressB: ['Bb4'], resolveB: ['F5','A4'],  low: 'Bb3', walkBass: ['F3','A3'] },
+        { name: 'A · C5',   pressA: ['C5'],  resolveA: ['F5','A4'],  pressB: ['D5'],  resolveB: ['A5','C5'],  low: 'A3',  walkBass: ['E3','C3'] },
+        { name: 'G · D5',   pressA: ['D5'],  resolveA: ['G5','Bb4'], pressB: ['Eb5'], resolveB: ['G5','D5'],  low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'F · Eb5',  pressA: ['Eb5'], resolveA: ['G5','C5'],  pressB: ['F5'],  resolveB: ['A5','Eb5'], low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'Eb · F5',  pressA: ['F5'],  resolveA: ['Bb4','G5'], pressB: ['G5'],  resolveB: ['Eb5','Bb4'], low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'D · G5',   pressA: ['G5'],  resolveA: ['Bb4','F5'], pressB: ['A5'],  resolveB: ['D5','F5'],   low: 'D3',  walkBass: ['A3','F3'] },
+        { name: 'Bb · A5',  pressA: ['A5'],  resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'] }
+      ]
+    },
+    ascending: {
+      name: 'ascending stairs (climbing · RISE)',
+      phrases: [
+        { name: 'light switch', pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'C → Eb',       pressA: ['C5'],  resolveA: ['F5','A5'],  pressB: ['C5'],  resolveB: ['Eb5','G5'], low: 'Bb3', walkBass: ['Eb3','C3'] },
+        { name: 'D → G',        pressA: ['D5'],  resolveA: ['F5','A5'],  pressB: ['D5'],  resolveB: ['G5','Bb4'], low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'Eb → A',       pressA: ['Eb5'], resolveA: ['G5','Bb4'], pressB: ['Eb5'], resolveB: ['A5','C5'],  low: 'Bb3', walkBass: ['G3','Eb3'] },
+        { name: 'F → Bb',       pressA: ['F5'],  resolveA: ['A5','C5'],  pressB: ['F5'],  resolveB: ['Bb4','D5'], low: 'Bb3', walkBass: ['A3','F3'] },
+        { name: 'G → Eb',       pressA: ['G5'],  resolveA: ['Bb4','D5'], pressB: ['G5'],  resolveB: ['C5','Eb5'], low: 'Bb3', walkBass: ['Bb3','G3'] },
+        { name: 'peak (A)',     pressA: ['A5'],  resolveA: ['D5','F5'],  pressB: ['A5'],  resolveB: ['F5','A5','D5'], low: 'Bb3', walkBass: ['F3','D3'] }
+      ]
+    },
+    fourChord: {
+      name: 'four chords (vi · IV · I · V)',
+      phrases: [
+        { name: 'I (Bb)',  pressA: ['A5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'vi (Gm)', pressA: ['G5'],  resolveA: ['D5','Bb4'], pressB: ['G5'],  resolveB: ['D5','Bb4'], low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'IV (Eb)', pressA: ['Bb4'], resolveA: ['G5','Bb4'], pressB: ['Eb5'], resolveB: ['G5','Bb4'], low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'I (Bb)',  pressA: ['F5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['D5','F5'],  low: 'Bb3', walkBass: ['F3','D3'] },
+        { name: 'V (F)',   pressA: ['C5'],  resolveA: ['F5','A5'],  pressB: ['F5'],  resolveB: ['C5','A5'],  low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'vi (Gm)', pressA: ['G5'],  resolveA: ['D5','Bb4'], pressB: ['Bb4'], resolveB: ['D5','G5'],  low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: 'I (Bb)',  pressA: ['Bb4'], resolveA: ['D5','F5'],  pressB: ['Bb4'], resolveB: ['F5','A5'],  low: 'Bb3', walkBass: ['F3','D3'] }
+      ]
+    },
+    fourChordMinor: {
+      name: 'four chords minor (i · ♭VI · v · iv — darker)',
+      phrases: [
+        { name: 'i (Gm)',       pressA: ['G5'],  resolveA: ['D5','Bb4'],  pressB: ['Bb4'], resolveB: ['D5','G5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: '♭VI (Eb)',     pressA: ['Eb5'], resolveA: ['G5','Bb4'],  pressB: ['Bb4'], resolveB: ['Eb5','G5'],  low: 'Eb3', walkBass: ['Bb3','G3'] },
+        { name: 'v (Dm)',       pressA: ['D5'],  resolveA: ['F5','A5'],   pressB: ['A5'],  resolveB: ['D5','F5'],   low: 'D3',  walkBass: ['A3','F3'] },
+        { name: 'iv (Cm)',      pressA: ['C5'],  resolveA: ['Eb5','G5'],  pressB: ['G5'],  resolveB: ['Eb5','C5'],  low: 'C3',  walkBass: ['G3','Eb3'] },
+        { name: 'i (Gm)',       pressA: ['G5'],  resolveA: ['Bb4','D5'],  pressB: ['Bb4'], resolveB: ['F5','D5'],   low: 'G3',  walkBass: ['D3','Bb3'] },
+        { name: '♭VII (F)',     pressA: ['F5'],  resolveA: ['A5','C5'],   pressB: ['C5'],  resolveB: ['F5','A5'],   low: 'F3',  walkBass: ['C3','A3'] },
+        { name: 'i cadence',    pressA: ['Bb4'], resolveA: ['D5','F5'],   pressB: ['G5'],  resolveB: ['Bb4','D5','G5'], low: 'G3', walkBass: ['D3','Bb3'] }
+      ]
+    }
+  };
+
+  // ============================================================
+  // Transport.
+  // ============================================================
+  const playBtn = document.querySelector('[data-play]');
+  const stopBtn = document.querySelector('[data-stop]');
+  const statusEl = document.querySelector('[data-status]');
+  const progressionEl = document.querySelector('[data-progression]');
+  const songButtons = document.querySelectorAll('.song-btn[data-song]');
+
+  let armed = false;
+  let step = 0;
+  let walkTimer = null;
+  let activeSongKey = 'heavenly';
+  let activePhrases = PROGRESSIONS[activeSongKey].phrases;
+
+  function renderProgression() {
+    while (progressionEl.firstChild) progressionEl.removeChild(progressionEl.firstChild);
+    activePhrases.forEach((p, i) => {
+      const row = document.createElement('div');
+      row.className = 'phrase';
+      row.dataset.phrase = String(i);
+
+      const stepEl = document.createElement('span');
+      stepEl.className = 'step';
+      stepEl.textContent = 'P' + i;
+
+      const body = document.createElement('span');
+      const label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = p.name;
+      body.appendChild(label);
+      body.appendChild(document.createTextNode(' · '));
+
+      // Build flashable note groups: pressA → resolveA → pressB → resolveB · low
+      appendNoteGroup(body, p.pressA,   'pressA');
+      body.appendChild(document.createTextNode(' → '));
+      appendNoteGroup(body, p.resolveA, 'resolveA');
+      body.appendChild(document.createTextNode(' → '));
+      appendNoteGroup(body, p.pressB,   'pressB');
+      body.appendChild(document.createTextNode(' → '));
+      appendNoteGroup(body, p.resolveB, 'resolveB');
+      body.appendChild(document.createTextNode(' · '));
+      // Low note as a single flashable span.
+      const lowSpan = document.createElement('span');
+      lowSpan.className = 'n';
+      lowSpan.dataset.evt = 'low';
+      lowSpan.textContent = p.low;
+      body.appendChild(lowSpan);
+
+      if (p.walkBass && p.walkBass.length) {
+        const wb = document.createElement('span');
+        wb.className = 'walk';
+        wb.appendChild(document.createTextNode('↳ walk '));
+        p.walkBass.forEach((note, wi) => {
+          if (wi > 0) wb.appendChild(document.createTextNode(' · '));
+          const wn = document.createElement('span');
+          wn.className = 'n';
+          wn.dataset.walkIdx = String(wi);
+          wn.textContent = note;
+          wb.appendChild(wn);
+        });
+        body.appendChild(wb);
+      }
+      row.appendChild(stepEl);
+      row.appendChild(body);
+      progressionEl.appendChild(row);
+    });
+  }
+
+  // Build a "+"-joined note group with each note as a flashable .n span.
+  function appendNoteGroup(parent, notes, eventName) {
+    if (!notes || notes.length === 0) return;
+    notes.forEach((note, i) => {
+      if (i > 0) parent.appendChild(document.createTextNode('+'));
+      const span = document.createElement('span');
+      span.className = 'n';
+      span.dataset.evt = eventName;
+      span.textContent = note;
+      parent.appendChild(span);
+    });
+  }
+
+  // Flash all notes within one event-group on the active phrase row.
+  // delayMs is wall-clock offset from now; holdMs is the lit duration.
+  const FLASH_HOLD_MS = 280;
+  function flashEvent(phraseIdx, eventName, delayMs) {
+    setTimeout(() => {
+      const row = progressionEl.querySelector('[data-phrase="' + phraseIdx + '"]');
+      if (!row) return;
+      const targets = row.querySelectorAll('.n[data-evt="' + eventName + '"]');
+      targets.forEach(el => el.classList.add('is-firing'));
+      setTimeout(() => targets.forEach(el => el.classList.remove('is-firing')), FLASH_HOLD_MS);
+    }, Math.max(0, delayMs));
+  }
+  function flashWalk(phraseIdx, walkIdx, delayMs) {
+    setTimeout(() => {
+      const row = progressionEl.querySelector('[data-phrase="' + phraseIdx + '"]');
+      if (!row) return;
+      const el = row.querySelector('.n[data-walk-idx="' + walkIdx + '"]');
+      if (!el) return;
+      el.classList.add('is-firing');
+      setTimeout(() => el.classList.remove('is-firing'), FLASH_HOLD_MS);
+    }, Math.max(0, delayMs));
+  }
+
+  function setActivePhrase(idx) {
+    progressionEl.querySelectorAll('.phrase').forEach(el => {
+      el.classList.toggle('active', parseInt(el.dataset.phrase, 10) === idx);
+    });
+  }
+
+  function setStatus(prefix, label) {
+    while (statusEl.firstChild) statusEl.removeChild(statusEl.firstChild);
+    if (!label) { statusEl.appendChild(document.createTextNode(prefix)); return; }
+    statusEl.appendChild(document.createTextNode(prefix));
+    const strong = document.createElement('strong');
+    strong.textContent = label;
+    statusEl.appendChild(strong);
+  }
+
+  function pickSong(key) {
+    activeSongKey = key;
+    activePhrases = PROGRESSIONS[key].phrases;
+    songButtons.forEach(b => b.classList.toggle('on', b.dataset.song === key));
+    renderProgression();
+    if (!armed) setStatus('cued · ', PROGRESSIONS[key].name);
+    // step stays — next scheduled phrase will pull from new phrases. If we're
+    // mid-walk, the rest of this loop iteration plays the OLD preset; the next
+    // playStep tick picks up the new one. That's the right hand-off behavior:
+    // no audible glitch, no double-trigger.
+  }
+
+  function playStep() {
+    if (!armed) return;
+    const idx = step % activePhrases.length;
+    const preset = activePhrases[idx];
+    playPrettyPreset(preset);
+    setActivePhrase(idx);
+    setStatus('playing · ', PROGRESSIONS[activeSongKey].name + ' · P' + idx + ' (' + preset.name + ')');
+    // Visual flashes — wall-clock setTimeout, aligned to audio event offsets.
+    // Audio schedules from c.currentTime+0.035, so add 35ms head start to match.
+    flashEvent(idx, 'pressA',   35);
+    flashEvent(idx, 'resolveA', 35 + PRESS_TO_HIT_MS);
+    flashWalk(idx,  0,          35 + 2750);   // center of 2.5–3.0s window
+    flashEvent(idx, 'pressB',   35 + LOOP_BEAT_MS);
+    flashWalk(idx,  1,          35 + 4550);   // center of 4.4–4.7s window
+    flashEvent(idx, 'resolveB', 35 + LOOP_BEAT_MS + PRESS_TO_HIT_MS);
+    flashEvent(idx, 'low',      35 + LOOP_BEAT_MS + PRESS_TO_HIT_MS);
+    step += 1;
+    walkTimer = setTimeout(playStep, PRETTY_WALK_MS + Math.floor(Math.random() * PRETTY_WALK_SPREAD_MS));
+  }
+
+  function start() {
+    if (armed) return;
+    const c = ensureAudio();
+    if (c.state === 'suspended') c.resume();
+    armed = true;
+    step = 0;
+    prettyStartedAt = c.currentTime;
+    playBtn.classList.add('on');
+    playBtn.textContent = '❚❚ pause';
+    playStep();
+  }
+
+  function stop() {
+    armed = false;
+    if (walkTimer) { clearTimeout(walkTimer); walkTimer = null; }
+    playBtn.classList.remove('on');
+    playBtn.textContent = '▶ play';
+    setActivePhrase(-1);
+    setStatus('stopped · ', PROGRESSIONS[activeSongKey].name);
+  }
+
+  songButtons.forEach(b => b.addEventListener('click', () => pickSong(b.dataset.song)));
+  playBtn.addEventListener('click', () => { if (armed) stop(); else start(); });
+  stopBtn.addEventListener('click', stop);
+
+  // Voice picker — multi-select toggle. Tapping adds/removes a voice from
+  // the active set; next scheduled note layers all active voices.
+  // Safety: if user de-selects the last voice, re-add it so we always have ≥1 source.
+  document.querySelectorAll('[data-voice]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const name = btn.dataset.voice;
+      if (activeVoices.has(name)) {
+        activeVoices.delete(name);
+        if (activeVoices.size === 0) activeVoices.add(name);  // can't have zero
+      } else {
+        activeVoices.add(name);
+      }
+      document.querySelectorAll('[data-voice]').forEach(b => {
+        b.classList.toggle('on', activeVoices.has(b.dataset.voice));
+      });
+    });
+  });
+
+  renderProgression();
+})();
+</script>
+</body>
+</html>
