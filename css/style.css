@@ -9283,6 +9283,12 @@ a.shelf-list-title:hover {
   top: clamp(4.5rem, 8vh, 6rem);
   right: clamp(1.25rem, 2.5vw, 2.5rem);
   z-index: 1;
+  /* Fixed width pre-allocates room for the full phrase + cursor. Text-align
+     left keeps the left edge of the box anchored, so chars append at the
+     cursor's rightward-moving position (normal text-editor behavior) — they
+     don't shift earlier chars leftward. */
+  width: 13.5rem;
+  text-align: left;
   font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
   font-weight: 400;
   font-size: 0.72rem;

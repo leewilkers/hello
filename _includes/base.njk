@@ -751,16 +751,31 @@
       const ms = (words / wpm) * 60000 * READ_BUFFER;
       return Math.min(READ_CEILING_MS, Math.max(READ_FLOOR_MS, Math.round(ms)));
     }
+    // Typewriter pacing — referenced in both renderConstellationMeta (sets
+    // per-char delays) AND constellationDwellMs (extends cycle dwell so the
+    // constellation doesn't switch mid-type).
+    const TW_CHAR_MS = 55;       // slower typing — closer to reading pace
+    const TW_PARA_GAP_MS = 1500; // blinking-cursor pause between paragraphs
+
     function constellationDwellMs(constellation) {
-      // Sum of reading time for all note paragraphs + cycle tail.
+      // Reading time AND typewriter total — whichever is longer wins so the
+      // user sees the full text before the cycle advances.
       const paragraphs = (constellation && constellation.note && Array.isArray(constellation.note.paragraphs))
         ? constellation.note.paragraphs : [];
-      const total = paragraphs.reduce(function(acc, p) {
-        // Strip HTML tags so spans like <span class="note-star"> don't inflate word count.
+      let charCount = 0;
+      const readTotal = paragraphs.reduce(function(acc, p) {
         const text = String(p || '').replace(/<[^>]+>/g, ' ');
+        charCount += text.length;
         return acc + readingMs(text, READ_WPM_CYCLE);
       }, 0);
-      return Math.max(READ_FLOOR_MS + CYCLE_TAIL_MS, total + CYCLE_TAIL_MS);
+      const typewriterTotal =
+        charCount * TW_CHAR_MS +
+        Math.max(0, paragraphs.length - 1) * TW_PARA_GAP_MS;
+      return Math.max(
+        READ_FLOOR_MS + CYCLE_TAIL_MS,
+        readTotal + CYCLE_TAIL_MS,
+        typewriterTotal + CYCLE_TAIL_MS
+      );
     }
     let activeConstellation = CONSTELLATIONS.lepus;
     let constellationCycleIndex = 0;
@@ -887,10 +902,9 @@
             // Typewriter reveal: parse paragraph HTML via DOMParser (safe — content
             // is template-controlled), then walk and wrap every char in a .tw-char
             // span with precomputed --char-delay. CSS handles the visibility-flip
-            // animation. Per-paragraph stagger = sum of chars × CHAR_MS plus a
-            // PARA_GAP_MS "blinking cursor between lines" pause.
-            const CHAR_MS = 28;
-            const PARA_GAP_MS = 1400;
+            // animation. TW_CHAR_MS + TW_PARA_GAP_MS pacing matches the constants
+            // that constellationDwellMs uses to extend the cycle window so the
+            // typewriter always finishes before the constellation switches.
             let cursorMs = 0;
             noteParagraphs.forEach(function(paragraphText, pIdx) {
               const paragraphNode = document.createElement('span');
@@ -898,8 +912,8 @@
               const doc = new DOMParser().parseFromString('<div>' + paragraphText + '</div>', 'text/html');
               const sourceRoot = doc.body.firstChild;
               while (sourceRoot.firstChild) paragraphNode.appendChild(sourceRoot.firstChild);
-              if (pIdx > 0) cursorMs += PARA_GAP_MS;
-              cursorMs = wrapTypewriter(paragraphNode, cursorMs, CHAR_MS);
+              if (pIdx > 0) cursorMs += TW_PARA_GAP_MS;
+              cursorMs = wrapTypewriter(paragraphNode, cursorMs, TW_CHAR_MS);
               constellationNoteBody.appendChild(paragraphNode);
             });
           }
