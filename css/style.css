@@ -9383,7 +9383,7 @@ a.shelf-list-title:hover {
   font-weight: 400;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: #fffcf0;
+  color: var(--ink);   /* theme-aware — dark in day mode, cream in dark mode */
   opacity: 0;
   pointer-events: none;
   white-space: nowrap;
