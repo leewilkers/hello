@@ -1375,6 +1375,111 @@ eleventyExcludeFromCollections: true
   let pageTimer = null;
   let autoplayActive = (knobs.autoplay !== false);
 
+  /* ─── per-constellation palette + speed cinema ─── */
+  const CON_CINEMA = {
+    lepus:          { palette: 'cool',       speed: 8  },
+    polaris:        { palette: 'cool',       speed: 6  },
+    bootes:         { palette: 'terraforms', speed: 9  },
+    crux:           { palette: 'lagoon',     speed: 7  },
+    sirius:         { palette: 'ember',      speed: 11 },
+    pleiades:       { palette: 'dusk',       speed: 6  },
+    mizarAlcor:     { palette: 'mono',       speed: 7  },
+    vega:           { palette: 'dusk',       speed: 8  },
+    reticulum:      { palette: 'mono',       speed: 5  },
+    epsilonEridani: { palette: 'xalt',       speed: 10 }
+  };
+
+  /* ─── audio: ambient drone + transition bell ─── */
+  const audio = (function () {
+    let ctx = null, master = null, started = false, muted = false;
+    let droneOscs = [], droneLfos = [];
+    function ensureCtx () {
+      if (ctx) return true;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ctx = new AC();
+      master = ctx.createGain();
+      master.gain.value = 0.0;
+      master.connect(ctx.destination);
+      return true;
+    }
+    function startDrone () {
+      if (droneOscs.length) return;
+      /* A minor chord low — A2(110), C3(130.81), E3(164.81) + a low fifth */
+      const tones = [55, 110, 130.81, 164.81];
+      tones.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        osc.type = i === 0 ? 'triangle' : 'sine';
+        osc.frequency.value = freq;
+        const g = ctx.createGain();
+        g.gain.value = i === 0 ? 0.18 : 0.12;
+        osc.connect(g).connect(master);
+        osc.start();
+        droneOscs.push({osc, g});
+        /* slow LFO on detune for breathing */
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 0.045 + i * 0.013;
+        const lfoGain = ctx.createGain();
+        lfoGain.gain.value = 7;  /* cents */
+        lfo.connect(lfoGain).connect(osc.detune);
+        lfo.start();
+        droneLfos.push(lfo);
+      });
+    }
+    function ramp (target, secs) {
+      if (!master) return;
+      const now = ctx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.setValueAtTime(master.gain.value, now);
+      master.gain.linearRampToValueAtTime(target, now + secs);
+    }
+    function bell (freq) {
+      if (!ctx || muted) return;
+      const now = ctx.currentTime;
+      const carrier = ctx.createOscillator();
+      carrier.type = 'sine';
+      carrier.frequency.value = freq;
+      const modulator = ctx.createOscillator();
+      modulator.type = 'sine';
+      modulator.frequency.value = freq * 1.414;
+      const modGain = ctx.createGain();
+      modGain.gain.value = freq * 1.6;
+      modulator.connect(modGain).connect(carrier.frequency);
+      const env = ctx.createGain();
+      env.gain.setValueAtTime(0, now);
+      env.gain.linearRampToValueAtTime(0.18, now + 0.012);
+      env.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
+      carrier.connect(env).connect(master);
+      carrier.start(now);
+      modulator.start(now);
+      carrier.stop(now + 1.5);
+      modulator.stop(now + 1.5);
+    }
+    return {
+      start: function () {
+        if (started || !ensureCtx()) return;
+        ctx.resume().then(() => {
+          startDrone();
+          ramp(muted ? 0 : 0.22, 2.6);
+          started = true;
+        });
+      },
+      bell: bell,
+      mute: function () { muted = true; ramp(0, 0.8); },
+      unmute: function () { muted = false; ramp(0.22, 1.2); },
+      isMuted: function () { return muted; },
+      isStarted: function () { return started; }
+    };
+  })();
+  /* start audio on first user gesture */
+  function audioStartOnce () {
+    audio.start();
+    window.removeEventListener('pointerdown', audioStartOnce, true);
+    window.removeEventListener('keydown', audioStartOnce, true);
+  }
+  window.addEventListener('pointerdown', audioStartOnce, true);
+  window.addEventListener('keydown', audioStartOnce, true);
+
   function buildPages (con) {
     const out = [];
     /* page 1: title screen */
@@ -1477,6 +1582,8 @@ eleventyExcludeFromCollections: true
       btnAutoplay.textContent = autoplayActive ? 'autoplay on' : 'autoplay';
       if (autoplayActive) showCurrent();
       else if (pageTimer) { clearTimeout(pageTimer); pageTimer = null; }
+    } else if (ev.key === 'm' || ev.key === 'M') {
+      if (audio.isMuted()) audio.unmute(); else audio.mute();
     }
   });
 
@@ -1487,12 +1594,54 @@ eleventyExcludeFromCollections: true
   let idx = 0;
   let paused = false;
   let cycleTimer = null;
+  /* cinematic crossfade: fade ASCII layers down, swap constellation, fade back */
+  function setLayerOpacity (visible) {
+    const target = visible ? null : 0;
+    [bgEl, edgesEl, starsEl, highlightEl].forEach((el) => {
+      if (!el) return;
+      el.style.transition = 'opacity 900ms ease-out';
+      el.style.opacity = visible ? '' : '0';
+    });
+  }
+
+  function applyCinema (con) {
+    const c = CON_CINEMA[con.id];
+    if (!c) return;
+    /* commit to the lab knob state so the renderers pick it up next frame */
+    if (c.palette && PALETTES[c.palette]) {
+      knobs.palette = c.palette;
+      const sel = document.querySelector('[data-knob="palette"]');
+      if (sel) sel.value = c.palette;
+    }
+    if (c.speed != null) {
+      knobs.speed = c.speed;
+      const range = document.querySelector('[data-knob="speed"]');
+      const out = document.querySelector('[data-out="speed"]');
+      if (range) range.value = c.speed;
+      if (out) out.textContent = c.speed;
+    }
+    applyKnobsToUI();
+  }
+
+  /* pitch pool for transition bell — A minor pentatonic */
+  const BELL_PITCHES = [220, 261.63, 329.63, 392, 440, 523.25];
+
   function showCurrent () {
     const id = CYCLE[idx];
     const con = CONSTELLATIONS[id];
-    currentCon = con;
-    cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
-    computeStarFieldCache(con);
+
+    /* crossfade out */
+    setLayerOpacity(false);
+
+    setTimeout(() => {
+      currentCon = con;
+      cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
+      applyCinema(con);
+      computeStarFieldCache(con);
+      audio.bell(BELL_PITCHES[Math.floor(Math.random() * BELL_PITCHES.length)]);
+      /* fade back */
+      setTimeout(() => setLayerOpacity(true), 80);
+    }, 940);
 
     /* watermark fade-out → swap text → fade-in */
     watermarkEl.classList.remove('is-visible');
