@@ -184,6 +184,11 @@ eleventyExcludeFromCollections: true
         <option value="dim">dim cell veil</option>
         <option value="block">solid block</option>
       </select></label>
+      <label>cosmic bed <select data-knob="cosmic">
+        <option value="off" selected>off (synth drone only)</option>
+        <option value="symphonies">Voyager · Symphonies</option>
+      </select></label>
+      <label>cosmic level <input type="range" min="0" max="100" step="1" value="60" data-knob="cosmicGain"><output data-out="cosmicGain">60</output></label>
     </div>
     <div class="ccl-presets">
       <h3 style="margin-top:0.6rem">presets / favorites</h3>
@@ -444,6 +449,7 @@ eleventyExcludeFromCollections: true
     cellBg: 11, cellStar: 22, cellNote: 14, conScale: 100, conX: 50, conY: 30,
     palette: 'cool', hue: 50, bgcolor: 'palette', starcolor: 'cream', starGlow: 0,
     music: 'on', musicGain: 28,
+    cosmic: 'off', cosmicGain: 60,
     star: 'dot', highlight: 'star', twinkle: 55, pulse: 55, scatter: 55,
     edge: 'dot', edgeA: 55, starA: 92,
     notepos: 'bl', notew: 58, red: 'salmon', noteA: 100, noteGlow: 0,
@@ -716,6 +722,11 @@ eleventyExcludeFromCollections: true
       try { localStorage.setItem(STORE_KEY, JSON.stringify(knobs)); } catch (_) {}
       applyKnobsToUI();
       onLayoutOrPatternChange();
+      /* audio-knob side effects — only touch audio if its ctx is up
+       * (won't be until first user gesture, which is fine: the audio
+       * IIFE caches mode/level and applies on start). */
+      if (k === 'cosmic')     audio.cosmicSetMode(knobs.cosmic);
+      if (k === 'cosmicGain') audio.cosmicSetLevel(knobs.cosmicGain);
     });
   });
 
@@ -819,7 +830,6 @@ eleventyExcludeFromCollections: true
     reflow();
     if (currentCon) {
       computeStarFieldCache(currentCon);
-      layoutNote(currentCon);
     }
   }
 
@@ -1655,6 +1665,98 @@ eleventyExcludeFromCollections: true
       fundamental.stop(now + 2.4);
       harmonic.stop(now + 2.4);
     }
+
+    /* ─── cosmic bed: real NASA recordings as an optional parallel layer ──
+     * Loads on demand from gitignored /assets/nasa/audio/symphonies/. Each
+     * track gets its own <audio> + MediaElementAudioSourceNode + gain so we
+     * can crossfade between them on constellation transitions. Routes to
+     * ctx.destination *parallel* to master, so the existing drone+bells
+     * graph is untouched — cosmic is mixed in alongside, not into it. */
+    const COSMIC_TRACKS = [
+      '/assets/nasa/audio/symphonies/symphonies_1.mp3',
+      '/assets/nasa/audio/symphonies/symphonies_2.mp3',
+      '/assets/nasa/audio/symphonies/symphonies_3.mp3',
+      '/assets/nasa/audio/symphonies/symphonies_4.mp3',
+      '/assets/nasa/audio/symphonies/symphonies_5.mp3'
+    ];
+    let cosmicGainNode = null;
+    let cosmicVoices = [];
+    let cosmicMode = 'off';
+    let cosmicLevel = 0.6;
+    let cosmicActiveIdx = -1;
+
+    function ensureCosmic () {
+      if (cosmicGainNode || !ensureCtx()) return cosmicGainNode;
+      cosmicGainNode = ctx.createGain();
+      cosmicGainNode.gain.value = 0;
+      cosmicGainNode.connect(ctx.destination);
+      cosmicVoices = COSMIC_TRACKS.map((url) => {
+        const el = new Audio();
+        el.crossOrigin = 'anonymous';
+        el.preload = 'none';   /* don't fetch ~20MB until cosmic is turned on */
+        el.loop = true;
+        el.src = url;
+        const src = ctx.createMediaElementSource(el);
+        const g = ctx.createGain();
+        g.gain.value = 0;
+        src.connect(g).connect(cosmicGainNode);
+        return { audio: el, src, gain: g };
+      });
+      return cosmicGainNode;
+    }
+
+    function cosmicCrossfadeTo (idx, fadeSec) {
+      if (cosmicMode === 'off') { cosmicActiveIdx = idx; return; }
+      ensureCosmic();
+      const target = ((idx % cosmicVoices.length) + cosmicVoices.length) % cosmicVoices.length;
+      cosmicActiveIdx = target;
+      const fade = fadeSec || 3.5;
+      const now = ctx.currentTime;
+      cosmicVoices.forEach((v, i) => {
+        const want = (i === target) ? 1.0 : 0.0;
+        v.gain.gain.cancelScheduledValues(now);
+        v.gain.gain.setValueAtTime(v.gain.gain.value, now);
+        v.gain.gain.linearRampToValueAtTime(want, now + fade);
+        if (want > 0) {
+          if (v.audio.paused) {
+            const p = v.audio.play();
+            if (p && p.catch) p.catch(() => {});
+          }
+        } else {
+          setTimeout(() => {
+            if (v.gain.gain.value < 0.001 && !v.audio.paused) v.audio.pause();
+          }, fade * 1000 + 200);
+        }
+      });
+    }
+
+    function setCosmicMode (mode) {
+      if (!ensureCtx()) return;
+      ensureCosmic();
+      cosmicMode = (mode === 'symphonies') ? 'symphonies' : 'off';
+      const now = ctx.currentTime;
+      cosmicGainNode.gain.cancelScheduledValues(now);
+      cosmicGainNode.gain.setValueAtTime(cosmicGainNode.gain.value, now);
+      if (cosmicMode === 'off') {
+        cosmicGainNode.gain.linearRampToValueAtTime(0, now + 2.0);
+        setTimeout(() => cosmicVoices.forEach(v => { if (!v.audio.paused) v.audio.pause(); }), 2200);
+      } else {
+        cosmicGainNode.gain.linearRampToValueAtTime(cosmicLevel, now + 2.5);
+        if (cosmicActiveIdx < 0) cosmicActiveIdx = 0;
+        cosmicCrossfadeTo(cosmicActiveIdx, 4.0);
+      }
+    }
+
+    function setCosmicLevel (pct) {
+      cosmicLevel = Math.max(0, Math.min(1, pct / 100));
+      if (cosmicMode === 'symphonies' && cosmicGainNode) {
+        const now = ctx.currentTime;
+        cosmicGainNode.gain.cancelScheduledValues(now);
+        cosmicGainNode.gain.setValueAtTime(cosmicGainNode.gain.value, now);
+        cosmicGainNode.gain.linearRampToValueAtTime(cosmicLevel, now + 0.4);
+      }
+    }
+
     return {
       start: function () {
         if (started || !ensureCtx()) return;
@@ -1668,12 +1770,18 @@ eleventyExcludeFromCollections: true
       mute: function () { muted = true; ramp(0, 0.8); },
       unmute: function () { muted = false; ramp(0.22, 1.2); },
       isMuted: function () { return muted; },
-      isStarted: function () { return started; }
+      isStarted: function () { return started; },
+      cosmicSetMode:  setCosmicMode,
+      cosmicSetLevel: setCosmicLevel,
+      cosmicAdvance:  function (idx) { cosmicCrossfadeTo(idx, 4.5); }
     };
   })();
-  /* start audio on first user gesture */
+  /* start audio on first user gesture — and replay any persisted
+   * cosmic-bed state once the AudioContext is live. */
   function audioStartOnce () {
     audio.start();
+    audio.cosmicSetLevel(knobs.cosmicGain);
+    audio.cosmicSetMode(knobs.cosmic);
     window.removeEventListener('pointerdown', audioStartOnce, true);
     window.removeEventListener('keydown', audioStartOnce, true);
   }
@@ -1908,6 +2016,10 @@ eleventyExcludeFromCollections: true
     applyCinema(con);
     computeStarFieldCache(con);
     audio.bell(CON_BELL[con.id] || 440);
+    /* If cosmic bed is on, crossfade to a track keyed off the cycle index
+     * so each Symphonies track gets a deterministic pairing with constellations.
+     * (10 constellations / 5 tracks → each track plays during two of them.) */
+    audio.cosmicAdvance(idx);
     morphStartedAt = performance.now();
 
     /* watermark fade-out → swap text → fade-in */
