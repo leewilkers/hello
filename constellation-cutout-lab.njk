@@ -1436,24 +1436,28 @@ eleventyExcludeFromCollections: true
     function bell (freq) {
       if (!ctx || muted) return;
       const now = ctx.currentTime;
-      const carrier = ctx.createOscillator();
-      carrier.type = 'sine';
-      carrier.frequency.value = freq;
-      const modulator = ctx.createOscillator();
-      modulator.type = 'sine';
-      modulator.frequency.value = freq * 1.414;
-      const modGain = ctx.createGain();
-      modGain.gain.value = freq * 1.6;
-      modulator.connect(modGain).connect(carrier.frequency);
+      /* clean tonal chime — sine fundamental + sine 2nd-harmonic at -12dB,
+       * harmonic ratios only (no inharmonic FM clang) */
+      const fundamental = ctx.createOscillator();
+      fundamental.type = 'sine';
+      fundamental.frequency.value = freq;
+      const harmonic = ctx.createOscillator();
+      harmonic.type = 'sine';
+      harmonic.frequency.value = freq * 2;
+      const harmGain = ctx.createGain();
+      harmGain.gain.value = 0.25;
+      harmonic.connect(harmGain);
       const env = ctx.createGain();
       env.gain.setValueAtTime(0, now);
-      env.gain.linearRampToValueAtTime(0.18, now + 0.012);
-      env.gain.exponentialRampToValueAtTime(0.0001, now + 1.4);
-      carrier.connect(env).connect(master);
-      carrier.start(now);
-      modulator.start(now);
-      carrier.stop(now + 1.5);
-      modulator.stop(now + 1.5);
+      env.gain.linearRampToValueAtTime(0.14, now + 0.02);
+      env.gain.exponentialRampToValueAtTime(0.0001, now + 2.2);
+      fundamental.connect(env);
+      harmGain.connect(env);
+      env.connect(master);
+      fundamental.start(now);
+      harmonic.start(now);
+      fundamental.stop(now + 2.4);
+      harmonic.stop(now + 2.4);
     }
     return {
       start: function () {
@@ -1623,8 +1627,21 @@ eleventyExcludeFromCollections: true
     applyKnobsToUI();
   }
 
-  /* pitch pool for transition bell — A minor pentatonic */
-  const BELL_PITCHES = [220, 261.63, 329.63, 392, 440, 523.25];
+  /* deterministic per-constellation bell pitch — all from A minor triad,
+   * sitting an octave above the drone. Same constellation → same tone every
+   * time, so the experience has identifiable leitmotifs not random tunes. */
+  const CON_BELL = {
+    lepus:          440.00,  /* A4  — tonic */
+    polaris:        329.63,  /* E4  — fifth */
+    bootes:         523.25,  /* C5  — minor third up */
+    crux:           329.63,  /* E4  */
+    sirius:         659.25,  /* E5  */
+    pleiades:       523.25,  /* C5  */
+    mizarAlcor:     440.00,  /* A4  */
+    vega:           659.25,  /* E5  */
+    reticulum:      261.63,  /* C4  */
+    epsilonEridani: 440.00   /* A4  */
+  };
 
   function showCurrent () {
     const id = CYCLE[idx];
@@ -1638,7 +1655,7 @@ eleventyExcludeFromCollections: true
       cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
       applyCinema(con);
       computeStarFieldCache(con);
-      audio.bell(BELL_PITCHES[Math.floor(Math.random() * BELL_PITCHES.length)]);
+      audio.bell(CON_BELL[con.id] || 440);
       /* fade back */
       setTimeout(() => setLayerOpacity(true), 80);
     }, 940);
