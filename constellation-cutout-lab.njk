@@ -978,10 +978,7 @@ eleventyExcludeFromCollections: true
 
   function renderBg (now) {
     const pattern = knobs.pattern;
-    /* mouse energy boosts speed and adds chaos to the field — stillness keeps
-     * the pattern chill, motion drives glitchy intensity */
-    const baseSpeed = knobs.speed / 100;
-    const speed = baseSpeed * (1 + mouseEnergy * 3.2);
+    const speed = knobs.speed / 100;
     const density = knobs.density / 100;
     const scale = knobs.scale / 100;
     const dt = (now - lastFrame) / 1000;
@@ -1305,28 +1302,6 @@ eleventyExcludeFromCollections: true
       bgEl.textContent = s;
     }
 
-    /* mouse-energy chaos overlay — random-swap a fraction of bg cells to
-     * glitch glyphs. At rest, none. At peak motion, up to ~28% of cells
-     * mutate. Reads as the field "reacting" to your motion. */
-    if (mouseEnergy > 0.02) {
-      const txt = bgEl.textContent;
-      if (txt && txt.length > 100) {
-        const swapProb = mouseEnergy * 0.28;
-        const chaosPool = '@#%$*+=-~·.';
-        const out = new Array(txt.length);
-        for (let i = 0; i < txt.length; i++) {
-          const cc = txt.charCodeAt(i);
-          if (cc === 10 || cc === 32) { out[i] = txt[i]; continue; }
-          if (Math.random() < swapProb) {
-            out[i] = chaosPool[(Math.random() * chaosPool.length) | 0];
-          } else {
-            out[i] = txt[i];
-          }
-        }
-        bgEl.textContent = out.join('');
-      }
-    }
-
     const pal = PALETTES[knobs.palette] || PALETTES.cool;
     if (pal.amp && knobs.hue > 0) {
       const shift = Math.sin(now / (knobs.hue * 1000)) * pal.amp + pal.off;
@@ -1448,13 +1423,14 @@ eleventyExcludeFromCollections: true
       });
     }
 
-    /* MORPH-IN-PLACE: during transition, each non-space cell has a chance
-     * of showing a block-glitch glyph instead of its target. Probability
-     * decays as morph progress approaches 1, producing a per-cell dissolve
-     * in place — no fade-to-black. */
+    /* MORPH-IN-PLACE during constellation transitions + MOUSE-ENERGY chaos.
+     * Both glitch the constellation cells in place using block glyphs. The
+     * effective swap probability is whichever is greater. */
     const mp = morphProgress(now);
-    if (mp < 1) {
-      const swapProb = (1 - mp) * 0.82;  /* peaks at ~82% cells glitching */
+    const morphSwap = mp < 1 ? (1 - mp) * 0.82 : 0;
+    const energySwap = mouseEnergy * 0.42;
+    const swapProb = Math.max(morphSwap, energySwap);
+    if (swapProb > 0.005) {
       const pool = MORPH_GLITCH_POOL;
       const pL = pool.length;
       function morphGrid (grid) {
