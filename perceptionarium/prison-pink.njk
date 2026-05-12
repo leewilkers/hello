@@ -1,0 +1,207 @@
+---
+title: Prison pink — Perceptionarium
+description: A color that was supposed to calm violent prisoners. A claim that didn't replicate. An afterimage that always does.
+pageClass: page-perceptionarium page-pp
+permalink: /perceptionarium/prison-pink/
+eleventyExcludeFromCollections: true
+---
+
+<script>document.documentElement.classList.add('page-perceptionarium','page-pp');document.body && document.body.classList.add('page-perceptionarium','page-pp');</script>
+
+<main class="pp-room" data-stage="pink">
+
+  <header class="pp-spec" aria-label="Color specification">
+    <span class="pp-spec-row"><span class="pp-spec-k">Color</span><span class="pp-spec-v">Baker-Miller pink</span></span>
+    <span class="pp-spec-row"><span class="pp-spec-k">Hex</span><span class="pp-spec-v">#FF91AF</span></span>
+    <span class="pp-spec-row"><span class="pp-spec-k">Also</span><span class="pp-spec-v">Schauss pink · Drunk-tank pink</span></span>
+    <span class="pp-spec-row"><span class="pp-spec-k">Origin</span><span class="pp-spec-v">U.S. Naval Correctional Facility · Seattle · 1979</span></span>
+  </header>
+
+  <section class="pp-prose pp-prose-pink" aria-label="On the color">
+    <p>In 1979 the psychologist <span class="pp-em">Alexander Schauss</span> persuaded the wardens at a Seattle naval brig to paint a holding cell <em>this</em> color. He reported that fifteen minutes of exposure reduced the strength and hostility of agitated detainees. The Navy adopted it. So did county jails. So did at least one university football team, which painted the visiting locker room in it.</p>
+
+    <p>The original claim was that Baker-Miller pink lowered heart rate, drained aggression from the muscles, and produced a measurable sedative effect within minutes. The mechanism was a guess: the eye reads pink as a non-threat, the autonomic system follows.</p>
+
+    <p>Subsequent attempts to replicate the effect have largely failed. Most controlled studies find no reliable difference between people exposed to pink rooms and people exposed to other rooms. The <span class="pp-em">drunk-tank pink</span> story is now read as a small founder effect — confident researcher, motivated wardens, no blinding — that diffused on momentum.</p>
+
+    <p>And yet you are <em>in</em> the color right now. There is something to notice. Stay here for another twenty seconds without scrolling.</p>
+  </section>
+
+  <button class="pp-cta" type="button" data-pp-reveal>Reveal what your retina is doing</button>
+
+  <section class="pp-prose pp-prose-gray" aria-label="On the afterimage" hidden>
+    <p>That cyan-green wash you are seeing on this gray field — it is not on the screen. It is in you.</p>
+    <p>Your eye has two color-opponent channels, red/green and blue/yellow. The cells that fire for red and the cells that fire for green are pulling on opposite ends of one rope. For the last minute you have been staring at a color that mostly pulled on the red end. Those red-firing cells have <em>fatigued</em>. With the pink gone, the rope snaps back. The green cells, briefly unopposed, paint you a cyan ghost.</p>
+    <p>This effect is not psychological. It is mechanical. It is one of the few <span class="pp-em">color demonstrations that always works</span>: every healthy human visual system does it, every time. The pink calming effect may or may not be real. The opponent-process machinery in your retina is happening as you read this sentence.</p>
+    <p>The lesson the room wants to leave you with: the strongest argument for color affecting feeling does not come from the studies on prison cells. It comes from the fact that there is, right now, a color on your screen that <em>is not there</em>.</p>
+  </section>
+
+  <footer class="pp-footnotes" aria-label="Provenance">
+    <p>Schauss, A. G. (1979). Tranquilizing effect of color reduces aggressive behavior and potential violence. <em>Journal of Orthomolecular Psychiatry</em>, 8(4), 218&ndash;221.</p>
+    <p>Pellegrini, R. J., Schauss, A. G., &amp; Miller, M. E. (1981). Room color and aggression in a criminal detention holding cell: A test of the &ldquo;tranquilizing pink&rdquo; hypothesis. <em>Journal of Orthomolecular Psychiatry</em>, 10(3), 174&ndash;181.</p>
+    <p>Subsequent non-replications collected in Bennett, C., Hague, A., &amp; Perkins, C. (1991). <em>Perceptual &amp; Motor Skills</em>, 72, 235&ndash;241; and reviewed by Whitfield &amp; Wiltshire (1990), <em>Theory &amp; Psychology</em> 1.</p>
+    <p>The opponent-process model of color vision: Hering (1892); modern form in Hurvich &amp; Jameson (1957), <em>Psychological Review</em>, 64.</p>
+    <nav class="pp-nav"><a href="/perceptionarium/">&laquo; return to atrium</a></nav>
+  </footer>
+
+</main>
+
+<style>
+  /* ─── stage colors ─── */
+  /* The room has two stages: "pink" (full Baker-Miller field) and "gray"
+   * (neutral mid-gray that reveals the cyan-green opponent-process afterimage). */
+
+  html.page-pp, body.page-pp {
+    background: #FF91AF; /* Baker-Miller pink */
+    color: #1d1f23;
+    font-family: 'Source Serif 4', Georgia, serif;
+    transition: background 1.2s ease, color 1.2s ease;
+  }
+  html.page-pp.is-gray, body.page-pp.is-gray {
+    /* Neutral mid-gray chosen for color-channel balance — not pure 50% gray,
+     * which can favor one opponent channel. CIE-ish neutral. */
+    background: #888888;
+    color: #1d1f23;
+  }
+  /* hide site chrome */
+  html.page-pp .site-nav, html.page-pp .site-colophon,
+  body.page-pp .site-nav, body.page-pp .site-colophon { display: none; }
+
+  .pp-room {
+    min-height: 100vh;
+    max-width: 38rem;
+    margin: 0 auto;
+    padding: 6vh 1.5rem 6vh;
+    display: grid;
+    gap: 2.4rem;
+  }
+
+  /* spec block — gestures at a paint-chip card / procurement spec */
+  .pp-spec {
+    font-family: 'Overpass', system-ui, sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    display: grid;
+    gap: 0.22rem;
+    border-top: 1px solid rgba(29,31,35,0.35);
+    border-bottom: 1px solid rgba(29,31,35,0.35);
+    padding: 0.9rem 0;
+    color: rgba(29,31,35,0.85);
+  }
+  .pp-spec-row { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; }
+  .pp-spec-k { text-transform: uppercase; letter-spacing: 0.1em; color: rgba(29,31,35,0.6); }
+  .pp-spec-v { color: rgba(29,31,35,0.95); }
+
+  /* prose */
+  .pp-prose { display: grid; gap: 0.95rem; max-width: 30rem; }
+  .pp-prose p {
+    font-size: 1.04rem;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(29,31,35,0.92);
+  }
+  .pp-prose em { font-style: italic; }
+  .pp-em {
+    font-family: 'Overpass', system-ui, sans-serif;
+    font-size: 0.86em;
+    letter-spacing: 0.04em;
+    color: rgba(29,31,35,1);
+  }
+
+  /* The "gray-stage" prose is hidden by default; revealed on reveal-click or
+   * after the dwell timer. Stays present in DOM so the page never reflows. */
+  .pp-prose-gray[hidden] { display: none; }
+
+  .pp-cta {
+    justify-self: start;
+    font-family: 'Overpass', system-ui, sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    background: transparent;
+    color: rgba(29,31,35,0.9);
+    border: 1px solid rgba(29,31,35,0.5);
+    padding: 0.55rem 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.4s;
+  }
+  .pp-cta:hover { background: rgba(29,31,35,0.08); border-color: rgba(29,31,35,0.85); }
+  body.page-pp.is-gray .pp-cta { display: none; }
+
+  /* footnotes — small, restrained, gesturing at a citations strip */
+  .pp-footnotes {
+    border-top: 1px solid rgba(29,31,35,0.35);
+    padding-top: 1.2rem;
+    margin-top: 1.4rem;
+    font-family: 'Overpass', system-ui, sans-serif;
+    font-size: 0.74rem;
+    line-height: 1.55;
+    color: rgba(29,31,35,0.7);
+    display: grid;
+    gap: 0.45rem;
+  }
+  .pp-footnotes em { font-style: italic; }
+  .pp-nav { margin-top: 0.6rem; }
+  .pp-nav a { color: rgba(29,31,35,0.9); }
+
+  /* on gray stage, the small-caps + spec border drops a touch in contrast
+   * because the substrate has changed lightness; bump opacity to keep parity */
+  body.page-pp.is-gray .pp-spec,
+  body.page-pp.is-gray .pp-prose p,
+  body.page-pp.is-gray .pp-footnotes {
+    color: rgba(29,31,35,0.95);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.page-pp, body.page-pp { transition: none; }
+  }
+</style>
+
+<script>
+(function () {
+  /* The reveal: flip the page background from Baker-Miller pink to neutral
+   * mid-gray. The previously-staring user's red-channel cells, fatigued from
+   * the pink, paint a cyan-green afterimage onto the gray field. The hidden
+   * "gray-stage" prose fades in to name what they're seeing.
+   *
+   * The reveal is user-triggered (the CTA button) rather than timer-driven,
+   * so the reader controls when they want to see the trick. A soft auto-cue
+   * appears after 25s in case the reader is lost. */
+
+  function reveal () {
+    if (document.body.classList.contains('is-gray')) return;
+    document.documentElement.classList.add('is-gray');
+    document.body.classList.add('is-gray');
+    const grayProse = document.querySelector('.pp-prose-gray');
+    if (grayProse) {
+      grayProse.removeAttribute('hidden');
+      grayProse.style.opacity = '0';
+      requestAnimationFrame(() => {
+        grayProse.style.transition = 'opacity 1.4s ease';
+        grayProse.style.opacity = '1';
+      });
+    }
+    /* scroll the freshly-revealed prose into view, not abruptly */
+    if (grayProse) {
+      setTimeout(() => grayProse.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+    }
+  }
+
+  const btn = document.querySelector('[data-pp-reveal]');
+  if (btn) btn.addEventListener('click', reveal);
+
+  /* gentle nudge: if the reader is still on the pink stage after ~25s,
+   * pulse the reveal button so they know it's an actionable affordance.
+   * Many readers won't realize the page has a trick. */
+  setTimeout(() => {
+    if (document.body.classList.contains('is-gray')) return;
+    if (!btn) return;
+    btn.style.transition = 'opacity 0.6s ease';
+    let on = true;
+    const id = setInterval(() => {
+      if (document.body.classList.contains('is-gray')) { clearInterval(id); return; }
+      btn.style.opacity = on ? '0.55' : '1';
+      on = !on;
+    }, 700);
+  }, 25000);
+})();
+</script>
