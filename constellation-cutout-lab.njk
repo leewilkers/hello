@@ -183,6 +183,18 @@ eleventyExcludeFromCollections: true
         <option value="block">solid block</option>
       </select></label>
     </div>
+    <div class="ccl-presets">
+      <h3 style="margin-top:0.6rem">presets / favorites</h3>
+      <div class="ccl-preset-row">
+        <select data-preset-list><option value="">— load saved —</option></select>
+        <button type="button" data-preset-load>load</button>
+        <button type="button" data-preset-delete>×</button>
+      </div>
+      <div class="ccl-preset-row">
+        <input type="text" data-preset-name placeholder="preset name">
+        <button type="button" data-preset-save>save</button>
+      </div>
+    </div>
     <p class="ccl-hud"><span data-hud></span></p>
   </details>
 </div>
@@ -390,6 +402,12 @@ eleventyExcludeFromCollections: true
   .ccl-knobs-grid select { background: #050608; color: #cecdc3; border: 1px solid #2a2c30; padding: 0.1rem; font: inherit; grid-column: 2 / 4; }
   .ccl-knobs-grid output { color: #cecdc3; font-variant-numeric: tabular-nums; text-align: right; }
   .ccl-hud { margin: 0.5rem 0 0; padding: 0.2rem 0.55rem; background: #0d0e10; border: 1px solid #1d1f23; color: #cecdc3; font-size: 0.6rem; text-align: right; }
+  .ccl-presets { margin-top: 0.6rem; padding: 0.5rem 0.7rem; background: #0d0e10; border: 1px solid #1d1f23; }
+  .ccl-presets h3 { margin: 0 0 0.4rem; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: #5d5b56; font-weight: 500; }
+  .ccl-preset-row { display: flex; gap: 0.3rem; margin-bottom: 0.3rem; align-items: center; }
+  .ccl-preset-row select, .ccl-preset-row input[type=text] { flex: 1; background: #050608; color: #cecdc3; border: 1px solid #2a2c30; padding: 0.18rem 0.3rem; font: inherit; font-size: 0.66rem; }
+  .ccl-preset-row button { background: #14161a; color: #cecdc3; border: 1px solid #2a2c30; padding: 0.18rem 0.55rem; font: inherit; font-size: 0.62rem; cursor: pointer; border-radius: 2px; }
+  .ccl-preset-row button:hover { background: #1d1f23; color: #fffcf0; }
 </style>
 
 <script src="/assets/js/constellations.js"></script>
@@ -428,8 +446,9 @@ eleventyExcludeFromCollections: true
     edge: 'dot', edgeA: 55, starA: 92,
     notepos: 'bl', notew: 58, red: 'salmon', noteA: 100, noteGlow: 0,
     noteFont: 'typewriter', noteLS: 0, noteLH: 110,
-    jitter: 38, reveal: 80, flicker: 12, dwell: 24, panelbg: 'block',
-    labels: 'none', starWeight: 'bold', sources: 'labeled', autoplay: true
+    jitter: 38, reveal: 80, flicker: 12, dwell: 48, panelbg: 'block',
+    labels: 'none', starWeight: 'bold', sources: 'labeled', autoplay: true,
+    morphMs: 2400
   };
   let knobs = Object.assign({}, defaults, JSON.parse(localStorage.getItem(STORE_KEY) || '{}'));
 
@@ -697,6 +716,69 @@ eleventyExcludeFromCollections: true
       onLayoutOrPatternChange();
     });
   });
+
+  /* ─── presets (save / load named knob states) ─── */
+  const PRESETS_KEY = 'ccl_v5_presets';
+  function loadPresets () {
+    try { return JSON.parse(localStorage.getItem(PRESETS_KEY) || '{}'); }
+    catch (_) { return {}; }
+  }
+  function savePresets (obj) {
+    try { localStorage.setItem(PRESETS_KEY, JSON.stringify(obj)); } catch (_) {}
+  }
+  function refreshPresetList () {
+    const sel = document.querySelector('[data-preset-list]');
+    if (!sel) return;
+    const presets = loadPresets();
+    const current = sel.value;
+    while (sel.firstChild) sel.removeChild(sel.firstChild);
+    const opt0 = document.createElement('option');
+    opt0.value = ''; opt0.textContent = '— load saved —';
+    sel.appendChild(opt0);
+    Object.keys(presets).sort().forEach(name => {
+      const o = document.createElement('option');
+      o.value = name; o.textContent = name;
+      sel.appendChild(o);
+    });
+    if (current && presets[current]) sel.value = current;
+  }
+  const btnPresetSave   = document.querySelector('[data-preset-save]');
+  const btnPresetLoad   = document.querySelector('[data-preset-load]');
+  const btnPresetDelete = document.querySelector('[data-preset-delete]');
+  const inputPresetName = document.querySelector('[data-preset-name]');
+  if (btnPresetSave) btnPresetSave.addEventListener('click', () => {
+    const name = (inputPresetName.value || '').trim();
+    if (!name) return;
+    const presets = loadPresets();
+    presets[name] = Object.assign({}, knobs);
+    savePresets(presets);
+    refreshPresetList();
+    document.querySelector('[data-preset-list]').value = name;
+    inputPresetName.value = '';
+  });
+  if (btnPresetLoad) btnPresetLoad.addEventListener('click', () => {
+    const sel = document.querySelector('[data-preset-list]');
+    const name = sel && sel.value;
+    if (!name) return;
+    const presets = loadPresets();
+    const p = presets[name];
+    if (!p) return;
+    Object.assign(knobs, p);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(knobs)); } catch (_) {}
+    applyKnobsToUI();
+    onLayoutOrPatternChange();
+  });
+  if (btnPresetDelete) btnPresetDelete.addEventListener('click', () => {
+    const sel = document.querySelector('[data-preset-list]');
+    const name = sel && sel.value;
+    if (!name) return;
+    if (!window.confirm('Delete preset "' + name + '"?')) return;
+    const presets = loadPresets();
+    delete presets[name];
+    savePresets(presets);
+    refreshPresetList();
+  });
+  refreshPresetList();
 
   /* ─── runtime font metrics — measure the actual character width for the
    * active font + size, so the note text and its black panel can't drift.
@@ -1341,6 +1423,30 @@ eleventyExcludeFromCollections: true
       });
     }
 
+    /* MORPH-IN-PLACE: during transition, each non-space cell has a chance
+     * of showing a block-glitch glyph instead of its target. Probability
+     * decays as morph progress approaches 1, producing a per-cell dissolve
+     * in place — no fade-to-black. */
+    const mp = morphProgress(now);
+    if (mp < 1) {
+      const swapProb = (1 - mp) * 0.82;  /* peaks at ~82% cells glitching */
+      const pool = MORPH_GLITCH_POOL;
+      const pL = pool.length;
+      function morphGrid (grid) {
+        for (let y = 0; y < g.rows; y++) {
+          const row = grid[y];
+          for (let x = 0; x < g.cols; x++) {
+            if (row[x] !== ' ' && Math.random() < swapProb) {
+              row[x] = pool[Math.floor(Math.random() * pL)];
+            }
+          }
+        }
+      }
+      morphGrid(eGrid);
+      morphGrid(sGrid);
+      morphGrid(hGrid);
+    }
+
     edgesEl.textContent = gridToString(eGrid);
     starsEl.textContent = gridToString(sGrid);
     if (highlightEl) {
@@ -1389,10 +1495,37 @@ eleventyExcludeFromCollections: true
     epsilonEridani: { palette: 'xalt',       speed: 10 }
   };
 
-  /* ─── audio: ambient drone + transition bell ─── */
+  /* ─── audio: ambient drone + transition bell ───────────────────────────
+   * Built on frisson-research moves:
+   * - Just-intonation chord (Pythagorean ratios), not 12-TET. Pure intervals
+   *   beat sympathetically with the drone fundamental.
+   * - Each voice is a small harmonic series (1f + 2f + 3f) — an organ-pipe
+   *   timbre, warm without being harsh.
+   * - Binaural detune (~3.4Hz L/R offset) drives an alpha-band amplitude
+   *   beat — the "meditative state" range that's linked to chill responses.
+   * - Synthetic convolution reverb (decaying noise impulse) gives the
+   *   sense of being inside a vast space.
+   * - Multi-octave voicing so it sits in the comfortable midrange, no
+   *   chest-rumble sub-bass, no ear-drilling high mids.
+   */
   const audio = (function () {
     let ctx = null, master = null, started = false, muted = false;
     let droneOscs = [], droneLfos = [];
+
+    function makeReverbIR (durationSec, decay) {
+      const sampleRate = ctx.sampleRate;
+      const length = Math.floor(sampleRate * durationSec);
+      const ir = ctx.createBuffer(2, length, sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = ir.getChannelData(ch);
+        for (let i = 0; i < length; i++) {
+          /* white noise * exponential decay */
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+        }
+      }
+      return ir;
+    }
+
     function ensureCtx () {
       if (ctx) return true;
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -1403,27 +1536,95 @@ eleventyExcludeFromCollections: true
       master.connect(ctx.destination);
       return true;
     }
+
     function startDrone () {
       if (droneOscs.length) return;
-      /* A minor chord low — A2(110), C3(130.81), E3(164.81) + a low fifth */
-      const tones = [55, 110, 130.81, 164.81];
-      tones.forEach((freq, i) => {
-        const osc = ctx.createOscillator();
-        osc.type = i === 0 ? 'triangle' : 'sine';
-        osc.frequency.value = freq;
-        const g = ctx.createGain();
-        g.gain.value = i === 0 ? 0.18 : 0.12;
-        osc.connect(g).connect(master);
-        osc.start();
-        droneOscs.push({osc, g});
-        /* slow LFO on detune for breathing */
-        const lfo = ctx.createOscillator();
-        lfo.frequency.value = 0.045 + i * 0.013;
-        const lfoGain = ctx.createGain();
-        lfoGain.gain.value = 7;  /* cents */
-        lfo.connect(lfoGain).connect(osc.detune);
-        lfo.start();
-        droneLfos.push(lfo);
+
+      /* ─── send / return reverb bus ─── */
+      const reverb = ctx.createConvolver();
+      reverb.buffer = makeReverbIR(4.0, 2.6);   /* 4s decay, smooth tail */
+      const reverbReturn = ctx.createGain();
+      reverbReturn.gain.value = 0.55;           /* wet level */
+      reverb.connect(reverbReturn).connect(master);
+
+      /* gentle lowpass on the dry chain — rolls off the harsh upper-mid bite */
+      const lowpass = ctx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 2400;
+      lowpass.Q.value = 0.6;
+      lowpass.connect(master);
+
+      const reverbSend = ctx.createGain();
+      reverbSend.gain.value = 1.0;
+      reverbSend.connect(reverb);
+
+      /* Just-intonation A-minor-with-fifth: 1/1, 6/5, 3/2, 2/1
+       * (root, minor third, fifth, octave) — pure harmonic ratios.
+       * Base = A2 (110Hz). */
+      const base = 110;
+      const chord = [
+        { ratio: 1,       octave: 0, vol: 0.13 },  /* A2  - tonic */
+        { ratio: 3 / 2,   octave: 0, vol: 0.10 },  /* E3  - just-fifth */
+        { ratio: 2,       octave: 0, vol: 0.09 },  /* A3  - octave */
+        { ratio: 6 / 5,   octave: 1, vol: 0.07 },  /* C4  - just-minor-third */
+        { ratio: 3 / 2,   octave: 1, vol: 0.055 }, /* E4 */
+        { ratio: 2,       octave: 1, vol: 0.04 }   /* A4  - bright crown */
+      ];
+
+      const merger = ctx.createChannelMerger(2);
+      merger.connect(lowpass);
+      merger.connect(reverbSend);
+
+      chord.forEach((c, i) => {
+        const f = base * c.ratio * Math.pow(2, c.octave);
+        /* per-voice gain (post-harmonics mix) */
+        const voiceGain = ctx.createGain();
+        voiceGain.gain.value = c.vol;
+
+        /* harmonic series — fundamental + 2nd + 3rd, organ-pipe timbre.
+         * 2nd and 3rd at decreasing volume keeps it warm without buzz. */
+        const harms = [
+          { mult: 1, amp: 1.00 },
+          { mult: 2, amp: 0.32 },
+          { mult: 3, amp: 0.12 }
+        ];
+        harms.forEach((h, hi) => {
+          /* binaural detune: split into L and R with a tiny ±freq offset
+           * to create a ~3.4Hz amplitude beat in the brain — alpha-band. */
+          const splitterMerge = ctx.createChannelMerger(2);
+          [0, 1].forEach((channel) => {
+            const osc = ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.value = f * h.mult + (channel === 0 ? -1.7 : 1.7);
+            const g = ctx.createGain();
+            g.gain.value = h.amp;
+            osc.connect(g).connect(splitterMerge, 0, channel);
+            osc.start();
+            droneOscs.push({osc, g});
+
+            /* slow detune wobble per voice for liveness */
+            const detuneLfo = ctx.createOscillator();
+            detuneLfo.frequency.value = 0.04 + (i + hi * 0.3) * 0.012;
+            const detuneAmt = ctx.createGain();
+            detuneAmt.gain.value = 4 + i * 0.7;
+            detuneLfo.connect(detuneAmt).connect(osc.detune);
+            detuneLfo.start();
+            droneLfos.push(detuneLfo);
+          });
+          splitterMerge.connect(voiceGain);
+        });
+
+        /* per-voice slow swell — each chord tone breathes in/out of phase */
+        const swellLfo = ctx.createOscillator();
+        swellLfo.frequency.value = 0.018 + i * 0.009;
+        const swellAmt = ctx.createGain();
+        swellAmt.gain.value = c.vol * 0.45;
+        swellLfo.connect(swellAmt).connect(voiceGain.gain);
+        swellLfo.start();
+        droneLfos.push(swellLfo);
+
+        voiceGain.connect(merger, 0, 0);
+        voiceGain.connect(merger, 0, 1);
       });
     }
     function ramp (target, secs) {
@@ -1598,14 +1799,17 @@ eleventyExcludeFromCollections: true
   let idx = 0;
   let paused = false;
   let cycleTimer = null;
-  /* cinematic crossfade: fade ASCII layers down, swap constellation, fade back */
-  function setLayerOpacity (visible) {
-    const target = visible ? null : 0;
-    [bgEl, edgesEl, starsEl, highlightEl].forEach((el) => {
-      if (!el) return;
-      el.style.transition = 'opacity 900ms ease-out';
-      el.style.opacity = visible ? '' : '0';
-    });
+  /* per-cell morph state: tracks when each cell's glyph "settles" to the new
+   * constellation. Until settled, the cell flickers through block-glitch
+   * chars. The constellation appears to dissolve and re-form in place rather
+   * than fade to black. */
+  let morphStartedAt = 0;
+  const MORPH_GLITCH_POOL = '░▒▓·.~';
+  function morphProgress (now) {
+    if (!morphStartedAt) return 1;
+    const elapsed = now - morphStartedAt;
+    const duration = knobs.morphMs || 2400;
+    return Math.min(1, elapsed / duration);
   }
 
   function applyCinema (con) {
@@ -1647,18 +1851,14 @@ eleventyExcludeFromCollections: true
     const id = CYCLE[idx];
     const con = CONSTELLATIONS[id];
 
-    /* crossfade out */
-    setLayerOpacity(false);
-
-    setTimeout(() => {
-      currentCon = con;
-      cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
-      applyCinema(con);
-      computeStarFieldCache(con);
-      audio.bell(CON_BELL[con.id] || 440);
-      /* fade back */
-      setTimeout(() => setLayerOpacity(true), 80);
-    }, 940);
+    /* morph-in-place: swap immediately, let the per-cell glitch dissolve
+     * handle the visual transition rather than fading to black */
+    currentCon = con;
+    cycleLabel.textContent = `${con.note.title} · ${con.note.id}`;
+    applyCinema(con);
+    computeStarFieldCache(con);
+    audio.bell(CON_BELL[con.id] || 440);
+    morphStartedAt = performance.now();
 
     /* watermark fade-out → swap text → fade-in */
     watermarkEl.classList.remove('is-visible');
