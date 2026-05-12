@@ -1411,19 +1411,8 @@ eleventyExcludeFromCollections: true
       }
     });
 
-    /* star labels — render into stars grid, anchored so end-of-word kisses
-     * the star when label is to the left, and a thin leader is drawn back
-     * to the star for that "scientifically labeled" star-atlas feel. */
-    if (starField.labels && starField.labels.length && knobs.labels !== 'none') {
-      starField.labels.forEach((lbl) => {
-        if (knobs.labels === 'primary' && !lbl.primary) return;
-        const [lx, ly] = gridFromScreenPx(g, lbl.sx, lbl.sy);
-        const startCol = (lbl.anchor === 'end') ? (lx - lbl.text.length + 1) : lx;
-        for (let ci = 0; ci < lbl.text.length; ci++) {
-          plotG(sGrid, startCol + ci, ly, lbl.text[ci], g);
-        }
-      });
-    }
+    /* star labels: intentionally not rendered — main star name lives in the
+     * watermark below, where the prose belongs. */
 
     /* MORPH-IN-PLACE during transitions + MOUSE-ENERGY chaos.
      * Both glitch the constellation cells in place using block glyphs. The
