@@ -18,3 +18,6 @@ scripts/
 claude_design/
 qa/
 img/ornaments/_*
+
+# Local-only cosmic audio (Symphonies + Jodrell Bank pulsars). Not for Pages deploy.
+assets/nasa/audio/
