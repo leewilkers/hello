@@ -67,6 +67,8 @@ eleventyExcludeFromCollections: true
       <label>scale / λ <input type="range" min="20" max="200" step="1" value="100" data-knob="scale"><output data-out="scale">100</output></label>
       <label>ring falloff <input type="range" min="20" max="200" step="1" value="50" data-knob="falloff"><output data-out="falloff">50</output></label>
       <label>highlight gravity <input type="range" min="0" max="400" step="1" value="180" data-knob="hgrav"><output data-out="hgrav">180</output></label>
+      <label>glitch rate (ms) <input type="range" min="60" max="800" step="20" value="220" data-knob="chaosMs"><output data-out="chaosMs">220</output></label>
+      <label>mouse → glitch <input type="range" min="0" max="100" step="1" value="42" data-knob="chaosAmt"><output data-out="chaosAmt">42</output></label>
       <label>wash α <input type="range" min="10" max="100" step="1" value="65" data-knob="wash"><output data-out="wash">65</output></label>
 
       <h3>sizing (independent layers)</h3>
@@ -448,7 +450,7 @@ eleventyExcludeFromCollections: true
     noteFont: 'typewriter', noteLS: 0, noteLH: 110,
     jitter: 38, reveal: 80, flicker: 12, dwell: 48, panelbg: 'block',
     labels: 'none', starWeight: 'bold', sources: 'labeled', autoplay: true,
-    morphMs: 2400
+    morphMs: 2400, chaosMs: 220, chaosAmt: 42
   };
   let knobs = Object.assign({}, defaults, JSON.parse(localStorage.getItem(STORE_KEY) || '{}'));
 
@@ -1423,22 +1425,24 @@ eleventyExcludeFromCollections: true
       });
     }
 
-    /* MORPH-IN-PLACE during constellation transitions + MOUSE-ENERGY chaos.
+    /* MORPH-IN-PLACE during transitions + MOUSE-ENERGY chaos.
      * Both glitch the constellation cells in place using block glyphs. The
-     * effective swap probability is whichever is greater. */
+     * chaos is throttled — cells lock to their glitch glyph for ~chaosMs
+     * before re-randomizing, so the screen doesn't strobe at 60fps. */
     const mp = morphProgress(now);
     const morphSwap = mp < 1 ? (1 - mp) * 0.82 : 0;
-    const energySwap = mouseEnergy * 0.42;
+    const energySwap = mouseEnergy * ((knobs.chaosAmt || 42) / 100);
     const swapProb = Math.max(morphSwap, energySwap);
     if (swapProb > 0.005) {
+      refreshChaosIfDue(now, g.rows, g.cols);
       const pool = MORPH_GLITCH_POOL;
-      const pL = pool.length;
       function morphGrid (grid) {
         for (let y = 0; y < g.rows; y++) {
           const row = grid[y];
+          const rowStart = y * g.cols;
           for (let x = 0; x < g.cols; x++) {
-            if (row[x] !== ' ' && Math.random() < swapProb) {
-              row[x] = pool[Math.floor(Math.random() * pL)];
+            if (row[x] !== ' ' && chaosSeeds[rowStart + x] < swapProb) {
+              row[x] = pool[chaosGlyphs[rowStart + x]];
             }
           }
         }
@@ -1840,6 +1844,28 @@ eleventyExcludeFromCollections: true
    * than fade to black. */
   let morphStartedAt = 0;
   const MORPH_GLITCH_POOL = '░▒▓·.~';
+
+  /* throttled chaos refresh — randomize which cells are in glitch state only
+   * every CHAOS_PERIOD ms. Between refreshes the same cells display the same
+   * glyphs, so the screen doesn't strobe at 60fps. */
+  let chaosLastRefresh = 0;
+  let chaosSeeds = null;
+  let chaosGlyphs = null;
+  function refreshChaosIfDue (now, rows, cols) {
+    const period = knobs.chaosMs || 220;
+    if (now - chaosLastRefresh < period && chaosSeeds && chaosSeeds.length === rows * cols) return;
+    const total = rows * cols;
+    if (!chaosSeeds || chaosSeeds.length !== total) {
+      chaosSeeds = new Float32Array(total);
+      chaosGlyphs = new Uint8Array(total);
+    }
+    const pL = MORPH_GLITCH_POOL.length;
+    for (let i = 0; i < total; i++) {
+      chaosSeeds[i] = Math.random();
+      chaosGlyphs[i] = (Math.random() * pL) | 0;
+    }
+    chaosLastRefresh = now;
+  }
   function morphProgress (now) {
     if (!morphStartedAt) return 1;
     const elapsed = now - morphStartedAt;
