@@ -625,6 +625,25 @@ p {
   color: var(--ink-faint);
 }
 
+.page-shelf .stacks-epigraph {
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.02em;
+}
+
+.page-shelf .stacks-definitions {
+  margin: 0 0 2.5rem 0;
+  padding: 0 0 0 1.4em;
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 38em;
+}
+
+.page-shelf .stacks-definitions li {
+  margin-bottom: 0.35em;
+}
+
 /* Hamburger toggle — mobile only */
 .sidebar-toggle {
   display: none;
@@ -3648,6 +3667,10 @@ body {
 .constellation-mode-toggle.is-armed .constellation-mode-mark {
   border-bottom-color: var(--accent-text);
 }
+
+/* Rabbit-mode nav button: underline only when armed. */
+.constellation-mode-toggle .pretty-loop-mark { border-bottom: 0; }
+.constellation-mode-toggle.is-armed .pretty-loop-mark { border-bottom: 1px solid var(--accent-text); }
 
 @media (prefers-reduced-motion: reduce) {
   .loop-tally,
