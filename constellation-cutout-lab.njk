@@ -978,7 +978,10 @@ eleventyExcludeFromCollections: true
 
   function renderBg (now) {
     const pattern = knobs.pattern;
-    const speed = knobs.speed / 100;
+    /* mouse energy boosts speed and adds chaos to the field — stillness keeps
+     * the pattern chill, motion drives glitchy intensity */
+    const baseSpeed = knobs.speed / 100;
+    const speed = baseSpeed * (1 + mouseEnergy * 3.2);
     const density = knobs.density / 100;
     const scale = knobs.scale / 100;
     const dt = (now - lastFrame) / 1000;
@@ -1302,6 +1305,28 @@ eleventyExcludeFromCollections: true
       bgEl.textContent = s;
     }
 
+    /* mouse-energy chaos overlay — random-swap a fraction of bg cells to
+     * glitch glyphs. At rest, none. At peak motion, up to ~28% of cells
+     * mutate. Reads as the field "reacting" to your motion. */
+    if (mouseEnergy > 0.02) {
+      const txt = bgEl.textContent;
+      if (txt && txt.length > 100) {
+        const swapProb = mouseEnergy * 0.28;
+        const chaosPool = '@#%$*+=-~·.';
+        const out = new Array(txt.length);
+        for (let i = 0; i < txt.length; i++) {
+          const cc = txt.charCodeAt(i);
+          if (cc === 10 || cc === 32) { out[i] = txt[i]; continue; }
+          if (Math.random() < swapProb) {
+            out[i] = chaosPool[(Math.random() * chaosPool.length) | 0];
+          } else {
+            out[i] = txt[i];
+          }
+        }
+        bgEl.textContent = out.join('');
+      }
+    }
+
     const pal = PALETTES[knobs.palette] || PALETTES.cool;
     if (pal.amp && knobs.hue > 0) {
       const shift = Math.sin(now / (knobs.hue * 1000)) * pal.amp + pal.off;
@@ -1575,6 +1600,7 @@ eleventyExcludeFromCollections: true
       merger.connect(lowpass);
       merger.connect(reverbSend);
 
+      droneVoices = [];  /* exposed for retune-on-transition */
       chord.forEach((c, i) => {
         const f = base * c.ratio * Math.pow(2, c.octave);
         /* per-voice gain (post-harmonics mix) */
@@ -1799,6 +1825,39 @@ eleventyExcludeFromCollections: true
   let idx = 0;
   let paused = false;
   let cycleTimer = null;
+  /* ─── mouse energy: stillness → chill, motion → glitch ─────────────────
+   * Tracks instantaneous mouse velocity (px/s), smooths it, and exposes
+   * `mouseEnergy` (0..1) for renderers + audio to react to. Decays gently
+   * after motion stops. The art is calm by default and responds when stirred. */
+  let lastMouseX = 0, lastMouseY = 0, lastMouseT = performance.now();
+  let mouseSpeedSmoothed = 0;
+  let mouseEnergy = 0;
+  window.addEventListener('pointermove', (ev) => {
+    const t = performance.now();
+    const dt = Math.max(0.001, (t - lastMouseT) / 1000);
+    const dx = ev.clientX - lastMouseX;
+    const dy = ev.clientY - lastMouseY;
+    const inst = Math.sqrt(dx * dx + dy * dy) / dt;   /* px/sec */
+    mouseSpeedSmoothed = mouseSpeedSmoothed * 0.55 + inst * 0.45;
+    lastMouseX = ev.clientX;
+    lastMouseY = ev.clientY;
+    lastMouseT = t;
+  });
+  function tickMouseEnergy () {
+    /* decay smoothed speed each frame; ~96% per frame ≈ 1% after ~1.1s */
+    mouseSpeedSmoothed *= 0.96;
+    /* normalize to 0..1 — saturating around 2000 px/s */
+    mouseEnergy = Math.min(1, mouseSpeedSmoothed / 2000);
+  }
+
+  /* heartbeat rate driver — used for slow gain breathing on the audio chord,
+   * and as a clock for some visual pulse effects. ~50 BPM (slow heartbeat) =
+   * 0.833 Hz. Returns sin-wave 0..1, peaks once per cycle. */
+  function heartbeat (now, bpm) {
+    const rate = (bpm || 50) / 60;
+    return (Math.sin(now * 0.001 * 2 * Math.PI * rate) + 1) * 0.5;
+  }
+
   /* per-cell morph state: tracks when each cell's glyph "settles" to the new
    * constellation. Until settled, the cell flickers through block-glitch
    * chars. The constellation appears to dissolve and re-form in place rather
@@ -1939,6 +1998,7 @@ eleventyExcludeFromCollections: true
 
   /* ─── loop ─── */
   function tick (now) {
+    tickMouseEnergy();
     renderBg(now);
     renderConstellationAnim(now);
     renderNotes(now);
