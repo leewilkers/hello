@@ -31,3 +31,9 @@ synth-lab.njk
 durer-extraction-preview.html
 img/rabbits/durer-melencolia-extract-*.png
 img/ornaments/two-man-saw-motif-detail.png
+
+# Working notes (router passes, redlines, drafts). Eleventy would otherwise
+# build these into public /consulting-*/, /writing-*/ pages.
+consulting-router-pass-*.md
+consulting-trim-redline-*.md
+*-draft.md
