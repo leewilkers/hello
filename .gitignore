@@ -21,3 +21,13 @@ img/ornaments/_*
 
 # Local-only cosmic audio (Symphonies + Jodrell Bank pulsars). Not for Pages deploy.
 assets/nasa/audio/
+
+# Local-only lab pages (404 on live; never deployed; no git history).
+walk.njk
+synth-lab.njk
+
+# Local-only scratch (preview HTML + unused image extracts; not referenced
+# anywhere in code, would deploy as fetchable URLs otherwise).
+durer-extraction-preview.html
+img/rabbits/durer-melencolia-extract-*.png
+img/ornaments/two-man-saw-motif-detail.png
