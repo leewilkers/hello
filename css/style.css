@@ -88,6 +88,9 @@ html { scroll-behavior: smooth; }
   --serif: 'Source Serif 4', Georgia, serif;
   --sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
   --reading: 'Inter', -apple-system, 'Helvetica Neue', sans-serif;
+  /* Reading prose face — used on body paragraphs and rail-hover marginalia.
+     Separate from --reading (UI body) so future shifts in either don't bleed. */
+  --reading-prose: var(--serif);
   --home-title-size: 1.65rem;
   --home-title-weight: 700;
   --home-title-line: 1.15;
@@ -4286,8 +4289,8 @@ body {
 .home-rail-hover {
   position: sticky;
   top: 1.5rem;
-  font-family: var(--reading);
-  font-size: 1.05rem;
+  font-family: var(--reading-prose);
+  font-size: 1rem;
   line-height: 1.5;
   letter-spacing: 0;
   color: color-mix(in srgb, var(--ink) 92%, var(--bg));
@@ -4306,31 +4309,31 @@ body {
 
 .home-rail-hover .home-cite-prose {
   display: block;
+  font-family: var(--reading-prose);
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .home-rail-hover .home-cite-refs {
   display: block;
-  margin-top: 0.75rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
-  font-size: 0.82rem;
-  line-height: 1.45;
-  color: color-mix(in srgb, var(--ink) 72%, var(--bg));
+  margin-top: 0.65rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  font-family: var(--reading-prose);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--ink) 64%, var(--bg));
 }
 
 .home-rail-hover .home-cite-refs > span {
   display: block;
-  text-indent: -1.15rem;
-  padding-left: 1.15rem;
+  text-indent: -0.85rem;
+  padding-left: 0.85rem;
   margin-bottom: 0.2rem;
 }
 
 .home-rail-hover .home-cite-refs > span:last-child {
   margin-bottom: 0;
-}
-
-.home-history-method {
-  margin-top: 0.35rem;
 }
 
 .home-note-label {
@@ -4425,8 +4428,7 @@ body {
 
 .home-recent-org {
   margin-top: 0.14rem;
-  font-style: italic;
-  color: var(--home-note-color);
+  color: color-mix(in srgb, var(--ink) 58%, var(--bg));
 }
 
 .home-field-row--history {
@@ -4448,10 +4450,10 @@ body {
 .page-home .home-field-note .home-history {
   margin: 0;
   max-width: var(--home-main-measure);
-  font-family: var(--reading);
-  font-size: 0.94rem;
-  line-height: 1.55;
-  color: color-mix(in srgb, var(--ink) 88%, var(--bg));
+  font-family: var(--reading-prose);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 90%, var(--bg));
 }
 
 .page-home .home-field-note .home-history + .home-history {
@@ -5036,54 +5038,11 @@ body {
   margin: 0.25rem 0 0;
 }
 
-.home-work-toggle {
-  display: inline;
-  margin: 0 0 0 0.4em;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--ink-muted);
-  font: inherit;
-  font-size: 0.86em;
-  line-height: inherit;
-  vertical-align: baseline;
-  cursor: pointer;
-  text-decoration: underline dotted;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-}
-
-.home-work-toggle:hover {
-  text-decoration-color: transparent;
-}
-
-.home-work-toggle[aria-expanded="false"] .home-work-toggle-less,
-.home-work-toggle[aria-expanded="true"] .home-work-toggle-more {
-  display: none;
-}
-
-.home-work-list {
-  margin-top: 0.75rem;
-  color: color-mix(in srgb, var(--ink) 82%, var(--bg));
-}
-
-.home-work-list[hidden] {
-  display: none;
-}
-
 .home-plain .home-section.home-work .home-work-teaser-bullets {
   margin: 0;
   padding-left: 0;
   list-style: none;
   color: color-mix(in srgb, var(--ink) 84%, var(--bg));
-}
-
-.home-work-teaser-more {
-  margin: 0.5rem 0 0;
-}
-
-.home-work-teaser-more .home-work-toggle {
-  margin-left: 0;
 }
 
 .home-plain .home-section.home-work li {
