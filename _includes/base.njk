@@ -4257,5 +4257,42 @@
       .catch(function() {});
   })();
 </script>
+
+<script>
+  // Rail-hover: place-note content snaps into the right rail (anchored top).
+  (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var rail = document.getElementById('rail-hover');
+      if (!rail) return;
+
+      function activate(note) {
+        rail.textContent = note;
+        rail.classList.add('is-active');
+      }
+
+      function activateNode(sourceEl) {
+        var clone = sourceEl.cloneNode(true);
+        clone.removeAttribute('hidden');
+        rail.replaceChildren.apply(rail, Array.prototype.slice.call(clone.childNodes));
+        rail.classList.add('is-active');
+      }
+
+      function deactivate() {
+        rail.classList.remove('is-active');
+      }
+
+      var notes = document.querySelectorAll('.home-place-note');
+      notes.forEach(function(el) {
+        var bodyEl = el.querySelector('.home-cite-note-body');
+        var note = el.getAttribute('data-note') || '';
+        function enter() { bodyEl ? activateNode(bodyEl) : activate(note); }
+        el.addEventListener('mouseenter', enter);
+        el.addEventListener('focus', enter);
+        el.addEventListener('mouseleave', deactivate);
+        el.addEventListener('blur', deactivate);
+      });
+    });
+  })();
+</script>
 </body>
 </html>
