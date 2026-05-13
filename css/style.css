@@ -4169,7 +4169,7 @@ body {
   display: grid;
   gap: 0.2rem;
   max-width: var(--home-main-measure);
-  margin: 0 auto 0.35rem;
+  margin: 0 auto 1.1rem;
 }
 
 .home-field-note .home-title {
@@ -4180,7 +4180,15 @@ body {
   letter-spacing: -0.01em;
   font-variation-settings: normal;
   color: var(--ink);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.1rem;
+}
+
+.home-identity-terms {
+  margin: 0;
+  font-family: var(--reading-prose);
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ink) 64%, var(--bg));
 }
 
 .home-identity-line {
@@ -4206,7 +4214,7 @@ body {
 .page-home .home-field-note .home-lede {
   margin: 0;
   max-width: var(--home-main-measure);
-  font-family: var(--reading);
+  font-family: var(--reading-prose);
   font-size: 1rem;
   line-height: 1.5;
   color: color-mix(in srgb, var(--ink) 94%, var(--bg));
@@ -4428,7 +4436,8 @@ body {
 
 .home-recent-org {
   margin-top: 0.14rem;
-  color: color-mix(in srgb, var(--ink) 58%, var(--bg));
+  font-style: italic;
+  color: var(--home-note-color);
 }
 
 .home-field-row--history {
@@ -5018,12 +5027,12 @@ body {
 .home-work-teaser-label,
 .home-nav-heading {
   display: block;
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.6rem;
   font-family: var(--sans);
-  font-size: 1.18rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.22;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.3;
   color: var(--ink);
   text-transform: none;
 }
