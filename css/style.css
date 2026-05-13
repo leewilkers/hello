@@ -4173,11 +4173,11 @@ body {
 }
 
 .home-field-note .home-title {
-  font-family: var(--sans);
+  font-family: var(--reading-prose);
   font-size: 1.45rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
   font-variation-settings: normal;
   color: var(--ink);
   margin-bottom: 0.1rem;
@@ -4186,9 +4186,14 @@ body {
 .home-identity-terms {
   margin: 0;
   font-family: var(--reading-prose);
-  font-size: 0.94rem;
-  line-height: 1.45;
-  color: color-mix(in srgb, var(--ink) 64%, var(--bg));
+  font-size: 1rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 78%, var(--bg));
+  text-wrap: balance;
+}
+
+.home-identity-terms .home-place-note {
+  white-space: nowrap;
 }
 
 .home-identity-line {
@@ -4298,10 +4303,10 @@ body {
   position: sticky;
   top: 1.5rem;
   font-family: var(--reading-prose);
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.45;
   letter-spacing: 0;
-  color: color-mix(in srgb, var(--ink) 92%, var(--bg));
+  color: color-mix(in srgb, var(--ink) 80%, var(--bg));
   opacity: 0;
   transition: opacity 60ms linear;
   min-height: 0;
