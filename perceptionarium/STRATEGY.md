@@ -103,6 +103,28 @@ I asked: *what would have to be true for you to feel this whole thing was worth 
 
 Answer unresolved. The answer narrows the design space hard once it exists. Worth coming back to in a quieter session — not under build-momentum.
 
+## Two orienting framings (added 2026-05-13)
+
+These are *atmospheres* for future rooms, not lines that go in the copy. Both came up while polishing Prison Pink.
+
+### Global health in weird times
+
+The current moment has a lot of public-health information competing with much louder things: motivated researchers, viral confidence, no-blinding-on-momentum claims that diffuse faster than the corrections. Perceptionarium rooms are well-placed to teach the *shape* of that failure mode by demonstration. Prison Pink is exactly this — Schauss's confident-researcher / motivated-warden / no-blinding story is the template for a lot of contemporary noise. The room doesn't need to *name* this; the structural argument carries it. Future rooms should:
+
+- prefer cases where the popular claim is partly bullshit and a smaller real thing underneath survives (Prison Pink: opponent process; Biophilia: cortisol drops are tiny but real; Color science: synesthesia myths vs. mechanism).
+- be explicit about replication state of the claim when it has one — not in a tut-tutting register, just as part of the spec.
+- never moralize. The argument is the demonstration. The reader does the work.
+
+### Embodiment as the evidence-instrument
+
+The unifying move across rooms is: the reader's body produces a datum during the visit. The visit is the experiment, the reader is the apparatus. This is the *embodiment* vector — and it is what makes a perceptionarium room different from a science-explainer essay.
+
+- Each room should have a moment where the reader produces evidence on themselves. Prison Pink: the cyan ghost. Pulsars: the body's recognition of rhythm. Color science: the afterimage. Biophilia: rest-state physiology. Voyager: the auditory-threat circuit firing on plasma waves.
+- The prose's job is *to point at the datum*, not to substitute for it.
+- Citations are the second-best evidence in the room. The reader's own body is the first. Honor the order in the page rhythm: hook → felt-experience → name-it-tightly → cite.
+
+These framings should shape the "felt experience" column when picking room candidates in DESIGN.md, and should bias the voice register away from clinical-explanatory toward something closer to *demonstrator's instruction card*.
+
 ## Related artifacts
 
 - `Projects/personal_website/perceptionarium/DESIGN.md` — room scaffold, gesture column, voice notes
