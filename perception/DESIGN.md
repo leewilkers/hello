@@ -1,15 +1,16 @@
 ---
-project: perceptionarium
+project: notes-on-perception
 status: scaffold
 created: 2026-05-12
-home: Projects/personal_website/perceptionarium/
+renamed: "2026-05-14 (was: perceptionarium)"
+home: Projects/personal_website/perception/
 shape: wandered exhibit (non-linear, room-based)
 seed_session: from constellation-cutout-lab tangent on 2026-05-12
 permalink: false
 eleventyExcludeFromCollections: true
 ---
 
-# Perceptionarium — design doc
+# Notes on Perception — design doc
 
 > A wandered exhibit about **how perception constructs experience**.
 > Stimulus on one side (what's actually happening in physics/biology); apparatus on the other (what your brain does with it). The piece lives in the gap.
@@ -58,7 +59,7 @@ Rooms with `[CL]` reuse the constellation-cutout-lab engine; others want new vis
 |---|-----------|-------|-----------------|----------------|-------------|--------|
 | 1 | **Voyager** | Space physics / why eerie sounds feel eerie | Plasma-wave audio + ASCII field; reads as dread until you know what it is | NASA mission patch · radio receiver · 1979 instrument panel | `assets/nasa/audio/symphonies/` (vendored); constellation-cutout-lab.njk audio module | notes-exist · partly built [CL] |
 | 2 | **Pulsars** | Time-keeping, neutron-star physics, rhythm perception | Steady ticks at 30 Hz (Crab) shift from "machine" to "biological" with framing prose | Jodrell Bank chart paper · seismograph trace · metronome | `assets/nasa/audio/pulsars/` (8 files vendored) | notes-exist |
-| 3 | **Prison pink** | Baker-Miller pink color experiments (Schauss 1979); calming-effect claims that don't replicate | Solid Baker-Miller field; reveal flips to neutral gray; reader's own retinal afterimage delivers the punchline | Pantone chip · state-issued procurement spec · paint sample card · clinical dosimeter (live exposure timer) | `perceptionarium/prison-pink.njk` (built); cites verified except Bennett 1991 page numbers — TKTK before public link | **built** (public-bar pass 2026-05-13) |
+| 3 | **Prison pink** | Baker-Miller pink color experiments (Schauss 1979); calming-effect claims that don't replicate | Solid Baker-Miller field; reveal flips to neutral gray; reader's own retinal afterimage delivers the punchline | Pantone chip · state-issued procurement spec · paint sample card · clinical dosimeter (live exposure timer) | `perception/prison-pink.njk` (built); cites verified except Bennett 1991 page numbers — TKTK before public link | **built** (public-bar pass 2026-05-13) |
 | 4 | **Biophilia** | Wilson, restorative environments, why plant motifs settle us | ASCII fronds / fractal foliage; rest-state physiology prose | Herbarium specimen sheet · woodcut botanical · Victorian field guide | `KNOWLEDGE_BASE/Books_Library/unknown_None_nature_by_design_the_practice_of_biophilic_design.md` | notes-exist |
 | 5 | **Umwelt** | Von Uexküll; the tick's three-cue world; mantis shrimp 16-channel color | Same scene rendered through tick / mantis / bat / human channels in sequence; "what you see is a species-decision" | Ethogram · species-key plate · taxonomic comparison sheet | Adjacent: `Simple_Machines/dogs_and_designers_2026-05-05.md` (dogs/instinct seed) | notes-exist (adjacent) |
 | 6 | **Descending sweeps** | Auditory threat circuitry; why pitch-falling reads as alarm | A capella whistler-mode sweeps over silence; the body recognizes "down" as bad | Spectrogram printout · oscilloscope screen · siren | — *AI-suggested, but [[memory: voyager-symphonies-feel-scary]] tangentially captures the intuition* | seed |
@@ -81,7 +82,7 @@ Lee voice memory: e.g./i.e. natural hedges, software-as-craft metaphors welcome.
 ## Architecture — minimum-viable shape
 
 ```
-perceptionarium/
+perception/
 ├── DESIGN.md                    # this doc
 ├── index.njk                    # atrium / room picker
 ├── rooms/
@@ -94,7 +95,7 @@ perceptionarium/
 └── assets/                      # room-specific media; constellation-cutout-lab assets reusable
 ```
 
-Routing: `/perceptionarium/`, `/perceptionarium/voyager/`, `/perceptionarium/pulsars/`. Each room is just a page. Soft links via frontmatter `see_also: [voyager, pulsars]`.
+Routing: `/perception/`, `/perception/voyager/`, `/perception/pulsars/`. Each room is just a page. Soft links via frontmatter `see_also: [voyager, pulsars]`.
 
 Build incrementally — one room shippable in isolation.
 
@@ -114,7 +115,7 @@ Constellation cutout lab itself becomes one room (#9, pareidolia).
 - **Visual-art-first vs. content-first.** From the cutout lab session: "forget the notes / just make good art." Tension with the educational ambition. Resolved by: prose is short, optional-to-engage, and the visuals stand on their own first.
 - **Citations.** Educational claims should be sourced. Tiny inline citations? Footnote panel per room? Or shelf-style hover with one source per claim?
 - **Mobile.** The cutout lab is desktop-only effectively. Per leewilkers.com CLAUDE.md: "no mobile ghost bolt-on." Each room may need its own mobile take, or be desktop-only by design with a clear notice.
-- **License.** Voyager audio is gitignored sandbox-only. If perceptionarium ships publicly, need to decide: replace with raw NASA-direct clips, stream from archive.org, or stay sandbox-local-only.
+- **License.** Voyager audio is gitignored sandbox-only. If the exhibit ships publicly, need to decide: replace with raw NASA-direct clips, stream from archive.org, or stay sandbox-local-only.
 
 ## Lee's prior notes — pull-from-when-writing
 
