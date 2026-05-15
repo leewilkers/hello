@@ -4,7 +4,7 @@ title: Seeing Like A Software Company
 type: essay
 image: /img/covers/goedecke-seeing-like-a-software-company.jpg
 dest: stream
-topic: Software
+topic: Tech
 url: 'https://www.seangoedecke.com/seeing-like-a-software-company/'
 order: 50
 dek: seangoedecke.com

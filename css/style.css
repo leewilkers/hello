@@ -4184,16 +4184,41 @@ body {
 }
 
 .home-identity-terms {
-  margin: 0;
-  font-family: var(--reading-prose);
-  font-size: 1rem;
+  margin: 0.4rem 0 0;
+  font-family: var(--mono, var(--sans));
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   line-height: 1.5;
-  color: color-mix(in srgb, var(--ink) 78%, var(--bg));
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 42%, var(--bg));
   text-wrap: balance;
+}
+
+.home-identity-terms em {
+  font-style: normal;
+}
+
+.home-identity-subfields {
+  margin: 0.15rem 0 0;
+  font-family: var(--mono, var(--sans));
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 28%, var(--bg));
 }
 
 .home-identity-terms .home-place-note {
   white-space: nowrap;
+  border-bottom-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.home-identity-terms .home-place-note:focus-visible,
+.home-identity-terms .home-place-note:hover {
+  color: color-mix(in srgb, var(--ink) 70%, var(--bg));
+  border-bottom-color: color-mix(in srgb, var(--ink) 50%, transparent);
 }
 
 .home-identity-line {
@@ -4379,8 +4404,11 @@ body {
   margin-bottom: 0.55rem;
 }
 
-.home-recent {
-  margin-top: 1.15rem;
+.home-plain .home-section.home-recent {
+  max-width: var(--home-main-measure);
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule-light);
 }
 
 .home-recent .home-note-label {
