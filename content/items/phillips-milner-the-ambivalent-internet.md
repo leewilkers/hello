@@ -11,4 +11,6 @@ order: 46
 dek: "Polity, 2017"
 blurb: "A study of online expression as weird, playful, hostile, communal, and politically ambivalent all at once."
 featured: false
+description: "This book explores the weird and mean and in-between that characterize everyday expression online, from absurdist photoshops to antagonistic Twitter hashtags to deceptive identity play. Whitney Phillips and Ryan M. Milner focus especially on the ambivalence of this expression: the fact that it is too unwieldy, too variable across cases, to be essentialized as old or new, vernacular or institutional, generative or destructive. Online expression is, instead, all of the above. This ambivalence, the authors argue, hinges on available digital tools. That said, there is nothing unexpected or surprising about even the strangest online behavior. Ours is a brave new world, and there is nothing new under the sun – a point necessary to understanding not just that online spaces are rife with oddity, mischief, and antagonism, but why these behaviors matter. The Ambivalent Internet is essential reading for students and scholars of digital media and related fields across the humanities, as well as anyone interested in mediated culture and expression."
+
 ---

@@ -12,4 +12,6 @@ note: ""
 blurb: "Amartya Sen's 2005 essay collection arguing that India's tradition of public reasoning and argumentative culture is a democratic resource."
 quote: ""
 links: []
+description: "A Nobel Laureate offers insight into his native country, a land of many distinct traditions, widely divergent customs, vastly different convictions, and a veritable feast of viewpoints."
+
 ---

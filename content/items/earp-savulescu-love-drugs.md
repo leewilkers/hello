@@ -12,4 +12,6 @@ note: ""
 blurb: "A bioethics book on the possible use of neurochemistry to shape attachment, desire, separation, and intimate moral life."
 quote: ""
 links: []
+description: "Love drugs and anti-love drugs exist and more powerful versions will be available in the near future: What are the ethics of using them, how will they affect society, and will they take the magic out of love?"
+
 ---

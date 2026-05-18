@@ -13,4 +13,6 @@ note: ""
 blurb: "Frantz Fanon's 1952 psychoanalytic study of colonialism's psychological effects on Black identity."
 quote: ""
 links: []
+description: "In this study, Fanon uses psychoanalysis and psychological theory to explain the feelings of dependency and inadequacy that black people experience in a white world. Originally formulated to combat the oppression of black people, Fanon's insights are now being taken up by other oppressed groups - including feminists - and used in their struggle for cultural and political autonomy. Like Marx, Fanon wanted to change the world as well as to describe it. The sustained influence of his writings realizes this ambition."
+
 ---

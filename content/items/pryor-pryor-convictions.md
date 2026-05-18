@@ -15,4 +15,6 @@ blurb: >-
   and the costs of comic truth-telling.
 quote: ""
 links: []
+description: "Pryor tells the story of his life, from his childhood in Peoria, Illinois, through his growth as a comedian, to his battle with addiction and, in later years, multiple sclerosis."
+
 ---

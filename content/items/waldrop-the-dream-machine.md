@@ -12,4 +12,6 @@ note: ""
 blurb: "M. Mitchell Waldrop's 2001 biography of J.C.R. Licklider, the ARPA psychologist whose vision of 'man-computer symbiosis' seeded the internet and personal computing."
 quote: ""
 links: []
+description: "Writing with the same novelistic flair that made \"Complexity\" \"the most exciting intellectual adventure story of the year\" (\"The Washington Post\"), Waldrop presents the first full-scale portrait of the man whose dream of a \"human-computer symbiosis\" changed the course of science and culture. Photos."
+
 ---

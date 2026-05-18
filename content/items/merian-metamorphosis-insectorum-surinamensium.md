@@ -11,4 +11,6 @@ dek: "1705"
 blurb: "A landmark illustrated study of insects, plants, metamorphosis, and colonial natural history."
 quote: ""
 links: []
+description: "This is a full-size facsimile of the magnum opus of Maria Sibylla Merian, a significant contributor to the field of entomology because of her careful observations and documentation of the metamorphosis of the butterfly. Merian, a German naturalist and scientific illustrator, was one of the foremost female scientists of the 17th century. In 1705, she published Metamorphosis Insectorum Surinamensium, for which she became famous. No more than 30 copies of this masterwork are left worldwide."
+
 ---

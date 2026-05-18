@@ -13,4 +13,6 @@ note: ""
 blurb: "Viviana Zelizer's 1994 sociological study showing that people systematically 'earmark' money — challenging the assumption that money is fungible."
 quote: ""
 links: []
+description: "A dollar is a dollar--or so most of us believe. Indeed, it is part of the ideology of our time that money is a single, impersonal instrument that impoverishes social life by reducing social relations to cold, hard cash. Arguing against this conventional wisdom, Viviana Zelizer, a distinguished social scientist and prize-winning author, shows how people have invented their own forms of currency, earmarking money in ways that baffle market theorists, incorporating funds into webs of friendship and family relations, and otherwise varying the process by which spending and saving takes place."
+
 ---

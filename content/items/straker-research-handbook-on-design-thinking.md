@@ -11,4 +11,6 @@ order: 23
 dek: "Edward Elgar Publishing, 2023"
 blurb: "Straker and Wrigley collect research on design thinking across education, organizations, methods, and critique."
 featured: false
+description: "This Research Handbook includes carefully chosen contributions to provide a well-rounded perspective on design thinking. Encouraging debate and development for future research in design conceptualisation, this forward-thinking Handbook raises crucial questions about what design thinking is and what it could be"
+
 ---

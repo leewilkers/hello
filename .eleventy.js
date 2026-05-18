@@ -250,6 +250,33 @@ module.exports = function(eleventyConfig) {
     return "";
   });
 
+  // Serialize per-card data for the shelf modal as a JSON string safe to
+  // embed in <script type="application/json">. Pre-escapes "</" so the
+  // payload can never close its containing script tag, and U+2028/U+2029
+  // (which break inline JSON parsing in some older engines).
+  eleventyConfig.addFilter("shelfCardJSON", function(data) {
+    if (!data || typeof data !== "object") return "{}";
+    const payload = {
+      title: data.title || "",
+      author: data.author || "",
+      type: data.type || "",
+      topic: data.topic || "",
+      dek: data.dek || "",
+      blurb: data.blurb || "",
+      description: data.description || "",
+      quote: data.quote || "",
+      note: data.note || "",
+      image: data.image || "",
+      url: data.url || "",
+      source_label: data.source_label || "",
+      links: Array.isArray(data.links) ? data.links : []
+    };
+    return JSON.stringify(payload)
+      .replace(/<\//g, "<\\/")
+      .replace(new RegExp("\u2028", "g"), "\\u2028")
+      .replace(new RegExp("\u2029", "g"), "\\u2029");
+  });
+
   // Map a URL to a representative link label.
   // - If `override` is truthy, use it verbatim (hand-curated wins).
   // - Otherwise infer from host: ".pdf" / monoskop / archive.org → "full source",
@@ -384,12 +411,108 @@ module.exports = function(eleventyConfig) {
     return linkLabelFromUrl(url);
   });
 
+  // -----------------------------------------------------------------
+  // APL wiki (pattern-atlas/index/) helpers — gated by the gitignored
+  // _data/apl.js. If that data file doesn't exist (production builds),
+  // the wiki templates aren't present either, so these helpers just sit
+  // idle. Safe to leave wired permanently.
+  // -----------------------------------------------------------------
+
+  // Zero-pad to N digits (used for /pattern-atlas/index/001-name/ slugs)
+  eleventyConfig.addFilter("padN", function(value, digits) {
+    return String(value).padStart(Number(digits) || 3, "0");
+  });
+
+  // Alexander's confidence marks: 2 = ★★, 1 = ★, 0 = (none)
+  eleventyConfig.addFilter("aplStars", function(n) {
+    const v = Number(n) || 0;
+    return v >= 2 ? "★★" : v >= 1 ? "★" : "";
+  });
+
+  // Scale-band glyph for running heads + index lists
+  eleventyConfig.addFilter("aplScaleGlyph", function(scale) {
+    if (scale === "TOWNS") return "◯";
+    if (scale === "BUILDINGS") return "▢";
+    if (scale === "CONSTRUCTION") return "▷";
+    return "";
+  });
+
+  // Look up a pattern by its `n` (used to render up[] / down[] cross-link
+  // chips with the linked pattern's name + confidence beside the number)
+  eleventyConfig.addFilter("aplLookup", function(arr, n) {
+    if (!Array.isArray(arr)) return null;
+    const target = Number(n);
+    return arr.find((p) => Number(p.n) === target) || null;
+  });
+
+  // First sentence of a problem/solution string for hover-preview tooltips.
+  // Caps at ~140 chars; trims trailing whitespace + punctuation runs.
+  eleventyConfig.addFilter("aplFirstSentence", function(text) {
+    if (!text) return "";
+    const t = String(text).trim();
+    // First period followed by space/end, fall back to first 140 chars
+    const m = t.match(/^([^.!?]+[.!?])(\s|$)/);
+    let s = m ? m[1] : t;
+    if (s.length > 160) s = s.slice(0, 157).trimEnd() + "…";
+    return s;
+  });
+
+  // Pre-warm the 252 APL hero images on build, mirroring the shelfCover
+  // pre-warm. Skipped silently if _source/images doesn't exist (production).
+  const aplHeroMetadataCache = new Map();
+  async function generateAplHero(filename) {
+    const inputPath = path.join("./pattern-atlas/_source/images", filename);
+    if (!fs.existsSync(inputPath)) return null;
+    return Image(inputPath, {
+      widths: [320, 640, 960],
+      formats: ["webp", "jpeg"],
+      outputDir: "./_site/pattern-atlas/index/_hero/",
+      urlPath: "/pattern-atlas/index/_hero/",
+      filenameFormat: function(id, src, width, format) {
+        const name = path.basename(src, path.extname(src));
+        return `${name}-${width}.${format}`;
+      },
+    });
+  }
+
+  eleventyConfig.on("eleventy.before", async () => {
+    const imagesDir = "./pattern-atlas/_source/images";
+    if (!fs.existsSync(imagesDir)) return;
+    const files = fs.readdirSync(imagesDir).filter((f) => /\.(jpe?g|png|webp)$/i.test(f));
+    await Promise.all(files.map(async (file) => {
+      try {
+        const metadata = await generateAplHero(file);
+        if (metadata) aplHeroMetadataCache.set(file, metadata);
+      } catch (e) {
+        // Skip files Sharp can't parse
+      }
+    }));
+  });
+
+  eleventyConfig.addShortcode("aplHero", function(filename, alt) {
+    if (!filename) return "";
+    const metadata = aplHeroMetadataCache.get(filename);
+    if (!metadata) return "";
+    return Image.generateHTML(metadata, {
+      alt: alt || "",
+      sizes: "(max-width: 700px) 100vw, 38rem",
+      loading: "lazy",
+      decoding: "async",
+    });
+  });
+
   eleventyConfig.addFilter("toJson", function(value) {
     return JSON.stringify(value)
       .replace(/</g, "\\u003c")
       .replace(/>/g, "\\u003e")
       .replace(/&/g, "\\u0026");
   });
+
+  // Eleventy 3.x reads .gitignore by default; we maintain our own explicit
+  // ignore list below instead, so that gitignoring the local-only APL wiki
+  // doesn't hide it from local Eleventy builds. The wiki stays out of CI
+  // deploys because git itself doesn't ship the files to the build runner.
+  eleventyConfig.setUseGitIgnore(false);
 
   // Ignore non-site files
   eleventyConfig.ignores.add("AGENTS.md");
@@ -410,6 +533,18 @@ module.exports = function(eleventyConfig) {
   // Internal handoffs / dry-run reports / agent kickoff prompts — committed for
   // workflow history, but never published. Folder is project-local design process.
   eleventyConfig.ignores.add("prompts/**");
+  // The following used to be gitignored only; explicitly listed now that
+  // setUseGitIgnore(false) is in effect (Eleventy 3 default would otherwise
+  // honor .gitignore). Keep these in sync with .gitignore.
+  eleventyConfig.ignores.add("walk.njk");
+  eleventyConfig.ignores.add("synth-lab.njk");
+  eleventyConfig.ignores.add("durer-extraction-preview.html");
+  eleventyConfig.ignores.add("consulting-router-pass-*.md");
+  eleventyConfig.ignores.add("consulting-trim-redline-*.md");
+  eleventyConfig.ignores.add("*-draft.md");
+  eleventyConfig.ignores.add("pattern-atlas/alphabet.md");
+  eleventyConfig.ignores.add("POSITIONING_BRAINSTORM_*.md");
+  eleventyConfig.ignores.add("_shelf_expansion_picks_*.md");
 
   return {
     dir: {

@@ -18,4 +18,6 @@ links:
   - label: "on interviewing"
     url: "https://www.chicagomag.com/city-life/july-2011/studs-terkel-on-how-to-interview-someone/"
 order: 5
+description: "A Pulitzer Prize winner interviews workers, from policemen to piano tuners: \"Magnificent . . . To read it is to hear America talking.\" — The Boston Globe A National Book Award Finalist and New York Times bestseller Studs Terkel's classic oral history Working is a compelling look at jobs and the people who do them. Consisting of over one hundred interviews with everyone from a gravedigger to a studio head, this book provides a \"brilliant\" and enduring portrait of people's feelings about their working lives. This edition includes a new foreword by New York Times journalist Adam Cohen ( Forbes). \"Splendid . . . Important . . . Rich and fascinating . . . The people we meet are not digits in a poll but real people with real names who share their anecdotes, adventures, and aspirations with us.\" — Business Week \"The talk in Working is good talk—earthy, passionate, honest, sometimes tender, sometimes crisp, juicy as reality, seasoned with experience.\" — The Washington Post"
+
 ---
