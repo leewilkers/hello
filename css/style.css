@@ -9615,6 +9615,14 @@ a.shelf-list-title:hover {
   backdrop-filter: blur(2px);
 }
 
+/* Lock background scroll while the modal is open. Native <dialog> does
+   not inert the body in all browsers, so scrolling behind the modal
+   leaks through (verified in Chromium). Uses :has() — supported in
+   all evergreen browsers since 2022. */
+html:has(.shelf-modal[open]) {
+  overflow: hidden;
+}
+
 .shelf-modal__dismiss {
   position: absolute;
   top: 0.4rem;
