@@ -98,6 +98,7 @@
     setText(els.type, data.type || "");
 
     if (data.image) {
+      els.cover.onerror = function () { show(els.coverWrap, false); };
       els.cover.src = data.image;
       els.cover.alt = data.title ? "Cover of " + data.title : "";
       show(els.coverWrap, true);
