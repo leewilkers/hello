@@ -152,4 +152,33 @@
   dialog.addEventListener("click", function (e) {
     if (e.target === dialog) dialog.close();
   });
+
+  // Focus trap. Native <dialog>.showModal() lets Tab escape to document.body
+  // once focus reaches the last tabbable element. Loop back manually so
+  // keyboard users stay inside the dialog per WAI-ARIA modal pattern.
+  function tabbables() {
+    var sel = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    return [].filter.call(dialog.querySelectorAll(sel), function (el) {
+      return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
+    });
+  }
+
+  dialog.addEventListener("keydown", function (e) {
+    if (e.key !== "Tab" || !dialog.open) return;
+    var list = tabbables();
+    if (!list.length) {
+      e.preventDefault();
+      return;
+    }
+    var first = list[0];
+    var last = list[list.length - 1];
+    var active = document.activeElement;
+    if (e.shiftKey && active === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 })();
