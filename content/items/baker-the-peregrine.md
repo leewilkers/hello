@@ -11,4 +11,8 @@ dek: "NYRB Classics, 2005"
 blurb: "A fierce, obsessive book of watching until the watcher almost disappears into the bird."
 quote: ""
 links: []
+description: "A masterpiece of nature writing. One man's decade-long quest to trail and and know the peregrine falcon, at a time when its extinction seemed inevitable."
+description_source: "Open Library"
+description_source_url: "https://openlibrary.org/works/OL2395963W"
+
 ---

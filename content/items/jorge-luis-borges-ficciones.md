@@ -12,4 +12,8 @@ blurb: "Seventeen labyrinthine pieces of invented books, impossible worlds, and 
 quote: ""
 links: []
 order: 8
+description: "A collection of his short stories in which Borges often uses the labyrinth as a literary device to expound his ideas on all aspects of human life and endeavor. ---------- Contains: [Tlön, Uqbar, Orbis Tertius](https://openlibrary.org/works/OL444914W)"
+description_source: "Open Library"
+description_source_url: "https://openlibrary.org/works/OL110971W"
+
 ---

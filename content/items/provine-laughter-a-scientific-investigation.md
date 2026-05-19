@@ -14,4 +14,8 @@ blurb: >-
   and evolutionary puzzle.
 quote: ""
 links: []
+description: "Do men and women laugh at the same things? Is laughter contagious? Has anyone ever really died laughing? Is laughing good for your health? Drawing upon ten years of research into this most common-yet complex and often puzzling-human phenomenon, Dr. Robert Provine, the world's leading scientific expert on laughter, investigates such aspects of his subject as its evolution, its role in social relationships, its contagiousness, its neural mechanisms, and its health benefits. This is an erudite, wide-ranging, witty, and long-overdue exploration of a frequently surprising subject."
+description_source: "Google Books"
+description_source_url: "https://play.google.com/store/books/details?id=mTkVAAAAQBAJ&source=gbs_api"
+
 ---

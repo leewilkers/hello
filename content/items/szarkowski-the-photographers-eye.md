@@ -12,4 +12,8 @@ dek: "MoMA, 1966"
 blurb: "A compact grammar of photographic seeing: frame, detail, time, vantage, and thing itself."
 quote: ""
 links: []
+description: "\"This book is an investigation of what photographs look like, and of why they look that way. It is concerned with photographic style and with photographic tradition: with the sense of possibilities that a photographer today takes to his work.\"--"
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=bDPrAAAAMAAJ&dq=intitle:%22The+Photographer%27s+Eye%22+inauthor:%22John+Szarkowski%22&hl=&as_pt=BOOKS&source=gbs_api"
+
 ---

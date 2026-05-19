@@ -1,19 +1,20 @@
 ---
-project: perceptionarium
+project: notes-on-perception
 purpose: strategic framing — what is this thing for, in terms of Lee's wider work
 created: 2026-05-12
+renamed: "2026-05-14 (was: perceptionarium)"
 status: open question, not resolved
 permalink: false
 eleventyExcludeFromCollections: true
 ---
 
-# Perceptionarium — strategic framing
+# Notes on Perception — strategic framing
 
 > Saved 2026-05-12 from session where the question came up. Lee asked: *what would actually be meaningful for the site in terms of my mission in life whatever that is.* This document is the answer I attempted, plus the open question Lee left unanswered. Treat as substrate, revise as the answer sharpens.
 
 ## The pattern under all of Lee's work
 
-Across IC manuscripts, FACE consulting, Simple Machines writing seeds, the personal website, the constellation lab, the perceptionarium — one consistent move runs through everything:
+Across IC manuscripts, FACE consulting, Simple Machines writing seeds, the personal website, the constellation lab, Notes on Perception — one consistent move runs through everything:
 
 **Take an apparatus that runs invisibly. Show it.**
 
@@ -22,7 +23,7 @@ Across IC manuscripts, FACE consulting, Simple Machines writing seeds, the perso
 - Dogs and Designers seed: instinct as the invisible apparatus, designers as the patchers.
 - Whoopie Cushions seed: institutional anarchy as the apparatus of doing humane work inside bureaucracies.
 - The personal website's whole register (`LABEL value`, colophon footer, build-notes ethos): the apparatus of the site is visible *in* the site.
-- Perceptionarium: the apparatus of perception, made visible by pointing at the reader's own retina, auditory cortex, body.
+- Notes on Perception: the apparatus of perception, made visible by pointing at the reader's own retina, auditory cortex, body.
 
 The unity is stronger than "Lee does eclectic things." The work is *about* showing apparatus.
 
@@ -32,15 +33,15 @@ Not Scott's *Seeing Like A State* legibility (which is the *state* making the pe
 
 **Making the apparatus the reader didn't choose legible to *them* — so they can choose differently.**
 
-That subsumes research ethics work, public health writing, consulting, *and* the lab/perceptionarium aesthetic projects. They are not separate hobbies. They are the same move, in different mediums, for different audiences.
+That subsumes research ethics work, public health writing, consulting, *and* the lab/exhibit aesthetic projects. They are not separate hobbies. They are the same move, in different mediums, for different audiences.
 
-## Four candidate POINTs for perceptionarium
+## Four candidate POINTs for the project
 
 Not mutually exclusive. Weighting choices.
 
 ### 1. Portfolio / shop-window for consulting
 
-The site's job is to show prospective clients who they're hiring. Perceptionarium proves: rigorous about evidence, plays well with ambiguity, can build, can write, takes craft seriously, thinks across disciplines.
+The site's job is to show prospective clients who they're hiring. Notes on Perception proves: rigorous about evidence, plays well with ambiguity, can build, can write, takes craft seriously, thinks across disciplines.
 
 **Implications.** Each room is a competence demo. Ship 3–4 strong rooms before public promotion. Link from the consulting page. Let it be the part of the site that says *this is how I think about thinking.*
 
@@ -65,8 +66,8 @@ Not a means; an end. Accumulates over years. A room is added when one is found w
 ## Three smaller reads worth keeping in mind
 
 - **Personal nourishment.** Some of this would be built whether or not it has a point. The doing IS the point. Legitimate answer. *I built this because I wanted to* is the honest reason a lot of the best small projects exist — Sloan, Victor, Tom 7, every personal site worth visiting.
-- **A demo of the aesthetic principle.** *Medium-specific yet gesturing to another medium* is an argument. Perceptionarium *makes* the argument by being it. Useful when pointing at it later.
-- **Connective tissue.** A reader who likes a perceptionarium room follows back to the shelf, the consulting page, Simple Machines drafts. The site stops being four disconnected concerns and starts being one project with multiple surfaces.
+- **A demo of the aesthetic principle.** *Medium-specific yet gesturing to another medium* is an argument. Notes on Perception *makes* the argument by being it. Useful when pointing at it later.
+- **Connective tissue.** A reader who likes a room here follows back to the shelf, the consulting page, Simple Machines drafts. The site stops being four disconnected concerns and starts being one project with multiple surfaces.
 
 ## Lee's position (2026-05-12): all four are important
 
@@ -109,7 +110,7 @@ These are *atmospheres* for future rooms, not lines that go in the copy. Both ca
 
 ### Global health in weird times
 
-The current moment has a lot of public-health information competing with much louder things: motivated researchers, viral confidence, no-blinding-on-momentum claims that diffuse faster than the corrections. Perceptionarium rooms are well-placed to teach the *shape* of that failure mode by demonstration. Prison Pink is exactly this — Schauss's confident-researcher / motivated-warden / no-blinding story is the template for a lot of contemporary noise. The room doesn't need to *name* this; the structural argument carries it. Future rooms should:
+The current moment has a lot of public-health information competing with much louder things: motivated researchers, viral confidence, no-blinding-on-momentum claims that diffuse faster than the corrections. These rooms are well-placed to teach the *shape* of that failure mode by demonstration. Prison Pink is exactly this — Schauss's confident-researcher / motivated-warden / no-blinding story is the template for a lot of contemporary noise. The room doesn't need to *name* this; the structural argument carries it. Future rooms should:
 
 - prefer cases where the popular claim is partly bullshit and a smaller real thing underneath survives (Prison Pink: opponent process; Biophilia: cortisol drops are tiny but real; Color science: synesthesia myths vs. mechanism).
 - be explicit about replication state of the claim when it has one — not in a tut-tutting register, just as part of the spec.
@@ -117,7 +118,7 @@ The current moment has a lot of public-health information competing with much lo
 
 ### Embodiment as the evidence-instrument
 
-The unifying move across rooms is: the reader's body produces a datum during the visit. The visit is the experiment, the reader is the apparatus. This is the *embodiment* vector — and it is what makes a perceptionarium room different from a science-explainer essay.
+The unifying move across rooms is: the reader's body produces a datum during the visit. The visit is the experiment, the reader is the apparatus. This is the *embodiment* vector — and it is what makes a room here different from a science-explainer essay.
 
 - Each room should have a moment where the reader produces evidence on themselves. Prison Pink: the cyan ghost. Pulsars: the body's recognition of rhythm. Color science: the afterimage. Biophilia: rest-state physiology. Voyager: the auditory-threat circuit firing on plasma waves.
 - The prose's job is *to point at the datum*, not to substitute for it.
@@ -127,7 +128,7 @@ These framings should shape the "felt experience" column when picking room candi
 
 ## Related artifacts
 
-- `Projects/personal_website/perceptionarium/DESIGN.md` — room scaffold, gesture column, voice notes
+- `Projects/personal_website/perception/DESIGN.md` — room scaffold, gesture column, voice notes
 - `Projects/personal_website/CLAUDE.md` — site stack, frontmatter rules
 - `KNOWLEDGE_BASE/Writing_Projects/Simple_Machines/00_IDEAS.md` — writing-project index
 - `Projects/personal_website/consulting.njk` — sister piece for the consulting POINT

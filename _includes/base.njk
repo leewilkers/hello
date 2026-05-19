@@ -104,9 +104,11 @@
   </a>
   <div class="nav-right">
     <div class="nav-links">
+      <a href="/site-tree/" {% if page.url == "/site-tree/" %}class="active"{% endif %}>home</a>
       <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
       <a href="/consulting/" {% if page.url == "/consulting/" %}class="active"{% endif %}>consulting</a>
-      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>shelves</a>
+      <a href="/writing/" title="in progress – pardon the dust"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a>
+      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
       <a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">

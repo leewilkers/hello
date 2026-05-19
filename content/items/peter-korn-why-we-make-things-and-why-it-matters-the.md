@@ -12,4 +12,8 @@ blurb: "Korn reflects on craft as a way of learning attention, agency, material 
 quote: ""
 order: 7
 links: []
+description: "Following his personal experiences as a novice carpenter, designer/maker of fine furniture, and a teacher, Korn explores the nature and rewards of creative practice."
+description_source: "Open Library"
+description_source_url: "https://openlibrary.org/works/OL17582146W"
+
 ---
