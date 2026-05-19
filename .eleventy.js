@@ -13,6 +13,18 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets/js");
   eleventyConfig.addPassthroughCopy("assets/nasa");
   eleventyConfig.addPassthroughCopy("admin");
+  eleventyConfig.addPassthroughCopy("pattern-atlas/style.css");
+  eleventyConfig.addPassthroughCopy("pattern-atlas/atlas.js");
+  // NOTE: patterns.json is NOT passthrough-copied. It contains verbatim
+  // Alexander prose extracted from the OUP epub and must stay local-only.
+  // The local-only APL wiki (pattern-atlas/index/) consumes it via
+  // _data/apl.js server-side. If the future art-version field-render needs
+  // the data client-side, inline it into the page template rather than
+  // exposing the file as a public URL.
+  // Wiki style + helper JS — passthroughs are silent no-ops when the
+  // gitignored wiki dir isn't present (production builds).
+  eleventyConfig.addPassthroughCopy("pattern-atlas/index/style.css");
+  eleventyConfig.addPassthroughCopy("pattern-atlas/index/random.js");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("google8f11425ab7fc438d.html");
 
@@ -264,6 +276,8 @@ module.exports = function(eleventyConfig) {
       dek: data.dek || "",
       blurb: data.blurb || "",
       description: data.description || "",
+      description_source: data.description_source || "",
+      description_source_url: data.description_source_url || "",
       quote: data.quote || "",
       note: data.note || "",
       image: data.image || "",

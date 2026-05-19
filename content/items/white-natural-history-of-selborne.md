@@ -12,5 +12,7 @@ blurb: "Close local observation turned into one of the founding works of English
 quote: ""
 links: []
 description: "This book is part of the Everyman series, which has been totally re-set with wide margins and easy-to-read type. It includes an introduction, a chronology of the life and times of the author and a selection of criticism."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=6UxJOQAACAAJ&dq=intitle:%22The+Natural+History+of+Selborne%22+inauthor:%22Gilbert+White%22&hl=&as_pt=BOOKS&source=gbs_api"
 
 ---

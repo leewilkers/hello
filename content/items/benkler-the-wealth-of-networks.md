@@ -13,4 +13,8 @@ note: ""
 blurb: "Yochai Benkler's 2006 argument that networked technologies enable peer-based, non-market social production."
 quote: ""
 links: []
+description: "Describes how patterns of information, knowledge, and cultural production are changing. The author shows that the way information and knowledge are made available can either limit or enlarge the ways people create and express themselves. He describes the range of legal and policy choices that confront."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=VUpUhgBnovwC&dq=intitle:%22The+Wealth+of+Networks:+How+Social+Production+Transforms+Markets+and+Freedom%22+inauthor:%22Yochai+Benkler%22&hl=&as_pt=BOOKS&source=gbs_api"
+
 ---

@@ -12,5 +12,7 @@ dek: "W. W. Norton, 1995"
 blurb: "A history of textiles, fiber arts, women's economic power, and the archaeological recovery of cloth work in early societies."
 featured: false
 description: "\"A fascinating history of…[a craft] that preceded and made possible civilization itself.\" —New York Times Book Review New discoveries about the textile arts reveal women's unexpectedly influential role in ancient societies. Twenty thousand years ago, women were making and wearing the first clothing created from spun fibers. In fact, right up to the Industrial Revolution the fiber arts were an enormous economic force, belonging primarily to women. Despite the great toil required in making cloth and clothing, most books on ancient history and economics have no information on them. Much of this gap results from the extreme perishability of what women produced, but it seems clear that until now descriptions of prehistoric and early historic cultures have omitted virtually half the picture. Elizabeth Wayland Barber has drawn from data gathered by the most sophisticated new archaeological methods—methods she herself helped to fashion. In a \"brilliantly original book\" (Katha Pollitt, Washington Post Book World), she argues that women were a powerful economic force in the ancient world, with their own industry: fabric."
+description_source: "Google Books"
+description_source_url: "https://play.google.com/store/books/details?id=UanOCQAAQBAJ&source=gbs_api"
 
 ---

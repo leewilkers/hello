@@ -13,5 +13,7 @@ blurb: "A theological-cultural essay on what remains after supernatural enchantm
 quote: ""
 links: []
 description: "Magic, super-powers, contact with the beyond - digging down beneath these stories uncovers an extraordinary pattern: it is only in the renunciation of such ‘potent arts’ that a hero’s true humanity is revealed. Journeying from Shakespeare’s plays through novels and films and deep into the human condition, After Magic presents a startling challenge to a world still tied up with toxic religion to discover what lies in a life lived beyond the infinite demand of ‘super-nature.’"
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/17786578-after-magic---moves-beyond-super-nature-from-batman-to-shakespeare"
 
 ---

@@ -12,4 +12,8 @@ note: ""
 blurb: "Dennett's field guide to thought experiments, mental models, and other tools for working with difficult ideas."
 quote: ""
 links: []
+description: "Daniel Dennett, one of the world's most original and provocative thinkers, takes readers on a profound, illuminating and highly entertaining philosophical journey as he reveals a collection of his favorite thinking tools, or \"intuition pumps\", that he and others have developed for addressing life's most fundamental questions."
+description_source: "Open Library"
+description_source_url: "https://openlibrary.org/works/OL16816583W"
+
 ---

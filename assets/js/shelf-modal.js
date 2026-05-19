@@ -22,6 +22,8 @@
     dek: dialog.querySelector("[data-modal-dek]"),
     bodyWrap: dialog.querySelector("[data-modal-body-wrap]"),
     body: dialog.querySelector("[data-modal-body]"),
+    bodySource: dialog.querySelector("[data-modal-body-source]"),
+    bodySourceLink: dialog.querySelector("[data-modal-body-source-link]"),
     quoteWrap: dialog.querySelector("[data-modal-quote-wrap]"),
     quote: dialog.querySelector("[data-modal-quote]"),
     noteWrap: dialog.querySelector("[data-modal-note-wrap]"),
@@ -114,6 +116,25 @@
     setText(els.body, bodyText);
     show(els.bodyWrap, !!bodyText);
 
+    // "via Goodreads" attribution under a description sourced from a public DB.
+    // Only render when the body text came from data.description (not data.blurb)
+    // AND we have a source label. Link if URL provided, plain text otherwise.
+    var hasSource = !!(bodyText && data.description && data.description_source);
+    if (hasSource && els.bodySource) {
+      var link = els.bodySourceLink;
+      setText(link, data.description_source);
+      if (data.description_source_url) {
+        link.setAttribute("href", data.description_source_url);
+        link.removeAttribute("data-no-href");
+      } else {
+        link.removeAttribute("href");
+        link.setAttribute("data-no-href", "");
+      }
+      show(els.bodySource, true);
+    } else if (els.bodySource) {
+      show(els.bodySource, false);
+    }
+
     setText(els.quote, data.quote || "");
     show(els.quoteWrap, !!data.quote);
 
@@ -141,9 +162,11 @@
   }
 
   grid.addEventListener("click", function (e) {
-    var btn = e.target.closest(".cell-cover-primary");
+    // Two triggers: cover button (card view) + title button (list view).
+    var btn = e.target.closest(".cell-cover-primary, button.shelf-list-title");
     if (!btn) return;
-    var card = btn.closest(".shelf-card");
+    // Card view: data island lives in .shelf-card; list view: in .shelf-list-row.
+    var card = btn.closest(".shelf-card, .shelf-list-row");
     if (!card) return;
     e.preventDefault();
     openFor(card);

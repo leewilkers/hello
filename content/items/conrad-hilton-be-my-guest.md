@@ -14,4 +14,8 @@ links:
   - label: "Internet Archive"
     url: "https://archive.org/details/bemyguesthil00hilt"
 order: 8
+description: "Be My Guest is the remarkable autobiography of legendary entrepreneur, statesman, and philanthropist Conrad Hilton. Born on Christmas day in 1887 in the Territory of New Mexico, by 1929 Hilton owned hotels throughout Texas. Although the Depression erased nearly all of it, he never resorted to bankruptcy. Rising through turbulence and achieving prosperity, the “innkeeper to the world” brought the world closer together in glamorous destinations across the globe. Conrad Hilton believed in himself, in his dreams and in America as the land of opportunity. In his own words, he reveals how mastering the art of living can also help listeners achieve their own personal success."
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/115492.Be_My_Guest"
+
 ---

@@ -14,5 +14,7 @@ links:
   - label: "amazon"
     url: "https://www.amazon.com/Birth-Photography-Story-Formative-1800-1900/dp/0600562964"
 description: "Recounts the beginnings of and early developments in photographic methods and equipment and illustrates the work of pioneer photographers of the nineteenth century"
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/78333.The_Birth_Of_Photography"
 
 ---

@@ -142,15 +142,12 @@ pageClass: page-shelf
       {%- set primaryUrl = item.data.url %}
       {%- set identityYear = item.data | shelfIdentityYear %}
       <li class="shelf-list-row">
+        <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
         <span class="shelf-list-main">
           {{ typeSymbol(item, "shelf-list-type") }}
           {%- if item.data.title %}
           {%- set tip = item.data.tooltip %}
-          {%- if primaryUrl %}
-          <a class="shelf-list-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
-          {%- else %}
-          <span class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
-          {%- endif %}
+          <button type="button" class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %} aria-label="Details for {{ item.data.title | escape }}">{{ item.data.title }}</button>
           {%- endif %}
           {%- if item.data.author or identityYear %}
           <span class="shelf-list-author">
@@ -256,6 +253,9 @@ pageClass: page-shelf
       <div class="shelf-modal__text">
         <section class="shelf-modal__section shelf-modal__section--body" data-modal-body-wrap hidden>
           <p class="shelf-modal__body-text" data-modal-body></p>
+          <p class="shelf-modal__body-source" data-modal-body-source hidden>
+            via <a data-modal-body-source-link target="_blank" rel="noopener"></a>
+          </p>
         </section>
         <section class="shelf-modal__section shelf-modal__section--quote" data-modal-quote-wrap hidden>
           <p class="shelf-modal__section-label">Quote</p>

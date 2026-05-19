@@ -14,5 +14,7 @@ links:
   - label: "icp"
     url: "https://www.icp.org/exhibitions/henri-cartier-bresson-decisive-moment"
 description: "One of the most famous books in the history of photography, this volume assembles Cartier-Bresson's best work from his early years."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=QAafjwEACAAJ&dq=intitle:%22The+Decisive+Moment%22+inauthor:%22Henri+Cartier-Bresson%22&hl=&as_pt=BOOKS&source=gbs_api"
 
 ---

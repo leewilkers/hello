@@ -6716,7 +6716,9 @@ body {
 }
 
 .shelf-console-head__title {
-  grid-column: 1;
+  /* Span both grid columns so the epigraph + definitions list can breathe.
+     Inner content (.stacks-definitions) still honors its own max-width: 38em. */
+  grid-column: 1 / -1;
 }
 
 .shelf-console-head .console-status {
@@ -7993,11 +7995,23 @@ a.cell-text-title:hover {
   margin-right: 0.45rem;
 }
 
-a.shelf-list-title {
+/* Button-form (modal trigger) and link-form share the same visual treatment. */
+button.shelf-list-title {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+a.shelf-list-title,
+button.shelf-list-title {
   text-decoration: none;
 }
 
-a.shelf-list-title:hover {
+a.shelf-list-title:hover,
+button.shelf-list-title:hover {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -9785,6 +9799,33 @@ html:has(.shelf-modal[open]) {
   white-space: pre-line;
 }
 
+/* Quiet attribution under a sourced description. Small-caps mono label,
+   faint ink, hover lifts to accent. */
+.shelf-modal__body-source {
+  margin: 0.55rem 0 0 0;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+  font-variant-caps: all-small-caps;
+}
+.shelf-modal__body-source a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 25%, transparent);
+  transition: color 140ms ease, text-decoration-color 140ms ease;
+}
+.shelf-modal__body-source a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.shelf-modal__body-source a[data-no-href] {
+  text-decoration: none;
+  cursor: default;
+}
+
 .shelf-modal__quote {
   margin: 0;
   padding-left: 0.85rem;
@@ -9821,4 +9862,152 @@ html:has(.shelf-modal[open]) {
 
 .shelf-modal__links a:hover {
   color: var(--accent);
+}
+
+/* ============================================================================
+   GWERN REGISTER — typographic moves scoped to article.essay
+   Drop cap, hanging punctuation, refined link decoration, small-caps for
+   acronyms, lining figures in the lead. Reversible as one block.
+   ============================================================================ */
+
+/* Hanging punctuation: smart quotes / parens hang into the margin on the
+   first and last line. Currently Safari-only; degrades silently elsewhere. */
+.essay { hanging-punctuation: first last allow-end; }
+
+/* Drop cap on the first paragraph of the opener section.
+   Sized to ~3 lines of cap height, baseline-aligned to the third line. */
+.essay .essay-opener > p:first-of-type::first-letter,
+.essay > section:first-of-type > p:first-of-type::first-letter {
+  font-family: var(--reading-prose, var(--serif));
+  font-weight: 600;
+  font-style: normal;
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.82;
+  padding: 0.06em 0.08em 0 0;
+  margin: 0.04em 0.04em 0 0;
+  color: var(--ink);
+  font-feature-settings: "lnum" 1, "kern" 1;
+  /* Slight optical hang into the left margin for readability with body
+     justification — kept subtle so it doesn't escape narrow containers. */
+  text-indent: -0.02em;
+}
+
+/* Lining figures in the lead paragraph: years and numerals sit cleanly on
+   the baseline rather than dropping (old-style figures stay everywhere else). */
+.essay .essay-opener > p:first-of-type,
+.essay > section:first-of-type > p:first-of-type {
+  font-feature-settings: "lnum" 1, "kern" 1, "liga" 1;
+}
+
+/* Refined link decoration in essay prose: thin underline with offset,
+   transition on hover to accent. Anchors used as section navigation can
+   opt out with .no-decoration. */
+.essay a:not(.no-decoration):not(.essay-tag) {
+  text-decoration: underline;
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 38%, transparent);
+  transition: text-decoration-color 140ms ease, color 140ms ease;
+}
+.essay a:not(.no-decoration):not(.essay-tag):hover {
+  text-decoration-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Small-caps for acronyms (HTML <abbr>) and any .caps span. Use real
+   OpenType small-caps where available; fall back to font-variant-caps. */
+.essay abbr,
+.essay .caps {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+/* Pull-quotes and definition-list dt get the same small-caps register on the
+   meta line, matching the site's existing mono-smallcaps label grammar but
+   using the serif face inside the essay context. */
+.essay .essay-definitions dt strong {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* ---- Essay reading column ----
+   Gwern uses a ~720px reading measure for prose; tables/figures break out
+   wider. Confine body prose to ~38em (≈ 660px at base 17px) while letting
+   wide block elements escape the constraint via .essay-wide. */
+.page-essay .essay {
+  max-width: 38em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1.25rem 4rem;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+@media (max-width: 720px) {
+  .page-essay .essay {
+    padding: 1.25rem 1rem 3rem;
+    font-size: 1rem;
+  }
+}
+.page-essay .essay .essay-wide,
+.page-essay .essay > figure {
+  max-width: 56em;
+  margin-left: calc(50% - 28em);
+  margin-right: auto;
+}
+@media (max-width: 1180px) {
+  .page-essay .essay .essay-wide,
+  .page-essay .essay > figure {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ---- External link affordance ----
+   Tiny ↗ after links that leave the site. Skip mailtos, anchors, and any
+   link already carrying its own glyph. Inline-block keeps the glyph from
+   breaking the underline; opacity gives it the gwern-quiet feel. */
+.essay a[href^="http"]:not([href*="leewilkers.com"]):not(.no-glyph)::after {
+  content: "↗";
+  font-family: var(--sans);
+  font-size: 0.72em;
+  vertical-align: 0.22em;
+  margin-left: 0.12em;
+  opacity: 0.55;
+  text-decoration: none;
+  letter-spacing: 0;
+}
+/* Wikipedia gets the subtle [W] mark instead — gwern color-codes by source,
+   we just signal the genre quietly. */
+.essay a[href*="wikipedia.org"]::after {
+  content: "ʷ";
+  font-family: var(--serif);
+  font-size: 0.78em;
+  vertical-align: 0.16em;
+  margin-left: 0.08em;
+  opacity: 0.55;
+  font-style: normal;
+  letter-spacing: 0;
+}
+/* PDF links get the doc glyph. */
+.essay a[href$=".pdf"]::after {
+  content: "📄";
+  font-size: 0.78em;
+  vertical-align: 0.05em;
+  margin-left: 0.12em;
+  opacity: 0.75;
+}
+
+/* ---- Lead paragraph polish ----
+   No first-line indent, slightly tighter top margin, body text settles
+   around the drop cap. */
+.essay .essay-opener > p:first-of-type,
+.essay > section:first-of-type > p:first-of-type {
+  margin-top: 0;
+  text-indent: 0;
 }

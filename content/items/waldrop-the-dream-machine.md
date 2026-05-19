@@ -13,5 +13,7 @@ blurb: "M. Mitchell Waldrop's 2001 biography of J.C.R. Licklider, the ARPA psych
 quote: ""
 links: []
 description: "Writing with the same novelistic flair that made \"Complexity\" \"the most exciting intellectual adventure story of the year\" (\"The Washington Post\"), Waldrop presents the first full-scale portrait of the man whose dream of a \"human-computer symbiosis\" changed the course of science and culture. Photos."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=7HpQAAAAMAAJ&dq=intitle:%22The+Dream+Machine:+J.C.R.+Licklider+and+the+Revolution+That+Made+Computing+Personal%22+inauthor:%22M.+Mitchell+Waldrop%22&hl=&as_pt=BOOKS&source=gbs_api"
 
 ---

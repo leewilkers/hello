@@ -15,4 +15,8 @@ order: 22
 links:
   - label: "wiki"
     url: "https://en.wikipedia.org/wiki/John_Law_(sociologist)"
+description: "John Law argues that methods don't just describe social realities but are also involved in creating them. The implications of this argument are highly significant. If this is the case, methods are always political, and it raises the question of what kinds of social realities we want to create. Most current methods look for clarity and precision. It is usually said that only poor research produces messy findings, and the idea that things in the world might be fluid, elusive, or multiple is unthinkable. Law's startling argument is that this is wrong and it is time for a new approach. Many realities, he says, are vague and ephemeral. If methods want to know and help to shape the world, then they need to reinvent themselves and their politics to deal with mess. That is the challenge. Nothing less will do."
+description_source: "Google Books"
+description_source_url: "https://play.google.com/store/books/details?id=dtZ-AgAAQBAJ&source=gbs_api"
+
 ---

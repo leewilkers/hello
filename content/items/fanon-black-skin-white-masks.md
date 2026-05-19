@@ -14,5 +14,7 @@ blurb: "Frantz Fanon's 1952 psychoanalytic study of colonialism's psychological 
 quote: ""
 links: []
 description: "In this study, Fanon uses psychoanalysis and psychological theory to explain the feelings of dependency and inadequacy that black people experience in a white world. Originally formulated to combat the oppression of black people, Fanon's insights are now being taken up by other oppressed groups - including feminists - and used in their struggle for cultural and political autonomy. Like Marx, Fanon wanted to change the world as well as to describe it. The sustained influence of his writings realizes this ambition."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=WQjA6_cjp9UC&dq=intitle:%22Black+Skin,+White+Masks%22+inauthor:%22Frantz+Fanon%22&hl=&as_pt=BOOKS&source=gbs_api"
 
 ---

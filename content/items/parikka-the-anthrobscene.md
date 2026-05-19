@@ -12,4 +12,8 @@ blurb: "A short media-ecological provocation on extraction, pollution, and the o
 quote: ""
 links: []
 order: 11
+description: "Smartphones, laptops, tablets, and e-readers all at one time held the promise of a more environmentally healthy world not dependent on paper and deforestation. The result of our ubiquitous digital lives is, as we see in The Anthrobscene, actually quite the opposite: not ecological health but an environmental wasteland, where media never die. Jussi Parikka critiques corporate and human desires as a geophysical force, analyzing the material side of the earth as essential for the existence of media and introducing the notion of an alternative deep time in which media live on in the layer of toxic waste we will leave behind as our geological legacy."
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/23907735-the-anthrobscene"
+
 ---

@@ -16,5 +16,7 @@ blurb: >-
 quote: ""
 links: []
 description: "Pryor tells the story of his life, from his childhood in Peoria, Illinois, through his growth as a comedian, to his battle with addiction and, in later years, multiple sclerosis."
+description_source: "Open Library"
+description_source_url: "https://openlibrary.org/works/OL3523731W"
 
 ---
