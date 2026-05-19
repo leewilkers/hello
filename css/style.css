@@ -9874,24 +9874,9 @@ html:has(.shelf-modal[open]) {
    first and last line. Currently Safari-only; degrades silently elsewhere. */
 .essay { hanging-punctuation: first last allow-end; }
 
-/* Drop cap on the first paragraph of the opener section.
-   Sized to ~3 lines of cap height, baseline-aligned to the third line. */
-.essay .essay-opener > p:first-of-type::first-letter,
-.essay > section:first-of-type > p:first-of-type::first-letter {
-  font-family: var(--reading-prose, var(--serif));
-  font-weight: 600;
-  font-style: normal;
-  float: left;
-  font-size: 3.6em;
-  line-height: 0.82;
-  padding: 0.06em 0.08em 0 0;
-  margin: 0.04em 0.04em 0 0;
-  color: var(--ink);
-  font-feature-settings: "lnum" 1, "kern" 1;
-  /* Slight optical hang into the left margin for readability with body
-     justification — kept subtle so it doesn't escape narrow containers. */
-  text-indent: -0.02em;
-}
+/* Drop cap removed by request 2026-05-18 — read as too gwern-coded when
+   paired with Source Serif body. Earn-your-ornaments principle: bring it
+   back only when the essay corpus warrants it. */
 
 /* Lining figures in the lead paragraph: years and numerals sit cleanly on
    the baseline rather than dropping (old-style figures stay everywhere else). */
@@ -9936,16 +9921,31 @@ html:has(.shelf-modal[open]) {
 }
 
 /* ---- Essay reading column ----
-   Gwern uses a ~720px reading measure for prose; tables/figures break out
-   wider. Confine body prose to ~38em (≈ 660px at base 17px) while letting
-   wide block elements escape the constraint via .essay-wide. */
+   ~38em reading measure (≈ 660px at base 17px). Wide block elements escape
+   via .essay-wide. Reading face swapped to EB Garamond to step off the
+   Source Serif baseline that read too gwern-coded. */
 .page-essay .essay {
   max-width: 38em;
   margin-left: auto;
   margin-right: auto;
   padding: 2rem 1.25rem 4rem;
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* Topic line replaces the chip-row of essay-tags. Reads as a quiet
+   prose-form list under the H1 instead of a shelf-style badge row. */
+.page-essay .essay-topic-line {
+  margin: 0.3rem 0 1.4rem;
+  font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.page-essay .essay-topic-line em {
+  font-style: italic;
 }
 @media (max-width: 720px) {
   .page-essay .essay {
@@ -9968,40 +9968,9 @@ html:has(.shelf-modal[open]) {
   }
 }
 
-/* ---- External link affordance ----
-   Tiny ↗ after links that leave the site. Skip mailtos, anchors, and any
-   link already carrying its own glyph. Inline-block keeps the glyph from
-   breaking the underline; opacity gives it the gwern-quiet feel. */
-.essay a[href^="http"]:not([href*="leewilkers.com"]):not(.no-glyph)::after {
-  content: "↗";
-  font-family: var(--sans);
-  font-size: 0.72em;
-  vertical-align: 0.22em;
-  margin-left: 0.12em;
-  opacity: 0.55;
-  text-decoration: none;
-  letter-spacing: 0;
-}
-/* Wikipedia gets the subtle [W] mark instead — gwern color-codes by source,
-   we just signal the genre quietly. */
-.essay a[href*="wikipedia.org"]::after {
-  content: "ʷ";
-  font-family: var(--serif);
-  font-size: 0.78em;
-  vertical-align: 0.16em;
-  margin-left: 0.08em;
-  opacity: 0.55;
-  font-style: normal;
-  letter-spacing: 0;
-}
-/* PDF links get the doc glyph. */
-.essay a[href$=".pdf"]::after {
-  content: "📄";
-  font-size: 0.78em;
-  vertical-align: 0.05em;
-  margin-left: 0.12em;
-  opacity: 0.75;
-}
+/* Link-type glyphs (↗ external, ʷ Wikipedia, 📄 PDF) removed by request
+   2026-05-18 — gwern-distinctive even when subtle. Refined link decoration
+   (offset + thickness + hover-color) is preserved above. */
 
 /* ---- Lead paragraph polish ----
    No first-line indent, slightly tighter top margin, body text settles
