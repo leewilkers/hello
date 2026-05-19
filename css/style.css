@@ -10011,3 +10011,161 @@ html:has(.shelf-modal[open]) {
   margin-top: 0;
   text-indent: 0;
 }
+
+/* ---- Sidenote infrastructure ----
+   Tufte-style margin notes that float into the right gutter at wide widths
+   and collapse to a quiet indented block on narrow viewports.
+
+   Markup pattern (no JS required):
+     <p>Body prose<sup class="sn-marker"></sup><aside class="sidenote">
+       Note content.
+     </aside> more prose.</p>
+
+   Counter auto-numbers both the inline marker and the floated note.
+   The marker stays in flow at the attachment point; the aside floats to
+   the gutter and aligns vertically with the surrounding line. */
+
+.essay { counter-reset: sn-counter; }
+
+/* Inline marker — auto-numbered superscript at the attachment point. */
+.essay .sn-marker {
+  counter-increment: sn-counter;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  cursor: help;
+  /* Show the number even when OpenType 'sups' is unavailable. */
+}
+.essay .sn-marker::before {
+  content: counter(sn-counter);
+}
+
+/* The floated sidenote in the right gutter. Width and offset chosen so the
+   38em reading column + ~16em gutter fits inside the page envelope. */
+.essay .sidenote {
+  float: right;
+  clear: right;
+  width: 14em;
+  margin-right: -16em;
+  margin-top: 0.2em;
+  margin-bottom: 0.6em;
+  padding: 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  position: relative;
+  text-indent: 0;
+  font-style: normal;
+}
+.essay .sidenote::before {
+  /* Same counter value as the most recent marker — DOM order pairs them. */
+  content: counter(sn-counter);
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.82em;
+  color: var(--accent);
+  margin-right: 0.32em;
+}
+
+/* Wikipedia-style cite popups and other prose elements may have links inside
+   sidenotes — keep the refined-link treatment but downscale the underline. */
+.essay .sidenote a:not(.no-decoration) {
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.14em;
+}
+
+/* Narrow viewport fallback: aside falls in-flow as a quiet block with a
+   hairline rule on the left. Number stays. */
+@media (max-width: 1180px) {
+  .essay .sidenote {
+    float: none;
+    clear: none;
+    width: auto;
+    margin: 0.7rem 0 0.7rem 1.4rem;
+    padding-left: 0.95rem;
+    border-left: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    display: block;
+    font-size: 0.84rem;
+  }
+}
+
+/* Print: keep margin layout where the column allows it. */
+@media print {
+  .essay .sidenote {
+    color: #444;
+  }
+}
+
+/* ============================================================================
+   SITE-WIDE TYPOGRAPHIC POLISH — promoted from .essay where it doesn't risk
+   conflict with existing UI. Three baselines:
+     1. Hanging punctuation on body (Safari-only, degrades silently).
+     2. <abbr> gets small-caps + dotted underline globally.
+     3. Sidenote counter resets on any container, not just .essay.
+   Drop caps and reading-column constraint stay scoped to .essay.
+   ============================================================================ */
+
+body { hanging-punctuation: first allow-end; }
+
+/* <abbr> as a semantic element — small-caps, dotted hint, optional title=. */
+abbr {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.04em;
+  text-decoration: underline dotted color-mix(in srgb, var(--ink) 28%, transparent);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 0.04em;
+  cursor: help;
+}
+
+/* Sidenote counter also resets on home-plain so sidenotes work on the about
+   page when Lee uses them. Per-container counter keeps numbering local. */
+.home-plain,
+article[class*="page-"] {
+  counter-reset: sn-counter;
+}
+
+/* The .sn-marker + .sidenote selectors above were scoped to .essay; mirror
+   them at the broader site scope so the pattern works anywhere. */
+.sn-marker {
+  counter-increment: sn-counter;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  cursor: help;
+}
+.sn-marker::before { content: counter(sn-counter); }
+
+.sidenote:not(.essay .sidenote) {
+  /* Outside .essay, the reading column may not have a fixed gutter — keep
+     the sidenote in-flow as a quiet aside with a hairline rule. */
+  display: block;
+  margin: 0.7rem 0 0.7rem 1.4rem;
+  padding-left: 0.95rem;
+  border-left: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  font-style: normal;
+}
+.sidenote:not(.essay .sidenote)::before {
+  content: counter(sn-counter);
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.82em;
+  color: var(--accent);
+  margin-right: 0.32em;
+}
+
