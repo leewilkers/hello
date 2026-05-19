@@ -640,7 +640,7 @@ p {
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--ink);
-  max-width: 38em;
+  max-width: 52em;
 }
 
 .page-shelf .stacks-definitions li {

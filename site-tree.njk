@@ -1,0 +1,303 @@
+---
+layout: base.njk
+title: Site tree
+pageClass: page-site-tree
+permalink: /site-tree/
+eleventyExcludeFromCollections: true
+---
+
+<style>
+  /* fit-to-viewport: header pinned top, colophon pinned bottom, map fills middle */
+  main.page.page-site-tree{
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* ── header ── */
+  .st-header{
+    display:flex;
+    align-items:baseline;
+    gap: 0.9rem;
+    padding: 0 0 0.9rem 0;
+    margin: 0 0 0.6rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  }
+  .st-eyebrow{
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 180ms ease;
+  }
+  a.st-eyebrow:hover{
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+  }
+  /* ── stage ── */
+  .tm-stage{
+    position: relative;
+    width: 100%;
+    max-width: 980px;
+    max-height: 64dvh;
+    aspect-ratio: 1000 / 720;
+    margin: auto;
+    color: var(--ink);
+    --tm-bark:   oklch(46% 0.06  55);
+    --tm-canopy: oklch(48% 0.085 145);
+    --tm-soil:   oklch(45% 0.055 50);
+    --tm-water:  oklch(56% 0.135 228);
+  }
+  [data-theme="dark"] .tm-stage{
+    --tm-bark:   oklch(70% 0.05  55);
+    --tm-canopy: oklch(72% 0.085 145);
+    --tm-soil:   oklch(68% 0.05  50);
+    --tm-water:  oklch(74% 0.12  225);
+  }
+  .tm-stage svg{
+    display:block;
+    width:100%;
+    height:100%;
+    overflow: visible;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ── tree parts ── */
+  .tm-trunk{
+    fill: var(--tm-bark);
+    fill-opacity: 0.78;
+    transition: fill-opacity 280ms ease, opacity 280ms ease;
+  }
+  .tm-branch{
+    fill: var(--tm-canopy);
+    fill-opacity: 0.85;
+    transition: fill-opacity 280ms ease, opacity 280ms ease;
+  }
+  .tm-edge{ fill:none; stroke-linecap:round; }
+  .tm-edge-bark{
+    stroke: var(--tm-bark);
+    stroke-width: 1.6;
+    opacity: 0.42;
+    transition: opacity 280ms ease;
+  }
+  .tm-river{
+    fill:none;
+    stroke: var(--tm-water);
+    stroke-linecap: round;
+    stroke-width: 4.5;
+    stroke-dasharray: 9 7;
+    animation: tm-flow 2.4s linear infinite;
+    transition: opacity 280ms ease;
+  }
+  @keyframes tm-flow{
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: -22; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tm-river { animation: none; }
+  }
+
+  /* ── hover-probe ── */
+  .tm-stage[data-hover] [data-related]{
+    opacity: 0.16;
+    fill-opacity: 0.16;
+  }
+  .tm-stage[data-hover="consulting"] [data-related~="consulting"],
+  .tm-stage[data-hover="writing"]    [data-related~="writing"],
+  .tm-stage[data-hover="stacks"]     [data-related~="stacks"],
+  .tm-stage[data-hover="stream"]     [data-related~="stream"],
+  .tm-stage[data-hover="about"]      [data-related~="about"]{
+    opacity: 1;
+    fill-opacity: 0.88;
+  }
+  .tm-stage[data-hover="about"] .tm-edge-bark[data-related~="about"]{
+    opacity: 0.82;
+  }
+  .tm-stage[data-hover] .tm-node{ transition: opacity 280ms ease; }
+  .tm-stage[data-hover="consulting"] .tm-node:not([data-node="consulting"]),
+  .tm-stage[data-hover="writing"]    .tm-node:not([data-node="writing"]),
+  .tm-stage[data-hover="stacks"]     .tm-node:not([data-node="stacks"]),
+  .tm-stage[data-hover="stream"]     .tm-node:not([data-node="stream"]),
+  .tm-stage[data-hover="about"]      .tm-node:not([data-node="about"]){
+    opacity: 0.42;
+  }
+
+  /* ── nodes ── */
+  .tm-node{ cursor: pointer; }
+  .tm-hit{ fill: transparent; }
+  .tm-mark{
+    fill: var(--bg);
+    stroke: var(--node-stroke, var(--ink));
+    stroke-width: 1.4;
+    transition: r 180ms ease, stroke-width 180ms ease, fill 180ms ease;
+  }
+  .tm-node:hover .tm-mark,
+  .tm-node:focus-visible .tm-mark{
+    r: 6;
+    stroke-width: 1.6;
+  }
+  .tm-node-label{
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 400;
+    fill: var(--ink);
+    pointer-events: none;
+    transition: fill 200ms ease;
+  }
+  .tm-node-sub{
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: lowercase;
+    fill: color-mix(in srgb, var(--ink) 45%, transparent);
+    pointer-events: none;
+  }
+  .tm-node:hover .tm-node-label,
+  .tm-node:focus-visible .tm-node-label{
+    fill: var(--node-stroke);
+  }
+
+  /* "you are here" status */
+  .tm-status{
+    margin: 0.6rem 0 0;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--ink) 42%, transparent);
+  }
+  /* colophon — forestry-term provenance, footnote register */
+  .st-colophon{
+    margin: 0.8rem auto 0;
+    max-width: 36rem;
+    text-align: center;
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--ink) 45%, transparent);
+  }
+  .st-colophon a{
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+  }
+  .st-colophon a:hover{
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
+  }
+</style>
+
+<header class="st-header">
+  <a class="st-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener" title="site tree (forestry)">site tree</a>
+</header>
+
+<div class="tm-stage" data-tm-stage>
+  <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Site tree">
+
+    {# trunk — tapered trapezoid from stacks (475, 590) up to junction (475, 342) #}
+    <path class="tm-trunk" data-related="stacks consulting writing"
+          d="M 464 590 L 486 590 L 478 342 L 472 342 Z"/>
+
+    {# branches — reverse-tapered (narrow at trunk, flared at leaf) #}
+    <path class="tm-branch" data-related="consulting"
+          d="M 474.33 343.44 L 472.67 344.56 L 326.68 132.23 L 333.32 127.77 Z"/>
+    <path class="tm-branch" data-related="writing"
+          d="M 477.48 344.21 L 475.52 343.79 L 516.09 144.15 L 523.91 145.85 Z"/>
+
+    {# about line — bark-colored horizontal connecting about to the trunk #}
+    <path class="tm-edge tm-edge-bark" data-related="about"
+          d="M 182 350 L 468 350"/>
+
+    {# river — animated dashed water from stream into stacks #}
+    <path class="tm-river" data-related="stream stacks"
+          d="M 818 590 L 492 590"/>
+
+    {# ── nodes ── #}
+
+    {# consulting (330, 130) — label above #}
+    <g class="tm-node" data-node="consulting" data-url="/consulting/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="230" y="78" width="200" height="68"/>
+      <text class="tm-node-label" x="330" y="100" text-anchor="middle">Consulting</text>
+      <text class="tm-node-sub"   x="330" y="118" text-anchor="middle">advisory</text>
+      <circle class="tm-mark" cx="330" cy="130" r="4.5"/>
+    </g>
+
+    {# writing (520, 145) — sibling canopy leaf, label above #}
+    <g class="tm-node" data-node="writing" data-url="/writing/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="420" y="93" width="200" height="68"/>
+      <text class="tm-node-label" x="520" y="115" text-anchor="middle">Writing</text>
+      <text class="tm-node-sub"   x="520" y="133" text-anchor="middle">essays</text>
+      <circle class="tm-mark" cx="520" cy="145" r="4.5"/>
+    </g>
+
+    {# about (170, 350) — label left of dot #}
+    <g class="tm-node" data-node="about" data-url="/" tabindex="0"
+       style="--node-stroke: var(--tm-bark)">
+      <rect class="tm-hit" x="30" y="320" width="155" height="60"/>
+      <text class="tm-node-label" x="158" y="345" text-anchor="end">About</text>
+      <text class="tm-node-sub"   x="158" y="363" text-anchor="end">bio</text>
+      <circle class="tm-mark" cx="170" cy="350" r="4.5"/>
+    </g>
+
+    {# stacks (475, 590) — label below #}
+    <g class="tm-node" data-node="stacks" data-url="/shelf/" tabindex="0"
+       style="--node-stroke: var(--tm-soil)">
+      <rect class="tm-hit" x="375" y="578" width="200" height="70"/>
+      <text class="tm-node-label" x="475" y="620" text-anchor="middle">Stacks</text>
+      <text class="tm-node-sub"   x="475" y="638" text-anchor="middle">shelf</text>
+      <circle class="tm-mark" cx="475" cy="590" r="4.5"/>
+    </g>
+
+    {# stream (830, 590) — label below #}
+    <g class="tm-node" data-node="stream" data-url="/stream/" tabindex="0"
+       style="--node-stroke: var(--tm-water)">
+      <rect class="tm-hit" x="730" y="578" width="200" height="70"/>
+      <text class="tm-node-label" x="830" y="620" text-anchor="middle">Stream</text>
+      <text class="tm-node-sub"   x="830" y="638" text-anchor="middle">feed</text>
+      <circle class="tm-mark" cx="830" cy="590" r="4.5"/>
+    </g>
+
+  </svg>
+</div>
+
+<p class="tm-status">you are here</p>
+
+<p class="st-colophon">
+  a <a href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
+  is a dominant or codominant tree used to estimate the growth of a forest stand.
+</p>
+
+<script>
+(function(){
+  const stage = document.querySelector('[data-tm-stage]');
+  if (!stage) return;
+
+  // hover-probe: writes data-hover on the stage, CSS does the rest
+  stage.querySelectorAll('.tm-node').forEach(node => {
+    const id = node.getAttribute('data-node');
+    const url = node.getAttribute('data-url');
+    const enter = () => stage.setAttribute('data-hover', id);
+    const leave = () => { if (stage.getAttribute('data-hover') === id) stage.removeAttribute('data-hover'); };
+    node.addEventListener('mouseenter', enter);
+    node.addEventListener('mouseleave', leave);
+    node.addEventListener('focus', enter);
+    node.addEventListener('blur', leave);
+    node.addEventListener('click', () => { if (url) location.href = url; });
+    node.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && url){ e.preventDefault(); location.href = url; }
+    });
+  });
+
+})();
+</script>
