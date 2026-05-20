@@ -1,0 +1,581 @@
+/* pattern-atlas / style.css
+ * Phase 1 field render — 253 patterns in 3 scale bands.
+ * Inspired by Kat Zhang (poet engineer) — data as landscape, ephemeral cards,
+ * unicode/braille accents, no UI chrome.
+ *
+ * Tokens reused from the site's Flexoki palette where set on html.
+ * Per-page tokens defined here under .page-pattern-atlas.
+ */
+
+/* ───── page reset & hide site chrome ───── */
+
+html.page-pattern-atlas,
+body.page-pattern-atlas {
+  margin: 0; padding: 0;
+  height: 100%; overflow: hidden;
+}
+body.page-pattern-atlas .site-nav,
+body.page-pattern-atlas .site-colophon,
+body.page-pattern-atlas .site-page-ornaments,
+body.page-pattern-atlas .site-art-note,
+body.page-pattern-atlas .site-art-reveal-caption,
+body.page-pattern-atlas .site-sawyer-original,
+body.page-pattern-atlas .site-sawyer-motif,
+body.page-pattern-atlas .site-dust-motif { display: none !important; }
+body.page-pattern-atlas #main {
+  margin: 0 !important; padding: 0 !important;
+  max-width: none !important; width: 100% !important;
+}
+
+/* ───── tokens ───── */
+
+.page-pattern-atlas {
+  --pa-bg:          #100F0F;   /* flexoki black */
+  --pa-ink:         #CECDC3;   /* flexoki 200, primary glyph */
+  --pa-ink-light:   #B7B5AC;   /* flexoki 300 */
+  --pa-ink-faint:   #6F6E69;   /* flexoki 600 — faded glyphs */
+  --pa-ink-mute:    #403E3C;   /* flexoki 800 — band rules */
+  --pa-ink-quiet:   #282726;   /* flexoki 900 — backgrounds of related */
+  --pa-accent:      #3AA99F;   /* flexoki cyan 400 */
+  --pa-accent-soft: rgba(58, 169, 159, 0.32);
+  --pa-edge-up:     rgba(67, 133, 190, 0.55);   /* flexoki blue 400 */
+  --pa-edge-down:   rgba(218, 112,  44, 0.55);  /* flexoki orange 400 */
+  --pa-hue-towns:        #4385BE;
+  --pa-hue-buildings:    #CECDC3;
+  --pa-hue-construction: #DA702C;
+  --pa-glyph-size: 13px;
+  --pa-glyph-line: 1.0;
+  --pa-cell-w: 4ch;
+  --pa-cell-h: 3.4em;
+  --pa-cell-gap-x: 0.55em;
+  --pa-cell-gap-y: 0.7em;
+}
+html[data-theme="light"].page-pattern-atlas,
+.page-pattern-atlas[data-theme="light"] {
+  --pa-bg:          #FFFCF0;   /* flexoki paper */
+  --pa-ink:         #282726;   /* flexoki 900 */
+  --pa-ink-light:   #403E3C;
+  --pa-ink-faint:   #878580;
+  --pa-ink-mute:    #B7B5AC;
+  --pa-ink-quiet:   #ECE9D9;
+  --pa-accent:      #24837B;   /* flexoki cyan 600 */
+  --pa-accent-soft: rgba(36, 131, 123, 0.28);
+  --pa-edge-up:     rgba(32, 94, 153, 0.55);
+  --pa-edge-down:   rgba(188, 81,  25, 0.55);
+  --pa-hue-towns:        #205E99;
+  --pa-hue-buildings:    #282726;
+  --pa-hue-construction: #BC5119;
+}
+
+/* ───── shell ───── */
+
+#atlas-root {
+  position: fixed; inset: 0;
+  background: var(--pa-bg);
+  color: var(--pa-ink);
+  font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transform: perspective(2000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-origin: 50% 50%;
+  transition: transform 280ms ease-out;
+}
+
+#atlas-overlay { position: absolute; inset: 0; pointer-events: none; }
+
+#atlas-banner {
+  flex: none;
+  padding: 1.1em 1.6em 0.6em;
+  display: flex; align-items: baseline; gap: 1em;
+  color: var(--pa-ink-light);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+.atlas-titleline {
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: lowercase;
+  color: var(--pa-ink);
+}
+.atlas-subline {
+  font-size: 0.72rem;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.04em;
+}
+
+#atlas-field {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.6em 1.4em 5em;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pa-ink-mute) transparent;
+}
+#atlas-field::-webkit-scrollbar { width: 6px; }
+#atlas-field::-webkit-scrollbar-thumb { background: var(--pa-ink-mute); border-radius: 3px; }
+
+/* ───── bands ───── */
+
+.band {
+  margin-bottom: 1.4em;
+  position: relative;
+}
+.band-head {
+  display: flex; align-items: baseline; gap: 0.9em;
+  padding: 0.4em 0 0.5em 0.1em;
+  border-bottom: 1px solid var(--pa-ink-mute);
+  margin-bottom: 0.6em;
+}
+.band-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--pa-ink-light);
+}
+.band[data-scale="TOWNS"]        .band-label { color: var(--pa-hue-towns); }
+.band[data-scale="BUILDINGS"]    .band-label { color: var(--pa-ink-light); }
+.band[data-scale="CONSTRUCTION"] .band-label { color: var(--pa-hue-construction); }
+.band-count {
+  font-size: 0.68rem;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.05em;
+}
+
+.band-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.4em, 1fr));
+  gap: var(--pa-cell-gap-y) var(--pa-cell-gap-x);
+  align-items: start;
+}
+
+/* ───── cells ───── */
+
+.cell {
+  position: relative;
+  background: transparent;
+  border: 0; padding: 0.25em 0.18em 0.32em;
+  font: inherit;
+  color: var(--pa-ink);
+  text-align: left;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: flex-start;
+  border-radius: 2px;
+  transition: color 220ms ease, opacity 220ms ease, transform 320ms ease, background 220ms ease;
+  transform: translate(var(--drift-x, 0px), var(--drift-y, 0px));
+  opacity: calc(0.78 + 0.22 * var(--prox, 0));
+}
+.cell-glyph {
+  margin: 0;
+  font: inherit;
+  font-size: var(--pa-glyph-size);
+  line-height: var(--pa-glyph-line);
+  white-space: pre;
+  color: inherit;
+  font-variant-numeric: tabular-nums;
+}
+.cell-n {
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--pa-ink-faint);
+  margin-top: 0.2em;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+  transition: opacity 220ms ease, color 220ms ease;
+}
+.cell-pip {
+  position: absolute;
+  right: 0.25em;
+  bottom: 0.92em;
+  font-size: 0.9rem;
+  color: var(--pa-accent);
+  line-height: 1;
+  pointer-events: none;
+}
+.cell[data-scale="TOWNS"][data-conf="2"]        .cell-pip { color: var(--pa-hue-towns); }
+.cell[data-scale="CONSTRUCTION"][data-conf="2"] .cell-pip { color: var(--pa-hue-construction); }
+.cell[data-primary="empty"] .cell-glyph { opacity: 0.4; color: var(--pa-ink-faint); }
+
+.cell:hover, .cell:focus, .cell.is-active {
+  outline: none;
+  color: var(--pa-ink);
+}
+.cell:focus-visible { outline: 1px dotted var(--pa-accent); outline-offset: 2px; }
+
+/* When the field has an active cell, fade unrelated ones */
+.has-active .cell {
+  opacity: 0.18;
+  color: var(--pa-ink-faint);
+}
+.has-active .cell.is-related {
+  opacity: 0.7;
+  color: var(--pa-ink-light);
+}
+.has-active .cell.is-active {
+  opacity: 1;
+  color: var(--pa-ink);
+  background: var(--pa-ink-quiet);
+  transform: translate(var(--drift-x, 0px), var(--drift-y, 0px)) scale(1.04);
+}
+.has-active .cell.is-active .cell-n {
+  color: var(--pa-accent);
+  opacity: 1;
+}
+
+.cell.pulse { animation: pa-pulse 700ms ease-out; }
+@keyframes pa-pulse {
+  0%   { transform: scale(1.04); }
+  35%  { transform: scale(1.18); color: var(--pa-accent); }
+  100% { transform: scale(1.04); }
+}
+
+/* ───── edge layer ───── */
+
+#atlas-edges {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.has-active #atlas-edges { opacity: 1; }
+.edge { fill: none; stroke-width: 1; stroke-linecap: round; opacity: 0.85; }
+.edge-up   { stroke: var(--pa-edge-up); }
+.edge-down { stroke: var(--pa-edge-down); }
+
+/* ───── prose card ───── */
+
+#atlas-card {
+  position: absolute;
+  z-index: 6;
+  right: 1.6em;
+  bottom: 2.6em;
+  width: min(440px, 38vw);
+  max-height: 62vh;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  background: color-mix(in srgb, var(--pa-bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--pa-ink-mute);
+  border-radius: 3px;
+  padding: 0.9em 1.05em 0.85em;
+  color: var(--pa-ink);
+  font-family: 'IBM Plex Mono', ui-monospace, "SF Mono", Menlo, monospace;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 380ms ease, transform 380ms ease;
+  pointer-events: none;
+}
+#atlas-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#atlas-card.top-anchored {
+  top: 5.2em;
+  bottom: auto;
+}
+
+.card-head {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5em;
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid var(--pa-ink-mute);
+  margin-bottom: 0.55em;
+}
+.card-n {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pa-accent);
+}
+.card-sep { color: var(--pa-ink-faint); opacity: 0.6; }
+.card-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--pa-ink);
+}
+.card-meta {
+  margin-left: auto;
+  font-size: 0.66rem;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.06em;
+}
+
+.card-body {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--pa-ink-light);
+  overflow-y: auto;
+  flex: 0 1 auto;
+  padding-right: 0.2em;
+}
+.card-body::-webkit-scrollbar { width: 4px; }
+.card-body::-webkit-scrollbar-thumb { background: var(--pa-ink-mute); border-radius: 2px; }
+.card-problem {
+  margin: 0 0 0.6em;
+  font-style: normal;
+}
+.card-solution {
+  margin: 0 0 0.4em;
+  font-style: italic;
+  color: var(--pa-ink);
+}
+
+.card-links {
+  display: flex;
+  gap: 1.2em;
+  margin-top: 0.45em;
+  padding-top: 0.55em;
+  border-top: 1px solid var(--pa-ink-mute);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+}
+.card-up, .card-down { flex: 1; min-width: 0; }
+.card-links-label {
+  display: block;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.35em;
+}
+.card-links ul {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 0.18em;
+}
+.card-link {
+  background: none; border: 0; padding: 0;
+  font: inherit;
+  text-align: left;
+  color: var(--pa-ink-light);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+.card-link:hover { color: var(--pa-accent); }
+
+.card-cluster {
+  margin: 0 0 0.55em;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--pa-accent);
+  text-transform: lowercase;
+}
+.card-cluster[hidden] { display: none; }
+
+.card-foot {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  border-top: 1px solid var(--pa-ink-mute);
+}
+.card-glyph-row {
+  display: flex; align-items: center; gap: 0.45em;
+  margin-bottom: 0.4em;
+  flex-wrap: wrap;
+}
+.card-g {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.15em;
+}
+.card-g.is-empty { opacity: 0.5; }
+.card-g-glyph {
+  margin: 0;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1;
+  white-space: pre;
+  color: var(--pa-ink-light);
+}
+.card-g-empty { color: var(--pa-ink-faint); }
+.card-g-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  color: var(--pa-ink-faint);
+}
+.card-g-op {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.78rem;
+  color: var(--pa-ink-faint);
+  align-self: center;
+  padding: 0 0.05em;
+  margin-bottom: 0.85em; /* align with glyph baseline */
+}
+.card-glyph-spec {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  display: block;
+}
+
+/* ───── search overlay ───── */
+
+#atlas-search {
+  position: absolute;
+  z-index: 10;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.96);
+  width: min(480px, 78vw);
+  background: color-mix(in srgb, var(--pa-bg) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--pa-ink-mute);
+  border-radius: 3px;
+  padding: 0.7em 0.9em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+#atlas-search.is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+#atlas-search input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--pa-ink-mute);
+  padding: 0.4em 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.92rem;
+  color: var(--pa-ink);
+  outline: none;
+}
+#atlas-search input::placeholder { color: var(--pa-ink-faint); }
+.atlas-search-results {
+  list-style: none; margin: 0.55em 0 0; padding: 0;
+  max-height: 40vh; overflow-y: auto;
+}
+.atlas-search-results li button {
+  width: 100%; text-align: left;
+  background: none; border: 0;
+  padding: 0.35em 0.4em;
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--pa-ink-light);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  border-radius: 2px;
+}
+.atlas-search-results li button:hover {
+  background: var(--pa-ink-quiet);
+  color: var(--pa-ink);
+}
+
+/* ───── help flash ───── */
+
+#atlas-help {
+  position: absolute;
+  z-index: 9;
+  top: 5em; left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.68rem;
+  color: var(--pa-ink-faint);
+  background: color-mix(in srgb, var(--pa-bg) 92%, transparent);
+  padding: 0.4em 0.9em;
+  border: 1px solid var(--pa-ink-mute);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 240ms ease;
+  pointer-events: none;
+}
+#atlas-help.is-visible { opacity: 1; }
+
+/* ───── footer (rotating aphorism + ornament) ───── */
+
+#atlas-footer {
+  position: absolute;
+  bottom: 0.6em; left: 1.4em; right: 1.4em;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.8em;
+  font-size: 0.66rem;
+  color: var(--pa-ink-faint);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  z-index: 3;
+}
+#atlas-footer .atlas-credit,
+#atlas-footer .atlas-orn,
+#atlas-footer .atlas-aphorism {
+  pointer-events: auto;
+}
+#atlas-footer a {
+  color: var(--pa-ink-light);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+#atlas-footer a:hover { color: var(--pa-accent); }
+.atlas-orn {
+  font-size: 0.92rem;
+  color: var(--pa-accent);
+  line-height: 1;
+  margin-left: 0.2em;
+}
+.atlas-aphorism {
+  flex: 1 1 auto;
+  text-align: right;
+  font-style: italic;
+  color: var(--pa-ink-faint);
+  opacity: 0;
+  transition: opacity 1100ms ease;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.01em;
+}
+.atlas-aphorism.is-fading-in { opacity: 1; }
+.atlas-aphorism.is-fading    { opacity: 0; }
+
+/* audio toggle — ambient drone on/off */
+#atlas-audio-toggle.atlas-audio-btn {
+  position: absolute;
+  bottom: 0.55em;
+  right: 0.85em;
+  background: none; border: 0;
+  color: var(--pa-ink-faint);
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+  opacity: 0.4;
+  z-index: 4;
+  padding: 0.2em 0.35em;
+  border-radius: 2px;
+  transition: opacity 220ms ease, color 220ms ease;
+}
+#atlas-audio-toggle.atlas-audio-btn:hover { opacity: 0.85; }
+#atlas-audio-toggle.atlas-audio-btn.is-on {
+  color: var(--pa-accent);
+  opacity: 1;
+  text-shadow: 0 0 8px var(--pa-accent-soft);
+}
+
+/* ───── load-failed ───── */
+
+body.atlas-load-failed::after {
+  content: 'pattern atlas — data unavailable. run npm start, or check pattern-atlas/{patterns,clusters,glyphs}.json';
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--pa-ink-faint);
+  background: var(--pa-bg);
+  padding: 2em;
+  text-align: center;
+}
+
+/* ───── prefers-reduced-motion ───── */
+
+@media (prefers-reduced-motion: reduce) {
+  #atlas-root { transform: none !important; transition: none; }
+  .cell { transform: none !important; transition: color 0ms, opacity 0ms; opacity: 1 !important; }
+  .cell.pulse { animation: none; }
+  #atlas-edges { transition: none; }
+  #atlas-card { transition: none; transform: none !important; }
+  .atlas-aphorism { transition: none; opacity: 1; }
+}
