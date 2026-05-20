@@ -113,12 +113,12 @@
 <nav class="site-rail" aria-label="Pages">
   <span class="site-rail-label" aria-hidden="true">Pages</span>
   <ul class="site-rail-list">
-    <li><a href="/"{% if page.url == "/" %} class="active"{% endif %}>home</a></li>
+    <li><a href="/site-tree/"{% if page.url == "/site-tree/" %} class="active"{% endif %}>home</a></li>
+    <li><a href="/"{% if page.url == "/" %} class="active"{% endif %}>about</a></li>
     <li><a href="/writing/"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a></li>
     <li><a href="/tools/"{% if page.url == "/tools/" %} class="active"{% endif %}>tools</a></li>
     <li><a href="/consulting/"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a></li>
     <li><a href="/shelf/"{% if page.url == "/shelf/" %} class="active"{% endif %}>shelves</a></li>
-    <li><a href="/site-tree/"{% if page.url == "/site-tree/" %} class="active"{% endif %}>site tree</a></li>
     <li><a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a></li>
   </ul>
 </nav>
