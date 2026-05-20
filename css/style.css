@@ -476,6 +476,14 @@ img { display: block; }
   color: var(--ink);
 }
 
+/* nav: default = standard ink. Hover + active surface a bright forest green.
+   Hue 152 (away from yellow-puke at 130-145), moderate chroma, lifted lightness so it
+   reads as a healthy leaf, not moss. */
+.nav-links a:hover,
+.nav-links a.active       { color: oklch(52% 0.115 152); }
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active   { color: oklch(78% 0.115 152); }
+
 .nav-links {
   gap: 0.45rem;
 }
@@ -10313,6 +10321,80 @@ article[class*="page-"] {
 @media (max-width: 1180px) {
   .page-essay .essay-toc { display: none; }
   .page-essay .essay-image-slot { display: none; }
+}
+
+/* ============================================================================
+   In-body figures + bounded embeds — magazine layout treatment.
+   Distinct from .essay-image-slot (rail-positioned, narrow, hidden on mobile).
+   Used for photos and interactive embeds that benefit from larger display +
+   readable cropping at all viewports. Bursts out from 38em body column to
+   ~56em (matches existing .essay > figure widening pattern).
+   ============================================================================ */
+.page-essay .essay-figure-inbody {
+  max-width: 56em;
+  margin-left: calc(50% - 28em);
+  margin-right: auto;
+  margin-top: 2.2em;
+  margin-bottom: 2.4em;
+}
+
+.page-essay .essay-figure-inbody img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-essay .essay-figure-inbody figcaption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+  margin-top: 0.7rem;
+  font-style: italic;
+  max-width: 38em;
+}
+
+/* Bounded-box embed for iframes (ArcGIS maps, etc).
+   Same width treatment as in-body figures so embeds rhyme with photos.
+   Subtle border + rounded corner so the bounded-box reads as a card. */
+.page-essay .essay-embed {
+  max-width: 56em;
+  margin-left: calc(50% - 28em);
+  margin-right: auto;
+  margin-top: 2.4em;
+  margin-bottom: 2.6em;
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  border-radius: 4px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 2%, var(--bg));
+}
+
+.page-essay .essay-embed iframe {
+  display: block;
+  width: 100%;
+  height: 520px;
+  border: 0;
+}
+
+.page-essay .essay-embed figcaption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 60%, transparent);
+  padding: 0.6rem 1rem;
+  font-style: italic;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, var(--ink) 3%, var(--bg));
+}
+
+@media (max-width: 1180px) {
+  .page-essay .essay-figure-inbody,
+  .page-essay .essay-embed {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .page-essay .essay-embed iframe { height: 420px; }
 }
 
 /* ============================================================================
