@@ -6246,8 +6246,8 @@ body {
 }
 
 .page-home-ornaments {
-  --sawyer-motif-opacity: 0.24;
-  --sawyer-motif-opacity-dark: 0.18;
+  --sawyer-motif-opacity: 0.55;
+  --sawyer-motif-opacity-dark: 0.45;
 }
 
 .page-consulting-ornaments {
@@ -6409,9 +6409,30 @@ body {
    room for marginalia to extend down without collision. */
 @media (min-width: 820px) {
   .page-home-ornaments {
-    --sawyer-motif-left: auto;
-    --sawyer-motif-right: 0;
-    --sawyer-motif-width: min(34rem, 38vw);
+    --sawyer-motif-left: 0;
+    --sawyer-motif-right: auto;
+    --sawyer-motif-width: min(48vw, 95vh);
+    --sawyer-motif-bottom: 50%;
+  }
+  .page-home-ornaments .site-sawyer-motif {
+    transform: translateY(50%);
+  }
+  /* Diptych: shove home content to the right half of the viewport */
+  .page-home {
+    max-width: none;
+    margin: 0;
+    padding-left: max(50vw, 50%);
+  }
+  .page-home .home-field-row {
+    grid-template-columns: minmax(0, 32rem) minmax(0, 14rem);
+    justify-content: start;
+  }
+  /* Move plate attribution under the plate (lower-left) on home */
+  .page-home-ornaments ~ .site-art-note,
+  body:has(.page-home) .site-art-note {
+    right: auto;
+    left: clamp(1rem, 2.4vw, 2rem);
+    justify-items: start;
   }
 }
 
