@@ -11,32 +11,44 @@ eleventyExcludeFromCollections: true
    on the site). EB Garamond upright, no mono-caps subs, no koan. No physics — click + keyboard. #}
 
 <style>
-  main.page.page-site-tree{ min-height: 100dvh; display: flex; flex-direction: column; padding: 1rem 0; }
+  main.page.page-site-tree{
+    min-height: 100dvh; display: flex; flex-direction: column;
+    padding: 0.9rem 0 1.2rem;
+  }
   .st-header{
-    display:flex; align-items:baseline; gap: 0.9rem;
-    padding: 0 0 0.9rem; margin: 0 0 0.6rem;
+    display:flex; align-items:baseline; gap: 0.9rem; flex-wrap: wrap;
+    padding: 0 0 0.8rem; margin: 0 0 0.6rem;
     border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+    flex-shrink: 0;
   }
   .st-eyebrow{
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em;
     text-transform: uppercase; color: var(--ink); line-height: 1; text-decoration: none;
   }
-  .st-sub{
+  .st-def{
     font-family: "EB Garamond", "Source Serif 4", Georgia, serif;
-    font-style: italic; font-size: 0.85rem;
-    color: color-mix(in srgb, var(--ink) 55%, transparent);
+    font-style: italic; font-size: 0.95rem; line-height: 1.3;
+    color: color-mix(in srgb, var(--ink) 62%, transparent);
+  }
+  .st-def a{
+    color: inherit; text-decoration: underline;
+    text-decoration-thickness: 0.5px; text-underline-offset: 3px;
   }
 
   .tm-stage{
-    position: relative; width: 100%; max-width: 980px; max-height: 64dvh;
-    aspect-ratio: 1000 / 720; margin: auto; color: var(--ink);
+    position: relative;
+    width: 100%; max-width: 1040px;
+    max-height: 68dvh;
+    aspect-ratio: 1000 / 720;
+    margin: auto;
+    color: var(--ink);
     --tm-bark:   oklch(34% 0.065 42);
     --tm-canopy: oklch(38% 0.080 130);
     --tm-soil:   oklch(36% 0.06  45);
     --tm-water:  oklch(46% 0.115 228);
     --tm-paper:  var(--bg);
-    --tm-hair:   oklch(40% 0.035 60);
+    --tm-hair:   oklch(32% 0.055 55);
   }
   [data-theme="dark"] .tm-stage{
     --tm-bark:   oklch(76% 0.055 55);
@@ -44,24 +56,24 @@ eleventyExcludeFromCollections: true
     --tm-soil:   oklch(74% 0.05  50);
     --tm-water:  oklch(78% 0.12  225);
     --tm-paper:  var(--bg);
-    --tm-hair:   oklch(70% 0.035 65);
+    --tm-hair:   oklch(78% 0.055 65);
   }
   .tm-stage svg{ display:block; width:100%; height:100%; overflow: visible; user-select: none; }
 
   /* tree parts — V2 curved geometry, V3's low-amplitude tremor */
   .tm-trunk{
-    fill: var(--tm-bark); fill-opacity: 0.84;
+    fill: var(--tm-bark); fill-opacity: 0.62;
     filter: url(#tm-tremor);
     transition: fill-opacity 280ms ease;
   }
   .tm-branch{
-    fill: var(--tm-canopy); fill-opacity: 0.86;
+    fill: var(--tm-canopy); fill-opacity: 0.66;
     filter: url(#tm-tremor);
     transition: fill-opacity 280ms ease;
   }
   .tm-edge{ fill:none; stroke-linecap:round; }
   .tm-edge-bark{
-    stroke: var(--tm-bark); stroke-width: 1.5; opacity: 0.48;
+    stroke: var(--tm-bark); stroke-width: 1.5; opacity: 0.36;
     filter: url(#tm-tremor);
     transition: opacity 280ms ease;
   }
@@ -73,15 +85,48 @@ eleventyExcludeFromCollections: true
     filter: url(#tm-tremor);
   }
 
-  /* mycelium — unlabeled inputs that aren't on the site */
+  /* mycelium — unlabeled inputs that aren't on the site.
+     Dashed strokes drift toward the trunk base (positive stroke-dashoffset = flow inward).
+     Two cadences plus a few reverse strands, so the network reads as breathing, not pulsing. */
   .tm-mycelium{
     stroke: var(--tm-hair); fill: none;
-    stroke-width: 0.6; stroke-linecap: round;
-    opacity: 0.20;
+    stroke-width: 0.7; stroke-linecap: round;
+    opacity: 0.42;
+    stroke-dasharray: 2 9;
+    animation: tm-mycelium-flow 11s linear infinite;
     filter: url(#tm-tremor);
   }
-  .tm-mycelium-fine{ stroke-width: 0.4; opacity: 0.14; }
-  .tm-mycelium-node{ fill: var(--tm-hair); fill-opacity: 0.22; }
+  .tm-mycelium-fine{
+    stroke-width: 0.5; opacity: 0.30;
+    stroke-dasharray: 1 11;
+    animation-duration: 16s;
+  }
+  .tm-mycelium-weave{
+    stroke-width: 0.55; opacity: 0.34;
+    stroke-dasharray: 1.5 14;
+    animation-duration: 22s;
+    animation-direction: reverse;
+  }
+  .tm-mycelium-node{ fill: var(--tm-hair); fill-opacity: 0.55; }
+  .tm-twinkle{
+    fill: var(--tm-hair);
+    fill-opacity: 0.08;
+    animation: tm-twinkle 4.6s ease-in-out infinite;
+  }
+  @keyframes tm-twinkle{
+    0%, 100% { fill-opacity: 0.06; }
+    50%      { fill-opacity: 0.55; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tm-twinkle{ animation: none; fill-opacity: 0.22; }
+  }
+  @keyframes tm-mycelium-flow{
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: 60; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tm-mycelium{ animation: none; stroke-dasharray: 0; opacity: 0.16; }
+  }
 
   /* river — keeps the animated dashed flow */
   .tm-river{
@@ -126,17 +171,11 @@ eleventyExcludeFromCollections: true
   }
   .tm-node:hover .tm-node-label, .tm-node:focus-visible .tm-node-label{ fill: var(--node-stroke); }
 
-  .st-colophon{
-    margin: 0.8rem auto 0; max-width: 36rem; text-align: center;
-    font-family: "EB Garamond", "Source Serif 4", Georgia, serif;
-    font-style: italic; font-size: 14px; line-height: 1.5;
-    color: color-mix(in srgb, var(--ink) 50%, transparent);
-  }
-  .st-colophon a{ color: inherit; text-decoration: underline; text-decoration-thickness: 0.5px; text-underline-offset: 3px; }
 </style>
 
 <header class="st-header">
   <a class="st-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
+  <span class="st-def">a dominant or codominant tree used to estimate the growth of a forest stand.</span>
 </header>
 
 <div class="tm-stage" data-tm-stage>
@@ -149,10 +188,11 @@ eleventyExcludeFromCollections: true
       </filter>
     </defs>
 
-    {# soil horizon — breaks before water #}
-    <path class="tm-horizon" d="M 80 612 Q 280 608 470 612 Q 570 614 660 614"/>
+    {# soil horizon — breaks before water, sits at trunk base so the tree is rooted in ground #}
+    <path class="tm-horizon" d="M 80 598 Q 280 594 460 596 Q 530 598 660 600"/>
 
-    {# mycelium — faint hair network beneath, unlabeled #}
+    {# mycelium — fans beneath the soil with whispery upward flow.
+       A scatter of tiny twinkles drifts the brightness across the network. #}
     <g aria-hidden="true">
       <path class="tm-mycelium" d="M 478 620 Q 410 640 320 656 Q 240 668 160 678"/>
       <path class="tm-mycelium" d="M 478 620 Q 420 648 360 678 Q 290 706 220 712"/>
@@ -160,8 +200,6 @@ eleventyExcludeFromCollections: true
       <path class="tm-mycelium" d="M 478 620 Q 540 642 614 656 Q 690 668 760 676"/>
       <path class="tm-mycelium" d="M 478 620 Q 528 648 590 678 Q 660 706 730 712"/>
       <path class="tm-mycelium" d="M 478 620 Q 580 650 670 680 Q 760 706 836 706"/>
-      <path class="tm-mycelium" d="M 478 622 Q 472 660 478 700"/>
-      <path class="tm-mycelium" d="M 478 622 Q 488 660 478 706"/>
 
       <path class="tm-mycelium tm-mycelium-fine" d="M 320 656 Q 296 672 268 682"/>
       <path class="tm-mycelium tm-mycelium-fine" d="M 360 678 Q 332 694 306 702"/>
@@ -176,6 +214,46 @@ eleventyExcludeFromCollections: true
       <circle class="tm-mycelium-node" cx="614" cy="656" r="0.9"/>
       <circle class="tm-mycelium-node" cx="360" cy="678" r="0.8"/>
       <circle class="tm-mycelium-node" cx="590" cy="678" r="0.8"/>
+
+      {# anastomosis bridges — short diagonal connections where neighboring hyphae fuse.
+         No horizontal sweeps. Each runs at an oblique angle, ~50–90 units long, gently curved. #}
+      <path class="tm-mycelium tm-mycelium-weave" d="M 372 646 Q 396 638 420 649"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 382 650 Q 408 638 435 632"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 543 640 Q 510 654 478 660"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 577 650 Q 554 642 531 649"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 689 667 Q 720 678 757 700"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 290 700 Q 246 696 203 700"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 660 700 Q 706 702 730 712"/>
+
+      {# twinkles — placed AT computed points along the primary filaments and at
+         secondary endpoints. Each pulses at a different phase, varied dot sizes. #}
+      {# along primary 1 (M 478 620 Q 410 640 320 656 Q 240 668 160 678) #}
+      <circle class="tm-twinkle" cx="435" cy="632" r="0.6" style="animation-delay: 0s"/>
+      <circle class="tm-twinkle" cx="372" cy="646" r="0.5" style="animation-delay: 1.2s"/>
+      <circle class="tm-twinkle" cx="240" cy="668" r="0.7" style="animation-delay: 2.8s"/>
+      <circle class="tm-twinkle" cx="160" cy="678" r="0.5" style="animation-delay: 3.6s"/>
+      {# along primary 2 (M 478 620 Q 420 648 360 678 Q 290 706 220 712) #}
+      <circle class="tm-twinkle" cx="420" cy="649" r="0.6" style="animation-delay: 0.4s"/>
+      <circle class="tm-twinkle" cx="290" cy="700" r="0.7" style="animation-delay: 1.8s"/>
+      {# along primary 3 (M 478 620 Q 380 650 290 680 Q 200 706 120 710) #}
+      <circle class="tm-twinkle" cx="382" cy="650" r="0.5" style="animation-delay: 2.4s"/>
+      <circle class="tm-twinkle" cx="203" cy="700" r="0.6" style="animation-delay: 0.6s"/>
+      {# along primary 4 (M 478 620 Q 540 642 614 656 Q 690 668 760 676) #}
+      <circle class="tm-twinkle" cx="543" cy="640" r="0.6" style="animation-delay: 1.4s"/>
+      <circle class="tm-twinkle" cx="689" cy="667" r="0.7" style="animation-delay: 3.0s"/>
+      {# along primary 5 (M 478 620 Q 528 648 590 678 Q 660 706 730 712) #}
+      <circle class="tm-twinkle" cx="531" cy="649" r="0.5" style="animation-delay: 2.0s"/>
+      <circle class="tm-twinkle" cx="660" cy="700" r="0.6" style="animation-delay: 0.8s"/>
+      {# along primary 6 (M 478 620 Q 580 650 670 680 Q 760 706 836 706) #}
+      <circle class="tm-twinkle" cx="577" cy="650" r="0.7" style="animation-delay: 2.6s"/>
+      <circle class="tm-twinkle" cx="757" cy="700" r="0.5" style="animation-delay: 1.6s"/>
+      {# at secondary endpoints (real branch points) #}
+      <circle class="tm-twinkle" cx="268" cy="682" r="0.5" style="animation-delay: 1.0s"/>
+      <circle class="tm-twinkle" cx="306" cy="702" r="0.6" style="animation-delay: 2.2s"/>
+      <circle class="tm-twinkle" cx="666" cy="680" r="0.5" style="animation-delay: 0.3s"/>
+      <circle class="tm-twinkle" cx="720" cy="696" r="0.6" style="animation-delay: 1.5s"/>
+      <circle class="tm-twinkle" cx="374" cy="668" r="0.5" style="animation-delay: 2.7s"/>
+      <circle class="tm-twinkle" cx="578" cy="666" r="0.6" style="animation-delay: 3.4s"/>
     </g>
 
     {# trunk — V2 S-curve #}
@@ -227,11 +305,6 @@ eleventyExcludeFromCollections: true
     </g>
   </svg>
 </div>
-
-<p class="st-colophon">
-  a <a href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
-  is a dominant or codominant tree used to estimate the growth of a forest stand.
-</p>
 
 <script>
 (function(){
