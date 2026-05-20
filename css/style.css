@@ -10130,6 +10130,8 @@ html:has(.shelf-modal[open]) {
 .page-essay .essay .essay-section { margin-top: 3rem; }
 .page-essay .essay > section:first-of-type { margin-top: 0; }
 .page-essay .essay h2 {
+  font-size: 1.4rem;          /* 22.4px — same family as 17px body, not magazine */
+  font-weight: 600;
   margin: 0 0 0.8rem;
   line-height: 1.2;
 }
