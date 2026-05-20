@@ -15,4 +15,8 @@ links:
     url: "https://www.abebooks.com/9781568986197/Forget-Photography-Remembrance-Batchen-Geoffrey-156898619X/plp"
   - label: "review"
     url: "https://www.caareviews.org/reviews/933"
+description: "Forget Me Not explores the curious and centuries-old practice of strengthening the emotional appeal of photographs by embellishing them—with text, paint, frames, embroidery, fabric, string, hair, flowers, bullets, cigar wrappers, butterfly wings, and more—to create strange and often beautiful hybrid objects. Available now in paperback, this spellbinding book features color photographs of eighty such objects, extraordinary works of art—part memento, part obsessive assemblage—created by ordinary people from the mid-19th to mid-20th century."
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/37603.Forget_Me_Not"
+
 ---

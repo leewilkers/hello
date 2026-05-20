@@ -13,4 +13,8 @@ quote: ""
 links:
   - label: "etc press"
     url: "https://press.etc.cmu.edu/books/video-games-and-global-south"
+description: "Video Games and the Global South redefines games and game culture from south to north, analyzing the cultural impact of video games, the growth of game development and the vitality of game cultures across Africa, the Middle East, Central and South America, the Indian subcontinent, Oceania and Asia."
+description_source: "Google Books"
+description_source_url: "http://books.google.com/books?id=8PDCDwAAQBAJ&dq=intitle:%22Video+Games+and+the+Global+South%22+inauthor:%22Phillip+Penix-Tadsen%22&hl=&as_pt=BOOKS&source=gbs_api"
+
 ---

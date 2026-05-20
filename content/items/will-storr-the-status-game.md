@@ -12,4 +12,8 @@ note: ""
 blurb: "A social-psychology account of status as a game people learn, perform, and defend through groups, norms, and stories."
 quote: ""
 links: []
+description: "‘Will Storr is one of our best journalists of ideas... The Status Game might be his best yet’ James Marriott, Books of the Year, The Times What drives our political and moral beliefs? What shapes our bitterest conflicts and wildest dreams? What makes you, you? Across the world, from Papua New Guinea to Tokyo and Manhattan, humans compete for status. Through games of dominance, virtue and success, it's an obsession that has driven the best and worst of us: the Renaissance and the Industrial Revolution as well as spree killers and tyrants at the gates of Europe. But what makes status an all-consuming prize? And how can we wield our desire for it to improve our relationships, win social media battles and be the best in the workplace? A breathtaking rethink of human psychology, The Status Game will change how you see others - and how you see yourself."
+description_source: "Goodreads"
+description_source_url: "https://www.goodreads.com/book/show/60598238-the-status-game"
+
 ---

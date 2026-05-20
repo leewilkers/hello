@@ -94,9 +94,8 @@ pageClass: page-shelf
             {%- endif %}
           </span>
           {%- endif %}
-          {%- if primaryUrl %}
-          <a class="cell-cover-primary" href="{{ primaryUrl }}" target="_blank" rel="noopener" aria-label="Open {{ item.data.title | escape }}"></a>
-          {%- endif %}
+          <button type="button" class="cell-cover-primary" aria-label="Details for {{ item.data.title | escape }}"></button>
+          <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
           <span class="cell-cover-overlay">
             <span class="cell-cover-identity" aria-hidden="true">
               <span class="cell-cover-title-row">
@@ -143,15 +142,12 @@ pageClass: page-shelf
       {%- set primaryUrl = item.data.url %}
       {%- set identityYear = item.data | shelfIdentityYear %}
       <li class="shelf-list-row">
+        <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
         <span class="shelf-list-main">
           {{ typeSymbol(item, "shelf-list-type") }}
           {%- if item.data.title %}
           {%- set tip = item.data.tooltip %}
-          {%- if primaryUrl %}
-          <a class="shelf-list-title" href="{{ primaryUrl }}" target="_blank" rel="noopener"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</a>
-          {%- else %}
-          <span class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %}>{{ item.data.title }}</span>
-          {%- endif %}
+          <button type="button" class="shelf-list-title"{% if tip %} title="{{ tip }}"{% endif %} aria-label="Details for {{ item.data.title | escape }}">{{ item.data.title }}</button>
           {%- endif %}
           {%- if item.data.author or identityYear %}
           <span class="shelf-list-author">
@@ -235,3 +231,47 @@ pageClass: page-shelf
 <footer class="shelf-foot" aria-label="End of shelf">
   <p>{{ collections.items | where("dest", "shelf") | length }} entries across {{ shelfTopics | length }} topics · <a href="/shelf.xml">RSS</a> · <a href="/">Back to about</a></p>
 </footer>
+
+<dialog id="shelf-modal" class="shelf-modal" aria-labelledby="shelf-modal-title">
+  <form method="dialog" class="shelf-modal__dismiss">
+    <button type="submit" class="shelf-modal__close" aria-label="Close">×</button>
+  </form>
+  <article class="shelf-modal__body">
+    <header class="shelf-modal__head">
+      <p class="shelf-modal__kicker" data-modal-topic></p>
+      <h2 class="shelf-modal__title" id="shelf-modal-title" data-modal-title></h2>
+      <p class="shelf-modal__meta">
+        <span data-modal-author></span><span class="shelf-modal__meta-sep" data-modal-meta-sep hidden>·</span><span data-modal-year></span>
+      </p>
+      <p class="shelf-modal__type-line" data-modal-type></p>
+      <p class="shelf-modal__dek" data-modal-dek hidden></p>
+    </header>
+    <div class="shelf-modal__layout">
+      <figure class="shelf-modal__cover" data-modal-cover-wrap hidden>
+        <img class="shelf-modal__cover-img" data-modal-cover alt="">
+      </figure>
+      <div class="shelf-modal__text">
+        <section class="shelf-modal__section shelf-modal__section--body" data-modal-body-wrap hidden>
+          <p class="shelf-modal__body-text" data-modal-body></p>
+          <p class="shelf-modal__body-source" data-modal-body-source hidden>
+            via <a data-modal-body-source-link target="_blank" rel="noopener"></a>
+          </p>
+        </section>
+        <section class="shelf-modal__section shelf-modal__section--quote" data-modal-quote-wrap hidden>
+          <p class="shelf-modal__section-label">Quote</p>
+          <blockquote class="shelf-modal__quote" data-modal-quote></blockquote>
+        </section>
+        <section class="shelf-modal__section shelf-modal__section--note" data-modal-note-wrap hidden>
+          <p class="shelf-modal__section-label">Note</p>
+          <p class="shelf-modal__note" data-modal-note></p>
+        </section>
+        <nav class="shelf-modal__links" data-modal-links-wrap hidden aria-label="Links">
+          <p class="shelf-modal__section-label">Links</p>
+          <ul data-modal-links></ul>
+        </nav>
+      </div>
+    </div>
+  </article>
+</dialog>
+
+<script src="/assets/js/shelf-modal.js" defer></script>

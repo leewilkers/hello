@@ -640,7 +640,7 @@ p {
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--ink);
-  max-width: 38em;
+  max-width: 52em;
 }
 
 .page-shelf .stacks-definitions li {
@@ -4335,10 +4335,28 @@ body {
   opacity: 0;
   transition: opacity 60ms linear;
   min-height: 0;
+  white-space: pre-line;
 }
 
 .home-rail-hover.is-active {
   opacity: 1;
+}
+
+.home-rail-hover .home-rail-prose {
+  display: block;
+  margin-bottom: 0.7em;
+}
+
+.home-rail-hover .home-rail-aka-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.4em;
+  row-gap: 0.7em;
+  white-space: normal;
+}
+
+.home-rail-hover .home-rail-aka-label {
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6716,7 +6734,9 @@ body {
 }
 
 .shelf-console-head__title {
-  grid-column: 1;
+  /* Span both grid columns so the epigraph + definitions list can breathe.
+     Inner content (.stacks-definitions) still honors its own max-width: 38em. */
+  grid-column: 1 / -1;
 }
 
 .shelf-console-head .console-status {
@@ -7071,6 +7091,12 @@ body {
   z-index: 2;
   display: block;
   cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  appearance: none;
+  font: inherit;
+  color: inherit;
 }
 
 .cell-cover-primary:focus-visible {
@@ -7475,6 +7501,7 @@ body {
 .cell-cover-overlay > * {
   position: relative;
   z-index: 1;
+  pointer-events: none;
 }
 
 .cell-cover-identity,
@@ -7606,7 +7633,6 @@ body {
 .grid li:focus-within .cell-cover-overlay {
   opacity: 1;
   transform: translateY(0);
-  pointer-events: auto;
 }
 
 .grid li:hover .cell-links a,
@@ -7987,11 +8013,23 @@ a.cell-text-title:hover {
   margin-right: 0.45rem;
 }
 
-a.shelf-list-title {
+/* Button-form (modal trigger) and link-form share the same visual treatment. */
+button.shelf-list-title {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+a.shelf-list-title,
+button.shelf-list-title {
   text-decoration: none;
 }
 
-a.shelf-list-title:hover {
+a.shelf-list-title:hover,
+button.shelf-list-title:hover {
   color: var(--accent);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -9498,4 +9536,877 @@ a.shelf-list-title:hover {
   }
 }
 
+
+
+/* ============================================================
+   Essay definitions — body-text vocabulary block (REDLINE pending)
+   Used on /consider-the-tree/. Reads as part of the essay flow,
+   not as a preamble. Full opacity; subtle left rule sets the dl
+   apart as a block of woven definitions inside the essay body.
+   ============================================================ */
+
+.essay-definitions {
+  margin: 1.5rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid currentColor;
+  display: grid;
+  gap: 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.essay-definitions dt {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+.essay-definitions dt strong {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.essay-definitions-meta {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  opacity: 0.6;
+  margin-left: 0.45rem;
+}
+
+.essay-definitions dd {
+  margin: 0.15rem 0 0;
+  font-family: var(--reading, var(--serif));
+}
+
+.essay-definitions dd em {
+  font-style: italic;
+}
+
+/* ============================================================
+   Essay tags / topics — bordered chips below the H1 (REDLINE pending)
+   Mono small-caps matches site's existing LABEL value grammar.
+   No links yet (just labels); upgrade to /topics/ index later.
+   ============================================================ */
+
+.essay-tags {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.essay-tag {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+.essay-tag:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   Shelf modal — cover click → centered overlay with full record.
+   Uses HTML5 <dialog>. Native focus trap + ESC handling come free.
+   Visual grammar matches the rest of the shelf: mono-small-caps
+   labels, Source Serif body.
+   ============================================================ */
+
+.shelf-modal {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: min(46rem, 92vw);
+  width: 100%;
+  max-height: 88vh;
+  border-radius: 4px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.shelf-modal [hidden] {
+  display: none !important;
+}
+
+.shelf-modal::backdrop {
+  background: rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(2px);
+}
+
+/* Lock background scroll while the modal is open. Native <dialog> does
+   not inert the body in all browsers, so scrolling behind the modal
+   leaks through (verified in Chromium). Uses :has() — supported in
+   all evergreen browsers since 2022. */
+html:has(.shelf-modal[open]) {
+  overflow: hidden;
+}
+
+.shelf-modal__dismiss {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.6rem;
+  margin: 0;
+}
+
+.shelf-modal__close {
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  padding: 0.3rem 0.55rem;
+  color: var(--ink);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+
+.shelf-modal__close:hover,
+.shelf-modal__close:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+.shelf-modal__body {
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 2.4rem clamp(1.5rem, 2.5vw, 2.5rem) 2rem;
+}
+
+.shelf-modal__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.shelf-modal__kicker {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.shelf-modal__kicker:empty {
+  display: none;
+}
+
+.shelf-modal__title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 1.1rem + 1vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.shelf-modal__meta {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  color: var(--ink-light);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.shelf-modal__meta > span:empty {
+  display: none;
+}
+
+.shelf-modal__meta-sep {
+  color: var(--ink-faint);
+}
+
+.shelf-modal__type-line {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+}
+
+.shelf-modal__type-line:empty {
+  display: none;
+}
+
+.shelf-modal__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr);
+  gap: 1.6rem;
+  align-items: start;
+}
+
+@media (max-width: 560px) {
+  .shelf-modal__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shelf-modal__cover {
+  margin: 0;
+}
+
+.shelf-modal__cover-img {
+  width: 100%;
+  max-width: 10.5rem;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.shelf-modal__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.shelf-modal__dek {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+.shelf-modal__section {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.shelf-modal__section-label {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+}
+
+.shelf-modal__body-text,
+.shelf-modal__note {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-line;
+}
+
+/* Quiet attribution under a sourced description. Small-caps mono label,
+   faint ink, hover lifts to accent. */
+.shelf-modal__body-source {
+  margin: 0.55rem 0 0 0;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+  font-variant-caps: all-small-caps;
+}
+.shelf-modal__body-source a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 25%, transparent);
+  transition: color 140ms ease, text-decoration-color 140ms ease;
+}
+.shelf-modal__body-source a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.shelf-modal__body-source a[data-no-href] {
+  text-decoration: none;
+  cursor: default;
+}
+
+.shelf-modal__quote {
+  margin: 0;
+  padding-left: 0.85rem;
+  border-left: 2px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.shelf-modal__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.shelf-modal__links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.shelf-modal__links a {
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  color: var(--accent-text, var(--ink));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.shelf-modal__links a:hover {
+  color: var(--accent);
+}
+
+/* ============================================================================
+   GWERN REGISTER — typographic moves scoped to article.essay
+   Drop cap, hanging punctuation, refined link decoration, small-caps for
+   acronyms, lining figures in the lead. Reversible as one block.
+   ============================================================================ */
+
+/* Hanging punctuation: smart quotes / parens hang into the margin on the
+   first and last line. Currently Safari-only; degrades silently elsewhere. */
+.essay { hanging-punctuation: first last allow-end; }
+
+/* Drop cap removed by request 2026-05-18 — read as too gwern-coded when
+   paired with Source Serif body. Earn-your-ornaments principle: bring it
+   back only when the essay corpus warrants it. */
+
+/* Lining figures in the lead paragraph: years and numerals sit cleanly on
+   the baseline rather than dropping (old-style figures stay everywhere else). */
+.essay .essay-opener > p:first-of-type,
+.essay > section:first-of-type > p:first-of-type {
+  font-feature-settings: "lnum" 1, "kern" 1, "liga" 1;
+}
+
+/* Refined link decoration in essay prose: thin underline with offset,
+   transition on hover to accent. Anchors used as section navigation can
+   opt out with .no-decoration. */
+.essay a:not(.no-decoration):not(.essay-tag) {
+  text-decoration: underline;
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 38%, transparent);
+  transition: text-decoration-color 140ms ease, color 140ms ease;
+}
+.essay a:not(.no-decoration):not(.essay-tag):hover {
+  text-decoration-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Small-caps for acronyms (HTML <abbr>) and any .caps span. Use real
+   OpenType small-caps where available; fall back to font-variant-caps. */
+.essay abbr,
+.essay .caps {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+/* Pull-quotes and definition-list dt get the same small-caps register on the
+   meta line, matching the site's existing mono-smallcaps label grammar but
+   using the serif face inside the essay context. */
+.essay .essay-definitions dt strong {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+/* ---- Essay reading column ----
+   ~38em reading measure (≈ 660px at base 17px). Wide block elements escape
+   via .essay-wide. Reading face swapped to EB Garamond to step off the
+   Source Serif baseline that read too gwern-coded. */
+.page-essay .essay {
+  max-width: 38em;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1.25rem 4rem;
+  font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* Topic line replaces the chip-row of essay-tags. Reads as a quiet
+   prose-form list under the H1 instead of a shelf-style badge row. */
+.page-essay .essay-topic-line {
+  margin: 0.3rem 0 1.4rem;
+  font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.page-essay .essay-topic-line em {
+  font-style: italic;
+}
+@media (max-width: 720px) {
+  .page-essay .essay {
+    padding: 1.25rem 1rem 3rem;
+    font-size: 1rem;
+  }
+}
+.page-essay .essay .essay-wide,
+.page-essay .essay > figure {
+  max-width: 56em;
+  margin-left: calc(50% - 28em);
+  margin-right: auto;
+}
+@media (max-width: 1180px) {
+  .page-essay .essay .essay-wide,
+  .page-essay .essay > figure {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* Link-type glyphs (↗ external, ʷ Wikipedia, 📄 PDF) removed by request
+   2026-05-18 — gwern-distinctive even when subtle. Refined link decoration
+   (offset + thickness + hover-color) is preserved above. */
+
+/* ---- Lead paragraph polish ----
+   No first-line indent, slightly tighter top margin, body text settles
+   around the drop cap. */
+.essay .essay-opener > p:first-of-type,
+.essay > section:first-of-type > p:first-of-type {
+  margin-top: 0;
+  text-indent: 0;
+}
+
+/* ---- Sidenote infrastructure ----
+   Tufte-style margin notes that float into the right gutter at wide widths
+   and collapse to a quiet indented block on narrow viewports.
+
+   Markup pattern (no JS required):
+     <p>Body prose<sup class="sn-marker"></sup><aside class="sidenote">
+       Note content.
+     </aside> more prose.</p>
+
+   Counter auto-numbers both the inline marker and the floated note.
+   The marker stays in flow at the attachment point; the aside floats to
+   the gutter and aligns vertically with the surrounding line. */
+
+.essay { counter-reset: sn-counter; }
+
+/* Inline marker — auto-numbered superscript at the attachment point. */
+.essay .sn-marker {
+  counter-increment: sn-counter;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  cursor: help;
+  /* Show the number even when OpenType 'sups' is unavailable. */
+}
+.essay .sn-marker::before {
+  content: counter(sn-counter);
+}
+
+/* The floated sidenote in the right gutter. Width and offset chosen so the
+   38em reading column + ~16em gutter fits inside the page envelope. */
+.essay .sidenote {
+  float: right;
+  clear: right;
+  width: 14em;
+  margin-right: -16em;
+  margin-top: 0.2em;
+  margin-bottom: 0.6em;
+  padding: 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  position: relative;
+  text-indent: 0;
+  font-style: normal;
+}
+.essay .sidenote::before {
+  /* Same counter value as the most recent marker — DOM order pairs them. */
+  content: counter(sn-counter);
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.82em;
+  color: var(--accent);
+  margin-right: 0.32em;
+}
+
+/* Wikipedia-style cite popups and other prose elements may have links inside
+   sidenotes — keep the refined-link treatment but downscale the underline. */
+.essay .sidenote a:not(.no-decoration) {
+  text-decoration-thickness: 0.04em;
+  text-underline-offset: 0.14em;
+}
+
+/* Narrow viewport fallback: aside falls in-flow as a quiet block with a
+   hairline rule on the left. Number stays. */
+@media (max-width: 1180px) {
+  .essay .sidenote {
+    float: none;
+    clear: none;
+    width: auto;
+    margin: 0.7rem 0 0.7rem 1.4rem;
+    padding-left: 0.95rem;
+    border-left: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+    display: block;
+    font-size: 0.84rem;
+  }
+}
+
+/* Print: keep margin layout where the column allows it. */
+@media print {
+  .essay .sidenote {
+    color: #444;
+  }
+}
+
+/* ============================================================================
+   SITE-WIDE TYPOGRAPHIC POLISH — promoted from .essay where it doesn't risk
+   conflict with existing UI. Three baselines:
+     1. Hanging punctuation on body (Safari-only, degrades silently).
+     2. <abbr> gets small-caps + dotted underline globally.
+     3. Sidenote counter resets on any container, not just .essay.
+   Drop caps and reading-column constraint stay scoped to .essay.
+   ============================================================================ */
+
+body { hanging-punctuation: first allow-end; }
+
+/* <abbr> as a semantic element — small-caps, dotted hint, optional title=. */
+abbr {
+  font-variant-caps: all-small-caps;
+  font-feature-settings: "c2sc" 1, "smcp" 1;
+  letter-spacing: 0.04em;
+  text-decoration: underline dotted color-mix(in srgb, var(--ink) 28%, transparent);
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 0.04em;
+  cursor: help;
+}
+
+/* Sidenote counter also resets on home-plain so sidenotes work on the about
+   page when Lee uses them. Per-container counter keeps numbering local. */
+.home-plain,
+article[class*="page-"] {
+  counter-reset: sn-counter;
+}
+
+/* The .sn-marker + .sidenote selectors above were scoped to .essay; mirror
+   them at the broader site scope so the pattern works anywhere. */
+.sn-marker {
+  counter-increment: sn-counter;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  cursor: help;
+}
+.sn-marker::before { content: counter(sn-counter); }
+
+.sidenote:not(.essay .sidenote) {
+  /* Outside .essay, the reading column may not have a fixed gutter — keep
+     the sidenote in-flow as a quiet aside with a hairline rule. */
+  display: block;
+  margin: 0.7rem 0 0.7rem 1.4rem;
+  padding-left: 0.95rem;
+  border-left: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  font-style: normal;
+}
+.sidenote:not(.essay .sidenote)::before {
+  content: counter(sn-counter);
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.82em;
+  color: var(--accent);
+  margin-right: 0.32em;
+}
+
+/* ============================================================================
+   Four-column essay layout (TOC | Images | Text | Sidenotes)
+   Added 2026-05-19 for consider-the-tree.njk
+   Desktop only (>= 1180px). Below that, hide TOC and image rail; text and
+   sidenotes fall back to the existing single-column flow.
+   ============================================================================ */
+
+/* TOC — sticky to viewport, hangs on the far left */
+.page-essay .essay-toc {
+  position: fixed;
+  top: 6rem;
+  left: 2rem;
+  width: 11em;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  z-index: 5;
+}
+
+.page-essay .essay-toc-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.page-essay .essay-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.page-essay .essay-toc-list li {
+  margin-bottom: 0.18rem;
+}
+
+.page-essay .essay-toc-list a {
+  display: block;
+  padding: 0.22rem 0 0.22rem 0.6rem;
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
+  text-decoration: none;
+  border-left: 1px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.page-essay .essay-toc-list a:hover {
+  color: var(--ink);
+  border-left-color: color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.page-essay .essay-toc-list a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+/* Per-section image rail — absolute-positioned to the left of each section.
+   .essay-opener-prototaxites is a sub-block inside the opener that anchors
+   the Prototaxites image to its own paragraphs (not the top of the opener). */
+.page-essay .essay-section,
+.page-essay .essay-opener,
+.page-essay .essay-opener-prototaxites {
+  position: relative;
+}
+
+.page-essay .essay-image-slot {
+  position: absolute;
+  top: 0.2em;
+  right: 100%;
+  margin-right: 3em;
+  width: 10em;
+}
+
+/* Grayscale period illustrations look right on light mode but white-boxed on
+   dark mode. Invert in dark mode so figures read as X-ray (line work white
+   on dark) instead of as a glaring white card.
+   Color images (parchment scans, photos) opt out with class="no-invert" —
+   inverting them would shift hue (sepia → blue) which looks terrible. */
+@media (prefers-color-scheme: dark) {
+  .page-essay .essay-image-slot img:not(.no-invert) {
+    filter: invert(1);
+  }
+}
+
+/* Tasteful literary whitespace between the opener's framing paragraphs
+   and the Prototaxites story-within-the-opener.
+   The margin is large enough to ensure the previous image-slot (tree
+   silhouette) does not vertically touch the next image-slot (Dawson) —
+   margin figures should never abut. Tufte/Bringhurst rule.
+   Sized roughly equal to the first image height so the eye gets a full
+   beat of rest between figures. */
+.page-essay .essay-opener-prototaxites {
+  margin-top: 14em;
+}
+
+/* Decorative section-break for inside-essay breathing room.
+   Used wherever <hr class="essay-divider" /> appears in the markup.
+   Three small asterisks, centered, classical scholarly break. */
+.essay .essay-divider {
+  border: none;
+  height: auto;
+  overflow: visible;
+  text-align: center;
+  margin: 2.5em 0;
+  color: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+
+.essay .essay-divider::before {
+  content: "\002A \00A0 \002A \00A0 \002A";
+  letter-spacing: 0.5em;
+  font-family: var(--serif, Georgia, serif);
+  font-size: 1.05em;
+}
+
+.page-essay .essay-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--ink) 4%, var(--bg));
+  border: 1px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink) 38%, transparent);
+  text-align: center;
+  padding: 0.5rem;
+  line-height: 1.3;
+}
+
+/* Real images in the image slot: no border, no chrome — Tufte-style.
+   Caption follows underneath, italic sans, tight to the figure. */
+.page-essay .essay-image-slot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-essay .essay-image-slot figcaption {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* Narrow viewports: hide TOC + image rail; essay reads single-column */
+@media (max-width: 1180px) {
+  .page-essay .essay-toc { display: none; }
+  .page-essay .essay-image-slot { display: none; }
+}
+
+/* ============================================================================
+   Hover-notes — CSS-only :hover tooltip replacement for sidenotes.
+   Marker is a superscript span; tooltip is a child positioned near it.
+   Hover or focus reveals the tooltip; appears just above the marker.
+   ============================================================================ */
+
+/* Marker — auto-numbered superscript, hover-anchored */
+.essay .sn-marker {
+  counter-increment: sn-counter;
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  outline: none;
+  transition: color 120ms ease;
+}
+
+.essay .sn-marker::before {
+  content: counter(sn-counter);
+}
+
+.essay .sn-marker:hover,
+.essay .sn-marker:focus-visible {
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+
+/* Tooltip — appears on hover/focus, anchored above-and-centered on marker */
+.essay .sidenote-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.6em);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 22em;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent),
+    0 8px 28px color-mix(in srgb, var(--ink) 14%, transparent);
+  padding: 0.7rem 0.9rem;
+  border-radius: 3px;
+  text-align: left;
+  font-variant-numeric: oldstyle-nums;
+  font-style: normal;
+  vertical-align: baseline;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease, visibility 0s 140ms;
+  z-index: 50;
+}
+
+/* Small arrow pointing down to the marker */
+.essay .sidenote-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.essay .sn-marker:hover .sidenote-tooltip,
+.essay .sn-marker:focus-visible .sidenote-tooltip,
+.essay .sn-marker:focus-within .sidenote-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 140ms ease, visibility 0s 0s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .essay .sidenote-tooltip {
+    border-color: color-mix(in srgb, var(--ink) 28%, transparent);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+  .essay .sidenote-tooltip::after {
+    border-top-color: color-mix(in srgb, var(--ink) 28%, transparent);
+  }
+}
 
