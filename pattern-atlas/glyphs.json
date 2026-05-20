@@ -1,0 +1,1576 @@
+{
+  "source": "claude composition v0 (2026-05-14), 3 parallel band agents, alphabet v2 frozen 2026-05-13",
+  "alphabet_ref": "pattern-atlas/alphabet.md",
+  "schema": "{n: {primary, secondary (nullable), layout (inline|layered|null), rationale}}",
+  "status": "v0 — Lee to curate in batches (TOWNS / BUILDINGS / CONSTRUCTION)",
+  "glyphs": {
+    "1": {
+      "primary": "enclosure",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "autonomous regions, each with its own bounded territory, distributed across the world"
+    },
+    "2": {
+      "primary": "scatter",
+      "secondary": "fade-h",
+      "layout": "inline",
+      "rationale": "town sizes distributed in a graded falloff from many small to few large"
+    },
+    "3": {
+      "primary": "taper",
+      "secondary": "",
+      "layout": "",
+      "rationale": "interlocking fingers of city and country crossing alternately",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "4": {
+      "primary": "taper",
+      "secondary": null,
+      "layout": null,
+      "rationale": "valley floor as protected funnel of fertile land between hills"
+    },
+    "5": {
+      "primary": "weave",
+      "secondary": "",
+      "layout": "",
+      "rationale": "country roads a mile apart enclosing square cells of farmland",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "6": {
+      "primary": "scatter",
+      "secondary": "enclosure",
+      "layout": "inline",
+      "rationale": "self-contained towns set apart in open countryside, each ring-fenced by distance"
+    },
+    "7": {
+      "primary": "layered",
+      "secondary": null,
+      "layout": null,
+      "rationale": "countryside as shared strata of working land, public access overlaid on farms"
+    },
+    "8": {
+      "primary": "cluster",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "many small subculture territories tessellating the city as a mosaic"
+    },
+    "9": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "workplaces dispersed throughout the city rather than concentrated"
+    },
+    "10": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "the city's magnetic downtown core with reach radiating to all"
+    },
+    "11": {
+      "primary": "enclosure",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "local transport area enclosed by a ring road that bounds it"
+    },
+    "12": {
+      "primary": "branching",
+      "secondary": null,
+      "layout": null,
+      "rationale": "city government decentralized into community-sized branches of local control"
+    },
+    "13": {
+      "primary": "threshold",
+      "secondary": null,
+      "layout": null,
+      "rationale": "wide swath of land between subcultures as hard separating edge"
+    },
+    "14": {
+      "primary": "enclosure",
+      "secondary": null,
+      "layout": null,
+      "rationale": "neighborhood as identifiable bounded spatial unit"
+    },
+    "15": {
+      "primary": "wall",
+      "secondary": null,
+      "layout": null,
+      "rationale": "strong continuous boundary around the neighborhood to hold its character"
+    },
+    "16": {
+      "primary": "branching",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "transit modes converging on primary interchange nodes"
+    },
+    "17": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "high-speed road as ring encircling the local transport area"
+    },
+    "18": {
+      "primary": "scatter",
+      "secondary": "path",
+      "layout": "inline",
+      "rationale": "learning dispersed across the city, students moving between many sites"
+    },
+    "19": {
+      "primary": "branching",
+      "secondary": "",
+      "layout": "",
+      "rationale": "shops scattered to follow need, clustering where webs intersect",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "20": {
+      "primary": "flow",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "small buses moving fluidly point-to-point across dispersed demand"
+    },
+    "21": {
+      "primary": "layered",
+      "secondary": null,
+      "layout": null,
+      "rationale": "buildings held low to four parallel strata of habitation"
+    },
+    "22": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "parking broken up and dispersed rather than bunched in large lots"
+    },
+    "23": {
+      "primary": "comb",
+      "secondary": "",
+      "layout": "",
+      "rationale": "one-way roads running side by side in the same direction, no crossings",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "24": {
+      "primary": "point",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "sacred site as protected anchor within a ring of legal protection"
+    },
+    "25": {
+      "primary": "membrane",
+      "secondary": null,
+      "layout": null,
+      "rationale": "permeable edge between people and water, access without destruction"
+    },
+    "26": {
+      "primary": "alternation",
+      "secondary": null,
+      "layout": null,
+      "rationale": "full cycle of ages held in steady alternation within each community"
+    },
+    "27": {
+      "primary": "pair",
+      "secondary": "",
+      "layout": "",
+      "rationale": "masculine and feminine threads crossing through every piece of the environment",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "28": {
+      "primary": "fade-v",
+      "secondary": "",
+      "layout": "",
+      "rationale": "density peak set off-center rather than at geometric middle",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "29": {
+      "primary": "fade-v",
+      "secondary": "",
+      "layout": "",
+      "rationale": "concentric rings of decreasing housing density around the nucleus",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "30": {
+      "primary": "cross",
+      "secondary": "",
+      "layout": "",
+      "rationale": "activity nodes pulling life into tight knots, spaced ~300 yards apart",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "31": {
+      "primary": "spine",
+      "secondary": "",
+      "layout": "",
+      "rationale": "promenade as central backbone linking activity nodes in a walkable sequence",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "32": {
+      "primary": "spine",
+      "secondary": "cluster",
+      "layout": "inline",
+      "rationale": "shops gathered along a single pedestrian street rather than scattered"
+    },
+    "33": {
+      "primary": "cluster",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "night activities huddled together so their light reinforces each other"
+    },
+    "34": {
+      "primary": "cross",
+      "secondary": "",
+      "layout": "",
+      "rationale": "interchange as the focal crossing of transit lines, attention to the meeting",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "35": {
+      "primary": "alternation",
+      "secondary": "cluster",
+      "layout": "inline",
+      "rationale": "different household types interleaved side by side within each cluster"
+    },
+    "36": {
+      "primary": "fade-h",
+      "secondary": null,
+      "layout": null,
+      "rationale": "homes graded along a public-to-quiet gradient by where they sit"
+    },
+    "37": {
+      "primary": "cluster",
+      "secondary": "",
+      "layout": "",
+      "rationale": "8-12 houses tightly grouped around shared common land",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "38": {
+      "primary": "alternation",
+      "secondary": "",
+      "layout": "",
+      "rationale": "row houses as parallel teeth along pedestrian paths, deep narrow lots",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "39": {
+      "primary": "step",
+      "secondary": null,
+      "layout": null,
+      "rationale": "stepped terraces of dwellings climbing in discrete level transitions"
+    },
+    "40": {
+      "primary": "nested",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "old-people dwellings in nested rings, sprinkled across every neighborhood"
+    },
+    "41": {
+      "primary": "nested",
+      "secondary": "cluster",
+      "layout": "layered",
+      "rationale": "small workplace clusters nested inside a larger common courtyard"
+    },
+    "42": {
+      "primary": "spine",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "industrial ribbon running as a backbone that also separates communities"
+    },
+    "43": {
+      "primary": "scatter",
+      "secondary": "weave",
+      "layout": "inline",
+      "rationale": "university dispersed into a marketplace of overlapping offerings"
+    },
+    "44": {
+      "primary": "point",
+      "secondary": "cross",
+      "layout": "layered",
+      "rationale": "town hall as political anchor placed at the busiest intersection"
+    },
+    "45": {
+      "primary": "ringed",
+      "secondary": "cluster",
+      "layout": "layered",
+      "rationale": "community shop-spaces forming a necklace ring around the town hall"
+    },
+    "46": {
+      "primary": "cluster",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "many small autonomous shops gathered under one market roof"
+    },
+    "47": {
+      "primary": "point",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "small health center as community anchor focused on prevention, open in both directions"
+    },
+    "48": {
+      "primary": "overlap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "housing interpenetrated with shops, schools, and workplaces"
+    },
+    "49": {
+      "primary": "branching",
+      "secondary": null,
+      "layout": null,
+      "rationale": "local roads forming dead-end loops off main routes, no through traffic"
+    },
+    "50": {
+      "primary": "pivot",
+      "secondary": "",
+      "layout": "",
+      "rationale": "T-junctions instead of crossings — roads meet by branching, not crossing",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "51": {
+      "primary": "fade-v",
+      "secondary": "spine",
+      "layout": "layered",
+      "rationale": "local road softened to mostly green with sparse paving stones for wheels"
+    },
+    "52": {
+      "primary": "cross",
+      "secondary": "weave",
+      "layout": "layered",
+      "rationale": "paths laid at right angles to roads, forming a second crossing network"
+    },
+    "53": {
+      "primary": "gap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "main gateway as deliberate break in boundary marking entry to a precinct"
+    },
+    "54": {
+      "primary": "taper",
+      "secondary": "cross",
+      "layout": "layered",
+      "rationale": "knuckle narrows the road where path crosses, slowing cars at the meeting"
+    },
+    "55": {
+      "primary": "step",
+      "secondary": "parallel",
+      "layout": "layered",
+      "rationale": "pedestrian walk raised one step above the road running alongside it"
+    },
+    "56": {
+      "primary": "ladder",
+      "secondary": "",
+      "layout": "",
+      "rationale": "bike paths run alongside roads but held distinct by surface and edge",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "57": {
+      "primary": "path",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "extra-safe children's path threaded through the city, sheltered from cars"
+    },
+    "58": {
+      "primary": "cluster",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "carnival as a wild concentrated zone of dreams set apart in the town"
+    },
+    "59": {
+      "primary": "away",
+      "secondary": "",
+      "layout": "",
+      "rationale": "quiet back as permeable refuge behind the busy front of buildings",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "60": {
+      "primary": "scatter",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "public greens uniformly sprinkled, one within three minutes of every house"
+    },
+    "61": {
+      "primary": "enclosure",
+      "secondary": "scatter",
+      "layout": "layered",
+      "rationale": "small enclosed square sized tight enough to feel inhabited",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "62": {
+      "primary": "point",
+      "secondary": "fade-v",
+      "layout": "layered",
+      "rationale": "high places as vertical anchors rising above the urban field"
+    },
+    "63": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "raised bandstand as platform drawing dancing and crowd around it"
+    },
+    "64": {
+      "primary": "flow",
+      "secondary": null,
+      "layout": null,
+      "rationale": "natural streams running through the city as continuous water-paths"
+    },
+    "65": {
+      "primary": "point",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "birth place as small anchor where family and community pass through"
+    },
+    "66": {
+      "primary": "ringed",
+      "secondary": "",
+      "layout": "",
+      "rationale": "concentric sacred precincts, each entered through a deeper gateway",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "67": {
+      "primary": "tangent",
+      "secondary": "",
+      "layout": "",
+      "rationale": "common land embedded among the houses that share it",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "68": {
+      "primary": "path",
+      "secondary": "branching",
+      "layout": "layered",
+      "rationale": "swath of safe play-land connecting at least 64 households without crossing traffic"
+    },
+    "69": {
+      "primary": "enclosure",
+      "secondary": "pair",
+      "layout": "layered",
+      "rationale": "outdoor room shaped to hold people facing each other for hours"
+    },
+    "70": {
+      "primary": "scatter",
+      "secondary": "",
+      "layout": "",
+      "rationale": "grave sites embedded as small pieces in parks, paths, gardens — never massed",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "71": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "still pool as quiet water-anchor in every neighborhood"
+    },
+    "72": {
+      "primary": "scatter",
+      "secondary": "membrane",
+      "layout": "inline",
+      "rationale": "sports places sprinkled around, action made visible to passers-by"
+    },
+    "73": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "loose pile of raw materials for children to assemble their own play"
+    },
+    "74": {
+      "primary": "enclosure",
+      "secondary": "cluster",
+      "layout": "inline",
+      "rationale": "fenced common animal-ground gathering grazing creatures together"
+    },
+    "75": {
+      "primary": "cluster",
+      "secondary": null,
+      "layout": null,
+      "rationale": "8-12 people drawn together into one communal household"
+    },
+    "76": {
+      "primary": "branching",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "parents' realm, children's realm, and shared common — three branches off a center"
+    },
+    "77": {
+      "primary": "pair",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "couple's shared realm with each partner's private world embedded in it"
+    },
+    "78": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "one-room cottage core ringed by small alcoves"
+    },
+    "79": {
+      "primary": "point",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "every household its own bounded home, owned and controlled"
+    },
+    "80": {
+      "primary": "cluster",
+      "secondary": "branching",
+      "layout": "inline",
+      "rationale": "small autonomous workgroups of 5-20, each branching off its own way"
+    },
+    "81": {
+      "primary": "branching",
+      "secondary": "cluster",
+      "layout": "inline",
+      "rationale": "public services broken into small autonomous departments rather than one mass"
+    },
+    "82": {
+      "primary": "overlap",
+      "secondary": "",
+      "layout": "",
+      "rationale": "office departments placed close enough that they touch and people move between",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "83": {
+      "primary": "parallel",
+      "secondary": "",
+      "layout": "",
+      "rationale": "master and apprentice rotating around the same work as shared hinge",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "84": {
+      "primary": "embed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "teenage society as a small society embedded inside the adult one"
+    },
+    "85": {
+      "primary": "embed",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "tiny schools embedded in shopfronts one at a time across the city"
+    },
+    "86": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "children's home as second-home anchor in every neighborhood"
+    },
+    "87": {
+      "primary": "scatter",
+      "secondary": "enclosure",
+      "layout": "inline",
+      "rationale": "many small shops each its own bounded territory, dispersed across the city"
+    },
+    "88": {
+      "primary": "membrane",
+      "secondary": "pair",
+      "layout": "layered",
+      "rationale": "cafe front opening to the busy path, people sitting in view of the world"
+    },
+    "89": {
+      "primary": "scatter",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "corner grocery placed every few hundred yards, one near each neighborhood's heart"
+    },
+    "90": {
+      "primary": "enclosure",
+      "secondary": "cluster",
+      "layout": "layered",
+      "rationale": "single big hall holding hundreds of people criss-crossing among activities"
+    },
+    "91": {
+      "primary": "ringed",
+      "secondary": "cluster",
+      "layout": "layered",
+      "rationale": "inn rooms gathered around a shared common where travelers meet"
+    },
+    "92": {
+      "primary": "point",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "bus stop as small public anchor at the gateway into a neighborhood"
+    },
+    "93": {
+      "primary": "point",
+      "secondary": "cross",
+      "layout": "layered",
+      "rationale": "food stand placed where cars and paths meet"
+    },
+    "94": {
+      "primary": "scatter",
+      "secondary": "point",
+      "layout": "inline",
+      "rationale": "benches and sheltered corners sprinkled where people can fall asleep in public"
+    },
+    "95": {
+      "primary": "nested",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Building broken into a cluster of smaller parts that nest social facts inside the whole.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "96": {
+      "primary": "layered",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Stories as parallel strata stacked vertically — height as count of layers."
+    },
+    "97": {
+      "primary": "embed",
+      "secondary": "wall",
+      "layout": "layered",
+      "rationale": "Parking tucked behind a screening edge so cars are absorbed into building mass."
+    },
+    "98": {
+      "primary": "nested",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Sequence of progressively smaller realms, each entered through its own gateway."
+    },
+    "99": {
+      "primary": "point",
+      "secondary": "",
+      "layout": "",
+      "rationale": "One dominant building as the head, with smaller ones gathered as halo around it.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "100": {
+      "primary": "spine",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Pedestrian axis with rhythmic entrances rungs along its length.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "101": {
+      "primary": "comb",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Indoor street as enclosed axis cutting through the building as a shortcut.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "102": {
+      "primary": "branching",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Family of entrances grouped so all gateways read together at a glance.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "103": {
+      "primary": "scatter",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "Many tiny lots scattered, each one screened by walls, hedges, trees."
+    },
+    "104": {
+      "primary": "embed",
+      "secondary": "scatter",
+      "layout": "layered",
+      "rationale": "Building tucked into the worst patch of land; the precious scattered features around it are spared."
+    },
+    "105": {
+      "primary": "oblique",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Building north, outdoor space south — paired so sun gradient lands on the open side.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "106": {
+      "primary": "enclosure",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Every outdoor space made positive by being given its own enclosure."
+    },
+    "107": {
+      "primary": "comb",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Building broken into narrow daylit wings fanning out from a trunk.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "108": {
+      "primary": "tangent",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Buildings touch each other rather than stand isolated."
+    },
+    "109": {
+      "primary": "taper",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Rooms strung out along a long axis so each gets maximum separation."
+    },
+    "110": {
+      "primary": "enclosure",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Main entrance is the marked gap in the building's boundary, visible from approach."
+    },
+    "111": {
+      "primary": "overlap",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Garden tucked half-hidden alongside the house, semi-permeable from the street.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "112": {
+      "primary": "threshold",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Transition space at the door registers the change of light, sound, view.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "113": {
+      "primary": "path",
+      "secondary": "tangent",
+      "layout": "inline",
+      "rationale": "Shortest path from parked car to house touches kitchen and living room directly."
+    },
+    "114": {
+      "primary": "nested",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Each outdoor space contains a smaller protected one looking into it."
+    },
+    "115": {
+      "primary": "enclosure",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Courtyard with view out and multiple doors in — enclosed but porous to life.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "116": {
+      "primary": "step",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Roofs step down toward the ends of wings in a discrete cascade."
+    },
+    "117": {
+      "primary": "enclosure",
+      "secondary": "taper",
+      "layout": "layered",
+      "rationale": "Sheltering roof tapers down to low eaves, wrapping the building like a hood."
+    },
+    "118": {
+      "primary": "layered",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Garden embedded in the top stratum — roof as inhabited terrace."
+    },
+    "119": {
+      "primary": "parallel",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Arcade runs alongside the building, half-inside half-outside — permeable parallel edge."
+    },
+    "120": {
+      "primary": "path",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Goals placed first as points, paths drawn between them afterward.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "121": {
+      "primary": "enclosure",
+      "secondary": "spine",
+      "layout": "layered",
+      "rationale": "Path bulges in the middle, narrows at ends — an enclosure along an axis."
+    },
+    "122": {
+      "primary": "embed",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Building front sits flush against the street rather than set back.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "123": {
+      "primary": "cluster",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Pedestrian density tuned so people read as a tight grouping, not scatter."
+    },
+    "124": {
+      "primary": "ringed",
+      "secondary": "cluster",
+      "layout": "layered",
+      "rationale": "Pockets of activity ring the edge of a public square, animating its perimeter."
+    },
+    "125": {
+      "primary": "ladder",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Stepped seats at a level change make a vantage point above the action.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "126": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "Something — fountain, tree, statue — anchored roughly in the middle of the square."
+    },
+    "127": {
+      "primary": "fade-h",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Public-to-private gradient runs from entrance to deepest room along one axis."
+    },
+    "128": {
+      "primary": "fade-h",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Important rooms along the south edge — sunlight as orienting gradient."
+    },
+    "129": {
+      "primary": "point",
+      "secondary": "tangent",
+      "layout": "layered",
+      "rationale": "Common area at the center of gravity, with circulation paths tangent to it."
+    },
+    "130": {
+      "primary": "enclosure",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "A room at the entrance — enclosed pause between outside and inside."
+    },
+    "131": {
+      "primary": "flow",
+      "secondary": "path",
+      "layout": "layered",
+      "rationale": "Common rooms chained in a loop so movement flows through them, not past them."
+    },
+    "132": {
+      "primary": "threshold",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Passages kept short so they read as hard edges, not corridors."
+    },
+    "133": {
+      "primary": "step",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Staircase as a room with its own volume — vertical spine treated as a stage.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "134": {
+      "primary": "gap",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "View glimpsed only through a narrow opening at a place of transition."
+    },
+    "135": {
+      "primary": "alternation",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Light and dark alternating so people are pulled toward the bright places."
+    },
+    "136": {
+      "primary": "pair",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Private couple's zone embedded inside the house, distinct from common areas.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "137": {
+      "primary": "cluster",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Children's beds clustered together, tucked toward the back of the house."
+    },
+    "138": {
+      "primary": "oblique",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Sleeping rooms oriented to catch the eastern angle of morning sun."
+    },
+    "139": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "Kitchen brought to the center of common life, gathering family around it."
+    },
+    "140": {
+      "primary": "membrane",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "Terrace as a permeable lip between house and street — neither fully open nor closed."
+    },
+    "141": {
+      "primary": "embed",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Each person gets a small room of their own embedded in the household."
+    },
+    "142": {
+      "primary": "path",
+      "secondary": "fade-h",
+      "layout": "layered",
+      "rationale": "Sitting spaces strung along the intimacy gradient, each more enclosed than the last."
+    },
+    "143": {
+      "primary": "cluster",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Bed alcoves clustered around a common playspace — private nooks off a shared room.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "144": {
+      "primary": "embed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Bathing room concentrated in one tiled zone, embedded between private and common."
+    },
+    "145": {
+      "primary": "enclosure",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Bulk storage as a closed contained zone set apart from active rooms."
+    },
+    "146": {
+      "primary": "scatter",
+      "secondary": "parallel",
+      "layout": "layered",
+      "rationale": "Free-standing columns scatter through open wings, defining half-private cells."
+    },
+    "147": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Common table as a focus with people gathered in a halo around it."
+    },
+    "148": {
+      "primary": "cluster",
+      "secondary": "branching",
+      "layout": "layered",
+      "rationale": "Small work groups as clusters, each visible to itself but branched from the whole."
+    },
+    "149": {
+      "primary": "pair",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Welcoming items face each other across the entry; reception desk off to one side."
+    },
+    "150": {
+      "primary": "overlap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Waiting fused with another activity — two zones interpenetrating so waiting becomes positive."
+    },
+    "151": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Small meeting rooms scattered evenly through the workplace, not concentrated."
+    },
+    "152": {
+      "primary": "membrane",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Workroom half-open to its neighbors — permeable edge instead of closed wall."
+    },
+    "153": {
+      "primary": "embed",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Rentable suite embedded in the house with its own private opening to outside."
+    },
+    "154": {
+      "primary": "tangent",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Teenager's cottage attached at a single tangent point — independent yet adjoined."
+    },
+    "155": {
+      "primary": "scatter",
+      "secondary": "tangent",
+      "layout": "layered",
+      "rationale": "Old-age cottages scattered through the neighborhood, each touching a larger household."
+    },
+    "156": {
+      "primary": "overlap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Working life and home life interpenetrate — workplace and dwelling as overlapping zones."
+    },
+    "157": {
+      "primary": "embed",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "Home workshop set inside the dwelling but with its own marked edge to street."
+    },
+    "158": {
+      "primary": "alternation",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Outdoor stair as vertical spine linking upper stories directly to the street.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "159": {
+      "primary": "pair",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Windows on two opposing sides of every room — paired light sources."
+    },
+    "160": {
+      "primary": "wall",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Building edge crenelated as a thick inhabited zone, not a thin line.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "161": {
+      "primary": "oblique",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Sunny pocket where building wall and outdoors face each other, anchored by a seat.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "162": {
+      "primary": "step",
+      "secondary": "fade-v",
+      "layout": "layered",
+      "rationale": "North face stepped down so the sun reaches the ground beside the building."
+    },
+    "163": {
+      "primary": "enclosure",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Outdoor room defined by columns, partial roof, walls — full enclosure under sky."
+    },
+    "164": {
+      "primary": "embed",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Window seat embedded in the wall facing the street — eyes on the street, body inside.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "165": {
+      "primary": "gap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Wall opens fully to the street — boundary becomes gateway."
+    },
+    "166": {
+      "primary": "ringed",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Balconies, niches, galleries ring the building as a permeable outer skin."
+    },
+    "167": {
+      "primary": "embed",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Balcony recessed into the building's edge — permeable pocket inside the wall, not bolted on."
+    },
+    "168": {
+      "primary": "tangent",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Floors meet the earth at a continuous touching edge, not perched above it."
+    },
+    "169": {
+      "primary": "step",
+      "secondary": "layered",
+      "layout": "layered",
+      "rationale": "Slope cut into discrete level transitions along contour lines."
+    },
+    "170": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Small orchards scattered on common land along paths and streets."
+    },
+    "171": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "Trees placed as anchors that gather space around them — single spreading focus."
+    },
+    "172": {
+      "primary": "scatter",
+      "secondary": "weave",
+      "layout": "layered",
+      "rationale": "Plants intermingled in a wild weave, no formal beds or bare earth between."
+    },
+    "173": {
+      "primary": "wall",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Garden ringed by a closed edge that blocks noise from outside.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "174": {
+      "primary": "path",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "Trellis encloses the path overhead — corridor of green along the walk."
+    },
+    "175": {
+      "primary": "embed",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Greenhouse embedded in the house yet permeable to the garden — a glass room between."
+    },
+    "176": {
+      "primary": "enclosure",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "A single quiet seat in a small enclosed pocket of the garden."
+    },
+    "177": {
+      "primary": "enclosure",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Vegetable plot fenced off as its own sunlit zone within the larger land — a dedicated patch."
+    },
+    "178": {
+      "primary": "flow",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Toilet and garbage flows funnel down to a single composting chamber."
+    },
+    "179": {
+      "primary": "embed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Small alcoves embedded in the edge of a common room — pockets inside the larger volume."
+    },
+    "180": {
+      "primary": "embed",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Window place — a small inhabitable pocket built into the wall around the light."
+    },
+    "181": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Fire as the radiant center, social spaces gathering in a halo around it."
+    },
+    "182": {
+      "primary": "ringed",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "Heavy table with a pool of light over it, enclosed by surrounding walls."
+    },
+    "183": {
+      "primary": "membrane",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Workspace enclosure tuned to roughly two-thirds wall — permeable edge between open and closed."
+    },
+    "184": {
+      "primary": "cluster",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Stove, sink, counter clustered so cook can reach all three without crossing the room."
+    },
+    "185": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Chairs arranged as a circle, room itself helping to suggest the ring."
+    },
+    "186": {
+      "primary": "cluster",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Beds drawn together into one shared sleeping cluster rather than separate rooms."
+    },
+    "187": {
+      "primary": "ringed",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Marriage bed as anchored center, slightly enclosed with low ceiling or canopy.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "188": {
+      "primary": "embed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Bed alcove embedded off a larger room — sleeping as a private nook, not a whole room."
+    },
+    "189": {
+      "primary": "embed",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "Dressing room embedded as a transition zone between bed and bathing."
+    },
+    "190": {
+      "primary": "step",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Ceiling heights stepped between adjacent rooms to register intimacy difference."
+    },
+    "191": {
+      "primary": "oblique",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Indoor shapes broken from rigid rectangles toward irregular human-fitted forms."
+    },
+    "192": {
+      "primary": "gap",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Window opening looks out onto life beyond — a permeable break in the wall."
+    },
+    "193": {
+      "primary": "membrane",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Half-open wall — neither fully closed room nor fully flowing space."
+    },
+    "194": {
+      "primary": "gap",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Interior window — a gap between two indoor zones rather than indoor and outdoor."
+    },
+    "195": {
+      "primary": null,
+      "secondary": null,
+      "layout": null,
+      "rationale": "Staircase volume — pattern stub with no problem or solution text in source."
+    },
+    "196": {
+      "primary": "gap",
+      "secondary": "oblique",
+      "layout": "layered",
+      "rationale": "Doors placed at the corner — gap angled off the room edge, not centered on a wall."
+    },
+    "197": {
+      "primary": "wall",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Walls thickened to hold usable volume — inhabitable embedded space within the boundary."
+    },
+    "198": {
+      "primary": "wall",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Closets thickening the partition between rooms — storage as wall volume."
+    },
+    "199": {
+      "primary": "fade-h",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Counter pushed to the sunny edge — light gradient runs onto the work surface."
+    },
+    "200": {
+      "primary": "layered",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Narrow shelves layered across the wall, one item deep, nothing hidden behind."
+    },
+    "201": {
+      "primary": "layered",
+      "secondary": "spine",
+      "layout": "layered",
+      "rationale": "A single shelf strip runs around the room at waist height — a continuous horizontal band."
+    },
+    "202": {
+      "primary": "embed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Seat built into the structure — embedded in wall, window, stair, not freestanding."
+    },
+    "203": {
+      "primary": "embed",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "Tiny cave-like spaces tucked under stairs and counters for children to climb into."
+    },
+    "204": {
+      "primary": "embed",
+      "secondary": "wall",
+      "layout": "layered",
+      "rationale": "Hidden compartment concealed inside the fabric of the house — embedded behind a wall."
+    },
+    "205": {
+      "primary": "nested",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Structural shell wrapped around social cells — engineering nested into the human spaces it serves."
+    },
+    "206": {
+      "primary": "cluster",
+      "secondary": "nested",
+      "layout": "layered",
+      "rationale": "Whole building as one compressive body of clustered vaulted cells nested in continuous material."
+    },
+    "207": {
+      "primary": null,
+      "secondary": null,
+      "layout": null,
+      "rationale": "Material ethics rather than a spatial gesture — no clean architectural primitive."
+    },
+    "208": {
+      "primary": "fade-h",
+      "secondary": "weave",
+      "layout": "layered",
+      "rationale": "Globally complete and flimsy, then gradually stiffened — a density gradient woven through time."
+    },
+    "209": {
+      "primary": "branching",
+      "secondary": "step",
+      "layout": "layered",
+      "rationale": "Hierarchy of roofs: largest spans over largest groups, smaller branches stepping down in scale."
+    },
+    "210": {
+      "primary": "layered",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Floor and ceiling as paired horizontal strata — load-bearing layers stacked through the building."
+    },
+    "211": {
+      "primary": "layered",
+      "secondary": "",
+      "layout": "",
+      "rationale": "Seats, closets, niches embedded into the wall's depth — alcoves carved into the perimeter mass.",
+      "source": "alphabet-canonical-2026-05-13"
+    },
+    "212": {
+      "primary": "point",
+      "secondary": "enclosure",
+      "layout": "layered",
+      "rationale": "A column dotted at every corner of every room — points marking the enclosure's geometry."
+    },
+    "213": {
+      "primary": "fade-v",
+      "secondary": "comb",
+      "layout": "layered",
+      "rationale": "Column spacing tightens floor by floor going up — vertical density gradient in the stiffener comb."
+    },
+    "214": {
+      "primary": "branching",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Foundation continues the structure downward like tree roots fanning into the ground."
+    },
+    "215": {
+      "primary": "layered",
+      "secondary": "wall",
+      "layout": "inline",
+      "rationale": "Raised slab on a low perimeter wall — a thin floor stratum held above grade by its edge."
+    },
+    "216": {
+      "primary": "enclosure",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Stiff tubular skin around a compressive core — a hollow column with its strength embedded."
+    },
+    "217": {
+      "primary": "ringed",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Continuous beam ringing the room at its upper edge, tying columns and resisting vault thrust."
+    },
+    "218": {
+      "primary": "membrane",
+      "secondary": "parallel",
+      "layout": "layered",
+      "rationale": "Wall as paired inner and outer membranes spanning between columns and frames."
+    },
+    "219": {
+      "primary": "taper",
+      "secondary": "layered",
+      "layout": "layered",
+      "rationale": "Elliptical vault rises shallowly between supports — a tapered shell forming the floor-ceiling stratum."
+    },
+    "220": {
+      "primary": "taper",
+      "secondary": "alternation",
+      "layout": "layered",
+      "rationale": "Barrel or pitched vault with undulations along its length — a curved shell ribbed for stiffness."
+    },
+    "221": {
+      "primary": "scatter",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Each opening sized to its place — a scatter of unique gaps rather than a standardized run."
+    },
+    "222": {
+      "primary": "threshold",
+      "secondary": "fade-v",
+      "layout": "layered",
+      "rationale": "A low sill drops the eye-to-outdoors threshold — vertical contact gradient pulled near the floor."
+    },
+    "223": {
+      "primary": "taper",
+      "secondary": "fade-h",
+      "layout": "layered",
+      "rationale": "Splayed window reveal widens inward — a tapered opening softening the bright-to-dim gradient."
+    },
+    "224": {
+      "primary": "threshold",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "A low door makes passage deliberate — the gap dramatized as a felt threshold."
+    },
+    "225": {
+      "primary": "ringed",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "Frame as a thickened reinforcement ringing each opening — embedded into the wall fabric itself."
+    },
+    "226": {
+      "primary": "ringed",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "A fat column with a seat or step around it — single anchor haloed by inhabited margin."
+    },
+    "227": {
+      "primary": "pivot",
+      "secondary": "tangent",
+      "layout": "layered",
+      "rationale": "Column meets beam at the corner — a filled hinge where two arms touch and transfer load."
+    },
+    "228": {
+      "primary": "taper",
+      "secondary": "step",
+      "layout": "layered",
+      "rationale": "Stair built over a vaulted void — stepping treads carried on a tapered compressive shell."
+    },
+    "229": {
+      "primary": "spine",
+      "secondary": "branching",
+      "layout": "layered",
+      "rationale": "Vertical service chase with horizontal ducts branching into each room's vault edge."
+    },
+    "230": {
+      "primary": "point",
+      "secondary": "ringed",
+      "layout": "layered",
+      "rationale": "A radiative source casting heat outward in all directions — a glowing center with a warm halo."
+    },
+    "231": {
+      "primary": "embed",
+      "secondary": "gap",
+      "layout": "inline",
+      "rationale": "Stand-up window cut into the roof slope — an alcove-gap embedded in the sheltering plane."
+    },
+    "232": {
+      "primary": "point",
+      "secondary": "taper",
+      "layout": "layered",
+      "rationale": "Ornament caps the apex of the roof — a tapered marker pointing the top."
+    },
+    "233": {
+      "primary": "fade-h",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "Hard public floors grading to soft intimate ones — a material gradient with a felt threshold between."
+    },
+    "234": {
+      "primary": "alternation",
+      "secondary": "layered",
+      "layout": "layered",
+      "rationale": "Shingles and boards lapped against the weather — overlapping A/B courses shedding water down the wall."
+    },
+    "235": {
+      "primary": "membrane",
+      "secondary": "fade-h",
+      "layout": "layered",
+      "rationale": "Inside surfaces soft and yielding to touch — a membrane that absorbs rather than reflects."
+    },
+    "236": {
+      "primary": "gap",
+      "secondary": "flow",
+      "layout": "layered",
+      "rationale": "Wide-opening sashes admit breeze and scent — gaps positioned to catch and carry air through."
+    },
+    "237": {
+      "primary": "membrane",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Solid door with a glazed upper half — opaque mass perforated by a transparent gap."
+    },
+    "238": {
+      "primary": "weave",
+      "secondary": "fade-h",
+      "layout": "layered",
+      "rationale": "Tracery breaks daylight into a woven tapestry of light and dark across the silhouette."
+    },
+    "239": {
+      "primary": "ladder",
+      "secondary": "comb",
+      "layout": "layered",
+      "rationale": "Window divided into many small panes — a grid of mullions laddered across the opening."
+    },
+    "240": {
+      "primary": "threshold",
+      "secondary": "embed",
+      "layout": "layered",
+      "rationale": "A half-inch strip of trim wherever two materials meet — every joint marked by an embedded edge."
+    },
+    "241": {
+      "primary": "scatter",
+      "secondary": "point",
+      "layout": "layered",
+      "rationale": "Outdoor seats placed at the right found spots — a scatter of anchored sitting points across the site."
+    },
+    "242": {
+      "primary": "tangent",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Bench set against the front wall — interior life touching the street at one threshold point."
+    },
+    "243": {
+      "primary": "wall",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Low wall as a sittable boundary — solid enough to mark, soft enough to cross visually."
+    },
+    "244": {
+      "primary": "membrane",
+      "secondary": "fade-v",
+      "layout": "layered",
+      "rationale": "Canvas roof or awning — a soft permeable membrane filtering sun, wind, and dew overhead."
+    },
+    "245": {
+      "primary": "membrane",
+      "secondary": "wall",
+      "layout": "inline",
+      "rationale": "Raised flower bed softening the edge of a path or building — a living boundary with a hard rim."
+    },
+    "246": {
+      "primary": "weave",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Climbing plants trained around openings — vines woven through doors, windows, and trellises."
+    },
+    "247": {
+      "primary": "alternation",
+      "secondary": "gap",
+      "layout": "layered",
+      "rationale": "Stones with cracks of grass between — paved field alternating hard and living strips."
+    },
+    "248": {
+      "primary": "fade-h",
+      "secondary": "membrane",
+      "layout": "layered",
+      "rationale": "Soft brick and tile wearing with use — paving that yields slowly to feet and time."
+    },
+    "249": {
+      "primary": "embed",
+      "secondary": "threshold",
+      "layout": "layered",
+      "rationale": "Ornament concentrated at edges, joints, frames — decoration embedded where surfaces transition."
+    },
+    "250": {
+      "primary": "fade-v",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Surface colors tuned to the available light to bathe rooms in a warm overall glow."
+    },
+    "251": {
+      "primary": "scatter",
+      "secondary": null,
+      "layout": null,
+      "rationale": "Never two identical chairs — variety itself as the pattern, a loose distribution of differences."
+    },
+    "252": {
+      "primary": "cluster",
+      "secondary": "scatter",
+      "layout": "inline",
+      "rationale": "Low lamps grouped over chairs and tables — clustered bubbles of light scattered across the room."
+    },
+    "253": {
+      "primary": "scatter",
+      "secondary": "cluster",
+      "layout": "inline",
+      "rationale": "Personal things gathered around you — a loose scatter of meaningful objects clustering by use."
+    }
+  },
+  "last_reconcile": {
+    "date": "2026-05-14",
+    "kind": "alphabet-canonical",
+    "alphabet_version": "v2 frozen 2026-05-13",
+    "changes_applied": 44
+  }
+}
