@@ -73,7 +73,7 @@ pageClass: page-shelf
       {%- set typeKey = (item.data.type or "unknown") | lower %}
       {%- set quietCoverTypes = ["book", "chapter", "essay", "paper", "journal article", "report", "working paper"] %}
       {%- set showCoverTypeMark = item.data.interactive or typeKey not in quietCoverTypes %}
-      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}">
+      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}" data-shelf-slug="{{ item.fileSlug }}">
         <span class="cell-cover">
           <span class="cell-cover-panel">
           {%- if item.data.image %}
@@ -141,7 +141,7 @@ pageClass: page-shelf
 {% macro listRow(item) %}
       {%- set primaryUrl = item.data.url %}
       {%- set identityYear = item.data | shelfIdentityYear %}
-      <li class="shelf-list-row">
+      <li class="shelf-list-row" data-shelf-slug="{{ item.fileSlug }}">
         <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
         <span class="shelf-list-main">
           {{ typeSymbol(item, "shelf-list-type") }}

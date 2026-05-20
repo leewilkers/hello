@@ -144,7 +144,7 @@
     show(els.linksWrap, renderLinks(data));
   }
 
-  function openFor(card) {
+  function openFor(card, opts) {
     var script = card.querySelector("script.cell-card-data");
     if (!script) return;
     var data;
@@ -159,6 +159,53 @@
     } else {
       dialog.setAttribute("open", "");
     }
+    // Sync URL hash for shareable / deep-linkable state.
+    // Skip when opened FROM a hash (avoids double history entry).
+    if (!opts || !opts.fromHash) {
+      var slug = card.getAttribute("data-shelf-slug");
+      if (slug) {
+        history.replaceState(null, "", "#" + slug);
+      }
+    }
+  }
+
+  // Deep-link: read location.hash, find matching card, open modal.
+  // Slug match is exact against [data-shelf-slug="..."]. Hashes that don't
+  // match a card are ignored (so topic-section anchors like #humor still
+  // work — they don't match a card and fall through to default browser jump).
+  function openFromHash() {
+    var hash = location.hash;
+    if (!hash || hash.length < 2) return;
+    var slug = hash.slice(1);
+    // Defensive: only allow slug-safe chars to reach the selector
+    if (!/^[a-z0-9_-]+$/i.test(slug)) return;
+    var card = document.querySelector('[data-shelf-slug="' + slug + '"]');
+    if (!card) return;
+    openFor(card, { fromHash: true });
+  }
+
+  // Sync hash on dialog close
+  dialog.addEventListener("close", function () {
+    if (location.hash) {
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+  });
+
+  // Back/forward button support
+  window.addEventListener("hashchange", function () {
+    if (!location.hash || location.hash.length < 2) {
+      if (dialog.open) dialog.close();
+      return;
+    }
+    openFromHash();
+  });
+
+  // On initial page load — open if we arrived with a hash
+  // (defer to next tick so the dialog and document are fully ready)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", openFromHash);
+  } else {
+    openFromHash();
   }
 
   grid.addEventListener("click", function (e) {
