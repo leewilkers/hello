@@ -12,39 +12,48 @@ eleventyExcludeFromCollections: true
 
 <style>
   main.page.page-site-tree{
-    min-height: 100dvh; display: flex; flex-direction: column;
-    padding: 0.9rem 0 1.2rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1rem 0;
+    /* no min-height — let the page size to its content so the site's nav + footer
+       remain in their natural flow without pushing total past the viewport. */
   }
-  .st-header{
-    display:flex; align-items:baseline; gap: 0.9rem; flex-wrap: wrap;
-    padding: 0 0 0.8rem; margin: 0 0 0.6rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
-    flex-shrink: 0;
+
+  /* title sits on the canvas, top-right of the tree — like an inset caption */
+  .tm-title{
+    position: absolute;
+    top: 6%; right: 4%;
+    max-width: 20em;
+    text-align: right;
+    z-index: 2;
+    line-height: 1.4;
   }
-  .st-eyebrow{
+  .tm-title-eyebrow{
+    display: block;
     font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--ink); line-height: 1; text-decoration: none;
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink); line-height: 1;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
   }
-  .st-def{
+  .tm-title-def{
     font-family: "EB Garamond", "Source Serif 4", Georgia, serif;
-    font-style: italic; font-size: 0.95rem; line-height: 1.3;
-    color: color-mix(in srgb, var(--ink) 62%, transparent);
-  }
-  .st-def a{
-    color: inherit; text-decoration: underline;
-    text-decoration-thickness: 0.5px; text-underline-offset: 3px;
+    font-style: italic; font-size: 1.02rem; line-height: 1.45;
+    color: color-mix(in srgb, var(--ink) 82%, transparent);
   }
 
   .tm-stage{
     position: relative;
-    width: 100%; max-width: 1040px;
-    max-height: 68dvh;
+    width: 100%; max-width: 1080px;
+    /* cap stage so it never exceeds viewport-minus-chrome regardless of nav/footer height.
+       14rem reserve covers typical site nav + footer + comfortable padding. */
+    max-height: calc(100dvh - 18rem);
     aspect-ratio: 1000 / 720;
-    margin: auto;
+    margin: 0 auto;
     color: var(--ink);
     --tm-bark:   oklch(34% 0.065 42);
-    --tm-canopy: oklch(38% 0.080 130);
+    --tm-canopy: oklch(48% 0.115 152);
     --tm-soil:   oklch(36% 0.06  45);
     --tm-water:  oklch(46% 0.115 228);
     --tm-paper:  var(--bg);
@@ -52,7 +61,7 @@ eleventyExcludeFromCollections: true
   }
   [data-theme="dark"] .tm-stage{
     --tm-bark:   oklch(76% 0.055 55);
-    --tm-canopy: oklch(78% 0.085 145);
+    --tm-canopy: oklch(78% 0.115 152);
     --tm-soil:   oklch(74% 0.05  50);
     --tm-water:  oklch(78% 0.12  225);
     --tm-paper:  var(--bg);
@@ -173,12 +182,11 @@ eleventyExcludeFromCollections: true
 
 </style>
 
-<header class="st-header">
-  <a class="st-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
-  <span class="st-def">a dominant or codominant tree used to estimate the growth of a forest stand.</span>
-</header>
-
 <div class="tm-stage" data-tm-stage>
+  <div class="tm-title">
+    <a class="tm-title-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
+    <div class="tm-title-def">a dominant or codominant tree used to estimate the growth of a forest stand.</div>
+  </div>
   <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Site tree">
 
     <defs>
