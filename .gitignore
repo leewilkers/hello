@@ -18,6 +18,8 @@ scripts/
 claude_design/
 qa/
 img/ornaments/_*
+pattern-atlas/_source/
+pattern-atlas/_seeds/
 
 # Local-only cosmic audio (Symphonies + Jodrell Bank pulsars). Not for Pages deploy.
 assets/nasa/audio/
@@ -37,3 +39,15 @@ img/ornaments/two-man-saw-motif-detail.png
 consulting-router-pass-*.md
 consulting-trim-redline-*.md
 *-draft.md
+pattern-atlas/alphabet.md
+
+# Local-only APL wiki (/pattern-atlas/index/). Verbatim Alexander prose and
+# 252 hero JPEGs from the epub — never deployed. Future "deploy with password"
+# work will replace these lines, NOT delete them silently.
+pattern-atlas/index/
+pattern-atlas/patterns.json
+pattern-atlas/clusters.json
+_data/apl.js
+_data/aplClusters.js
+_includes/apl-wiki.njk
+scripts/.readwise_shelf_ledger.json

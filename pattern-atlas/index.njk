@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: pattern-atlas
+pageClass: page-pattern-atlas
+permalink: /pattern-atlas/
+eleventyExcludeFromCollections: true
+---
+
+<script>document.documentElement.classList.add('page-pattern-atlas'); document.body && document.body.classList.add('page-pattern-atlas');</script>
+
+<link rel="stylesheet" href="/pattern-atlas/style.css">
+
+<main id="atlas-root">
+  <div id="atlas-overlay"></div>
+  <button id="atlas-audio-toggle" aria-label="toggle audio">&#9834;</button>
+  <footer id="atlas-footer">
+    <span>after Christopher Alexander, <a href="https://openlibrary.org/works/OL3954402W" rel="noopener"><cite>A Pattern Language</cite></a> (Oxford, 1977)</span>
+  </footer>
+</main>
+
+{# Inline data — keeps prose out of a fetchable /pattern-atlas/patterns.json URL. #}
+{# Absent on deploy when patterns.json is gitignored; atlas.js renders empty state. #}
+<script id="atlas-patterns" type="application/json">{{ apl | dump | safe }}</script>
+<script id="atlas-clusters" type="application/json">{{ aplClusters | dump | safe }}</script>
+<script id="atlas-glyphs" type="application/json">{{ aplGlyphs | dump | safe }}</script>
+
+<script type="module" src="/pattern-atlas/atlas.js"></script>

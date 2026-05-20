@@ -4,13 +4,16 @@
   "description": "A personal link archive",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "rm -rf _site && eleventy"
+    "build": "rm -rf _site && eleventy",
+    "build:wiki": "npm run build && pagefind --site _site/pattern-atlas/index --output-subdir _pagefind",
+    "start:wiki": "npm run build:wiki && eleventy --serve"
   },
   "dependencies": {
     "@11ty/eleventy": "^3.1.5"
   },
   "devDependencies": {
     "@11ty/eleventy-img": "^6.0.4",
+    "pagefind": "^1.5.2",
     "playwright": "^1.59.1"
   }
 }
