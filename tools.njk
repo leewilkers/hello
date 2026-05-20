@@ -6,66 +6,42 @@ permalink: /tools/
 ---
 
 <style>
-  .tools-body {
-    max-width: 38em;
-    margin: 2rem auto 6rem;
-    padding-inline: clamp(1rem, 4vw, 3rem);
-  }
-  .tools-body h1 {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-weight: 600;
-    font-size: 2.2rem;
-    line-height: 1.1;
-    margin: 0 0 0.35rem;
-  }
-  .tools-body .tools-dek {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--ink-soft, #6a655a);
-    margin: 0 0 2.6rem;
+  .judah {
+    max-width: 36rem;
+    margin: 6rem auto 8rem;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 1.0625rem;
     line-height: 1.5;
+    color: var(--ink);
   }
-  .tools-body .tool-row {
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--rule, #c8c1b3);
+  .judah .masthead { text-align: center; margin-bottom: 4rem; }
+  .judah .masthead .wordmark { font-size: 1.5rem; letter-spacing: 0.02em; font-weight: 600; margin: 0; }
+  .judah .masthead .by { font-size: 1rem; color: var(--ink-soft); margin: 0.25rem 0 0; }
+  .judah p { margin: 0 0 1.4rem; }
+  .judah p strong { font-weight: 600; color: var(--ink); }
+  .judah p em { font-style: italic; }
+  .judah a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-soft);
+    text-underline-offset: 3px;
   }
-  .tools-body .tool-title {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 1.15;
-    margin: 0 0 0.35rem;
-  }
-  .tools-body .tool-title a {
-    color: var(--ink, #2a2820);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink-soft, #c8c1b3);
-  }
-  .tools-body .tool-title a:hover { border-bottom-color: currentColor; }
-  .tools-body .tool-dek {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    line-height: 1.55;
-    margin: 0 0 0.55rem;
-  }
-  .tools-body .tool-meta {
-    font-family: var(--mono, ui-monospace, monospace);
-    font-size: 0.78rem;
-    color: var(--ink-soft, #6a655a);
-    letter-spacing: 0.04em;
-    margin: 0;
-  }
+  .judah a:hover { text-decoration-color: currentColor; }
+  .judah hr { border: 0; border-top: 1px solid var(--rule, var(--ink-soft)); margin: 2.6rem 0; opacity: 0.4; }
 </style>
 
-<article class="tools-body" id="main">
+<article class="judah" id="main">
 
-  <h1>Tools.</h1>
-  <p class="tools-dek">Small instruments I build, mostly for myself, occasionally useful to others.</p>
+  <header class="masthead">
+    <p class="wordmark">Tools</p>
+    <p class="by">by Lee</p>
+  </header>
 
-  <section class="tool-row">
-    <h2 class="tool-title"><a href="/champion-trees/">Lindy Trees.</a></h2>
-    <p class="tool-dek">Local record trees, scored by trunk, height, and canopy. <em>Lindy</em> means old things with staying power. Trees are lindy.</p>
-    <p class="tool-meta">a.k.a. champion trees &middot; locator + map</p>
-  </section>
+  <p><strong>Small instruments I build,</strong> mostly for myself, occasionally useful to others.</p>
+
+  <hr>
+
+  <p><strong>Lindy Trees.</strong> Local record trees, scored by trunk, height, and canopy. <em>Lindy</em> means old things with staying power. Trees are lindy. <a href="/champion-trees/">See the map</a>.</p>
 
 </article>

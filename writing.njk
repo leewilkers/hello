@@ -6,66 +6,62 @@ permalink: /writing/
 ---
 
 <style>
-  .writing-body {
-    max-width: 38em;
-    margin: 2rem auto 6rem;
-    padding-inline: clamp(1rem, 4vw, 3rem);
-  }
-  .writing-body h1 {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-weight: 600;
-    font-size: 2.2rem;
-    line-height: 1.1;
-    margin: 0 0 0.35rem;
-  }
-  .writing-body .writing-dek {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--ink-soft, #6a655a);
-    margin: 0 0 2.6rem;
+  /* Judah-style: centered narrow column, sans-serif, bold-inline
+     structure, no headers/rules-as-decoration. Theme vars carry
+     light/dark. */
+  .judah {
+    max-width: 36rem;
+    margin: 6rem auto 8rem;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 1.0625rem;   /* 17px */
     line-height: 1.5;
+    color: var(--ink);
   }
-  .writing-body .essay-row {
-    padding-top: 1.6rem;
-    border-top: 1px solid var(--rule, #c8c1b3);
+  .judah .masthead {
+    text-align: center;
+    margin-bottom: 4rem;
   }
-  .writing-body .essay-title {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+  .judah .masthead .wordmark {
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
     font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 1.15;
-    margin: 0 0 0.35rem;
-  }
-  .writing-body .essay-title a {
-    color: var(--ink, #2a2820);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink-soft, #c8c1b3);
-  }
-  .writing-body .essay-title a:hover { border-bottom-color: currentColor; }
-  .writing-body .essay-dek {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    line-height: 1.55;
-    margin: 0 0 0.55rem;
-  }
-  .writing-body .essay-meta {
-    font-family: var(--mono, ui-monospace, monospace);
-    font-size: 0.78rem;
-    color: var(--ink-soft, #6a655a);
-    letter-spacing: 0.04em;
     margin: 0;
+  }
+  .judah .masthead .by {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 0.25rem 0 0;
+  }
+  .judah p { margin: 0 0 1.4rem; }
+  .judah p strong { font-weight: 600; color: var(--ink); }
+  .judah p em { font-style: italic; }
+  .judah a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--ink-soft);
+    text-underline-offset: 3px;
+  }
+  .judah a:hover { text-decoration-color: currentColor; }
+  .judah hr {
+    border: 0;
+    border-top: 1px solid var(--rule, var(--ink-soft));
+    margin: 2.6rem 0;
+    opacity: 0.4;
   }
 </style>
 
-<article class="writing-body" id="main">
+<article class="judah" id="main">
 
-  <h1>Writing.</h1>
-  <p class="writing-dek">Essays in long form. Drafted slowly; published when honest.</p>
+  <header class="masthead">
+    <p class="wordmark">Writing</p>
+    <p class="by">by Lee</p>
+  </header>
 
-  <section class="essay-row">
-    <h2 class="essay-title"><a href="/consider-the-tree/">Consider the tree.</a></h2>
-    <p class="essay-dek">A consultant&rsquo;s reading of how trees record stress &mdash; what knots, heartwood, and abscission can teach about the institutions we try to help.</p>
-    <p class="essay-meta">~4,800 words &middot; standing draft</p>
-  </section>
+  <p><strong>Essays in long form.</strong> Drafted slowly; published when honest.</p>
+
+  <hr>
+
+  <p><strong>Consider the tree.</strong> A consultant&rsquo;s reading of how trees record stress &mdash; what knots, heartwood, and abscission can teach about the institutions we try to help. <em>~4,800 words, standing draft.</em> <a href="/consider-the-tree/">Read it</a>.</p>
 
 </article>
