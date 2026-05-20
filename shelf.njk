@@ -73,7 +73,7 @@ pageClass: page-shelf
       {%- set typeKey = (item.data.type or "unknown") | lower %}
       {%- set quietCoverTypes = ["book", "chapter", "essay", "paper", "journal article", "report", "working paper"] %}
       {%- set showCoverTypeMark = item.data.interactive or typeKey not in quietCoverTypes %}
-      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}">
+      <li class="shelf-card{% if showCoverLabel %} shelf-card--cover-label{% endif %}" data-shelf-slug="{{ item.fileSlug }}">
         <span class="cell-cover">
           <span class="cell-cover-panel">
           {%- if item.data.image %}
@@ -141,7 +141,7 @@ pageClass: page-shelf
 {% macro listRow(item) %}
       {%- set primaryUrl = item.data.url %}
       {%- set identityYear = item.data | shelfIdentityYear %}
-      <li class="shelf-list-row">
+      <li class="shelf-list-row" data-shelf-slug="{{ item.fileSlug }}">
         <script type="application/json" class="cell-card-data">{{ item.data | shelfCardJSON | safe }}</script>
         <span class="shelf-list-main">
           {{ typeSymbol(item, "shelf-list-type") }}
@@ -173,23 +173,47 @@ pageClass: page-shelf
 
 <button class="sidebar-toggle" aria-label="Topics" aria-expanded="false" onclick="toggleSidebar()"><span aria-hidden="true">☰</span><span class="sidebar-toggle-label">topics</span></button>
 
-<h1 class="sr-only">Stacks</h1>
-
 {% include "type-symbols.njk" %}
 
 {%- set shelfTopics = topics | nonEmptyShelfTopics(collections.items) %}
 
 <header class="shelf-console-head" id="main">
   <div class="shelf-console-head__title">
-    <p class="console-kicker">Stacks</p>
-    <p class="shelf-subtitle stacks-epigraph"><em>stacks  n. pl.</em>  2a : an orderly pile or heap. &ndash; Merriam-Webster</p>
-    <ol class="stacks-definitions">
-      <li><em>library.</em> The backroom shelves where collections are kept.</li>
-      <li><em>software.</em> A set of layered tools or components that work together.</li>
-      <li><em>pharma</em> (informal). A combination of substances taken together to compound their effects.</li>
-      <li><em>cognitive.</em> A working set of models held in mind for use.</li>
-      <li><em>short</em> (diner). A serving of 2&ndash;3 pancakes.</li>
+  <article class="stacks-entry">
+    <div class="stacks-meta">
+      /staks/ &nbsp;&middot;&nbsp; [ME <span class="rom">stak</span>, fr. ON <span class="rom">stakkr</span> &ldquo;haystack&rdquo;]
+    </div>
+
+    <h1 class="stacks-headword">Stacks</h1>
+
+    <p class="stacks-definition">
+      stacks <span class="pos">n. pl.</span>&nbsp;
+      <span class="sense-num">2a</span>&nbsp;: an orderly pile or heap.
+      <span class="attribution">&mdash; Merriam-Webster</span>
+    </p>
+
+    <ol class="stacks-senses">
+      <li>
+        <em class="tag">library.</em> The rear or upper rooms of a research library where the bulk of a collection is shelved, traditionally closed to general browsing. <em class="usage">The book lived in the locked stacks of the Bodleian.</em>
+      </li>
+      <li>
+        <em class="tag">software.</em> The vertical stratum of technologies a system is built upon &mdash; language, framework, database, runtime &mdash; taken as a unit. <em class="usage">They rewrote the whole stack in Rust.</em>
+      </li>
+      <li>
+        <em class="tag">pharma</em> <span class="register">(informal).</span> A combination of pharmacologically active substances taken together for synergistic effect, esp. in bodybuilding or nootropic regimens. <em class="usage">a pre-workout stack of caffeine, beta-alanine, and citrulline.</em>
+      </li>
+      <li>
+        <em class="tag">cognitive.</em> A personal collection of mental models, frameworks, or heuristics held in active memory and deployed across problems. <em class="usage">a Munger-style latticework stack.</em>
+      </li>
+      <li>
+        <em class="tag">short</em> <span class="register">(diner).</span> A serving of 2 pancakes, as opposed to a full stack of 3. <em class="usage">Two short stacks and a coffee, please.</em>
+      </li>
     </ol>
+
+    <footer class="stacks-cross-ref">
+      <span class="cf">See also:</span> <em>layer, heap, queue, midden.</em> &nbsp;&middot;&nbsp; First known use: 14th&nbsp;c.
+    </footer>
+  </article>
   </div>
 </header>
 
