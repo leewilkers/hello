@@ -20,18 +20,39 @@ essayTopics:
 <article class="essay" id="main">
 
   <header class="essay-head">
-    <h1>Consider the tree</h1>
-    {% if essayTopics %}
-    <p class="essay-topic-line" aria-label="Topics">
-      <em>On: {% for topic in essayTopics %}{{ topic }}{% if not loop.last %}, {% endif %}{% endfor %}.</em>
-    </p>
-    {% endif %}
+    <h1 class="essay-h1">Consider the tree.</h1>
+    <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/Marshall_McLuhan">
+      <p>&ldquo;In an age of accelerated change, the need to perceive the environment becomes urgent&hellip; Acceleration also makes such perception of the environment possible. New environments reset our sensory thresholds. These, in turn, alter our outlook and perspective.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>Marshall McLuhan</cite>, 1965
+      </footer>
+    </blockquote>
+    <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/William_Blake">
+      <p>&ldquo;The tree which moves some to tears of joy is in the eyes of others only a green thing that stands in the way&hellip; to the eyes of the man of imagination, nature is imagination itself.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>William Blake</cite>, 1799
+      </footer>
+    </blockquote>
+    <blockquote class="essay-epigraph" cite="https://bittersoutherner.com/2024/andre-3000-is-at-peace-for-now">
+      <p>&ldquo;This is a piece of wood from a tree that was <em>living</em>. You have this connection with this natural thing that has a life of its own. That has some say in what you&rsquo;re doing.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>Andr&eacute; 3000</cite>, 2024
+      </footer>
+    </blockquote>
+    <figure class="essay-figure essay-figure-inbody">
+      <img src="/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp" alt="Jules Dupré, The Old Oak (c. 1870), oil on panel" class="no-invert" />
+      <figcaption>Jules Dupré, <em>The Old Oak</em>, c. 1870. <a href="https://www.nga.gov/artworks/35089-old-oak">National Gallery of Art</a>.</figcaption>
+    </figure>
+    <p class="essay-kicker">Preface</p>
+    <p class="essay-lede"><span class="essay-lede-proverb">&ldquo;Don&rsquo;t miss the forest for the trees&rdquo;</span> is good advice until it isn&rsquo;t.</p>
   </header>
 
-  <nav class="essay-toc" aria-label="On this page">
-    <p class="essay-toc-label">On this page</p>
+  <nav class="essay-toc" aria-label="Consider the tree">
+    <p class="essay-toc-label">Consider the tree</p>
     <ol class="essay-toc-list">
-      <li><a href="#opener">Opener</a></li>
+      <li><a href="#opener">Preface</a></li>
+      <li><a href="#consider">Consider the tree</a></li>
+      <li><a href="#protobella">A fungus called Protobella</a></li>
       <li><a href="#alba">A tree called Alba</a></li>
       <li><a href="#vocabulary">Vocabulary</a></li>
       <li><a href="#record">Record</a></li>
@@ -60,19 +81,16 @@ essayTopics:
      in adjacent insight thread: "The framework eats the field" aphorism,
      "structural strategy" academic-tinge, the four-item list in para 4. #}
   <section class="essay-opener" id="opener">
-    <figure class="essay-image-slot">
-      <img
-        src="/img/essay/consider-the-tree/tree-silhouette-800w.webp"
-        srcset="/img/essay/consider-the-tree/tree-silhouette-800w.webp 1x, /img/essay/consider-the-tree/tree-silhouette.webp 2x"
-        alt="A tree, silhouetted in pen-and-ink etching style"
-      />
-      <figcaption>A tree.</figcaption>
-    </figure>
-    <p><em>&ldquo;Don&rsquo;t miss the forest for the trees&rdquo;</em> is good advice &ndash; until it isn&rsquo;t. The idiom fits when one is tangled in particulars, unable to see the system at work, and ultimately losing sight of purpose. But abstraction has its own failure mode: the forest fills the view, and the tree drops out, subsumed into a verdant wash. One is captive to the model, unable to feel the work, and ultimately serving a model, not the thing.</p>
+    <p>The idiom fits when one is tangled in particulars, unable to see the system at work, and losing sight of orienting purpose<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">AKA being stuck in an A-hole.</span></span>. But abstraction has its own well-acknowledged failure mode: the forest fills the view, and the tree drops out, subsumed into a verdant wash. One is captive to the model, unable to feel the work, and ultimately serving a model, not the thing.</p>
 
     <p>From time to time, you have to put your hands back on the wood.</p>
 
-    <p>Anyone who has worked seriously with hard material &ndash; wood, stone, metal, code &ndash; knows the moment when the system-level view stops helping and you have to get back down to the thing itself.</p>
+    <p>Anyone who has worked seriously with hard material &ndash; wood, stone, metal, code &ndash; knows the moment when the system-level view stops helping and you have to get back down to the thing itself&hellip;</p>
+
+  </section>
+
+  <section class="essay-section essay-section-consider" id="consider">
+    <h2>Consider the tree</h2>
 
     <p>A tree is a very slow civilization of fibers and fluids.</p>
 
@@ -80,21 +98,23 @@ essayTopics:
 
     <p>But before there were trees, something else tried to be tall.</p>
 
-    <div class="essay-opener-prototaxites">
-    <figure class="essay-image-slot">
+  </section>
+
+  <section class="essay-section essay-section-protobella" id="protobella">
+    <h2>A fungus called Protobella</h2>
+
+    <figure class="essay-figure essay-figure-inbody">
       <img src="/img/essay/consider-the-tree/prototaxites-dawson-1888.webp" alt="Dawson's 1888 reconstruction of Prototaxites" />
       <figcaption>Dawson&rsquo;s 1888 reconstruction. He was wrong.</figcaption>
     </figure>
+
     <p>Eight-meter trunks rose out of a treeless landscape four hundred million years ago, when nothing on land was bigger than your left thumb. <em><a href="https://www.scientificamerican.com/article/mystery-prototaxites-tower-fossils-may-represent-a-newly-discovered-kind-of/">Prototaxites</a></em> &ndash; Protobella, in the privacy of my own head &ndash; confused every paleontologist who tried to sort it. A primitive conifer. An algae. A liverwort. Every fungal phylum on offer. Each category almost worked.</p>
 
     <p>A Smithsonian botanist named Francis Hueber cut thin sections of those specimens under a microscope for forty years and died in 2019 sure it was a fungus. In <a href="https://www.science.org/doi/10.1126/sciadv.aec6277" target="_blank" rel="noopener">2026</a>, new tests on the cell walls turned up lignin-like chemistry and no fungal biomarkers at all.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Chitin is the structural molecule common to all fungi &ndash; insect exoskeletons too.</span></span> Not a fungus. Not a plant. A branch of eukaryotic life that left no descendants.</p>
 
     <p>A parallel attempt at the tree-form, by a lineage that didn&rsquo;t reach the present. By the end of the Devonian, the columns disappeared. We still don&rsquo;t know why.</p>
-    </div>
 
     <p>Branching solved it. The design kept evolving for hundreds of millions of years. Branches, leaves, shade &ndash; and by then, animals around to use them. Branching was the solution to being tall and photosynthesizing. The cost was knots. <a href="https://en.wikipedia.org/wiki/Lindy_effect" target="_blank" rel="noopener">Lindy</a> here refers to the strategies and tactics evolved over trial and error, not the individual tree. The branching solution is older than dinosaurs. <a href="/shelf/#design" target="_blank" rel="noopener">Design thinking</a> is sixty-some years on this planet. I&rsquo;m not picking a fight. I mean the literal-biological tree, not Deleuze and Guattari&rsquo;s arborescent strawman. The rhizome (lateral, networked, no apex) was their proposed alternative to the arborescent figure of hierarchy. But the tree they were attacking never matched the actual organism: crown grown lopsided for light, roots tangled with the next tree&rsquo;s, mycorrhizal threads ferrying sugar and signal across species lines underground, sap moving in whichever direction the year demands. What I&rsquo;m describing is closer to what they&rsquo;d call rhizomatic.</p>
-
-    <p>Old trees fall. Some fall this winter. Though, I am noticing where the field trials have been longer.</p>
 
   </section>
 
@@ -112,7 +132,9 @@ essayTopics:
       <figcaption>Alba receiving a recent clean bill of health from arborist Peter Jenkins. Photo: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</figcaption>
     </figure>
 
-    <p>One in particular. Ten minutes from my desk, on a slope above Sugar Creek, four white oaks have been standing since before the <a href="https://en.wikipedia.org/wiki/Battle_of_Atlanta" target="_blank" rel="noopener">Battle of Atlanta</a>. I walk the dog there. The largest &ndash; <a href="https://meetalba.org/" target="_blank" rel="noopener">Alba, the neighborhood calls her</a><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Largest white oak (<em>Quercus alba</em> &ndash; hence the name) inside Atlanta city limits. 69-inch DBH; estimated 200&ndash;250 years old; recently certified healthy by Peter Jenkins of <a href="https://treeinspection.com/" target="_blank" rel="noopener">TreeInspection.com</a>. If preserved, could live another five hundred years. The four oaks sit on a 6-acre parcel off Vaughn Street in Edgewood, rezoned for Planned Development &ndash; Housing in 2007. Source: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</span></span> &ndash; is around two hundred and fifty years old. Atlanta is one hundred and seventy. A developer wants the lot.</p>
+    <p>One in particular. Ten minutes from my desk, on a slope above Sugar Creek, four white oaks have been standing since before the <a href="https://en.wikipedia.org/wiki/Battle_of_Atlanta" target="_blank" rel="noopener">Battle of Atlanta</a>. I walk the dog there. The largest &ndash; <a href="https://meetalba.org/" target="_blank" rel="noopener">Alba, the neighborhood calls her</a><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Largest white oak (<em>Quercus alba</em> &ndash; hence the name) inside Atlanta city limits. 69-inch DBH; estimated 200&ndash;250 years old; recently certified healthy by Peter Jenkins of <a href="https://treeinspection.com/" target="_blank" rel="noopener">TreeInspection.com</a>. If preserved, could live another five hundred years. The four oaks sit on a 6-acre parcel off Vaughn Street in Edgewood, rezoned for Planned Development &ndash; Housing in 2007. Source: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</span></span> &ndash; is around two hundred and fifty years old. Atlanta is one hundred and seventy.</p>
+
+    <p>Whatever value Alba has now lives in a small number of neighbors who learned her name &mdash; who somehow find it in themselves to care for a big ol&rsquo; tree in their homeplace.</p>
   </section>
 
   {# [REDLINE — Definitions as body text, woven into the essay.
@@ -124,7 +146,7 @@ essayTopics:
      in redline if any drop weight after the opener is written. #}
   <section class="essay-section essay-definitions-section" id="vocabulary">
     <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Vocabulary</div></div>
-    <p>A few woodworking terms.</p>
+    <p>Before moving on, a few handy woodworking terms&hellip;</p>
 
     <dl class="essay-definitions">
       <dt><strong>rive</strong> <span class="essay-definitions-meta">/raɪv/ &middot; verb.</span></dt>
@@ -274,6 +296,13 @@ essayTopics:
 
     <p>Most real work has several of these going at once. A lot of what I do is figuring out which cut fits which knot in front of us. The diagnostic doesn&rsquo;t come from above. You put your hands back on the wood. Alba is still standing.</p>
   </section>
+
+  <blockquote class="essay-epigraph essay-coda" cite="https://www.essence.com/entertainment/andre-3000-new-blue-sun/">
+    <p>&ldquo;I&rsquo;m very interested right now in things that will grow&hellip; They outlive the people that started them and they are passed down through generations. My kids, kids, kids will take care of that tree.&rdquo;</p>
+    <footer class="essay-epigraph-attribution">
+      <cite>Andr&eacute; 3000</cite>, 2023
+    </footer>
+  </blockquote>
 
   <style>
     /* Related-models footer — faint Lindy'd index of frames the essay leans on

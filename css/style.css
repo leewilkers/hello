@@ -673,7 +673,7 @@ p {
 
 .page-shelf .stacks-entry .stacks-headword {
   font-family: var(--serif);
-  font-size: 2.75rem;
+  font-size: 2rem;
   font-weight: 500;
   color: var(--ink);
   letter-spacing: -0.01em;
@@ -682,7 +682,7 @@ p {
 }
 
 .page-shelf .stacks-entry .stacks-definition {
-  font-size: 1.0625rem;
+  font-size: 0.95rem;
   font-style: italic;
   color: var(--ink-light);
   line-height: 1.4;
@@ -707,8 +707,8 @@ p {
   counter-reset: sense;
   padding: 0;
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.45;
   columns: 2;
   column-gap: 2rem;
 }
@@ -10136,6 +10136,25 @@ html:has(.shelf-modal[open]) {
   line-height: 1.2;
 }
 
+/* Coda variant of essay-epigraph: same visual treatment, more
+   breathing above so it reads as the essay's final-breath beat
+   rather than another prefatory quote. */
+.page-essay .essay .essay-coda {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+/* Title-page H1 at very top of the essay. Lands as a book-cover
+   announcement before the prefatory chorus. */
+.page-essay .essay .essay-h1 {
+  font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0 0 2.2rem;
+  color: var(--ink);
+}
+
 /* Topic line replaces the chip-row of essay-tags. Reads as a quiet
    prose-form list under the H1 instead of a shelf-style badge row. */
 .page-essay .essay-topic-line {
@@ -10192,7 +10211,7 @@ html:has(.shelf-modal[open]) {
   font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
   font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   line-height: 1.25;
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   color: var(--ink);
   text-wrap: pretty;
@@ -12069,9 +12088,9 @@ body:has(.champion-explorer) {
   top: 0;
   bottom: 0;
   right: 0;
-  width: 9rem;
+  width: 11rem;
   z-index: -1;
-  background: linear-gradient(to right, transparent 0, var(--bg) 1.8rem, var(--bg) 100%);
+  background: linear-gradient(to right, transparent 0, var(--bg) 1rem, var(--bg) 100%);
   pointer-events: none;
 }
 [data-theme="dark"] .site-rail {
