@@ -103,19 +103,23 @@
     <span class="nav-name-sub">LW Research &amp; Advisory, LLC</span>
   </a>
   <div class="nav-right">
-    <div class="nav-links">
-      <a href="/site-tree/" {% if page.url == "/site-tree/" %}class="active"{% endif %}>home</a>
-      <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
-      <a href="/consulting/" {% if page.url == "/consulting/" %}class="active"{% endif %}>consulting</a>
-      <a href="/field-notes/" title="in progress – pardon the dust"{% if page.url == "/field-notes/" %} class="active"{% endif %}>field notes</a>
-      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
-      <a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
-    </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
       <button class="constellation-mode-toggle" aria-label="Toggle rabbit mode" title="Toggle rabbit mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
     </div>
   </div>
+</nav>
+
+<nav class="site-rail" aria-label="Sections">
+  <span class="site-rail-label" aria-hidden="true">Sections</span>
+  <ul class="site-rail-list">
+    <li><a href="/"{% if page.url == "/" %} class="active"{% endif %}>home</a></li>
+    <li><a href="/writing/"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a></li>
+    <li><a href="/tools/"{% if page.url == "/tools/" %} class="active"{% endif %}>tools</a></li>
+    <li><a href="/consulting/"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a></li>
+    <li><a href="/shelf/"{% if page.url == "/shelf/" %} class="active"{% endif %}>shelves</a></li>
+    <li><a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a></li>
+  </ul>
 </nav>
 
 <div class="constellation-art" data-constellation-art aria-hidden="true">
@@ -3370,15 +3374,19 @@
 
     var shellPaths = {
       '/': true,
+      '/writing/': true,
+      '/tools/': true,
       '/consulting/': true,
       '/shelf/': true,
       '/stream/': true
     };
     var shellOrder = {
       '/': 0,
-      '/consulting/': 1,
-      '/shelf/': 2,
-      '/stream/': 3
+      '/writing/': 1,
+      '/tools/': 2,
+      '/consulting/': 3,
+      '/shelf/': 4,
+      '/stream/': 5
     };
     var navigating = false;
 
@@ -3424,7 +3432,7 @@
 
     function updateNav(pathname) {
       var current = normalizePath(pathname);
-      document.querySelectorAll('.nav-links a').forEach(function(a) {
+      document.querySelectorAll('.nav-links a, .site-rail-list a').forEach(function(a) {
         var url;
         try { url = new URL(a.href, location.href); } catch (e) { return; }
         var active = normalizePath(url.pathname) === current;
@@ -3533,7 +3541,7 @@
       var a = event.target.closest && event.target.closest('a[href]');
       if (!shouldHandleLink(a, event)) return;
       event.preventDefault();
-      visit(new URL(a.href, location.href), true, !!(a.closest && a.closest('.nav-links')));
+      visit(new URL(a.href, location.href), true, !!(a.closest && (a.closest('.nav-links') || a.closest('.site-rail-list'))));
     });
 
     window.addEventListener('popstate', function() {
