@@ -4626,6 +4626,37 @@ body {
   margin-top: 1.05rem;
 }
 
+/* Paragraph spacing INSIDE a section: lede → history needs the same gap
+   as history → history so the about section's two paragraphs breathe. */
+.page-home .home-field-note .home-lede + .home-history {
+  margin-top: 1.05rem;
+}
+
+/* Section-to-section spacing: ~2× paragraph gap, so the eye reads
+   "this is a new section" before encountering the next subheader.
+   Butterick: space above a heading should exceed space below by at least 1.5×. */
+.page-home .home-field-note .home-section + .home-section {
+  margin-top: 2.2rem;
+}
+
+/* Email under name — quiet calling-card subtitle, not a third-tier shout */
+.home-identity-contact {
+  margin: 0.2rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+}
+.home-identity-contact a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 3px;
+}
+.home-identity-contact a:hover {
+  color: var(--ink);
+}
+
 .page-home .home-history-fields {
   margin-top: 1.1rem;
   letter-spacing: 0.02em;
@@ -6409,9 +6440,9 @@ body {
    room for marginalia to extend down without collision. */
 @media (min-width: 820px) {
   .page-home-ornaments {
-    --sawyer-motif-left: 0;
+    --sawyer-motif-left: clamp(1.5rem, 3vw, 3.5rem);
     --sawyer-motif-right: auto;
-    --sawyer-motif-width: min(48vw, 95vh);
+    --sawyer-motif-width: min(46vw, 92vh);
     --sawyer-motif-bottom: 50%;
   }
   .page-home-ornaments .site-sawyer-motif {
@@ -6426,13 +6457,6 @@ body {
   .page-home .home-field-row {
     grid-template-columns: minmax(0, 32rem) minmax(0, 14rem);
     justify-content: start;
-  }
-  /* Move plate attribution under the plate (lower-left) on home */
-  .page-home-ornaments ~ .site-art-note,
-  body:has(.page-home) .site-art-note {
-    right: auto;
-    left: clamp(1rem, 2.4vw, 2rem);
-    justify-items: start;
   }
 }
 
