@@ -5,144 +5,67 @@ pageClass: page-tools
 permalink: /tools/
 ---
 
-<div class="broadsheet" id="main" tabindex="-1">
+<style>
+  .tools-body {
+    max-width: 38em;
+    margin: 2rem auto 6rem;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+  .tools-body h1 {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-weight: 600;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin: 0 0 0.35rem;
+  }
+  .tools-body .tools-dek {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft, #6a655a);
+    margin: 0 0 2.6rem;
+    line-height: 1.5;
+  }
+  .tools-body .tool-row {
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule, #c8c1b3);
+  }
+  .tools-body .tool-title {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.15;
+    margin: 0 0 0.35rem;
+  }
+  .tools-body .tool-title a {
+    color: var(--ink, #2a2820);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-soft, #c8c1b3);
+  }
+  .tools-body .tool-title a:hover { border-bottom-color: currentColor; }
+  .tools-body .tool-dek {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    line-height: 1.55;
+    margin: 0 0 0.55rem;
+  }
+  .tools-body .tool-meta {
+    font-family: var(--mono, ui-monospace, monospace);
+    font-size: 0.78rem;
+    color: var(--ink-soft, #6a655a);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+</style>
 
-  {# ── Panel 1 — masthead + featured instrument ────────────── #}
-  <section class="broadsheet-panel" aria-label="Tools in service">
-    <div class="broadsheet-masthead">
-      <span>Instruments</span>
-      <span>Vol. I &middot; No. 1</span>
-      <span>20 May 2026</span>
-    </div>
+<article class="tools-body" id="main">
 
-    <h1 class="broadsheet-title">Tools.</h1>
-    <p class="broadsheet-dek">Small instruments I build, mostly for myself, occasionally useful to others. Each one solves a problem I actually had.</p>
+  <h1>Tools.</h1>
+  <p class="tools-dek">Small instruments I build, mostly for myself, occasionally useful to others.</p>
 
-    <p class="broadsheet-section-label">In Service</p>
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card">
-        <span class="broadsheet-card-label">Tool &middot; live</span>
-        <h2 class="broadsheet-card-title"><a href="/champion-trees/">Lindy Trees</a></h2>
-        <p class="broadsheet-card-meta">a.k.a. champion trees &middot; locator + map</p>
-        <p class="broadsheet-card-dek">Big ol' trees near you. <em>Lindy</em> means old things with staying power. Trees are lindy. These trees are super lindy &mdash; local record trees, scored by trunk, height, and canopy.</p>
-      </li>
-    </ul>
-
-    <p class="broadsheet-marginalia">"A tool is judgment, miniaturized."</p>
-
-    <div class="broadsheet-folio">
-      <span>Folio I</span>
-      <span>scroll right &rarr;</span>
-    </div>
+  <section class="tool-row">
+    <h2 class="tool-title"><a href="/champion-trees/">Lindy Trees.</a></h2>
+    <p class="tool-dek">Local record trees, scored by trunk, height, and canopy. <em>Lindy</em> means old things with staying power. Trees are lindy.</p>
+    <p class="tool-meta">a.k.a. champion trees &middot; locator + map</p>
   </section>
 
-  {# ── Panel 2 — workshop bench ─────────────────────────────── #}
-  <section class="broadsheet-panel" aria-label="Workshop bench">
-    <div class="broadsheet-masthead">
-      <span>The Bench</span>
-      <span>built &middot; usable</span>
-      <span>by date</span>
-    </div>
-
-    <p class="broadsheet-section-label">Workshop</p>
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Tool &middot; sketched</span>
-        <h3 class="broadsheet-card-title">Silhouette tuner</h3>
-        <p class="broadsheet-card-meta">internal &middot; for essay tree-photo masking</p>
-        <p class="broadsheet-card-dek">Sliders for thresholding tree photographs into transparent-background silhouettes for inline essay use.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Tool &middot; sketched</span>
-        <h3 class="broadsheet-card-title">Pattern atlas</h3>
-        <p class="broadsheet-card-meta">draft &middot; reusable site patterns</p>
-        <p class="broadsheet-card-dek">A catalog of small design and code patterns I keep reinventing.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Tool &middot; sketched</span>
-        <h3 class="broadsheet-card-title">Shelf movers</h3>
-        <p class="broadsheet-card-meta">internal &middot; curation aid</p>
-        <p class="broadsheet-card-dek">Drag-and-drop curation surface for the shelf taxonomy.</p>
-      </li>
-    </ul>
-
-    <div class="broadsheet-folio">
-      <span>Folio II</span>
-      <span>&larr; back &middot; forward &rarr;</span>
-    </div>
-  </section>
-
-  {# ── Panel 3 — labs + experiments ─────────────────────────── #}
-  <section class="broadsheet-panel" aria-label="Experiments">
-    <div class="broadsheet-masthead">
-      <span>Experiments</span>
-      <span>labs &amp; sketches</span>
-      <span>not yet load-bearing</span>
-    </div>
-
-    <h2 class="broadsheet-title" style="font-size: clamp(1.7rem, 3.4vw, 2.5rem);">Things on the bench.</h2>
-
-    <div class="broadsheet-body">
-      <p>I keep a small workshop of half-built things. Most of them never become anything; a few become tools, fewer become essays, and the rest sit on the bench reminding me what I was thinking about three months ago.</p>
-
-      <p>The honest version: a tool is a piece of judgment miniaturized into a form you can hand to someone else. Most of mine are still mine alone &mdash; not because they're secret, but because they aren't generous enough yet to deserve a stranger's attention.</p>
-
-      <p>What appears here is the small set that has earned, or is close to earning, that generosity. The rest live in my local repo and in notebooks. If you want one of them and it isn't here, ask.</p>
-
-      <p class="broadsheet-pull">"Build the tool the engagement asked for."</p>
-
-      <p>I tend to build tools <em>during</em> consulting engagements rather than before them. A client problem reveals the shape of a missing instrument; I build the instrument; sometimes it survives the engagement. The ones that survive end up here.</p>
-    </div>
-
-    <div class="broadsheet-folio">
-      <span>Folio III</span>
-      <span>&larr; back &middot; forward &rarr;</span>
-    </div>
-  </section>
-
-  {# ── Panel 4 — wishlist / dummy entries ───────────────────── #}
-  <section class="broadsheet-panel" aria-label="Wishlist">
-    <div class="broadsheet-masthead">
-      <span>Wishlist</span>
-      <span>commissioned &middot; pending</span>
-      <span>unbuilt</span>
-    </div>
-
-    <h2 class="broadsheet-title" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">Tools I'd like to exist.</h2>
-    <p class="broadsheet-dek">If any of these already exist and are good, send a link. If not, this is roughly the order I'd build them in.</p>
-
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Concept</span>
-        <h3 class="broadsheet-card-title">A consent reader</h3>
-        <p class="broadsheet-card-meta">unbuilt &middot; ic-lit-review</p>
-        <p class="broadsheet-card-dek">Pulls the consent passages out of a study protocol and surfaces what's actually being asked of the participant, in plain language.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Concept</span>
-        <h3 class="broadsheet-card-title">A knot diagnostic</h3>
-        <p class="broadsheet-card-meta">unbuilt &middot; consulting</p>
-        <p class="broadsheet-card-dek">A handful of questions that surface where the prior reach failed in an org, before anyone proposes a new one.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Concept</span>
-        <h3 class="broadsheet-card-title">A walking-distance archive</h3>
-        <p class="broadsheet-card-meta">unbuilt &middot; place</p>
-        <p class="broadsheet-card-dek">For any street address: the trees, the buildings, the burials, the buried streams, within ten minutes' walk.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Concept</span>
-        <h3 class="broadsheet-card-title">A reading inheritance</h3>
-        <p class="broadsheet-card-meta">unbuilt &middot; shelf</p>
-        <p class="broadsheet-card-dek">The shelf, but traversable as a lineage &mdash; which book led to which book led to which.</p>
-      </li>
-    </ul>
-
-    <div class="broadsheet-folio">
-      <span>Folio IV</span>
-      <span>&larr; back to start</span>
-    </div>
-  </section>
-
-  <div class="broadsheet-hint">scroll right &rarr;</div>
-</div>
+</article>
