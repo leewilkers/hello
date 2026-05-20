@@ -636,23 +636,120 @@ p {
   color: var(--ink-faint);
 }
 
-.page-shelf .stacks-epigraph {
-  margin: 0 0 1rem 0;
-  letter-spacing: 0.02em;
-}
-
-.page-shelf .stacks-definitions {
-  margin: 0 0 2.5rem 0;
-  padding: 0 0 0 1.4em;
+/* Stacks dictionary entry — typographic refit */
+.page-shelf .stacks-entry {
   font-family: var(--serif);
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--ink);
-  max-width: 52em;
+  color: var(--ink-light);
+  margin: 0 0 1.5rem;
+  padding: 0;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums oldstyle-nums;
+  display: grid;
+  grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr);
+  grid-template-areas:
+    "head    senses"
+    "meta    senses"
+    "def     senses"
+    "xref    xref";
+  column-gap: 2.5rem;
+  row-gap: 0.25rem;
+  align-items: start;
 }
 
-.page-shelf .stacks-definitions li {
-  margin-bottom: 0.35em;
+.page-shelf .stacks-entry .stacks-meta { grid-area: meta; }
+.page-shelf .stacks-entry .stacks-headword { grid-area: head; }
+.page-shelf .stacks-entry .stacks-definition { grid-area: def; }
+.page-shelf .stacks-entry .stacks-senses { grid-area: senses; }
+.page-shelf .stacks-entry .stacks-cross-ref { grid-area: xref; }
+
+.page-shelf .stacks-entry .stacks-meta {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  margin: 0.15rem 0 0;
+}
+.page-shelf .stacks-entry .stacks-meta .rom { font-style: normal; }
+
+.page-shelf .stacks-entry .stacks-headword {
+  font-family: var(--serif);
+  font-size: 2.75rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin: 0 0 0.5rem;
+}
+
+.page-shelf .stacks-entry .stacks-definition {
+  font-size: 1.0625rem;
+  font-style: italic;
+  color: var(--ink-light);
+  line-height: 1.4;
+  margin: 0.35rem 0 0;
+}
+.page-shelf .stacks-entry .stacks-definition .pos { color: var(--ink-faint); }
+.page-shelf .stacks-entry .stacks-definition .sense-num {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--ink);
+}
+.page-shelf .stacks-entry .stacks-definition .attribution {
+  font-style: normal;
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  margin-left: 0.25rem;
+}
+
+.page-shelf .stacks-entry .stacks-senses {
+  list-style: none;
+  counter-reset: sense;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  columns: 2;
+  column-gap: 2rem;
+}
+.page-shelf .stacks-entry .stacks-senses li {
+  counter-increment: sense;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+  margin: 0 0 0.55rem;
+  break-inside: avoid;
+}
+.page-shelf .stacks-entry .stacks-senses li::before {
+  content: counter(sense) ". ";
+  font-weight: 500;
+  color: var(--ink);
+}
+.page-shelf .stacks-entry .stacks-senses .tag { color: var(--ink); }
+.page-shelf .stacks-entry .stacks-senses .register {
+  color: var(--ink-faint);
+  font-size: 0.8125rem;
+}
+.page-shelf .stacks-entry .stacks-senses .usage {
+  color: var(--ink-faint);
+}
+
+.page-shelf .stacks-entry .stacks-cross-ref {
+  border-top: 1px solid var(--rule);
+  margin-top: 0.9rem;
+  padding-top: 0.55rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.page-shelf .stacks-entry .stacks-cross-ref .cf { color: var(--ink-faint); }
+
+@media (max-width: 760px) {
+  .page-shelf .stacks-entry {
+    display: block;
+    margin-bottom: 1.25rem;
+  }
+  .page-shelf .stacks-entry .stacks-headword { font-size: 2.25rem; }
+  .page-shelf .stacks-entry .stacks-senses { columns: 1; margin-top: 1rem; }
 }
 
 /* Hamburger toggle — mobile only */
