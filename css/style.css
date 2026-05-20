@@ -738,6 +738,7 @@ p {
   margin-bottom: 1.25rem;
 }
 
+
 .section-label-name {
   font-family: var(--serif);
   font-size: 1.3rem;
@@ -6973,15 +6974,32 @@ body {
 }
 
 .section-label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  align-items: center;
   gap: 0.7rem;
   margin: 0;
-  padding: 0.6rem 0.9rem;
+  padding: 0.5rem 0.9rem;
   background: var(--ink);
   color: var(--bg);
   border-bottom: 0;
-  align-items: center;
+}
+
+/* Leaping hare next to the topic name — engraved PNG, sits left of the
+   section title. Bar is dark in light mode (background: var(--ink)) so
+   the black PNG is inverted to cream; in dark mode the bar flips to cream,
+   the PNG stays black and reads naturally. */
+.section-label-mark {
+  width: 26px;
+  height: auto;
+  flex-shrink: 0;
+  display: block;
+  /* lift slightly: leaping hare's visual mass is above its geometric center
+     (legs extended down), so optical alignment with text needs a small nudge up */
+  transform: translateY(-4px);
+  filter: invert(1);
+}
+[data-theme="dark"] .section-label-mark {
+  filter: none;
 }
 
 .section-label-name {
@@ -6991,9 +7009,11 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--bg);
+  margin: 0;
 }
 
 .section-label-count {
+  margin-left: auto;
   color: color-mix(in srgb, var(--bg) 70%, var(--ink) 30%);
 }
 
