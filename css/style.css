@@ -10116,11 +10116,22 @@ html:has(.shelf-modal[open]) {
   max-width: 38em;
   margin-left: auto;
   margin-right: auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 3rem 1.25rem 5rem;
   font-family: 'EB Garamond', 'Source Serif 4', Georgia, serif;
-  font-size: 1.125rem;
-  line-height: 1.65;
+  font-size: 1.0625rem;       /* 17px — matches Judah reading body */
+  line-height: 1.55;          /* between Judah 1.5 and prior 1.65 */
   font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* Generous paragraph + section breathing, per Lee feedback on spacing.
+   Defaults were too cramped on a 17px reading body. */
+.page-essay .essay p { margin: 0 0 1.4rem; }
+.page-essay .essay > section,
+.page-essay .essay .essay-section { margin-top: 3rem; }
+.page-essay .essay > section:first-of-type { margin-top: 0; }
+.page-essay .essay h2 {
+  margin: 0 0 0.8rem;
+  line-height: 1.2;
 }
 
 /* Topic line replaces the chip-row of essay-tags. Reads as a quiet
