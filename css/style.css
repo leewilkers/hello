@@ -4335,10 +4335,28 @@ body {
   opacity: 0;
   transition: opacity 60ms linear;
   min-height: 0;
+  white-space: pre-line;
 }
 
 .home-rail-hover.is-active {
   opacity: 1;
+}
+
+.home-rail-hover .home-rail-prose {
+  display: block;
+  margin-bottom: 0.7em;
+}
+
+.home-rail-hover .home-rail-aka-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 0.4em;
+  row-gap: 0.7em;
+  white-space: normal;
+}
+
+.home-rail-hover .home-rail-aka-label {
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -10136,5 +10154,259 @@ article[class*="page-"] {
   font-size: 0.82em;
   color: var(--accent);
   margin-right: 0.32em;
+}
+
+/* ============================================================================
+   Four-column essay layout (TOC | Images | Text | Sidenotes)
+   Added 2026-05-19 for consider-the-tree.njk
+   Desktop only (>= 1180px). Below that, hide TOC and image rail; text and
+   sidenotes fall back to the existing single-column flow.
+   ============================================================================ */
+
+/* TOC — sticky to viewport, hangs on the far left */
+.page-essay .essay-toc {
+  position: fixed;
+  top: 6rem;
+  left: 2rem;
+  width: 11em;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  z-index: 5;
+}
+
+.page-essay .essay-toc-label {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.page-essay .essay-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.page-essay .essay-toc-list li {
+  margin-bottom: 0.18rem;
+}
+
+.page-essay .essay-toc-list a {
+  display: block;
+  padding: 0.22rem 0 0.22rem 0.6rem;
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
+  text-decoration: none;
+  border-left: 1px solid transparent;
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.page-essay .essay-toc-list a:hover {
+  color: var(--ink);
+  border-left-color: color-mix(in srgb, var(--ink) 30%, transparent);
+}
+
+.page-essay .essay-toc-list a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+/* Per-section image rail — absolute-positioned to the left of each section.
+   .essay-opener-prototaxites is a sub-block inside the opener that anchors
+   the Prototaxites image to its own paragraphs (not the top of the opener). */
+.page-essay .essay-section,
+.page-essay .essay-opener,
+.page-essay .essay-opener-prototaxites {
+  position: relative;
+}
+
+.page-essay .essay-image-slot {
+  position: absolute;
+  top: 0.2em;
+  right: 100%;
+  margin-right: 3em;
+  width: 10em;
+}
+
+/* Grayscale period illustrations look right on light mode but white-boxed on
+   dark mode. Invert in dark mode so figures read as X-ray (line work white
+   on dark) instead of as a glaring white card.
+   Color images (parchment scans, photos) opt out with class="no-invert" —
+   inverting them would shift hue (sepia → blue) which looks terrible. */
+@media (prefers-color-scheme: dark) {
+  .page-essay .essay-image-slot img:not(.no-invert) {
+    filter: invert(1);
+  }
+}
+
+/* Tasteful literary whitespace between the opener's framing paragraphs
+   and the Prototaxites story-within-the-opener.
+   The margin is large enough to ensure the previous image-slot (tree
+   silhouette) does not vertically touch the next image-slot (Dawson) —
+   margin figures should never abut. Tufte/Bringhurst rule.
+   Sized roughly equal to the first image height so the eye gets a full
+   beat of rest between figures. */
+.page-essay .essay-opener-prototaxites {
+  margin-top: 14em;
+}
+
+/* Decorative section-break for inside-essay breathing room.
+   Used wherever <hr class="essay-divider" /> appears in the markup.
+   Three small asterisks, centered, classical scholarly break. */
+.essay .essay-divider {
+  border: none;
+  height: auto;
+  overflow: visible;
+  text-align: center;
+  margin: 2.5em 0;
+  color: color-mix(in srgb, var(--ink) 32%, transparent);
+}
+
+.essay .essay-divider::before {
+  content: "\002A \00A0 \002A \00A0 \002A";
+  letter-spacing: 0.5em;
+  font-family: var(--serif, Georgia, serif);
+  font-size: 1.05em;
+}
+
+.page-essay .essay-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: color-mix(in srgb, var(--ink) 4%, var(--bg));
+  border: 1px dashed color-mix(in srgb, var(--ink) 18%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink) 38%, transparent);
+  text-align: center;
+  padding: 0.5rem;
+  line-height: 1.3;
+}
+
+/* Real images in the image slot: no border, no chrome — Tufte-style.
+   Caption follows underneath, italic sans, tight to the figure. */
+.page-essay .essay-image-slot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-essay .essay-image-slot figcaption {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* Narrow viewports: hide TOC + image rail; essay reads single-column */
+@media (max-width: 1180px) {
+  .page-essay .essay-toc { display: none; }
+  .page-essay .essay-image-slot { display: none; }
+}
+
+/* ============================================================================
+   Hover-notes — CSS-only :hover tooltip replacement for sidenotes.
+   Marker is a superscript span; tooltip is a child positioned near it.
+   Hover or focus reveals the tooltip; appears just above the marker.
+   ============================================================================ */
+
+/* Marker — auto-numbered superscript, hover-anchored */
+.essay .sn-marker {
+  counter-increment: sn-counter;
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  font-family: var(--sans);
+  font-feature-settings: "sups" 1, "lnum" 1;
+  vertical-align: super;
+  font-size: 0.66em;
+  line-height: 1;
+  color: var(--accent);
+  margin-left: 0.06em;
+  outline: none;
+  transition: color 120ms ease;
+}
+
+.essay .sn-marker::before {
+  content: counter(sn-counter);
+}
+
+.essay .sn-marker:hover,
+.essay .sn-marker:focus-visible {
+  color: color-mix(in srgb, var(--accent) 60%, var(--ink));
+}
+
+/* Tooltip — appears on hover/focus, anchored above-and-centered on marker */
+.essay .sidenote-tooltip {
+  position: absolute;
+  bottom: calc(100% + 0.6em);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 22em;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--ink) 6%, transparent),
+    0 8px 28px color-mix(in srgb, var(--ink) 14%, transparent);
+  padding: 0.7rem 0.9rem;
+  border-radius: 3px;
+  text-align: left;
+  font-variant-numeric: oldstyle-nums;
+  font-style: normal;
+  vertical-align: baseline;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 140ms ease, visibility 0s 140ms;
+  z-index: 50;
+}
+
+/* Small arrow pointing down to the marker */
+.essay .sidenote-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.essay .sn-marker:hover .sidenote-tooltip,
+.essay .sn-marker:focus-visible .sidenote-tooltip,
+.essay .sn-marker:focus-within .sidenote-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 140ms ease, visibility 0s 0s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .essay .sidenote-tooltip {
+    border-color: color-mix(in srgb, var(--ink) 28%, transparent);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.4),
+      0 8px 28px rgba(0, 0, 0, 0.5);
+  }
+  .essay .sidenote-tooltip::after {
+    border-top-color: color-mix(in srgb, var(--ink) 28%, transparent);
+  }
 }
 
