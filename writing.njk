@@ -5,119 +5,67 @@ pageClass: page-writing
 permalink: /writing/
 ---
 
-<div class="broadsheet" id="main" tabindex="-1">
+<style>
+  .writing-body {
+    max-width: 38em;
+    margin: 2rem auto 6rem;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+  .writing-body h1 {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-weight: 600;
+    font-size: 2.2rem;
+    line-height: 1.1;
+    margin: 0 0 0.35rem;
+  }
+  .writing-body .writing-dek {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--ink-soft, #6a655a);
+    margin: 0 0 2.6rem;
+    line-height: 1.5;
+  }
+  .writing-body .essay-row {
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule, #c8c1b3);
+  }
+  .writing-body .essay-title {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.15;
+    margin: 0 0 0.35rem;
+  }
+  .writing-body .essay-title a {
+    color: var(--ink, #2a2820);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink-soft, #c8c1b3);
+  }
+  .writing-body .essay-title a:hover { border-bottom-color: currentColor; }
+  .writing-body .essay-dek {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    line-height: 1.55;
+    margin: 0 0 0.55rem;
+  }
+  .writing-body .essay-meta {
+    font-family: var(--mono, ui-monospace, monospace);
+    font-size: 0.78rem;
+    color: var(--ink-soft, #6a655a);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+</style>
 
-  {# ── Panel 1 — masthead + currently drafting ─────────────── #}
-  <section class="broadsheet-panel" aria-label="Currently drafting">
-    <div class="broadsheet-masthead">
-      <span>The Workshop Notice</span>
-      <span>Vol. I &middot; No. 1</span>
-      <span>20 May 2026</span>
-    </div>
+<article class="writing-body" id="main">
 
-    <h1 class="broadsheet-title">Writing.</h1>
-    <p class="broadsheet-dek">Essays in long form. Mostly trees, knots, tools, and the institutions that hold them. Drafted slowly; published when honest.</p>
+  <h1>Writing.</h1>
+  <p class="writing-dek">Essays in long form. Drafted slowly; published when honest.</p>
 
-    <p class="broadsheet-section-label">Now Drafting</p>
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card">
-        <span class="broadsheet-card-label">Essay &middot; in progress</span>
-        <h2 class="broadsheet-card-title"><a href="/consider-the-tree/">Consider the tree.</a></h2>
-        <p class="broadsheet-card-meta">~4,800 words &middot; standing draft</p>
-        <p class="broadsheet-card-dek">A consultant's reading of how trees record stress &mdash; what knots, heartwood, and abscission can teach about the institutions we try to help.</p>
-        <p class="broadsheet-card-quote">&ldquo;Heartwood is dead but load-bearing.&rdquo;</p>
-      </li>
-    </ul>
-
-    <p class="broadsheet-marginalia">&ldquo;From time to time put your hands back on the wood.&rdquo;</p>
-
-    <div class="broadsheet-folio">
-      <span>Folio I</span>
-      <span>scroll right &rarr;</span>
-    </div>
+  <section class="essay-row">
+    <h2 class="essay-title"><a href="/consider-the-tree/">Consider the tree.</a></h2>
+    <p class="essay-dek">A consultant&rsquo;s reading of how trees record stress &mdash; what knots, heartwood, and abscission can teach about the institutions we try to help.</p>
+    <p class="essay-meta">~4,800 words &middot; standing draft</p>
   </section>
 
-  {# ── Panel 2 — standing essays + earlier work ──────────────── #}
-  <section class="broadsheet-panel" aria-label="Standing and earlier essays">
-    <div class="broadsheet-masthead">
-      <span>Standing &amp; Earlier</span>
-      <span>the back catalogue</span>
-      <span>by date</span>
-    </div>
-
-    <p class="broadsheet-section-label">Standing essays</p>
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card">
-        <span class="broadsheet-card-label">Essay</span>
-        <h3 class="broadsheet-card-title"><a href="/consider-the-tree/">Consider the tree</a></h3>
-        <p class="broadsheet-card-meta">2026 &middot; trees, knots, consulting</p>
-        <p class="broadsheet-card-dek">The standing essay above. Currently the only one I'd send to a stranger.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Essay &middot; sketched</span>
-        <h3 class="broadsheet-card-title">On hospitality as a research method</h3>
-        <p class="broadsheet-card-meta">forthcoming</p>
-        <p class="broadsheet-card-dek">Kitchens, qualitative interviews, and what it means to make someone feel held.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Essay &middot; sketched</span>
-        <h3 class="broadsheet-card-title">The capability trap, again</h3>
-        <p class="broadsheet-card-meta">forthcoming</p>
-        <p class="broadsheet-card-dek">Why programs that look like they're working often aren't, and what survey instruments can't see.</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Essay &middot; sketched</span>
-        <h3 class="broadsheet-card-title">Alba is still standing</h3>
-        <p class="broadsheet-card-meta">forthcoming &middot; Atlanta</p>
-        <p class="broadsheet-card-dek">A 250-year-old white oak about ten minutes from my desk.</p>
-      </li>
-    </ul>
-
-    <div class="broadsheet-folio">
-      <span>Folio II</span>
-      <span>&larr; back &middot; forward &rarr;</span>
-    </div>
-  </section>
-
-  {# ── Panel 4 — marginalia / scraps ─────────────────────────── #}
-  <section class="broadsheet-panel" aria-label="Marginalia">
-    <div class="broadsheet-masthead">
-      <span>Marginalia</span>
-      <span>scraps &amp; sketches</span>
-      <span>unfiled</span>
-    </div>
-
-    <h2 class="broadsheet-title" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">The back of the envelope.</h2>
-    <p class="broadsheet-dek">Things I keep meaning to write down properly. For now they live here.</p>
-
-    <ul class="broadsheet-cards">
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Note</span>
-        <h3 class="broadsheet-card-title">Procurement is the buyer's diagnostic</h3>
-        <p class="broadsheet-card-meta">draft &middot; consulting</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Note</span>
-        <h3 class="broadsheet-card-title">What survey instruments can't see</h3>
-        <p class="broadsheet-card-meta">draft &middot; methods</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Note</span>
-        <h3 class="broadsheet-card-title">Reading a knot, reading an org</h3>
-        <p class="broadsheet-card-meta">draft &middot; trees</p>
-      </li>
-      <li class="broadsheet-card is-stub">
-        <span class="broadsheet-card-label">Note</span>
-        <h3 class="broadsheet-card-title">Why I keep coming back to Bourdain</h3>
-        <p class="broadsheet-card-meta">draft &middot; hospitality</p>
-      </li>
-    </ul>
-
-    <div class="broadsheet-folio">
-      <span>Folio III</span>
-      <span>&larr; back to start</span>
-    </div>
-  </section>
-
-  <div class="broadsheet-hint">scroll right &rarr;</div>
-</div>
+</article>
