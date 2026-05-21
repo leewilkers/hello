@@ -157,6 +157,7 @@ eleventyExcludeFromCollections: true
   .tm-stage[data-hover] .tm-node{ transition: opacity 280ms ease; }
   .tm-stage[data-hover="consulting"] .tm-node:not([data-node="consulting"]),
   .tm-stage[data-hover="writing"]    .tm-node:not([data-node="writing"]),
+  .tm-stage[data-hover="projects"]   .tm-node:not([data-node="projects"]),
   .tm-stage[data-hover="stacks"]     .tm-node:not([data-node="stacks"]),
   .tm-stage[data-hover="stream"]     .tm-node:not([data-node="stream"]),
   .tm-stage[data-hover="about"]      .tm-node:not([data-node="about"]){ opacity: 0.42; }
@@ -180,6 +181,52 @@ eleventyExcludeFromCollections: true
   }
   .tm-node:hover .tm-node-label, .tm-node:focus-visible .tm-node-label{ fill: var(--node-stroke); }
 
+  /* Subword: small mono-caps tag sitting beneath each node label —
+     always visible, quiet. */
+  .tm-node-sub{
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: lowercase;
+    fill: color-mix(in srgb, var(--ink) 45%, transparent);
+    pointer-events: none;
+  }
+
+  /* Hover popover: real HTML box (via foreignObject) styled like the
+     gwern hover-notes used elsewhere on the site. Hidden until the
+     node is hovered or focused. */
+  .tm-popover-fo{
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    overflow: visible;
+  }
+  .tm-node:hover .tm-popover-fo,
+  .tm-node:focus-within .tm-popover-fo{ opacity: 1; }
+  .tm-popover{
+    display: inline-block;
+    background: var(--bg, #f7f3e9);
+    color: var(--ink, #2a2820);
+    border: 1px solid var(--rule, #c8c1b3);
+    border-radius: 2px;
+    padding: 0.6em 0.9em;
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: normal;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    max-width: 240px;
+  }
+  [data-theme="dark"] .tm-popover{
+    background: #1a1812;
+    border-color: #3a3528;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  }
+  @media (prefers-color-scheme: dark){
+    .tm-popover{
+      background: #1a1812;
+      border-color: #3a3528;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+  }
 </style>
 
 <div class="tm-stage" data-tm-stage>
@@ -265,51 +312,79 @@ eleventyExcludeFromCollections: true
     </g>
 
     {# trunk — V2 S-curve #}
-    <path class="tm-trunk" data-related="stacks consulting writing"
+    <path class="tm-trunk" data-related="stacks consulting writing projects"
           d="M 462 596 L 488 596 Q 484 470 478 342 L 472 342 Q 466 470 462 596 Z"/>
 
-    {# branches — V2 beziers, uneven canopy heights #}
+    {# branches — three co-dominant reaches, INVERTED taper:
+       skinny at trunk attachment, thick at the tip.
+       Consulting tip fattest, Writing mid + longer reach, Projects thinnest. #}
     <path class="tm-branch" data-related="consulting"
-          d="M 474.33 343.44 L 472.67 344.56 Q 418 240 326.68 132.23 L 333.32 127.77 Q 426 244 474.33 343.44 Z"/>
+          d="M 476 343 L 474 343 Q 370 258 214.5 200 L 225.5 200 Q 390 282 476 343 Z"/>
     <path class="tm-branch" data-related="writing"
-          d="M 477.48 344.21 L 475.52 343.79 Q 498 250 516.09 158.15 L 523.91 159.85 Q 506 254 477.48 344.21 Z"/>
+          d="M 476 343 L 474 343 Q 470 275 458.5 200 L 465.5 200 Q 472 275 476 343 Z"/>
+    <path class="tm-branch" data-related="projects"
+          d="M 476 343 L 474 343 Q 594 282 728 200 L 732 200 Q 598 286 476 343 Z"/>
 
-    {# about line — slight arc, bark-colored #}
-    <path class="tm-edge tm-edge-bark" data-related="about" d="M 182 350 Q 322 346 468 354"/>
+    {# about line — bark-colored, arcs left from trunk to About node #}
+    <path class="tm-edge tm-edge-bark" data-related="about" d="M 232 346 Q 350 343 470 346"/>
 
-    {# water — arc from stream into stacks #}
-    <path class="tm-river" data-related="stream stacks" d="M 818 590 Q 660 596 492 590"/>
+    {# water — short arc from Stream into Stacks #}
+    <path class="tm-river" data-related="stream stacks" d="M 720 590 Q 606 593 492 590"/>
 
     {# === nodes === #}
     <g class="tm-node" data-node="consulting" data-url="/consulting/" tabindex="0"
        style="--node-stroke: var(--tm-canopy)">
-      <rect class="tm-hit" x="230" y="86" width="200" height="56"/>
-      <text class="tm-node-label" x="330" y="110" text-anchor="middle">Consulting</text>
-      <circle class="tm-mark" cx="330" cy="130" r="4.5"/>
+      <rect class="tm-hit" x="120" y="148" width="200" height="56"/>
+      <text class="tm-node-label" x="220" y="178" text-anchor="middle">Consulting</text>
+      <circle class="tm-mark" cx="220" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="100" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I can do for you, for money.</div>
+      </foreignObject>
     </g>
-    <g class="tm-node" data-node="writing" data-url="/field-notes/" tabindex="0"
+    <g class="tm-node" data-node="writing" data-url="/writing/" tabindex="0"
        style="--node-stroke: var(--tm-canopy)">
-      <rect class="tm-hit" x="420" y="116" width="200" height="56"/>
-      <text class="tm-node-label" x="520" y="140" text-anchor="middle">Field notes</text>
-      <circle class="tm-mark" cx="520" cy="159" r="4.5"/>
+      <rect class="tm-hit" x="385" y="152" width="150" height="56"/>
+      <text class="tm-node-label" x="462" y="180" text-anchor="middle">Writing</text>
+      <circle class="tm-mark" cx="462" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="342" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">essays, posted in draft.</div>
+      </foreignObject>
     </g>
-    <g class="tm-node" data-node="about" data-url="/" tabindex="0"
+    <g class="tm-node" data-node="projects" data-url="/projects/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="630" y="148" width="200" height="56"/>
+      <text class="tm-node-label" x="730" y="178" text-anchor="middle">Projects</text>
+      <circle class="tm-mark" cx="730" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="610" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I&rsquo;m working on.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="about" data-url="/about/" tabindex="0"
        style="--node-stroke: var(--tm-bark)">
-      <rect class="tm-hit" x="40" y="330" width="145" height="44"/>
-      <text class="tm-node-label" x="158" y="356" text-anchor="end">About</text>
-      <circle class="tm-mark" cx="170" cy="350" r="4.5"/>
+      <rect class="tm-hit" x="140" y="324" width="160" height="44"/>
+      <text class="tm-node-label" x="220" y="352" text-anchor="middle">About</text>
+      <circle class="tm-mark" cx="220" cy="346" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="100" y="362" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">who I am, what I do.</div>
+      </foreignObject>
     </g>
     <g class="tm-node" data-node="stacks" data-url="/shelf/" tabindex="0"
        style="--node-stroke: var(--tm-soil)">
-      <rect class="tm-hit" x="375" y="600" width="200" height="58"/>
-      <text class="tm-node-label" x="475" y="630" text-anchor="middle">Stacks</text>
+      <rect class="tm-hit" x="375" y="600" width="200" height="60"/>
+      <text class="tm-node-label" x="475" y="628" text-anchor="middle">Stacks</text>
       <circle class="tm-mark" cx="475" cy="596" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="355" y="500" width="240" height="90">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things on my desk, informing current work and thinking.</div>
+      </foreignObject>
     </g>
     <g class="tm-node" data-node="stream" data-url="/stream/" tabindex="0"
        style="--node-stroke: var(--tm-water)">
-      <rect class="tm-hit" x="730" y="600" width="200" height="58"/>
-      <text class="tm-node-label" x="830" y="630" text-anchor="middle">Stream</text>
-      <circle class="tm-mark" cx="830" cy="590" r="4.5"/>
+      <rect class="tm-hit" x="630" y="600" width="200" height="60"/>
+      <text class="tm-node-label" x="730" y="628" text-anchor="middle">Stream</text>
+      <circle class="tm-mark" cx="730" cy="590" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="610" y="494" width="240" height="90">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I clicked on, and may or may not have read.</div>
+      </foreignObject>
     </g>
   </svg>
 </div>
