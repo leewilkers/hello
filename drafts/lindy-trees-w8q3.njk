@@ -1,0 +1,220 @@
+---
+title: Lindy Trees aka Champion Trees
+shadows: /champion-trees/
+pageClass: page-champion-trees page-draft
+---
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+>
+
+<article class="champion-explorer" id="main" data-champion-explorer>
+  <header class="champion-hero">
+    <div class="champion-identity">
+      <h1>Lindy Trees aka &ldquo;champion trees&rdquo;</h1>
+      <p class="champion-lede">Big ol' trees near you. <a href="https://en.wikipedia.org/wiki/Lindy_effect" target="_blank" rel="noopener">"Lindy"</a> means old things with staying power. Trees are lindy. These trees are super lindy: local record trees, scored by trunk, height, and canopy.</p>
+    </div>
+  </header>
+
+  <section class="champion-street-tool" aria-label="Find nearest public champion tree">
+    <div class="champion-street-copy">
+      <p class="champion-card-label">Street use</p>
+      <h2>Closest public &ldquo;champion tree&rdquo;</h2>
+    </div>
+    <div class="champion-nearest-panel" data-nearest-panel>
+      <div class="champion-nearest-head">
+        <p class="champion-card-label">Nearest find</p>
+        <button type="button" class="champion-primary-button" data-action="find-nearest" disabled>big ol' trees near you</button>
+      </div>
+      <div class="champion-nearest-result" data-nearest-result aria-live="polite">
+        <p class="champion-nearest-status" data-nearest-status>waiting for coordinates.</p>
+        <h2 data-nearest-title>No tree selected yet.</h2>
+        <p data-nearest-meta>Closest public result will show here.</p>
+        <div class="champion-nearest-actions" data-nearest-actions hidden>
+          <a class="champion-text-button champion-link-button" data-nearest-directions target="_blank" rel="noopener">walking directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="champion-view-toggle" aria-label="View options">
+    <button type="button" class="champion-text-button champion-advanced-toggle" data-action="toggle-advanced" aria-expanded="false">advanced</button>
+  </div>
+
+  <section class="champion-shell" aria-label="Notable tree walk explorer">
+    <aside class="champion-controls" aria-label="Tree finder controls">
+      <div class="champion-panel-head">
+        <span>Catalog</span>
+        <span>browse the records</span>
+      </div>
+      <div class="champion-status" data-load-status>Loading Trees Atlanta data...</div>
+
+      <div class="champion-anchor-record" data-alba-card>
+        <div>
+          <p class="champion-card-label">Start here</p>
+          <strong>Alba, a big white oak</strong>
+          <span>near Vaughn St / alive / record 246</span>
+        </div>
+        <button type="button" class="champion-text-button" data-action="spotlight-alba">Alba</button>
+      </div>
+
+      <section class="champion-journey-note" aria-live="polite">
+        <p class="champion-card-label">Current view</p>
+        <h2 data-journey-title>Browse the catalog</h2>
+        <p data-journey-text>Use this if you want to look beyond the nearest public tree.</p>
+      </section>
+
+      <section class="champion-curiosity" aria-label="Walk prompts">
+        <p class="champion-card-label">Shortcuts</p>
+        <div class="champion-question-list">
+          <button type="button" class="champion-question" data-preset="alba">
+            <strong>Start with Alba</strong>
+            <span>a named white oak in Edgewood.</span>
+          </button>
+          <button type="button" class="champion-question" data-preset="champions">
+            <strong>Show me the biggest</strong>
+            <span>the highest-scoring record trees.</span>
+          </button>
+          <button type="button" class="champion-question" data-preset="public">
+            <strong>I want a public tree</strong>
+            <span>parks and public places first.</span>
+          </button>
+          <button type="button" class="champion-question" data-preset="white-oaks">
+            <strong>More like Alba</strong>
+            <span>other white oaks around town.</span>
+          </button>
+          <button type="button" class="champion-question" data-preset="dead">
+            <strong>What used to be here?</strong>
+            <span>dead records that still point to a place.</span>
+          </button>
+        </div>
+      </section>
+
+      <label class="champion-field">
+        <span>Search</span>
+        <input type="search" data-filter="search" placeholder="street, park, tree name">
+      </label>
+
+      <div class="champion-filter-grid" aria-label="Filter controls">
+        <label class="champion-field">
+          <span>Record rank</span>
+          <select data-filter="ranking">
+            <option value="all">any rank</option>
+            <option value="1st">1st place</option>
+            <option value="2nd">2nd place</option>
+            <option value="3rd">3rd place</option>
+            <option value="unranked">unranked</option>
+          </select>
+        </label>
+
+        <label class="champion-field">
+          <span>Still there?</span>
+          <select data-filter="status">
+            <option value="all">any status</option>
+            <option value="Alive">alive</option>
+            <option value="Dead">dead</option>
+          </select>
+        </label>
+
+        <label class="champion-field">
+          <span>Access</span>
+          <select data-filter="access">
+            <option value="all">any access</option>
+            <option value="public">public / park</option>
+            <option value="private">private</option>
+          </select>
+        </label>
+
+        <label class="champion-field">
+          <span>Sort by</span>
+          <select data-filter="sort">
+            <option value="points">total points</option>
+            <option value="circumference">circumference</option>
+            <option value="height">height</option>
+            <option value="spread">spread</option>
+            <option value="species">species</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="champion-presets" aria-label="Shortcut lenses">
+        <button type="button" data-preset="alba">Alba</button>
+        <button type="button" data-preset="champions">biggest</button>
+        <button type="button" data-preset="white-oaks">white oaks</button>
+        <button type="button" data-preset="first-place">1st place</button>
+        <button type="button" data-preset="public">public</button>
+        <button type="button" data-preset="dead">gone</button>
+        <button type="button" data-preset="reset">reset</button>
+      </div>
+
+      <div class="champion-metric-strip" aria-label="Dataset summary">
+        <p><span data-stat="visible">0</span><small>shown</small></p>
+        <p><span data-stat="total">0</span><small>records</small></p>
+        <p><span data-stat="species">0</span><small>kinds</small></p>
+      </div>
+
+      <section class="champion-results" aria-label="Filtered tree results">
+        <div class="champion-results-head">
+          <h2>Pick a tree</h2>
+          <p data-results-note>Waiting for data.</p>
+        </div>
+        <ol class="champion-list" data-results-list></ol>
+      </section>
+    </aside>
+
+    <section class="champion-map-column" aria-label="Map and selected tree">
+      <div class="champion-map-frame">
+        <div class="champion-map-register" aria-hidden="true">
+          <span>map of unusually large trees</span>
+          <span>Atlanta, GA</span>
+        </div>
+        <div class="champion-map" data-map aria-label="Map of notable Atlanta trees"></div>
+        <div class="champion-map-fallback" data-map-fallback hidden>Map data could not load. The explorer controls will retry on reload.</div>
+        <button type="button" class="champion-map-activate" data-map-activate aria-pressed="false">move map</button>
+      </div>
+
+      <div class="champion-detail-grid">
+        <section class="champion-detail" data-detail aria-live="polite">
+          <p class="champion-card-label">Selected tree</p>
+          <h2>Select a tree</h2>
+          <p>Use the map or search box. Save any tree that seems worth walking toward.</p>
+        </section>
+
+        <section class="champion-compare" aria-label="Saved tree walk list">
+          <div class="champion-compare-head">
+            <div>
+              <p class="champion-card-label">Saved walk</p>
+              <h2>One good stop is enough</h2>
+            </div>
+            <button type="button" class="champion-text-button" data-action="clear-compare">Clear</button>
+          </div>
+          <div class="champion-compare-list" data-compare-list>
+            <p class="champion-empty">Save a tree from the list or map.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+  </section>
+
+  <aside class="champion-tool-note" aria-label="Free map tools">
+    <p class="champion-card-label">Want to make maps?</p>
+    <p>Free tools: <a href="https://qgis.org/" target="_blank" rel="noopener">QGIS</a> for map data, <a href="https://umap-project.org/" target="_blank" rel="noopener">uMap</a> for quick public maps, and <a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a> or <a href="https://maplibre.org/projects/gl-js/" target="_blank" rel="noopener">MapLibre</a> for custom web maps.</p>
+  </aside>
+
+  <footer class="champion-source-note">
+    <span>Powered by Esri ArcGIS.</span>
+    <span>Data: <a href="https://www.treesatlanta.org/resources/atlantas-champion-trees/" target="_blank" rel="noopener">Trees Atlanta Champion Trees</a>.</span>
+    <span>Original map: <a href="https://taatl.maps.arcgis.com/apps/instant/basic/index.html?appid=64d57d52265a472b85548f580ddc8ba6" target="_blank" rel="noopener">ArcGIS Instant App</a>.</span>
+  </footer>
+</article>
+
+<script
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin="">
+</script>
+<script src="https://unpkg.com/esri-leaflet@3.0.15/dist/esri-leaflet.js" crossorigin=""></script>
+<script src="/assets/js/champion-trees-explorer.js?v=2026-05-20-restraint" defer></script>
