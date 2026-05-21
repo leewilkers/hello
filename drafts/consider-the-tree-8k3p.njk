@@ -1,0 +1,652 @@
+---
+title: Consider the tree – Lee Wilkers
+shadows: /consider-the-tree/
+pageClass: page-essay page-consider-the-tree page-draft
+essayTopics:
+  - adaptation
+  - biomimicry
+  - complexity
+  - decision-making
+  - design
+  - evolution
+  - institutions
+  - management
+  - strategy
+  - systems thinking
+  - uncertainty
+---
+
+
+<article class="essay" id="main">
+
+  <header class="essay-head">
+    <h1 class="essay-h1">Consider the tree.</h1>
+    <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/Marshall_McLuhan">
+      <p>&ldquo;In an age of accelerated change, the need to perceive the environment becomes urgent&hellip; Acceleration also makes such perception of the environment possible. New environments reset our sensory thresholds. These, in turn, alter our outlook and perspective.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>Marshall McLuhan</cite>, 1965
+      </footer>
+    </blockquote>
+    <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/William_Blake">
+      <p>&ldquo;The tree which moves some to tears of joy is in the eyes of others only a green thing that stands in the way&hellip; to the eyes of the man of imagination, nature is imagination itself.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>William Blake</cite>, 1799
+      </footer>
+    </blockquote>
+    <blockquote class="essay-epigraph" cite="https://bittersoutherner.com/2024/andre-3000-is-at-peace-for-now">
+      <p>&ldquo;This is a piece of wood from a tree that was <em>living</em>. You have this connection with this natural thing that has a life of its own. That has some say in what you&rsquo;re doing.&rdquo;</p>
+      <footer class="essay-epigraph-attribution">
+        <cite>Andr&eacute; 3000</cite>, 2024
+      </footer>
+    </blockquote>
+    <figure class="essay-figure essay-figure-inbody">
+      <img src="/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp" alt="Jules Dupré, The Old Oak (c. 1870), oil on panel" class="no-invert" />
+      <figcaption>Jules Dupré, <em>The Old Oak</em>, c. 1870. <a href="https://www.nga.gov/artworks/35089-old-oak">National Gallery of Art</a>.</figcaption>
+    </figure>
+    <p class="essay-kicker">Preface</p>
+    <p class="essay-lede">An organization&rsquo;s record is written by people with stakes in what&rsquo;s in it. They choose what to count, what to leave out, what to call it. Official records are abstract, subjective representations of what occurred<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Bowker &amp; Star, <em><a href="https://mitpress.mit.edu/9780262522953/sorting-things-out/" target="_blank" rel="noopener">Sorting Things Out: Classification and Its Consequences</a></em> (MIT, 1999): every classification system embeds choices about what counts, what gets excluded, and how it&rsquo;s named. The act of recording is the act of choosing what to admit into the record. Cf. Latour&rsquo;s &ldquo;inscription&rdquo; (<em>Drawing Things Together</em>, 1986).</span></span>. That&rsquo;s where <a href="/shelf/#bullshit" target="_blank" rel="noopener">bullshit</a><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Harry Frankfurt, <em><a href="https://press.princeton.edu/books/hardcover/9780691122946/on-bullshit" target="_blank" rel="noopener">On Bullshit</a></em> (Princeton, 2005; orig. 1986). Speech indifferent to whether it&rsquo;s true. Not lying &mdash; lying still tracks the truth in order to invert it. Bullshit just doesn&rsquo;t care.</span></span> lives. A tree&rsquo;s wood has no writer. A tree cannot bullshit.</p>
+  </header>
+
+  <nav class="essay-toc" aria-label="Consider the tree">
+    <p class="essay-toc-label">Consider the tree</p>
+    <ol class="essay-toc-list">
+      <li><a href="#opener">Preface</a></li>
+      <li><a href="#consider">Consider the tree</a></li>
+      <li><a href="#protobella">A fungus called Protobella</a></li>
+      <li><a href="#alba">A tree called Alba</a></li>
+      <li><a href="#vocabulary">Vocabulary</a></li>
+      <li><a href="#record">Record</a></li>
+      <li><a href="#knots-self">I work with knots</a></li>
+      <li><a href="#how-knots">How I think about knots</a></li>
+      <li><a href="#common-knots">Common knots and useful tools</a></li>
+    </ol>
+  </nav>
+
+  {# [REDLINE — Opening prose.
+     Per May 17 brief: H1 above, then Lee's opener prose here, then the
+     definitions below run as body-text vocabulary that the opener has
+     earned. Possible Bourdain-style move: repeat the title as the first
+     line of body ("Consider the tree.") with the sentence after it
+     earning the repeat. The opener does two jobs: (1) gets the reader
+     into the wood, (2) makes the vocabulary block below feel necessary
+     rather than dictionary-decorative. Lee writes this; not Claude. #}
+  {# [REDLINE — Opener draft from Claude per Lee's May 17 brief.
+     Lee's ramble: "Consider the tree. They've been solving design &
+     engineering problems a lot longer than us. In modern work, things
+     can become complexified and abstracted away from contact with
+     reality. Management consulting and ___ especially are guilty.
+     Not by luddism or naturalist mysticism, but by looking at the
+     mechanisms, causality, etc."
+     This draft follows that beat-list. Lee redlines. Risk areas marked
+     in adjacent insight thread: "The framework eats the field" aphorism,
+     "structural strategy" academic-tinge, the four-item list in para 4. #}
+  <section class="essay-opener" id="opener">
+    <p>&ldquo;Don&rsquo;t miss the forest for the trees&rdquo; is good advice until it isn&rsquo;t. The idiom fits when one is tangled in particulars, unable to see the system at work, and losing sight of the point<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">AKA being stuck in an A-hole.</span></span>. But abstraction has its own failure mode: the forest fills the view, and the tree drops out. One is captive to the model, serving the model, not the thing.</p>
+
+    <p>From time to time, you have to put your hands back on the wood.</p>
+
+    <p>Anyone who has worked seriously with hard material &ndash; wood, stone, metal, code &ndash; knows the moment when the system-level view stops helping and you have to get back down to the thing itself&hellip;</p>
+
+  </section>
+
+  <section class="essay-section essay-section-consider" id="consider">
+    <h2>Consider the tree</h2>
+
+    <p>A tree is a very slow civilization of fibers and fluids.</p>
+
+    <p>Trees have been &ldquo;solving&rdquo; design and engineering problems a lot longer than us. Several hundred million years, conservatively.</p>
+
+    <p>But before there were trees, something else tried to be tall.</p>
+
+  </section>
+
+  <section class="essay-section essay-section-protobella" id="protobella">
+    <h2>A fungus called Protobella</h2>
+
+    <figure class="essay-figure essay-figure-inbody">
+      <img src="/img/essay/consider-the-tree/prototaxites-dawson-1888.webp" alt="Dawson's 1888 reconstruction of Prototaxites" />
+      <figcaption>Dawson&rsquo;s 1888 reconstruction. He was wrong.</figcaption>
+    </figure>
+
+    <p>Eight-meter trunks rose out of a treeless landscape four hundred million years ago, when nothing on land was bigger than your left thumb. <em><a href="https://www.scientificamerican.com/article/mystery-prototaxites-tower-fossils-may-represent-a-newly-discovered-kind-of/">Prototaxites</a></em> &ndash; Protobella, in the privacy of my own head &ndash; confused every paleontologist who tried to sort it. A primitive conifer. An algae. A liverwort. Every fungal phylum on offer. Each category almost worked.</p>
+
+    <p>A Smithsonian botanist named Francis Hueber cut thin sections of those specimens under a microscope for forty years and died in 2019 sure it was a fungus. In <a href="https://www.science.org/doi/10.1126/sciadv.aec6277" target="_blank" rel="noopener">2026</a>, new tests on the cell walls turned up lignin-like chemistry and no fungal biomarkers at all.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Chitin is the structural molecule common to all fungi &ndash; insect exoskeletons too.</span></span> The tests placed it outside any living lineage. A branch of eukaryotic life that left no descendants.</p>
+
+    <p>A parallel attempt at the tree-form, by a lineage that didn&rsquo;t reach the present. By the end of the Devonian, the columns disappeared. We still don&rsquo;t know why.</p>
+
+    <p>Branching solved it. The design kept evolving for hundreds of millions of years. Branches, leaves, shade &ndash; and by then, animals around to use them. Branching was the solution to being tall and photosynthesizing. The cost was knots. <a href="https://en.wikipedia.org/wiki/Lindy_effect" target="_blank" rel="noopener">Lindy</a> here refers to the strategies and tactics evolved over trial and error, not the individual tree<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">A reader trained on Deleuze and Guattari may notice that the &ldquo;tree&rdquo; here is doing the opposite of <em>their</em> tree &mdash; the arborescent figure of hierarchy they set the rhizome against. The literal-biological tree never matched the strawman: crown grown lopsided for light, roots tangled with the next tree&rsquo;s, mycorrhizal threads ferrying sugar and signal across species lines underground, sap moving in whichever direction the year demands. What I&rsquo;m describing is closer to what they&rsquo;d call rhizomatic.</span></span>. The branching solution is older than dinosaurs. <a href="/shelf/#design" target="_blank" rel="noopener">Design thinking</a> is sixty-some years on this planet.</p>
+
+  </section>
+
+  <section class="essay-section essay-section-alba" id="alba">
+    <h2>A tree called Alba</h2>
+
+    <p>Consider the tree.</p>
+
+    <figure class="essay-figure essay-figure-inbody">
+      <img
+        src="/img/essay/consider-the-tree/alba-800w.webp"
+        srcset="/img/essay/consider-the-tree/alba-800w.webp 1x, /img/essay/consider-the-tree/alba.webp 2x"
+        alt="Alba, a large white oak on a slope above Sugar Creek in Edgewood, Atlanta, receiving a clean bill of health from an arborist."
+      />
+      <figcaption>Alba receiving a recent clean bill of health from arborist Peter Jenkins. Photo: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</figcaption>
+    </figure>
+
+    <p>One in particular. Ten minutes from my desk, on a slope above Sugar Creek, four white oaks have been standing since before the <a href="https://en.wikipedia.org/wiki/Battle_of_Atlanta" target="_blank" rel="noopener">Battle of Atlanta</a>. I walk the dog there. The largest &ndash; <a href="https://meetalba.org/" target="_blank" rel="noopener">Alba, the neighborhood calls her</a><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Largest white oak (<em>Quercus alba</em> &ndash; hence the name) inside Atlanta city limits. 69-inch DBH; estimated 200&ndash;250 years old; recently certified healthy by Peter Jenkins of <a href="https://treeinspection.com/" target="_blank" rel="noopener">TreeInspection.com</a>. If preserved, could live another five hundred years. The four oaks sit on a 6-acre parcel off Vaughn Street in Edgewood, rezoned for Planned Development &ndash; Housing in 2007. Source: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</span></span> &ndash; is around two hundred and fifty years old. Atlanta is one hundred and seventy.</p>
+
+    <p>Whatever value Alba has now lives in the handful of neighbors who learned her name.</p>
+  </section>
+
+  {# [REDLINE — Definitions as body text, woven into the essay.
+     Format kept as <dl> for semantic clarity + reusable styling, but
+     no longer faded — full opacity, body-text presence. Lead-in and
+     lead-out sentences (around the dl) are REDLINE Lee-prose slots —
+     they're what makes this a passage of the essay rather than a
+     glossary sitting in the middle. Six terms preserved; cut/reorder
+     in redline if any drop weight after the opener is written. #}
+  <section class="essay-section essay-definitions-section" id="vocabulary">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Vocabulary</div></div>
+    <p>Before moving on, a few handy woodworking terms&hellip;</p>
+
+    <dl class="essay-definitions">
+      <dt><strong>rive</strong> <span class="essay-definitions-meta">/raɪv/ &middot; verb.</span></dt>
+      <dd>To split wood along the grain with a froe and a mallet. Old Norse <em>rífa,</em> &ldquo;to tear, scratch&rdquo; &ndash; same root as <em>rift, riven, reef.</em> You aren&rsquo;t cutting the wood. You&rsquo;re persuading it to come apart along a line it was already going to take if you waited long enough. Stronger than a sawn board, because the fibers stay continuous. The downside is you can&rsquo;t rive anything that didn&rsquo;t intend to split. When people say they&rsquo;re &ldquo;working with the grain,&rdquo; they usually mean cutting along the direction of the fibers, not against them. Riving is the only technique that does what the phrase actually says: you don&rsquo;t cut along the grain, you let the grain choose where the cut goes. Modern English carries this forward in another direction: a <em>riven</em> family, a <em>riven</em> country. The word didn&rsquo;t move; we just stopped noticing where it came from.</dd>
+
+      <dt><strong>green wood</strong></dt>
+      <dd>Wood still alive, or recently so. Moisture content high enough that the cells haven&rsquo;t shrunk back. Moves while you work it. Keeps moving for months after you&rsquo;re done. Carpenters who only know kiln-dried boards treat green wood like a problem; anyone who works it learns the movement is information.</dd>
+
+      <dt><strong>plane</strong> <span class="essay-definitions-meta">/pleɪn/ &middot; noun, verb.</span></dt>
+      <dd>A hand tool: a sharpened blade set in a body of wood or iron, tuned to shave a thin curl off a board. Also what you do with it. Not the geometry kind, not the airplane kind. The thing on a workbench. In the right hands, it leaves a surface smoother than sandpaper ever will. In the wrong hands, it digs a hole.</dd>
+
+      <dt><strong>grain</strong></dt>
+      <dd>The direction the wood fibers go. Sometimes obvious, sometimes not. Reading the grain is the difference between a clean cut and a torn-up surface; it&rsquo;s also the difference between a workpiece that holds and a workpiece that splits.</dd>
+
+      <dt><strong>heartwood</strong></dt>
+      <dd>The dense inner core of a mature tree, darker than the wood around it. Dead, but load-bearing: it has stopped growing, stopped moving water, and become the part that holds the rest of the tree up. The living wood is the thin layer at the edge.</dd>
+
+      <dt><strong>knot</strong></dt>
+      <dd>Where a branch grew out of the trunk, and the tree buried it under ring after ring of new wood, the way an oyster embalms a speck of grit in layers of pearl. Cut a knot the wrong way and your plane skips. The defect is the tree&rsquo;s memory.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Rope-knots are tied; wood-knots formed. Tied knots come from intention. Formed knots come from biography. Same word, different reading.</span></span></dd>
+
+      <dt><strong><a href="https://en.wikipedia.org/wiki/Reaction_wood" target="_blank" rel="noopener">reaction wood</a></strong></dt>
+      <dd>Wood the tree produced under load: a trunk leaning into a slope, a sapling pushed by its neighbor. The loaded side lays down different fibers. The board looks normal. It behaves badly. You can&rsquo;t see reaction wood until you cut it, and sometimes not until it warps in your shop a month later.</dd>
+    </dl>
+  </section>
+
+  <section class="essay-section" id="record">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Record</div></div>
+    <h2>Record</h2>
+
+    <p>Wood records. Each ring dates a year of growth. Each knot dates a branching event. Each scar dates an injury and the response to it. Trees keep no spreadsheets. They write in grain, ring, knot, and scar. Reading a board is reading a biography.</p>
+
+    {# [REDLINE — sentence after "planes the sapwood" needs Lee's hand.
+       Current "It skates uselessly across the knot" is conceptually wrong:
+       knots don't get skated across, that's clear sapwood. At a knot the
+       motion is encounter — less often skates, more often catches/crashes;
+       can take the wind out of you when in flow. Claude drafts kept stacking
+       carpentry verbs onto an institutional sentence and producing slop.
+       Lee writes the replacement. Lines after stay as-is. #}
+    <p>Communities are not inert inputs. Institutions are not dimensionally stable. Incentives swell and shrink seasonally. Political moisture content changes. Programs move after installation.</p>
+
+    <p>Institutions carry the same kind of record, and most of it slips past the tools they prefer. What gets filed planes the sapwood. It catches at the knot and reads nothing. A dated knot &ndash; a near-bankruptcy in 2002, an executive transition that swapped the nameplate not the decisions, an impact figure recycled since 2010, an annual report written for what the funder expected to be true &ndash; bears load the way heartwood does.</p>
+
+    <p>Institutionalized procedures, obsolete-seeming roles, accumulated tacit norms &mdash; these are the heartwood. Organizations that try to stay metabolically active all the way through their structure &ndash; all sapwood, no heartwood &ndash; are trading structural integrity for short-term nutrient throughput. They&rsquo;ll grow fast and blow over.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The tree doesn&rsquo;t know it&rsquo;s doing this. Abscission isn&rsquo;t a decision; phloem doesn&rsquo;t allocate. The mechanism runs below the level of agency. Reading the diagnosis doesn&rsquo;t change the mechanism &ndash; only how an organization responds to it. The frame names what&rsquo;s happening. It doesn&rsquo;t tell you what to cut.</span></span></p>
+
+    <p>Most of Alba is dead.</p>
+
+    <p>Most of the air came from things buried before they could decay.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Respiration and decay consume roughly 99% of the oxygen photosynthesis produces. Atmospheric O&#8322; accumulated, over billions of years, only because a small fraction of organic carbon got buried in sediments before it could be respired back to CO&#8322;. Catling &amp; Claire (2005), <em>How Earth&rsquo;s atmosphere evolved to an oxic state.</em></span></span></p>
+
+    <p>You hear the knot in stories. You usually learn what you really need to know at the bar, after the conference. Or in DMs. Or when the recording stops. Not in meetings.</p>
+
+    <p>Operators know. The operating narrative is everything &ndash; the story that connects operations to effectiveness, whatever the values and mission statement say. As Monika Krause argues in <em><a href="https://press.uchicago.edu/ucp/books/book/chicago/G/bo17888868.html" target="_blank" rel="noopener">The Good Project</a></em>, most NGOs have their narrative wrong. When the narrative is wrong, mission and operations decouple<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Meyer &amp; Rowan, &ldquo;<a href="https://www.journals.uchicago.edu/doi/10.1086/226550" target="_blank" rel="noopener">Institutionalized Organizations: Formal Structure as Myth and Ceremony</a>,&rdquo; <em>American Journal of Sociology</em> 83.2 (1977): 340&ndash;363. Formal structures get adopted to confer legitimacy, then decoupled from actual operating practice. The formal record and the operating record stop tracking each other.</span></span>. The tacit knowledge that actually runs the place lives scattered in heads.</p>
+
+    <p>An organization that cannot read its own record cannot locate its own knots. Non-profits and for-profits alike. No one sees the whole story from within &ndash; an <a href="https://anxiaomina.substack.com/p/elephant-problems-the-limitations" target="_blank" rel="noopener">elephant problem</a>.</p>
+
+    <p>Atlanta started branding itself &ldquo;<a href="https://www.atlantamagazine.com/news-culture-articles/why-atlanta-known-city-forest/" target="_blank" rel="noopener">City in a Forest</a>&rdquo; mid-twentieth century. American Forests put the metro region at 48% tree canopy in 1974; Georgia Tech put the city limits at 46.5% in 2018.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Georgia Tech Center for Spatial Planning Analytics and Visualization, <em>2018 City of Atlanta Urban Tree Canopy Assessment</em>; American Forests, <em>Regional Ecosystem Analysis: Atlanta Metropolitan Area</em> (2001). 1974 figure is metro region, 2018 figure is city limits &ndash; not a clean trend line.</span></span> The decade ending 2018 shed roughly 150 acres a year, mostly to private redevelopment. The cluster of global-health institutions whose campuses sit a few miles apart here &ndash; I was at <a href="https://www.sph.emory.edu/" target="_blank" rel="noopener">Rollins</a> for grad school, in the middle of it &ndash; runs the same dynamic at organizational scale.</p>
+
+    <figure class="essay-embed">
+      <iframe
+        src="https://taatl.maps.arcgis.com/apps/instant/basic/index.html?appid=64d57d52265a472b85548f580ddc8ba6"
+        title="Trees Atlanta Champion Trees map"
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+      <figcaption><a href="https://taatl.maps.arcgis.com/apps/instant/basic/index.html?appid=64d57d52265a472b85548f580ddc8ba6" target="_blank" rel="noopener">Trees Atlanta&rsquo;s Champion Trees</a>, inside I-285. Pan east of downtown to find Alba and the other Edgewood oaks.</figcaption>
+    </figure>
+  </section>
+
+  <section class="essay-section" id="knots-self">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">I work with knots</div></div>
+    <h2>I work with knots</h2>
+
+    <p>I've gathered a set of useful tools along the way, and made a few of my own. Most of my consulting tools are for handling <em>knots</em>: places where the grain runs in several directions at once, and the next cut is not obvious.</p>
+
+    <p>The cut depends on the knot. Reading one starts mechanically &ndash; how it formed, how the grain runs through it, where it fails.</p>
+  </section>
+
+  <section class="essay-section" id="how-knots">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">How I think about knots</div></div>
+    <h2>How I think about knots</h2>
+
+    <p>A knot begins as a branch &ndash; and the branch began as a reach for light.</p>
+
+    <p>Each year, with the turn of the seasons, the tree lays down another ring of wood around its core, just beneath the bark. Slowly the trunk thickens around the living branch, engulfing it ring by ring. Year after year, ring on ring, knot on knot.</p>
+
+    <p>Sped up, the tree would look animate. Bark faintly crackling along the trunk&rsquo;s slow swell, microfissures opening into warm, gnarled retreats for insects. Pale new wood lapping over the last with each rainy season. Meanwhile the buried branch, still carrying water up through the trunk to leaves beyond the bark, keeps drinking.</p>
+
+    <p>A knot is engulfed tissue, still drinking.</p>
+
+    <p>A sawyer reads for them. Bark bumps, branch scars, the way the tree leaned. The log gets oriented on the carriage accordingly.</p>
+
+    <hr class="essay-divider" />
+
+    <p>The tree keeps growing toward the sun, laying down new road each spring on its journey toward the sky (while the weather's good for construction). Inside and out, the tree works the season for what it can get. Moisture, warmth, and light.</p>
+
+    <p>At a knot, the grain takes the long way around.</p>
+
+    <p>Around the knot, the fibers crowd together, cross paths, switch direction without warning. Sometimes the wood hardens around the knot, glassy and resinous, and your chisel chatters across it. Sometimes the fibers tear loose all at once and leave a divot where a smooth cut was supposed to be. Wood that read clear a few inches ago judders under the plane<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Earlier draft similes for these same mechanisms, dropped from the prose because the verbs (chatters, judders) carry it: the grain bending the way spacetime bends around a black hole; the chisel chattering like a skipped record; the plane juddering like a shopping cart with one bad wheel; worst case, the plane meeting a knot the way a car meets a telephone pole.</span></span>.</p>
+
+    <p>This is usually where people begin blaming their tools.</p>
+
+    <p>The knot holds harder than the wood around it under certain loads, and fails first across the grain.</p>
+
+    <p>You learn to read ahead a little. The habit carries.</p>
+
+    <hr class="essay-divider" />
+
+    <p>Living systems make knots. No knots, no branches. No branches, no peaches, nesting places, or afternoon shade. No shade, no tree to fall asleep against.</p>
+
+    <p>You don&rsquo;t fix a gnarled oak. You learn to read what the tree has written, reckon with how the grain bends around the knot, and follow the cut the grain itself wants.</p>
+  </section>
+
+  <section class="essay-section" id="common-knots">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Common knots and useful tools</div></div>
+    <h2>Common knots and useful tools</h2>
+
+    <p>To know which tool to reach for, we have to examine the knot.</p>
+
+    <p>A knot is a recurring configuration of legitimate pressures that can&rsquo;t all be satisfied at once. Read the shape early.</p>
+
+    <h3>The problem with wicked problems</h3>
+
+    <figure class="essay-figure-inbody">
+      <img
+        src="/img/essay/consider-the-tree/concepts-become-things.webp"
+        alt="A photograph of geometric solids - spheres, cones, cylinders, cubes, prisms - arranged in a desert landscape, overlaid with the meme caption 'Everybody gangsta until concepts become things.'"
+      />
+      <figcaption>Found meme. Original artwork: <em>Metamorphosis</em>, <a href="https://en.wikipedia.org/wiki/Herbert_Bayer" target="_blank" rel="noopener">Herbert Bayer</a> (1936).</figcaption>
+    </figure>
+
+    <p>&ldquo;Wicked problems&rdquo; is a frame for hard problems. <a href="https://doi.org/10.1080/14494035.2019.1617971">It&rsquo;s been used too many ways to mean much.</a> Once I've called something wicked, I know it's hard. I don't know what kind of hard, or what to do next.</p>
+
+    <p>A better diagnostic names the knot, and the cut that fits it. A few I work with often:</p>
+
+    <p><strong><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" target="_blank" rel="noopener">Goodhart&rsquo;s Law</a>.</strong> <em>(<a href="https://en.wikipedia.org/wiki/Campbell%27s_law" target="_blank" rel="noopener">Campbell&rsquo;s Law</a> &middot; Tyranny of Metrics)</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Charles Goodhart&rsquo;s original 1975 formulation: <em>&ldquo;Any observed statistical regularity will tend to collapse once pressure is placed upon it for control purposes.&rdquo;</em> The Strathern compression is the line that travels: <em>&ldquo;When a measure becomes a target, it ceases to be a good measure.&rdquo;</em></span></span> An indicator starts as protection against drift, then becomes the thing the system optimizes. Staff know which number matters; they learn to game it whether or not the work moves with it. The number is sapwood. The actual grain runs somewhere underneath. Rotate the measures. Triangulate with what the indicator can&rsquo;t see. Leave the number under-optimized.</p>
+
+    <p><strong>Capability Trap.</strong> <em>(Andrews, Pritchett &amp; Woolcock)</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Matt Andrews, Lant Pritchett &amp; Michael Woolcock, <em><a href="https://library.oapen.org/handle/20.500.12657/31857" target="_blank" rel="noopener">Building State Capability: Evidence, Analysis, Action</a></em> (Oxford, 2017). Pairs with <em>premature load bearing</em> &ndash; the related failure mode where a new mechanism is asked to carry weight before the underlying capacity exists.</span></span> Organizations learn to look functional before they learn to function. Plans, dashboards, organograms, all visible; the ordinary work still depends on improvisation. This is reaction wood. The boards lay down straight, and warp a month after delivery. Fewer formal commitments. Permission for the competence to form underneath before the polish is asked of it.</p>
+
+    <p><strong>Isomorphic Mimicry.</strong> <em>(DiMaggio &amp; Powell &middot; <a href="https://en.wikipedia.org/wiki/Seeing_Like_a_State" target="_blank" rel="noopener">Seeing Like a State</a>)</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Paul DiMaggio &amp; Walter Powell, &ldquo;The Iron Cage Revisited: Institutional Isomorphism and Collective Rationality in Organizational Fields,&rdquo; <em>American Sociological Review</em> 48 (1983): 147&ndash;160. Three mechanisms: coercive (regulation, funder demands), mimetic (copying perceived legitimate forms under uncertainty), normative (professional training and credentialing). The development-policy variant &ndash; <em>isomorphic mimicry</em> &ndash; comes out of the Building State Capability work and emphasizes mimetic adoption of form without the underlying capacity.</span></span> Institutions import the form of legitimacy from somewhere else because that&rsquo;s what funders and peers recognize. Inside, the real decisions still travel through an older informal architecture. The surface grain was planed to match the room. What&rsquo;s load-bearing was grown in a different forest. Keep the imported form. Let the actual load shape what&rsquo;s underneath.</p>
+
+    <p><strong>Trust on Demand.</strong> <em>(Trapped Priors)</em> A split that opened in a different cut, years ago, and never closed. Institutions ask for trust where prior experience has trained people to withhold it. Officials hear distrust as misinformation; communities hear urgency as another request to carry risk for someone else&rsquo;s plan. Repair before persuasion: name prior harms, narrow promises, permit refusal.</p>
+
+    <p><strong>Evaluation Theatre.</strong> <em>(Innovation Theater &middot; <a href="/shelf/#bullshit" target="_blank" rel="noopener">Cargo Cult Science</a>)</em> The grain direction was declared in the terms of reference. Nobody read the actual wood. Terms of reference get drafted toward a known landing; inception meetings narrow the questions; everyone in the room already knows which answers are safe. Findings get praised; nothing consequential changes. Precommit to decisions the findings can change. Fund the negative result.</p>
+
+    <p>Most real work has several of these going at once. My job is to work where the story and the material have come apart, and find the next cut.</p>
+  </section>
+
+  <blockquote class="essay-epigraph essay-coda" cite="https://www.essence.com/entertainment/andre-3000-new-blue-sun/">
+    <p>&ldquo;I&rsquo;m very interested right now in things that will grow&hellip; They outlive the people that started them and they are passed down through generations. My kids, kids, kids will take care of that tree.&rdquo;</p>
+    <footer class="essay-epigraph-attribution">
+      <cite>Andr&eacute; 3000</cite>, 2023
+    </footer>
+  </blockquote>
+
+</article>
+
+<aside class="essay-after" aria-label="After the essay">
+
+  <style>
+    /* Visual separation: the essay closes on the André coda; what follows
+       lives outside the article frame. Top rule + margin makes the break
+       legible without announcing it. */
+    .essay-after {
+      max-width: 38em;
+      margin: 5rem auto 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+    }
+  </style>
+
+  <style>
+    /* Related-models footer — faint Lindy'd index of frames the essay leans on
+       without naming. Reader who recognizes them is rewarded; reader who doesn't
+       hasn't been blocked. */
+    .essay-related-models {
+      margin: 4rem auto 2rem;
+      max-width: 38em;
+      padding-top: 1.5rem;
+      border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      opacity: 0.78;
+    }
+    .essay-related-models h2 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-variant: small-caps;
+      letter-spacing: 0.08em;
+      text-transform: lowercase;
+      margin: 0 0 0.7rem;
+      color: var(--ink-soft, currentColor);
+    }
+    .essay-related-models ul { list-style: none; padding: 0; margin: 0; }
+    .essay-related-models li { margin-bottom: 0.55em; }
+    .essay-related-models a {
+      font-style: italic;
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+      text-underline-offset: 2px;
+    }
+    .essay-related-models a:hover { text-decoration-color: currentColor; }
+  </style>
+
+  <aside class="essay-related-models" aria-label="Related mental models">
+    <h2>In the background</h2>
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Chesterton%27s_fence" rel="noopener">Chesterton&rsquo;s Fence</a> &ndash; don&rsquo;t tear down a knot you can&rsquo;t read.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" rel="noopener">Goodhart&rsquo;s law</a> &ndash; when the indicator becomes the target, both rot.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Path_dependence" rel="noopener">Path dependence</a> &ndash; knots are biography, made permanent by load.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Tacit_knowledge" rel="noopener">Tacit knowledge</a> &ndash; the sawyer reads what the carpenter can&rsquo;t write down.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Wicked_problem" rel="noopener">Wicked problems</a> &ndash; the term that emptied itself by overuse.</li>
+    </ul>
+  </aside>
+
+  <footer class="essay-foot">
+    <p class="essay-foot-cta"><a href="/consulting/">Work with me &rarr;</a></p>
+  </footer>
+
+  <script>
+    // ============================================================
+    // Editor mode: activate by appending ?edit=1 to the URL.
+    // Makes the essay contenteditable + adds flag/comment/export.
+    // Auto-saves to localStorage; export copies updated HTML.
+    // ============================================================
+    (function() {
+      const params = new URLSearchParams(location.search);
+      if (!params.has('edit')) return;
+      const article = document.querySelector('article.essay');
+      if (!article) return;
+      const STORAGE_KEY = 'essay-edits:' + location.pathname;
+
+      // Restore saved edits via DOMParser (safer than innerHTML)
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          if (data && data.html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(
+              '<div>' + data.html + '</div>',
+              'text/html'
+            );
+            const container = doc.body.firstChild;
+            // Remove any scripts the parser may have included (paranoia)
+            container.querySelectorAll('script').forEach(s => s.remove());
+            // Replace article children with parsed nodes
+            while (article.firstChild) article.removeChild(article.firstChild);
+            while (container.firstChild) article.appendChild(container.firstChild);
+          }
+        } catch (e) { console.warn('Restore failed:', e); }
+      }
+
+      // Make text editable
+      const EDITABLE = 'p, h1, h2, h3, h4, li, figcaption, dt, dd, blockquote';
+      article.querySelectorAll(EDITABLE).forEach(el => {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('spellcheck', 'true');
+      });
+
+      // Auto-save on edit (debounced)
+      let saveTimer = null;
+      article.addEventListener('input', () => {
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => {
+          // Serialize via outerHTML of cloned content (read-only operation)
+          const clone = article.cloneNode(true);
+          clone.querySelectorAll('[contenteditable]').forEach(el =>
+            el.removeAttribute('contenteditable')
+          );
+          clone.querySelectorAll('[spellcheck]').forEach(el =>
+            el.removeAttribute('spellcheck')
+          );
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            html: clone.innerHTML,
+            ts: Date.now()
+          }));
+          status('Saved ' + new Date().toLocaleTimeString());
+        }, 400);
+      });
+
+      // Build toolbar via DOM API (no innerHTML)
+      function el(tag, attrs, text) {
+        const e = document.createElement(tag);
+        if (attrs) for (const k in attrs) {
+          if (k === 'dataset') for (const dk in attrs.dataset) e.dataset[dk] = attrs.dataset[dk];
+          else e.setAttribute(k, attrs[k]);
+        }
+        if (text != null) e.textContent = text;
+        return e;
+      }
+
+      const toolbar = el('div', { class: 'essay-editor-toolbar' });
+      toolbar.appendChild(el('div', { class: 'essay-editor-title' }, 'Editor mode'));
+
+      const buttons = [
+        ['flag', '⚑ Flag', 'Highlight selected text (yellow)'],
+        ['comment', '💬 Comment', 'Add a note on selection'],
+        ['unmark', '⌫ Clear flag', 'Remove flag/comment from selection'],
+        ['export', '↓ Copy HTML', 'Copy edited HTML to clipboard'],
+        ['json', '⤴ Copy JSON', 'Copy edits as structured JSON'],
+        ['reset', '↺ Reset', 'Discard all edits'],
+      ];
+      buttons.forEach(([action, label, title]) => {
+        const b = el('button', { type: 'button', title, dataset: { action } }, label);
+        toolbar.appendChild(b);
+      });
+      const statusEl = el('div', { class: 'essay-editor-status' });
+      toolbar.appendChild(statusEl);
+      document.body.appendChild(toolbar);
+
+      function status(msg) {
+        statusEl.textContent = msg;
+        if (msg) setTimeout(() => { if (statusEl.textContent === msg) statusEl.textContent = ''; }, 3000);
+      }
+
+      function wrapSelection(className, comment) {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) { status('Select text first'); return; }
+        const range = sel.getRangeAt(0);
+        if (range.collapsed) { status('Select text first'); return; }
+        try {
+          const mark = el('mark', { class: className });
+          if (comment) {
+            mark.title = comment;
+            mark.dataset.comment = comment;
+          }
+          range.surroundContents(mark);
+          sel.removeAllRanges();
+          article.dispatchEvent(new Event('input'));
+        } catch (e) { status('Cannot flag across elements'); }
+      }
+
+      function unmarkSelection() {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) { status('Select text first'); return; }
+        let node = sel.anchorNode;
+        while (node && node !== article) {
+          if (node.nodeType === 1 && node.tagName === 'MARK' &&
+              (node.classList.contains('essay-flag') || node.classList.contains('essay-flag-comment'))) {
+            const parent = node.parentNode;
+            while (node.firstChild) parent.insertBefore(node.firstChild, node);
+            parent.removeChild(node);
+            article.dispatchEvent(new Event('input'));
+            return;
+          }
+          node = node.parentNode;
+        }
+        status('No flag found in selection');
+      }
+
+      function exportHTML() {
+        const clone = article.cloneNode(true);
+        clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+        clone.querySelectorAll('[spellcheck]').forEach(el => el.removeAttribute('spellcheck'));
+        navigator.clipboard.writeText(clone.outerHTML).then(() => status('HTML copied'));
+      }
+
+      function exportJSON() {
+        const flags = [];
+        article.querySelectorAll('mark.essay-flag, mark.essay-flag-comment').forEach(m => {
+          flags.push({
+            text: m.textContent,
+            comment: m.dataset.comment || null,
+            type: m.classList.contains('essay-flag-comment') ? 'comment' : 'flag'
+          });
+        });
+        const data = { page: location.pathname, ts: new Date().toISOString(), flagCount: flags.length, flags };
+        navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(() => {
+          status('JSON copied (' + flags.length + ' flags)');
+        });
+      }
+
+      function resetEdits() {
+        if (!confirm('Discard all edits and flags? This cannot be undone.')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      }
+
+      toolbar.addEventListener('click', e => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        if (action === 'flag') wrapSelection('essay-flag');
+        else if (action === 'comment') {
+          const note = prompt('Comment for this selection:');
+          if (note && note.trim()) wrapSelection('essay-flag-comment', note.trim());
+        } else if (action === 'unmark') unmarkSelection();
+        else if (action === 'export') exportHTML();
+        else if (action === 'json') exportJSON();
+        else if (action === 'reset') resetEdits();
+      });
+
+      document.addEventListener('keydown', e => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'f') {
+          e.preventDefault();
+          wrapSelection('essay-flag');
+        }
+      });
+
+      status('Editor active — click any text to edit');
+    })();
+  </script>
+
+  <style>
+    .essay-editor-toolbar {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: var(--bg, #100f0f);
+      color: var(--ink, #cecdc3);
+      border: 1px solid color-mix(in srgb, var(--ink, #cecdc3) 18%, transparent);
+      border-radius: 6px;
+      padding: 12px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.74rem;
+      min-width: 180px;
+    }
+    .essay-editor-title {
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: color-mix(in srgb, var(--ink, #cecdc3) 50%, transparent);
+      padding-bottom: 6px;
+      border-bottom: 1px solid color-mix(in srgb, var(--ink, #cecdc3) 12%, transparent);
+      margin-bottom: 4px;
+    }
+    .essay-editor-toolbar button {
+      background: transparent;
+      color: inherit;
+      border: 1px solid color-mix(in srgb, var(--ink, #cecdc3) 14%, transparent);
+      padding: 7px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      text-align: left;
+      font-family: inherit;
+      font-size: inherit;
+      transition: border-color 120ms, background 120ms;
+    }
+    .essay-editor-toolbar button:hover {
+      border-color: var(--accent, #d14f3a);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .essay-editor-status {
+      font-size: 0.66rem;
+      color: color-mix(in srgb, var(--ink, #cecdc3) 55%, transparent);
+      padding-top: 6px;
+      border-top: 1px solid color-mix(in srgb, var(--ink, #cecdc3) 12%, transparent);
+      margin-top: 4px;
+      min-height: 1em;
+    }
+    mark.essay-flag {
+      background-color: rgba(255, 215, 0, 0.32);
+      color: inherit;
+      border-bottom: 1px dashed rgba(255, 215, 0, 0.7);
+      padding: 0 1px;
+    }
+    mark.essay-flag-comment {
+      background-color: rgba(255, 110, 110, 0.28);
+      color: inherit;
+      border-bottom: 1px dashed rgba(255, 110, 110, 0.7);
+      padding: 0 1px;
+      cursor: help;
+    }
+    [contenteditable="true"] { outline: none; }
+    [contenteditable="true"]:hover {
+      outline: 1px dashed color-mix(in srgb, var(--accent, #d14f3a) 25%, transparent);
+      outline-offset: 6px;
+    }
+    [contenteditable="true"]:focus {
+      outline: 1px solid color-mix(in srgb, var(--accent, #d14f3a) 50%, transparent);
+      outline-offset: 6px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+  </style>
+
+  <script>
+    (function() {
+      const links = document.querySelectorAll('.essay-toc-list a');
+      if (!links.length || !('IntersectionObserver' in window)) return;
+      const sections = Array.from(links).map(link => {
+        const id = link.getAttribute('href').slice(1);
+        return document.getElementById(id);
+      }).filter(Boolean);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            links.forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      sections.forEach(section => observer.observe(section));
+    })();
+  </script>
+
+</aside>
