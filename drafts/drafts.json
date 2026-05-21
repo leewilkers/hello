@@ -1,0 +1,8 @@
+{
+  "layout": "base.njk",
+  "permalink": "/_drafts/{{ page.fileSlug }}/index.html",
+  "eleventyExcludeFromCollections": true,
+  "excludeFromSitemap": true,
+  "robots": "noindex, nofollow",
+  "pageClass": "page-essay page-draft"
+}
