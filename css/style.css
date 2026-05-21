@@ -10746,12 +10746,38 @@ article[class*="page-"] {
 }
 
 /* Judah aka-list: for pages like consulting where each item carries
-   a citation/AKA below the body line. Used inline within .judah pages. */
-.judah-aka-list { list-style: none; padding: 0; margin: 0 0 2.6rem; }
+   a citation/AKA below the body line. Numbered by default — the list
+   reads as "here are N discrete observations." */
+.judah-aka-list {
+  list-style: decimal outside;
+  padding-left: 1.6rem;
+  margin: 0 0 2.6rem;
+}
 .judah-aka-list > li {
-  margin: 0 0 1.6rem; padding: 0;
+  margin: 0 0 1.6rem;
+  padding-left: 0.4rem;
+}
+.judah-aka-list > li::marker {
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 .judah-aka-list > li:last-child { margin-bottom: 0; }
+
+/* Bulleted list inside .judah for general "here are some things" lists
+   (deliverables, options, etc.) — no AKA treatment needed. */
+.judah ul.judah-bullets {
+  list-style: disc outside;
+  padding-left: 1.5rem;
+  margin: 0 0 2.6rem;
+}
+.judah ul.judah-bullets > li {
+  margin: 0 0 0.9rem;
+  padding-left: 0.4rem;
+}
+.judah ul.judah-bullets > li::marker {
+  color: var(--ink-soft);
+}
+.judah ul.judah-bullets > li:last-child { margin-bottom: 0; }
 .judah-aka-list .aka {
   display: block;
   margin-top: 0.35em;
