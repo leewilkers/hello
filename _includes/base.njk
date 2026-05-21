@@ -114,8 +114,8 @@
   </a>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="{{ navHref('/site-tree/') | trim }}" {% if page.url == "/site-tree/" %}class="active"{% endif %}>home</a>
-      <a href="{{ navHref('/') | trim }}" {% if page.url == "/" %}class="active"{% endif %}>about</a>
+      <a href="{{ navHref('/') | trim }}" {% if page.url == "/" %}class="active"{% endif %}>home</a>
+      <a href="{{ navHref('/about/') | trim }}" {% if page.url == "/about/" %}class="active"{% endif %}>about</a>
       <a href="{{ navHref('/writing/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a>
       <a href="{{ navHref('/projects/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/projects/" %} class="active"{% endif %}>projects</a>
       <a href="{{ navHref('/consulting/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a>
