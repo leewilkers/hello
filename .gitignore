@@ -13,7 +13,8 @@ source_reading/acquire.html
 source_reading/DOWNLOAD_CHECKLIST.md
 _og-card.html
 __pycache__/
-scripts/
+scripts/*
+!scripts/build-preview-mirror.js
 .superpowers/
 claude_design/
 qa/

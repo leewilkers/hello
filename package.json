@@ -4,7 +4,7 @@
   "description": "A personal link archive",
   "scripts": {
     "start": "eleventy --serve",
-    "build": "rm -rf _site && eleventy",
+    "build": "rm -rf _site && eleventy && node scripts/build-preview-mirror.js",
     "build:wiki": "npm run build && pagefind --site _site/pattern-atlas/index --output-subdir _pagefind",
     "start:wiki": "npm run build:wiki && eleventy --serve"
   },

@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /_drafts/
+Disallow: /preview-7m4q/
 
 Sitemap: https://leewilkers.com/sitemap.xml
