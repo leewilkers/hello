@@ -5,6 +5,65 @@ permalink: /consulting/
 pageClass: page-consulting
 ---
 
+<style>
+  /* === Gwern-style in-place hover popover (inlined for /consulting/) === */
+  .gwern-note { position: relative; }
+  .gwern-note-marker {
+    font-feature-settings: "sups";
+    font-size: 0.85em;
+    color: var(--ink-soft, #6a655a);
+    border-bottom: 1px dotted currentColor;
+    cursor: help;
+    margin-left: 0.05em;
+    padding: 0 0.1em;
+  }
+  .gwern-note:hover .gwern-note-marker,
+  .gwern-note:focus-within .gwern-note-marker { color: var(--ink, #2a2820); }
+
+  .gwern-note-popover {
+    display: none;
+    position: absolute;
+    top: 1.5em;
+    left: -0.5em;
+    width: min(24em, calc(100vw - 2rem));
+    z-index: 100;
+    background: var(--bg, #f7f3e9);
+    color: var(--ink, #2a2820);
+    border: 1px solid var(--rule, #c8c1b3);
+    border-radius: 2px;
+    padding: 0.8em 1em;
+    font-size: 0.82rem;
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    line-height: 1.45;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    font-style: normal;
+  }
+  .gwern-note:hover .gwern-note-popover,
+  .gwern-note:focus-within .gwern-note-popover,
+  .gwern-note.gwern-note--open .gwern-note-popover { display: block; }
+  .gwern-note.gwern-note--open .gwern-note-marker { color: var(--ink, #2a2820); }
+  .gwern-note.gwern-note--right .gwern-note-popover { left: auto; right: -0.5em; }
+
+  .gwern-note-popover .np-gloss { display: block; }
+  .gwern-note-popover em { font-style: italic; }
+  .gwern-note-popover::before {
+    content: "";
+    position: absolute;
+    top: -1.6em;
+    left: 0;
+    right: 0;
+    height: 1.6em;
+  }
+  @media (prefers-color-scheme: dark) {
+    .gwern-note-popover {
+      background: #1a1812;
+      border-color: #3a3528;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+  }
+</style>
+
 <article class="judah" id="main">
 
   <header class="masthead">
@@ -23,23 +82,23 @@ pageClass: page-consulting
   <p><strong>Where I tend to be useful.</strong></p>
 
   <ol class="judah-aka-list">
-    <li>There&rsquo;s a committee. It&rsquo;s supposed to decide. It doesn&rsquo;t &mdash; the decision got made somewhere else, before the meeting.
-      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Decoupling" rel="noopener">decoupling</a> (Meyer &amp; Rowan, 1977).</span>
+    <li>A formal process everyone attends and nobody uses to make the decisions it governs. The real decision room is somewhere else, and everyone in the building can tell you where.
+      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Decoupling" rel="noopener">decoupling</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&sup1;</span><span class="gwern-note-popover"><span class="np-gloss">Organizations adopt formal structures for legitimacy while loosely coupling them from the actual technical work. What gets done is decoupled from what the formal structure promises.</span></span></span> (Meyer &amp; Rowan, 1977).</span>
     </li>
-    <li>Something fell apart and everyone can honestly say it wasn&rsquo;t their piece. The whole thing has no owner.
-      <span class="aka">AKA the <a href="https://en.wikipedia.org/wiki/Problem_of_many_hands" rel="noopener">problem of many hands</a> (Thompson, 1980).</span>
+    <li>Every actor can explain procedurally why the failure was someone else&rsquo;s piece. The frontline carries the consequence; nobody owns the whole.
+      <span class="aka">AKA the <a href="https://en.wikipedia.org/wiki/Problem_of_many_hands" rel="noopener">problem of many hands</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&sup2;</span><span class="gwern-note-popover"><span class="np-gloss">When many actors contribute to an outcome, no single person can be held responsible. Accountability dissipates across the contributors and the harm has no clear owner.</span></span></span> (Thompson, 1980).</span>
     </li>
-    <li>The metric goes up while the thing it was supposed to track gets worse. Saying this out loud sounds anti-measurement.
-      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" rel="noopener">Goodhart&rsquo;s law</a> (1975).</span>
+    <li>An indicator that improves every quarter while the encounter, outcome, or relationship it was supposed to protect is not. Nobody in the room can say so without sounding like they&rsquo;re against measurement.
+      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law" rel="noopener">Goodhart&rsquo;s law</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&sup3;</span><span class="gwern-note-popover"><span class="np-gloss">When a measure becomes a target, it ceases to be a good measure. Gaming the indicator displaces the work the indicator was meant to capture.</span></span></span> (1975).</span>
     </li>
-    <li>Everyone knows the program should have ended years ago, funder included. Killing it would mean admitting the original money was a mistake &mdash; so it doesn&rsquo;t get killed.
-      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Escalation_of_commitment" rel="noopener">escalation of commitment</a> (Staw, 1976).</span>
+    <li>A funded vertical everyone (including the funder) knows shouldn&rsquo;t exist standalone, kept alive because folding it in would force someone to be first to write off the past commitment.
+      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Escalation_of_commitment" rel="noopener">escalation of commitment</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&#8308;</span><span class="gwern-note-popover"><span class="np-gloss">Continuing to invest in a failing course of action because of prior commitments, rather than evaluating future prospects on their own merits. Sunk-cost reasoning at the organizational scale.</span></span></span> (Staw, 1976).</span>
     </li>
-    <li>What you say publicly has to survive being quoted out of context. The honest version doesn&rsquo;t. So nothing quite honest gets said.
-      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Strategic_ambiguity" rel="noopener">strategic ambiguity</a> (Eisenberg, 1984).</span>
+    <li>A leader who has to say something publicly that&rsquo;s defensible, when the technically honest version sounds weaker than what the moment allows.
+      <span class="aka">AKA <a href="https://en.wikipedia.org/wiki/Strategic_ambiguity" rel="noopener">strategic ambiguity</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&#8309;</span><span class="gwern-note-popover"><span class="np-gloss">Deliberately vague communication that lets multiple audiences read different meanings into the same words. Preserves room to maneuver, at the cost of being honest with any one of them.</span></span></span> (Eisenberg, 1984).</span>
     </li>
-    <li>One person carries the whole thing in their head. If they leave, it&rsquo;s gone &mdash; nobody ever wrote any of it down.
-      <span class="aka">AKA the <a href="https://en.wikipedia.org/wiki/Bus_factor" rel="noopener">bus factor</a>.</span>
+    <li>A team whose program becomes fragile the moment one person is unavailable, because the work that held it together was never written down.
+      <span class="aka">AKA the <a href="https://en.wikipedia.org/wiki/Bus_factor" rel="noopener">bus factor</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">&#8310;</span><span class="gwern-note-popover"><span class="np-gloss">The number of people whose unexpected absence would cripple a project, because they hold critical undocumented knowledge. Low bus factor = fragile institution.</span></span></span>.</span>
     </li>
   </ol>
 
@@ -74,3 +133,38 @@ pageClass: page-consulting
   <p><strong>Contact.</strong> <a href="mailto:lee@leewilkers.com?subject=Consulting%20inquiry">lee@leewilkers.com</a></p>
 
 </article>
+
+<script>
+  // Tap-to-toggle for .gwern-note popovers. Hover and keyboard focus stay
+  // in CSS; this adds sticky tap-to-open for touch + pin for mouse.
+  // Outside-tap dismisses. Auto-right-anchors when marker is past viewport
+  // midline so the popover stays on-screen on narrow viewports.
+  (function () {
+    document.addEventListener('click', function (e) {
+      var marker = e.target.closest('.gwern-note-marker');
+      if (marker) {
+        var note = marker.closest('.gwern-note');
+        if (!note) return;
+        var wasOpen = note.classList.contains('gwern-note--open');
+        document.querySelectorAll('.gwern-note--open').forEach(function (n) {
+          n.classList.remove('gwern-note--open');
+          n.classList.remove('gwern-note--right');
+        });
+        if (!wasOpen) {
+          var markerRect = marker.getBoundingClientRect();
+          if (markerRect.left > window.innerWidth / 2) {
+            note.classList.add('gwern-note--right');
+          }
+          note.classList.add('gwern-note--open');
+        }
+        e.stopPropagation();
+        return;
+      }
+      if (!e.target.closest('.gwern-note-popover')) {
+        document.querySelectorAll('.gwern-note--open').forEach(function (n) {
+          n.classList.remove('gwern-note--open');
+        });
+      }
+    });
+  })();
+</script>
