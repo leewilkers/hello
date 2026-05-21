@@ -10683,3 +10683,88 @@ article[class*="page-"] {
 @media (max-width: 540px) {
   .draft-banner { font-size: 0.7rem; padding: 0.35rem 0.75rem; }
 }
+
+/* ---------------------------------------------------------------------
+   Judah layout: centered narrow sans column.
+   Aesthetic adopted for index / listing / landing pages where the
+   reading register should feel like a quiet directory rather than a
+   full essay-typography page. Theme vars carry light/dark.
+   --------------------------------------------------------------------- */
+.judah {
+  max-width: 36rem;
+  margin: 6rem auto 8rem;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 1.0625rem;   /* 17px */
+  line-height: 1.5;
+  color: var(--ink);
+}
+.judah .masthead { text-align: center; margin-bottom: 4rem; }
+.judah .masthead .wordmark {
+  font-size: 1.5rem; letter-spacing: 0.02em; font-weight: 600; margin: 0;
+}
+.judah .masthead .by {
+  font-size: 1rem; color: var(--ink-soft); margin: 0.25rem 0 0;
+}
+.judah p { margin: 0 0 1.4rem; }
+.judah p strong { font-weight: 600; color: var(--ink); }
+.judah p em { font-style: italic; }
+.judah a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--ink-soft);
+  text-underline-offset: 3px;
+}
+.judah a:hover { text-decoration-color: currentColor; }
+.judah hr {
+  border: 0;
+  border-top: 1px solid var(--rule, var(--ink-soft));
+  margin: 2.6rem 0;
+  opacity: 0.4;
+}
+
+/* Judah index list: title-as-link, meta below, generous spacing between
+   entries. Used for index / directory pages (writing, projects, etc.). */
+.judah-index { list-style: none; padding: 0; margin: 0; }
+.judah-index > li { margin: 0 0 2.6rem; padding: 0; }
+.judah-index > li:last-child { margin-bottom: 0; }
+.judah-index .entry-title {
+  font-size: 1.18rem; font-weight: 600; margin: 0 0 0.45rem; line-height: 1.3;
+}
+.judah-index .entry-title a { color: var(--ink); text-decoration: none; }
+.judah-index .entry-title a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--ink-soft);
+  text-underline-offset: 3px;
+}
+.judah-index .entry-meta {
+  font-size: 0.98rem; color: var(--ink-soft); margin: 0;
+}
+.judah-index .entry-status {
+  font-style: italic; color: var(--ink-faint, var(--ink-soft));
+  font-size: 0.92rem; margin-top: 0.3rem;
+}
+
+/* Judah aka-list: for pages like consulting where each item carries
+   a citation/AKA below the body line. Used inline within .judah pages. */
+.judah-aka-list { list-style: none; padding: 0; margin: 0 0 2.6rem; }
+.judah-aka-list > li {
+  margin: 0 0 1.6rem; padding: 0;
+}
+.judah-aka-list > li:last-child { margin-bottom: 0; }
+.judah-aka-list .aka {
+  display: block;
+  margin-top: 0.35em;
+  font-style: italic;
+  font-size: 0.88em;
+  color: var(--ink-soft);
+}
+.judah-aka-list .aka a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 2px;
+}
+.judah-aka-list .aka a:hover {
+  text-decoration-color: currentColor;
+}
