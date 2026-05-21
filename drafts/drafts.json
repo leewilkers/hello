@@ -4,5 +4,6 @@
   "eleventyExcludeFromCollections": true,
   "excludeFromSitemap": true,
   "robots": "noindex, nofollow",
-  "pageClass": "page-essay page-draft"
+  "pageClass": "page-essay page-draft",
+  "draft": true
 }

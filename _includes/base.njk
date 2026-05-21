@@ -94,7 +94,14 @@
   <link rel="stylesheet" href="/css/brico-colors.css">
   {% endif %}
 </head>
-<body>
+<body{% if draft %} data-draft="true"{% endif %}>
+
+{% if draft %}
+<div class="draft-banner" role="status" aria-label="Draft preview">
+  <span class="draft-banner-label">DRAFT</span>
+  <span class="draft-banner-text">private preview – not live yet</span>
+</div>
+{% endif %}
 
 <a href="#main" class="skip-link">Skip to content</a>
 

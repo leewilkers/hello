@@ -10654,3 +10654,32 @@ article[class*="page-"] {
   }
 }
 
+
+/* Draft preview banner — only renders on pages served from /_drafts/. */
+.draft-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.4rem 1rem;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--reading);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-align: center;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 80%, var(--bg));
+}
+.draft-banner-label {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.draft-banner-text {
+  font-style: italic;
+  opacity: 0.85;
+}
+@media (max-width: 540px) {
+  .draft-banner { font-size: 0.7rem; padding: 0.35rem 0.75rem; }
+}
