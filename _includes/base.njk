@@ -105,20 +105,22 @@
 
 <a href="#main" class="skip-link">Skip to content</a>
 
+{# In draft mode, swap a live URL for its draft equivalent if one is registered in _data/drafts.js. #}
+{% macro navHref(url) %}{% if draft and drafts[url] %}{{ drafts[url] }}{% else %}{{ url }}{% endif %}{% endmacro %}
 <nav class="site-nav" aria-label="Primary">
-  <a href="/" class="nav-name">
+  <a href="{{ navHref('/') | trim }}" class="nav-name">
     <span class="nav-name-line">Lee Wilkers</span>
     <span class="nav-name-sub">LW Research &amp; Advisory, LLC</span>
   </a>
   <div class="nav-right">
     <div class="nav-links">
-      <a href="/site-tree/" {% if page.url == "/site-tree/" %}class="active"{% endif %}>home</a>
-      <a href="/" {% if page.url == "/" %}class="active"{% endif %}>about</a>
-      <a href="/writing/" title="in progress – pardon the dust"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a>
-      <a href="/projects/" title="in progress – pardon the dust"{% if page.url == "/projects/" %} class="active"{% endif %}>projects</a>
-      <a href="/consulting/" title="in progress – pardon the dust"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a>
-      <a href="/shelf/" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
-      <a href="/stream/" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
+      <a href="{{ navHref('/site-tree/') | trim }}" {% if page.url == "/site-tree/" %}class="active"{% endif %}>home</a>
+      <a href="{{ navHref('/') | trim }}" {% if page.url == "/" %}class="active"{% endif %}>about</a>
+      <a href="{{ navHref('/writing/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/writing/" %} class="active"{% endif %}>writing</a>
+      <a href="{{ navHref('/projects/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/projects/" %} class="active"{% endif %}>projects</a>
+      <a href="{{ navHref('/consulting/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/consulting/" %} class="active"{% endif %}>consulting</a>
+      <a href="{{ navHref('/shelf/') | trim }}" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
+      <a href="{{ navHref('/stream/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
