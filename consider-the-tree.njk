@@ -20,12 +20,32 @@ essayTopics:
 <article class="essay" id="main">
 
   <header class="essay-head">
-    <h1>Consider the tree</h1>
-    {% if essayTopics %}
-    <p class="essay-topic-line" aria-label="Topics">
-      <em>On: {% for topic in essayTopics %}{{ topic }}{% if not loop.last %}, {% endif %}{% endfor %}.</em>
-    </p>
-    {% endif %}
+    <h1 class="essay-h1">Consider the tree.</h1>
+    <figure class="essay-figure essay-figure-inbody essay-figure-titlecard">
+      <img src="/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp" alt="Jules Dupré, The Old Oak (c. 1870), oil on panel" class="no-invert" />
+      <figcaption>Jules Dupr&eacute;, <em>The Old Oak</em>, c. 1870. <a href="https://www.nga.gov/artworks/35089-old-oak" target="_blank" rel="noopener">National Gallery of Art</a>.</figcaption>
+    </figure>
+    <div class="essay-epigraph-chorus">
+      <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/Marshall_McLuhan">
+        <p>&ldquo;In an age of accelerated change, the need to perceive the environment becomes urgent&hellip; Acceleration also makes such perception of the environment possible. New environments reset our sensory thresholds. These, in turn, alter our outlook and perspective.&rdquo;</p>
+        <footer class="essay-epigraph-attribution">
+          <cite>Marshall McLuhan</cite>, 1965
+        </footer>
+      </blockquote>
+      <blockquote class="essay-epigraph" cite="https://en.wikipedia.org/wiki/William_Blake">
+        <p>&ldquo;The tree which moves some to tears of joy is in the eyes of others only a green thing that stands in the way&hellip; to the eyes of the man of imagination, nature is imagination itself.&rdquo;</p>
+        <footer class="essay-epigraph-attribution">
+          <cite>William Blake</cite>, 1799
+        </footer>
+      </blockquote>
+      <blockquote class="essay-epigraph" cite="https://bittersoutherner.com/2024/andre-3000-is-at-peace-for-now">
+        <p>&ldquo;This is a piece of wood from a tree that was <em>living</em>. You have this connection with this natural thing that has a life of its own. That has some say in what you&rsquo;re doing.&rdquo;</p>
+        <footer class="essay-epigraph-attribution">
+          <cite>Andr&eacute; 3000</cite>, 2024
+        </footer>
+      </blockquote>
+    </div>
+    <p class="essay-kicker">Preface</p>
   </header>
 
   <nav class="essay-toc" aria-label="On this page">
@@ -38,6 +58,8 @@ essayTopics:
       <li><a href="#knots-self">I work with knots</a></li>
       <li><a href="#how-knots">How I think about knots</a></li>
       <li><a href="#common-knots">Common knots and useful tools</a></li>
+      <li><a href="#where-it-breaks">Where it breaks</a></li>
+      <li><a href="#further-thoughts">Further thoughts on knots</a></li>
     </ol>
   </nav>
 
@@ -60,15 +82,9 @@ essayTopics:
      in adjacent insight thread: "The framework eats the field" aphorism,
      "structural strategy" academic-tinge, the four-item list in para 4. #}
   <section class="essay-opener" id="opener">
-    <figure class="essay-image-slot">
-      <img
-        src="/img/essay/consider-the-tree/tree-silhouette-800w.webp"
-        srcset="/img/essay/consider-the-tree/tree-silhouette-800w.webp 1x, /img/essay/consider-the-tree/tree-silhouette.webp 2x"
-        alt="A tree, silhouetted in pen-and-ink etching style"
-      />
-      <figcaption>A tree.</figcaption>
-    </figure>
-    <p><em>&ldquo;Don&rsquo;t miss the forest for the trees&rdquo;</em> is good advice &ndash; until it isn&rsquo;t. The idiom fits when one is tangled in particulars, unable to see the system at work, and ultimately losing sight of purpose. But abstraction has its own failure mode: the forest fills the view, and the tree drops out, subsumed into a verdant wash. One is captive to the model, unable to feel the work, and ultimately serving a model, not the thing.</p>
+    <p class="essay-lede"><span class="essay-lede-proverb">&ldquo;Don&rsquo;t miss the forest for the trees&rdquo;</span> is good advice until it isn&rsquo;t.</p>
+
+    <p>The idiom fits when one is tangled in particulars, unable to see the system at work, and ultimately losing sight of purpose<span class="gwern-note"><span class="gwern-note-marker" tabindex="0">¹</span><span class="gwern-note-popover"><span class="np-gloss">A cognitive narrowing where the focus eclipses everything around it &ndash; useful for threading a needle, costly for navigating a forest.</span><span class="np-refs"><em>AKA:</em> target fixation, tunnel vision, going down the rabbit hole, being stuck in an A-hole, weeds-blindness, can&rsquo;t see the forest for the trees.<br>Aviation accident reports use &ldquo;target fixation&rdquo; for the pilot who locks onto an obstacle and flies into it.</span></span></span>. But abstraction has its own failure mode: the forest saturates the view, and the trees themselves, with all their variation and particularities, are subsumed into a verdant, featureless wash. You have to re-establish contact with reality. As Miroslav Holub wrote in &lsquo;<a href="https://geography.wisc.edu/histcart/wp-content/uploads/sites/12/2017/07/brdsht23UPDATED.pdf" target="_blank" rel="noopener">Brief Thoughts on Maps</a>,&rsquo; any map will do &mdash; the Hungarian soldiers lost in the Alps navigated home on a map of the Pyrenees. This essay isn&rsquo;t offering you a better map. It&rsquo;s the wood you&rsquo;ve lost contact with, not the cartography. You are <strong>dis</strong>oriented.</p>
 
     <p>From time to time, you have to put your hands back on the wood.</p>
 
@@ -76,15 +92,16 @@ essayTopics:
 
     <p>A tree is a very slow civilization of fibers and fluids.</p>
 
-    <p>Trees have been &ldquo;solving&rdquo; design and engineering problems a lot longer than us. Several hundred million years, conservatively.</p>
+    <p>Trees have been solving design and engineering problems a lot longer than us. Several hundred million years, conservatively. Trees are super <a href="https://en.wikipedia.org/wiki/Lindy_effect" target="_blank" rel="noopener">Lindy</a> &mdash; what has lasted tends to keep lasting. The bet is on the branching, not the branch.</p>
 
     <p>But before there were trees, something else tried to be tall.</p>
 
-    <div class="essay-opener-prototaxites">
-    <figure class="essay-image-slot">
-      <img src="/img/essay/consider-the-tree/prototaxites-dawson-1888.webp" alt="Dawson's 1888 reconstruction of Prototaxites" />
-      <figcaption>Dawson&rsquo;s 1888 reconstruction. He was wrong.</figcaption>
+    <figure class="essay-figure essay-figure-inbody">
+      <img src="/img/essay/consider-the-tree/prototaxites-fossilguy.jpg" alt="A Devonian landscape with several pale Prototaxites columns rising from a low mossy plain crossed by a shallow stream." />
+      <figcaption>Devonian landscape with <em>Prototaxites</em> columns. Reconstruction: <a href="https://www.fossilguy.com/" target="_blank" rel="noopener">fossilguy.com</a>.</figcaption>
     </figure>
+
+    <div class="essay-opener-prototaxites">
     <p>Eight-meter trunks rose out of a treeless landscape four hundred million years ago, when nothing on land was bigger than your left thumb. <em><a href="https://www.scientificamerican.com/article/mystery-prototaxites-tower-fossils-may-represent-a-newly-discovered-kind-of/">Prototaxites</a></em> &ndash; Protobella, in the privacy of my own head &ndash; confused every paleontologist who tried to sort it. A primitive conifer. An algae. A liverwort. Every fungal phylum on offer. Each category almost worked.</p>
 
     <p>A Smithsonian botanist named Francis Hueber cut thin sections of those specimens under a microscope for forty years and died in 2019 sure it was a fungus. In <a href="https://www.science.org/doi/10.1126/sciadv.aec6277" target="_blank" rel="noopener">2026</a>, new tests on the cell walls turned up lignin-like chemistry and no fungal biomarkers at all.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Chitin is the structural molecule common to all fungi &ndash; insect exoskeletons too.</span></span> Not a fungus. Not a plant. A branch of eukaryotic life that left no descendants.</p>
@@ -92,7 +109,7 @@ essayTopics:
     <p>A parallel attempt at the tree-form, by a lineage that didn&rsquo;t reach the present. By the end of the Devonian, the columns disappeared. We still don&rsquo;t know why.</p>
     </div>
 
-    <p>Branching solved it. The design kept evolving for hundreds of millions of years. Branches, leaves, shade &ndash; and by then, animals around to use them. Branching was the solution to being tall and photosynthesizing. The cost was knots. <a href="https://en.wikipedia.org/wiki/Lindy_effect" target="_blank" rel="noopener">Lindy</a> here refers to the strategies and tactics evolved over trial and error, not the individual tree. The branching solution is older than dinosaurs. <a href="/shelf/#design" target="_blank" rel="noopener">Design thinking</a> is sixty-some years on this planet. I&rsquo;m not picking a fight. I mean the literal-biological tree, not Deleuze and Guattari&rsquo;s arborescent strawman. The rhizome (lateral, networked, no apex) was their proposed alternative to the arborescent figure of hierarchy. But the tree they were attacking never matched the actual organism: crown grown lopsided for light, roots tangled with the next tree&rsquo;s, mycorrhizal threads ferrying sugar and signal across species lines underground, sap moving in whichever direction the year demands. What I&rsquo;m describing is closer to what they&rsquo;d call rhizomatic.</p>
+    <p>Branching solved it. The design kept evolving for hundreds of millions of years. Branches, leaves, shade &ndash; and by then, animals around to use them. Branching was the solution to being tall and photosynthesizing. The cost was knots. The branching solution is older than dinosaurs. <a href="/shelf/#design" target="_blank" rel="noopener">Design thinking</a> is sixty-some years on this planet. Lindy. I mean the literal-biological tree, not Deleuze and Guattari&rsquo;s arborescent strawman. The rhizome (lateral, networked, no apex) was their proposed alternative to the arborescent figure of hierarchy. But the tree they were attacking never matched the actual organism: crown grown lopsided for light, roots tangled with the next tree&rsquo;s, mycorrhizal threads ferrying sugar and signal across species lines underground, sap moving in whichever direction the year demands. What I&rsquo;m describing is closer to what they&rsquo;d call rhizomatic.</p>
 
     <p>Old trees fall. Some fall this winter. Though, I am noticing where the field trials have been longer.</p>
 
@@ -102,15 +119,6 @@ essayTopics:
     <h2>A tree called Alba</h2>
 
     <p>Consider the tree.</p>
-
-    <figure class="essay-figure essay-figure-inbody">
-      <img
-        src="/img/essay/consider-the-tree/alba-800w.webp"
-        srcset="/img/essay/consider-the-tree/alba-800w.webp 1x, /img/essay/consider-the-tree/alba.webp 2x"
-        alt="Alba, a large white oak on a slope above Sugar Creek in Edgewood, Atlanta, receiving a clean bill of health from an arborist."
-      />
-      <figcaption>Alba receiving a recent clean bill of health from arborist Peter Jenkins. Photo: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</figcaption>
-    </figure>
 
     <p>One in particular. Ten minutes from my desk, on a slope above Sugar Creek, four white oaks have been standing since before the <a href="https://en.wikipedia.org/wiki/Battle_of_Atlanta" target="_blank" rel="noopener">Battle of Atlanta</a>. I walk the dog there. The largest &ndash; <a href="https://meetalba.org/" target="_blank" rel="noopener">Alba, the neighborhood calls her</a><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Largest white oak (<em>Quercus alba</em> &ndash; hence the name) inside Atlanta city limits. 69-inch DBH; estimated 200&ndash;250 years old; recently certified healthy by Peter Jenkins of <a href="https://treeinspection.com/" target="_blank" rel="noopener">TreeInspection.com</a>. If preserved, could live another five hundred years. The four oaks sit on a 6-acre parcel off Vaughn Street in Edgewood, rezoned for Planned Development &ndash; Housing in 2007. Source: <a href="https://meetalba.org/" target="_blank" rel="noopener">Meet Alba</a>.</span></span> &ndash; is around two hundred and fifty years old. Atlanta is one hundred and seventy. A developer wants the lot.</p>
   </section>
@@ -128,7 +136,7 @@ essayTopics:
 
     <dl class="essay-definitions">
       <dt><strong>rive</strong> <span class="essay-definitions-meta">/raɪv/ &middot; verb.</span></dt>
-      <dd>To split wood along the grain with a froe and a mallet. Old Norse <em>rífa,</em> &ldquo;to tear, scratch&rdquo; &ndash; same root as <em>rift, riven, reef.</em> You aren&rsquo;t cutting the wood. You&rsquo;re persuading it to come apart along a line it was already going to take if you waited long enough. Stronger than a sawn board, because the fibers stay continuous. The downside is you can&rsquo;t rive anything that didn&rsquo;t intend to split. When people say they&rsquo;re &ldquo;working with the grain,&rdquo; they usually mean cutting along the direction of the fibers, not against them. Riving is the only technique that does what the phrase actually says: you don&rsquo;t cut along the grain, you let the grain choose where the cut goes. Modern English carries this forward in another direction: a <em>riven</em> family, a <em>riven</em> country. The word didn&rsquo;t move; we just stopped noticing where it came from.</dd>
+      <dd>To split wood along the grain with a <a href="https://www.youtube.com/watch?v=Au1TbIyLcPU" target="_blank" rel="noopener">froe and a mallet</a><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">¹</span><span class="gwern-note-popover"><span class="np-gloss">Roy Underhill working a log on <em>The Woodwright&rsquo;s Shop</em> &ndash; froe, axe, drawknife, no power. Underhill favors simple tools and is wary of modern ones on principle; the simple ones let the wood do more of the deciding.</span></span></span>. Old Norse <em>rífa,</em> &ldquo;to tear, scratch&rdquo; &ndash; same root as <em>rift, riven, reef.</em> You aren&rsquo;t cutting the wood. You&rsquo;re persuading it to come apart along a line it was already going to take if you waited long enough. Stronger than a sawn board, because the fibers stay continuous. The downside is you can&rsquo;t rive anything that didn&rsquo;t intend to split. When people say they&rsquo;re &ldquo;working with the grain,&rdquo; they usually mean cutting along the direction of the fibers, not against them. Riving is the only technique that does what the phrase actually says: you don&rsquo;t cut along the grain, you let the grain choose where the cut goes. Modern English carries this forward in another direction: a <em>riven</em> family, a <em>riven</em> country. The word didn&rsquo;t move; we just stopped noticing where it came from.</dd>
 
       <dt><strong>green wood</strong></dt>
       <dd>Wood still alive, or recently so. Moisture content high enough that the cells haven&rsquo;t shrunk back. Moves while you work it. Keeps moving for months after you&rsquo;re done. Carpenters who only know kiln-dried boards treat green wood like a problem; anyone who works it learns the movement is information.</dd>
@@ -147,13 +155,22 @@ essayTopics:
 
       <dt><strong><a href="https://en.wikipedia.org/wiki/Reaction_wood" target="_blank" rel="noopener">reaction wood</a></strong></dt>
       <dd>Wood the tree produced under load: a trunk leaning into a slope, a sapling pushed by its neighbor. The loaded side lays down different fibers. The board looks normal. It behaves badly. You can&rsquo;t see reaction wood until you cut it, and sometimes not until it warps in your shop a month later.</dd>
+
+      <dt><strong><a href="https://en.wikipedia.org/wiki/Abscission" target="_blank" rel="noopener">abscission</a></strong></dt>
+      <dd>The tree&rsquo;s mechanism for shedding a branch cleanly: a separation zone forms at the petiole, on the tree&rsquo;s side, and seals the wound with a layer of cork cells before the branch drops. Tree-initiated, tree-timed, wound closed before exposure.</dd>
     </dl>
 
     <p>A tree cannot <a href="/shelf/#bullshit" target="_blank" rel="noopener">bullshit</a>.</p>
   </section>
 
   <section class="essay-section" id="record">
-    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Record</div></div>
+    <figure class="essay-image-slot">
+      <img
+        src="/img/essay/consider-the-tree/penone-albero.png"
+        alt="A Giuseppe Penone tree sculpture: a squared beam of wood carved open to reveal the younger tree&rsquo;s branching skeleton inside the rings."
+      />
+      <figcaption>Giuseppe Penone, from his <em>Trees</em> series. The artist removes growth rings from a squared beam to reveal the younger tree it once was. <a href="https://www.pinaultcollection.com/en/boursedecommerce/tree-prime-example-perfect-sculpture-giuseppe-penone" target="_blank" rel="noopener">Pinault Collection</a>.</figcaption>
+    </figure>
     <h2>Record</h2>
 
     <p>Wood records. Each ring dates a year of growth. Each knot dates a branching event. Each scar dates an injury and the response to it. Trees keep no spreadsheets. They write in grain, ring, knot, and scar. Reading a board is reading a biography.</p>
@@ -167,7 +184,7 @@ essayTopics:
        Lee writes the replacement. Lines after stay as-is. #}
     <p>Communities are not inert inputs. Institutions are not dimensionally stable. Incentives swell and shrink seasonally. Political moisture content changes. Programs move after installation.</p>
 
-    <p>Institutions carry the same kind of record, and most of it slips past the tools they prefer. What gets filed planes the sapwood. It catches at the knot and reads nothing. A dated knot &ndash; a near-bankruptcy in 2002, an executive transition that swapped the nameplate not the decisions, an impact figure recycled since 2010, an annual report written for what the funder expected to be true &ndash; bears load the way heartwood does.</p>
+    <p>Institutions carry the same kind of record, and most of it slips past the tools they prefer. What gets filed planes the sapwood. It catches at the knot and reads nothing. The consultants flown in with decks plane the same sapwood for more money. A dated knot &ndash; a near-bankruptcy in 2002, an executive transition that swapped the nameplate not the decisions, an impact figure recycled since 2010, an annual report written for what the funder expected to be true &ndash; bears load the way heartwood does.</p>
 
     <p>Institutionalized procedures, obsolete-seeming roles, accumulated tacit norms &ndash; these are not organizational fat to be cut. They are the heartwood. Organizations that try to stay metabolically active all the way through their structure &ndash; all sapwood, no heartwood &ndash; are trading structural integrity for short-term nutrient throughput. They&rsquo;ll grow fast and blow over.<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The tree doesn&rsquo;t know it&rsquo;s doing this. Abscission isn&rsquo;t a decision; phloem doesn&rsquo;t allocate. The mechanism runs below the level of agency. Reading the diagnosis doesn&rsquo;t change the mechanism &ndash; only how an organization responds to it. The frame names what&rsquo;s happening. It doesn&rsquo;t tell you what to cut.</span></span></p>
 
@@ -275,6 +292,26 @@ essayTopics:
     <p>Most real work has several of these going at once. A lot of what I do is figuring out which cut fits which knot in front of us. The diagnostic doesn&rsquo;t come from above. You put your hands back on the wood. Alba is still standing.</p>
   </section>
 
+  <section class="essay-section" id="where-it-breaks">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Where it breaks</div></div>
+    <h2>Where it breaks</h2>
+
+    <p>Three things the tree can&rsquo;t do that break the theory.</p>
+
+    <p><strong>Can&rsquo;t relocate.</strong> Arboreal theory is implicitly a theory of <em>site-committed</em> organizations &mdash; ones that have sunk their roots so deep into a particular market, geography, regulatory environment, or customer base that exit is not a live option. CODIT works because the tree cannot abandon the wound; it must wall it off and grow around it. Organizations that <em>can</em> relocate just leave &mdash; they don&rsquo;t develop the compartmentalization discipline. This is why the theory predicts IBM better than it predicts a SaaS startup: the startup pivots away from the wound, the mainframe division has to wall it off and continue. Mobility dissolves the selection pressure that makes arboreal resilience adaptive. What survives breakage when you can exit is different from what survives when you can&rsquo;t &mdash; it&rsquo;s not toughness, it&rsquo;s optionality. Different organism entirely.</p>
+
+    <p><strong>No intentions.</strong> The tree executes CODIT without knowing what CODIT is. Abscission is not a decision; phloem redistribution is not resource allocation with a memo. The mechanism runs below the level of agency. The moment you map this onto an organization, you get a theory that describes what <em>should</em> happen if the organization were running its own biology correctly &mdash; but organizations can read the theory, anticipate the diagnosis, and game it. A division that knows it&rsquo;s going to be abscised can sabotage the compartmentalization wall. A manager who recognizes the phloem-flow pattern can intercept the nutrient stream. The arboreal theory is most accurate for organizations that <em>don&rsquo;t know</em> they&rsquo;re running it &mdash; mature bureaucracies, late-stage institutions, anything where the biology has become sufficiently externalized and forgotten that it runs like metabolism rather than strategy. Applied to self-aware, theoretically-literate organizations, it becomes a script that clever actors exploit.</p>
+
+    <p><strong>One body plan.</strong> Every structural inference the theory makes &mdash; that wounds propagate inward before walling off, that energy flows from roots through trunk to canopy, that leaf sacrifice is peripheral before it&rsquo;s central &mdash; depends on the tree having a canonical topology. Root-trunk-branch-leaf is not arbitrary; it&rsquo;s load-bearing for the whole model. Organizations don&rsquo;t have this. A matrix organization has no trunk. A holocracy has no canopy. A networked organization has no clear periphery to sacrifice first. The body-plan assumption smuggles in a hidden organizational form: the classic hierarchy, functional or divisional, with clear center-periphery geometry. The arboreal theory is secretly a theory of <em>that</em> organization wearing botanical clothing. For anything outside that topology, the spatial intuitions break down &mdash; you can&rsquo;t say which branch is peripheral when there&rsquo;s no branch, only a mesh.</p>
+  </section>
+
+  <blockquote class="essay-epigraph essay-coda" cite="https://www.essence.com/entertainment/andre-3000-new-blue-sun/">
+    <p>&ldquo;I&rsquo;m very interested right now in things that will grow&hellip; They outlive the people that started them and they are passed down through generations. My kids, kids, kids will take care of that tree.&rdquo;</p>
+    <footer class="essay-epigraph-attribution">
+      <cite>Andr&eacute; 3000</cite>, 2023
+    </footer>
+  </blockquote>
+
   <style>
     /* Related-models footer — faint Lindy'd index of frames the essay leans on
        without naming. Reader who recognizes them is rewarded; reader who doesn't
@@ -319,6 +356,56 @@ essayTopics:
       <li><a href="https://en.wikipedia.org/wiki/Wicked_problem" rel="noopener">Wicked problems</a> &ndash; the term that emptied itself by overuse.</li>
     </ul>
   </aside>
+
+  <section class="essay-section essay-appendix" id="further-thoughts" aria-label="Further thoughts on knots">
+    <h2>Further thoughts on knots</h2>
+
+  <section class="essay-section" id="phloem">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Phloem</div></div>
+    <h3>Phloem</h3>
+
+    <p>The org chart models command and authority. It answers the question: <em>who reports to whom?</em> This is the xylem model &mdash; a one-way flow of directives and resources downward, information and outputs upward. What phloem gives you that org charts don&rsquo;t is bidirectionality of flow, with a different payload.</p>
+
+    <p>Xylem carries water and dissolved minerals from roots to canopy &mdash; raw material, upward. Phloem carries sugars (photosynthate) from leaves downward to roots &mdash; <em>processed value,</em> downward and distributed. Every leaf that can photosynthesize ships product to the root system. The tree is not a hierarchy where the top consumes what the bottom produces; it&rsquo;s a circuit where metabolic value flows in multiple directions simultaneously, including from periphery back to core.</p>
+
+    <p>A mature tree doesn&rsquo;t pump nutrients from the center outward. Photosynthesis happens at the leaf periphery; sugars flow <em>down</em> through the phloem from leaves toward roots. The center doesn&rsquo;t produce &mdash; it receives, stores, and provides structural support. The org chart treats headquarters as the photosynthetic layer, the leaves as output nodes. Tree biology inverts this entirely: your field offices, your customer-facing engineers, your junior analysts actually reading the market &mdash; those are leaves. Corporate center is heartwood and cambium. It doesn&rsquo;t photosynthesize. When headquarters starts &ldquo;adding value&rdquo; by producing strategy documents and frameworks that flow <em>out</em> to the periphery, it has confused itself for a leaf. It is consuming sugars it did not make and calling this management.</p>
+
+    <p>The phloem implication: information should flow in both directions simultaneously, with different payloads in each direction. Xylem carries water and minerals up (resources flowing from roots to periphery &mdash; budgets, headcount, tooling). Phloem carries sugars down (value signal flowing from periphery to center &mdash; market intelligence, customer signal, frontline judgment). The org chart models only xylem. The standard management hierarchy is a one-directional nutrient pipeline from center to periphery, which is exactly backwards for the payload that matters most. You lose the phloem signal when you build a hierarchy that only flows top-down. What you call &ldquo;reporting upward&rdquo; is a thin, lossy substitute for an actual phloem layer &mdash; it&rsquo;s like trying to run photosynthate through the xylem in the wrong direction by squeezing hard enough.</p>
+
+    <p>The practical implication: the people closest to the market should structurally <em>lead</em> the information regime, and the people at the center should structurally be <em>receivers,</em> not senders. Most management reform efforts try to fix this by sending executives &ldquo;into the field&rdquo; for listening tours. That&rsquo;s not phloem &mdash; that&rsquo;s xylem flow dressed up as curiosity. Phloem requires architectural change: the periphery must have the structural power to route signal inward continuously, not on invitation.</p>
+  </section>
+
+  <section class="essay-section" id="containment">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Containment</div></div>
+    <h3>Containment</h3>
+
+    <p>Alex Shigo&rsquo;s <a href="https://en.wikipedia.org/wiki/Compartmentalization_of_decay_in_trees" target="_blank" rel="noopener">Compartmentalization of Decay in Trees</a> is the most important thing to happen to wound management since germ theory, and management theory has completely missed it. The pre-Shigo consensus was that trees <em>heal.</em> You wound a tree, the tree heals. This was wrong in a way that killed millions of trees &mdash; arborists were told to cut out the rotting wood and &ldquo;help&rdquo; the tree regenerate tissue into the wound. What Shigo demonstrated through 15,000 dissections is that <strong>trees do not heal. Trees contain.</strong> The wood that existed before the wound is compromised. The tree cannot regenerate it. What the tree does instead is build four progressively stronger walls around the compartment of decay, then <em>grow new wood outside the barrier,</em> and keep living forward.</p>
+
+    <h4>Wall 1 &mdash; reaction zone</h4>
+
+    <p>The tree&rsquo;s first response to wounding is chemical: it floods the injured column of wood with phenols, tannins, and resins, attempting to slow microbial invasion longitudinally &mdash; up and down the grain. Wall 1 is weak. It runs with the growth rings, not across them, so it holds best against vertical spread and poorly against lateral. The organizational mapping is the incident response: the first meeting after the crisis, the rapid messaging, the all-hands that &ldquo;acknowledges concerns.&rdquo; Fast, cheap, mostly ineffective at containing the real spread. The decay climbs the org chart anyway, because Wall 1 runs with the hierarchy, not across it. You can slow vertical escalation while the rot moves laterally through peer relationships and informal networks where Wall 1 has no purchase.</p>
+
+    <h4>Wall 2 &mdash; growth ring</h4>
+
+    <p>The second wall is the growth ring present at the time of wounding &mdash; the boundary between old wood and whatever was laid down that season. Structurally stronger than Wall 1 because it runs perpendicular to the grain; it can actually stop lateral spread if it&rsquo;s a dense ring from a slow-growth year. Shigo found that trees wounded during drought years &mdash; tight rings, dense wood &mdash; compartmentalized far more effectively than fast-growing trees with loose, wide rings. The organizational mapping is the cohort boundary: the team or division that existed at the time of the crisis, acting as a natural firebreak. Fast-growth organizations &mdash; hypergrowth years, rapid headcount expansion, loose onboarding &mdash; have wide rings, low density, poor Wall 2 integrity. The startup that tripled in 18 months has no growth rings worth speaking of; the decay walks right through. A slow-growth professional services firm with 20-year partners has dense rings; they actually contain.</p>
+
+    <h4>Wall 3 &mdash; ray tissue</h4>
+
+    <p>The third wall runs radially &mdash; along the rays, the spoke-like tissue that moves water and nutrients laterally from bark to center. Wall 3 is the strongest of the pre-existing walls because ray tissue is chemically distinct and metabolically active; it can mount a real defense. This is the wall that defines <em>how wide</em> the compartment of decay will ultimately be. The organizational mapping is cross-functional tissue: the finance, legal, HR, and compliance functions that run laterally across the org chart rather than within any single vertical. When Wall 3 holds, a scandal in one business unit doesn&rsquo;t contaminate adjacent units even at the same hierarchical level. When Wall 3 fails &mdash; when legal is captured by the business unit, when HR reports to the division head rather than independently &mdash; the decay spreads radially outward and you lose the whole sector of the tree, not just one column.</p>
+
+    <h4>Wall 4 &mdash; the barrier zone</h4>
+
+    <p>Wall 4 is not pre-existing tissue. It&rsquo;s new wood, laid down <em>after</em> the wound, outside all three chemical walls. This is where Shigo&rsquo;s insight cuts hardest: Wall 4 is the only wall that actually works reliably, and it requires growth to form. The tree doesn&rsquo;t repair; it builds a new shell around the contained decay and keeps growing outward from it. Organizationally: the post-incident redesign that doesn&rsquo;t repair the damaged structure but builds a new organizational shell <em>around</em> the contained decay and keeps growing. Not &ldquo;lessons learned&rdquo; &rarr; patch. The tree doesn&rsquo;t patch. It forms callus tissue &mdash; new cambium at the wound margin, growing inward from healthy tissue. The rot stays. The new wood encases it. The org equivalent is a new reporting structure, a new team, a new process layer that deliberately <em>excludes</em> the compromised zone from its growth path. Wall 4 fails when leadership tries to reintegrate the contained rot &mdash; &ldquo;we&rsquo;ve fixed the culture issues, bring them back in&rdquo; &mdash; which is exactly splicing the decay back through the barrier zone. CODIT&rsquo;s most important insight isn&rsquo;t the three chemical walls; it&rsquo;s that Wall 4 only forms if the tree keeps growing. A stressed, resource-depleted tree can&rsquo;t form barrier zones. Orgs in permanent austerity mode have no Wall 4 capacity. They can&rsquo;t compartmentalize because they can&rsquo;t grow new tissue. The decay wins by default.</p>
+  </section>
+
+  <section class="essay-section" id="abscission">
+    <div class="essay-image-slot" aria-hidden="true"><div class="essay-image-placeholder">Abscission</div></div>
+    <h3>Abscission</h3>
+
+    <p>The tree forms the abscission zone <em>at the petiole,</em> on the tree&rsquo;s side, seals the wound with a layer of cork cells, and <em>then</em> drops the branch. The separation is tree-initiated, tree-timed, and the wound is closed before exposure. What &ldquo;lean restructuring&rdquo; and &ldquo;right-sizing&rdquo; give you instead: the wound is opened and then managed. You cut the branch, then scramble to manage the bleeding &mdash; severance, knowledge transfer, morale triage, &ldquo;survivor syndrome&rdquo; remediation. The scar is always reactive. Abscission theory says: <em>form the separation zone while the branch is still attached.</em> This is the management move nobody makes because it looks like preparing to fire someone who&rsquo;s still employed &mdash; and politically it&rsquo;s almost impossible. But the tree doesn&rsquo;t have politics; it has auxin and ethylene gradients. The organizational equivalent of those gradients is <em>workload routing</em> &mdash; systematically stop routing critical work through the branch you&rsquo;re preparing to drop, months before the separation. The branch stays attached. The tree seals. When the drop happens, there&rsquo;s already a layer of cork between the org and the wound. The reason &ldquo;right-sizing&rdquo; leaves lasting damage is that it always skips abscission. The branch is ripped off, not released. You get exposed sapwood, not sealed cork. Every restructuring that produces multi-year &ldquo;cultural damage&rdquo; is a ripped branch, not a dropped leaf.</p>
+  </section>
+
+  </section>
 
   <footer class="essay-foot">
     <p class="essay-foot-cta"><a href="/consulting/">Work with me &rarr;</a></p>

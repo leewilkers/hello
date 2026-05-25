@@ -19,28 +19,37 @@ eleventyExcludeFromCollections: true
        remain in their natural flow without pushing total past the viewport. */
   }
 
-  /* title sits on the canvas, top-right of the tree — like an inset caption */
+  /* Page title block — sits at top-left of the page, above the stage,
+     treated like a proper page header (not an inset caption). */
   .tm-title{
-    position: absolute;
-    top: 6%; right: 4%;
-    max-width: 20em;
-    text-align: right;
-    z-index: 2;
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto 1.5rem;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    text-align: left;
     line-height: 1.4;
   }
   .tm-title-eyebrow{
     display: block;
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 0.74rem; font-weight: 600; letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink); line-height: 1;
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--ink); line-height: 1.1;
     text-decoration: none;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+  .tm-title-eyebrow:hover{
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent);
+    text-underline-offset: 4px;
   }
   .tm-title-def{
-    font-family: "EB Garamond", "Source Serif 4", Georgia, serif;
-    font-style: italic; font-size: 1.02rem; line-height: 1.45;
-    color: color-mix(in srgb, var(--ink) 82%, transparent);
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-style: normal; font-size: 1rem; line-height: 1.5;
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
+    max-width: 38em;
   }
 
   .tm-stage{
@@ -174,8 +183,9 @@ eleventyExcludeFromCollections: true
   .tm-node:hover .tm-mark, .tm-node:focus-visible .tm-mark{ r: 6; stroke-width: 1.6; }
 
   .tm-node-label{
-    font-family: "EB Garamond", "Source Serif 4", Georgia, serif;
-    font-size: 28px; font-weight: 400; font-style: normal;
+    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 24px; font-weight: 500; font-style: normal;
+    letter-spacing: 0.005em;
     fill: var(--ink); pointer-events: none;
     transition: fill 200ms ease;
   }
@@ -229,11 +239,12 @@ eleventyExcludeFromCollections: true
   }
 </style>
 
+<header class="tm-title">
+  <a class="tm-title-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">Site tree</a>
+  <div class="tm-title-def">a dominant or codominant tree used to estimate the growth of a forest stand.</div>
+</header>
+
 <div class="tm-stage" data-tm-stage>
-  <div class="tm-title">
-    <a class="tm-title-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">site tree</a>
-    <div class="tm-title-def">a dominant or codominant tree used to estimate the growth of a forest stand.</div>
-  </div>
   <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Site tree">
 
     <defs>
@@ -326,7 +337,7 @@ eleventyExcludeFromCollections: true
           d="M 476 343 L 474 343 Q 594 282 728 200 L 732 200 Q 598 286 476 343 Z"/>
 
     {# about line — bark-colored, arcs left from trunk to About node #}
-    <path class="tm-edge tm-edge-bark" data-related="about" d="M 232 346 Q 350 343 470 346"/>
+    <path class="tm-edge tm-edge-bark" data-related="about" d="M 232 356 Q 350 351 470 346"/>
 
     {# water — short arc from Stream into Stacks #}
     <path class="tm-river" data-related="stream stacks" d="M 720 590 Q 606 593 492 590"/>
@@ -361,10 +372,10 @@ eleventyExcludeFromCollections: true
     </g>
     <g class="tm-node" data-node="about" data-url="/about/" tabindex="0"
        style="--node-stroke: var(--tm-bark)">
-      <rect class="tm-hit" x="140" y="324" width="160" height="44"/>
-      <text class="tm-node-label" x="220" y="352" text-anchor="middle">About</text>
-      <circle class="tm-mark" cx="220" cy="346" r="4.5"/>
-      <foreignObject class="tm-popover-fo" x="100" y="362" width="240" height="80">
+      <rect class="tm-hit" x="140" y="308" width="160" height="60"/>
+      <text class="tm-node-label" x="220" y="334" text-anchor="middle">About</text>
+      <circle class="tm-mark" cx="220" cy="356" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="100" y="368" width="240" height="80">
         <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">who I am, what I do.</div>
       </foreignObject>
     </g>
