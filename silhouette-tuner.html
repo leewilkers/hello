@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engraving extractor</title>
+  <style>
+    :root {
+      --bg: #100f0f;
+      --ink: #cecdc3;
+      --muted: #878580;
+      --rule: #343331;
+      --paper: #fffcf0;
+      --accent: #d14f3a;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      line-height: 1.45;
+      padding: 32px 24px 60px;
+    }
+    main { max-width: 1400px; margin: 0 auto; }
+    h1 {
+      margin: 0 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 0.95;
+    }
+    .dek { color: var(--muted); margin-bottom: 28px; max-width: 72ch; font-size: 0.9rem; }
+    .upload {
+      display: block;
+      padding: 28px;
+      border: 1px dashed var(--rule);
+      text-align: center;
+      margin-bottom: 24px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: border-color 120ms, color 120ms, background 120ms;
+      font-size: 0.85rem;
+    }
+    .upload:hover, .upload.drag-over {
+      border-color: var(--accent);
+      color: var(--ink);
+      background: rgba(209, 79, 58, 0.04);
+    }
+    .upload strong { color: var(--ink); font-weight: 500; }
+    .upload input[type="file"] { display: none; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 28px;
+      align-items: start;
+    }
+    .preview-area {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    figure {
+      margin: 0;
+      border-top: 1px solid var(--rule);
+      padding-top: 12px;
+    }
+    figcaption {
+      color: var(--muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .canvas-wrap {
+      display: block;
+      width: 100%;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .canvas-wrap.checker {
+      background-image:
+        linear-gradient(45deg, var(--rule) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--rule) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--rule) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--rule) 75%);
+      background-size: 14px 14px;
+      background-position: 0 0, 0 7px, 7px -7px, -7px 0;
+    }
+    .canvas-wrap.on-paper { background-color: var(--paper); }
+    .canvas-wrap.on-dark { background-color: var(--bg); border: 1px solid var(--rule); }
+    /* The on-dark preview simulates what CSS `filter: invert(1)` does in
+       dark mode on a transparent-background extracted PNG. Dark ink flips
+       to light ink, transparent stays transparent. Toggle "Invert" off
+       in controls to see this; toggle on to see what an already-inverted
+       export would look like on the dark page (don't double-invert). */
+    .canvas-wrap.on-dark canvas { filter: invert(1); }
+    .canvas-wrap.on-dark.no-invert canvas { filter: none; }
+    .controls {
+      padding: 20px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.015);
+      position: sticky;
+      top: 24px;
+    }
+    .control { margin-bottom: 18px; }
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .control label .value { color: var(--ink); font-variant-numeric: tabular-nums; }
+    .control input[type="range"] { width: 100%; accent-color: var(--accent); }
+    .control input[type="color"] {
+      width: 100%;
+      height: 36px;
+      border: 1px solid var(--rule);
+      background: transparent;
+      cursor: pointer;
+      padding: 2px;
+    }
+    .control-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--ink);
+    }
+    .control-toggle input { accent-color: var(--accent); }
+    button {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border-radius: 3px;
+      width: 100%;
+      margin-top: 8px;
+      font-weight: 600;
+      transition: background 120ms;
+    }
+    button:hover { background: color-mix(in srgb, var(--accent) 85%, white); }
+    button.secondary {
+      background: transparent;
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      font-weight: 400;
+    }
+    button.secondary:hover { background: rgba(255,255,255,0.04); border-color: var(--muted); }
+    .empty {
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 40px 20px;
+      text-align: center;
+      border: 1px dashed var(--rule);
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .controls { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Engraving extractor</h1>
+    <p class="dek">
+      Drag an engraving, woodblock, or line-drawing scan. Tune the levers to extract the ink against a transparent background. Three live previews: original, on paper, on dark page. Download as transparent PNG.
+    </p>
+
+    <label class="upload" for="upload">
+      <input type="file" id="upload" accept="image/*"/>
+      <strong>Drop image here</strong> or click to select &nbsp;·&nbsp; jpg, png, webp
+    </label>
+
+    <div class="layout">
+      <div class="preview-area">
+        <figure>
+          <figcaption>Original</figcaption>
+          <div class="canvas-wrap"><canvas id="canvas-original"></canvas></div>
+        </figure>
+        <figure>
+          <figcaption>On paper</figcaption>
+          <div class="canvas-wrap on-paper"><canvas id="canvas-paper"></canvas></div>
+        </figure>
+        <figure>
+          <figcaption>On dark page</figcaption>
+          <div class="canvas-wrap on-dark"><canvas id="canvas-dark"></canvas></div>
+        </figure>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <label>Threshold <span class="value" id="val-threshold">180</span></label>
+          <input type="range" id="threshold" min="0" max="255" value="180"/>
+        </div>
+        <div class="control">
+          <label>Contrast <span class="value" id="val-contrast">1.20</span></label>
+          <input type="range" id="contrast" min="0.50" max="3.00" step="0.05" value="1.20"/>
+        </div>
+        <div class="control">
+          <label>Brightness <span class="value" id="val-brightness">0</span></label>
+          <input type="range" id="brightness" min="-100" max="100" value="0"/>
+        </div>
+        <div class="control">
+          <label>Edge soften <span class="value" id="val-feather">3</span></label>
+          <input type="range" id="feather" min="0" max="30" value="3"/>
+        </div>
+        <div class="control">
+          <label>Ink color</label>
+          <input type="color" id="ink-color" value="#1a1a1a"/>
+        </div>
+        <div class="control">
+          <label class="control-toggle">
+            <input type="checkbox" id="recolor"/>
+            <span>Recolor ink to chosen color</span>
+          </label>
+        </div>
+        <div class="control">
+          <label class="control-toggle">
+            <input type="checkbox" id="invert"/>
+            <span>Invert (for dark-mode export)</span>
+          </label>
+        </div>
+        <button id="download" disabled>Download transparent PNG</button>
+        <button class="secondary" id="reset">Reset levers</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    'use strict';
+
+    const els = {
+      uploadInput: document.getElementById('upload'),
+      uploadLabel: document.querySelector('.upload'),
+      canvasOriginal: document.getElementById('canvas-original'),
+      canvasPaper: document.getElementById('canvas-paper'),
+      canvasDark: document.getElementById('canvas-dark'),
+      btnDownload: document.getElementById('download'),
+      btnReset: document.getElementById('reset'),
+      // sliders
+      threshold: document.getElementById('threshold'),
+      contrast: document.getElementById('contrast'),
+      brightness: document.getElementById('brightness'),
+      feather: document.getElementById('feather'),
+      inkColor: document.getElementById('ink-color'),
+      recolor: document.getElementById('recolor'),
+      invert: document.getElementById('invert'),
+      // value displays
+      valThreshold: document.getElementById('val-threshold'),
+      valContrast: document.getElementById('val-contrast'),
+      valBrightness: document.getElementById('val-brightness'),
+      valFeather: document.getElementById('val-feather'),
+    };
+
+    const ctxOriginal = els.canvasOriginal.getContext('2d');
+    const ctxPaper = els.canvasPaper.getContext('2d');
+    const ctxDark = els.canvasDark.getContext('2d');
+
+    let sourceImageData = null;
+    let sourceWidth = 0;
+    let sourceHeight = 0;
+    let rafPending = false;
+
+    function setCanvasSize(w, h) {
+      [els.canvasOriginal, els.canvasPaper, els.canvasDark].forEach(c => {
+        c.width = w;
+        c.height = h;
+      });
+    }
+
+    function loadImage(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          // Downscale very large images to keep processing fast
+          const maxDim = 1600;
+          let w = img.width, h = img.height;
+          if (Math.max(w, h) > maxDim) {
+            const scale = maxDim / Math.max(w, h);
+            w = Math.round(w * scale);
+            h = Math.round(h * scale);
+          }
+          setCanvasSize(w, h);
+          ctxOriginal.clearRect(0, 0, w, h);
+          ctxOriginal.drawImage(img, 0, 0, w, h);
+          sourceImageData = ctxOriginal.getImageData(0, 0, w, h);
+          sourceWidth = w;
+          sourceHeight = h;
+          els.btnDownload.disabled = false;
+          process();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function hexToRgb(hex) {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return { r, g, b };
+    }
+
+    function process() {
+      if (!sourceImageData) return;
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(doProcess);
+    }
+
+    function doProcess() {
+      rafPending = false;
+      if (!sourceImageData) return;
+
+      const threshold = parseInt(els.threshold.value, 10);
+      const contrast = parseFloat(els.contrast.value);
+      const brightness = parseInt(els.brightness.value, 10);
+      const feather = parseInt(els.feather.value, 10);
+      const recolor = els.recolor.checked;
+      const invert = els.invert.checked;
+      const ink = hexToRgb(els.inkColor.value);
+
+      const src = sourceImageData.data;
+      const out = new Uint8ClampedArray(src.length);
+      const len = src.length;
+
+      const featherSpan = feather * 4; // gives perceptible range
+      const lower = Math.max(0, threshold - featherSpan);
+      const upper = Math.min(255, threshold);
+      const range = upper - lower;
+
+      for (let i = 0; i < len; i += 4) {
+        let L = 0.2126 * src[i] + 0.7152 * src[i + 1] + 0.0722 * src[i + 2];
+        L = L + brightness;
+        L = (L - 128) * contrast + 128;
+        if (L < 0) L = 0; else if (L > 255) L = 255;
+
+        let alpha;
+        if (range > 0) {
+          if (L >= upper) alpha = 0;
+          else if (L <= lower) alpha = 255;
+          else alpha = Math.round(255 * (1 - (L - lower) / range));
+        } else {
+          alpha = L >= threshold ? 0 : 255;
+        }
+
+        if (alpha === 0) {
+          out[i] = 0; out[i + 1] = 0; out[i + 2] = 0; out[i + 3] = 0;
+          continue;
+        }
+
+        if (recolor) {
+          if (invert) {
+            // invert the ink color too
+            out[i] = 255 - ink.r;
+            out[i + 1] = 255 - ink.g;
+            out[i + 2] = 255 - ink.b;
+          } else {
+            out[i] = ink.r;
+            out[i + 1] = ink.g;
+            out[i + 2] = ink.b;
+          }
+        } else if (invert) {
+          out[i] = 255 - src[i];
+          out[i + 1] = 255 - src[i + 1];
+          out[i + 2] = 255 - src[i + 2];
+        } else {
+          out[i] = src[i];
+          out[i + 1] = src[i + 1];
+          out[i + 2] = src[i + 2];
+        }
+        out[i + 3] = alpha;
+      }
+
+      const processed = new ImageData(out, sourceWidth, sourceHeight);
+      ctxPaper.clearRect(0, 0, sourceWidth, sourceHeight);
+      ctxPaper.putImageData(processed, 0, 0);
+      ctxDark.clearRect(0, 0, sourceWidth, sourceHeight);
+      ctxDark.putImageData(processed, 0, 0);
+    }
+
+    function updateValueDisplays() {
+      els.valThreshold.textContent = els.threshold.value;
+      els.valContrast.textContent = parseFloat(els.contrast.value).toFixed(2);
+      els.valBrightness.textContent = els.brightness.value;
+      els.valFeather.textContent = els.feather.value;
+    }
+
+    // Wire up controls
+    ['threshold', 'contrast', 'brightness', 'feather'].forEach(name => {
+      els[name].addEventListener('input', () => {
+        updateValueDisplays();
+        process();
+      });
+    });
+    els.inkColor.addEventListener('input', process);
+    els.recolor.addEventListener('change', process);
+    els.invert.addEventListener('change', process);
+
+    // When user toggles Invert ON, the export is already inverted — so the
+    // "on dark" preview should NOT apply CSS invert (or it'd double-flip).
+    function syncDarkPreviewInvert() {
+      const wrap = document.querySelector('.canvas-wrap.on-dark');
+      wrap.classList.toggle('no-invert', els.invert.checked);
+    }
+    els.invert.addEventListener('change', syncDarkPreviewInvert);
+
+    els.uploadInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) loadImage(e.target.files[0]);
+    });
+
+    els.uploadLabel.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      els.uploadLabel.classList.add('drag-over');
+    });
+    els.uploadLabel.addEventListener('dragleave', () => {
+      els.uploadLabel.classList.remove('drag-over');
+    });
+    els.uploadLabel.addEventListener('drop', (e) => {
+      e.preventDefault();
+      els.uploadLabel.classList.remove('drag-over');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) loadImage(e.dataTransfer.files[0]);
+    });
+
+    els.btnDownload.addEventListener('click', () => {
+      if (!sourceImageData) return;
+      const link = document.createElement('a');
+      link.download = 'extracted-' + Date.now() + '.png';
+      link.href = els.canvasPaper.toDataURL('image/png');
+      link.click();
+    });
+
+    els.btnReset.addEventListener('click', () => {
+      els.threshold.value = 180;
+      els.contrast.value = 1.20;
+      els.brightness.value = 0;
+      els.feather.value = 3;
+      els.inkColor.value = '#1a1a1a';
+      els.recolor.checked = false;
+      els.invert.checked = false;
+      updateValueDisplays();
+      process();
+    });
+
+    updateValueDisplays();
+  </script>
+</body>
+</html>

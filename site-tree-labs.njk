@@ -1,0 +1,110 @@
+---
+layout: base.njk
+title: Site tree — variants lab
+pageClass: page-site-tree-labs
+permalink: /site-tree-labs/
+eleventyExcludeFromCollections: true
+---
+
+<style>
+  main.page.page-site-tree-labs{ padding: 1rem 0 3rem; }
+  .labs-header{ padding: 0 0 0.8rem; margin: 0 0 1.4rem; border-bottom: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+  .labs-eyebrow{ font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink); }
+  .labs-lede{ font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-size: 0.95rem; color: color-mix(in srgb, var(--ink) 65%, transparent); max-width: 42rem; margin: 0.6rem 0 0; }
+  .labs-grid{ display: grid; grid-template-columns: 1fr; gap: 2.4rem; }
+  @media (min-width: 1100px){ .labs-grid{ grid-template-columns: 1fr 1fr; } }
+  .lab-card{ border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); border-radius: 4px; padding: 1rem; background: var(--bg); }
+  .lab-card-title{ display:flex; align-items:baseline; justify-content: space-between; margin: 0 0 0.5rem; }
+  .lab-card-title a{ font-family: "Source Serif 4", Georgia, serif; font-style: italic; font-size: 1.3rem; color: var(--ink); text-decoration: none; }
+  .lab-card-title a:hover{ text-decoration: underline; text-underline-offset: 4px; }
+  .lab-card-route{ font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.16em; color: color-mix(in srgb, var(--ink) 55%, transparent); }
+  .lab-card-note{ font-family: "Source Serif 4", Georgia, serif; font-size: 0.86rem; line-height: 1.5; color: color-mix(in srgb, var(--ink) 75%, transparent); margin: 0 0 0.7rem; max-width: 38rem; }
+  .lab-card-note em{ color: var(--ink); }
+  .lab-card-frame{ width: 100%; height: 460px; border: 0; background: var(--bg); }
+  .lab-card-baseline{ background: color-mix(in srgb, var(--ink) 4%, transparent); }
+  .lab-tag{ display: inline-block; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--ink) 55%, transparent); border: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); padding: 1px 6px; border-radius: 2px; margin-right: 0.4rem; }
+  .lab-axis{ font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: color-mix(in srgb, var(--ink) 55%, transparent); margin: 0 0 0.3rem; }
+</style>
+
+<header class="labs-header">
+  <div class="labs-eyebrow">site tree — variants on baseline</div>
+  <p class="labs-lede">
+    Same geometry, same topology. Each variant tweaks one axis so we can isolate what pulls the page toward "designed" vs "handmade".
+  </p>
+</header>
+
+<div class="labs-grid">
+
+  <div class="lab-card lab-card-baseline">
+    <p class="lab-axis">baseline</p>
+    <div class="lab-card-title">
+      <a href="/site-tree/" target="_blank" rel="noopener">Site tree (production)</a>
+      <span class="lab-card-route">/site-tree/</span>
+    </div>
+    <p class="lab-card-note">
+      Filled trapezoid trunk + filled tapered branches. OKLCH palette. Source Serif italic labels + IBM Plex Mono small-caps subs. Animated dashed river. "you are here" koan.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree/" title="baseline site tree"></iframe>
+  </div>
+
+  <div class="lab-card">
+    <p class="lab-axis">axis — fill vs stroke</p>
+    <div class="lab-card-title">
+      <a href="/site-tree-v1/" target="_blank" rel="noopener">V1 — outlined</a>
+      <span class="lab-card-route">/site-tree-v1/</span>
+    </div>
+    <p class="lab-card-note">
+      Trunk and branches become <em>stroked outlines</em>, not filled solids. Everything else unchanged. Reads less "designed weight", more "diagram." Loses some presence; gains airiness.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree-v1/" title="outlined variant"></iframe>
+  </div>
+
+  <div class="lab-card">
+    <p class="lab-axis">axis — geometry</p>
+    <div class="lab-card-title">
+      <a href="/site-tree-v2/" target="_blank" rel="noopener">V2 — curved &amp; uneven</a>
+      <span class="lab-card-route">/site-tree-v2/</span>
+    </div>
+    <p class="lab-card-note">
+      Trunk edges bow into a subtle S-curve. Branches use beziers instead of straight tapers. Writing node sits ~14px lower than Consulting (uneven canopy heights). About line and river get a slight arc. The geometric symmetry breaks <em>just</em> enough.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree-v2/" title="curved variant"></iframe>
+  </div>
+
+  <div class="lab-card">
+    <p class="lab-axis">axis — texture</p>
+    <div class="lab-card-title">
+      <a href="/site-tree-v3/" target="_blank" rel="noopener">V3 — textured</a>
+      <span class="lab-card-route">/site-tree-v3/</span>
+    </div>
+    <p class="lab-card-note">
+      Same baseline geometry but every shape passes through an <code>feTurbulence</code> displacement filter — paths jitter as if drawn by hand at low amplitude (scale 1.4, baseFrequency 0.018). Subtle; survives at a glance.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree-v3/" title="textured variant"></iframe>
+  </div>
+
+  <div class="lab-card">
+    <p class="lab-axis">axis — typography &amp; ground</p>
+    <div class="lab-card-title">
+      <a href="/site-tree-v4/" target="_blank" rel="noopener">V4 — warm paper</a>
+      <span class="lab-card-route">/site-tree-v4/</span>
+    </div>
+    <p class="lab-card-note">
+      Stage gets a parchment-warm background tint. Labels swap to EB Garamond <em>upright</em> (not italic). IBM Plex Mono sub-labels dropped. Koan dropped. Pulls the page from "design system surface" toward "page from a book". Most aggressive variant.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree-v4/" title="warm paper variant"></iframe>
+  </div>
+
+  <div class="lab-card" style="background: color-mix(in srgb, oklch(96% 0.04 80) 35%, var(--bg));">
+    <p class="lab-axis">composed — V4 + V2 + tremor</p>
+    <div class="lab-card-title">
+      <a href="/site-tree-v5/" target="_blank" rel="noopener">V5 — after Alexander</a>
+      <span class="lab-card-route">/site-tree-v5/</span>
+    </div>
+    <p class="lab-card-note">
+      V4's parchment ground + upright EB Garamond, composed with V2's curved trunk and uneven branches. Low-amplitude tremor filter applied to tree shapes only. A faint soil horizon anchors the tree in ground, breaking before the river. Local symmetries, no global symmetry. The "page from <em>A Pattern Language</em>" variant.
+    </p>
+    <iframe class="lab-card-frame" src="/site-tree-v5/" title="alexander variant"></iframe>
+  </div>
+
+</div>

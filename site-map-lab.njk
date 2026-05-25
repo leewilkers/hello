@@ -1,0 +1,847 @@
+---
+layout: base.njk
+title: Site map lab
+pageClass: page-sitemap-lab
+permalink: /site-map-lab/
+eleventyExcludeFromCollections: true
+---
+
+<script>document.documentElement.classList.add('page-sitemap-lab'); document.body && document.body.classList.add('page-sitemap-lab');</script>
+
+<style>
+  .sml-stage{
+    position:relative;
+    width:100%;
+    min-height: 82vh;
+    overflow:hidden;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .sml-stage canvas{ display:block; width:100%; height:100%; }
+
+  .sml-labels{
+    position:absolute; inset:0; pointer-events:none;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  .sml-pin{
+    position:absolute;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--ink) 80%, transparent);
+  }
+  .sml-pin .pin-label{
+    display:inline-block;
+    padding: 0 .35rem;
+    background: var(--bg);
+  }
+  .sml-pin .pin-sub{
+    display:block;
+    font-size: 9px;
+    letter-spacing: .14em;
+    color: color-mix(in srgb, var(--ink) 40%, transparent);
+    margin-top: 2px;
+    padding: 0 .35rem;
+    text-transform: lowercase;
+    font-style: italic;
+    font-family: "Source Serif 4", "Source Serif Pro", Georgia, serif;
+  }
+  .sml-pin[data-place-id="stream"] .pin-sub{
+    opacity: var(--stream-label-alpha, .42);
+  }
+  .sml-pin.is-here{ color: var(--ink); }
+  .sml-pin.is-here .pin-label{ font-weight: 500; }
+  .sml-pin.is-here::before{
+    content:"";
+    position:absolute;
+    left: -8px; top: 7px;
+    width: 4px; height: 4px;
+    background: var(--ink);
+  }
+  .sml-pin.is-clickable{ pointer-events:auto; cursor:pointer; }
+  .sml-pin.is-clickable:hover .pin-label{
+    background: color-mix(in srgb, var(--ink) 10%, var(--bg));
+  }
+
+  .sml-status{
+    position:absolute;
+    left: 1rem; bottom: 1rem;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--ink) 45%, transparent);
+  }
+  .sml-status b{
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: .6rem;
+  }
+</style>
+
+<div class="sml-stage" data-stage>
+  <div class="sml-labels" data-labels></div>
+  <div class="sml-status">you are here <b data-here-label>about</b></div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://esm.sh/three@0.160.0",
+    "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ─────────────────────────────────────────────────────────────────
+// the world
+//   a domestic schematic, closer to a metro map than a model.
+//   three stacked floors, one quiet vertical connector.
+//   the back door opens onto a short path and stream.
+//   stars overhead.
+// ─────────────────────────────────────────────────────────────────
+
+const HOUSE = 5.2;                          // cube edge length
+const HALF  = HOUSE / 2;
+const FLOOR_SURFACE_Y = { basement:-HALF, ground:-0.86, upstairs:0.86 };  // walkable floor surfaces
+
+const DOOR_W = 0.86;
+const DOOR_H = 0.88;
+const BACK_DOOR = new THREE.Vector3(0, FLOOR_SURFACE_Y.ground, -HALF);
+
+// backyard extends behind the house (-z side)
+const YARD_Z_NEAR = -HALF;                  // touches back wall
+const YARD_Z_FAR  = -HALF - 5.0;            // small back garden, not a campus map
+const YARD_X_MIN  = -HALF;                  // symmetric with the house footprint
+const YARD_X_MAX  =  HALF;
+const YARD_Y      =  FLOOR_SURFACE_Y.ground; // outdoor ground = indoor ground-floor surface
+const RIVER_Z     =  YARD_Z_FAR + 1.05;      // where the river runs across the yard
+const STREAM_PAD_Z = RIVER_Z + 0.34;
+const STREAM_PAD_D = 0.52;
+const STREAM_PATH_END_Z = STREAM_PAD_Z + STREAM_PAD_D * 0.5;
+
+// places — each has a type ('door' | 'volume' | 'pad') so it can be picked and
+// labeled without forcing the drawing to become a realistic dollhouse.
+const PLACES = [
+  {
+    id: 'about', label: 'About', sub: 'the front door', url: '/',
+    type: 'door',
+    door: { x: 0, y: FLOOR_SURFACE_Y.ground, z: HALF, w: DOOR_W, h: DOOR_H, side: 1 },
+  },
+  {
+    id: 'consulting', label: 'Consulting', sub: 'upstairs', url: '/consulting/',
+    type: 'volume',
+    box: { xMin: -HALF, xMax: HALF,
+           yMin: FLOOR_SURFACE_Y.upstairs, yMax: HALF,
+           zMin: -HALF, zMax: HALF },
+  },
+  {
+    id: 'stacks', label: 'Stacks', sub: 'in the basement', url: '/shelf/',
+    type: 'volume',
+    box: { xMin: -HALF, xMax: HALF,
+           yMin: -HALF, yMax: FLOOR_SURFACE_Y.ground,
+           zMin: -HALF, zMax: HALF },
+  },
+  {
+    id: 'stream', label: 'Stream', sub: 'by the river', url: '/stream/',
+    type: 'pad',
+    pad: { x: 0, y: YARD_Y, z: STREAM_PAD_Z, w: 1.45, d: STREAM_PAD_D },
+  },
+];
+
+function labelAnchorFor(place){
+  if (place.type === 'door'){
+    return new THREE.Vector3(place.door.x, place.door.y + place.door.h + 0.5, place.door.z + 0.1);
+  }
+  if (place.type === 'volume'){
+    const b = place.box;
+    return new THREE.Vector3((b.xMin + b.xMax)*0.5 + 0.6, b.yMax + 0.05, -0.6);
+  }
+  // pad
+  return new THREE.Vector3(place.pad.x, place.pad.y + 0.55, place.pad.z);
+}
+
+const here = (() => {
+  const q = new URLSearchParams(location.search).get('room');
+  const realPlaces = new Set(['about', 'consulting', 'stacks', 'stream']);
+  if (realPlaces.has(q)) return q;
+  const p = location.pathname;
+  if (p === '/' || p === '/index.html') return 'about';
+  if (p.startsWith('/consulting')) return 'consulting';
+  if (p.startsWith('/shelf'))      return 'stacks';
+  if (p.startsWith('/stream'))     return 'stream';
+  return null;
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// theme — read site ink from CSS variables, follow [data-theme]
+// ─────────────────────────────────────────────────────────────────
+function readTheme(){
+  const cs = getComputedStyle(document.body);
+  return {
+    ink: new THREE.Color((cs.getPropertyValue('--ink') || '#222').trim()),
+    bg:  new THREE.Color((cs.getPropertyValue('--bg')  || '#fff').trim()),
+  };
+}
+let theme = readTheme();
+
+// ─────────────────────────────────────────────────────────────────
+// scene, ortho camera, renderer
+// ─────────────────────────────────────────────────────────────────
+const stage  = document.querySelector('[data-stage]');
+const labels = stage.querySelector('[data-labels]');
+const hereLabelEl = stage.querySelector('[data-here-label]');
+const currentPlace = PLACES.find(p => p.id === here);
+hereLabelEl.textContent = currentPlace ? currentPlace.label.toLowerCase() : 'the map';
+
+const scene = new THREE.Scene();
+
+const ORTHO_D = 8.5;
+function makeOrthoSize(){
+  const r = stage.getBoundingClientRect();
+  const aspect = (r.width || 1) / (r.height || 1);
+  return { left: -ORTHO_D*aspect, right: ORTHO_D*aspect, top: ORTHO_D, bottom: -ORTHO_D };
+}
+const o = makeOrthoSize();
+const camera = new THREE.OrthographicCamera(o.left, o.right, o.top, o.bottom, 0.1, 200);
+// classic isometric: camera direction (1,1,1) normalized, looking at origin-ish
+camera.position.set(20, 20, 20);
+camera.lookAt(0, -1, -1);
+
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
+stage.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping  = true;
+controls.dampingFactor  = 0.1;
+controls.enablePan      = false;
+controls.enableRotate   = true;
+controls.enableZoom     = false;
+controls.minZoom        = 0.7;
+controls.maxZoom        = 1.6;
+// gentle axonometric tilt, not a fully inspectable model
+controls.minPolarAngle  = Math.PI * 0.22;
+controls.maxPolarAngle  = Math.PI * 0.42;
+controls.rotateSpeed    = 0.34;
+controls.target.set(0, -1, -1);
+
+// ─────────────────────────────────────────────────────────────────
+// material registry — supports live theme color updates
+// ─────────────────────────────────────────────────────────────────
+const inkMaterials = [];
+
+function inkLine(opacity){
+  const m = new THREE.LineBasicMaterial({ color: theme.ink, transparent:true, opacity, depthTest:false });
+  inkMaterials.push({ mat:m, kind:'basic' });
+  return m;
+}
+function inkMesh(opacity){
+  const m = new THREE.MeshBasicMaterial({ color: theme.ink, transparent:true, opacity, depthTest:false });
+  inkMaterials.push({ mat:m, kind:'basic' });
+  return m;
+}
+
+function lineFromPoints(pts, mat){
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  return new THREE.Line(g, mat);
+}
+function lineSegsFromPoints(pts, mat){
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  return new THREE.LineSegments(g, mat);
+}
+
+function inkFill(opacity){
+  const m = new THREE.MeshBasicMaterial({
+    color: theme.ink, transparent:true, opacity, depthWrite:false, depthTest:false,
+    side: THREE.DoubleSide,
+  });
+  inkMaterials.push({ mat:m, kind:'basic' });
+  return m;
+}
+
+function panelGeometry(corners){
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(corners.flatMap(v => [v.x, v.y, v.z])), 3));
+  g.setIndex([0, 1, 2, 0, 2, 3]);
+  return g;
+}
+
+function addPanel(corners, fillOpacity, edgeOpacity){
+  if (fillOpacity > 0){
+    const mesh = new THREE.Mesh(panelGeometry(corners), inkFill(fillOpacity));
+    scene.add(mesh);
+  }
+  if (edgeOpacity > 0){
+    const edgePts = [
+      corners[0], corners[1], corners[1], corners[2],
+      corners[2], corners[3], corners[3], corners[0],
+    ];
+    scene.add(lineSegsFromPoints(edgePts, inkLine(edgeOpacity)));
+  }
+}
+
+function addHorizontalPanel(xMin, xMax, zMin, zMax, y, fillOpacity, edgeOpacity){
+  addPanel([
+    new THREE.Vector3(xMin, y, zMax),
+    new THREE.Vector3(xMax, y, zMax),
+    new THREE.Vector3(xMax, y, zMin),
+    new THREE.Vector3(xMin, y, zMin),
+  ], fillOpacity, edgeOpacity);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 1. the backyard (drawn first, sits behind everything)
+// ─────────────────────────────────────────────────────────────────
+{
+  // outline
+  const y = YARD_Y;
+  const outline = [
+    new THREE.Vector3(YARD_X_MIN, y, YARD_Z_NEAR), new THREE.Vector3(YARD_X_MAX, y, YARD_Z_NEAR),
+    new THREE.Vector3(YARD_X_MAX, y, YARD_Z_NEAR), new THREE.Vector3(YARD_X_MAX, y, YARD_Z_FAR),
+    new THREE.Vector3(YARD_X_MAX, y, YARD_Z_FAR),  new THREE.Vector3(YARD_X_MIN, y, YARD_Z_FAR),
+    new THREE.Vector3(YARD_X_MIN, y, YARD_Z_FAR),  new THREE.Vector3(YARD_X_MIN, y, YARD_Z_NEAR),
+  ];
+  scene.add(lineSegsFromPoints(outline, inkLine(0.30)));
+
+  // sparse cross-stitch suggesting lawn
+  const stitches = [];
+  const SX = 6, SZ = 5;
+  for (let i = 0; i <= SX; i++){
+    for (let j = 0; j <= SZ; j++){
+      const cx = YARD_X_MIN + (i / SX) * (YARD_X_MAX - YARD_X_MIN);
+      const cz = YARD_Z_NEAR - (j / SZ) * (YARD_Z_NEAR - YARD_Z_FAR);
+      const s = 0.06;
+      stitches.push(new THREE.Vector3(cx - s, y, cz), new THREE.Vector3(cx + s, y, cz));
+      stitches.push(new THREE.Vector3(cx, y, cz - s), new THREE.Vector3(cx, y, cz + s));
+    }
+  }
+  scene.add(lineSegsFromPoints(stitches, inkLine(0.12)));
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 2. the river — a single sine polyline through the backyard (animated)
+// ─────────────────────────────────────────────────────────────────
+const RIVER_SEG = 220;
+const RIVER_X_MIN = YARD_X_MIN;
+const RIVER_X_MAX = YARD_X_MAX;
+const riverPositions = new Float32Array(RIVER_SEG * 3);
+for (let i = 0; i < RIVER_SEG; i++){
+  const t = i / (RIVER_SEG - 1);
+  riverPositions[i*3+0] = RIVER_X_MIN + t * (RIVER_X_MAX - RIVER_X_MIN);
+  riverPositions[i*3+1] = YARD_Y + 0.001;
+  riverPositions[i*3+2] = RIVER_Z;
+}
+const riverGeo = new THREE.BufferGeometry();
+riverGeo.setAttribute('position', new THREE.BufferAttribute(riverPositions, 3));
+const river = new THREE.Line(riverGeo, inkLine(0.62));
+scene.add(river);
+
+// a fainter parallel echo gives the stream depth (the far bank)
+const river2Positions = new Float32Array(RIVER_SEG * 3);
+for (let i = 0; i < RIVER_SEG; i++){
+  river2Positions[i*3+0] = riverPositions[i*3+0];
+  river2Positions[i*3+1] = YARD_Y + 0.001;
+  river2Positions[i*3+2] = RIVER_Z - 0.6;
+}
+const river2Geo = new THREE.BufferGeometry();
+river2Geo.setAttribute('position', new THREE.BufferAttribute(river2Positions, 3));
+const river2 = new THREE.Line(river2Geo, inkLine(0.22));
+scene.add(river2);
+
+// ─────────────────────────────────────────────────────────────────
+// 3. the back path — from back door out to the stream
+// ─────────────────────────────────────────────────────────────────
+{
+  const backPath = [
+    BACK_DOOR.clone(),                                                  // at the threshold
+    new THREE.Vector3(0, YARD_Y, BACK_DOOR.z),                          // step down to outdoor ground
+    new THREE.Vector3(0, YARD_Y, STREAM_PATH_END_Z),                    // walk back until the pad takes over
+  ];
+  scene.add(lineFromPoints(backPath, inkLine(0.45)));
+}
+
+const CURRENT_SEG = 72;
+const currentPositions = new Float32Array(CURRENT_SEG * 3);
+for (let i = 0; i < CURRENT_SEG; i++){
+  const u = i / (CURRENT_SEG - 1);
+  currentPositions[i*3+0] = 0;
+  currentPositions[i*3+1] = YARD_Y + 0.006;
+  currentPositions[i*3+2] = STREAM_PATH_END_Z + u * (STREAM_PAD_Z - STREAM_PATH_END_Z);
+}
+const currentGeo = new THREE.BufferGeometry();
+currentGeo.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+const currentMat = inkLine(0.32);
+const connectingCurrent = new THREE.Line(currentGeo, currentMat);
+scene.add(connectingCurrent);
+
+function rabbitOval(cx, cy, cz, rx, ry, steps = 24){
+  const pts = [];
+  for (let i = 0; i <= steps; i++){
+    const a = (Math.PI * 2 * i) / steps;
+    pts.push(new THREE.Vector3(cx + Math.cos(a) * rx, cy + Math.sin(a) * ry, cz));
+  }
+  return pts;
+}
+
+function addStreamRabbit(){
+  const rabbit = new THREE.Group();
+  const z = 0;
+  const mat = inkLine(0.58);
+
+  [
+    rabbitOval(0.00, 0.18, z, 0.27, 0.15, 28),     // body
+    rabbitOval(0.29, 0.35, z, 0.13, 0.11, 22),     // head
+    rabbitOval(-0.29, 0.23, z, 0.055, 0.055, 14),  // tail
+    rabbitOval(0.23, 0.58, z, 0.045, 0.17, 16),    // near ear
+    rabbitOval(0.35, 0.56, z, 0.040, 0.15, 16),    // far ear
+    [
+      new THREE.Vector3(-0.16, 0.03, z),
+      new THREE.Vector3(0.10, 0.03, z),
+      new THREE.Vector3(0.28, 0.06, z),
+    ],
+    [
+      new THREE.Vector3(0.34, 0.37, z),
+      new THREE.Vector3(0.38, 0.37, z),
+    ],
+  ].forEach(points => rabbit.add(lineFromPoints(points, mat)));
+
+  rabbit.scale.set(0.82, 0.82, 0.82);
+  rabbit.position.set(1.15, YARD_Y + 0.026, STREAM_PAD_Z - 0.36);
+  scene.add(rabbit);
+  return rabbit;
+}
+
+const streamRabbit = addStreamRabbit();
+
+// ─────────────────────────────────────────────────────────────────
+// 4. the house — schematic floors, not a dollhouse
+// ─────────────────────────────────────────────────────────────────
+function addFloorSlab(y, fillOpacity = 0.026, edgeOpacity = 0.25){
+  addHorizontalPanel(-HALF, HALF, -HALF, HALF, y + 0.004, fillOpacity, edgeOpacity);
+}
+
+function addSchematicStackShell(){
+  addFloorSlab(FLOOR_SURFACE_Y.basement, 0.022, 0.22);
+  addFloorSlab(FLOOR_SURFACE_Y.ground, 0.028, 0.27);
+  addFloorSlab(FLOOR_SURFACE_Y.upstairs, 0.022, 0.22);
+
+  const corners = [
+    [ -HALF, -HALF ],
+    [  HALF, -HALF ],
+    [  HALF,  HALF ],
+    [ -HALF,  HALF ],
+  ];
+  const tethers = [];
+  corners.forEach(([x, z]) => {
+    tethers.push(
+      new THREE.Vector3(x, FLOOR_SURFACE_Y.basement, z),
+      new THREE.Vector3(x, FLOOR_SURFACE_Y.upstairs, z)
+    );
+  });
+  scene.add(lineSegsFromPoints(tethers, inkLine(0.13)));
+}
+
+function addDoorFrame(side, active){
+  const z = side * HALF + side * 0.020;
+  const edge = side > 0 ? 0.66 : 0.44;
+  const x0 = -DOOR_W * 0.5, x1 = DOOR_W * 0.5;
+  const y0 = FLOOR_SURFACE_Y.ground, y1 = FLOOR_SURFACE_Y.ground + DOOR_H;
+  addPanel([
+    new THREE.Vector3(x0, y0, z),
+    new THREE.Vector3(x1, y0, z),
+    new THREE.Vector3(x1, y1, z),
+    new THREE.Vector3(x0, y1, z),
+  ], active ? 0.32 : 0, active ? 0.78 : edge);
+
+  const thresholdZ = side * HALF + side * 0.24;
+  scene.add(lineSegsFromPoints([
+    new THREE.Vector3(-0.62, FLOOR_SURFACE_Y.ground + 0.010, thresholdZ),
+    new THREE.Vector3( 0.62, FLOOR_SURFACE_Y.ground + 0.010, thresholdZ),
+  ], inkLine(side > 0 ? 0.50 : 0.32)));
+}
+
+function addSchematicConnector(){
+  const x = 0;
+  const z = 0.18;
+  scene.add(lineFromPoints([
+    new THREE.Vector3(x, FLOOR_SURFACE_Y.basement, z),
+    new THREE.Vector3(x, FLOOR_SURFACE_Y.upstairs, z),
+  ], inkLine(0.46)));
+
+  [FLOOR_SURFACE_Y.basement, FLOOR_SURFACE_Y.ground, FLOOR_SURFACE_Y.upstairs].forEach(y => {
+    scene.add(lineFromPoints(rabbitOval(x, y, z, 0.11, 0.11, 18), inkLine(0.52)));
+  });
+
+  scene.add(lineFromPoints([
+    new THREE.Vector3(0, FLOOR_SURFACE_Y.ground + 0.006, HALF),
+    new THREE.Vector3(0, FLOOR_SURFACE_Y.ground + 0.006, z),
+    new THREE.Vector3(0, FLOOR_SURFACE_Y.ground + 0.006, -HALF),
+  ], inkLine(0.30)));
+}
+
+addSchematicStackShell();
+addDoorFrame(1, here === 'about');
+addDoorFrame(-1, false);
+addSchematicConnector();
+
+// ─────────────────────────────────────────────────────────────────
+// 5. places — invisible hit zones plus the visible stream pad.
+//    "here" gets a low-opacity fill so the current room reads at a glance.
+// ─────────────────────────────────────────────────────────────────
+const pickHitboxes = [];
+let streamPadOutlinePositions = null;
+let streamPadOutline = null;
+let streamPadCorners = null;
+let streamPadPairIndex = null;
+let streamPadEdgeMat = null;
+let streamWashMat = null;
+let streamSubEl = null;
+
+function roomSegmentsForBox(b){
+  return [b];
+}
+
+function addBoxFillAndHit(segment, placeId, fillOpacity){
+  const w = segment.xMax - segment.xMin;
+  const h = segment.yMax - segment.yMin;
+  const d = segment.zMax - segment.zMin;
+  const cx = (segment.xMin + segment.xMax) * 0.5;
+  const cy = (segment.yMin + segment.yMax) * 0.5;
+  const cz = (segment.zMin + segment.zMax) * 0.5;
+
+  if (fillOpacity > 0){
+    const fill = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), inkFill(fillOpacity));
+    fill.position.set(cx, cy, cz);
+    scene.add(fill);
+  }
+
+  const hit = new THREE.Mesh(
+    new THREE.BoxGeometry(w, h, d),
+    new THREE.MeshBasicMaterial({ visible:false, depthTest:false })
+  );
+  hit.position.set(cx, cy, cz);
+  hit.userData.placeId = placeId;
+  scene.add(hit);
+  pickHitboxes.push(hit);
+}
+
+function makeStreamWashMaterial(){
+  const mat = new THREE.ShaderMaterial({
+    transparent:true,
+    depthTest:false,
+    depthWrite:false,
+    side: THREE.DoubleSide,
+    uniforms: {
+      uTime:  { value: 0 },
+      uColor: { value: theme.ink.clone() },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main(){
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform float uTime;
+      uniform vec3 uColor;
+      void main(){
+        float wave = 0.5 + 0.5 * sin((vUv.y * 8.0) + (vUv.x * 2.5) + uTime);
+        float veil = smoothstep(0.12, 0.92, wave);
+        gl_FragColor = vec4(uColor, 0.10 + veil * 0.18);
+      }
+    `,
+  });
+  inkMaterials.push({ mat, kind:'uniform' });
+  return mat;
+}
+
+PLACES.forEach(place => {
+  const isHere = place.id === here;
+
+  if (place.type === 'door'){
+    const d = place.door;
+
+    // pick hitbox sits just outside the door (so clicks on the threshold register)
+    const hit = new THREE.Mesh(
+      new THREE.BoxGeometry(d.w + 0.4, d.h + 0.4, 0.5),
+      new THREE.MeshBasicMaterial({ visible:false, depthTest:false })
+    );
+    hit.position.set(d.x, d.y + d.h * 0.5, d.z + d.side * 0.25);
+    hit.userData.placeId = place.id;
+    scene.add(hit);
+    pickHitboxes.push(hit);
+  }
+
+  if (place.type === 'volume'){
+    roomSegmentsForBox(place.box).forEach(segment => {
+      addBoxFillAndHit(segment, place.id, isHere ? 0.060 : 0);
+    });
+  }
+
+  if (place.type === 'pad'){
+    const p = place.pad;
+    const hw = p.w * 0.5, hd = p.d * 0.5;
+
+    // outline rectangle at outdoor ground level
+    streamPadCorners = [
+      new THREE.Vector3(p.x - hw, p.y, p.z - hd),
+      new THREE.Vector3(p.x + hw, p.y, p.z - hd),
+      new THREE.Vector3(p.x + hw, p.y, p.z + hd),
+      new THREE.Vector3(p.x - hw, p.y, p.z + hd),
+    ];
+    streamPadPairIndex = [0, 1, 1, 2, 2, 3, 3, 0];
+    streamPadOutlinePositions = new Float32Array(streamPadPairIndex.length * 3);
+    streamPadPairIndex.forEach((cornerIndex, i) => {
+      const c = streamPadCorners[cornerIndex];
+      streamPadOutlinePositions[i*3+0] = c.x;
+      streamPadOutlinePositions[i*3+1] = c.y + 0.008;
+      streamPadOutlinePositions[i*3+2] = c.z;
+    });
+    const outlineGeo = new THREE.BufferGeometry();
+    outlineGeo.setAttribute('position', new THREE.BufferAttribute(streamPadOutlinePositions, 3));
+    streamPadEdgeMat = inkLine(isHere ? 0.86 : 0.52);
+    streamPadOutline = new THREE.LineSegments(outlineGeo, streamPadEdgeMat);
+    scene.add(streamPadOutline);
+
+    if (isHere){
+      streamWashMat = makeStreamWashMaterial();
+      const panel = new THREE.Mesh(new THREE.PlaneGeometry(p.w, p.d), streamWashMat);
+      panel.rotation.x = -Math.PI * 0.5;
+      panel.position.set(p.x, p.y + 0.006, p.z);
+      scene.add(panel);
+    }
+
+    const hit = new THREE.Mesh(
+      new THREE.BoxGeometry(p.w, 0.6, p.d),
+      new THREE.MeshBasicMaterial({ visible:false, depthTest:false })
+    );
+    hit.position.set(p.x, p.y + 0.3, p.z);
+    hit.userData.placeId = place.id;
+    scene.add(hit);
+    pickHitboxes.push(hit);
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────
+// 8. stars overhead — tiny plus-signs that twinkle on per-star phase
+// ─────────────────────────────────────────────────────────────────
+const STAR_COUNT = 56;
+function buildStars(){
+  const positions = [];
+  const phases    = [];
+  for (let i = 0; i < STAR_COUNT; i++){
+    const cx = (Math.random() - 0.5) * (HOUSE * 2.4);
+    const cy = HALF + 0.8 + Math.random() * 4.5;
+    const cz = -HALF + (Math.random() - 0.5) * (HOUSE * 2.0) - 1.2;
+    const s  = 0.06 + Math.random() * 0.05;
+    const ph = Math.random() * Math.PI * 2;
+    // two crossed line segments = "+"
+    positions.push(cx - s, cy, cz,   cx + s, cy, cz);
+    positions.push(cx, cy - s, cz,   cx, cy + s, cz);
+    phases.push(ph, ph, ph, ph);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+  g.setAttribute('phase',    new THREE.BufferAttribute(new Float32Array(phases), 1));
+  return g;
+}
+const starGeo = buildStars();
+const starMat = new THREE.ShaderMaterial({
+  transparent:true,
+  depthTest:false,
+  uniforms: {
+    uTime:  { value: 0 },
+    uColor: { value: theme.ink.clone() },
+  },
+  vertexShader: `
+    attribute float phase;
+    uniform float uTime;
+    varying float vA;
+    void main(){
+      vA = 0.18 + 0.36 * (0.5 + 0.5 * sin(uTime * 0.6 + phase));
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying float vA;
+    uniform vec3 uColor;
+    void main(){ gl_FragColor = vec4(uColor, vA); }
+  `,
+});
+inkMaterials.push({ mat: starMat, kind:'uniform' });
+const stars = new THREE.LineSegments(starGeo, starMat);
+scene.add(stars);
+
+// ─────────────────────────────────────────────────────────────────
+// 9. DOM labels — projected from 3D each frame
+// ─────────────────────────────────────────────────────────────────
+const pinEls = new Map();
+PLACES.forEach(place => {
+  const el = document.createElement('div');
+  el.className = 'sml-pin is-clickable' + (here && place.id === here ? ' is-here' : '');
+  el.dataset.placeId = place.id;
+  const main = document.createElement('span');
+  main.className = 'pin-label';
+  main.textContent = place.label;
+  const sub = document.createElement('span');
+  sub.className = 'pin-sub';
+  sub.textContent = place.sub;
+  if (place.id === 'stream') streamSubEl = sub;
+  el.appendChild(main);
+  el.appendChild(sub);
+  el.addEventListener('click', () => { location.href = place.url; });
+  labels.appendChild(el);
+  pinEls.set(place.id, el);
+});
+
+const proj = new THREE.Vector3();
+function updateLabels(){
+  const rect = stage.getBoundingClientRect();
+  PLACES.forEach(place => {
+    proj.copy(labelAnchorFor(place));
+    proj.project(camera);
+    const x = (proj.x *  0.5 + 0.5) * rect.width;
+    const y = (proj.y * -0.5 + 0.5) * rect.height;
+    const el = pinEls.get(place.id);
+    el.style.left = x + 'px';
+    el.style.top  = y + 'px';
+    el.style.opacity = (Math.abs(proj.z) > 1) ? '0' : '';
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────
+// raycasting (click cubes too, not just labels)
+// ─────────────────────────────────────────────────────────────────
+const raycaster = new THREE.Raycaster();
+const ndc = new THREE.Vector2();
+let pointerStart = null;
+let suppressClickAfterDrag = false;
+function setPointer(e){
+  const r = renderer.domElement.getBoundingClientRect();
+  ndc.x =  ((e.clientX - r.left) / r.width)  * 2 - 1;
+  ndc.y = -((e.clientY - r.top)  / r.height) * 2 + 1;
+}
+renderer.domElement.addEventListener('pointerdown', (e) => {
+  pointerStart = { x: e.clientX, y: e.clientY };
+  suppressClickAfterDrag = false;
+});
+renderer.domElement.addEventListener('pointermove', (e) => {
+  if (pointerStart){
+    const dx = e.clientX - pointerStart.x;
+    const dy = e.clientY - pointerStart.y;
+    if ((dx * dx + dy * dy) > 36) suppressClickAfterDrag = true;
+  }
+  setPointer(e);
+  raycaster.setFromCamera(ndc, camera);
+  const hits = raycaster.intersectObjects(pickHitboxes, false);
+  renderer.domElement.style.cursor = hits.length ? 'pointer' : '';
+});
+renderer.domElement.addEventListener('pointerup', () => {
+  pointerStart = null;
+});
+renderer.domElement.addEventListener('click', (e) => {
+  if (suppressClickAfterDrag){
+    suppressClickAfterDrag = false;
+    return;
+  }
+  setPointer(e);
+  raycaster.setFromCamera(ndc, camera);
+  const hits = raycaster.intersectObjects(pickHitboxes, false);
+  if (!hits.length) return;
+  const id = hits[0].object.userData.placeId;
+  const place = PLACES.find(p => p.id === id);
+  if (place) location.href = place.url;
+});
+
+// ─────────────────────────────────────────────────────────────────
+// theme observer
+// ─────────────────────────────────────────────────────────────────
+const themeObserver = new MutationObserver(() => {
+  theme = readTheme();
+  inkMaterials.forEach(({ mat, kind }) => {
+    if (kind === 'basic')    mat.color.copy(theme.ink);
+    if (kind === 'uniform')  mat.uniforms.uColor.value.copy(theme.ink);
+  });
+});
+themeObserver.observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+themeObserver.observe(document.body,           { attributes:true, attributeFilter:['data-theme'] });
+
+// ─────────────────────────────────────────────────────────────────
+// resize (ortho)
+// ─────────────────────────────────────────────────────────────────
+function resize(){
+  const r = stage.getBoundingClientRect();
+  const aspect = r.width / r.height;
+  camera.left   = -ORTHO_D * aspect;
+  camera.right  =  ORTHO_D * aspect;
+  camera.top    =  ORTHO_D;
+  camera.bottom = -ORTHO_D;
+  camera.updateProjectionMatrix();
+  renderer.setSize(r.width, r.height, false);
+}
+resize();
+new ResizeObserver(resize).observe(stage);
+
+// ─────────────────────────────────────────────────────────────────
+// animate
+//   river:  rolling sine wave through the polyline
+//   stars:  per-star twinkle via shader uniform uTime
+// ─────────────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+function tick(){
+  const t = clock.getElapsedTime();
+
+  const amp = 0.13, k = 0.55, speed = 0.7;
+  const streamPhase = t * speed;
+  for (let i = 0; i < RIVER_SEG; i++){
+    const x = riverPositions[i*3+0];
+    riverPositions[i*3+1]  = YARD_Y + 0.001 + Math.sin(x * k + streamPhase) * amp;
+    river2Positions[i*3+1] = YARD_Y + 0.001 + Math.sin(x * k + streamPhase + 0.9) * amp * 0.55;
+  }
+  river.geometry.attributes.position.needsUpdate  = true;
+  river2.geometry.attributes.position.needsUpdate = true;
+
+  for (let i = 0; i < CURRENT_SEG; i++){
+    const u = i / (CURRENT_SEG - 1);
+    const z = STREAM_PATH_END_Z + u * (STREAM_PAD_Z - STREAM_PATH_END_Z);
+    currentPositions[i*3+0] = Math.sin(u * Math.PI * 3.0 + streamPhase * 1.55) * 0.045;
+    currentPositions[i*3+1] = YARD_Y + 0.010 + Math.sin(u * Math.PI * 2.0 + streamPhase) * 0.030;
+    currentPositions[i*3+2] = z;
+  }
+  connectingCurrent.geometry.attributes.position.needsUpdate = true;
+  currentMat.opacity = 0.26 + (0.5 + 0.5 * Math.sin(streamPhase + 0.8)) * 0.16;
+
+  if (streamPadOutlinePositions && streamPadOutline && streamPadCorners){
+    streamPadPairIndex.forEach((cornerIndex, i) => {
+      const c = streamPadCorners[cornerIndex];
+      streamPadOutlinePositions[i*3+0] = c.x;
+      streamPadOutlinePositions[i*3+1] = c.y + 0.010 + Math.sin((c.x * 0.85) + (c.z * 0.38) + streamPhase) * 0.030;
+      streamPadOutlinePositions[i*3+2] = c.z;
+    });
+    streamPadOutline.geometry.attributes.position.needsUpdate = true;
+    streamPadEdgeMat.opacity = (here === 'stream' ? 0.74 : 0.46) + (0.5 + 0.5 * Math.sin(streamPhase + 0.35)) * 0.16;
+  }
+
+  if (streamWashMat) streamWashMat.uniforms.uTime.value = streamPhase;
+  if (streamSubEl) streamSubEl.style.opacity = (0.35 + (0.5 + 0.5 * Math.sin(streamPhase + 0.35)) * 0.20).toFixed(3);
+  streamRabbit.scale.y = 0.82 + Math.sin(streamPhase * 1.9) * 0.012;
+
+  starMat.uniforms.uTime.value = t;
+
+  controls.update();
+  renderer.render(scene, camera);
+  updateLabels();
+  requestAnimationFrame(tick);
+}
+tick();
+</script>
