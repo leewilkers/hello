@@ -35,6 +35,36 @@ Working notes under `qa/`, `source_reading/`, and `claude_design/` are not publi
 - Stream renders records with `dest: stream`, but is not in the main nav while content is being edited.
 - Theme toggle uses the cat-light video; keep browser/reduced-motion fallbacks.
 
+### Design system (Tufte / gwern) — one grammar, site-wide
+
+Unified 2026-05-25. Guided by Tufte CSS and gwern.net. The rules below are the
+source of truth; do not re-fork per page.
+
+- **Fonts by role, never by page.** Three tokens in `css/style.css :root`:
+  `--font-prose` (Source Serif 4) for *all* reading prose; `--font-ui`
+  (IBM Plex Sans) for *all* chrome/UI/metadata/nav/sidenotes; `--font-mono`
+  (IBM Plex Mono) for the LABEL grammar. Legacy aliases (`--serif`, `--sans`,
+  `--reading`, `--mono`) resolve onto these. `body` defaults to `--font-ui`;
+  reading containers (`.essay`, `.gwern-body`, `.home-section p`, `.judah` is
+  the sans directory exception) opt into `--font-prose`. No web-font CDN.
+- **Color is grayscale + one wayfinding accent.** Flexoki ink ramp; the cyan
+  `--accent` (`#24837B` light / `#3AA99F` dark) is reserved for wayfinding only
+  (nav active, focus rings, current section, sidenote numbers) and for figures
+  (e.g. the homepage site-tree). In-prose links are ink + hairline underline
+  (`--link-underline`), never colored.
+- **Measure.** `--measure` (65ch) is the generic reading column; `--measure-wide`
+  (56em) is the opt-in figure burst. Bespoke per-surface measures (consulting
+  scan-rail grid, home field-note, the tree-essay rail) are intentional — leave
+  them.
+- **Notes = one hover mechanism.** `<span class="sn-marker" tabindex="0"><span
+  class="sidenote-tooltip">…</span></span>` — auto-numbered superscript marker
+  (shared `sn-counter`, `--accent`) revealing a CSS-only hover/focus tooltip.
+  No JS. Works in `.essay` and `.gwern-body`. The old `.gwern-note` popover +
+  its tap-JS were removed.
+- **Preview scaffolding lives on the `font-lab` branch**, never on `main`
+  (the old `?font=`/`?palette=` machinery, `data-font`/`data-palette` variants,
+  and lab templates were removed from production).
+
 ### Visual grammar — `LABEL value`
 
 The site's load-bearing design pattern is mono-small-caps label + serif/content body, used in:

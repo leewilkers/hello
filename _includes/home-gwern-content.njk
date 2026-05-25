@@ -33,73 +33,6 @@
     color: var(--ink, #2a2820);
   }
 
-  /* === Gwern-style in-place hover popover === */
-  .gwern-note { position: relative; }
-  .gwern-note-marker {
-    font-feature-settings: "sups";
-    font-size: 0.85em;
-    color: var(--ink-soft, #6a655a);
-    border-bottom: 1px dotted currentColor;
-    cursor: help;
-    margin-left: 0.05em;
-    padding: 0 0.1em;
-  }
-  .gwern-note:hover .gwern-note-marker,
-  .gwern-note:focus-within .gwern-note-marker { color: var(--ink, #2a2820); }
-
-  .gwern-note-popover {
-    display: none;
-    position: absolute;
-    top: 1.5em;
-    left: -0.5em;
-    width: min(22em, calc(100vw - 2rem));
-    z-index: 100;
-    background: var(--bg, #f7f3e9);
-    color: var(--ink, #2a2820);
-    border: 1px solid var(--rule, #c8c1b3);
-    border-radius: 2px;
-    padding: 0.8em 1em;
-    font-size: 0.82rem;
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    line-height: 1.45;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-    text-align: left;
-  }
-  .gwern-note:hover .gwern-note-popover,
-  .gwern-note:focus-within .gwern-note-popover,
-  .gwern-note.gwern-note--open .gwern-note-popover { display: block; }
-  .gwern-note.gwern-note--open .gwern-note-marker { color: var(--ink, #2a2820); }
-  .gwern-note.gwern-note--right .gwern-note-popover { left: auto; right: -0.5em; }
-
-  .gwern-note-popover .np-gloss { display: block; margin-bottom: 0.5em; }
-  .gwern-note-popover .np-refs { display: block; font-size: 0.92em; color: var(--ink-soft, #6a655a); }
-  .gwern-note-popover cite { font-style: normal; display: block; margin-bottom: 0.15em; }
-  .gwern-note-popover em { font-style: italic; }
-  .gwern-note-popover cite a {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-color: rgba(106, 101, 90, 0.4);
-    text-underline-offset: 2px;
-  }
-  .gwern-note-popover cite a:hover {
-    text-decoration-color: currentColor;
-    color: var(--ink, #2a2820);
-  }
-  .gwern-note-popover::before {
-    content: "";
-    position: absolute;
-    top: -1.6em;
-    left: 0;
-    right: 0;
-    height: 1.6em;
-  }
-  @media (prefers-color-scheme: dark) {
-    .gwern-note-popover {
-      background: #1a1812;
-      border-color: #3a3528;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-    }
-  }
 </style>
 
 <article class="gwern-body" id="main">
@@ -108,15 +41,15 @@
   <p class="gwern-email"><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
 
   <p>
-    <em>realist management</em><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">¹</span><span class="gwern-note-popover"><span class="np-gloss">Managing what is rather than what should be.</span><span class="np-refs"><cite><a href="https://scholar.google.com/scholar?q=Mintzberg+The+Nature+of+Managerial+Work+1973" rel="noopener" target="_blank">Mintzberg, <em>The Nature of Managerial Work</em>, 1973.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Brunsson+Irrationality+of+Action+Journal+of+Management+Studies+1982" rel="noopener" target="_blank">Brunsson, &ldquo;The Irrationality of Action,&rdquo; <em>J Mgmt Stud</em>, 1982.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Suchman+Plans+and+Situated+Actions+1987" rel="noopener" target="_blank">Suchman, <em>Plans and Situated Actions</em>, 1987.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Weick+Sensemaking+in+Organizations+1995" rel="noopener" target="_blank">Weick, <em>Sensemaking in Organizations</em>, 1995.</a></cite></span></span></span>,
-    <em>generative friction</em><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">²</span><span class="gwern-note-popover"><span class="np-gloss">Treating tensions and disagreements as information &ndash; the gaps between what people and organizations say and what they do, between what they do and what they want, and between what they want and what they get asked about.</span><span class="np-refs"><cite><a href="https://scholar.google.com/scholar?q=Hirschman+Exit+Voice+and+Loyalty+1970" rel="noopener" target="_blank">Hirschman, <em>Exit, Voice, and Loyalty</em>, 1970.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Argyris+Schon+Organizational+Learning+1978" rel="noopener" target="_blank">Argyris &amp; Sch&ouml;n, <em>Organizational Learning</em>, 1978.</a></cite></span></span></span>,
-    <em>strategic unplanning</em><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">³</span><span class="gwern-note-popover"><span class="np-gloss">For VUCA-shaped problems &ndash; volatility, uncertainty, complexity, ambiguity &ndash; recognizing when the structure defeats planning. Short experiments take the place of plans until the problem&rsquo;s shape comes into view.</span><span class="np-refs"><cite><a href="https://scholar.google.com/scholar?q=Bennis+Nanus+Leaders+Strategies+for+Taking+Charge+1985" rel="noopener" target="_blank">Bennis &amp; Nanus, <em>Leaders</em>, 1985.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Bennett+Lemoine+What+VUCA+Really+Means+for+You+HBR+2014" rel="noopener" target="_blank">Bennett &amp; Lemoine, &ldquo;What VUCA Really Means,&rdquo; <em>HBR</em>, 2014.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Mintzberg+Crafting+Strategy+Harvard+Business+Review+1987" rel="noopener" target="_blank">Mintzberg, &ldquo;Crafting Strategy,&rdquo; <em>HBR</em>, 1987.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Scott+Seeing+Like+a+State+1998" rel="noopener" target="_blank">Scott, <em>Seeing Like a State</em>, 1998.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Stanley+Lehman+Why+Greatness+Cannot+Be+Planned+2015" rel="noopener" target="_blank">Stanley &amp; Lehman, <em>Why Greatness Cannot Be Planned</em>, 2015.</a></cite></span></span></span>,
-    <em>human infrastructure</em><span class="gwern-note"><span class="gwern-note-marker" tabindex="0">⁴</span><span class="gwern-note-popover"><span class="np-gloss">The people, relationships, and tacit work that hold a program together.</span><span class="np-refs"><cite><a href="https://scholar.google.com/scholar?q=King+Kolopack+Merritt+Lavery+Community+engagement+human+infrastructure+global+health+research+BMC+Medical+Ethics+2014" rel="noopener" target="_blank">King, Kolopack, Merritt &amp; Lavery, &ldquo;Community engagement and the human infrastructure of global health research,&rdquo; <em>BMC Med Ethics</em>, 2014.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Svensson+Humane+Infrastructures+MIT+Press+2025" rel="noopener" target="_blank">Svensson, <em>Humane Infrastructures</em>, 2025.</a></cite><cite><a href="https://scholar.google.com/scholar?q=Simone+People+as+Infrastructure+Public+Culture+2004" rel="noopener" target="_blank">Simone, &ldquo;People as Infrastructure,&rdquo; <em>Public Culture</em>, 2004.</a></cite></span></span></span>
+    <em>realist management</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Managing what is rather than what should be. <cite><a href="https://scholar.google.com/scholar?q=Mintzberg+The+Nature+of+Managerial+Work+1973" rel="noopener" target="_blank">Mintzberg, <em>The Nature of Managerial Work</em>, 1973.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Brunsson+Irrationality+of+Action+Journal+of+Management+Studies+1982" rel="noopener" target="_blank">Brunsson, &ldquo;The Irrationality of Action,&rdquo; <em>J Mgmt Stud</em>, 1982.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Suchman+Plans+and+Situated+Actions+1987" rel="noopener" target="_blank">Suchman, <em>Plans and Situated Actions</em>, 1987.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Weick+Sensemaking+in+Organizations+1995" rel="noopener" target="_blank">Weick, <em>Sensemaking in Organizations</em>, 1995.</a></cite></span></span>,
+    <em>generative friction</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">Treating tensions and disagreements as information &ndash; the gaps between what people and organizations say and what they do, between what they do and what they want, and between what they want and what they get asked about. <cite><a href="https://scholar.google.com/scholar?q=Hirschman+Exit+Voice+and+Loyalty+1970" rel="noopener" target="_blank">Hirschman, <em>Exit, Voice, and Loyalty</em>, 1970.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Argyris+Schon+Organizational+Learning+1978" rel="noopener" target="_blank">Argyris &amp; Sch&ouml;n, <em>Organizational Learning</em>, 1978.</a></cite></span></span>,
+    <em>strategic unplanning</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">For VUCA-shaped problems &ndash; volatility, uncertainty, complexity, ambiguity &ndash; recognizing when the structure defeats planning. Short experiments take the place of plans until the problem&rsquo;s shape comes into view. <cite><a href="https://scholar.google.com/scholar?q=Bennis+Nanus+Leaders+Strategies+for+Taking+Charge+1985" rel="noopener" target="_blank">Bennis &amp; Nanus, <em>Leaders</em>, 1985.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Bennett+Lemoine+What+VUCA+Really+Means+for+You+HBR+2014" rel="noopener" target="_blank">Bennett &amp; Lemoine, &ldquo;What VUCA Really Means,&rdquo; <em>HBR</em>, 2014.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Mintzberg+Crafting+Strategy+Harvard+Business+Review+1987" rel="noopener" target="_blank">Mintzberg, &ldquo;Crafting Strategy,&rdquo; <em>HBR</em>, 1987.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Scott+Seeing+Like+a+State+1998" rel="noopener" target="_blank">Scott, <em>Seeing Like a State</em>, 1998.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Stanley+Lehman+Why+Greatness+Cannot+Be+Planned+2015" rel="noopener" target="_blank">Stanley &amp; Lehman, <em>Why Greatness Cannot Be Planned</em>, 2015.</a></cite></span></span>,
+    <em>human infrastructure</em><span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The people, relationships, and tacit work that hold a program together. <cite><a href="https://scholar.google.com/scholar?q=King+Kolopack+Merritt+Lavery+Community+engagement+human+infrastructure+global+health+research+BMC+Medical+Ethics+2014" rel="noopener" target="_blank">King, Kolopack, Merritt &amp; Lavery, &ldquo;Community engagement and the human infrastructure of global health research,&rdquo; <em>BMC Med Ethics</em>, 2014.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Svensson+Humane+Infrastructures+MIT+Press+2025" rel="noopener" target="_blank">Svensson, <em>Humane Infrastructures</em>, 2025.</a></cite> <cite><a href="https://scholar.google.com/scholar?q=Simone+People+as+Infrastructure+Public+Culture+2004" rel="noopener" target="_blank">Simone, &ldquo;People as Infrastructure,&rdquo; <em>Public Culture</em>, 2004.</a></cite></span></span>
   </p>
   <p style="font-size: 0.85rem; opacity: 0.7;">Health / Science / Policy / Public interest</p>
 
   <h2>about</h2>
-  <p>Hi, I&rsquo;m Lee &ndash; an independent consultant in Atlanta<span class="gwern-note"><span class="gwern-note-marker" tabindex="0">⁵</span><span class="gwern-note-popover"><span class="np-gloss">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area.</span><span class="np-refs"><em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span></span>, by way of the DC area<span class="gwern-note"><span class="gwern-note-marker" tabindex="0">⁶</span><span class="gwern-note-popover"><span class="np-gloss">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know.</span></span></span> &ndash; closer to cattle than the Capitol.</p>
+  <p>Hi, I&rsquo;m Lee &ndash; an independent consultant in Atlanta<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area. <em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span>, by way of the DC area<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know.</span></span> &ndash; closer to cattle than the Capitol.</p>
   <p>Most of my work has been in and around public health and global health ethics, with formative detours through ecology (complex adaptive systems) and hospitality (complex adaptive services).</p>
   <p>I studied ecology along the James River at Virginia Commonwealth University in Richmond. Then, I spent some time chopping vegetables, washing dishes, and learning what makes customers happy. After that, I got an MPH at Emory&rsquo;s Rollins School of Public Health in Atlanta. I worked at Rollins&rsquo; Global Health department for 7 years before moving next door to the Task Force for Global Health.</p>
 
@@ -133,37 +66,3 @@
 
 </article>
 
-<script>
-  // Tap-to-toggle for .gwern-note popovers. Hover (:hover) and keyboard
-  // (:focus-within) behaviors stay in CSS; this adds sticky tap-to-open
-  // for touch + a pin affordance for mouse. Outside-tap dismisses.
-  (function () {
-    document.addEventListener('click', function (e) {
-      var marker = e.target.closest('.gwern-note-marker');
-      if (marker) {
-        var note = marker.closest('.gwern-note');
-        if (!note) return;
-        var wasOpen = note.classList.contains('gwern-note--open');
-        document.querySelectorAll('.gwern-note--open').forEach(function (n) {
-          n.classList.remove('gwern-note--open');
-        });
-        if (!wasOpen) {
-          // Auto-right-anchor when the marker is in the right half of viewport,
-          // so the popover stays on-screen on narrow viewports.
-          var markerRect = marker.getBoundingClientRect();
-          if (markerRect.left > window.innerWidth / 2) {
-            note.classList.add('gwern-note--right');
-          }
-          note.classList.add('gwern-note--open');
-        }
-        e.stopPropagation();
-        return;
-      }
-      if (!e.target.closest('.gwern-note-popover')) {
-        document.querySelectorAll('.gwern-note--open').forEach(function (n) {
-          n.classList.remove('gwern-note--open');
-        });
-      }
-    });
-  })();
-</script>

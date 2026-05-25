@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark"{% if fontPreview %} data-font="{{ fontPreview }}"{% endif %}{% if palettePreview %} data-palette="{{ palettePreview }}"{% endif %}>
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,80 +19,10 @@
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="Shelves – Lee Wilkers" href="/shelf.xml">
   <link rel="alternate" type="application/rss+xml" title="Stream – Lee Wilkers" href="/stream.xml">
-  {# Inter, IBM Plex Sans, Source Serif 4, and EB Garamond are self-hosted
-     under /fonts/ via @font-face declarations in css/style.css. The
-     Google Fonts CDN is only loaded on demand for the URL-param theme
-     previewer below, never for default visitors. #}
-  {% if fontPreview == "bricolage-eb" or fontPreview == "plex-pair" %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..96,400..800&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  {% endif %}
-  <script>
-    (function() {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        var palette = params.get('palette');
-        var theme = params.get('theme');
-        var font = params.get('font');
-        var fontPreview = {
-          'current-eb': true,
-          'source-serif': true,
-          'literata': true,
-          'newsreader': true,
-          'spectral': true,
-          'ibm-plex-serif': true,
-          'charter-system': true,
-          'lora': true,
-          'crimson-pro': true,
-          'alegreya': true,
-          'source-atkinson': true,
-          'plex-sans': true,
-          'bricolage-eb': true,
-          'plex-pair': true
-        };
-        var needsPreviewFontFile = {
-          'literata': true,
-          'newsreader': true,
-          'spectral': true,
-          'ibm-plex-serif': true,
-          'lora': true,
-          'crimson-pro': true,
-          'alegreya': true,
-          'source-atkinson': true,
-          'bricolage-eb': true,
-          'plex-pair': true
-        };
-        if (palette === 'default') {
-          document.documentElement.removeAttribute('data-palette');
-        } else if (palette) {
-          document.documentElement.setAttribute('data-palette', palette);
-        }
-        if (font && fontPreview[font]) {
-          document.documentElement.setAttribute('data-font', font);
-          if (needsPreviewFontFile[font]) {
-            var fontLink = document.createElement('link');
-            fontLink.rel = 'stylesheet';
-            fontLink.href = 'https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@10..96,400..800&family=Crimson+Pro:ital,wght@0,400..700;1,400..700&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap';
-            document.head.appendChild(fontLink);
-          }
-        }
-        if (theme === 'light' || theme === 'dark') {
-          document.documentElement.setAttribute('data-theme', theme);
-        }
-      } catch (e) {}
-    })();
-  </script>
+  {# Source Serif 4 (prose), IBM Plex Sans (UI), and IBM Plex Mono are
+     self-hosted under /fonts/ via @font-face in css/style.css. No web-font
+     CDN and no preview machinery — one face per role, chosen by role. #}
   <link rel="stylesheet" href="/css/style.css">
-  {% if pageClass == "page-style-variations" %}
-  <link rel="stylesheet" href="/css/style-variations.css">
-  {% endif %}
-  {% if pageClass == "page-color-lab" %}
-  <link rel="stylesheet" href="/css/color-lab.css">
-  {% endif %}
-  {% if pageClass == "page-brico-colors" %}
-  <link rel="stylesheet" href="/css/brico-colors.css">
-  {% endif %}
 </head>
 <body{% if draft %} data-draft="true"{% endif %}>
 

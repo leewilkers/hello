@@ -31,7 +31,7 @@ eleventyExcludeFromCollections: true
   }
   .tm-title-eyebrow{
     display: block;
-    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-ui);
     font-size: clamp(1.6rem, 3vw, 2.2rem);
     font-weight: 600;
     letter-spacing: -0.005em;
@@ -46,7 +46,7 @@ eleventyExcludeFromCollections: true
     text-underline-offset: 4px;
   }
   .tm-title-def{
-    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-ui);
     font-style: normal; font-size: 1rem; line-height: 1.5;
     color: color-mix(in srgb, var(--ink) 65%, transparent);
     max-width: 38em;
@@ -183,7 +183,7 @@ eleventyExcludeFromCollections: true
   .tm-node:hover .tm-mark, .tm-node:focus-visible .tm-mark{ r: 6; stroke-width: 1.6; }
 
   .tm-node-label{
-    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-ui);
     font-size: 24px; font-weight: 500; font-style: normal;
     letter-spacing: 0.005em;
     fill: var(--ink); pointer-events: none;
@@ -218,7 +218,7 @@ eleventyExcludeFromCollections: true
     border: 1px solid var(--rule, #c8c1b3);
     border-radius: 2px;
     padding: 0.6em 0.9em;
-    font-family: "Satoshi", "Inter", system-ui, -apple-system, sans-serif;
+    font-family: var(--font-ui);
     font-size: 13px;
     line-height: 1.5;
     font-style: normal;
