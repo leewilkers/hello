@@ -1,0 +1,420 @@
+---
+layout: base.njk
+title: Lee Wilkers
+pageClass: page-site-tree
+permalink: false
+eleventyExcludeFromCollections: true
+---
+
+{# V5 — after Alexander. V4 palette + V2 curved geometry, low-amplitude tremor on tree shapes,
+   soil horizon breaking before the river, faint unlabeled mycelium beneath (inputs that aren't
+   on the site). EB Garamond upright, no mono-caps subs, no koan. No physics — click + keyboard. #}
+
+<style>
+  main.page.page-site-tree{
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 1rem 0;
+    /* no min-height — let the page size to its content so the site's nav + footer
+       remain in their natural flow without pushing total past the viewport. */
+  }
+
+  /* Page title block — sits at top-left of the page, above the stage,
+     treated like a proper page header (not an inset caption). */
+  .tm-title{
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto 1.5rem;
+    padding: 0 clamp(1rem, 4vw, 2rem);
+    text-align: left;
+    line-height: 1.4;
+  }
+  .tm-title-eyebrow{
+    display: block;
+    font-family: var(--font-ui);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--ink); line-height: 1.1;
+    text-decoration: none;
+    margin-bottom: 0.4rem;
+  }
+  .tm-title-eyebrow:hover{
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent);
+    text-underline-offset: 4px;
+  }
+  .tm-title-def{
+    font-family: var(--font-ui);
+    font-style: normal; font-size: 1rem; line-height: 1.5;
+    color: color-mix(in srgb, var(--ink) 65%, transparent);
+    max-width: 38em;
+  }
+
+  .tm-stage{
+    position: relative;
+    width: 100%; max-width: 1080px;
+    /* cap stage so it never exceeds viewport-minus-chrome regardless of nav/footer height.
+       14rem reserve covers typical site nav + footer + comfortable padding. */
+    max-height: calc(100dvh - 18rem);
+    aspect-ratio: 1000 / 720;
+    margin: 0 auto;
+    color: var(--ink);
+    --tm-bark:   oklch(34% 0.065 42);
+    --tm-canopy: oklch(48% 0.115 152);
+    --tm-soil:   oklch(36% 0.06  45);
+    --tm-water:  oklch(46% 0.115 228);
+    --tm-paper:  var(--bg);
+    --tm-hair:   oklch(32% 0.055 55);
+  }
+  [data-theme="dark"] .tm-stage{
+    --tm-bark:   oklch(76% 0.055 55);
+    --tm-canopy: oklch(78% 0.115 152);
+    --tm-soil:   oklch(74% 0.05  50);
+    --tm-water:  oklch(78% 0.12  225);
+    --tm-paper:  var(--bg);
+    --tm-hair:   oklch(78% 0.055 65);
+  }
+  .tm-stage svg{ display:block; width:100%; height:100%; overflow: visible; user-select: none; }
+
+  /* tree parts — V2 curved geometry, V3's low-amplitude tremor */
+  .tm-trunk{
+    fill: var(--tm-bark); fill-opacity: 0.62;
+    filter: url(#tm-tremor);
+    transition: fill-opacity 280ms ease;
+  }
+  .tm-branch{
+    fill: var(--tm-canopy); fill-opacity: 0.66;
+    filter: url(#tm-tremor);
+    transition: fill-opacity 280ms ease;
+  }
+  .tm-edge{ fill:none; stroke-linecap:round; }
+  .tm-edge-bark{
+    stroke: var(--tm-bark); stroke-width: 1.5; opacity: 0.36;
+    filter: url(#tm-tremor);
+    transition: opacity 280ms ease;
+  }
+
+  /* soil horizon — anchors the tree, breaks before the water */
+  .tm-horizon{
+    stroke: var(--tm-soil); stroke-width: 0.9; opacity: 0.35;
+    fill:none;
+    filter: url(#tm-tremor);
+  }
+
+  /* mycelium — unlabeled inputs that aren't on the site.
+     Dashed strokes drift toward the trunk base (positive stroke-dashoffset = flow inward).
+     Two cadences plus a few reverse strands, so the network reads as breathing, not pulsing. */
+  .tm-mycelium{
+    stroke: var(--tm-hair); fill: none;
+    stroke-width: 0.7; stroke-linecap: round;
+    opacity: 0.42;
+    stroke-dasharray: 2 9;
+    animation: tm-mycelium-flow 11s linear infinite;
+    filter: url(#tm-tremor);
+  }
+  .tm-mycelium-fine{
+    stroke-width: 0.5; opacity: 0.30;
+    stroke-dasharray: 1 11;
+    animation-duration: 16s;
+  }
+  .tm-mycelium-weave{
+    stroke-width: 0.55; opacity: 0.34;
+    stroke-dasharray: 1.5 14;
+    animation-duration: 22s;
+    animation-direction: reverse;
+  }
+  .tm-mycelium-node{ fill: var(--tm-hair); fill-opacity: 0.55; }
+  .tm-twinkle{
+    fill: var(--tm-hair);
+    fill-opacity: 0.08;
+    animation: tm-twinkle 4.6s ease-in-out infinite;
+  }
+  @keyframes tm-twinkle{
+    0%, 100% { fill-opacity: 0.06; }
+    50%      { fill-opacity: 0.55; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tm-twinkle{ animation: none; fill-opacity: 0.22; }
+  }
+  @keyframes tm-mycelium-flow{
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: 60; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tm-mycelium{ animation: none; stroke-dasharray: 0; opacity: 0.16; }
+  }
+
+  /* river — keeps the animated dashed flow */
+  .tm-river{
+    fill:none; stroke: var(--tm-water); stroke-linecap: round;
+    stroke-width: 4; stroke-dasharray: 8 7;
+    animation: tm-flow 2.6s linear infinite;
+  }
+  @keyframes tm-flow{ from { stroke-dashoffset: 0; } to { stroke-dashoffset: -22; } }
+  @media (prefers-reduced-motion: reduce){ .tm-river { animation: none; } }
+
+  /* hover-probe — dim unrelated, brighten related */
+  .tm-stage[data-hover] [data-related]{ opacity: 0.18; fill-opacity: 0.18; }
+  .tm-stage[data-hover="consulting"] [data-related~="consulting"],
+  .tm-stage[data-hover="writing"]    [data-related~="writing"],
+  .tm-stage[data-hover="stacks"]     [data-related~="stacks"],
+  .tm-stage[data-hover="stream"]     [data-related~="stream"],
+  .tm-stage[data-hover="about"]      [data-related~="about"]{ opacity: 1; fill-opacity: 0.9; }
+  .tm-stage[data-hover="about"] .tm-edge-bark[data-related~="about"]{ opacity: 0.82; }
+  .tm-stage[data-hover] .tm-node{ transition: opacity 280ms ease; }
+  .tm-stage[data-hover="consulting"] .tm-node:not([data-node="consulting"]),
+  .tm-stage[data-hover="writing"]    .tm-node:not([data-node="writing"]),
+  .tm-stage[data-hover="projects"]   .tm-node:not([data-node="projects"]),
+  .tm-stage[data-hover="stacks"]     .tm-node:not([data-node="stacks"]),
+  .tm-stage[data-hover="stream"]     .tm-node:not([data-node="stream"]),
+  .tm-stage[data-hover="about"]      .tm-node:not([data-node="about"]){ opacity: 0.42; }
+
+  /* nodes */
+  .tm-node{ cursor: pointer; }
+  .tm-hit{ fill: transparent; }
+  .tm-mark{
+    fill: var(--tm-paper);
+    stroke: var(--node-stroke, var(--ink));
+    stroke-width: 1.4;
+    transition: r 180ms ease, stroke-width 180ms ease;
+  }
+  .tm-node:hover .tm-mark, .tm-node:focus-visible .tm-mark{ r: 6; stroke-width: 1.6; }
+
+  .tm-node-label{
+    font-family: var(--font-ui);
+    font-size: 24px; font-weight: 500; font-style: normal;
+    letter-spacing: 0.005em;
+    fill: var(--ink); pointer-events: none;
+    transition: fill 200ms ease;
+  }
+  .tm-node:hover .tm-node-label, .tm-node:focus-visible .tm-node-label{ fill: var(--node-stroke); }
+
+  /* Subword: small mono-caps tag sitting beneath each node label —
+     always visible, quiet. */
+  .tm-node-sub{
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: lowercase;
+    fill: color-mix(in srgb, var(--ink) 45%, transparent);
+    pointer-events: none;
+  }
+
+  /* Hover popover: real HTML box (via foreignObject) styled like the
+     gwern hover-notes used elsewhere on the site. Hidden until the
+     node is hovered or focused. */
+  .tm-popover-fo{
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    overflow: visible;
+  }
+  .tm-node:hover .tm-popover-fo,
+  .tm-node:focus-within .tm-popover-fo{ opacity: 1; }
+  .tm-popover{
+    display: inline-block;
+    background: var(--bg, #f7f3e9);
+    color: var(--ink, #2a2820);
+    border: 1px solid var(--rule, #c8c1b3);
+    border-radius: 2px;
+    padding: 0.6em 0.9em;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    line-height: 1.5;
+    font-style: normal;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    max-width: 240px;
+  }
+  [data-theme="dark"] .tm-popover{
+    background: #1a1812;
+    border-color: #3a3528;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  }
+  @media (prefers-color-scheme: dark){
+    .tm-popover{
+      background: #1a1812;
+      border-color: #3a3528;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    }
+  }
+</style>
+
+<header class="tm-title">
+  <a class="tm-title-eyebrow" href="https://en.wikipedia.org/wiki/Site_tree_(forestry)" rel="noopener">Site tree</a>
+  <div class="tm-title-def">a dominant or codominant tree used to estimate the growth of a forest stand.</div>
+</header>
+
+<div class="tm-stage" data-tm-stage>
+  <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Site tree">
+
+    <defs>
+      <filter id="tm-tremor" x="-4%" y="-4%" width="108%" height="108%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="2" seed="23" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.0"/>
+      </filter>
+    </defs>
+
+    {# soil horizon — breaks before water, sits at trunk base so the tree is rooted in ground #}
+    <path class="tm-horizon" d="M 80 598 Q 280 594 460 596 Q 530 598 660 600"/>
+
+    {# mycelium — fans beneath the soil with whispery upward flow.
+       A scatter of tiny twinkles drifts the brightness across the network. #}
+    <g aria-hidden="true">
+      <path class="tm-mycelium" d="M 478 620 Q 410 640 320 656 Q 240 668 160 678"/>
+      <path class="tm-mycelium" d="M 478 620 Q 420 648 360 678 Q 290 706 220 712"/>
+      <path class="tm-mycelium" d="M 478 620 Q 380 650 290 680 Q 200 706 120 710"/>
+      <path class="tm-mycelium" d="M 478 620 Q 540 642 614 656 Q 690 668 760 676"/>
+      <path class="tm-mycelium" d="M 478 620 Q 528 648 590 678 Q 660 706 730 712"/>
+      <path class="tm-mycelium" d="M 478 620 Q 580 650 670 680 Q 760 706 836 706"/>
+
+      <path class="tm-mycelium tm-mycelium-fine" d="M 320 656 Q 296 672 268 682"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 360 678 Q 332 694 306 702"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 290 680 Q 268 696 240 698"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 614 656 Q 638 670 666 680"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 590 678 Q 622 692 648 704"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 670 680 Q 696 690 720 696"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 410 640 Q 392 658 374 668"/>
+      <path class="tm-mycelium tm-mycelium-fine" d="M 540 642 Q 558 656 578 666"/>
+
+      <circle class="tm-mycelium-node" cx="320" cy="656" r="0.9"/>
+      <circle class="tm-mycelium-node" cx="614" cy="656" r="0.9"/>
+      <circle class="tm-mycelium-node" cx="360" cy="678" r="0.8"/>
+      <circle class="tm-mycelium-node" cx="590" cy="678" r="0.8"/>
+
+      {# anastomosis bridges — short diagonal connections where neighboring hyphae fuse.
+         No horizontal sweeps. Each runs at an oblique angle, ~50–90 units long, gently curved. #}
+      <path class="tm-mycelium tm-mycelium-weave" d="M 372 646 Q 396 638 420 649"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 382 650 Q 408 638 435 632"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 543 640 Q 510 654 478 660"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 577 650 Q 554 642 531 649"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 689 667 Q 720 678 757 700"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 290 700 Q 246 696 203 700"/>
+      <path class="tm-mycelium tm-mycelium-weave" d="M 660 700 Q 706 702 730 712"/>
+
+      {# twinkles — placed AT computed points along the primary filaments and at
+         secondary endpoints. Each pulses at a different phase, varied dot sizes. #}
+      {# along primary 1 (M 478 620 Q 410 640 320 656 Q 240 668 160 678) #}
+      <circle class="tm-twinkle" cx="435" cy="632" r="0.6" style="animation-delay: 0s"/>
+      <circle class="tm-twinkle" cx="372" cy="646" r="0.5" style="animation-delay: 1.2s"/>
+      <circle class="tm-twinkle" cx="240" cy="668" r="0.7" style="animation-delay: 2.8s"/>
+      <circle class="tm-twinkle" cx="160" cy="678" r="0.5" style="animation-delay: 3.6s"/>
+      {# along primary 2 (M 478 620 Q 420 648 360 678 Q 290 706 220 712) #}
+      <circle class="tm-twinkle" cx="420" cy="649" r="0.6" style="animation-delay: 0.4s"/>
+      <circle class="tm-twinkle" cx="290" cy="700" r="0.7" style="animation-delay: 1.8s"/>
+      {# along primary 3 (M 478 620 Q 380 650 290 680 Q 200 706 120 710) #}
+      <circle class="tm-twinkle" cx="382" cy="650" r="0.5" style="animation-delay: 2.4s"/>
+      <circle class="tm-twinkle" cx="203" cy="700" r="0.6" style="animation-delay: 0.6s"/>
+      {# along primary 4 (M 478 620 Q 540 642 614 656 Q 690 668 760 676) #}
+      <circle class="tm-twinkle" cx="543" cy="640" r="0.6" style="animation-delay: 1.4s"/>
+      <circle class="tm-twinkle" cx="689" cy="667" r="0.7" style="animation-delay: 3.0s"/>
+      {# along primary 5 (M 478 620 Q 528 648 590 678 Q 660 706 730 712) #}
+      <circle class="tm-twinkle" cx="531" cy="649" r="0.5" style="animation-delay: 2.0s"/>
+      <circle class="tm-twinkle" cx="660" cy="700" r="0.6" style="animation-delay: 0.8s"/>
+      {# along primary 6 (M 478 620 Q 580 650 670 680 Q 760 706 836 706) #}
+      <circle class="tm-twinkle" cx="577" cy="650" r="0.7" style="animation-delay: 2.6s"/>
+      <circle class="tm-twinkle" cx="757" cy="700" r="0.5" style="animation-delay: 1.6s"/>
+      {# at secondary endpoints (real branch points) #}
+      <circle class="tm-twinkle" cx="268" cy="682" r="0.5" style="animation-delay: 1.0s"/>
+      <circle class="tm-twinkle" cx="306" cy="702" r="0.6" style="animation-delay: 2.2s"/>
+      <circle class="tm-twinkle" cx="666" cy="680" r="0.5" style="animation-delay: 0.3s"/>
+      <circle class="tm-twinkle" cx="720" cy="696" r="0.6" style="animation-delay: 1.5s"/>
+      <circle class="tm-twinkle" cx="374" cy="668" r="0.5" style="animation-delay: 2.7s"/>
+      <circle class="tm-twinkle" cx="578" cy="666" r="0.6" style="animation-delay: 3.4s"/>
+    </g>
+
+    {# trunk — V2 S-curve #}
+    <path class="tm-trunk" data-related="stacks consulting writing projects"
+          d="M 462 596 L 488 596 Q 484 470 478 342 L 472 342 Q 466 470 462 596 Z"/>
+
+    {# branches — three co-dominant reaches, INVERTED taper:
+       skinny at trunk attachment, thick at the tip.
+       Consulting tip fattest, Writing mid + longer reach, Projects thinnest. #}
+    <path class="tm-branch" data-related="consulting"
+          d="M 476 343 L 474 343 Q 370 258 214.5 200 L 225.5 200 Q 390 282 476 343 Z"/>
+    <path class="tm-branch" data-related="writing"
+          d="M 476 343 L 474 343 Q 470 275 458.5 200 L 465.5 200 Q 472 275 476 343 Z"/>
+    <path class="tm-branch" data-related="projects"
+          d="M 476 343 L 474 343 Q 594 282 728 200 L 732 200 Q 598 286 476 343 Z"/>
+
+    {# about line — bark-colored, arcs left from trunk to About node #}
+    <path class="tm-edge tm-edge-bark" data-related="about" d="M 232 356 Q 350 351 470 346"/>
+
+    {# water — short arc from Stream into Stacks #}
+    <path class="tm-river" data-related="stream stacks" d="M 720 590 Q 606 593 492 590"/>
+
+    {# === nodes === #}
+    <g class="tm-node" data-node="consulting" data-url="/consulting/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="120" y="148" width="200" height="56"/>
+      <text class="tm-node-label" x="220" y="178" text-anchor="middle">Consulting</text>
+      <circle class="tm-mark" cx="220" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="100" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I can do for you, for money.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="writing" data-url="/writing/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="385" y="152" width="150" height="56"/>
+      <text class="tm-node-label" x="462" y="180" text-anchor="middle">Writing</text>
+      <circle class="tm-mark" cx="462" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="342" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">essays, posted in draft.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="projects" data-url="/projects/" tabindex="0"
+       style="--node-stroke: var(--tm-canopy)">
+      <rect class="tm-hit" x="630" y="148" width="200" height="56"/>
+      <text class="tm-node-label" x="730" y="178" text-anchor="middle">Projects</text>
+      <circle class="tm-mark" cx="730" cy="200" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="610" y="210" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I&rsquo;m working on.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="about" data-url="/about/" tabindex="0"
+       style="--node-stroke: var(--tm-bark)">
+      <rect class="tm-hit" x="140" y="308" width="160" height="60"/>
+      <text class="tm-node-label" x="220" y="334" text-anchor="middle">About</text>
+      <circle class="tm-mark" cx="220" cy="356" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="100" y="368" width="240" height="80">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">who I am, what I do.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="stacks" data-url="/shelf/" tabindex="0"
+       style="--node-stroke: var(--tm-soil)">
+      <rect class="tm-hit" x="375" y="600" width="200" height="60"/>
+      <text class="tm-node-label" x="475" y="628" text-anchor="middle">Stacks</text>
+      <circle class="tm-mark" cx="475" cy="596" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="355" y="500" width="240" height="90">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things on my desk, informing current work and thinking.</div>
+      </foreignObject>
+    </g>
+    <g class="tm-node" data-node="stream" data-url="/stream/" tabindex="0"
+       style="--node-stroke: var(--tm-water)">
+      <rect class="tm-hit" x="630" y="600" width="200" height="60"/>
+      <text class="tm-node-label" x="730" y="628" text-anchor="middle">Stream</text>
+      <circle class="tm-mark" cx="730" cy="590" r="4.5"/>
+      <foreignObject class="tm-popover-fo" x="610" y="494" width="240" height="90">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="tm-popover">things I clicked on, and may or may not have read.</div>
+      </foreignObject>
+    </g>
+  </svg>
+</div>
+
+<script>
+(function(){
+  const stage = document.querySelector('[data-tm-stage]');
+  if (!stage) return;
+  stage.querySelectorAll('.tm-node').forEach(node => {
+    const id = node.getAttribute('data-node');
+    const url = node.getAttribute('data-url');
+    const enter = () => stage.setAttribute('data-hover', id);
+    const leave = () => { if (stage.getAttribute('data-hover') === id) stage.removeAttribute('data-hover'); };
+    node.addEventListener('mouseenter', enter);
+    node.addEventListener('mouseleave', leave);
+    node.addEventListener('focus', enter);
+    node.addEventListener('blur', leave);
+    node.addEventListener('click', () => { if (url) location.href = url; });
+    node.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && url){ e.preventDefault(); location.href = url; } });
+  });
+})();
+</script>
