@@ -516,7 +516,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("toJson", function(value) {
-    return JSON.stringify(value)
+    return JSON.stringify(value === undefined ? null : value)
       .replace(/</g, "\\u003c")
       .replace(/>/g, "\\u003e")
       .replace(/&/g, "\\u0026");
