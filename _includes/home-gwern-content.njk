@@ -32,16 +32,65 @@
     margin: 2.4rem 0 0.5rem;
     color: var(--ink, #2a2820);
   }
-  .gwern-body .syllabus-field {
-    font-family: var(--font-mono, var(--mono, ui-monospace, monospace));
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.7;
-    margin: 1.5rem 0 0.4rem;
+  /* syllabus cover scroll */
+  .syllabus-scroll {
+    display: flex; gap: 1rem;
+    overflow-x: auto; overflow-y: hidden;
+    padding: 0.5rem 0 1.3rem; margin: 0.2rem 0 0.5rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule-strong, #b7b5ac) transparent;
   }
-  .gwern-body ul.syllabus { list-style: none; padding: 0; margin: 0; }
-  .gwern-body ul.syllabus li { line-height: 1.4; margin-bottom: 0.5rem; font-size: 0.95em; }
+  .syllabus-scroll::-webkit-scrollbar { height: 7px; }
+  .syllabus-scroll::-webkit-scrollbar-thumb { background: var(--rule-strong, #b7b5ac); border-radius: 4px; }
+  .syllabus-cover {
+    flex: 0 0 auto; padding: 0; border: 0; background: none;
+    cursor: pointer; scroll-snap-align: start; line-height: 0;
+    transition: transform 0.16s ease;
+  }
+  .syllabus-cover img {
+    height: 168px; width: auto; display: block; border-radius: 2px;
+    background: var(--surface, #f2f0e5);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.20), 0 6px 16px rgba(0,0,0,0.10);
+  }
+  .syllabus-cover:hover { transform: translateY(-4px); }
+  .syllabus-cover:focus-visible { outline: none; transform: translateY(-4px); }
+  .syllabus-cover:focus-visible img { box-shadow: 0 0 0 2px var(--accent, #24837B), 0 6px 16px rgba(0,0,0,0.18); }
+  /* syllabus modal */
+  .syllabus-modal {
+    border: 1px solid var(--rule, #ddd8cc); border-radius: 4px; padding: 0;
+    max-width: 30rem; width: calc(100% - 2rem);
+    background: var(--bg, #fffcf0); color: var(--ink, #2a2820);
+    box-shadow: 0 14px 50px rgba(0,0,0,0.30);
+  }
+  .syllabus-modal::backdrop { background: rgba(20,18,14,0.45); }
+  .syllabus-modal-x { margin: 0; text-align: right; }
+  .syllabus-modal-close {
+    border: 0; background: none; cursor: pointer; font-size: 1.5rem; line-height: 1;
+    padding: 0.55rem 0.8rem; color: var(--ink-faint, #6f6a5c);
+  }
+  .syllabus-modal-close:hover { color: var(--ink, #2a2820); }
+  .syllabus-modal-body { padding: 0 1.6rem 1.7rem; }
+  .syllabus-modal-field {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+    opacity: 0.65; margin: 0 0 0.5rem;
+  }
+  .syllabus-modal-title {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-size: 1.4rem; font-weight: 600; line-height: 1.15; margin: 0 0 0.35rem;
+  }
+  .syllabus-modal-meta {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.78rem; opacity: 0.7; margin: 0 0 0.9rem;
+  }
+  .syllabus-modal-note {
+    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    line-height: 1.5; margin: 0 0 1rem;
+  }
+  .syllabus-modal-link { margin: 0; font-size: 0.9rem; }
+  @media (max-width: 700px) { .syllabus-cover img { height: 140px; } }
 
 </style>
 
@@ -83,51 +132,69 @@
   <h2>syllabus</h2>
   <p>You can tell a lot about a place by its shelves. Here&rsquo;s some of Goodneighbor&rsquo;s &ndash; the reading underneath how I work, across design, public health, and craft.</p>
 
-  <p class="syllabus-field">Design &amp; the built environment</p>
-  <ul class="syllabus">
-    <li>Christopher Alexander, <a href="/shelf/#architecture-infrastructure-and-maintenance"><em>A Pattern Language</em></a> (1977) &ndash; 253 patterns for humane buildings and towns; places work when the people who use them shape them.</li>
-    <li>Christopher Alexander, <a href="/shelf/#architecture-infrastructure-and-maintenance"><em>The Timeless Way of Building</em></a> (1979) &ndash; the theory behind it: what makes a place feel alive.</li>
-    <li>Jane Jacobs, <a href="/shelf/#architecture-infrastructure-and-maintenance"><em>The Death and Life of Great American Cities</em></a> (1961) &ndash; the founding critique of top-down planning.</li>
-    <li>William H. Whyte, <a href="/shelf/#architecture-infrastructure-and-maintenance"><em>The Social Life of Small Urban Spaces</em></a> (1980) &ndash; filmed how people actually use public space.</li>
-  </ul>
+  <div class="syllabus-scroll" aria-label="Goodneighbor reading list &ndash; tap a cover for details">
+    <button type="button" class="syllabus-cover" data-field="Design &amp; the built environment" data-title="A Pattern Language" data-author="Christopher Alexander, Sara Ishikawa &amp; Murray Silverstein" data-year="1977" data-note="253 patterns for humane buildings and towns; places work when the people who use them shape them." data-url="https://global.oup.com/academic/product/a-pattern-language-9780195019193"><img src="/img/covers/christopher-alexander-a-pattern-language.jpg" alt="A Pattern Language" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Design &amp; the built environment" data-title="The Timeless Way of Building" data-author="Christopher Alexander" data-year="1979" data-note="The theory behind it: what makes a place feel alive." data-url="https://www.patternlanguage.com/bookstore/timeless-way-of-building.html"><img src="/img/covers/christopher-alexander-the-timeless-way-of-building.jpg" alt="The Timeless Way of Building" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Design &amp; the built environment" data-title="The Death and Life of Great American Cities" data-author="Jane Jacobs" data-year="1961" data-note="The founding critique of top-down planning." data-url="https://www.penguinrandomhouse.com/books/86058/the-death-and-life-of-great-american-cities-by-jane-jacobs/"><img src="/img/covers/jane-jacobs-death-and-life-of-great-american-cities.jpg" alt="The Death and Life of Great American Cities" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Design &amp; the built environment" data-title="The Social Life of Small Urban Spaces" data-author="William H. Whyte" data-year="1980" data-note="Whyte filmed how people actually use public space." data-url="https://www.pps.org/product/the-social-life-of-small-urban-spaces"><img src="/img/covers/william-whyte-social-life-of-small-urban-spaces.jpg" alt="The Social Life of Small Urban Spaces" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Community &amp; the commons" data-title="Governing the Commons" data-author="Elinor Ostrom" data-year="1990" data-note="Nobel evidence that communities can manage shared resources themselves." data-url="https://www.cambridge.org/core/books/governing-the-commons/7AB7AE11BADA84409C34815CC288CD79"><img src="/img/covers/elinor-ostrom-governing-the-commons.jpg" alt="Governing the Commons" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Community &amp; the commons" data-title="Palaces for the People" data-author="Eric Klinenberg" data-year="2018" data-note="&ldquo;Social infrastructure&rdquo; as the basis of community resilience." data-url="https://www.penguinrandomhouse.com/books/557044/palaces-for-the-people-by-eric-klinenberg/"><img src="/img/covers/eric-klinenberg-palaces-for-the-people.jpg" alt="Palaces for the People" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Community &amp; the commons" data-title="The Abundant Community" data-author="John McKnight &amp; Peter Block" data-year="2010" data-note="Development that starts from local assets, not deficits." data-url="https://www.bkconnection.com/books/title/the-abundant-community"><img src="/img/covers/mcknight-block-the-abundant-community.jpg" alt="The Abundant Community" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Public health" data-title="Unraveling the Mystery of Health" data-author="Aaron Antonovsky" data-year="1987" data-note="Salutogenesis: what creates health, not just what causes disease." data-url="https://openlibrary.org/books/OL2733173M/Unraveling_the_mystery_of_health"><img src="/img/covers/aaron-antonovsky-unraveling-the-mystery-of-health.jpg" alt="Unraveling the Mystery of Health" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Public health" data-title="The Health Gap" data-author="Michael Marmot" data-year="2015" data-note="Social determinants and the status gradient." data-url="https://www.goodreads.com/book/show/23848223-the-health-gap"><img src="/img/covers/michael-marmot-the-health-gap.jpg" alt="The Health Gap" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Public health" data-title="Epidemiology and the People&rsquo;s Health" data-author="Nancy Krieger" data-year="2011" data-note="Ecosocial theory; how social conditions become biology." data-url="https://global.oup.com/academic/product/epidemiology-and-the-peoples-health-9780199747047"><img src="/img/covers/krieger-epidemiology-and-the-peoples-health.jpg" alt="Epidemiology and the People&rsquo;s Health" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Public health" data-title="Medical Nemesis" data-author="Ivan Illich" data-year="1975" data-note="How medical systems can themselves cause harm." data-url="https://www.goodreads.com/book/show/64713.Limits_to_Medicine"><img src="/img/covers/ivan-illich-medical-nemesis.jpg" alt="Medical Nemesis" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Craft &amp; making" data-title="The Craftsman" data-author="Richard Sennett" data-year="2008" data-note="Craftsmanship as the disposition to do work well for its own sake." data-url="https://yalebooks.yale.edu/book/9780300151190/the-craftsman/"><img src="/img/covers/richard-sennett-the-craftsman.jpg" alt="The Craftsman" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Craft &amp; making" data-title="The Nature and Art of Workmanship" data-author="David Pye" data-year="1968" data-note="The workmanship of risk vs. the workmanship of certainty." data-url="https://www.goodreads.com/book/show/5122522-the-nature-and-art-of-workmanship"><img src="/img/covers/david-pye-the-nature-and-art-of-workmanship.jpg" alt="The Nature and Art of Workmanship" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Craft &amp; making" data-title="Make a Chair from a Tree" data-author="Jennie Alexander" data-year="1978" data-note="The book that sparked the American green-woodworking revival." data-url="https://lostartpress.com/products/make-a-chair-from-a-tree"><img src="/img/covers/jennie-alexander-make-a-chair-from-a-tree.jpg" alt="Make a Chair from a Tree" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Craft &amp; making" data-title="The Unknown Craftsman" data-author="Soetsu Yanagi" data-year="1972" data-note="Beauty in anonymous, everyday handmade things." data-url="https://www.penguinrandomhouse.com/books/563597/the-unknown-craftsman-by-soetsu-yanagi-adapted-by-bernard-leach/"><img src="/img/covers/soetsu-yanagi-the-unknown-craftsman.jpg" alt="The Unknown Craftsman" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Craft &amp; making" data-title="With the Grain" data-author="Christian Becksvoort" data-year="2013" data-note="How wood behaves; reading the material before working it." data-url="https://lostartpress.com/products/with-the-grain-a-craftsman-s-guide-to-understanding-wood"><img src="/img/covers/becksvoort-with-the-grain.jpg" alt="With the Grain" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Knowledge &amp; practice" data-title="Seeing Like a State" data-author="James C. Scott" data-year="1998" data-note="How top-down schemes fail when they ignore local practical knowledge (m&eacute;tis)." data-url="https://yalebooks.yale.edu/book/9780300246759/seeing-like-a-state"><img src="/img/covers/james-c-scott-seeing-like-a-state.jpg" alt="Seeing Like a State" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Knowledge &amp; practice" data-title="The Tacit Dimension" data-author="Michael Polanyi" data-year="1966" data-note="&ldquo;We know more than we can tell.&rdquo;" data-url="https://monoskop.org/images/1/11/Polanyi_Michael_The_Tacit_Dimension.pdf"><img src="/img/covers/michael-polanyi-the-tacit-dimension.jpg" alt="The Tacit Dimension" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Knowledge &amp; practice" data-title="The Reflective Practitioner" data-author="Donald Sch&ouml;n" data-year="1983" data-note="How professionals actually reason in action." data-url="https://archive.org/details/reflectivepracti0000scho"><img src="/img/covers/donald-schon-the-reflective-practitioner.jpg" alt="The Reflective Practitioner" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Tools &amp; scale" data-title="Tools for Conviviality" data-author="Ivan Illich" data-year="1973" data-note="Tools should expand what people can do for themselves." data-url="https://archive.org/details/illich-conviviality"><img src="/img/covers/ivan-illich-tools-for-conviviality.jpg" alt="Tools for Conviviality" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Tools &amp; scale" data-title="Small Is Beautiful" data-author="E.&thinsp;F. Schumacher" data-year="1973" data-note="Human-scale, appropriate-technology economics." data-url="https://www.goodreads.com/book/show/4076.Small_Is_Beautiful"><img src="/img/covers/ef-schumacher-small-is-beautiful.jpg" alt="Small Is Beautiful" loading="lazy"></button>
+    <button type="button" class="syllabus-cover" data-field="Tools &amp; scale" data-title="The Unsettling of America" data-author="Wendell Berry" data-year="1977" data-note="Land, locality, and care." data-url="https://archive.org/details/wendell-berry-america-culture-agriculture"><img src="/img/covers/wendell-berry-the-unsettling-of-america-culture-and.jpg" alt="The Unsettling of America" loading="lazy"></button>
+  </div>
 
-  <p class="syllabus-field">Community &amp; the commons</p>
-  <ul class="syllabus">
-    <li>Elinor Ostrom, <a href="/shelf/#strategy-and-coordination"><em>Governing the Commons</em></a> (1990) &ndash; Nobel evidence that communities can manage shared resources themselves.</li>
-    <li>Eric Klinenberg, <a href="/shelf/#architecture-infrastructure-and-maintenance"><em>Palaces for the People</em></a> (2018) &ndash; &ldquo;social infrastructure&rdquo; as the basis of community resilience.</li>
-    <li>John McKnight &amp; Peter Block, <a href="/shelf/#social-science"><em>The Abundant Community</em></a> (2010) &ndash; development that starts from local assets, not deficits.</li>
-  </ul>
+  <dialog class="syllabus-modal" id="syllabus-modal" aria-labelledby="syllabus-modal-title">
+    <form method="dialog" class="syllabus-modal-x"><button class="syllabus-modal-close" aria-label="Close">&times;</button></form>
+    <div class="syllabus-modal-body">
+      <p class="syllabus-modal-field"></p>
+      <h3 class="syllabus-modal-title" id="syllabus-modal-title"></h3>
+      <p class="syllabus-modal-meta"></p>
+      <p class="syllabus-modal-note"></p>
+      <p class="syllabus-modal-link"><a href="#" target="_blank" rel="noopener">Find it &rarr;</a></p>
+    </div>
+  </dialog>
 
-  <p class="syllabus-field">Public health</p>
-  <ul class="syllabus">
-    <li>Aaron Antonovsky, <a href="/shelf/#global-health"><em>Unraveling the Mystery of Health</em></a> (1987) &ndash; salutogenesis: what creates health, not just what causes disease.</li>
-    <li>Michael Marmot, <a href="/shelf/#global-health"><em>The Health Gap</em></a> (2015) &ndash; social determinants and the status gradient.</li>
-    <li>Nancy Krieger, <a href="/shelf/#global-health"><em>Epidemiology and the People&rsquo;s Health</em></a> (2011) &ndash; ecosocial theory; how social conditions become biology.</li>
-    <li>Ivan Illich, <a href="/shelf/#global-health"><em>Medical Nemesis</em></a> (1975) &ndash; how medical systems can themselves cause harm.</li>
-  </ul>
-
-  <p class="syllabus-field">Craft &amp; making</p>
-  <ul class="syllabus">
-    <li>Richard Sennett, <a href="/shelf/#furniture-and-craft"><em>The Craftsman</em></a> (2008) &ndash; craftsmanship as the disposition to do work well for its own sake.</li>
-    <li>David Pye, <a href="/shelf/#furniture-and-craft"><em>The Nature and Art of Workmanship</em></a> (1968) &ndash; the workmanship of risk vs. the workmanship of certainty.</li>
-    <li>Jennie Alexander, <a href="/shelf/#furniture-and-craft"><em>Make a Chair from a Tree</em></a> (1978) &ndash; the book that sparked the American green-woodworking revival.</li>
-    <li>Soetsu Yanagi, <a href="/shelf/#furniture-and-craft"><em>The Unknown Craftsman</em></a> (1972) &ndash; beauty in anonymous, everyday handmade things.</li>
-    <li>Christian Becksvoort, <a href="/shelf/#furniture-and-craft"><em>With the Grain</em></a> &ndash; how wood behaves; reading the material before working it.</li>
-  </ul>
-
-  <p class="syllabus-field">Knowledge &amp; practice</p>
-  <ul class="syllabus">
-    <li>James C. Scott, <a href="/shelf/#global-health"><em>Seeing Like a State</em></a> (1998) &ndash; how top-down schemes fail when they ignore local practical knowledge (<em>m&eacute;tis</em>).</li>
-    <li>Michael Polanyi, <a href="/shelf/#sensemaking"><em>The Tacit Dimension</em></a> (1966) &ndash; &ldquo;we know more than we can tell.&rdquo;</li>
-    <li>Donald Sch&ouml;n, <a href="/shelf/#design"><em>The Reflective Practitioner</em></a> (1983) &ndash; how professionals actually reason in action.</li>
-  </ul>
-
-  <p class="syllabus-field">Tools &amp; scale</p>
-  <ul class="syllabus">
-    <li>Ivan Illich, <a href="/shelf/#tech"><em>Tools for Conviviality</em></a> (1973) &ndash; tools should expand what people can do for themselves.</li>
-    <li>E.&thinsp;F. Schumacher, <a href="/shelf/#tech"><em>Small Is Beautiful</em></a> (1973) &ndash; human-scale, appropriate-technology economics.</li>
-    <li>Wendell Berry, <a href="/shelf/#nature-and-life"><em>The Unsettling of America</em></a> (1977) &ndash; land, locality, and care.</li>
-  </ul>
+  <script>
+  (function () {
+    var modal = document.getElementById('syllabus-modal');
+    if (!modal || typeof modal.showModal !== 'function') return;
+    var f = modal.querySelector('.syllabus-modal-field'),
+        t = modal.querySelector('.syllabus-modal-title'),
+        m = modal.querySelector('.syllabus-modal-meta'),
+        n = modal.querySelector('.syllabus-modal-note'),
+        lw = modal.querySelector('.syllabus-modal-link'),
+        la = lw.querySelector('a');
+    document.querySelectorAll('.syllabus-cover').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var d = btn.dataset;
+        f.textContent = d.field || '';
+        t.textContent = d.title || '';
+        m.textContent = [d.author, d.year].filter(Boolean).join(' · ');
+        n.textContent = d.note || '';
+        if (d.url) { la.href = d.url; lw.hidden = false; } else { lw.hidden = true; }
+        modal.showModal();
+      });
+    });
+    modal.addEventListener('click', function (e) {
+      var b = modal.querySelector('.syllabus-modal-body').getBoundingClientRect();
+      if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) modal.close();
+    });
+  })();
+  </script>
 
 </article>
 
