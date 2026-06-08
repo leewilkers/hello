@@ -59,7 +59,8 @@
   .syllabus-cover:focus-visible img { box-shadow: 0 0 0 2px var(--accent, #24837B), 0 6px 16px rgba(0,0,0,0.18); }
   /* syllabus modal */
   .syllabus-modal {
-    margin: auto;
+    position: fixed; top: 50%; left: 50%; right: auto; bottom: auto;
+    transform: translate(-50%, -50%);
     border: 1px solid var(--rule, #ddd8cc); border-radius: 4px; padding: 0;
     max-width: 30rem; width: calc(100% - 2rem);
     background: var(--bg, #fffcf0); color: var(--ink, #2a2820);
