@@ -34,29 +34,28 @@
   }
   /* syllabus cover scroll */
   .syllabus-scroll {
-    display: flex; gap: 1rem;
-    overflow-x: auto; overflow-y: hidden;
-    padding: 0.5rem 0 1.3rem; margin: 0.2rem 0 0.5rem;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: var(--rule-strong, #b7b5ac) transparent;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+    gap: 1.1rem 0.85rem;
+    align-items: end;
+    padding: 0.4rem 0 0.5rem; margin: 0.3rem 0 0.5rem;
   }
-  .syllabus-scroll::-webkit-scrollbar { height: 7px; }
-  .syllabus-scroll::-webkit-scrollbar-thumb { background: var(--rule-strong, #b7b5ac); border-radius: 4px; }
   .syllabus-cover {
-    flex: 0 0 auto; padding: 0; border: 0; background: none;
-    cursor: pointer; scroll-snap-align: start; line-height: 0;
+    padding: 0; border: 0; background: none;
+    cursor: pointer; line-height: 0;
     transition: transform 0.16s ease;
   }
   .syllabus-cover img {
-    height: 168px; width: auto; display: block; border-radius: 2px;
+    width: 100%; height: auto; display: block; border-radius: 2px;
     background: var(--surface, #f2f0e5);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.20), 0 6px 16px rgba(0,0,0,0.10);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.09);
+    opacity: 0.66; filter: saturate(0.9);
+    transition: opacity 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
   }
   .syllabus-cover:hover { transform: translateY(-4px); }
   .syllabus-cover:focus-visible { outline: none; transform: translateY(-4px); }
-  .syllabus-cover:focus-visible img { box-shadow: 0 0 0 2px var(--accent, #24837B), 0 6px 16px rgba(0,0,0,0.18); }
+  .syllabus-cover:hover img, .syllabus-cover:focus-visible img { opacity: 1; filter: none; box-shadow: 0 2px 5px rgba(0,0,0,0.20), 0 8px 20px rgba(0,0,0,0.14); }
+  .syllabus-cover:focus-visible img { box-shadow: 0 0 0 2px var(--accent, #24837B), 0 8px 20px rgba(0,0,0,0.18); }
   /* syllabus modal */
   .syllabus-modal {
     position: fixed; top: 50%; left: 50%; right: auto; bottom: auto;
@@ -93,7 +92,7 @@
     line-height: 1.5; margin: 0 0 1rem;
   }
   .syllabus-modal-link { margin: 0; font-size: 0.9rem; }
-  @media (max-width: 700px) { .syllabus-cover img { height: 140px; } }
+  @media (max-width: 700px) { .syllabus-scroll { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 0.9rem 0.8rem; } }
 
 </style>
 

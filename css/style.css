@@ -824,10 +824,10 @@ body {
 
 .nav-name-sub {
   font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  text-transform: none;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink-faint);
 }
 
