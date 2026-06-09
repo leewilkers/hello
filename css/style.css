@@ -822,14 +822,23 @@ body {
   font-size: 0.95rem;
 }
 
-.nav-name-sub {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+.nav-name-line {
+  font-family: var(--serif, "Source Serif 4", Georgia, serif);
+  font-weight: 600;
+  font-size: 1.12rem;
+  letter-spacing: 0;
   text-transform: none;
-  color: var(--ink-faint);
+  font-variant: normal;
 }
+.nav-name-sub {
+  font-family: var(--serif, "Source Serif 4", Georgia, serif);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #a85a2a;
+}
+[data-theme="dark"] .nav-name-sub { color: #d68a4f; }
 
 .nav-links a {
   color: var(--ink-light);
