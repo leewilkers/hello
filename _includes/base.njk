@@ -50,7 +50,6 @@
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-      <button class="constellation-mode-toggle" aria-label="Toggle rabbit mode" title="Toggle rabbit mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
     </div>
   </div>
 </nav>
@@ -70,8 +69,6 @@
   <p class="constellation-intro-paragraph">Also, stars are just plain nice to look at. Feel free to stay a while.</p>
   <p class="constellation-intro-prompt" data-constellation-intro-skip>press any key, or wait</p>
 </section>
-
-<aside class="rabbit-watermark" data-rabbit-watermark aria-hidden="true">it's different every time</aside>
 
 <div class="pretty-delay-cluster" data-pretty-cluster aria-label="Constellation controls" aria-hidden="true">
   <div class="constellation-step-wrap">
@@ -2747,7 +2744,6 @@
         prettyStep = 0;
         prettyStartedAt = ctx ? ctx.currentTime : null;
         setPrettyUI(true);
-        runWatermarkTyper();
         resumeAudio(ctx, function() {
           if (!prettyArmed) return;
           prettyStartedAt = ctx ? ctx.currentTime : prettyStartedAt;
@@ -2762,101 +2758,6 @@
 
 
     window.togglePrettyLoop = togglePrettyLoop;
-
-    // Watermark: normal left-to-right typing on press, ONE cycle then stop.
-    // Types in → holds → backspaces out → done (no loop). Triggered each
-    // Materializes from ASCII noise — each character cycles through random
-    // glyphs before settling into its target letter. Characters settle in
-    // sequence (stagger), hold, then dissolve back into noise and clear.
-    // No cursor — the text appears out of the ether and goes back.
-    let watermarkTimer = null;
-    function runWatermarkTyper() {
-      const el = document.querySelector('[data-rabbit-watermark]');
-      if (!el) return;
-      if (watermarkTimer) { clearTimeout(watermarkTimer); watermarkTimer = null; }
-      const phrase = "it's different every time";
-      const NOISE = "!@#$%&*+=/\\|<>?~^`:;.,'\"-_";
-      const FRAME_MS = 50;
-      const SCRAMBLE_FRAMES = 12;  // each char scrambles ~600ms before settling
-      const STAGGER = 2;            // frames between successive chars starting to scramble
-      const HOLD_MS = 3200;         // hold fully-formed phrase
-      // Build one span per character (spaces too, kept blank).
-      while (el.firstChild) el.removeChild(el.firstChild);
-      const spans = [];
-      for (let i = 0; i < phrase.length; i++) {
-        const span = document.createElement('span');
-        span.className = 'rabbit-watermark-char';
-        span.textContent = phrase[i] === ' ' ? ' ' : '';
-        spans.push(span);
-        el.appendChild(span);
-      }
-      function pickNoise() { return NOISE[Math.floor(Math.random() * NOISE.length)]; }
-      function materialize(done) {
-        // All positions scramble from frame 0. Each char has its own random
-        // settle frame (within a window), so resolution is non-sequential —
-        // the message emerges out of a noise field, not left-to-right.
-        const settleFrames = phrase.split('').map(function(c) {
-          if (c === ' ') return 0;
-          return 6 + Math.floor(Math.random() * 16);  // settle anywhere from frame 6 to 22
-        });
-        const totalFrames = Math.max.apply(null, settleFrames) + 3;
-        let frame = 0;
-        function tick() {
-          for (let i = 0; i < spans.length; i++) {
-            if (phrase[i] === ' ') continue;
-            if (frame < settleFrames[i]) {
-              spans[i].textContent = pickNoise();
-            } else {
-              spans[i].textContent = phrase[i];
-            }
-          }
-          frame++;
-          if (frame >= totalFrames) { done(); return; }
-          watermarkTimer = setTimeout(tick, FRAME_MS);
-        }
-        tick();
-      }
-      function dissolve(done) {
-        // Reverse — each char starts unsettled at its own random frame and
-        // ends as noise, then clears. Random order, no directional dissolve.
-        const unsettleFrames = phrase.split('').map(function(c) {
-          if (c === ' ') return 0;
-          return Math.floor(Math.random() * 14);
-        });
-        const clearFrames = unsettleFrames.map(function(s) { return s + 6 + Math.floor(Math.random() * 6); });
-        const totalFrames = Math.max.apply(null, clearFrames) + 3;
-        let frame = 0;
-        function tick() {
-          for (let i = 0; i < spans.length; i++) {
-            if (phrase[i] === ' ') continue;
-            if (frame < unsettleFrames[i]) {
-              // still showing target letter
-            } else if (frame < clearFrames[i]) {
-              spans[i].textContent = pickNoise();
-            } else {
-              spans[i].textContent = '';
-            }
-          }
-          frame++;
-          if (frame >= totalFrames) { done(); return; }
-          watermarkTimer = setTimeout(tick, FRAME_MS);
-        }
-        tick();
-      }
-      materialize(function() {
-        watermarkTimer = setTimeout(function() {
-          dissolve(function() { /* fully cleared — no more ticks, no cursor */ });
-        }, HOLD_MS);
-      });
-    }
-    // Initial blank state — empty char-cells, no cursor. CSS fade-in lands
-    // on blank space, then materialize draws the message out of nowhere.
-    (function initWatermark() {
-      const el = document.querySelector('[data-rabbit-watermark]');
-      if (!el) return;
-      while (el.firstChild) el.removeChild(el.firstChild);
-    })();
-
     // Restore armed state from session — if the user had wave/star-mode music
     // playing on the previous page, auto-resume on this one. Web Audio still
     // requires a user gesture to actually start sound on Safari, so the

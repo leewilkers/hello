@@ -7853,54 +7853,6 @@ button.shelf-list-title:hover {
   }
 }
 
-/* ===== Rabbit/Wave-mode "it's different every time" watermark =====
-   Small terminal-style watermark in the upper-right viewport corner.
-   Fades in once when wave/rabbit mode activates; JS types its text
-   in and backspaces it out continuously. */
-.rabbit-watermark {
-  position: fixed;
-  top: clamp(4.5rem, 8vh, 6rem);
-  right: clamp(1.25rem, 2.5vw, 2.5rem);
-  z-index: 1;
-  /* Fixed width pre-allocates room for the full phrase + cursor. Text-align
-     left keeps the left edge of the box anchored, so chars append at the
-     cursor's rightward-moving position (normal text-editor behavior) — they
-     don't shift earlier chars leftward. */
-  width: 13.5rem;
-  text-align: left;
-  font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
-  font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--ink);   /* theme-aware — dark in day mode, cream in dark mode */
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-  transition: opacity 1.4s ease-out;
-}
-:root.is-wave-mode .rabbit-watermark,
-:root.is-constellation-mode .rabbit-watermark {
-  opacity: 0.32;
-}
-.rabbit-watermark-cursor {
-  display: inline-block;
-  margin-left: 0.05em;
-  animation: rabbit-watermark-blink 1.05s steps(2, end) infinite;
-}
-@keyframes rabbit-watermark-blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
-}
-@media (max-width: 640px) {
-  .rabbit-watermark {
-    font-size: 0.66rem;
-    right: 0.8rem;
-    top: 3.8rem;
-  }
-}
-
-
-
 /* ============================================================
    Essay definitions — body-text vocabulary block (REDLINE pending)
    Used on /consider-the-tree/. Reads as part of the essay flow,
