@@ -4881,16 +4881,39 @@ body {
     --sawyer-motif-opacity-dark: 0.048;
   }
 
-  .site-art-note {
+  .page-home-ornaments .site-art-note {
+    position: static;
     right: 1rem;
     bottom: 0.85rem;
-    max-width: calc(100vw - 2rem);
+    width: calc(100% - 2rem);
+    max-width: none;
+    margin: 0.4rem 1rem 0;
+  }
+
+  .page-home-ornaments:not(.is-art-revealed) .site-art-note:hover ~ .site-sawyer-original,
+  .page-home-ornaments:not(.is-art-revealed) .site-art-note:focus-within ~ .site-sawyer-original {
+    opacity: 0;
+  }
+
+  .page-home-ornaments:not(.is-art-revealed) .site-art-note:hover ~ .site-art-reveal-caption,
+  .page-home-ornaments:not(.is-art-revealed) .site-art-note:focus-within ~ .site-art-reveal-caption {
+    opacity: 0;
+    visibility: hidden;
   }
 
   .site-art-reveal-caption {
     right: 1rem;
     top: 5.4rem;
     width: min(18rem, calc(100vw - 2rem));
+  }
+}
+
+@media (min-width: 701px) and (max-height: 1040px) {
+  .page-home-ornaments .site-art-note {
+    position: static;
+    width: calc(100% - 2rem);
+    max-width: none;
+    margin: 0.4rem 1rem 0;
   }
 }
 

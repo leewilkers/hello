@@ -23,14 +23,29 @@
   }
   .gwern-body p { line-height: 1.55; margin: 0 0 1.1em; hanging-punctuation: first last; }
   .gwern-body h2 {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
+    font-family: inherit;
     font-size: 1rem;
     font-weight: 600;
-    font-variant: small-caps;
-    letter-spacing: 0.06em;
-    text-transform: lowercase;
-    margin: 2.4rem 0 0.5rem;
+    line-height: 1.3;
+    letter-spacing: 0;
+    margin: 2.4rem 0 0.6rem;
     color: var(--ink, #2a2820);
+  }
+
+  .gwern-body .work-examples-heading { margin-top: 1.5rem; }
+  .work-examples {
+    list-style: none;
+    margin: 0 0 1.6rem;
+    padding: 0;
+  }
+  .work-examples li {
+    position: relative;
+    padding-left: 1.15rem;
+  }
+  .work-examples li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
   }
 
   .places-work {
@@ -51,6 +66,13 @@
     line-height: 1.35;
     opacity: 0.68;
   }
+  .gwern-body .home-background { margin-top: 1.8rem; }
+  .gwern-body .home-background-line { display: block; }
+  .gwern-body .home-background-line + .home-background-line { margin-top: 0.55rem; }
+
+  @media (max-width: 700px) {
+    .gwern-body { margin-bottom: 2.5rem; }
+  }
 </style>
 
 <article class="gwern-body" id="main">
@@ -58,28 +80,29 @@
   <h1>Lee Wilkers</h1>
   <p class="gwern-email"><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
 
-  <h2>about</h2>
-  <p>Hi, I&rsquo;m Lee. I&rsquo;m based in Atlanta<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area. <em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span>, by way of the DC area<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know.</span></span> &ndash; closer to cattle than the Capitol.</p>
-  <p>Most of my work has been in public health and global health ethics.</p>
-  <p>I&rsquo;ve led studies, built research partnerships, and turned evidence into publications, tools, and program decisions.</p>
+  <h2>About</h2>
+  <p>Hi, I&rsquo;m Lee. I do qualitative research, strategy, and design. I&rsquo;m based in Atlanta<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area. <em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span>, by way of the DC area<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know.</span></span> &ndash; closer to cattle than the Capitol.</p>
 
-  <p><strong>Some things I&rsquo;ve worked on:</strong></p>
-  <ul>
-    <li>organizational learning inside disease-control campaigns</li>
-    <li>measuring campaign effectiveness beyond &ldquo;coverage&rdquo;</li>
-    <li>public engagement on contested technologies, including gene drives</li>
+  <h2 class="work-examples-heading">Some things I&rsquo;ve worked on</h2>
+  <ul class="work-examples">
+    <li>public engagement around contested technologies</li>
     <li>care systems for survivors of intimate partner violence</li>
-    <li>ecology for spaceflight</li>
+    <li>organizational learning in disease-control campaigns</li>
+    <li>campaign effectiveness beyond &ldquo;coverage&rdquo;</li>
+    <li>microbial ecology and life-support systems for spaceflight</li>
   </ul>
 
-  <p>I studied ecology along the James River at Virginia Commonwealth University in Richmond, then earned an MPH at Emory&rsquo;s Rollins School of Public Health.</p>
-
-  <h2>places i&rsquo;ve worked</h2>
+  <h2>Places I&rsquo;ve worked</h2>
   <ul class="places-work">
     <li><span class="place-name">Focus Area on Compassion &amp; Ethics (FACE)</span><span class="place-org">The Task Force for Global Health</span></li>
     <li><span class="place-name">Evans Research Group (Intimate Partner Violence)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
     <li><span class="place-name">Human Engagement Learning Platform (HELP)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
     <li><span class="place-name">Franklin Microbial Ecology Lab</span><span class="place-org">Virginia Commonwealth University, Richmond, VA</span></li>
   </ul>
+
+  <p class="home-background">
+    <span class="home-background-line">I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.</span>
+    <span class="home-background-line">Later, I got my MPH in global health at Emory&rsquo;s Rollins School of Public Health.</span>
+  </p>
 
 </article>
