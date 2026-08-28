@@ -1,108 +1,262 @@
-{# Shared content + popover styles for home-gwern A/B/C variants.
-   Wrapper pages set --gw-max / --gw-mx-l / --gw-mx-r and label themselves. #}
+{# Homepage copy is intentionally unchanged. This file only reorganizes its
+   containers so the same material can take a less template-like shape. #}
 
 <style>
+  :root {
+    --home-face-name: "Source Serif 4", Georgia, serif;
+    --home-face-prose: "EB Garamond", Georgia, serif;
+    --home-face-label: "IBM Plex Sans", Arial, sans-serif;
+  }
+
+  main.page.page-home {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
   .gwern-body {
-    max-width: var(--gw-max, 38em);
-    margin: 2rem var(--gw-mx-r, auto) 6rem var(--gw-mx-l, auto);
-    padding-inline: clamp(1rem, 4vw, 3rem);
+    width: min(100%, 92rem);
+    margin: 0 auto;
+    padding: clamp(2.4rem, 6vw, 6.8rem) clamp(1.25rem, 4vw, 4.5rem) 9rem;
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.72fr) minmax(24rem, 1.62fr) minmax(15rem, 0.92fr);
+    grid-template-areas:
+      "identity about places"
+      "identity work  places";
+    column-gap: clamp(2rem, 4.5vw, 5.75rem);
+    row-gap: clamp(2.8rem, 6vh, 5rem);
+    align-items: start;
+  }
+
+  .gwern-identity {
+    grid-area: identity;
+    position: sticky;
+    top: 7rem;
+    min-width: 0;
+  }
+
+  .gwern-about { grid-area: about; }
+  .gwern-work { grid-area: work; }
+  .gwern-places {
+    grid-area: places;
+    padding-left: clamp(1rem, 2vw, 2rem);
+    border-left: 1px solid var(--rule);
   }
 
   .gwern-body h1 {
-    font-family: var(--serif, "Source Serif 4", Georgia, serif);
-    font-weight: 600;
-    font-size: 2.2rem;
-    line-height: 1.1;
-    margin: 0 0 0.2rem;
-  }
-  .gwern-body .gwern-email {
-    font-family: var(--mono, ui-monospace, monospace);
-    font-size: 0.85rem;
-    margin: 0 0 1.2rem;
-    opacity: 0.7;
-  }
-  .gwern-body p { line-height: 1.55; margin: 0 0 1.1em; hanging-punctuation: first last; }
-  .gwern-body h2 {
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: 0;
-    margin: 2.4rem 0 0.6rem;
-    color: var(--ink, #2a2820);
+    max-width: 3.2em;
+    margin: 0;
+    font-family: var(--home-face-name);
+    font-size: clamp(3.4rem, 5.8vw, 7.4rem);
+    font-weight: 520;
+    font-variation-settings: "wght" 520, "opsz" 48;
+    letter-spacing: -0.055em;
+    line-height: 0.78;
+    text-wrap: balance;
   }
 
-  .gwern-body .work-examples-heading { margin-top: 1.5rem; }
+  .gwern-body .gwern-email {
+    margin: 1.45rem 0 0;
+    font-family: var(--home-face-label);
+    font-size: clamp(0.72rem, 0.68rem + 0.14vw, 0.82rem);
+    line-height: 1.25;
+    opacity: 0.62;
+    overflow-wrap: anywhere;
+  }
+
+  .gwern-body h2 {
+    margin: 0 0 0.85rem;
+    font-family: var(--home-face-label);
+    font-size: clamp(0.78rem, 0.73rem + 0.18vw, 0.9rem);
+    font-weight: 520;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 1.3;
+    color: var(--ink-light);
+  }
+
+  .gwern-body p,
+  .gwern-body li {
+    font-family: var(--home-face-prose);
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.3rem);
+    font-variant-ligatures: common-ligatures contextual;
+    font-variant-numeric: oldstyle-nums proportional-nums;
+  }
+
+  .gwern-about > p {
+    max-width: 34em;
+    margin: 0;
+    font-size: clamp(1.45rem, 1.05rem + 1.1vw, 2.15rem);
+    line-height: 1.27;
+    hanging-punctuation: first last;
+  }
+
   .work-examples {
     list-style: none;
-    margin: 0 0 1.6rem;
+    max-width: 38rem;
+    margin: 0;
     padding: 0;
   }
+
   .work-examples li {
     position: relative;
-    padding-left: 1.15rem;
+    padding: 0.58rem 0 0.58rem 1.25rem;
+    line-height: 1.32;
+    border-top: 1px solid color-mix(in srgb, var(--rule) 72%, transparent);
   }
+
+  .work-examples li:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--rule) 72%, transparent);
+  }
+
   .work-examples li::before {
-    content: "\2022";
+    content: "·";
     position: absolute;
-    left: 0;
+    left: 0.08rem;
+    color: var(--home-accent);
   }
 
   .places-work {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
-  .places-work li { margin-bottom: 1rem; }
+
+  .places-work li {
+    margin: 0;
+    padding: 0.15rem 0 1.15rem;
+    font-size: clamp(0.94rem, 0.88rem + 0.18vw, 1.08rem);
+    line-height: 1.34;
+  }
+
   .place-name {
     display: block;
-    font-weight: 500;
-    line-height: 1.35;
+    font-weight: 560;
   }
+
   .place-org {
     display: block;
-    margin-top: 0.15rem;
-    font-size: 0.82em;
-    line-height: 1.35;
-    opacity: 0.68;
+    margin-top: 0.18rem;
+    font-family: var(--home-face-label);
+    font-size: 0.76em;
+    line-height: 1.4;
+    color: var(--ink-muted);
   }
-  .gwern-body .home-background { margin-top: 1.8rem; }
-  .gwern-body .home-background-line { display: block; }
-  .gwern-body .home-background-line + .home-background-line { margin-top: 0.55rem; }
+
+  .gwern-body .home-background {
+    margin: clamp(1.8rem, 5vh, 4rem) 0 0;
+    padding-top: 0.95rem;
+    border-top: 1px solid var(--rule);
+    color: var(--ink-light);
+  }
+
+  .gwern-body .home-background-line {
+    display: block;
+    font-size: clamp(0.86rem, 0.81rem + 0.16vw, 0.98rem);
+    line-height: 1.42;
+  }
+
+  .gwern-body .home-background-line + .home-background-line {
+    margin-top: 0.7rem;
+  }
+
+  @media (min-width: 820px) {
+    .page-home-ornaments {
+      --sawyer-motif-left: clamp(-3.5rem, -2vw, -1rem);
+      --sawyer-motif-right: auto;
+      --sawyer-motif-width: min(30rem, 31vw);
+      --sawyer-motif-bottom: clamp(3.2rem, 7vh, 6rem);
+      --sawyer-motif-opacity: 0.16;
+      --sawyer-motif-opacity-dark: 0.12;
+    }
+
+    .page-home-ornaments .site-sawyer-motif {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 1030px) {
+    .gwern-body {
+      grid-template-columns: minmax(9rem, 0.55fr) minmax(0, 1.45fr);
+      grid-template-areas:
+        "identity about"
+        "identity work"
+        ".        places";
+      column-gap: clamp(1.75rem, 5vw, 4rem);
+    }
+
+    .gwern-places {
+      max-width: 38rem;
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
 
   @media (max-width: 700px) {
-    .gwern-body { margin-bottom: 2.5rem; }
+    .gwern-body {
+      display: block;
+      padding-top: 2.5rem;
+      padding-bottom: 7rem;
+    }
+
+    .gwern-identity {
+      position: static;
+      margin-bottom: 3.8rem;
+    }
+
+    .gwern-body h1 {
+      max-width: 4em;
+      font-size: clamp(3.6rem, 19vw, 6.5rem);
+      line-height: 0.82;
+    }
+
+    .gwern-about > p {
+      font-size: clamp(1.32rem, 6vw, 1.72rem);
+    }
+
+    .gwern-work,
+    .gwern-places {
+      margin-top: 3.2rem;
+    }
   }
 </style>
 
 <article class="gwern-body" id="main">
 
-  <h1>Lee Wilkers</h1>
-  <p class="gwern-email"><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
+  <header class="gwern-identity">
+    <h1>Lee Wilkers</h1>
+    <p class="gwern-email"><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></p>
+  </header>
 
-  <h2>About</h2>
-  <p>Hi, I&rsquo;m Lee. I do qualitative research, strategy, and design. I&rsquo;m based in Atlanta<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area. <em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span>, by way of the DC area<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know.</span></span> &ndash; closer to cattle than the Capitol.</p>
+  <section class="gwern-about">
+    <h2>About</h2>
+    <p>Hi, I&rsquo;m Lee. I do qualitative research, strategy, and design. I&rsquo;m based in Atlanta<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The &ldquo;global health capital&rdquo; of the world &ndash; I&rsquo;ve worked with most major institutions in the area. <em>AKA</em>: city in a forest, hollywood of the south, the A, Hotlanta.<br><em>AUTBKA</em>: Terminus, 1830s &ndash; southern endpoint of the Western &amp; Atlantic Railroad.</span></span>, by way of the DC area<span class="sn-marker" tabindex="0"><span class="sidenote-tooltip">The data center capital of the world. DC stands for data center now if you didn&rsquo;t know. Closer to cattle than the Capitol.</span></span>.</p>
+  </section>
 
-  <h2 class="work-examples-heading">Some things I&rsquo;ve worked on</h2>
-  <ul class="work-examples">
-    <li>public engagement around contested technologies</li>
-    <li>care systems for survivors of intimate partner violence</li>
-    <li>organizational learning in disease-control campaigns</li>
-    <li>campaign effectiveness beyond &ldquo;coverage&rdquo;</li>
-    <li>microbial ecology and life-support systems for spaceflight</li>
-  </ul>
+  <section class="gwern-work">
+    <h2 class="work-examples-heading">Some things I&rsquo;ve worked on</h2>
+    <ul class="work-examples">
+      <li>public engagement around contested technologies</li>
+      <li>care systems for survivors of intimate partner violence</li>
+      <li>organizational learning in disease-control campaigns</li>
+      <li>campaign effectiveness beyond &ldquo;coverage&rdquo;</li>
+      <li>microbial ecology and life-support systems for spaceflight</li>
+    </ul>
+  </section>
 
-  <h2>Places I&rsquo;ve worked</h2>
-  <ul class="places-work">
-    <li><span class="place-name">Focus Area on Compassion &amp; Ethics (FACE)</span><span class="place-org">The Task Force for Global Health</span></li>
-    <li><span class="place-name">Evans Research Group (Intimate Partner Violence)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
-    <li><span class="place-name">Human Engagement Learning Platform (HELP)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
-    <li><span class="place-name">Franklin Microbial Ecology Lab</span><span class="place-org">Virginia Commonwealth University, Richmond, VA</span></li>
-  </ul>
+  <section class="gwern-places">
+    <h2>Places I&rsquo;ve worked</h2>
+    <ul class="places-work">
+      <li><span class="place-name">Focus Area on Compassion &amp; Ethics (FACE)</span><span class="place-org">The Task Force for Global Health</span></li>
+      <li><span class="place-name">Evans Research Group (Intimate Partner Violence)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
+      <li><span class="place-name">Human Engagement Learning Platform (HELP)</span><span class="place-org">Rollins School of Public Health, Emory University</span></li>
+      <li><span class="place-name">Franklin Microbial Ecology Lab</span><span class="place-org">Virginia Commonwealth University, Richmond, VA</span></li>
+    </ul>
 
-  <p class="home-background">
-    <span class="home-background-line">I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.</span>
-    <span class="home-background-line">Later, I got my MPH in global health at Emory&rsquo;s Rollins School of Public Health.</span>
-  </p>
+    <p class="home-background">
+      <span class="home-background-line">I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.</span>
+      <span class="home-background-line">Later, I got my MPH in global health at Emory&rsquo;s Rollins School of Public Health.</span>
+    </p>
+  </section>
 
 </article>

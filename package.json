@@ -4,6 +4,7 @@
   "description": "A personal link archive",
   "scripts": {
     "start": "eleventy --serve",
+    "dev": "npm run build && vite",
     "build": "rm -rf _site && eleventy && node scripts/build-preview-mirror.js",
     "build:wiki": "npm run build && pagefind --site _site/pattern-atlas/index --output-subdir _pagefind",
     "start:wiki": "npm run build:wiki && eleventy --serve"
@@ -14,6 +15,7 @@
   "devDependencies": {
     "@11ty/eleventy-img": "^6.0.4",
     "pagefind": "^1.5.2",
-    "playwright": "^1.59.1"
+    "playwright": "^1.59.1",
+    "vite": "^7.3.6"
   }
 }

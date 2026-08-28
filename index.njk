@@ -13,4 +13,26 @@ permalink: /
   main.page.page-home { --gw-mx-l: 0; --gw-mx-r: auto; }
 </style>
 
+<script>
+  (() => {
+    const rolls = [
+      {
+        name: "'EB Garamond', Georgia, serif",
+        prose: "'Source Serif 4', Georgia, serif",
+        label: "'Inter', Arial, sans-serif"
+      },
+      {
+        name: "'IBM Plex Sans', Arial, sans-serif",
+        prose: "'EB Garamond', Georgia, serif",
+        label: "'Inter', Arial, sans-serif"
+      }
+    ];
+    const draw = rolls[Math.floor(Math.random() * rolls.length)];
+    const root = document.documentElement;
+    root.style.setProperty('--home-face-name', draw.name);
+    root.style.setProperty('--home-face-prose', draw.prose);
+    root.style.setProperty('--home-face-label', draw.label);
+  })();
+</script>
+
 {% include "home-gwern-content.njk" %}
