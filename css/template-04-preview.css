@@ -76,8 +76,7 @@ body:has(.page-template-04-preview) .page-template-04-preview {
   line-height: 1.4;
 }
 
-.minimal-clean-preview section + section,
-.minimal-clean-stacks + section {
+.minimal-clean-preview section + section {
   margin-top: clamp(3.6rem, 8vh, 5.5rem);
 }
 
@@ -218,8 +217,7 @@ body:has(.page-template-04-preview) .site-colophon {
     margin-bottom: 4.5rem;
   }
 
-  .minimal-clean-preview section + section,
-  .minimal-clean-stacks + section {
+  .minimal-clean-preview section + section {
     margin-top: 3.8rem;
   }
 
@@ -237,8 +235,4 @@ body:has(.page-template-04-preview) .site-colophon {
   body:has(.page-template-04-preview) .cat-switch-frame {
     display: none;
   }
-}
-
-.minimal-clean-stacks {
-  margin-top: 1.5rem;
 }
