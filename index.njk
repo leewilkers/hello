@@ -1,38 +1,85 @@
 ---
 layout: base.njk
 title: Lee Wilkers
-pageClass: page-home
+pageClass: page-minimal-home
+minimalHome: true
 permalink: /
 ---
 
-{# Body 38em max-width, LEFT-aligned within the diptych right half.
-   Dead air collects on the right edge as breathing room rather than as gap.
-   Promoted from /home-gwern/ orphan sketch 2026-05-20. #}
+<article class="minimal-clean-preview" id="main">
+  <header class="minimal-clean-intro">
+    <h1>Lee Wilkers</h1>
+  </header>
 
-<style>
-  main.page.page-home { --gw-mx-l: 0; --gw-mx-r: auto; }
-</style>
+  <section aria-labelledby="minimal-about">
+    <h2 id="minimal-about">About</h2>
+    <p>Hi, I’m Lee. I live in Atlanta, by way of the DC area. I’m interested in tools and how we use them.</p>
+    <p>My training is in social science, and most of my work has been in public health and global health ethics. These days, I’m an independent consultant working through GOODNEIGHBOR on research, strategy, and design.</p>
+  </section>
 
-<script>
-  (() => {
-    const rolls = [
-      {
-        name: "'EB Garamond', Georgia, serif",
-        prose: "'Source Serif 4', Georgia, serif",
-        label: "'Inter', Arial, sans-serif"
-      },
-      {
-        name: "'IBM Plex Sans', Arial, sans-serif",
-        prose: "'EB Garamond', Georgia, serif",
-        label: "'Inter', Arial, sans-serif"
-      }
-    ];
-    const draw = rolls[Math.floor(Math.random() * rolls.length)];
-    const root = document.documentElement;
-    root.style.setProperty('--home-face-name', draw.name);
-    root.style.setProperty('--home-face-prose', draw.prose);
-    root.style.setProperty('--home-face-label', draw.label);
-  })();
-</script>
+  <section aria-labelledby="minimal-worked-on">
+    <h2 id="minimal-worked-on">Some things I’ve worked on</h2>
+    <ul class="minimal-clean-list minimal-clean-work">
+      <li><strong>Global health ethics</strong><span>Research and deliberative approaches to contested decisions in population health, including antibiotic use, vaccine distribution, and emerging technologies.</span></li>
+      <li><strong>Community engagement and participatory design</strong><span>Community research and co-design to develop health services with the people who use and deliver them.</span></li>
+      <li><strong>Program design and organizational learning</strong><span>Decision tools and evaluation frameworks for setting priorities, assessing service quality, and learning from campaign delivery.</span></li>
+      <li>
+        <strong>Technology integration for public health campaigns</strong>
+        <span>A model that connects geospatial planning, real-time field communication, and community engagement so teams can adapt campaigns as they run.</span>
+        <span>With <a href="https://www.cartercenter.org/country/haiti/" rel="noreferrer">The Carter Center</a> and <a href="https://www.mspp.gouv.ht/presentation-du-ministere" rel="noreferrer">Haiti’s health ministry (MSPP)</a>, as part of Emory’s HELP team. Platforms: <a href="https://www.crosscut.io/" rel="noreferrer">Crosscut</a> and <a href="https://www.balcony.io/" rel="noreferrer">Balcony</a>.</span>
+      </li>
+      <li><strong>Care for survivors of intimate partner violence</strong><span>Trauma-informed research on survivors’ experiences and the gaps between hospital care and community support.</span></li>
+      <li><strong>Brokered Dialogue</strong><span>Filmed exchanges about gene-drive technologies for malaria control in Africa, exploring the experiences behind people’s positions.</span></li>
+      <li><strong>Compassion in global health</strong></li>
+      <li>
+        <strong>Product design for health apps</strong>
+        <span><a href="https://play.google.com/store/apps/details?id=com.eudecido.app&amp;hl=en_US" rel="noreferrer">EU DECIDO</a> – safety planning and support resources for women experiencing abuse in Brazil.</span>
+        <span><a href="https://play.google.com/store/apps/details?id=com.healthlink.women&amp;hl=en_US" rel="noreferrer">WoW: World of Women</a> – multilingual, doctor-verified health education for women and families.</span>
+      </li>
+      <li><strong>Behavioral research and design</strong><span>Consumer psychology applied to campaign communication: credibility, familiarity, and social influence.</span></li>
+    </ul>
+  </section>
 
-{% include "home-gwern-content.njk" %}
+  <section aria-labelledby="minimal-places">
+    <h2 id="minimal-places">Places I’ve worked</h2>
+    <ul class="minimal-clean-list minimal-clean-places">
+      <li>
+        <strong>Focus Area for Compassion and Ethics (FACE)</strong>
+        <span>The Task Force for Global Health · 2024–2026</span>
+      </li>
+      <li>
+        <strong>Evans Research Group</strong>
+        <span>Rollins School of Public Health, Emory University · 2023–2024</span>
+      </li>
+      <li>
+        <strong>Center for Humanitarian Emergencies</strong>
+        <span>Rollins School of Public Health, Emory University · 2023–2024<br>Assistant Program Coordinator for Emory’s graduate certificate in complex humanitarian emergencies.</span>
+      </li>
+      <li>
+        <strong>Human Engagement Learning Platform (HELP)</strong>
+        <span>Rollins School of Public Health, Emory University · 2019–2023</span>
+      </li>
+      <li>
+        <strong>Franklin Microbial Ecology Lab</strong>
+        <span>Virginia Commonwealth University, Richmond, VA · 2013–2014</span>
+      </li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="minimal-background">
+    <h2 id="minimal-background">Background</h2>
+    <p>I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.</p>
+    <p>Later, I got my MPH in global health at Emory’s Rollins School of Public Health.</p>
+  </section>
+
+  <nav class="minimal-clean-stacks" aria-label="Stacks">
+    <a href="/shelf/">Stacks</a>
+  </nav>
+
+  <section aria-labelledby="minimal-contact">
+    <h2 id="minimal-contact">Contact</h2>
+    <ul class="minimal-clean-list minimal-clean-links">
+      <li><a href="mailto:lee@leewilkers.com">lee@leewilkers.com</a></li>
+    </ul>
+  </section>
+</article>
