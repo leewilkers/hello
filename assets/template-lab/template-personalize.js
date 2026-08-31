@@ -54,10 +54,12 @@
   const services = content.services ?? [];
   const links = content.links ?? [];
   const tags = content.tags ?? [];
-  const paragraphs = [content.lede, ...background, ...about, ...projects.map((project) => project.description)];
+  const paragraphs = [content.lede, ...about, ...background, ...projects.map((project) => project.description)];
+  const recentWorkItems = content.recentWork.map((item) =>
+    `${item.role} — ${item.organization}${item.description ? `. ${item.description}` : ''}`);
   const listItems = [
     ...workExamples,
-    ...content.recentWork.map((item) => `${item.role} — ${item.organization}`),
+    ...recentWorkItems,
     ...services,
     ...projects.map((project) => `${project.name}. ${project.description}`),
   ];
@@ -213,6 +215,7 @@
     ...links.map((link) => link.label),
     ...projects.flatMap((project) => [project.name, project.description]),
     ...content.recentWork.flatMap((item) => [item.role, item.organization, `${item.role} — ${item.organization}`]),
+    ...recentWorkItems,
     ...actionLabels,
     'Recent',
     'Email',

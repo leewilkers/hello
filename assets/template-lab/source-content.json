@@ -3,7 +3,7 @@
   "email": "lee@leewilkers.com",
   "location": "Atlanta",
   "role": "Independent consultant",
-  "lede": "Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. I work through GOODNEIGHBOR, my consulting practice for research, strategy, and design.",
+  "lede": "Hi, I’m Lee. I live in Atlanta, by way of the DC area. I’m interested in tools and how we use them.",
   "sectionHeadings": [
     "Some things I’ve worked on",
     "Places I’ve worked",
@@ -11,15 +11,15 @@
     "Contact"
   ],
   "workExamples": [
-    "global health ethics — deliberative approaches to difficult decisions and controversial issues in population health",
-    "community engagement and participatory design — research and co-design methods for communities and health-program teams",
-    "program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams",
-    "Technology integration for public health campaigns — Co-developing a model that connects geospatial planning, real-time field communication, and community engagement so teams can adapt campaigns as they run. With The Carter Center and Haiti’s health ministry (MSPP), as part of Emory’s HELP team. Platforms: Crosscut and Balcony.",
-    "care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination",
-    "Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions",
-    "compassion in global health",
-    "Apps — EU DECIDO: safety planning and support resources for women experiencing abuse in Brazil; WoW: World of Women: multilingual, doctor-verified health education for women and families",
-    "behavioral research and design — applying consumer psychology to public-health communication and participation"
+    "Global health ethics — Research and deliberative approaches to contested decisions in population health, including antibiotic use, vaccine distribution, and emerging technologies.",
+    "Community engagement and participatory design — Community research and co-design to develop health services with the people who use and deliver them.",
+    "Program design and organizational learning — Decision tools and evaluation frameworks for setting priorities, assessing service quality, and learning from campaign delivery.",
+    "Technology integration for public health campaigns — A model that connects geospatial planning, real-time field communication, and community engagement so teams can adapt campaigns as they run. With The Carter Center and Haiti’s health ministry (MSPP), as part of Emory’s HELP team. Platforms: Crosscut and Balcony.",
+    "Care for survivors of intimate partner violence — Trauma-informed research on survivors’ experiences and the gaps between hospital care and community support.",
+    "Brokered Dialogue — Filmed exchanges about gene-drive technologies for malaria control in Africa, exploring the experiences behind people’s positions.",
+    "Compassion in global health",
+    "Product design for health apps — EU DECIDO: safety planning and support resources for women experiencing abuse in Brazil; WoW: World of Women: multilingual, doctor-verified health education for women and families",
+    "Behavioral research and design — Consumer psychology applied to campaign communication: credibility, familiarity, and social influence."
   ],
   "recentWork": [
     {
@@ -32,7 +32,8 @@
     },
     {
       "role": "Center for Humanitarian Emergencies · 2023–2024",
-      "organization": "Rollins School of Public Health, Emory University"
+      "organization": "Rollins School of Public Health, Emory University",
+      "description": "Assistant Program Coordinator for Emory’s graduate certificate in complex humanitarian emergencies."
     },
     {
       "role": "Human Engagement Learning Platform (HELP) · 2019–2023",
@@ -60,7 +61,9 @@
     "Global health",
     "Ecology"
   ],
-  "about": [],
+  "about": [
+    "My training is in social science, and most of my work has been in public health and global health ethics. These days, I’m an independent consultant working through GOODNEIGHBOR on research, strategy, and design."
+  ],
   "projects": [],
   "services": [],
   "images": [
