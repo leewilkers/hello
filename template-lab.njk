@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: Template gallery
+pageClass: page-template-lab
+permalink: /template-lab/
+excludeFromSitemap: true
+---
+
+<link rel="stylesheet" href="/css/template-lab.css">
+
+<article class="template-lab" id="main">
+  <header class="template-lab-intro">
+    <p class="template-lab-context">Private local review · 29 August 2026</p>
+    <h1 data-template-lab-title>Sixty-three ways in</h1>
+    <p data-template-lab-summary>Every source template is shown with the same current Lee Wilkers content. The layouts are the variable. Unverified testimonials, metrics, pricing, subscribers, and client claims are suppressed.</p>
+    <p class="template-lab-source">Structures adapted from <a href="https://github.com/debgotwired/clean-and-personal/tree/main/templates" rel="noopener">Clean and Personal</a>. Nothing on this page is deployed to the public site.</p>
+    <p class="template-lab-focus-link" data-template-lab-focus-link><a href="/template-lab/?view=shortlist">Compare the 04, 18, and 52 shortlist variations</a></p>
+  </header>
+
+  <section class="template-shortlist" data-shortlist-review hidden>
+    <header class="template-shortlist-header">
+      <p class="template-lab-context">Current shortlist · nine variations</p>
+      <h2>04 / 18 / 52</h2>
+      <p>The content stays fixed. Each card names the typeface, structure, section order, and palette being tested.</p>
+      <a href="/template-lab/">Return to all 63 templates</a>
+    </header>
+    <div class="template-shortlist-groups" data-shortlist-groups aria-busy="true"></div>
+  </section>
+
+  <section data-all-templates>
+    <div class="template-lab-controls">
+      <label for="template-lab-search">Find a template</label>
+      <input id="template-lab-search" type="search" autocomplete="off" placeholder="Search by number, name, or description">
+      <p id="template-lab-count" aria-live="polite">Loading templates…</p>
+    </div>
+
+    <div class="template-lab-grid" id="template-lab-grid" aria-busy="true"></div>
+    <p class="template-lab-empty" id="template-lab-empty" hidden>No templates match that search.</p>
+  </section>
+</article>
+
+<script src="/assets/js/template-lab.js" defer></script>

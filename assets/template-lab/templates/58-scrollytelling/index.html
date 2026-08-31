@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Your Story | Scrollytelling</title>
+    <meta name="description" content="An immersive story told through scroll">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="reveal">Your Name</h1>
+            <p class="subtitle reveal">A story of design, technology, and human connection</p>
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <div class="scroll-arrow">↓</div>
+            </div>
+        </div>
+        <div class="hero-background"></div>
+    </section>
+
+    <!-- Chapter 1 -->
+    <section class="chapter" data-chapter="1">
+        <div class="sticky-container">
+            <div class="chapter-background" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+            <div class="chapter-content">
+                <span class="chapter-number reveal">Chapter 1</span>
+                <h2 class="reveal">The Beginning</h2>
+                <p class="reveal">
+                    Every story has a beginning. Mine started in a small town where I first
+                    discovered my passion for creating things that matter.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 2 -->
+    <section class="chapter" data-chapter="2">
+        <div class="sticky-container">
+            <div class="chapter-background" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+            <div class="chapter-content">
+                <span class="chapter-number reveal">Chapter 2</span>
+                <h2 class="reveal">The Journey</h2>
+                <p class="reveal">
+                    Years of learning, failing, and growing. Each project taught me something
+                    new about design, about people, about myself.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat reveal">
+                <span class="stat-number" data-target="10">0</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat reveal">
+                <span class="stat-number" data-target="50">0</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat reveal">
+                <span class="stat-number" data-target="20">0</span>
+                <span class="stat-label">Happy Clients</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chapter 3 -->
+    <section class="chapter" data-chapter="3">
+        <div class="sticky-container">
+            <div class="chapter-background" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+            <div class="chapter-content">
+                <span class="chapter-number reveal">Chapter 3</span>
+                <h2 class="reveal">Today</h2>
+                <p class="reveal">
+                    Now I help companies build products that people love. Each project is a
+                    new chapter, a new opportunity to create something meaningful.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <blockquote class="reveal">
+            "Design is not just what it looks like and feels like. Design is how it works."
+        </blockquote>
+        <cite class="reveal">— Steve Jobs</cite>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-content">
+            <h2 class="reveal">Let's Write the Next Chapter Together</h2>
+            <p class="reveal">
+                Have a project in mind? I'd love to hear about it.
+            </p>
+            <a href="mailto:hello@example.com" class="cta-button reveal">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Your Name</p>
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Dribbble</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+<script type="application/json" id="lee-template-content">{"name":"Lee Wilkers","email":"lee@leewilkers.com","location":"Atlanta","role":"Independent consultant","lede":"Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. GOODNEIGHBOR is my design practice.","sectionHeadings":["Some things I’ve worked on","Places I’ve worked","Background","Contact"],"workExamples":["global health ethics — deliberative approaches to difficult decisions and controversial issues in population health","community engagement and participatory design — research and co-design methods for communities and health-program teams","program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams","care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination","Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions","compassion in global health","product design for mobile apps","behavioral research and design — applying consumer psychology to public-health communication and participation"],"recentWork":[{"role":"Focus Area for Compassion and Ethics (FACE) · 2024–2026","organization":"The Task Force for Global Health"},{"role":"Evans Research Group · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Center for Humanitarian Emergencies · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Human Engagement Learning Platform (HELP) · 2019–2023","organization":"Rollins School of Public Health, Emory University"},{"role":"Franklin Microbial Ecology Lab · 2013–2014","organization":"Virginia Commonwealth University, Richmond, VA"}],"background":["I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.","Later, I got my MPH in global health at Emory’s Rollins School of Public Health."],"links":[{"label":"About","url":"/"},{"label":"Stacks","url":"/shelf/"},{"label":"Email Lee","url":"mailto:lee@leewilkers.com"}],"tags":["Social science","Global health ethics","Participatory design","Public health","Global health","Ecology"],"about":[],"projects":[],"services":[],"images":["/img/lee.jpeg","/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp","/img/rabbits/van-gogh-field-with-two-rabbits-plate.jpg"],"template":{"id":"58","slug":"58-scrollytelling"}}</script><script src="/assets/template-lab/template-personalize.js" defer></script></body>
+</html>

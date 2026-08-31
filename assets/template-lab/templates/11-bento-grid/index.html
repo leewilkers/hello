@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Your Name - Bento Portfolio</title>
+    <meta name="description" content="Creative professional showcasing work in a modern bento grid layout">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">YN</a>
+                <nav>
+                    <a href="#work">Work</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="bento-grid">
+                <!-- Large Hero Card -->
+                <div class="bento-card hero-card" data-size="large">
+                    <div class="card-content">
+                        <h1>
+                            Creative Designer<br>
+                            <span class="highlight">& Digital Maker</span>
+                        </h1>
+                        <p>Building delightful digital experiences that people love to use. Currently designing at a cool startup.</p>
+                        <div class="hero-actions">
+                            <a href="#work" class="btn btn-primary">View Work</a>
+                            <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="bento-card profile-card" data-size="medium">
+                    <div class="profile-image">
+                        <div class="avatar">👋</div>
+                    </div>
+                    <div class="profile-info">
+                        <h3>Alex Chen</h3>
+                        <p>San Francisco, CA</p>
+                        <div class="social-links">
+                            <a href="https://twitter.com/you" aria-label="Twitter">𝕏</a>
+                            <a href="https://linkedin.com/in/you" aria-label="LinkedIn">in</a>
+                            <a href="https://dribbble.com/you" aria-label="Dribbble">Db</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="bento-card stats-card" data-size="small">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Years Exp</div>
+                    </div>
+                </div>
+
+                <!-- Skills Card -->
+                <div class="bento-card skills-card" data-size="small">
+                    <h3>Tools</h3>
+                    <div class="skill-icons">
+                        <span title="Figma">Fi</span>
+                        <span title="Sketch">Sk</span>
+                        <span title="After Effects">Ae</span>
+                        <span title="Principle">Pr</span>
+                    </div>
+                </div>
+
+                <!-- Project 1 -->
+                <div class="bento-card project-card" data-size="large" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="project-content">
+                        <span class="project-tag">Mobile App</span>
+                        <h3>FinTech Dashboard</h3>
+                        <p>Complete redesign of banking app serving 2M+ users</p>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Quote Card -->
+                <div class="bento-card quote-card" data-size="medium">
+                    <blockquote>
+                        "Design is not just what it looks like. Design is how it works."
+                    </blockquote>
+                    <cite>— Steve Jobs</cite>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bento-card project-card" data-size="medium" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="project-content">
+                        <span class="project-tag">Web Design</span>
+                        <h3>SaaS Platform</h3>
+                        <p>B2B product design & component library</p>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Currently Card -->
+                <div class="bento-card currently-card" data-size="small">
+                    <div class="status-indicator"></div>
+                    <h3>Currently</h3>
+                    <p>Available for freelance projects</p>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bento-card project-card" data-size="medium" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="project-content">
+                        <span class="project-tag">Branding</span>
+                        <h3>Coffee Co.</h3>
+                        <p>Brand identity & packaging design</p>
+                        <a href="#" class="project-link">View Case Study →</a>
+                    </div>
+                </div>
+
+                <!-- Services Card -->
+                <div class="bento-card services-card" data-size="large">
+                    <h3>What I Do</h3>
+                    <div class="service-list">
+                        <div class="service-item">
+                            <span class="service-icon">🎨</span>
+                            <div>
+                                <h4>UI/UX Design</h4>
+                                <p>User research, wireframes, high-fidelity mockups</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-icon">⚡</span>
+                            <div>
+                                <h4>Prototyping</h4>
+                                <p>Interactive prototypes & user testing</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-icon">🎯</span>
+                            <div>
+                                <h4>Brand Identity</h4>
+                                <p>Logo design, style guides, brand systems</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Card -->
+                <div class="bento-card experience-card" data-size="medium">
+                    <h3>Experience</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2021 - Now</div>
+                            <div class="timeline-title">Senior Designer</div>
+                            <div class="timeline-company">TechCorp</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2018 - 2021</div>
+                            <div class="timeline-title">Product Designer</div>
+                            <div class="timeline-company">StartupXYZ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Card -->
+                <div class="bento-card testimonial-card" data-size="large">
+                    <div class="testimonial-content">
+                        <p>"Alex is an exceptional designer who brings both creativity and strategic thinking to every project. Their work has been instrumental in our product's success."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">👤</div>
+                            <div>
+                                <strong>Sarah Johnson</strong>
+                                <span>CEO, TechCorp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Card -->
+                <div class="bento-card newsletter-card" data-size="medium">
+                    <h3>Newsletter</h3>
+                    <p>Weekly design tips & insights. Join 5k+ designers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="your@email.com" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+
+                <!-- Contact Card -->
+                <div class="bento-card contact-card" data-size="large">
+                    <h2>Let's Work Together</h2>
+                    <p>I'm always interested in hearing about new projects and opportunities.</p>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Your name" required>
+                        <input type="email" placeholder="your@email.com" required>
+                        <textarea placeholder="Tell me about your project..." rows="4" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    <div class="contact-info">
+                        <a href="mailto:hello@yourname.com">hello@yourname.com</a>
+                        <span>•</span>
+                        <span>Available for freelance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Your Name. Built with care.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+<script type="application/json" id="lee-template-content">{"name":"Lee Wilkers","email":"lee@leewilkers.com","location":"Atlanta","role":"Independent consultant","lede":"Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. GOODNEIGHBOR is my design practice.","sectionHeadings":["Some things I’ve worked on","Places I’ve worked","Background","Contact"],"workExamples":["global health ethics — deliberative approaches to difficult decisions and controversial issues in population health","community engagement and participatory design — research and co-design methods for communities and health-program teams","program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams","care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination","Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions","compassion in global health","product design for mobile apps","behavioral research and design — applying consumer psychology to public-health communication and participation"],"recentWork":[{"role":"Focus Area for Compassion and Ethics (FACE) · 2024–2026","organization":"The Task Force for Global Health"},{"role":"Evans Research Group · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Center for Humanitarian Emergencies · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Human Engagement Learning Platform (HELP) · 2019–2023","organization":"Rollins School of Public Health, Emory University"},{"role":"Franklin Microbial Ecology Lab · 2013–2014","organization":"Virginia Commonwealth University, Richmond, VA"}],"background":["I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.","Later, I got my MPH in global health at Emory’s Rollins School of Public Health."],"links":[{"label":"About","url":"/"},{"label":"Stacks","url":"/shelf/"},{"label":"Email Lee","url":"mailto:lee@leewilkers.com"}],"tags":["Social science","Global health ethics","Participatory design","Public health","Global health","Ecology"],"about":[],"projects":[],"services":[],"images":["/img/lee.jpeg","/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp","/img/rabbits/van-gogh-field-with-two-rabbits-plate.jpg"],"template":{"id":"11","slug":"11-bento-grid"}}</script><script src="/assets/template-lab/template-personalize.js" defer></script></body>
+</html>

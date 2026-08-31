@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Illustrator Portfolio | Visual Art Gallery</title>
+    <meta name="description" content="Illustrator portfolio showcasing artwork, commissions, and creative process">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <a href="#" class="logo">Aria Studio</a>
+            <ul class="nav-menu">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#commissions">Commissions</a></li>
+                <li><a href="#contact" class="cta-btn">Work With Me</a></li>
+            </ul>
+            <button class="mobile-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Creating Stories<br>
+                        <span class="colorful-text">Through Illustration</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Digital and traditional illustrator specializing in character design, editorial
+                        illustrations, and brand visuals. Bringing imagination to life, one piece at a time.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#gallery" class="btn btn-primary">View Gallery</a>
+                        <a href="#commissions" class="btn btn-secondary">Commission Info</a>
+                    </div>
+                </div>
+                <div class="hero-showcase">
+                    <div class="showcase-grid">
+                        <div class="showcase-item">🎨</div>
+                        <div class="showcase-item">✨</div>
+                        <div class="showcase-item">🌈</div>
+                        <div class="showcase-item">💫</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Portfolio</span>
+                <h2 class="section-title">Recent Work</h2>
+            </div>
+
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All Work</button>
+                <button class="filter-btn" data-filter="character">Character Design</button>
+                <button class="filter-btn" data-filter="editorial">Editorial</button>
+                <button class="filter-btn" data-filter="brand">Brand Illustration</button>
+                <button class="filter-btn" data-filter="personal">Personal Projects</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item tall" data-category="character">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🦊</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Forest Guardian</h3>
+                        <p>Character Design</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="editorial">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">📰</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Future of Work</h3>
+                        <p>Editorial Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item wide" data-category="brand">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🎪</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Festival Poster</h3>
+                        <p>Brand Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="character">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🐉</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Dragon Rider</h3>
+                        <p>Character Design</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item tall" data-category="personal">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🌙</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Moonlight Serenade</h3>
+                        <p>Personal Project</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="editorial">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🌍</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Climate Change</h3>
+                        <p>Editorial Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item wide" data-category="personal">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🌸</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Sakura Dreams</h3>
+                        <p>Personal Project</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="brand">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">☕</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Coffee Shop Mural</h3>
+                        <p>Brand Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item tall" data-category="character">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">👑</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Warrior Queen</h3>
+                        <p>Character Design</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="editorial">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">💡</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Innovation Series</h3>
+                        <p>Editorial Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-category="brand">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🎨</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Art Supply Packaging</h3>
+                        <p>Brand Illustration</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item wide" data-category="personal">
+                    <div class="gallery-image">
+                        <div class="placeholder-img">🌟</div>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h3>Starry Night Walk</h3>
+                        <p>Personal Project</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="profile-placeholder">👩‍🎨</div>
+                </div>
+                <div class="about-text">
+                    <span class="section-badge">About</span>
+                    <h2 class="section-title">Hi, I'm Aria</h2>
+                    <p>
+                        I'm a freelance illustrator based in Portland, creating vibrant, story-driven
+                        artwork for books, magazines, brands, and personal projects. My work blends
+                        traditional and digital techniques to bring characters and concepts to life.
+                    </p>
+                    <p>
+                        With 8+ years of experience, I've collaborated with publishers, startups, and
+                        creative agencies worldwide. I believe every illustration should tell a story
+                        and evoke emotion.
+                    </p>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="200">0</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="150">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="8">0</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                    </div>
+
+                    <div class="tools-used">
+                        <h3>Tools I Use</h3>
+                        <div class="tools-grid">
+                            <span class="tool">Procreate</span>
+                            <span class="tool">Photoshop</span>
+                            <span class="tool">Illustrator</span>
+                            <span class="tool">Clip Studio Paint</span>
+                            <span class="tool">Watercolors</span>
+                            <span class="tool">Gouache</span>
+                            <span class="tool">Ink</span>
+                            <span class="tool">Colored Pencils</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">How I Work</span>
+                <h2 class="section-title">My Creative Process</h2>
+            </div>
+
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">💭</div>
+                    <h3 class="step-title">Concept & Brief</h3>
+                    <p class="step-desc">
+                        We discuss your vision, requirements, and target audience. I ask questions
+                        to understand the story you want to tell.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">✏️</div>
+                    <h3 class="step-title">Sketches</h3>
+                    <p class="step-desc">
+                        I create multiple rough sketches exploring different compositions and ideas.
+                        You choose your favorite direction.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🎨</div>
+                    <h3 class="step-title">Color & Refinement</h3>
+                    <p class="step-desc">
+                        I refine the chosen sketch and add color palettes for your feedback.
+                        Two rounds of revisions included.
+                    </p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">✨</div>
+                    <h3 class="step-title">Final Artwork</h3>
+                    <p class="step-desc">
+                        After approval, I complete the final illustration in high resolution,
+                        ready for print or digital use.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commissions Section -->
+    <section id="commissions" class="commissions">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Commissions</span>
+                <h2 class="section-title">Work With Me</h2>
+                <p class="section-subtitle">
+                    Currently accepting commissions for editorial, character design, and brand illustrations.
+                    Typical turnaround time is 2-3 weeks depending on complexity.
+                </p>
+            </div>
+
+            <div class="commission-types">
+                <div class="commission-card">
+                    <div class="commission-icon">👤</div>
+                    <h3 class="commission-title">Character Design</h3>
+                    <div class="commission-price">Starting at $400</div>
+                    <ul class="commission-features">
+                        <li>Full character illustration</li>
+                        <li>3 initial sketches</li>
+                        <li>2 revision rounds</li>
+                        <li>High-res files (PNG, PSD)</li>
+                        <li>2-3 week delivery</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Inquire</a>
+                </div>
+
+                <div class="commission-card featured">
+                    <div class="featured-badge">Popular</div>
+                    <div class="commission-icon">📖</div>
+                    <h3 class="commission-title">Editorial Illustration</h3>
+                    <div class="commission-price">Starting at $600</div>
+                    <ul class="commission-features">
+                        <li>Custom editorial artwork</li>
+                        <li>Concept development</li>
+                        <li>2 revision rounds</li>
+                        <li>Print-ready files</li>
+                        <li>1-2 week delivery</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Inquire</a>
+                </div>
+
+                <div class="commission-card">
+                    <div class="commission-icon">🎯</div>
+                    <h3 class="commission-title">Brand Illustration</h3>
+                    <div class="commission-price">Starting at $800</div>
+                    <ul class="commission-features">
+                        <li>Custom brand artwork</li>
+                        <li>Multiple concepts</li>
+                        <li>3 revision rounds</li>
+                        <li>Vector & raster files</li>
+                        <li>3-4 week delivery</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Inquire</a>
+                </div>
+            </div>
+
+            <div class="commission-note">
+                <p>
+                    <strong>Note:</strong> Prices vary based on complexity, usage rights, and timeline.
+                    Rush projects available with 50% surcharge. Contact me for custom quotes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <div class="shop-banner">
+                <div class="shop-content">
+                    <h2>Art Prints & Merch</h2>
+                    <p>
+                        Love my work? Check out my shop for prints, stickers, and other goodies
+                        featuring my favorite illustrations.
+                    </p>
+                    <a href="https://shop.example.com" target="_blank" rel="noopener noreferrer" class="btn btn-shop">
+                        Visit Shop
+                    </a>
+                </div>
+                <div class="shop-preview">
+                    <div class="shop-item">🖼️</div>
+                    <div class="shop-item">📔</div>
+                    <div class="shop-item">☕</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Let's Create Something Beautiful</h2>
+                    <p>
+                        Have a project in mind? Fill out the form with details about what you're looking
+                        for, and I'll get back to you within 2 business days.
+                    </p>
+
+                    <div class="commission-status">
+                        <div class="status-indicator open"></div>
+                        <div class="status-text">
+                            <strong>Commission Status: Open</strong>
+                            <span>Next available slot: February 15, 2026</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-links">
+                        <div class="contact-item">
+                            <span class="icon">📧</span>
+                            <a href="mailto:hello@ariastudio.art">hello@ariastudio.art</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">📷</span>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">🎨</span>
+                            <a href="https://behance.net" target="_blank" rel="noopener noreferrer">Behance</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="icon">🐦</span>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-type">Project Type</label>
+                        <select id="project-type" name="project-type" required>
+                            <option value="">Select type</option>
+                            <option value="character">Character Design</option>
+                            <option value="editorial">Editorial Illustration</option>
+                            <option value="brand">Brand Illustration</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget">Budget Range</label>
+                        <select id="budget" name="budget">
+                            <option value="">Select range</option>
+                            <option value="under-500">Under $500</option>
+                            <option value="500-1000">$500 - $1,000</option>
+                            <option value="1000-2500">$1,000 - $2,500</option>
+                            <option value="2500-plus">$2,500+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Tell me about your project, timeline, and any reference images you have..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Aria Studio. All artwork rights reserved. | Made with love and pixels</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image"></div>
+            <div class="lightbox-info">
+                <h3 class="lightbox-title"></h3>
+                <p class="lightbox-category"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+<script type="application/json" id="lee-template-content">{"name":"Lee Wilkers","email":"lee@leewilkers.com","location":"Atlanta","role":"Independent consultant","lede":"Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. GOODNEIGHBOR is my design practice.","sectionHeadings":["Some things I’ve worked on","Places I’ve worked","Background","Contact"],"workExamples":["global health ethics — deliberative approaches to difficult decisions and controversial issues in population health","community engagement and participatory design — research and co-design methods for communities and health-program teams","program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams","care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination","Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions","compassion in global health","product design for mobile apps","behavioral research and design — applying consumer psychology to public-health communication and participation"],"recentWork":[{"role":"Focus Area for Compassion and Ethics (FACE) · 2024–2026","organization":"The Task Force for Global Health"},{"role":"Evans Research Group · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Center for Humanitarian Emergencies · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Human Engagement Learning Platform (HELP) · 2019–2023","organization":"Rollins School of Public Health, Emory University"},{"role":"Franklin Microbial Ecology Lab · 2013–2014","organization":"Virginia Commonwealth University, Richmond, VA"}],"background":["I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.","Later, I got my MPH in global health at Emory’s Rollins School of Public Health."],"links":[{"label":"About","url":"/"},{"label":"Stacks","url":"/shelf/"},{"label":"Email Lee","url":"mailto:lee@leewilkers.com"}],"tags":["Social science","Global health ethics","Participatory design","Public health","Global health","Ecology"],"about":[],"projects":[],"services":[],"images":["/img/lee.jpeg","/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp","/img/rabbits/van-gogh-field-with-two-rabbits-plate.jpg"],"template":{"id":"29","slug":"29-illustrator"}}</script><script src="/assets/template-lab/template-personalize.js" defer></script></body>
+</html>

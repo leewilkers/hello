@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Your Name | Signature Minimal</title>
+    <meta name="description" content="A minimal personal website with signature element">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="icon-sun">☀️</span>
+            <span class="icon-moon">🌙</span>
+        </button>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="profile-image">
+                <img src="assets/profile.jpg" alt="Profile photo" onerror="this.style.display='none'">
+            </div>
+            <h1>Your Name</h1>
+            <p class="location">San Francisco, CA</p>
+        </section>
+
+        <section class="narrative">
+            <p>
+                I'm a <strong>product designer</strong> who believes in the power of simplicity.
+                For the past decade, I've been crafting digital experiences that feel intuitive and human.
+            </p>
+            <p>
+                Currently, I lead design at <a href="#">Company</a>, where we're building tools
+                that help teams work better together. Previously, I helped shape products at
+                <a href="#">Previous Company</a> and <a href="#">Another Company</a>.
+            </p>
+            <p>
+                When I'm not designing, you'll find me hiking the Marin Headlands,
+                experimenting with film photography, or mentoring early-career designers.
+            </p>
+        </section>
+
+        <section class="projects">
+            <h2>Selected Work</h2>
+            <div class="project-grid">
+                <a href="#" class="project-item">
+                    <span class="project-name">Project Alpha</span>
+                    <span class="project-desc">Product design for a fintech startup</span>
+                </a>
+                <a href="#" class="project-item">
+                    <span class="project-name">Project Beta</span>
+                    <span class="project-desc">Brand identity and web design</span>
+                </a>
+                <a href="#" class="project-item">
+                    <span class="project-name">Project Gamma</span>
+                    <span class="project-desc">Mobile app redesign</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="cta">
+            <p>I'm always open to interesting conversations and collaborations.</p>
+            <p>Let's connect.</p>
+        </section>
+
+        <footer>
+            <div class="contact-links">
+                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                <a href="mailto:hello@example.com">hello@example.com</a>
+            </div>
+            <div class="social-links">
+                <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+            </div>
+            <div class="signature">
+                <svg viewBox="0 0 200 60" class="signature-svg">
+                    <path d="M10,45 Q30,10 50,35 T90,25 Q110,20 130,40 T170,30 Q185,25 190,35"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"/>
+                </svg>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+<script type="application/json" id="lee-template-content">{"name":"Lee Wilkers","email":"lee@leewilkers.com","location":"Atlanta","role":"Independent consultant","lede":"Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. GOODNEIGHBOR is my design practice.","sectionHeadings":["Some things I’ve worked on","Places I’ve worked","Background","Contact"],"workExamples":["global health ethics — deliberative approaches to difficult decisions and controversial issues in population health","community engagement and participatory design — research and co-design methods for communities and health-program teams","program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams","care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination","Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions","compassion in global health","product design for mobile apps","behavioral research and design — applying consumer psychology to public-health communication and participation"],"recentWork":[{"role":"Focus Area for Compassion and Ethics (FACE) · 2024–2026","organization":"The Task Force for Global Health"},{"role":"Evans Research Group · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Center for Humanitarian Emergencies · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Human Engagement Learning Platform (HELP) · 2019–2023","organization":"Rollins School of Public Health, Emory University"},{"role":"Franklin Microbial Ecology Lab · 2013–2014","organization":"Virginia Commonwealth University, Richmond, VA"}],"background":["I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.","Later, I got my MPH in global health at Emory’s Rollins School of Public Health."],"links":[{"label":"About","url":"/"},{"label":"Stacks","url":"/shelf/"},{"label":"Email Lee","url":"mailto:lee@leewilkers.com"}],"tags":["Social science","Global health ethics","Participatory design","Public health","Global health","Ecology"],"about":[],"projects":[],"services":[],"images":["/img/lee.jpeg","/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp","/img/rabbits/van-gogh-field-with-two-rabbits-plate.jpg"],"template":{"id":"51","slug":"51-signature-minimal"}}</script><script src="/assets/template-lab/template-personalize.js" defer></script></body>
+</html>

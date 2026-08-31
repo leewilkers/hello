@@ -12,6 +12,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets/constellations");
   eleventyConfig.addPassthroughCopy("assets/js");
   eleventyConfig.addPassthroughCopy("assets/nasa");
+  eleventyConfig.addPassthroughCopy("assets/template-lab");
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("pattern-atlas/style.css");
   eleventyConfig.addPassthroughCopy("pattern-atlas/atlas.js");
@@ -544,6 +545,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.ignores.add("source_reading/**");
   eleventyConfig.ignores.add("claude_design/**");
   eleventyConfig.ignores.add("scripts/**");
+  eleventyConfig.ignores.add("assets/template-lab/**");
   // Internal handoffs / dry-run reports / agent kickoff prompts — committed for
   // workflow history, but never published. Folder is project-local design process.
   eleventyConfig.ignores.add("prompts/**");

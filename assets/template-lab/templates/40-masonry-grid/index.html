@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self';">
+    <title>Masonry Grid Portfolio | Dynamic Layout</title>
+    <meta name="description" content="Variable-height masonry grid portfolio with category filtering and lightbox gallery">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <a href="#" class="logo">Masonry Gallery</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="hero-title">Dynamic <span class="gradient-text">Visual Collection</span></h1>
+            <p class="hero-subtitle">
+                Explore a flowing masonry layout showcasing diverse creative work
+                with variable heights and seamless organization.
+            </p>
+            <a href="#gallery" class="btn btn-primary">Browse Gallery</a>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="architecture">Architecture</button>
+                <button class="filter-btn" data-filter="nature">Nature</button>
+                <button class="filter-btn" data-filter="portrait">Portrait</button>
+                <button class="filter-btn" data-filter="abstract">Abstract</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masonry Grid Section -->
+    <section id="gallery" class="masonry-section">
+        <div class="container">
+            <div class="masonry-grid" id="masonry-grid">
+                <!-- Item 1 - Tall -->
+                <article class="masonry-item tall" data-category="architecture">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #0ea5e9, #06b6d4);">
+                            <span class="placeholder-icon">🏛️</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Modern Architecture" data-category="Architecture">
+                                View
+                            </button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Modern Architecture</h3>
+                        <p class="item-category">Architecture</p>
+                    </div>
+                </article>
+
+                <!-- Item 2 - Medium -->
+                <article class="masonry-item" data-category="nature">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #10b981, #14b8a6);">
+                            <span class="placeholder-icon">🌲</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Forest Path" data-category="Nature">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Forest Path</h3>
+                        <p class="item-category">Nature</p>
+                    </div>
+                </article>
+
+                <!-- Item 3 - Short -->
+                <article class="masonry-item short" data-category="portrait">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                            <span class="placeholder-icon">👤</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Urban Portrait" data-category="Portrait">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Urban Portrait</h3>
+                        <p class="item-category">Portrait</p>
+                    </div>
+                </article>
+
+                <!-- Item 4 - Medium -->
+                <article class="masonry-item" data-category="abstract">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <span class="placeholder-icon">🎨</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Color Flow" data-category="Abstract">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Color Flow</h3>
+                        <p class="item-category">Abstract</p>
+                    </div>
+                </article>
+
+                <!-- Item 5 - Tall -->
+                <article class="masonry-item tall" data-category="nature">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #06b6d4, #0ea5e9);">
+                            <span class="placeholder-icon">🌊</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Ocean Waves" data-category="Nature">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Ocean Waves</h3>
+                        <p class="item-category">Nature</p>
+                    </div>
+                </article>
+
+                <!-- Item 6 - Short -->
+                <article class="masonry-item short" data-category="architecture">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #64748b, #475569);">
+                            <span class="placeholder-icon">🌆</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="City Skyline" data-category="Architecture">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">City Skyline</h3>
+                        <p class="item-category">Architecture</p>
+                    </div>
+                </article>
+
+                <!-- Item 7 - Medium -->
+                <article class="masonry-item" data-category="portrait">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+                            <span class="placeholder-icon">📸</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Studio Session" data-category="Portrait">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Studio Session</h3>
+                        <p class="item-category">Portrait</p>
+                    </div>
+                </article>
+
+                <!-- Item 8 - Tall -->
+                <article class="masonry-item tall" data-category="abstract">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #f59e0b, #eab308);">
+                            <span class="placeholder-icon">✨</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Light Patterns" data-category="Abstract">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Light Patterns</h3>
+                        <p class="item-category">Abstract</p>
+                    </div>
+                </article>
+
+                <!-- Item 9 - Medium -->
+                <article class="masonry-item" data-category="nature">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #14b8a6, #10b981);">
+                            <span class="placeholder-icon">🏔️</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Mountain Peak" data-category="Nature">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Mountain Peak</h3>
+                        <p class="item-category">Nature</p>
+                    </div>
+                </article>
+
+                <!-- Item 10 - Short -->
+                <article class="masonry-item short" data-category="architecture">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
+                            <span class="placeholder-icon">🏗️</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Minimal Design" data-category="Architecture">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Minimal Design</h3>
+                        <p class="item-category">Architecture</p>
+                    </div>
+                </article>
+
+                <!-- Item 11 - Medium -->
+                <article class="masonry-item" data-category="portrait">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #f43f5e, #ec4899);">
+                            <span class="placeholder-icon">🎭</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Expressive" data-category="Portrait">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Expressive</h3>
+                        <p class="item-category">Portrait</p>
+                    </div>
+                </article>
+
+                <!-- Item 12 - Tall -->
+                <article class="masonry-item tall" data-category="abstract">
+                    <div class="item-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
+                            <span class="placeholder-icon">🌈</span>
+                        </div>
+                        <div class="item-overlay">
+                            <button class="view-btn" data-title="Gradient Art" data-category="Abstract">View</button>
+                        </div>
+                    </div>
+                    <div class="item-content">
+                        <h3 class="item-title">Gradient Art</h3>
+                        <p class="item-category">Abstract</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="load-more-container">
+                <button class="btn btn-secondary" id="load-more">Load More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <span class="section-badge">About</span>
+                    <h2 class="section-title">Dynamic Visual Storytelling</h2>
+                    <p>
+                        Welcome to my masonry gallery showcasing a diverse collection of visual work.
+                        Each piece flows organically in a variable-height layout that adapts to content
+                        and creates visual interest through dynamic composition.
+                    </p>
+                    <p>
+                        This approach to presenting visual content allows for better hierarchy and
+                        creates a more engaging browsing experience compared to traditional grid layouts.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">250+</div>
+                        <div class="stat-label">Photos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Categories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Awards</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-header">
+                <span class="section-badge">Contact</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">
+                    Interested in collaborating or licensing work? Let's talk.
+                </p>
+            </div>
+            <div class="contact-wrapper">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:hello@masonrygallery.com">hello@masonrygallery.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📷</div>
+                        <div>
+                            <h4>Instagram</h4>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@masonrygallery</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Los Angeles, CA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Masonry Gallery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image">
+                <div class="lightbox-placeholder"></div>
+            </div>
+            <div class="lightbox-info">
+                <h3 class="lightbox-title"></h3>
+                <p class="lightbox-category"></p>
+            </div>
+        </div>
+        <button class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+    </div>
+
+    <script src="script.js"></script>
+<script type="application/json" id="lee-template-content">{"name":"Lee Wilkers","email":"lee@leewilkers.com","location":"Atlanta","role":"Independent consultant","lede":"Hi, I’m Lee. I’m an independent consultant in Atlanta, by way of the DC area. GOODNEIGHBOR is my design practice.","sectionHeadings":["Some things I’ve worked on","Places I’ve worked","Background","Contact"],"workExamples":["global health ethics — deliberative approaches to difficult decisions and controversial issues in population health","community engagement and participatory design — research and co-design methods for communities and health-program teams","program design and organizational learning — decision tools, evaluation frameworks, and practical guidance for health-program teams","care for survivors of intimate partner violence — trauma-informed interviews and research on care coordination","Brokered Dialogue — filmed exchanges that explore disagreement and the experiences behind people’s positions","compassion in global health","product design for mobile apps","behavioral research and design — applying consumer psychology to public-health communication and participation"],"recentWork":[{"role":"Focus Area for Compassion and Ethics (FACE) · 2024–2026","organization":"The Task Force for Global Health"},{"role":"Evans Research Group · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Center for Humanitarian Emergencies · 2023–2024","organization":"Rollins School of Public Health, Emory University"},{"role":"Human Engagement Learning Platform (HELP) · 2019–2023","organization":"Rollins School of Public Health, Emory University"},{"role":"Franklin Microbial Ecology Lab · 2013–2014","organization":"Virginia Commonwealth University, Richmond, VA"}],"background":["I studied biology and ecology at Virginia Commonwealth University in Richmond, along the James River.","Later, I got my MPH in global health at Emory’s Rollins School of Public Health."],"links":[{"label":"About","url":"/"},{"label":"Stacks","url":"/shelf/"},{"label":"Email Lee","url":"mailto:lee@leewilkers.com"}],"tags":["Social science","Global health ethics","Participatory design","Public health","Global health","Ecology"],"about":[],"projects":[],"services":[],"images":["/img/lee.jpeg","/img/essay/consider-the-tree/old-oak-dupre-1870-1600w.webp","/img/rabbits/van-gogh-field-with-two-rabbits-plate.jpg"],"template":{"id":"40","slug":"40-masonry-grid"}}</script><script src="/assets/template-lab/template-personalize.js" defer></script></body>
+</html>

@@ -1,0 +1,164 @@
+[
+  {
+    "id": "04A",
+    "family": "04",
+    "slug": "04a-quiet-column",
+    "name": "Quiet Column",
+    "font": "IBM Plex Sans",
+    "structure": "Narrow single column",
+    "order": "Work examples → Places → Background → Contact",
+    "palette": "Flexoki paper / black / cyan links",
+    "sections": [
+      "examples",
+      "work",
+      "background",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/04a-quiet-column/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/04a-quiet-column.png"
+  },
+  {
+    "id": "04B",
+    "family": "04",
+    "slug": "04b-ruled-index",
+    "name": "Ruled Index",
+    "font": "Inter",
+    "structure": "Section labels in a fixed-width left rail",
+    "order": "Work examples → Background → Places → Contact",
+    "palette": "White / charcoal / quiet blue",
+    "sections": [
+      "examples",
+      "background",
+      "work",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/04b-ruled-index/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/04b-ruled-index.png"
+  },
+  {
+    "id": "04C",
+    "family": "04",
+    "slug": "04c-open-grid",
+    "name": "Open Grid",
+    "font": "IBM Plex Sans",
+    "structure": "Wide asymmetric two-column grid",
+    "order": "Places → Work examples → Background → Contact",
+    "palette": "Warm white / black / muted teal",
+    "sections": [
+      "work",
+      "examples",
+      "background",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/04c-open-grid/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/04c-open-grid.png"
+  },
+  {
+    "id": "18A",
+    "family": "18",
+    "slug": "18a-black-rules",
+    "name": "Black Rules",
+    "font": "IBM Plex Sans",
+    "structure": "Heavy horizontal divisions and oversized identity",
+    "order": "Work examples → Places → Background → Contact",
+    "palette": "Paper / black / oxide accent",
+    "sections": [
+      "examples",
+      "work",
+      "background",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/18a-black-rules/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/18a-black-rules.png"
+  },
+  {
+    "id": "18B",
+    "family": "18",
+    "slug": "18b-signal-block",
+    "name": "Signal Block",
+    "font": "Inter",
+    "structure": "Dark field with compact modular sections",
+    "order": "Places → Work examples → Background → Contact",
+    "palette": "Black / paper / cyan accent",
+    "sections": [
+      "work",
+      "examples",
+      "background",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/18b-signal-block/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/18b-signal-block.png"
+  },
+  {
+    "id": "18C",
+    "family": "18",
+    "slug": "18c-offset-ledger",
+    "name": "Offset Ledger",
+    "font": "IBM Plex Sans",
+    "structure": "Asymmetric ledger with a strong vertical axis",
+    "order": "Places → Background → Work examples → Contact",
+    "palette": "Bone / black / deep blue",
+    "sections": [
+      "work",
+      "background",
+      "examples",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/18c-offset-ledger/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/18c-offset-ledger.png"
+  },
+  {
+    "id": "52A",
+    "family": "52",
+    "slug": "52a-now-first",
+    "name": "Now First",
+    "font": "Inter",
+    "structure": "Focused single column with current work first",
+    "order": "Work examples → Places → Background → Contact",
+    "palette": "White / charcoal / blue links",
+    "sections": [
+      "examples",
+      "work",
+      "background",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/52a-now-first/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/52a-now-first.png"
+  },
+  {
+    "id": "52B",
+    "family": "52",
+    "slug": "52b-current-archive",
+    "name": "Current / Archive",
+    "font": "IBM Plex Sans",
+    "structure": "Current work beside a compact record",
+    "order": "Background → Work examples → Places → Contact",
+    "palette": "Flexoki paper / black / moss accent",
+    "sections": [
+      "background",
+      "examples",
+      "work",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/52b-current-archive/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/52b-current-archive.png"
+  },
+  {
+    "id": "52C",
+    "family": "52",
+    "slug": "52c-quiet-status",
+    "name": "Quiet Status",
+    "font": "Inter",
+    "structure": "Status-led page with a restrained index rail",
+    "order": "Work examples → Background → Places → Contact",
+    "palette": "Pale gray / ink / cyan accent",
+    "sections": [
+      "examples",
+      "background",
+      "work",
+      "contact"
+    ],
+    "previewUrl": "/assets/template-lab/shortlist/52c-quiet-status/index.html",
+    "thumbnailUrl": "/assets/template-lab/shortlist-thumbnails/52c-quiet-status.png"
+  }
+]

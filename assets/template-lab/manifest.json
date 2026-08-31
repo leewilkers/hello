@@ -1,0 +1,506 @@
+[
+  {
+    "id": "01",
+    "slug": "01-founder",
+    "name": "Founder Template",
+    "description": "Clean professional layout for founders and entrepreneurs",
+    "previewUrl": "/assets/template-lab/templates/01-founder/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/01-founder.png"
+  },
+  {
+    "id": "02",
+    "slug": "02-developer-dark",
+    "name": "Developer Dark Mode Template",
+    "description": "Terminal/hacker aesthetic with neon green on dark background",
+    "previewUrl": "/assets/template-lab/templates/02-developer-dark/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/02-developer-dark.png"
+  },
+  {
+    "id": "03",
+    "slug": "03-text-scholar",
+    "name": "Text Scholar Template",
+    "description": "Ultra-minimalist template for long-form reading and research",
+    "previewUrl": "/assets/template-lab/templates/03-text-scholar/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/03-text-scholar.png"
+  },
+  {
+    "id": "04",
+    "slug": "04-minimal-clean",
+    "name": "Minimal Clean Template",
+    "description": "Ultra-simple markdown-style layout with system fonts",
+    "previewUrl": "/assets/template-lab/templates/04-minimal-clean/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/04-minimal-clean.png"
+  },
+  {
+    "id": "05",
+    "slug": "05-playful-developer",
+    "name": "Playful Developer Template",
+    "description": "Colorful, fun, and approachable design for developer advocates and educators",
+    "previewUrl": "/assets/template-lab/templates/05-playful-developer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/05-playful-developer.png"
+  },
+  {
+    "id": "06",
+    "slug": "06-blog-first",
+    "name": "Blog-First Template",
+    "description": "Content-focused design for writers and thought leaders",
+    "previewUrl": "/assets/template-lab/templates/06-blog-first/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/06-blog-first.png"
+  },
+  {
+    "id": "07",
+    "slug": "07-resume",
+    "name": "Resume Template",
+    "description": "Professional one-page CV layout",
+    "previewUrl": "/assets/template-lab/templates/07-resume/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/07-resume.png"
+  },
+  {
+    "id": "08",
+    "slug": "08-startup",
+    "name": "Startup Template",
+    "description": "Bold, achievement-oriented design for startup founders showcasing traction and growth",
+    "previewUrl": "/assets/template-lab/templates/08-startup/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/08-startup.png"
+  },
+  {
+    "id": "09",
+    "slug": "09-creative-portfolio",
+    "name": "Creative Portfolio Template",
+    "description": "Visual-first design for designers, photographers, and artists showcasing creative work",
+    "previewUrl": "/assets/template-lab/templates/09-creative-portfolio/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/09-creative-portfolio.png"
+  },
+  {
+    "id": "10",
+    "slug": "10-project-showcase",
+    "name": "Project Showcase Template",
+    "description": "Developer-focused card layout for showcasing projects, tools, and experiments",
+    "previewUrl": "/assets/template-lab/templates/10-project-showcase/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/10-project-showcase.png"
+  },
+  {
+    "id": "11",
+    "slug": "11-bento-grid",
+    "name": "Bento Grid Template",
+    "description": "Modern modular card layout inspired by 2026 bento grid design trend",
+    "previewUrl": "/assets/template-lab/templates/11-bento-grid/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/11-bento-grid.png"
+  },
+  {
+    "id": "12",
+    "slug": "12-glassmorphism",
+    "name": "Glassmorphism Template",
+    "description": "Modern frosted glass effects with transparent backgrounds and blur - 2026 trend",
+    "previewUrl": "/assets/template-lab/templates/12-glassmorphism/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/12-glassmorphism.png"
+  },
+  {
+    "id": "13",
+    "slug": "13-y2k-retro",
+    "name": "Y2K Retro Template",
+    "description": "Nostalgic 90s/2000s aesthetic with chrome effects, neon colors, and retro vibes",
+    "previewUrl": "/assets/template-lab/templates/13-y2k-retro/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/13-y2k-retro.png"
+  },
+  {
+    "id": "14",
+    "slug": "14-organic-shapes",
+    "name": "Organic Shapes Template",
+    "description": "Flowing natural forms with smooth curves and blob shapes",
+    "previewUrl": "/assets/template-lab/templates/14-organic-shapes/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/14-organic-shapes.png"
+  },
+  {
+    "id": "15",
+    "slug": "15-hand-drawn",
+    "name": "Hand-Drawn Template",
+    "description": "Sketchy, imperfect, human-made aesthetic - anti-AI design",
+    "previewUrl": "/assets/template-lab/templates/15-hand-drawn/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/15-hand-drawn.png"
+  },
+  {
+    "id": "16",
+    "slug": "16-bold-typography",
+    "name": "Bold Typography Template",
+    "description": "Type-first design where typography is the hero",
+    "previewUrl": "/assets/template-lab/templates/16-bold-typography/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/16-bold-typography.png"
+  },
+  {
+    "id": "17",
+    "slug": "17-3d-elements",
+    "name": "3D Elements Template",
+    "description": "Subtle 3D depth with modern shadows and dimensional effects",
+    "previewUrl": "/assets/template-lab/templates/17-3d-elements/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/17-3d-elements.png"
+  },
+  {
+    "id": "18",
+    "slug": "18-brutalist",
+    "name": "Brutalist",
+    "description": "Raw, bold, experimental design breaking conventional rules",
+    "previewUrl": "/assets/template-lab/templates/18-brutalist/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/18-brutalist.png"
+  },
+  {
+    "id": "19",
+    "slug": "19-swiss-style",
+    "name": "Swiss Style Template",
+    "description": "Grid-based clean systematic design",
+    "previewUrl": "/assets/template-lab/templates/19-swiss-style/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/19-swiss-style.png"
+  },
+  {
+    "id": "20",
+    "slug": "20-memphis-design",
+    "name": "Memphis Design Template",
+    "description": "Playful 80s geometric shapes bright colors",
+    "previewUrl": "/assets/template-lab/templates/20-memphis-design/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/20-memphis-design.png"
+  },
+  {
+    "id": "21",
+    "slug": "21-neumorphism",
+    "name": "Neumorphism Template",
+    "description": "Soft UI with embossed effects",
+    "previewUrl": "/assets/template-lab/templates/21-neumorphism/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/21-neumorphism.png"
+  },
+  {
+    "id": "22",
+    "slug": "22-software-engineer",
+    "name": "Software Engineer Template",
+    "description": "Code-focused technical portfolio",
+    "previewUrl": "/assets/template-lab/templates/22-software-engineer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/22-software-engineer.png"
+  },
+  {
+    "id": "23",
+    "slug": "23-ui-ux-designer",
+    "name": "UI/UX Designer Template",
+    "description": "Case study driven design portfolio",
+    "previewUrl": "/assets/template-lab/templates/23-ui-ux-designer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/23-ui-ux-designer.png"
+  },
+  {
+    "id": "24",
+    "slug": "24-product-designer",
+    "name": "Product Designer Template",
+    "description": "Product-focused portfolio with metrics",
+    "previewUrl": "/assets/template-lab/templates/24-product-designer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/24-product-designer.png"
+  },
+  {
+    "id": "25",
+    "slug": "25-graphic-designer",
+    "name": "Graphic Designer Template",
+    "description": "Visual-first image portfolio",
+    "previewUrl": "/assets/template-lab/templates/25-graphic-designer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/25-graphic-designer.png"
+  },
+  {
+    "id": "26",
+    "slug": "26-marketing-pro",
+    "name": "Marketing Pro",
+    "description": "Campaign-focused portfolio for marketing professionals showcasing successful campaigns, metrics, and case studies",
+    "previewUrl": "/assets/template-lab/templates/26-marketing-pro/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/26-marketing-pro.png"
+  },
+  {
+    "id": "27",
+    "slug": "27-consultant",
+    "name": "Consultant",
+    "description": "Professional services-focused portfolio for consultants showcasing expertise, services, and client success stories",
+    "previewUrl": "/assets/template-lab/templates/27-consultant/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/27-consultant.png"
+  },
+  {
+    "id": "28",
+    "slug": "28-freelancer",
+    "name": "Freelancer",
+    "description": "Versatile portfolio for freelancers across disciplines, showcasing client work, availability, and diverse skills",
+    "previewUrl": "/assets/template-lab/templates/28-freelancer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/28-freelancer.png"
+  },
+  {
+    "id": "29",
+    "slug": "29-illustrator",
+    "name": "Illustrator",
+    "description": "Visual-first portfolio for illustrators showcasing artwork in a beautiful gallery layout with lightbox functionality",
+    "previewUrl": "/assets/template-lab/templates/29-illustrator/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/29-illustrator.png"
+  },
+  {
+    "id": "30",
+    "slug": "30-animator",
+    "name": "Animator",
+    "description": "Motion-focused portfolio for animators with video showreels, project breakdowns, and animation process showcase",
+    "previewUrl": "/assets/template-lab/templates/30-animator/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/30-animator.png"
+  },
+  {
+    "id": "31",
+    "slug": "31-one-page-scroll",
+    "name": "One Page Scroll",
+    "description": "Single page scrolling experience with smooth full-screen sections and scroll-snap behavior",
+    "previewUrl": "/assets/template-lab/templates/31-one-page-scroll/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/31-one-page-scroll.png"
+  },
+  {
+    "id": "32",
+    "slug": "32-multi-page-classic",
+    "name": "Multi Page Classic",
+    "description": "Traditional multi-page website with separate HTML files for different sections and classic navigation",
+    "previewUrl": "/assets/template-lab/templates/32-multi-page-classic/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/32-multi-page-classic.png"
+  },
+  {
+    "id": "33",
+    "slug": "33-side-navigation",
+    "name": "Side Navigation",
+    "description": "Fixed sidebar navigation with content area, perfect for documentation or app-style portfolios",
+    "previewUrl": "/assets/template-lab/templates/33-side-navigation/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/33-side-navigation.png"
+  },
+  {
+    "id": "34",
+    "slug": "34-full-screen-slides",
+    "name": "Full Screen Slides",
+    "description": "Presentation-style full-screen slides with keyboard navigation and slide transitions",
+    "previewUrl": "/assets/template-lab/templates/34-full-screen-slides/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/34-full-screen-slides.png"
+  },
+  {
+    "id": "35",
+    "slug": "35-magazine-layout",
+    "name": "Magazine Layout",
+    "description": "Editorial-style magazine layout with featured articles, grid system, and rich typography",
+    "previewUrl": "/assets/template-lab/templates/35-magazine-layout/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/35-magazine-layout.png"
+  },
+  {
+    "id": "36",
+    "slug": "36-card-grid",
+    "name": "Card Grid",
+    "description": "Pinterest-style card grid layout with masonry-inspired uniform cards and hover effects",
+    "previewUrl": "/assets/template-lab/templates/36-card-grid/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/36-card-grid.png"
+  },
+  {
+    "id": "37",
+    "slug": "37-timeline",
+    "name": "Timeline",
+    "description": "Chronological timeline layout perfect for career journeys, project histories, or storytelling",
+    "previewUrl": "/assets/template-lab/templates/37-timeline/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/37-timeline.png"
+  },
+  {
+    "id": "38",
+    "slug": "38-split-screen",
+    "name": "Split Screen",
+    "description": "Dual-pane split screen design with fixed left panel and scrollable right content",
+    "previewUrl": "/assets/template-lab/templates/38-split-screen/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/38-split-screen.png"
+  },
+  {
+    "id": "39",
+    "slug": "39-horizontal-scroll",
+    "name": "Horizontal Scroll",
+    "description": "Left-to-right horizontal scrolling layout for unique navigation experience",
+    "previewUrl": "/assets/template-lab/templates/39-horizontal-scroll/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/39-horizontal-scroll.png"
+  },
+  {
+    "id": "40",
+    "slug": "40-masonry-grid",
+    "name": "Masonry Grid",
+    "description": "Variable-height masonry grid layout for dynamic content with staggered appearance",
+    "previewUrl": "/assets/template-lab/templates/40-masonry-grid/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/40-masonry-grid.png"
+  },
+  {
+    "id": "41",
+    "slug": "41-job-seeker-resume",
+    "name": "Job Seeker Resume",
+    "description": "ATS-friendly hire-me focused resume website with downloadable PDF and contact CTAs",
+    "previewUrl": "/assets/template-lab/templates/41-job-seeker-resume/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/41-job-seeker-resume.png"
+  },
+  {
+    "id": "42",
+    "slug": "42-startup-founder",
+    "name": "Startup Founder",
+    "description": "Pitch-focused founder portfolio with traction metrics, vision statement, and investor CTAs",
+    "previewUrl": "/assets/template-lab/templates/42-startup-founder/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/42-startup-founder.png"
+  },
+  {
+    "id": "43",
+    "slug": "43-blog-first-writer",
+    "name": "Blog First Writer",
+    "description": "Content-primary writer portfolio with article showcase, newsletter signup, and reading lists",
+    "previewUrl": "/assets/template-lab/templates/43-blog-first-writer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/43-blog-first-writer.png"
+  },
+  {
+    "id": "44",
+    "slug": "44-link-in-bio",
+    "name": "Link In Bio",
+    "description": "Social hub landing page with stacked links, profile header, and social media connections",
+    "previewUrl": "/assets/template-lab/templates/44-link-in-bio/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/44-link-in-bio.png"
+  },
+  {
+    "id": "45",
+    "slug": "45-course-creator",
+    "name": "Course Creator",
+    "description": "Teaching portfolio with course catalog, student testimonials, and enrollment CTAs",
+    "previewUrl": "/assets/template-lab/templates/45-course-creator/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/45-course-creator.png"
+  },
+  {
+    "id": "46",
+    "slug": "46-speaker",
+    "name": "Speaker",
+    "description": "Conference speaker portfolio with talk topics, speaking reel, and booking information",
+    "previewUrl": "/assets/template-lab/templates/46-speaker/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/46-speaker.png"
+  },
+  {
+    "id": "47",
+    "slug": "47-podcast-host",
+    "name": "Podcast Host",
+    "description": "Podcast showcase with episode player, guest list, and subscription links",
+    "previewUrl": "/assets/template-lab/templates/47-podcast-host/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/47-podcast-host.png"
+  },
+  {
+    "id": "48",
+    "slug": "48-newsletter-writer",
+    "name": "Newsletter Writer",
+    "description": "Substack-style newsletter writer portfolio with archive, signup form, and subscriber stats",
+    "previewUrl": "/assets/template-lab/templates/48-newsletter-writer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/48-newsletter-writer.png"
+  },
+  {
+    "id": "49",
+    "slug": "49-community-builder",
+    "name": "Community Builder",
+    "description": "Network-focused portfolio for community leaders with member showcase and engagement metrics",
+    "previewUrl": "/assets/template-lab/templates/49-community-builder/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/49-community-builder.png"
+  },
+  {
+    "id": "50",
+    "slug": "50-open-source-maintainer",
+    "name": "Open Source Maintainer",
+    "description": "GitHub-focused developer portfolio for open source maintainers with project showcase and contribution stats",
+    "previewUrl": "/assets/template-lab/templates/50-open-source-maintainer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/50-open-source-maintainer.png"
+  },
+  {
+    "id": "51",
+    "slug": "51-signature-minimal",
+    "name": "Signature Minimal",
+    "description": "Minimalist personal site with handwritten signature element and dark mode toggle",
+    "previewUrl": "/assets/template-lab/templates/51-signature-minimal/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/51-signature-minimal.png"
+  },
+  {
+    "id": "52",
+    "slug": "52-now-page-focus",
+    "name": "Now Page Focus",
+    "description": "Anti-design brutalist template with prominent /now page, inspired by Derek Sivers",
+    "previewUrl": "/assets/template-lab/templates/52-now-page-focus/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/52-now-page-focus.png"
+  },
+  {
+    "id": "53",
+    "slug": "53-warm-essayist",
+    "name": "Warm Essayist",
+    "description": "Magazine-style newsletter template with warm earth tones, perfect for writers and essayists",
+    "previewUrl": "/assets/template-lab/templates/53-warm-essayist/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/53-warm-essayist.png"
+  },
+  {
+    "id": "54",
+    "slug": "54-craft-developer",
+    "name": "Craft Developer",
+    "description": "Ultra-minimalist developer portfolio focused on craft and philosophy",
+    "previewUrl": "/assets/template-lab/templates/54-craft-developer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/54-craft-developer.png"
+  },
+  {
+    "id": "55",
+    "slug": "55-academic-researcher",
+    "name": "Academic Researcher",
+    "description": "Professional academic website with papers, lectures, and code sections",
+    "previewUrl": "/assets/template-lab/templates/55-academic-researcher/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/55-academic-researcher.png"
+  },
+  {
+    "id": "56",
+    "slug": "56-angel-investor",
+    "name": "Angel Investor",
+    "description": "Portfolio website for angel investors with portfolio and antiportfolio sections",
+    "previewUrl": "/assets/template-lab/templates/56-angel-investor/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/56-angel-investor.png"
+  },
+  {
+    "id": "57",
+    "slug": "57-knowledge-base",
+    "name": "Knowledge Base",
+    "description": "Notion-style digital garden with sidebar navigation, tags, and search",
+    "previewUrl": "/assets/template-lab/templates/57-knowledge-base/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/57-knowledge-base.png"
+  },
+  {
+    "id": "58",
+    "slug": "58-scrollytelling",
+    "name": "Scrollytelling",
+    "description": "Immersive storytelling template with full-screen chapters, parallax effects, and scroll animations",
+    "previewUrl": "/assets/template-lab/templates/58-scrollytelling/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/58-scrollytelling.png"
+  },
+  {
+    "id": "59",
+    "slug": "59-ai-founder",
+    "name": "AI Founder",
+    "description": "Dark hacker aesthetic with typewriter effect, custom cursor, and Easter eggs",
+    "previewUrl": "/assets/template-lab/templates/59-ai-founder/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/59-ai-founder.png"
+  },
+  {
+    "id": "60",
+    "slug": "60-creative-director",
+    "name": "Creative Director",
+    "description": "Professional services template with story, services grid, client logos, and testimonials",
+    "previewUrl": "/assets/template-lab/templates/60-creative-director/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/60-creative-director.png"
+  },
+  {
+    "id": "61",
+    "slug": "61-friendly-blogger",
+    "name": "Friendly Blogger",
+    "description": "Warm, personal blog template with rotating greetings, light/dark theme toggle, and author sidebar. Inspired by endler.dev.",
+    "previewUrl": "/assets/template-lab/templates/61-friendly-blogger/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/61-friendly-blogger.png"
+  },
+  {
+    "id": "62",
+    "slug": "62-dark-engineer",
+    "name": "Dark Engineer",
+    "description": "Dark grid aesthetic with noise overlay, animated counters, and career timeline for engineers and open source creators",
+    "previewUrl": "/assets/template-lab/templates/62-dark-engineer/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/62-dark-engineer.png"
+  },
+  {
+    "id": "63",
+    "slug": "63-credential-folio",
+    "name": "Credential Folio",
+    "description": "Logo-rich work history with credentials section, press mentions, and social footer. Inspired by ambrosino.io.",
+    "previewUrl": "/assets/template-lab/templates/63-credential-folio/index.html",
+    "thumbnailUrl": "/assets/template-lab/thumbnails/63-credential-folio.png"
+  }
+]
