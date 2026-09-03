@@ -680,66 +680,9 @@ p {
 /* Tablet/mobile overlay pattern lives at the end of this file so it
    wins source-order against the archive-instrument library grid rule. */
 
-/* ── cat switch overlay ──
-   Video frame that appears under the dimmer, plays the cat clip,
-   and fades out after the theme flips. Manual clicks use the video-ended
-   release; loop mode schedules its fade from the music clock so the cat
-   follows the note attack and reverb tail.
-   position: fixed specifically avoids the .page-shelf overflow:hidden clip trap. */
-
-.cat-switch-frame {
-  position: fixed;
-  top: 56px;
-  right: 2.5rem;
-  width: 160px;
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--cat-fade-ms, 150ms) ease;
-}
-
-.cat-switch-frame.is-playing {
-  opacity: 1;
-}
-
-/* Source link wraps the video — only clickable while the cat is on screen.
-   Inherits pointer-events from frame when hidden; activates with .is-playing. */
-.cat-switch-link {
-  display: block;
-  cursor: pointer;
-  pointer-events: none;
-  transition: filter 160ms ease;
-}
-
-.cat-switch-frame.is-playing .cat-switch-link {
-  pointer-events: auto;
-}
-
-.cat-switch-link:hover {
-  filter: brightness(1.08);
-}
-
-.cat-switch-video {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .dimmer[disabled] {
   cursor: wait;
   opacity: 0.6;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cat-switch-frame { display: none; }
-}
-
-@media (max-width: 640px) {
-  .cat-switch-frame {
-    width: 120px;
-    top: 52px;
-    right: 1rem;
-  }
 }
 
 /* ── archive instrument redesign ────────────────────────── */
@@ -869,8 +812,11 @@ body {
 [data-theme="dark"] .nav-name-sub { color: #d68a4f; }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--ink-light);
-  padding-bottom: 0.08rem;
+  padding: 0 0.12rem;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.2em;
 }
@@ -885,8 +831,8 @@ body {
 /* DIMMER — site-native rule control.
    Moon sits left, sun right; the accent tick travels between them. */
 .dimmer {
-  min-height: 1.4rem;
-  padding: 0.18rem 0;
+  min-height: 2.75rem;
+  padding: 0.68rem 0;
   border: 0;
   border-radius: 0;
   display: inline-flex;
@@ -993,8 +939,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.35rem;
-  height: 1.4rem;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -2115,8 +2061,7 @@ body {
 }
 
 :root.is-constellation-mode .page,
-:root.is-constellation-mode .site-colophon,
-:root.is-constellation-mode .cat-switch-frame {
+:root.is-constellation-mode .site-colophon {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -7037,6 +6982,7 @@ button.shelf-list-title:hover {
   }
 
   .topic-index {
+    box-sizing: border-box;
     border: 1px solid var(--rule);
     border-top: 0;
     padding: 4rem 1rem 2rem;
@@ -7151,8 +7097,156 @@ button.shelf-list-title:hover {
   }
 
   .topic-index a {
+    align-items: center;
+    min-height: 2.75rem;
     font-size: 0.92rem;
     padding: 0.4rem 0 0.4rem 1.2rem;
+  }
+}
+
+/* ── Selected work index ─────────────────────────────────────── */
+
+.page-projects-index {
+  width: min(72rem, calc(100% - clamp(2rem, 8vw, 8rem)));
+  max-width: none;
+  margin: 0 auto;
+  padding: clamp(3.5rem, 8vw, 7rem) 0 clamp(6rem, 12vw, 10rem);
+}
+
+.page-projects-index ~ .site-colophon {
+  position: static;
+  display: flex;
+  width: min(72rem, calc(100% - clamp(2rem, 8vw, 8rem)));
+  max-width: none;
+  margin: 0 auto 1.25rem;
+}
+
+.projects-index__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.72fr);
+  gap: 1.5rem clamp(2rem, 8vw, 7rem);
+  align-items: end;
+  padding-bottom: clamp(2.2rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.projects-index__kicker {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: 600 0.7rem/1.2 var(--mono);
+  letter-spacing: 0.11em;
+  color: var(--section-label);
+}
+
+.projects-index__head h1 {
+  margin: 0;
+  font: 600 clamp(3.4rem, 8vw, 6.8rem)/0.88 var(--serif);
+  letter-spacing: -0.055em;
+}
+
+.projects-index__dek {
+  max-width: 34ch;
+  margin: 0 0 0.35rem;
+  font: 400 clamp(1.02rem, 1.6vw, 1.2rem)/1.5 var(--sans);
+  color: var(--ink-light);
+}
+
+.projects-index__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(14rem, 0.85fr) minmax(20rem, 1.15fr);
+  gap: clamp(1rem, 3vw, 2.6rem);
+  align-items: start;
+  padding: clamp(1.7rem, 3.5vw, 3rem) 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.project-row__number,
+.project-row__kind {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--section-label);
+}
+
+.project-row__number,
+.project-row__kind,
+.project-row__description {
+  margin: 0;
+}
+
+.project-row__identity h2 {
+  margin: 0.45rem 0 0;
+  font: 600 clamp(1.45rem, 2.3vw, 2rem)/1.08 var(--serif);
+  letter-spacing: -0.025em;
+}
+
+.project-row__identity h2 a,
+.project-row__description a,
+.projects-index__foot a {
+  color: inherit;
+  text-decoration-color: var(--link-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.17em;
+}
+
+.project-row__identity h2 a:hover,
+.project-row__description a:hover,
+.projects-index__foot a:hover {
+  color: var(--accent-text);
+  text-decoration-color: currentColor;
+}
+
+.project-row__description {
+  max-width: 59ch;
+  font: 400 1rem/1.62 var(--sans);
+  color: var(--ink-light);
+}
+
+.projects-index__foot {
+  padding-top: 2.4rem;
+  font: 400 0.76rem/1.5 var(--mono);
+  color: var(--ink-muted);
+}
+
+.projects-index__foot p {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .page-projects-index {
+    width: auto;
+    margin-inline: 1.25rem;
+    padding-top: 3.2rem;
+  }
+
+  .projects-index__head {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .projects-index__kicker {
+    grid-column: auto;
+  }
+
+  .projects-index__head h1 {
+    font-size: clamp(3.25rem, 18vw, 5rem);
+  }
+
+  .project-row {
+    grid-template-columns: 2.2rem minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+
+  .project-row__description {
+    grid-column: 2;
   }
 }
 

@@ -4,21 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title or site.title }}</title>
-  <meta name="description" content="Lee Wilkers – tools, judgment, and use.">
+  {% set pageDescription = description or "Lee Wilkers — research, strategy and design." %}
+  <meta name="description" content="{{ pageDescription }}">
   {% if robots %}<meta name="robots" content="{{ robots }}">{% endif %}
   <meta property="og:title" content="{{ title or site.title }}">
-  <meta property="og:description" content="Tools, judgment, and use.">
+  <meta property="og:description" content="{{ pageDescription }}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ site.url }}{{ page.url }}">
   <meta property="og:image" content="{{ site.url }}/img/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ title or site.title }}">
-  <meta name="twitter:description" content="Tools, judgment, and use.">
+  <meta name="twitter:description" content="{{ pageDescription }}">
   <meta name="twitter:image" content="{{ site.url }}/img/og-image.png">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <link rel="alternate" type="application/rss+xml" title="Shelves – Lee Wilkers" href="/shelf.xml">
-  <link rel="alternate" type="application/rss+xml" title="Stream – Lee Wilkers" href="/stream.xml">
   {# Source Serif 4 (prose), IBM Plex Sans (UI), and IBM Plex Mono are
      self-hosted under /fonts/ via @font-face in css/style.css. No web-font
      CDN and no preview machinery — one face per role, chosen by role. #}
@@ -47,9 +47,8 @@
   <div class="nav-right">
     <div class="nav-links">
       <a href="{{ navHref('/') | trim }}" {% if page.url == "/" %}class="active"{% endif %}>about</a>
-      <a href="{{ navHref('/projects/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/projects/" %} class="active"{% endif %}>projects</a>
+      <a href="{{ navHref('/projects/') | trim }}"{% if page.url == "/projects/" %} class="active"{% endif %}>projects</a>
       <a href="{{ navHref('/shelf/') | trim }}" {% if page.url == "/shelf/" %}class="active"{% endif %}>stacks</a>
-      <a href="{{ navHref('/stream/') | trim }}" title="in progress – pardon the dust"{% if page.url == "/stream/" %} class="active"{% endif %}>stream</a>
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
@@ -103,14 +102,6 @@
   </span>
   <span class="pretty-constellation-note-body" data-pretty-note-body>Arcturus, the brightest star in the Boötes constellation, functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</span>
 </a>
-
-	<div class="cat-switch-frame">
-	  <a class="cat-switch-link" href="https://www.youtube.com/shorts/EI_ttVKHdek" target="_blank" rel="noopener noreferrer" aria-label="Cat-light video source on YouTube">
-	    <video class="cat-switch-video" muted playsinline preload="auto" aria-hidden="true">
-	      <source src="/img/cat_light.mp4" type="video/mp4">
-	    </video>
-	  </a>
-	</div>
 
 	<main class="page {{ pageClass }}">
 
@@ -179,20 +170,10 @@
 </script>
 
 <script>
-  // theme toggle – plays the cat-hitting-light clip and flips theme at impact
+  // Theme, constellation, and audio controls.
   (function() {
-    const VIDEO_DURATION = 2.15;
-    const VIDEO_FPS = 20;
-    const HIT_SECONDS_FWD = 0.90;                          // frame 19 @ 20fps – paw pressed into light
-    // Frame-accurate reverse: forward frame F appears in reverse at (duration - fwd_time - 1/fps)
-    // because the first displayed frame sits at t=0, not t=1/fps. Gives 1.20s for this clip.
-    const HIT_SECONDS_REV = VIDEO_DURATION - HIT_SECONDS_FWD - (1 / VIDEO_FPS);
-    const VIDEO_FWD = '/img/cat_light.mp4';
-    const VIDEO_REV = '/img/cat_light_rev.mp4';
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const frame  = document.querySelector('.cat-switch-frame');
-    const video  = frame && frame.querySelector('video');
     const button = document.querySelector('.dimmer');
     const loopBtn = document.querySelector('.loop-tally');
     const rabbitModeBtn = document.querySelector('.pretty-loop');
@@ -213,23 +194,12 @@
       try { sessionStorage.removeItem('loop_armed'); } catch (e) {}
     }
 
-    // Loop mode — audio rhythm is driven by deterministic JS setTimeout chains,
-    // NOT by video rendering. The video-detected hit moment has variable load/
-    // decode latency per cycle (each src change re-loads the file), which made
-    // the audio loop sound uneven even after we fixed the per-direction timing.
+    // Loop mode — audio rhythm is driven by deterministic JS setTimeout chains.
     // Two-timer architecture:
     //   loopPressTimer:  press-note → resolve-chord at +PRESS_TO_HIT_MS (1000ms)
     //   loopNextTimer:   resolve-chord → next press-note at +(LOOP_BEAT_MS - 1000)
-    // The cat video plays in parallel for visual; if it's a few frames off, the
-    // ear doesn't notice but the audio rhythm stays rock-solid.
-    const VIDEO_RATE = 0.9;          // a little slower than source, but no longer syrupy
     const LOOP_BEAT_MS = 4000;       // total time between press-notes
-    const PRESS_TO_HIT_MS = (HIT_SECONDS_FWD * 1000) / VIDEO_RATE;  // 1000ms — matches the paw hit
-    const CAT_MANUAL_FADE_IN_MS = 130;
-    const CAT_MANUAL_FADE_OUT_MS = 1050;
-    const CAT_LOOP_FADE_IN_MS = 260;
-    const CAT_LOOP_FADE_OUT_DELAY_MS = 1700;
-    const CAT_LOOP_FADE_OUT_MS = 1950;
+    const PRESS_TO_HIT_MS = 1000;
     let loopArmed = false;
     let loopPressTimer = null;
     let loopNextTimer = null;
@@ -242,64 +212,6 @@
     let prettyFieldExitTimer = null;
     let prettyStep = 0;
     let prettyStartedAt = null;
-
-    // Cat controller — manual clicks release on the video end; loop mode
-    // releases from the music clock so the visual breath follows the note
-    // attack and reverb tail instead of decode timing.
-    const catCtl = (function() {
-      if (!video || !frame) return { play: function(){}, reset: function(){} };
-      let activeFadeOutMs = CAT_MANUAL_FADE_OUT_MS;
-      let activeMode = 'manual';
-      let fadeOutTimer = null;
-      function clearFadeOutTimer() {
-        if (fadeOutTimer) {
-          clearTimeout(fadeOutTimer);
-          fadeOutTimer = null;
-        }
-      }
-      function beginFadeOut() {
-        frame.style.setProperty('--cat-fade-ms', activeFadeOutMs + 'ms');
-        frame.classList.remove('is-playing');
-      }
-      video.addEventListener('ended', function() {
-        if (activeMode === 'loop') return;
-        beginFadeOut();
-        if (button && !loopArmed) {
-          setTimeout(function() { button.disabled = false; }, activeFadeOutMs + 80);
-        }
-      });
-      return {
-        play: function(goingDark, mode) {
-          if (reduced || video.readyState < 3) return;
-          if (button && !loopArmed) button.disabled = true;
-          const loopMode = mode === 'loop';
-          clearFadeOutTimer();
-          activeMode = loopMode ? 'loop' : 'manual';
-          const fadeInMs = loopMode ? CAT_LOOP_FADE_IN_MS : CAT_MANUAL_FADE_IN_MS;
-          activeFadeOutMs = loopMode ? CAT_LOOP_FADE_OUT_MS : CAT_MANUAL_FADE_OUT_MS;
-          video.src = goingDark ? VIDEO_FWD : VIDEO_REV;
-          video.currentTime = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
-          video.playbackRate = VIDEO_RATE;
-          frame.style.setProperty('--cat-fade-ms', fadeInMs + 'ms');
-          frame.classList.add('is-playing');
-          const p = video.play();
-          if (p && p.catch) p.catch(function() {});
-          if (loopMode) {
-            fadeOutTimer = setTimeout(function() {
-              fadeOutTimer = null;
-              beginFadeOut();
-            }, CAT_LOOP_FADE_OUT_DELAY_MS);
-          }
-        },
-        reset: function() {
-          clearFadeOutTimer();
-          activeMode = 'manual';
-          beginFadeOut();
-          try { video.pause(); } catch (e) {}
-          if (button && !loopArmed) button.disabled = false;
-        }
-      };
-    })();
 
     let audioCtx = null;
     function ensureAudio() {
@@ -2355,7 +2267,7 @@
       }
     }
 
-    // Resolve — two notes at cat-paw impact.
+    // Resolve — two notes one second after the press note.
     function playResolveChord(goingDark) {
       const ctx = ensureAudio();
       if (!ctx) return;
@@ -2388,10 +2300,10 @@
       playResolveChord(goingDark);
     }
 
-    // Loop cycle — JS-timer-driven audio rhythm, video plays in parallel for
-    // visual only. The press-note fires now; the resolve-chord + theme-flip
+    // Loop cycle — JS-timer-driven audio rhythm. The press-note fires now;
+    // the resolve-chord + theme-flip
     // fire at exactly +PRESS_TO_HIT_MS; the next cycle fires at +LOOP_BEAT_MS.
-    // No video timing dependency = no per-cycle load-latency jitter.
+    // The timing stays independent of rendering work.
     function fireCycle() {
       if (!loopArmed) return;
 
@@ -2414,10 +2326,6 @@
       // Audio: press immediately (this is beat zero of the cycle)
       playPressNote(goingDark);
 
-      // Visual: cat clip keeps performing even when LOOP has pinned the page
-      // theme. The lock is the room lighting; the cat/audio loop is the piece.
-      catCtl.play(goingDark, 'loop');
-
       // Resolve chord + theme flip at deterministic +PRESS_TO_HIT_MS after press
       if (loopPressTimer) clearTimeout(loopPressTimer);
       loopPressTimer = setTimeout(function() {
@@ -2434,37 +2342,7 @@
       }, PRESS_TO_HIT_MS);
     }
 
-    function playCatThenFlip() {
-      if (reduced || !video || video.readyState < 3) return instantFlip();
-
-      const goingDark = document.documentElement.getAttribute('data-theme') !== 'dark';
-      const hitAt = goingDark ? HIT_SECONDS_FWD : HIT_SECONDS_REV;
-      const seekFrom = goingDark ? 0 : (HIT_SECONDS_REV - HIT_SECONDS_FWD);
-      const safetyMs = ((hitAt - seekFrom) / VIDEO_RATE) * 1000 + 500;
-
-      catCtl.play(goingDark);
-
-      let flipped = false;
-      function doFlip() {
-        if (flipped) return;
-        flipped = true;
-        instantFlip();
-      }
-
-      const safety = setTimeout(doFlip, safetyMs);
-      function tick() {
-        if (flipped) return;
-        if (video.currentTime >= hitAt) {
-          clearTimeout(safety);
-          doFlip();
-          return;
-        }
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    window.toggleTheme = playCatThenFlip;
+    window.toggleTheme = instantFlip;
 
     // Press feedback — fires the moment the pointer goes down, before onclick.
     // Pairs with CSS :active state on .dimmer for visual press-in.
@@ -2654,18 +2532,14 @@
       if (loopArmed) return;
       themeLocked = !themeLocked;
       setLockUI(themeLocked);
-      if (themeLocked) {
-        // Hide any cat clip in flight from the pre-lock cycle
-        catCtl.reset();
-      } else {
+      if (!themeLocked) {
         // Re-sync direction tracker to actual theme on next cycle
         loopDirection = null;
       }
     }
     window.toggleThemeLock = toggleThemeLock;
 
-    // fireCycle now self-drives via setTimeout chain — reduced-motion path is
-    // handled inside fireCycle (skips video block when reduced is true).
+    // fireCycle self-drives through the timer chain.
     function startLoopCycle() {
       fireCycle();
     }
@@ -2811,7 +2685,6 @@
         // Clear lock state too — reset for next arming
         if (themeLocked) { themeLocked = false; setLockUI(false); }
         loopDirection = null;
-        catCtl.reset();
         if (button) button.disabled = false;
       }
     }
@@ -2841,14 +2714,7 @@
         // ctx finally resumes.
         function kickoff() {
           if (!loopArmed) return;
-          if (reduced || !video || video.readyState >= 3) {
-            fireCycle();
-          } else {
-            video.addEventListener('loadeddata', function once() {
-              video.removeEventListener('loadeddata', once);
-              if (loopArmed) fireCycle();
-            });
-          }
+          fireCycle();
         }
 
         const ctx = ensureAudio();

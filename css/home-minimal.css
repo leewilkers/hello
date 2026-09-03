@@ -97,6 +97,11 @@ body:has(.page-minimal-home) .page-minimal-home {
   margin-top: 0.95rem;
 }
 
+.minimal-clean-more {
+  margin-top: 1.65rem !important;
+  font-size: 0.94rem;
+}
+
 .minimal-clean-list {
   display: grid;
   gap: 0.82rem;
@@ -227,11 +232,5 @@ body:has(.page-minimal-home) .site-colophon {
   body:has(.page-minimal-home) .site-colophon {
     margin-inline: var(--minimal-edge);
     padding-bottom: 1.25rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body:has(.page-minimal-home) .cat-switch-frame {
-    display: none;
   }
 }
