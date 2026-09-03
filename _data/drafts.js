@@ -9,6 +9,7 @@ module.exports = function() {
     if (file === "drafts.json") continue;
     if (!/\.(njk|md|html)$/.test(file)) continue;
     const raw = fs.readFileSync(path.join(dir, file), "utf8");
+    if (/^---[\s\S]*?\npermalink:\s*false\s*(?:\n|$)/m.test(raw)) continue;
     const match = raw.match(/^---[\s\S]*?\nshadows:\s*(.+?)\s*(?:\n|$)/m);
     if (!match) continue;
     const liveUrl = match[1].trim().replace(/^["']|["']$/g, "");

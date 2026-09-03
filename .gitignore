@@ -15,6 +15,7 @@ _og-card.html
 __pycache__/
 scripts/*
 !scripts/build-preview-mirror.js
+!scripts/verify-no-public-constellations.js
 .superpowers/
 claude_design/
 qa/

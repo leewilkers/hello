@@ -52,11 +52,12 @@
     </div>
     <div class="nav-control-cluster" aria-label="Site controls">
       <button class="dimmer" aria-label="Toggle dark mode" title="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()"><span class="dimmer-moon" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><path fill="currentColor" fill-rule="evenodd" d="M 1 6 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 4 6 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0"/></svg></span><span class="dimmer-track" aria-hidden="true"><span class="dimmer-knob"></span></span><span class="dimmer-sun" aria-hidden="true"><svg width="11" height="11" viewBox="0 0 12 12"><circle cx="6" cy="6" r="2.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><line x1="6" y1="0.5" x2="6" y2="2"/><line x1="6" y1="10" x2="6" y2="11.5"/><line x1="0.5" y1="6" x2="2" y2="6"/><line x1="10" y1="6" x2="11.5" y2="6"/><line x1="2.4" y1="2.4" x2="3.5" y2="3.5"/><line x1="8.5" y1="8.5" x2="9.6" y2="9.6"/><line x1="9.6" y1="2.4" x2="8.5" y2="3.5"/><line x1="3.5" y1="8.5" x2="2.4" y2="9.6"/></g></svg></span></button>
-{% if minimalHome %}      <button class="constellation-mode-toggle" aria-label="Toggle rabbit mode" title="Toggle rabbit mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
+{% if false and minimalHome %}      <button class="constellation-mode-toggle" aria-label="Toggle rabbit mode" title="Toggle rabbit mode" aria-pressed="false" onclick="togglePrettyLoop()"><span class="pretty-loop-mark" aria-hidden="true">!_!</span></button>
 {% endif %}    </div>
   </div>
 </nav>
 
+{% if false %}
 <div class="constellation-art" data-constellation-art aria-hidden="true">
   <img class="constellation-art-img" data-constellation-art-a alt="" decoding="async">
   <img class="constellation-art-img" data-constellation-art-b alt="" decoding="async">
@@ -102,6 +103,7 @@
   </span>
   <span class="pretty-constellation-note-body" data-pretty-note-body>Arcturus, the brightest star in the Boötes constellation, functioned for centuries as a tool for orientation: helping travelers, navigators, and field workers establish bearings under uncertain conditions.</span>
 </a>
+{% endif %}
 
 	<main class="page {{ pageClass }}">
 
@@ -170,6 +172,7 @@
 </script>
 
 <script>
+{% if false %}
   // Theme, constellation, and audio controls.
   (function() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2749,6 +2752,17 @@
       }
     } catch (e) {}
   })();
+{% endif %}
+
+  // Keep the ordinary theme control available while experimental modes are
+  // unpublished.
+  window.toggleTheme = function() {
+    var root = document.documentElement;
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    var button = document.querySelector('.dimmer');
+    if (button) button.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
+  };
 
   // Theme control state. The HTML opens dark by default; URL ?theme=light/dark
   // may override for previews, but regular opens intentionally do not persist

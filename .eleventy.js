@@ -9,9 +9,19 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("assets/consulting");
-  eleventyConfig.addPassthroughCopy("assets/constellations");
-  eleventyConfig.addPassthroughCopy("assets/js");
-  eleventyConfig.addPassthroughCopy("assets/nasa");
+  // Unreleased experiment assets are intentionally unpublished for now.
+  // Register the remaining JS entries individually so they cannot reappear
+  // through the broad assets/js passthrough.
+  const unpublishedScripts = new Set([
+    "champion-trees-explorer.js",
+    "constellations.js",
+    "narrative-v2.js",
+    "perception-media-bus.js",
+  ]);
+  for (const entry of fs.readdirSync("assets/js", { withFileTypes: true })) {
+    if (unpublishedScripts.has(entry.name)) continue;
+    eleventyConfig.addPassthroughCopy(`assets/js/${entry.name}`);
+  }
   eleventyConfig.addPassthroughCopy("admin");
   eleventyConfig.addPassthroughCopy("pattern-atlas/style.css");
   eleventyConfig.addPassthroughCopy("pattern-atlas/atlas.js");
