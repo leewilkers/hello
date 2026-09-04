@@ -25,6 +25,12 @@ test("the primary shell does not expose unfinished Stream or cat-light media", (
   assert.doesNotMatch(home, /Cat-light video source|cat_light(?:_rev)?\.mp4/i);
 });
 
+test("the homepage credits work without implying sole ownership", () => {
+  const home = readBuilt("index.html");
+
+  assert.match(home, /<h2 id="minimal-worked-on">Some things I’ve worked on or contributed to<\/h2>/);
+});
+
 test("the unpublished Stream route is excluded from discovery", () => {
   const stream = readBuilt(path.join("stream", "index.html"));
   const sitemap = readBuilt("sitemap.xml");
