@@ -177,7 +177,39 @@ body:has(.page-minimal-home) .page-minimal-home {
 }
 
 body:has(.page-minimal-home) .site-page-ornaments {
+  display: block;
+  pointer-events: none;
+}
+
+body:has(.page-minimal-home) .site-dust-motif,
+body:has(.page-minimal-home) .site-art-note,
+body:has(.page-minimal-home) .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-sawyer-original,
+body:has(.page-minimal-home) .site-sawyer-motif {
   display: none;
+}
+
+/* Restore the pre-diptych Roubo sawyer: fixed at the lower-right, separate
+   from the reading column. Its width contracts before it can overlap the
+   newer 650px minimal-home measure. */
+@media (min-width: 1050px) {
+  body:has(.page-minimal-home) .site-sawyer-motif {
+    display: block;
+    left: auto;
+    right: 0;
+    bottom: 0;
+    width: min(
+      34rem,
+      38vw,
+      calc(100vw - var(--minimal-edge) - var(--minimal-column) - 2.5rem)
+    );
+    transform: none;
+    opacity: 0.24;
+  }
+
+  [data-theme="dark"] body:has(.page-minimal-home) .site-sawyer-motif {
+    opacity: 0.18;
+  }
 }
 
 body:has(.page-minimal-home) .site-colophon {

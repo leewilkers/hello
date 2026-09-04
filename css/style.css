@@ -7104,6 +7104,75 @@ button.shelf-list-title:hover {
   }
 }
 
+/* ── Stacks intro: homepage type ──────────────────────────────
+   The library keeps its compact archival grammar. The introduction uses the
+   same system-sans voice and title hierarchy as the minimal homepage. */
+.page-shelf .stacks-entry {
+  --shelf-intro-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--shelf-intro-sans);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.55;
+}
+
+.page-shelf .stacks-entry .stacks-headword {
+  font-family: var(--shelf-intro-sans);
+  font-size: clamp(2rem, 3vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.page-shelf .stacks-entry .stacks-meta {
+  font-family: var(--shelf-intro-sans);
+  font-size: 0.76rem;
+  font-style: normal;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.page-shelf .stacks-entry .stacks-definition {
+  font-family: var(--shelf-intro-sans);
+  font-size: 1rem;
+  font-style: normal;
+  line-height: 1.55;
+}
+
+.page-shelf .stacks-entry .stacks-definition .attribution {
+  font-family: var(--shelf-intro-sans);
+  font-size: 0.78rem;
+}
+
+.page-shelf .stacks-entry .stacks-senses {
+  font-family: var(--shelf-intro-sans);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.page-shelf .stacks-entry .stacks-senses li {
+  margin-bottom: 0.72rem;
+}
+
+.page-shelf .stacks-entry .stacks-senses .register {
+  font-size: 0.78rem;
+}
+
+.page-shelf .stacks-entry .stacks-cross-ref {
+  font-family: var(--shelf-intro-sans);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.page-shelf-ornaments .site-sawyer-motif {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .page-shelf .stacks-entry .stacks-headword {
+    font-size: clamp(2rem, 10vw, 2.35rem);
+  }
+}
+
 /* ── Selected work index ─────────────────────────────────────── */
 
 .page-projects-index {
