@@ -1,43 +1,70 @@
-/* Approved minimal homepage. Scoped to this page; shared pages stay unchanged. */
+/* Approved minimal homepage. Scoped here so the rest of the site keeps its own layout. */
 
 body:has(.page-minimal-home) {
   --minimal-column: 650px;
   --minimal-edge: clamp(1.35rem, 10vw, 10rem);
   --minimal-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --minimal-link: #1d67c1;
+  --goodneighbor: #2d6a3f;
   font-family: var(--minimal-sans);
   font-feature-settings: normal;
 }
 
 [data-theme="dark"] body:has(.page-minimal-home) {
   --minimal-link: #82b7f4;
+  --goodneighbor: #8fbd78;
 }
 
 body:has(.page-minimal-home) .site-nav {
-  position: relative;
+  position: sticky;
+  top: 0;
   min-height: 3.75rem;
-  padding: 1.1rem clamp(1.35rem, 3vw, 2.5rem);
-  border: 0;
-  background: transparent;
-  backdrop-filter: none;
+  padding: 1rem clamp(1.35rem, 3vw, 2.5rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  font-family: var(--minimal-sans);
   text-transform: none;
   letter-spacing: 0;
 }
 
 body:has(.page-minimal-home) .nav-name,
-body:has(.page-minimal-home) .site-rail,
-body:has(.page-minimal-home) .nav-links {
-  display: none;
-}
-
-body:has(.page-minimal-home) .nav-right {
-  margin-left: auto;
-}
-
+body:has(.page-minimal-home) .nav-name-sub,
+body:has(.page-minimal-home) .nav-links a,
 body:has(.page-minimal-home) .nav-control-cluster,
-body:has(.page-minimal-home) .dimmer,
-body:has(.page-minimal-home) .constellation-mode-toggle {
+body:has(.page-minimal-home) .dimmer {
   font-family: var(--minimal-sans);
+  letter-spacing: 0;
+}
+
+body:has(.page-minimal-home) .nav-name {
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+body:has(.page-minimal-home) .nav-name-sub {
+  color: var(--goodneighbor);
+  font-size: 0.68rem;
+  font-weight: 550;
+}
+
+body:has(.page-minimal-home) .nav-links {
+  gap: 1rem;
+}
+
+body:has(.page-minimal-home) .nav-links a,
+body:has(.page-minimal-home) .nav-links a.semi-live {
+  color: var(--ink-muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+body:has(.page-minimal-home) .nav-links a:hover,
+body:has(.page-minimal-home) .nav-links a.active {
+  color: var(--ink);
+}
+
+body:has(.page-minimal-home) .nav-links > *::after {
+  content: none;
 }
 
 body:has(.page-minimal-home) .page-minimal-home {
@@ -45,7 +72,7 @@ body:has(.page-minimal-home) .page-minimal-home {
   width: min(var(--minimal-column), calc(100% - (2 * var(--minimal-edge))));
   max-width: none;
   margin: 0 0 0 var(--minimal-edge);
-  padding: clamp(1.15rem, 3.8vh, 3rem) 0 clamp(5rem, 10vh, 8rem);
+  padding: clamp(2.2rem, 6vh, 4.5rem) 0 clamp(5rem, 10vh, 8rem);
   font-family: var(--minimal-sans);
   font-size: 1.025rem;
   line-height: 1.62;
@@ -68,13 +95,6 @@ body:has(.page-minimal-home) .page-minimal-home {
   letter-spacing: -0.038em;
 }
 
-.minimal-clean-role {
-  margin: 0.6rem 0 0;
-  color: var(--ink-muted);
-  font-size: 1.04rem;
-  line-height: 1.4;
-}
-
 .minimal-clean-preview section + section {
   margin-top: clamp(3.6rem, 8vh, 5.5rem);
 }
@@ -95,6 +115,11 @@ body:has(.page-minimal-home) .page-minimal-home {
 
 .minimal-clean-preview p + p {
   margin-top: 0.95rem;
+}
+
+.minimal-clean-preview .goodneighbor-mark {
+  color: var(--goodneighbor);
+  font-weight: 650;
 }
 
 .minimal-clean-more {
@@ -182,19 +207,38 @@ body:has(.page-minimal-home) .site-page-ornaments {
 }
 
 body:has(.page-minimal-home) .site-dust-motif,
-body:has(.page-minimal-home) .site-art-note,
-body:has(.page-minimal-home) .site-art-reveal-caption,
-body:has(.page-minimal-home) .site-sawyer-original,
 body:has(.page-minimal-home) .site-sawyer-motif {
   display: none;
 }
 
-/* Restore the pre-diptych Roubo sawyer: fixed at the lower-right, separate
-   from the reading column. Its width contracts before it can overlap the
-   newer 650px minimal-home measure. */
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note {
+  display: grid;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-original {
+  display: block;
+  visibility: visible;
+  pointer-events: none;
+  opacity: 0;
+}
+
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-art-reveal-caption,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-sawyer-original,
+body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-sawyer-original {
+  opacity: 1;
+}
+
+/* Roubo remains separate from the reading column and appears only when it fits. */
 @media (min-width: 1050px) {
-  body:has(.page-minimal-home) .site-sawyer-motif {
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-motif {
     display: block;
+    visibility: visible;
+    pointer-events: none;
     left: auto;
     right: 0;
     bottom: 0;
@@ -207,9 +251,21 @@ body:has(.page-minimal-home) .site-sawyer-motif {
     opacity: 0.24;
   }
 
-  [data-theme="dark"] body:has(.page-minimal-home) .site-sawyer-motif {
+  [data-theme="dark"] body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-sawyer-motif {
     opacity: 0.18;
   }
+
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:hover ~ .site-sawyer-motif,
+  body:has(.page-minimal-home) .site-page-ornaments.page-minimal-home-ornaments .site-art-note:has(.site-art-note-link:focus-visible) ~ .site-sawyer-motif {
+    opacity: 0.04;
+  }
+}
+
+body:has(.page-minimal-home) .site-art-note-link,
+body:has(.page-minimal-home) .site-art-reveal-kicker,
+body:has(.page-minimal-home) .site-art-reveal-title,
+body:has(.page-minimal-home) .site-art-reveal-meta {
+  font-family: var(--minimal-sans);
 }
 
 body:has(.page-minimal-home) .site-colophon {
@@ -219,10 +275,9 @@ body:has(.page-minimal-home) .site-colophon {
   bottom: auto;
   max-width: var(--minimal-column);
   margin: 0 0 0 var(--minimal-edge);
-  padding: 0 0 2rem;
+  padding: 1.2rem 0 2rem;
   gap: 0.45rem 0.9rem;
   border-top: 1px solid var(--rule-light);
-  padding-top: 1.2rem;
   font-family: var(--minimal-sans);
   font-size: 0.72rem;
 }
@@ -233,18 +288,49 @@ body:has(.page-minimal-home) .site-colophon {
   }
 
   body:has(.page-minimal-home) .site-nav {
-    min-height: 3.25rem;
-    padding: 0.85rem 1.15rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    min-height: 5.4rem;
+    padding: 0.7rem 1rem;
+  }
+
+  body:has(.page-minimal-home) .nav-name {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body:has(.page-minimal-home) .nav-right {
+    display: contents;
+  }
+
+  body:has(.page-minimal-home) .nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    gap: 0.72rem;
+  }
+
+  body:has(.page-minimal-home) .nav-control-cluster {
+    display: inline-flex;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
   }
 
   body:has(.page-minimal-home) .dimmer {
     display: inline-flex;
   }
 
+  body:has(.page-minimal-home) .nav-links a,
+  body:has(.page-minimal-home) .nav-links a.semi-live {
+    font-size: 0.7rem;
+  }
+
   body:has(.page-minimal-home) .page-minimal-home {
     width: auto;
     margin-inline: var(--minimal-edge);
-    padding-top: 1.4rem;
+    padding-top: 2rem;
     font-size: 1rem;
     line-height: 1.58;
   }
@@ -264,5 +350,32 @@ body:has(.page-minimal-home) .site-colophon {
   body:has(.page-minimal-home) .site-colophon {
     margin-inline: var(--minimal-edge);
     padding-bottom: 1.25rem;
+  }
+
+  body:has(.page-minimal-home) .site-art-note {
+    position: static;
+    width: auto;
+    margin: -0.25rem var(--minimal-edge) 1rem;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-title {
+    display: none;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-link {
+    width: 2.75rem;
+    height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  body:has(.page-minimal-home) .site-art-note-mark {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+    background: var(--bg);
+    font-size: 0.78rem;
   }
 }

@@ -17,12 +17,24 @@ test("the retired tree essay and its private draft are not published", () => {
   assert.equal(existsSync(path.join(site, "img", "essay", "consider-the-tree")), false);
 });
 
-test("the primary shell does not expose unfinished Stream or cat-light media", () => {
+test("the primary shell exposes unfinished pages as semi-live links", () => {
   const home = readBuilt("index.html");
   const primaryNav = home.match(/<nav class="site-nav"[\s\S]*?<\/nav>/)?.[0] ?? "";
 
-  assert.doesNotMatch(primaryNav, /href="\/stream\/?"/i);
-  assert.doesNotMatch(home, /Cat-light video source|cat_light(?:_rev)?\.mp4/i);
+  assert.doesNotMatch(primaryNav, />projects<\/a>/i);
+  assert.match(primaryNav, /href="\/consulting\/" class="semi-live"[^>]*>consulting<\/a>/i);
+  assert.match(primaryNav, /href="\/stream\/" class="semi-live"[^>]*>stream<\/a>/i);
+  assert.match(home, /data-cat-switch/);
+});
+
+test("Consulting remains a private-copy-safe dust placeholder", () => {
+  const consultingPath = path.join(site, "consulting", "index.html");
+  assert.equal(existsSync(consultingPath), true);
+  const consulting = readFileSync(consultingPath, "utf8");
+
+  assert.match(consulting, /pardon dust\. workin on it/i);
+  assert.match(consulting, /<meta name="robots" content="noindex, nofollow">/i);
+  assert.doesNotMatch(consulting, /Lagrange point|\$350|Where I tend to be useful/i);
 });
 
 test("the homepage credits work without implying sole ownership", () => {
@@ -50,4 +62,8 @@ test("Projects is a substantive public page rather than a dust placeholder", () 
   assert.doesNotMatch(main, /dust-page|PARDON DUST/i);
   assert.match(main, /<h1[^>]*>Selected work<\/h1>/i);
   assert.ok(externalLinks.size >= 6, `expected at least 6 public evidence links, found ${externalLinks.size}`);
+  assert.match(main, /Research and program systems\./);
+  assert.match(main, /Public-health tools\./);
+  assert.match(main, /Research under constraints\./);
+  assert.doesNotMatch(main, /14-of-22|91\.7%|33\.3%|transcript-verification/i);
 });
